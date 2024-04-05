@@ -167,7 +167,6 @@ def getTestData():
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, gamesByTeam[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
 
-
 def dump(df,keepers):
     for i in df.index:
         ts = ''
@@ -191,17 +190,12 @@ def generatePBP():
     test_data, _start, _stop, _team, _season = getTestData()
  
     test_days = list(test_data.keys())
-               
-    keeps = ['Shai Gilgeous-Alexander','Jalen Williams', 'Josh Giddey', 
-     'Tre Mann','Jaylin Williams', 'Dario Saric', 'Ousmane Dieng'
-     'Isaiah Joe', 'Kenrich Williams',
-     'Mike Muscala','Luguentz Dort','Aaron Wiggins','Jeremiah Robinson-Earl' ]
 
     for date in test_days:
         pbp_forDate = test_data[date].play_by_play[0]
-        if pbp_forDate.shape[0] != 0:            
+        if pbp_forDate.shape[0] != 0:   
+
             # 8 substitution event, get our players thata are subbed IN/OUT
-            
             pbp_subs = pbp_forDate.query('eventmsgtype == 8') 
 
             # player1 IN, player2 OUT 
@@ -212,7 +206,6 @@ def generatePBP():
              
             timeSpans = {}  # collect timespans played by this player
             for player in playersInGame:
-                print(player)
                 timeSpans[player] = []
                 for x in pbp_subs.index:
                     z = pbp_subs.loc[x]
@@ -225,39 +218,19 @@ def generatePBP():
                         #      f'{z.pctimestring:<6}', f'{x:<5}',
                         #      ' IN:',f'{p2:<15}',' OUT:',f'{p1:<15}',
                         #      z.homedescription  ) 
-            print(timeSpans)       
+
+            for player in list(timeSpans.keys()):
+                print(player)
+                for _ts in timeSpans[player]:
+                    
+
+                    sub_in = _ts[0] == 'IN'
+                    period = _ts[1]
+                    clock  = _ts[2]
+
+                    print(x,_ts[0],period,clock)
+
     return
-    
-    substitutions = pbp.query('eventmsgtype == 8')
-
-    hi = substitutions['homedescription'].dropna(axis=0).index
-    ai = substitutions['visitordescription'].dropna(axis=0).index
-    home_subs = substitutions.loc[hi]
-    away_subs = substitutions.loc[ai]
-
-    dump(away_subs,keepers)
-    line_up = []
-
-    for i in home_subs.index:
-        thisEvent = home_subs.loc[i]
-        enter_player = thisEvent.player2_name
-        exit_player = thisEvent.player1_name
-        sub_period = thisEvent.period
-        sub_time = thisEvent.pctimestring
-        line_up.append(enter_player)
-
-    enter_player = list(set(home_subs.player1_name))
-    exit_players = list(set(home_subs.player2_name))
-    for player in enter_player:
-        events = home_subs.query(f'')
-
-        if line_up.indexOf(exit_player) == -1:
-            print()
-    
-                
-
-    dump(home_subs)
-    dump(away_subs)
 
 def main():
 
@@ -391,4 +364,8 @@ game feilds
        'season_type', 
        'play_by_play'
 
+ keeps = ['Shai Gilgeous-Alexander','Jalen Williams', 'Josh Giddey', 
+     'Tre Mann','Jaylin Williams', 'Dario Saric', 'Ousmane Dieng'
+     'Isaiah Joe', 'Kenrich Williams',
+     'Mike Muscala','Luguentz Dort','Aaron Wiggins','Jeremiah Robinson-Earl' ]
 """

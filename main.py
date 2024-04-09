@@ -7,7 +7,7 @@ from datetime import datetime,timedelta
 
 START_SEASON = '2020-01-01'
 DB_FILENAME = "nba.sqlite"
-# bruce here
+# bruce still here
 def plot3(game,title):
 
     """

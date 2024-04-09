@@ -7,8 +7,10 @@ from datetime import datetime,timedelta
 
 START_SEASON = '2020-01-01'
 DB_FILENAME = "nba.sqlite"
+SECONDS_PER_PERIOD = 12*60
+SECONDS_PER_GAME   = 4*SECONDS_PER_PERIOD
 
-def plot3(game,title):
+def plot3(game,title, play_by_play):
 
     """
     results = {  in seconds
@@ -19,6 +21,8 @@ def plot3(game,title):
    
     playTimesbyPlayer = {}
     sumByPlayer = {}
+    events_by_player = {}
+
     players = list(game[0].keys())
 
     for player in players:
@@ -35,8 +39,28 @@ def plot3(game,title):
         b = sum(list(map(lambda x:x[1],a) ))
         playTimesbyPlayer[player] = a
         sumByPlayer[player] = b
+        """                          player1      player2    player3 
+            events  1 = make         shooter      assist 
+                    2 = miss         shooter                 block
+                    3 = Free throw   shooter      make or miss?
+                    4 = rebound
+                    5 = steal        turn over    stealer
+                    6 = foul         fouled       fouler
+                    8 = SUB          OUT          IN
+                    10  jump ball    jumper1      jumper2    who got the ball
+        """
+        _events = []
+        plays_for_player = play_by_play[0].query(f'player1_name == "{player}" or player2_name == "{player}"or player3_name == "{player}"')
+        for i,v in plays_for_player.iterrows():
+            period = v.period
+            clock = v.pctimestring
+            event = v.eventmsgtype
+            sec = period_clock_seconds([period,clock]).total_seconds()
+            _events.append([int(sec),event])
+        events_by_player[player] = _events             
 
     def timeToString(t): return str(timedelta(seconds = t))[2:]    
+
     team_minutes_played = list(map(lambda a :timeToString(a[1]),sumByPlayer.items()))
     
     labels = list(playTimesbyPlayer.keys())
@@ -57,7 +81,12 @@ def plot3(game,title):
         data = playTimesbyPlayer[label]
         starts = list(map(lambda x:x[0],data))
         widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, align='edge', height=0.2)
+        rects = ax.barh(label, widths, left=starts, height=0.3)
+
+    for i, v in enumerate(labels):
+        secs = list(map(lambda x:x[0],events_by_player[v]))    
+        ax.scatter(secs,[i] * len(secs),color = 'black',s=15, alpha=0.7)
+        #ax.text(100, i, str(v), color='black', fontweight='bold', fontsize=14, ha='left', va='center')
 
     y1, y2 = ax.get_ylim()
     x1, x2 = ax.get_xlim()
@@ -223,7 +252,7 @@ def filterGamesByDateRange(start, stop, games):
 
 def getTestData():
 
-    _START_DAY = '2023-03-01'
+    _START_DAY = '2023-01-01'
     _STOP_DAY = '2023-03-31'
     _TEAM = 'OKC'
     _SEASON = '2022'
@@ -254,21 +283,19 @@ def dump_play_by_play(players,events,pbp):
                 print(
                     f'{e.period} {e.pctimestring:<5} IN:{e.player2_name:<20} OUT:{e.player1_name:<20} {e.homedescription}'
                 )
-            print()
-            print()
             
+def period_clock_seconds(pc):
+    _period = int(pc[0]) - 1
+    _clock = datetime.strptime(pc[1], '%M:%S') 
+    return datetime.strptime('12:00', '%M:%S') - _clock + timedelta(seconds = _period * 12 * 60)
+
 def secDiff(start,stop):        
 
     # flip clock time so its from the start of the period o.e starts at 00:00 vs 12:00
     # add offset for diferences in periods
-    startPeriod = int(start[1]) - 1
-    startTime = datetime.strptime(start[2], '%M:%S') 
-    startDelta = datetime.strptime('12:00', '%M:%S') - startTime + timedelta(seconds = startPeriod * 12 * 60)
-
-    stopPeriod = int(stop[1]) - 1
-    stopTime = datetime.strptime(stop[2], '%M:%S')
-    stopDelta = datetime.strptime('12:00', '%M:%S') - stopTime + timedelta(seconds = stopPeriod * 12 * 60)
-
+    startDelta = period_clock_seconds(start[1:3])
+    stopDelta  = period_clock_seconds(stop[1:3])
+ 
     difference = stopDelta - startDelta
 
     return int(difference.total_seconds())
@@ -427,10 +454,10 @@ def main():
         t = str(timedelta(seconds=total)).split(':')
         title = f'{g.matchup_home} {score} {date} {t[0]}:{t[1]} {g.game_id}'
 
-        if total != 48*60*5: 
+        if total != SECONDS_PER_GAME*5 or True: 
             players = list(start_duration_by_date[date][0].keys())
             dump_play_by_play(players,[8],g.play_by_play)
-            plot3(start_duration_by_date[date], title)    
+            plot3(start_duration_by_date[date], title, g.play_by_play)    
 
 
     """

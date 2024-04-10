@@ -7,7 +7,7 @@ from datetime import datetime,timedelta
 
 START_SEASON = '2020-01-01'
 DB_FILENAME = "nba.sqlite"
-# bruce still here
+#  
 def plot3(game,title):
 
     """
@@ -398,11 +398,41 @@ def generatePBP():
             starttime_duration_bydate[date] = [starttime_duration_byPlayer,score_errors]
 
     return starttime_duration_bydate
+#
+# get arguments, if any
+# 
+
+def  getArgs():
+  opponent = "ANY"
+  plotNbr = 13
+
+  for i in range (len(sys.argv)):  # Check for arguments
+    if sys.argv[i] == '?':
+      print("Usage: python argparse3.py <opponent=opponentName> <plotnumber=plotnumber>")
+      sys.exit(1) 
+
+    if (sys.argv[i].find("opponent=")>-1):
+      opponent = sys.argv[i].split('=')
+      opponent = opponent[1] 
+      # test print("opponent = ",opponent)
+
+    if (sys.argv[i].find("plotnumber=")>-1):
+      plotNbrStr = sys.argv[i].split('=')
+      plotNbr = int(plotNbrStr[1]) 
+      # test print("plotnumber = ",plotNbr)
+    
+  return(opponent, plotNbr)
 
 def main():
 
     global dfs 
     global gamesByTeam
+    
+    # Get arguments, if any
+    opponent, plotNbr = getArgs()        
+    #print("opponent - ", opponent)      # test code, comment to run  
+    #print("plotnumber - ", plotNbr)     # test code, comment to run 
+    #sys.exit(1)                         # test code, comment to run 
 
     # gamesByTeam['OKC']['2022]['2023-01-03']  -- gets game via team,year,game_date
 

@@ -93,7 +93,7 @@ def eventToColor (player, eventRecord):
 
     return color
 
-def plot3(game,title, play_by_play):
+def plot3(game,title, play_by_play, debug_str):
     """
     returns 
     {  in seconds
@@ -147,7 +147,8 @@ def plot3(game,title, play_by_play):
    
     plt.style.use('dark_background')
     figure, ax = plt.subplots(figsize=(9.2, 5))
- 
+    figure.canvas.manager.set_window_title(debug_str)
+
     ax.invert_yaxis()
     ax.yaxis.set_visible(True)
     ax.set_xlim(-25, (48 * 60) + 25)

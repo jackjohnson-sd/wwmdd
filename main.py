@@ -1,12 +1,7 @@
-import sqlite3
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import sys
+
 from datetime import datetime,timedelta
 
-from utils import period_clock_seconds, secDiff,totalTeamMinutes
-from tests import testPBPforErrors
+from utils import totalTeamMinutes
 from data_management import loadNBA_data
 from play_by_play import generatePBP, dump_play_by_play
 from plots import plot3
@@ -20,10 +15,9 @@ SECONDS_PER_GAME   = 4*SECONDS_PER_PERIOD
 HOME_TEAM  = 'OKC'
 AWAY_TEAM  = 'OKC'
 
-
-dfs = {}            # has everthing that was in db as dict of DateFrame by column name
-gamesByTeam = {}    # reorganized game data is in gamesByTeam
-db_con = None
+dfs = {}            # has everthing that was in db as dict of DateFrame by column name from DB
+gamesByTeam = {}    # gamesByTeam[NICK_NAME][SEASON][DATE]  ['OKC']['2022']['2022-12-01']
+db_con = None       # keep this around to get play_by_play when needed
 
 def loadNBA():
 
@@ -46,7 +40,6 @@ def getTestData(_games):
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
 
-
 def main():
 
     global dfs 
@@ -64,8 +57,6 @@ def main():
 
     for date in dates:
         g = gamesByTeam[HOME_TEAM]['2022'][date]
-        g.pts_home
-        g.pts_away
         if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:
             score = f'{int(g.pts_home)}-{int(g.pts_away)}'
         else:
@@ -73,12 +64,12 @@ def main():
 
         total = totalTeamMinutes(start_duration_by_date, date)
         t = str(timedelta(seconds=total)).split(':')
-        title = f'{g.matchup_home} {score} {date} {t[0]}:{t[1]} {g.game_id}'
-
+        title = f'{g.matchup_home} {score}  {date} '
+        debug_title = f'DEBUG {t[0]}:{t[1]}  {g.game_id}'
         if total != SECONDS_PER_GAME*5 or True: 
             players = list(start_duration_by_date[date][0].keys())
             dump_play_by_play(players,[8],g.play_by_play)
-            plot3(start_duration_by_date[date], title, g.play_by_play)    
+            plot3(start_duration_by_date[date], title, g.play_by_play, debug_title)    
 
 
     """
@@ -90,11 +81,8 @@ def main():
     #input("Press Enter to continue...")
     """
 
-
-
 if __name__ == "__main__":
     main()
-
 
 """
 play_by_play feilds

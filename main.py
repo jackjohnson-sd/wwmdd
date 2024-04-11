@@ -11,134 +11,14 @@ from data_management import loadNBA_data
 
 START_SEASON = '2020-01-01'
 DB_FILENAME = "nba.sqlite"
-# bruce still here
-def plot3(game,title):
+SECONDS_PER_PERIOD = 12*60
+SECONDS_PER_GAME   = 4*SECONDS_PER_PERIOD
 
-    """
-    results = {  in seconds
-        'Josh' : [(START,LENGTH), (150,25) , (200,45)],
-        'Lu'  : [(10,60), (110,25) , (180,145)]
-    }
-    """
-   
-    playTimesbyPlayer = {}
-    sumByPlayer = {}
-    players = list(game[0].keys())
+HOME_TEAM  = 'OKC'
+AWAY_TEAM  = 'OKC'
 
-    for player in players:
-        usage = game[0][player]
+from plots import plot3
 
-        def timespantoSecs(a):
-            period = int(a[0][1]) - 1
-            game_clock = datetime.strptime('12:00','%M:%S') -  datetime.strptime(a[0][2], '%M:%S')
-            length = a[1]
-            start = period * 12 * 60 + game_clock.total_seconds()
-            return  (int(start),int(length))
-        
-        a = list(map(lambda x:timespantoSecs(x),usage))
-        b = sum(list(map(lambda x:x[1],a) ))
-        playTimesbyPlayer[player] = a
-        sumByPlayer[player] = b
-
-    def timeToString(t): return str(timedelta(seconds = t))[2:]    
-    team_minutes_played = list(map(lambda a :timeToString(a[1]),sumByPlayer.items()))
-    
-    labels = list(playTimesbyPlayer.keys())
-    data = list(playTimesbyPlayer.values())
- 
-    figure, ax = plt.subplots(figsize=(9.2, 5))
-    ax.invert_yaxis()
-    ax.yaxis.set_visible(True)
-    ax.set_xlim(-25, (48 * 60) + 25)
-    ax.set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
-    ax.grid(True,axis='x')
-    ax.set_title(title, fontsize=10)
-    ax.set_xlabel('periods')
-    ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
-    ax.set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
-
-    for label in labels:
-        data = playTimesbyPlayer[label]
-        starts = list(map(lambda x:x[0],data))
-        widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, align='edge', height=0.2)
-
-    y1, y2 = ax.get_ylim()
-    x1, x2 = ax.get_xlim()
-    ax2=ax.twinx()
-    ax2.set_ylim(y1, y2)
-
-    ax2.set_yticks( range(0,len(team_minutes_played)),team_minutes_played )
-    ax2.set_ylabel('minutes played')
-    ax2.set_xlim(x1, x2)
-
-    plt.tight_layout()
-    plt.show()
-    plt.close('all')
-
-def plot2(data):
-        
-    _data = data.filter(['play_by_play','pts_home'])  
-    _data['play_by_play'] = _data['play_by_play'].apply(
-        lambda x: 15 if x.shape[0] == 0 else x.shape[0])
-
-    #  convert the index to datetime
-    #  reindex! so we get spaces on dates with no game
-    _data.index = pd.DatetimeIndex(_data.index)
-    _data = _data.reindex(pd.date_range(_data.index[0], _data.index[-1]), fill_value=15)
-    _data.index = _data.index.strftime('%b %d')
-
-    fig, ax = plt.subplots()    
-    
-    for l in _data:
-        ax.bar(_data.index, list(_data[l]), label= l)  
-
-    plt.xticks(rotation=90)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.legend(loc =2, title='PBP Data',ncols=3)
-
-    plt.show()
-    return
-
-def plot1(data):
-
-    plus_home = ['ast_home', 'stl_home', 'blk_home', 'tov_away']
-    minus_home = ['ast_away', 'stl_away', 'blk_away', 'tov_home']
-    
-    _mp = data.filter(minus_home + plus_home)     
-    for key in _mp.keys():
-        if key in minus_home:
-            _mp[key] = _mp[key] * -1       
-
-    #  convert the index to datetime
-    #  reindex! so we get 0 on dates with no game
-    _mp.index = pd.DatetimeIndex(_mp.index)
-    _mp = _mp.reindex(pd.date_range(_mp.index[0], _mp.index[-1]), fill_value=0)
-    _mp.index = _mp.index.strftime('%b-%d')
-    
-    ax = _mp.plot.bar(stacked=True)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.set_ylabel('plus/minus')
-    ax.set_title('Thunder')
-    ax.legend(loc =2, title='',ncol=2)
-    return
- 
-# NOT USED FOR NOW
-def loadFromCSV():
-    
-    import glob
-    import os
-
-    pth = os.path.join("./csv", "*.csv")  # Replace with your directory path
-    all_files = glob.glob(pth)
-
-    dfFromCSV = {}
-    for filename in all_files:
-        print(filename)
-        df = pd.read_csv(filename, index_col=None, header=0)
-        print(df.shape)
-        s = os.path.split(filename)[1].split('.')[0]
-        dfFromCSV[s] = df
 
 dfs = {}            # has everthing that was in db as dict of DateFrame by column name
 gamesByTeam = {}    # reorganized game data is in gamesByTeam
@@ -335,41 +215,11 @@ def generatePBP():
             starttime_duration_bydate[date] = [starttime_duration_byPlayer,score_errors]
 
     return starttime_duration_bydate
-#
-# get arguments, if any
-# 
-
-def  getArgs():
-  opponent = "ANY"
-  plotNbr = 13
-
-  for i in range (len(sys.argv)):  # Check for arguments
-    if sys.argv[i] == '?':
-      print("Usage: python argparse3.py <opponent=opponentName> <plotnumber=plotnumber>")
-      sys.exit(1) 
-
-    if (sys.argv[i].find("opponent=")>-1):
-      opponent = sys.argv[i].split('=')
-      opponent = opponent[1] 
-      # test print("opponent = ",opponent)
-
-    if (sys.argv[i].find("plotnumber=")>-1):
-      plotNbrStr = sys.argv[i].split('=')
-      plotNbr = int(plotNbrStr[1]) 
-      # test print("plotnumber = ",plotNbr)
-    
-  return(opponent, plotNbr)
 
 def main():
 
     global dfs 
     global gamesByTeam
-    
-    # Get arguments, if any
-    opponent, plotNbr = getArgs()        
-    #print("opponent - ", opponent)      # test code, comment to run  
-    #print("plotnumber - ", plotNbr)     # test code, comment to run 
-    #sys.exit(1)                         # test code, comment to run 
 
     # gamesByTeam['OKC']['2022]['2023-01-03']  -- gets game via team,year,game_date
 

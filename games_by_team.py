@@ -4,8 +4,9 @@ import numpy as np
 def create_games_by_team(_dfs, db_con, SEASON, TEAMS):
 
     _gamesByTeam = {}
+
     #for nickName in _dfs['team'].abbreviation:
-    for nickName in TEAMS:
+    for nickName in TEAMS if TEAMS != [] else _dfs['team'].abbreviation:
 
         _games = getGames(_dfs['team'], _dfs['game'], nickName, 'Regular Season', SEASON)
         seasons = list(set(_games.season_id))

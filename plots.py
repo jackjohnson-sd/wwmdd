@@ -9,9 +9,9 @@ from utils import period_clock_seconds
 
 def eventToSize (player, eventRecord):
 
-    SMALL_P = 5.0
-    MID___P = 10.0
-    LARGE_P = 15.0
+    SMALL_P = 15.0
+    MID___P = 25.0
+    LARGE_P = 50.0
 
     p1Name = eventRecord.player1_name
     p2Name = eventRecord.player2_name
@@ -51,9 +51,9 @@ def eventToColor (player, eventRecord):
                 10  jump ball    jumper1      jumper2    who got the ball
     """
     
-    _MEH = 'olive'
-    _GOOD = 'tab:green'
-    _BAD = 'tab:red'
+    _MEH = 'blue'
+    _GOOD = 'lime'
+    _BAD = 'red'
 
     color = _MEH
 
@@ -165,16 +165,16 @@ def plot3(game,title, play_by_play):
     ax2.set_ylabel('minutes played')
     ax2.set_xlim(x1, x2)
     for i,label in enumerate(labels):
+
         data = playTimesbyPlayer[label]
         starts = list(map(lambda x:x[0],data))
         widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, color='linen', height=0.6)
+        rects = ax.barh(label, widths, left=starts, color='dimgrey', height=0.6)
 
         eventTimes = list(map(lambda x:x[0],events_by_player[label]))
         _colors =  list(map(lambda x: x[1], events_by_player[label])) 
         __sizes = list(map(lambda x: x[2], events_by_player[label]))
-
-        ax.scatter(eventTimes,[i] * len(eventTimes), c=_colors, s=15.0 )
+        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes )
 
     plt.tight_layout()
     plt.show()

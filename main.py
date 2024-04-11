@@ -5,209 +5,36 @@ import matplotlib.pyplot as plt
 import sys
 from datetime import datetime,timedelta
 
+from utils import period_clock_seconds, secDiff,totalTeamMinutes
+from tests import testPBPforErrors
+from data_management import loadNBA_data
+
 START_SEASON = '2020-01-01'
 DB_FILENAME = "nba.sqlite"
 SECONDS_PER_PERIOD = 12*60
 SECONDS_PER_GAME   = 4*SECONDS_PER_PERIOD
 
-def plot3(game,title, play_by_play):
+HOME_TEAM  = 'OKC'
+AWAY_TEAM  = 'OKC'
 
-    """
-    results = {  in seconds
-        'Josh' : [(START,LENGTH), (150,25) , (200,45)],
-        'Lu'  : [(10,60), (110,25) , (180,145)]
-    }
-    """
-   
-    playTimesbyPlayer = {}
-    sumByPlayer = {}
-    events_by_player = {}
+from plots import plot3
 
-    players = list(game[0].keys())
-
-    for player in players:
-        usage = game[0][player]
-
-        def timespantoSecs(a):
-            period = int(a[0][1]) - 1
-            game_clock = datetime.strptime('12:00','%M:%S') -  datetime.strptime(a[0][2], '%M:%S')
-            length = a[1]
-            start = period * 12 * 60 + game_clock.total_seconds()
-            return  (int(start),int(length))
-        
-        a = list(map(lambda x:timespantoSecs(x),usage))
-        b = sum(list(map(lambda x:x[1],a) ))
-        playTimesbyPlayer[player] = a
-        sumByPlayer[player] = b
-        """                          player1      player2    player3 
-            events  1 = make         shooter      assist 
-                    2 = miss         shooter                 block
-                    3 = Free throw   shooter      make or miss?
-                    4 = rebound
-                    5 = steal        turn over    stealer
-                    6 = foul         fouled       fouler
-                    8 = SUB          OUT          IN
-                    10  jump ball    jumper1      jumper2    who got the ball
-        """
-        _events = []
-        plays_for_player = play_by_play[0].query(f'player1_name == "{player}" or player2_name == "{player}"or player3_name == "{player}"')
-        for i,v in plays_for_player.iterrows():
-            period = v.period
-            clock = v.pctimestring
-            event = v.eventmsgtype
-            sec = period_clock_seconds([period,clock]).total_seconds()
-            _events.append([int(sec),event])
-        events_by_player[player] = _events             
-
-    def timeToString(t): return str(timedelta(seconds = t))[2:]    
-
-    team_minutes_played = list(map(lambda a :timeToString(a[1]),sumByPlayer.items()))
-    
-    labels = list(playTimesbyPlayer.keys())
-    data = list(playTimesbyPlayer.values())
- 
-    figure, ax = plt.subplots(figsize=(9.2, 5))
-    ax.invert_yaxis()
-    ax.yaxis.set_visible(True)
-    ax.set_xlim(-25, (48 * 60) + 25)
-    ax.set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
-    ax.grid(True,axis='x')
-    ax.set_title(title, fontsize=10)
-    ax.set_xlabel('periods')
-    ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
-    ax.set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
-
-    for label in labels:
-        data = playTimesbyPlayer[label]
-        starts = list(map(lambda x:x[0],data))
-        widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, height=0.3)
-
-    for i, v in enumerate(labels):
-        secs = list(map(lambda x:x[0],events_by_player[v]))    
-        ax.scatter(secs,[i] * len(secs),color = 'black',s=15, alpha=0.7)
-        #ax.text(100, i, str(v), color='black', fontweight='bold', fontsize=14, ha='left', va='center')
-
-    y1, y2 = ax.get_ylim()
-    x1, x2 = ax.get_xlim()
-    ax2=ax.twinx()
-    ax2.set_ylim(y1, y2)
-
-    ax2.set_yticks( range(0,len(team_minutes_played)),team_minutes_played )
-    ax2.set_ylabel('minutes played')
-    ax2.set_xlim(x1, x2)
-
-    plt.tight_layout()
-    plt.show()
-    plt.close('all')
-
-def plot2(data):
-        
-    _data = data.filter(['play_by_play','pts_home'])  
-    _data['play_by_play'] = _data['play_by_play'].apply(
-        lambda x: 15 if x.shape[0] == 0 else x.shape[0])
-
-    #  convert the index to datetime
-    #  reindex! so we get spaces on dates with no game
-    _data.index = pd.DatetimeIndex(_data.index)
-    _data = _data.reindex(pd.date_range(_data.index[0], _data.index[-1]), fill_value=15)
-    _data.index = _data.index.strftime('%b %d')
-
-    fig, ax = plt.subplots()    
-    
-    for l in _data:
-        ax.bar(_data.index, list(_data[l]), label= l)  
-
-    plt.xticks(rotation=90)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.legend(loc =2, title='PBP Data',ncols=3)
-
-    plt.show()
-    return
-
-def plot1(data):
-
-    plus_home = ['ast_home', 'stl_home', 'blk_home', 'tov_away']
-    minus_home = ['ast_away', 'stl_away', 'blk_away', 'tov_home']
-    
-    _mp = data.filter(minus_home + plus_home)     
-    for key in _mp.keys():
-        if key in minus_home:
-            _mp[key] = _mp[key] * -1       
-
-    #  convert the index to datetime
-    #  reindex! so we get 0 on dates with no game
-    _mp.index = pd.DatetimeIndex(_mp.index)
-    _mp = _mp.reindex(pd.date_range(_mp.index[0], _mp.index[-1]), fill_value=0)
-    _mp.index = _mp.index.strftime('%b-%d')
-    
-    ax = _mp.plot.bar(stacked=True)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.set_ylabel('plus/minus')
-    ax.set_title('Thunder')
-    ax.legend(loc =2, title='',ncol=2)
-    return
- 
-# NOT USED FOR NOW
-def loadFromCSV():
-    
-    import glob
-    import os
-
-    pth = os.path.join("./csv", "*.csv")  # Replace with your directory path
-    all_files = glob.glob(pth)
-
-    dfFromCSV = {}
-    for filename in all_files:
-        print(filename)
-        df = pd.read_csv(filename, index_col=None, header=0)
-        print(df.shape)
-        s = os.path.split(filename)[1].split('.')[0]
-        dfFromCSV[s] = df
 
 dfs = {}            # has everthing that was in db as dict of DateFrame by column name
 gamesByTeam = {}    # reorganized game data is in gamesByTeam
+db_con = None
 
 def loadNBA():
 
-    _dfs = {}
+    global db_con
+
+    _dfs, db_con = loadNBA_data(DB_FILENAME)
     _gamesByTeam = {}
-
-    db_con = sqlite3.connect(DB_FILENAME)
-    db_cursor = db_con.cursor()
-
-    db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    table_names = db_cursor.fetchall()
-
-    DoNotUseTableNames = ['play_by_play']
-    table_names = [k[0] for k in table_names if k[0] not in DoNotUseTableNames]
- 
-    for i, table_name in enumerate(table_names):
-
-        query = f"SELECT * FROM {table_name}"
-        chunk_size = 100000
-        count = 0
-        chunks = []
-        
-        indexCol = None
-
-        for chunk in pd.read_sql_query(query, db_con, chunksize=chunk_size,index_col= indexCol):
-            chunks.append(chunk)
-            #print('.',end = "")
-            count += chunk_size
-
-        _dfs[table_name] = pd.concat(chunks)
-        #print(table_name, _dfs[table_name].shape)
 
     print('LOAD COMPLETE') 
 
-    # strip leading digit from season, its signifies pre, post and regular season
-    _dfs['game']['season_id'] = _dfs['game']['season_id'].apply(lambda x:x[1:])
-    #place to save play by play dataframe
-    _dfs['game']['play_by_play'] = [[pd.DataFrame([])]] * len(_dfs['game'])
-
     #for nickName in _dfs['team'].abbreviation:
-    for nickName in ['OKC']:
+    for nickName in [HOME_TEAM]:
 
         _games = getGames(_dfs['team'], _dfs['game'], nickName, 'Regular Season', START_SEASON)
         seasons = list(set(_games.season_id))
@@ -254,7 +81,7 @@ def getTestData():
 
     _START_DAY = '2023-01-01'
     _STOP_DAY = '2023-03-31'
-    _TEAM = 'OKC'
+    _TEAM = HOME_TEAM
     _SEASON = '2022'
 
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, gamesByTeam[_TEAM][_SEASON])
@@ -283,42 +110,6 @@ def dump_play_by_play(players,events,pbp):
                 print(
                     f'{e.period} {e.pctimestring:<5} IN:{e.player2_name:<20} OUT:{e.player1_name:<20} {e.homedescription}'
                 )
-            
-def period_clock_seconds(pc):
-    _period = int(pc[0]) - 1
-    _clock = datetime.strptime(pc[1], '%M:%S') 
-    return datetime.strptime('12:00', '%M:%S') - _clock + timedelta(seconds = _period * 12 * 60)
-
-def secDiff(start,stop):        
-
-    # flip clock time so its from the start of the period o.e starts at 00:00 vs 12:00
-    # add offset for diferences in periods
-    startDelta = period_clock_seconds(start[1:3])
-    stopDelta  = period_clock_seconds(stop[1:3])
- 
-    difference = stopDelta - startDelta
-
-    return int(difference.total_seconds())
-
-def totalTeamMinutes(starttime_duration_bydate, date):
-    total = 0
-    for key, b in starttime_duration_bydate[date][0].items():
-        tmin = sum(list(map(lambda x:x[1],b)))
-        total += tmin
-    return total
- 
-def testPBPforErrors(starttime_duration_bydate):
-
-    for a in starttime_duration_bydate:
-        total = totalTeamMinutes(starttime_duration_bydate, a)
-        scoreErrors = starttime_duration_bydate[a][1]
-        
-        if total != 5*48*60:
-            print(f'{a} {"Team":>22}',timedelta(seconds =total),scoreErrors)
-            for key,b in starttime_duration_bydate[a][0].items():
-                for c in starttime_duration_bydate[a][0][key]:
-                    print(f'{key:<20} {str(c[0]):<20} {str(c[2]):<20} {str(timedelta(seconds=c[1]))}')
-                print()
 
 def getTimeSpansByPlayer(games,players):
     _timeSpans = {}  # collect timespans played by this player
@@ -408,7 +199,6 @@ def generatePBP():
                                 insertsAdded = True
                                 break
                     
-
                     lenTss = len(_tss)
                     for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
                         start_ts  = _tss[x]
@@ -442,10 +232,10 @@ def main():
     dates = list(start_duration_by_date.keys())
 
     for date in dates:
-        g = gamesByTeam['OKC']['2022'][date]
+        g = gamesByTeam[HOME_TEAM]['2022'][date]
         g.pts_home
         g.pts_away
-        if g.matchup_home.split(' vs. ')[0] == 'OKC':
+        if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:
             score = f'{int(g.pts_home)}-{int(g.pts_away)}'
         else:
             score = f'{int(g.pts_away)}-{int(g.pts_home)}'
@@ -469,60 +259,7 @@ def main():
     #input("Press Enter to continue...")
     """
 
-# TESTS TESTS TESTS TESTS TESTS TESTS TESTS TESTS
-def tests(_testdata):
-    
-    results     = _testdata[0]
-    _START_DAY  = _testdata[1]
-    _STOP_DAY   = _testdata[2]
-    _TEAM       = _testdata[3]
-    _SEASON     = _testdata[4]
 
-    resDates = list(results.keys())
-
-    t =  np.array(dfs['game'].team_abbreviation_home) == _TEAM
-    t |= np.array(dfs['game'].team_abbreviation_away) == _TEAM
-    t &= np.array(dfs['game'].season_id) == _SEASON
-    t &= ((
-        np.array(dfs['game'].game_date >= resDates[0] + " 00:00:00")
-        & np.array(dfs['game'].game_date <= resDates[-2] + " 00:00:00") ))
-
-    g0 = dfs['game'][list(t)].iloc[0]
-    r0 = results[resDates[0]]
-
-    print()
-    print('testing filterGamesByDateRange',_TEAM, _START_DAY, _STOP_DAY, _SEASON)
-    print()
-
-    print('g0',g0.game_date,g0.season_id,g0.matchup_away)
-    print('r0',r0.game_date,r0.season_id,r0.matchup_away)
-
-    print()
-    print('data for date range',_TEAM, _START_DAY, _STOP_DAY, _SEASON)
-    print()
-
-    t_res = pd.DataFrame(results).T
-
-    # TEST list and sum of columns that are numeric
-
-    for colname in t_res.columns:
-        firstValueOfColumn = t_res[colname][0:1].values[0]
-        if type(firstValueOfColumn) in [type(1),type(1.0)]:
-            tmp  = list(t_res[colname])
-            print(colname, tmp, sum(tmp))
-        #else:
-        #    print(f'col name {colname} not numeric.')
-            
-    # print number of events in our pbp file        
-    our_pbps = list(t_res['play_by_play'])
-
-    def fnx(x): 
-        if type(x) != pd.DataFrame: return 0
-        return x.shape[0]
-
-    pbp_steps = list(map(lambda x: fnx(x), our_pbps))
-
-    print('play by play events', pbp_steps)
 
 if __name__ == "__main__":
     main()

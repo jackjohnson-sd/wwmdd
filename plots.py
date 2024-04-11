@@ -144,8 +144,10 @@ def plot3(game,title, play_by_play):
     
     labels = list(playTimesbyPlayer.keys())
     data = list(playTimesbyPlayer.values())
- 
+   
+    plt.style.use('dark_background')
     figure, ax = plt.subplots(figsize=(9.2, 5))
+ 
     ax.invert_yaxis()
     ax.yaxis.set_visible(True)
     ax.set_xlim(-25, (48 * 60) + 25)
@@ -155,7 +157,19 @@ def plot3(game,title, play_by_play):
     ax.set_xlabel('periods')
     ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
     ax.set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
-  
+
+    for i,label in enumerate(labels):
+
+        data = playTimesbyPlayer[label]
+        starts = list(map(lambda x:x[0],data))
+        widths = list(map(lambda x:x[1],data))
+        rects = ax.barh(label, widths, left=starts, color='darkslategrey', height=0.6)
+
+        eventTimes = list(map(lambda x:x[0],events_by_player[label]))
+        _colors =  list(map(lambda x: x[1], events_by_player[label])) 
+        __sizes = list(map(lambda x: x[2], events_by_player[label]))
+        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes )
+
     y1, y2 = ax.get_ylim()
     x1, x2 = ax.get_xlim()
     ax2 = ax.twinx()
@@ -164,17 +178,6 @@ def plot3(game,title, play_by_play):
     ax2.set_yticks( range(0,len(team_minutes_played)),team_minutes_played )
     ax2.set_ylabel('minutes played')
     ax2.set_xlim(x1, x2)
-    for i,label in enumerate(labels):
-
-        data = playTimesbyPlayer[label]
-        starts = list(map(lambda x:x[0],data))
-        widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, color='dimgrey', height=0.6)
-
-        eventTimes = list(map(lambda x:x[0],events_by_player[label]))
-        _colors =  list(map(lambda x: x[1], events_by_player[label])) 
-        __sizes = list(map(lambda x: x[2], events_by_player[label]))
-        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes )
 
     plt.tight_layout()
     plt.show()

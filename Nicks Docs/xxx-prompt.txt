@@ -1,3 +1,8 @@
+COMMENT: 
+Explain what this is and why we should care. 
+What LLM did we use for this prompt?
+
+PROMPT:
 Create a player lineup for the Oklahoma City Thunder for a basketball game against the Golden State Warriors.
 
 Oklahoma City Thunder's lineup should be designed to maximize their chance of winning the game against the players of the  Golden State Warriors. 

@@ -24,7 +24,6 @@ def loadNBA():
     global db_con
 
     _dfs, db_con = loadNBA_data(DB_FILENAME)
-    print('LOAD COMPLETE') 
 
     _gamesByTeam = create_games_by_team(_dfs, db_con, START_SEASON, ['OKC'])    
 
@@ -32,8 +31,8 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY = '2023-01-01'
-    _STOP_DAY = '2023-03-31'
+    _START_DAY = '2023-01-08'
+    _STOP_DAY = '2023-01-08'
     _TEAM = HOME_TEAM
     _SEASON = '2022'
 
@@ -68,7 +67,7 @@ def main():
         debug_title = f'DEBUG {t[0]}:{t[1]}  {g.game_id}'
         if total != SECONDS_PER_GAME*5 or True: 
             players = list(start_duration_by_date[date][0].keys())
-            dump_play_by_play(players,[8],g.play_by_play)
+            #dump_play_by_play(players,[8],g.play_by_play)
             plot3(start_duration_by_date[date], title, g.play_by_play, debug_title)    
 
 
@@ -140,4 +139,5 @@ game feilds
      'Tre Mann','Jaylin Williams', 'Dario Saric', 'Ousmane Dieng'
      'Isaiah Joe', 'Kenrich Williams',
      'Mike Muscala','Luguentz Dort','Aaron Wiggins','Jeremiah Robinson-Earl' ]
+
 """

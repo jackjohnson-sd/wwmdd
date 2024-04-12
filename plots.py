@@ -51,7 +51,7 @@ def eventToColor (player, eventRecord):
                 10  jump ball    jumper1      jumper2    who got the ball
     """
     
-    _MEH = 'blue'
+    _MEH = 'yellow'
     _GOOD = 'lime'
     _BAD = 'red'
 
@@ -93,7 +93,7 @@ def eventToColor (player, eventRecord):
 
     return color
 
-def plot3(game,title, play_by_play, debug_str):
+def plot3(game, title, play_by_play, debug_str):
     """
     returns 
     {  in seconds
@@ -108,7 +108,14 @@ def plot3(game,title, play_by_play, debug_str):
 
     players = list(game[0].keys())
 
+    starters = []
     for player in players:
+        if game[0][player][0][0] == ['IN',1,'12:00']:
+            starters += [player]
+
+    bench = list(set(players) - set(starters))
+
+    for player in starters + bench:
         usage = game[0][player]
 
         def timespantoSecs(a):
@@ -131,7 +138,7 @@ def plot3(game,title, play_by_play, debug_str):
             clock = v.pctimestring
             event = v.eventmsgtype
         
-            sec = period_clock_seconds([period,clock]).total_seconds()
+            sec = period_clock_seconds(['',period,clock]).total_seconds()
             event_color = eventToColor(player, v)
             event_size = eventToSize(player, v)
             _events.append([int(sec), event_color, event_size])
@@ -143,10 +150,12 @@ def plot3(game,title, play_by_play, debug_str):
     team_minutes_played = list(map(lambda a :timeToString(a[1]),sumByPlayer.items()))
     
     labels = list(playTimesbyPlayer.keys())
-    data = list(playTimesbyPlayer.values())
+    _data = list(playTimesbyPlayer.values())
    
     plt.style.use('dark_background')
-    figure, ax = plt.subplots(figsize=(9.2, 5))
+    figure, ax = plt.subplots(figsize=(9.2, 3))
+    #figure, ax = plt.subplots(figsize=(9.2, 5))
+ 
     figure.canvas.manager.set_window_title(debug_str)
 
     ax.invert_yaxis()
@@ -164,7 +173,7 @@ def plot3(game,title, play_by_play, debug_str):
         data = playTimesbyPlayer[label]
         starts = list(map(lambda x:x[0],data))
         widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, color='darkslategrey', height=0.6)
+        rects = ax.barh(label, widths, left=starts, color='plum', height=0.6)
 
         eventTimes = list(map(lambda x:x[0],events_by_player[label]))
         _colors =  list(map(lambda x: x[1], events_by_player[label])) 
@@ -183,7 +192,6 @@ def plot3(game,title, play_by_play, debug_str):
     plt.tight_layout()
     plt.show()
     plt.close('all')
-
 
 def plot2(data):
         

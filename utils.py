@@ -13,7 +13,7 @@ def period_clock_seconds(pc):
     return datetime.strptime('12:00', '%M:%S') - _clock + timedelta(seconds = _period * 12 * 60)
 
 def secDiff(start,stop):        
-
+    #start/stop = ['',period,'clock']
     # flip clock time so its from the start of the period o.e starts at 00:00 vs 12:00
     # add offset for diferences in periods
     startDelta = period_clock_seconds(start)

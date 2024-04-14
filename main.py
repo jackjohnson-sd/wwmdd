@@ -31,8 +31,8 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY = '2023-01-08'
-    _STOP_DAY = '2023-01-08'
+    _START_DAY = '2023-01-01'
+    _STOP_DAY = '2023-04-06'
     _TEAM = HOME_TEAM
     _SEASON = '2022'
 
@@ -66,8 +66,8 @@ def main():
         title = f'{g.matchup_home} {score}  {date} '
         debug_title = f'DEBUG {t[0]}:{t[1]}  {g.game_id}'
         if total != SECONDS_PER_GAME*5 or True: 
-            players = list(start_duration_by_date[date][0].keys())
-            #dump_play_by_play(players,[8],g.play_by_play)
+            ps = list(start_duration_by_date[date][0].keys())
+            #dump_play_by_play(['Kenrich Williams'], g.play_by_play[0])
             plot3(start_duration_by_date[date], title, g.play_by_play, debug_title)    
 
 

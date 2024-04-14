@@ -1,55 +1,40 @@
 
 from utils import secDiff
 
-def dump_play_by_play(players,events,pbp):
+def dump_play_by_play(players,pbp):
+
+    if players == []:
+       players =  list(set(pbp.player1_name) | set(pbp.player2_name))
 
     for player in players:
-        print()
-        print(player,' -----------------')
-        subs = pbp[0].query(
-            f'(eventmsgtype == 8) and (player1_name == "{player}" or player2_name == "{player}")'
+        subs = pbp.query(
+            f'(player1_name == "{player}" or player2_name == "{player}")'
             )
-        if subs.shape[0] == 0: print('dump_play_by_play() Error A', player, e.eventnum, e.game_id)
-        else:
+        if subs.shape[0] > 0:
+            print()
+            print(player,' -----------------')
             for key,e in subs.iterrows():
+                p1 = '' if type(e.player1_name) == type(None) else e.player1_name
+                p2 = '' if type(e.player2_name) == type(None) else e.player2_name
+                desc = '' if type(e.homedescription) == type(None) else e.homedescription    
+                if desc == '':  desc = '' if type(e.visitordescription) == type(None) else e.visitordescription
+                if desc == '':  desc = '' if type(e.neutraldescription) == type(None) else e.neutraldescription
                 print(
-                    f'{e.period} {e.pctimestring:<5} IN:{e.player2_name:<20} OUT:{e.player1_name:<20} {e.homedescription}'
+                    f'{e.period} {e.pctimestring:<5} {e.eventmsgtype} {p1:<20} {p2:<20} {desc}'
                 )
 
-def getTimeSpansByPlayer(games,players):
-    _timeSpans = {}  # collect timespans played by this player
-    for player in players:
-        _timeSpans[player] = []
-        for x in games.index:
-            z = games.loc[x]
-            p1 = z['player1_name']
-            p2 = z['player2_name']
-            if (p1 == player) or (p2 == player):
-                t = 'IN' if p2 == player else "OUT"
-                _timeSpans[player].append([t,z.period,z.pctimestring]) 
-    return _timeSpans
-
-def getTimeSpansByPlayerX(playbyplay, players):
+def getTimeSpansByPlayerY(playbyplay, players):
 
     _timeSpans = {}  # collect timespans played by this player
+
     for player in players:
+
         _timeSpans[player] = []
      
         a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8])
         b_ = playbyplay['player1_name'] == player 
         c_ = playbyplay['player2_name'] == player
         ourPlayerEvents = playbyplay[a_ & (b_ | c_)]
-
-        if player == 'Aaron Wiggins':
-            t = ['period','pctimestring','eventmsgtype','player1_name','player2_name','homedescription','visitordescription']
-            tmp = ourPlayerEvents[t]
-            for i in t:
-                print(f'{i[:10]:>10}  ',end= '')
-            print()    
-            for i, d in tmp.iterrows():
-                for i in t:
-                    print(f'{str(d[i])[:10]:>10}  ', end='')
-                print()   
 
         inTheGame = False
         lastInGameEvent = -1
@@ -74,6 +59,7 @@ def getTimeSpansByPlayerX(playbyplay, players):
                                 # close off the last IN
                                 _period = ourPlayerEvents.period.loc[[lastInGameEvent]].iloc[0]
                                 _clock = ourPlayerEvents.pctimestring.loc[[lastInGameEvent]].iloc[0]
+
                                 _timeSpans[player].append(['OUT', _period, _clock])
                             else:
                                 # we have no events since our last IN
@@ -89,28 +75,142 @@ def getTimeSpansByPlayerX(playbyplay, players):
                             _timeSpans[player].append(['IN',period, pctimestring])
                         else:
                             # end span as we are leaving
+                            if lastInGameEvent == -1:
+                                # we've had no events, go to the last event 
+                                lastEvent = _timeSpans[player][-1]
+                                lperiod = lastEvent[1]
+                                period_delta = period - lperiod
+                                if lastEvent[0] == 'IN':
+                                    if period_delta == 2 or period_delta == 1:
+                                        _timeSpans[player].append(['OUT', lperiod, '0:00'])
+                                        _timeSpans[player].append(['IN', period, '12:00'])
+
+                            _timeSpans[player].append(['OUT', period, pctimestring])
                             inTheGame = False 
                             lastInGameEvent = -1
-                            _timeSpans[player].append(['OUT',period,pctimestring])
+                                
                     else: # we are out
                         if Entering:
                             inTheGame = True
                             lastInGameEvent = -1
                             _timeSpans[player].append(['IN',period,pctimestring]) 
                         else:
-                            print('WHAT  ',player,period,pctimestring)
+                            print(f'LEAVING {player} Entering:{Entering} InTheGame:{inTheGame}  ',player,period,pctimestring)
                      
-                case 1 | 2 | 3 | 4 |5 | 6:
+                case 1 | 2 | 3 | 4 | 5 | 6:
                     
-                    lastInGameEvent = i
                     if not inTheGame:
+                        #if player == 'Aaron Wiggins' : print('IN ---',period,pctimestring)
+                        # if not in game add an IN
                         inTheGame = True
                         _timeSpans[player].append(['IN', period, '12:00']) 
                         # this happens when a player enters the game between periods
                         # set start of span to the beginning of this period
-    
+                    elif lastInGameEvent == -1:
+                        # this is our first event since IN
+                         #if player == 'Aaron Wiggins' : print('E1 ---',period,pctimestring)
+                         inEvnt = _timeSpans[player][-1]
+                         if inEvnt[1] != period:
+                             # we started in a prior period and we've had nothing 
+                             secs = secDiff(inEvnt,['',period, pctimestring])
+                             if secs > 3 * 60:
+                                #print('prior IN set to where we are now')
+                                #print('before',_timeSpans[player][-1])
+                                _timeSpans[player][-1][1] = period
+                                _timeSpans[player][-1][2] = '12:00'
+                                #print('after',_timeSpans[player][-1])
+                    else:
+                        # we've already had events in this span
+                        lEvent = ourPlayerEvents.loc[lastInGameEvent]
+                        l_period = lEvent.period
+                        l_clock  = lEvent.pctimestring
+                        if l_period != period:
+                            # we could have left at the prior period
+                            secs = secDiff(['',l_period, l_clock],['',period, pctimestring])
+                            if secs > 3 * 60: 
+                                _timeSpans[player].append(['OUT', l_period, '00:00'])
+                                _timeSpans[player].append(['IN', period, '12:00'])
+                                # its been 3 minutes, we're in a new period
+                                # Out at end of prior event period
+                                # IN start of this period
 
-                case _ : print('-')
+                                aaa = 6
+                    lastInGameEvent = i
+                case _ : print('-*-*-*-*-*-*-*-*')
+
+        lastEvent = ourPlayerEvents.iloc[-1]
+        
+        if lastEvent.eventmsgtype != 8:
+            # not SUB message at end, end span at end of last period used
+            _timeSpans[player].append(['OUT',int(lastEvent.period),'0:00']) 
+        elif lastEvent.player2_name == player:
+            # last message is IN end span at end of period used
+            _timeSpans[player].append(['OUT',int(lastEvent.period),'0:00'])
+               
+    return _timeSpans
+
+def getTimeSpansByPlayerX(playbyplay, players):
+
+    _timeSpans = {}  # collect timespans played by this player
+
+    for player in players:
+
+        _timeSpans[player] = []
+     
+        a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8])
+        b_ = playbyplay['player1_name'] == player 
+        c_ = playbyplay['player2_name'] == player
+        ourPlayerEvents = playbyplay[a_ & (b_ | c_)]
+
+        inTheGame = False
+        lastInGameEvent = -1
+        lastPeriod = -1
+
+        for i, d in ourPlayerEvents.iterrows():
+            period = int(d.period)
+            pctimestring = str(d.pctimestring)
+
+            # on period change every one is out
+            if period != lastPeriod:
+                if lastPeriod != -1:
+                    if _timeSpans[player][-1][0] != 'OUT':
+                        _timeSpans[player].append(['OUT', lastPeriod, '0:00'])
+                inTheGame = False
+                lastPeriod = period
+                lastInGameEvent = -1
+
+            match d.eventmsgtype:
+                case 8 : # event is SUB IN or OUT
+                    Entering = d.player2_name == player
+
+                    if inTheGame: 
+                        if Entering:
+                            # we're in and have a message saying we're in
+                            print('We missed an OUT  ----- ')
+                        else:
+                            _timeSpans[player].append(['OUT', period,  pctimestring])
+                            inTheGame = False 
+                                
+                    else: # we are not in the game last thing should be OUT
+                        if Entering:
+                            inTheGame = True
+                            _timeSpans[player].append(['IN',period, pctimestring]) 
+                        else:
+                            # we have a leaving message and we're out
+                            # set to starting at beginning of period
+                            _timeSpans[player].append(['IN',period,'12:00'])
+                            _timeSpans[player].append(['OUT',period, pctimestring])
+                     
+                case 1 | 2 | 3 | 4 | 5 | 6:
+                    
+                    if not inTheGame:
+                        # if not in game add an IN at beggining of period
+                        inTheGame = True
+                        _timeSpans[player].append(['IN', period, '12:00']) 
+                        # this happens when a player enters the game between periods
+                        # set start of span to the beginning of this period
+
+                case _ : print('-*-*-*-*-*-*-*-*')
 
         lastEvent = ourPlayerEvents.iloc[-1]
         
@@ -185,17 +285,4 @@ def generatePBP(games_data):
             starttime_duration_bydate[date] = [starttime_duration_byPlayer,score_errors]
 
     return starttime_duration_bydate
-
-"""
-  if player == 'Ousmane Dieng':
-    t = ['period','pctimestring','eventmsgtype','player1_name','player2_name','homedescription','visitordescription']
-    tmp = ourPlayerEvents[t]
-    for i in t:
-        print(f'{i[:10]:>10}  ',end= '')
-    print()    
-    for i, d in tmp.iterrows():
-        for i in t:
-            #if type(d[i]) != type(None):
-            print(f'{str(d[i])[:10]:>10}  ', end='')
-        print()
-"""                                                                                                                  
+                                                                                                                

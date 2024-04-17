@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime,timedelta
 
 from utils import period_clock_seconds
-from box_score import bs_stuff_bs, bs_clean, bs_dump, bs_get_bs_data
+from box_score import bs_stuff_bs, bs_clean, bs_dump, bs_get_bs_data,bs_sum_item,bs_get_items
 
 
 def eventToSize (player, eventRecord):
@@ -140,21 +140,20 @@ def plot3(game, title, play_by_play, debug_str):
         
         events_by_player[player] = _events             
 
-    def timeToString(t): return str(timedelta(seconds = t))[2:]    
-
-    team_minutes_played = list(map(lambda a :timeToString(a[1]),sumByPlayer.items()))
+    bs_clean()
+    player_minutes_played = bs_get_items('PTS',starters+bench)
     
     plt.style.use('dark_background')
-    figure, axs = plt.subplots(2,1,figsize=(9.2, 7))
+    figure, axs = plt.subplots(2,1, figsize=(9.0,6.0))
 
-    rows, columns, bs_data = bs_get_bs_data()
+    rows, columns, bs_data = bs_get_bs_data(starters + bench)
     tc = [['black'] * len(columns)] * len(rows)
 
     the_table = axs[1].table(
         cellText= bs_data, 
         cellColours=tc, 
         cellLoc='center', 
-        colWidths=[.0700]*len(columns), 
+        colWidths=[.10]*len(columns), 
         rowLabels=rows, 
         #rowColours='k', 
         rowLoc='center', 
@@ -166,25 +165,25 @@ def plot3(game, title, play_by_play, debug_str):
         )
     axs[1].yaxis.set_visible(False)
     axs[1].xaxis.set_visible(False)
+
     axs[1].spines['top'].set_visible(False)
     axs[1].spines['right'].set_visible(False)
     axs[1].spines['bottom'].set_visible(False)
     axs[1].spines['left'].set_visible(False)
 
     labels = list(playTimesbyPlayer.keys())
-    _data = list(playTimesbyPlayer.values())
  
     figure.canvas.manager.set_window_title(debug_str)
     ax = axs[0]
     ax.invert_yaxis()
     ax.yaxis.set_visible(True)
-    ax.set_xlim(-25, (48 * 60) + 25)
+    ax.set_xlim(-100, (48 * 60) + 100)
     ax.set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
-    ax.grid(True, axis='x')
+    ax.grid(True, axis = 'x')
     ax.set_title(title, fontsize=10)
     #ax.set_xlabel('periods')
     ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
-    ax.set_xticklabels(['-- Quarter 1 --','Q2','Q3','Q4'],minor=True)
+    ax.set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
 
     for i,label in enumerate(labels):
 
@@ -203,11 +202,25 @@ def plot3(game, title, play_by_play, debug_str):
     ax2 = ax.twinx()
     ax2.set_ylim(y1, y2)
 
-    ax2.set_yticks( range(0,len(team_minutes_played)),team_minutes_played )
-    ax2.set_ylabel('minutes played')
+    #ax2.set_yticks( range(0,len(player_minutes_played)),player_minutes_played )
+    ax2.set_yticks( range(0,len(player_minutes_played)),['']* len(player_minutes_played) )
+    ax2.tick_params(axis=u'both', which=u'both',length=0)
+    ax.tick_params(axis=u'both', which=u'both',length=0)
+    
+    #ax2.set_ylabel('minutes played')
     ax2.set_xlim(x1, x2)
- 
-    #plt.tight_layout()
+    
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+
+    ax2.spines['top'].set_visible(False)
+    ax2.spines['right'].set_visible(False)
+    ax2.spines['bottom'].set_visible(False)
+    ax2.spines['left'].set_visible(False)
+
+    plt.tight_layout()
     plt.show()
     plt.close('all')
 

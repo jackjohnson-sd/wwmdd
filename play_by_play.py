@@ -178,8 +178,7 @@ def generatePBP(games_data):
                             starttime_duration_byPlayer[player].append([start_ts,ts,stop_ts])
                         else:
                             print('Error forming spans ',player,start_ts,stop_ts)  
-
-                           
+                 
                 secs = sum(list(map(lambda x:x[1],starttime_duration_byPlayer[player])))
                 bs_update(player,'secs',secs) 
 

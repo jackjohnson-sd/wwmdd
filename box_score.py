@@ -62,9 +62,10 @@ def bs_get_players():
     global boxScore 
     return list(boxScore.keys())
 
-def bs_get_items(item):
+def bs_get_items(item, players = []):
     global boxScore
-    return list(map(lambda x:boxScore[x][item],boxScore.keys()))
+    ourPlayers = boxScore.keys() if players == [] else players 
+    return list(map(lambda x:boxScore[x][item], ourPlayers))
     
 def bs_update(_player, _item, val):
     global boxScore
@@ -142,5 +143,8 @@ def  bs_get_bs_data(players = []):
     columns = _bsItemsA
     data = []
     for key in rows:
-        data += [list(boxScore[key].values())]
+        data2 = []
+        for key2 in _bsItemsA:
+            data2 +=  [boxScore[key][key2]]
+        data += [data2]
     return rows, columns, data

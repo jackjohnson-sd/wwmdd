@@ -69,7 +69,6 @@ def main():
         bs_setBoxScore(start_duration_by_date[date][2])
         
         total_secs_playing_time = bs_sum_item('secs')
-        bs_clean()
 
         g = gamesByTeam[HOME_TEAM]['2021'][date]
         if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:

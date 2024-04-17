@@ -3,7 +3,8 @@ from datetime import datetime,timedelta
 
 from utils import totalTeamMinutes
 from data_management import loadNBA_data
-from play_by_play import generatePBP, dump_play_by_play
+from play_by_play import generatePBP 
+from box_score import bs_setBoxScore, bs_dump, bs_clean, bs_sum_item
 from plots import plot3
 from games_by_team import create_games_by_team,filterGamesByDateRange
 
@@ -31,10 +32,10 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY = '2023-01-01'
-    _STOP_DAY = '2023-04-06'
+    _START_DAY = '2022-01-31'
+    _STOP_DAY = '2022-04-31'
     _TEAM = HOME_TEAM
-    _SEASON = '2022'
+    _SEASON = '2021'
 
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
@@ -55,19 +56,35 @@ def main():
     dates = list(start_duration_by_date.keys())
 
     for date in dates:
-        g = gamesByTeam[HOME_TEAM]['2022'][date]
+        game = start_duration_by_date[date][0]
+        players = list(game.keys())
+
+        starters = []
+        for player in players:
+            if game[player][0][0] == ['IN',1,'12:00']:
+                starters += [player]            
+        bench = list(set(players) - set(starters))
+        players = starters + bench
+
+        bs_setBoxScore(start_duration_by_date[date][2])
+        
+        total_secs_playing_time = bs_sum_item('secs')
+        bs_clean()
+
+        g = gamesByTeam[HOME_TEAM]['2021'][date]
         if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:
             score = f'{int(g.pts_home)}-{int(g.pts_away)}'
         else:
             score = f'{int(g.pts_away)}-{int(g.pts_home)}'
 
-        total = totalTeamMinutes(start_duration_by_date, date)
-        t = str(timedelta(seconds=total)).split(':')
+        t = str(timedelta(seconds=total_secs_playing_time)).split(':')
         title = f'{g.matchup_home} {score}  {date} '
         debug_title = f'DEBUG {t[0]}:{t[1]}  {g.game_id}'
-        if total != SECONDS_PER_GAME*5 or True: 
+
+        if total_secs_playing_time != SECONDS_PER_GAME*5 or True: 
             ps = list(start_duration_by_date[date][0].keys())
             #dump_play_by_play(['Kenrich Williams'], g.play_by_play[0])
+    
             plot3(start_duration_by_date[date], title, g.play_by_play, debug_title)    
 
 

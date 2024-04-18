@@ -198,13 +198,13 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
         data = playTimesbyPlayer[label]
         starts = list(map(lambda x:x[0],data))
         widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, color='plum', height=0.6)
+        rects = ax.barh(label, widths, left=starts, color='plum', height=0.6, zorder=3)
 
         eventTimes = events_by_player[label][0::3]
         _colors = events_by_player[label][1::3] 
         __sizes = events_by_player[label][2::3]
 
-        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes , marker= ',' )
+        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes , marker= ',',zorder=3 )
 
     y1, y2 = ax.get_ylim()
     x1, x2 = ax.get_xlim()
@@ -214,7 +214,7 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
     #ax2.set_yticks( range(0,len(player_minutes_played)),player_minutes_played )
     #ax2.tick_params(axis=u'both', which=u'both',length=0)
     _colors = list(map(lambda x:'red' if x < 0 else 'green'  ,scoreMargins))
-    ax2.scatter(range(0,len(scoreMargins)),scoreMargins, color=_colors, s=10)
+    ax2.scatter(range(0,len(scoreMargins)),scoreMargins, color=_colors, s=6)
     ax2.set_yticks( range(-50,50,10), list(range(-50,50,10)))
     ax.tick_params(axis=u'both', which=u'both',length=0)
     
@@ -231,7 +231,7 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
     ax2.spines['bottom'].set_visible(False)
     ax2.spines['left'].set_visible(False)
 
-    ax.grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2)
+    ax.grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2, zorder=0)
     plt.tight_layout()
     plt.show()
     plt.close('all')

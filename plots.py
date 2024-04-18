@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime,timedelta
 
 from utils import period_clock_seconds
-from box_score import bs_stuff_bs, bs_clean, bs_dump, bs_get_bs_data,bs_sum_item,bs_get_items
-
+from box_score import box_score
 
 def eventToSize (player, eventRecord):
 
@@ -94,10 +93,9 @@ def eventToColor (player, eventRecord):
 
     return color
 
-def plot3(game, title, play_by_play, debug_str):
+def plot3(game, title, play_by_play, debug_str, boxscore):
 
     playTimesbyPlayer = {}
-    sumByPlayer = {}
     events_by_player = {}
 
     players = list(game[0].keys())
@@ -110,19 +108,16 @@ def plot3(game, title, play_by_play, debug_str):
     bench = list(set(players) - set(starters))
     
     for player in starters + bench:
+
         usage = game[0][player]
 
         def timespantoSecs(a):
-            period = int(a[0][1]) - 1
-            game_clock = datetime.strptime('12:00','%M:%S') -  datetime.strptime(a[0][2], '%M:%S')
-            start = period * 12 * 60 + game_clock.total_seconds()
-            duration = a[1]
-            return  (int(start),int(duration))
+            start = period_clock_seconds(a[0])            
+            return  (int(start),int(a[1]))
         
         a = list(map(lambda x:timespantoSecs(x),usage))
         b = sum(list(map(lambda x:x[1],a) ))
         playTimesbyPlayer[player] = a
-        sumByPlayer[player] = b
 
         _events = []
 
@@ -133,20 +128,32 @@ def plot3(game, title, play_by_play, debug_str):
             clock = v.pctimestring
             event = v.eventmsgtype
         
-            sec = period_clock_seconds(['',period,clock]).total_seconds()
+            sec = period_clock_seconds(['',period,clock])
             event_color = eventToColor(player, v)
             event_size = eventToSize(player, v)
-            _events.append([int(sec), event_color, event_size])
+            _events.extend([int(sec), event_color, event_size])
         
         events_by_player[player] = _events             
 
-    bs_clean()
-    player_minutes_played = bs_get_items('PTS',starters+bench)
+    boxscore.clean()
+    player_minutes_played = boxscore.get_items('PTS',starters+bench)
     
+    scoreMargins = [0]
+    lastscoreMarginSecs = 0
+    for i,v in play_by_play[0].iterrows():
+        scoremargin = v.scoremargin
+        if scoremargin != None:
+            if scoremargin == 'TIE': scoremargin = 0
+            scoremargin = int(scoremargin)
+            secs = period_clock_seconds(['',v.period, v.pctimestring])
+            scoreMargins.extend([scoreMargins[-1]]*(secs-lastscoreMarginSecs-1))
+            scoreMargins.extend([scoremargin])
+            lastscoreMarginSecs = secs
+
     plt.style.use('dark_background')
     figure, axs = plt.subplots(2,1, figsize=(9.0,6.0))
 
-    rows, columns, bs_data = bs_get_bs_data(starters + bench)
+    rows, columns, bs_data = boxscore.get_bs_data(starters + bench)
     tc = [['black'] * len(columns)] * len(rows)
 
     the_table = axs[1].table(
@@ -175,11 +182,12 @@ def plot3(game, title, play_by_play, debug_str):
  
     figure.canvas.manager.set_window_title(debug_str)
     ax = axs[0]
+    
     ax.invert_yaxis()
     ax.yaxis.set_visible(True)
     ax.set_xlim(-100, (48 * 60) + 100)
     ax.set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
-    ax.grid(True, axis = 'x')
+    
     ax.set_title(title, fontsize=10)
     #ax.set_xlabel('periods')
     ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
@@ -192,19 +200,22 @@ def plot3(game, title, play_by_play, debug_str):
         widths = list(map(lambda x:x[1],data))
         rects = ax.barh(label, widths, left=starts, color='plum', height=0.6)
 
-        eventTimes = list(map(lambda x:x[0],events_by_player[label]))
-        _colors =  list(map(lambda x: x[1], events_by_player[label])) 
-        __sizes = list(map(lambda x: x[2], events_by_player[label]))
-        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes )
+        eventTimes = events_by_player[label][0::3]
+        _colors = events_by_player[label][1::3] 
+        __sizes = events_by_player[label][2::3]
+
+        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes , marker= ',' )
 
     y1, y2 = ax.get_ylim()
     x1, x2 = ax.get_xlim()
     ax2 = ax.twinx()
-    ax2.set_ylim(y1, y2)
+    #ax2.set_ylim(y1, y2)
 
     #ax2.set_yticks( range(0,len(player_minutes_played)),player_minutes_played )
-    ax2.set_yticks( range(0,len(player_minutes_played)),['']* len(player_minutes_played) )
-    ax2.tick_params(axis=u'both', which=u'both',length=0)
+    #ax2.tick_params(axis=u'both', which=u'both',length=0)
+    _colors = list(map(lambda x:'red' if x < 0 else 'green'  ,scoreMargins))
+    ax2.scatter(range(0,len(scoreMargins)),scoreMargins, color=_colors, s=10)
+    ax2.set_yticks( range(-50,50,10), list(range(-50,50,10)))
     ax.tick_params(axis=u'both', which=u'both',length=0)
     
     #ax2.set_ylabel('minutes played')
@@ -220,6 +231,7 @@ def plot3(game, title, play_by_play, debug_str):
     ax2.spines['bottom'].set_visible(False)
     ax2.spines['left'].set_visible(False)
 
+    ax.grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2)
     plt.tight_layout()
     plt.show()
     plt.close('all')

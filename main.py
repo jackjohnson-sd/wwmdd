@@ -1,10 +1,9 @@
 
 from datetime import datetime,timedelta
 
-from utils import totalTeamMinutes
 from data_management import loadNBA_data
 from play_by_play import generatePBP 
-from box_score import bs_setBoxScore, bs_dump, bs_clean, bs_sum_item
+from box_score import box_score
 from plots import plot3
 from games_by_team import create_games_by_team,filterGamesByDateRange
 
@@ -56,6 +55,7 @@ def main():
     dates = list(start_duration_by_date.keys())
 
     for date in dates:
+
         game = start_duration_by_date[date][0]
         players = list(game.keys())
 
@@ -66,9 +66,9 @@ def main():
         bench = list(set(players) - set(starters))
         players = starters + bench
 
-        bs_setBoxScore(start_duration_by_date[date][2])
+        boxscore = box_score(start_duration_by_date[date][2])
         
-        total_secs_playing_time = bs_sum_item('secs')
+        total_secs_playing_time = boxscore.sum_item('secs')
 
         g = gamesByTeam[HOME_TEAM]['2021'][date]
         if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:
@@ -84,7 +84,7 @@ def main():
             ps = list(start_duration_by_date[date][0].keys())
             #dump_play_by_play(['Kenrich Williams'], g.play_by_play[0])
     
-            plot3(start_duration_by_date[date], title, g.play_by_play, debug_title)    
+            plot3(start_duration_by_date[date], title, g.play_by_play, debug_title, boxscore)    
 
 
     """

@@ -1,4 +1,4 @@
-
+import sys
 from datetime import datetime,timedelta
 
 from data_management import loadNBA_data
@@ -38,6 +38,31 @@ def getTestData(_games):
 
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
+#
+# get arguments, if any
+# 
+
+def  getArgs():
+  opponent = "ANY"
+  plotNbr = 13
+
+  for i in range (len(sys.argv)):  # Check for arguments
+    if sys.argv[i] == '?':
+      print("Usage: python argparse3.py <opponent=opponentName> <plotnumber=plotnumber>")
+      sys.exit(1) 
+
+    if (sys.argv[i].find("opponent=")>-1):
+      opponent = sys.argv[i].split('=')
+      opponent = opponent[1] 
+      # test print("opponent = ",opponent)
+
+    if (sys.argv[i].find("plotnumber=")>-1):
+      plotNbrStr = sys.argv[i].split('=')
+      plotNbr = int(plotNbrStr[1]) 
+      # test print("plotnumber = ",plotNbr)
+    
+  return(opponent, plotNbr)
+
 
 def main():
 
@@ -45,6 +70,11 @@ def main():
     global gamesByTeam
 
     # gamesByTeam['OKC']['2022]['2023-01-03']  -- gets game via team,year,game_date
+    # Get arguments, if any
+    opponent, plotNbr = getArgs()        
+    #print("opponent - ", opponent)      # test code, comment to run  
+    #print("plotnumber - ", plotNbr)     # test code, comment to run 
+    #sys.exit(1)                         # test code, comment to run 
 
     dfs,gamesByTeam = loadNBA()
 

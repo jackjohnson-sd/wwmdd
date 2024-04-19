@@ -93,23 +93,64 @@ def eventToColor (player, eventRecord):
 
     return color
 
-def plot3(game, title, play_by_play, debug_str, boxscore):
+# def plot3(game, title, play_by_play, debug_str,flipper):
+
+# def plot3(game, title, play_by_play, debug_str,flipper):
+def plot3( start_duration_by_date, game_data, HOME_TEAM, play_by_play):
+
+    game = start_duration_by_date[0]
+    boxscore = box_score(start_duration_by_date[1])
+
+    players = list(game.keys())
+    starters = []
+    for player in players:
+        if game[player][0][0] == ['IN',1,'12:00']:
+            starters += [player]            
+    bench = list(set(players) - set(starters))
+    players = starters + bench
+
+    # boxscore = box_score(start_duration_by_date[date][2])
+
+    total_secs_playing_time = boxscore.sum_item('secs')
+    t = str(timedelta(seconds=total_secs_playing_time)).split(':')
+    debug_title = f'DEBUG {t[0]}:{t[1]}  {game_data.game_id}'
+
+    title = f'{game_data.matchup_away} {int(game_data.pts_away)}-{int(game_data.pts_home)} {game_data.game_date[0:10]}'
+    flipper = game_data.matchup_away.split(' ')[0] != HOME_TEAM
+    boxscore.plus_minus_flip(flipper)
+
+    # create scoremargin for every second of the game all 14400 = 60 * 12 * 4
+    # this is an issue when OT comes along  // TODO 
+    # score margin is 'TIE' otherwise +/- difference of score. TIE set to 0 for us
+    # like most other data elements its None if it is not changed
+    scoreMargins = [0]
+    lastscoretime = 0
+    lastscorevalue = 0
+    
+    z = play_by_play.scoremargin.dropna().index
+    for i,v in play_by_play.loc[z].iterrows():
+        scoremargin = v.scoremargin
+        if scoremargin == 'TIE': scoremargin = 0
+        scoremargin = int(scoremargin)
+        if not flipper: scoremargin = -scoremargin
+        now = period_clock_seconds(['',v.period, v.pctimestring])
+        scoreMargins.extend([lastscorevalue]*(now-lastscoretime-1))
+        scoreMargins.extend([scoremargin])
+        lastscoretime = now
+        lastscorevalue = scoremargin
 
     playTimesbyPlayer = {}
     events_by_player = {}
-
-    players = list(game[0].keys())
-
-    starters = []
-    for player in players:
-        if game[0][player][0][0] == ['IN',1,'12:00']:
-            starters += [player]
-
-    bench = list(set(players) - set(starters))
     
-    for player in starters + bench:
+    for player in players:
 
-        usage = game[0][player]
+        usage = game[player]
+
+        for i, stint in enumerate(usage):
+            start = scoreMargins[stint[3]]
+            stop = scoreMargins[stint[4]]
+            # print(player,stint[3],stint[4],start,stop,stop-start)
+            boxscore.add_plus_minus(player, start, stop)
 
         def timespantoSecs(a):
             start = period_clock_seconds(a[0])            
@@ -121,7 +162,7 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
 
         _events = []
 
-        plays_for_player = play_by_play[0].query(f'player1_name == "{player}" or player2_name == "{player}"or player3_name == "{player}"')
+        plays_for_player = play_by_play.query(f'player1_name == "{player}" or player2_name == "{player}"or player3_name == "{player}"')
 
         for i,v in plays_for_player.iterrows():
             period = v.period
@@ -135,41 +176,35 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
         
         events_by_player[player] = _events             
 
+    boxscore.add_player('TEAM')
+    for n in boxscore._bsItems:
+        v = boxscore.sum_item(n)
+        boxscore.update('TEAM',n,v)
     boxscore.clean()
-    player_minutes_played = boxscore.get_items('PTS',starters+bench)
-    
-    scoreMargins = [0]
-    lastscoreMarginSecs = 0
-    for i,v in play_by_play[0].iterrows():
-        scoremargin = v.scoremargin
-        if scoremargin != None:
-            if scoremargin == 'TIE': scoremargin = 0
-            scoremargin = int(scoremargin)
-            secs = period_clock_seconds(['',v.period, v.pctimestring])
-            scoreMargins.extend([scoreMargins[-1]]*(secs-lastscoreMarginSecs-1))
-            scoreMargins.extend([scoremargin])
-            lastscoreMarginSecs = secs
+    tmp = boxscore.get_item('TEAM','MIN') 
+    boxscore.set_item('TEAM','MIN',tmp[0:5])
 
     plt.style.use('dark_background')
-    figure, axs = plt.subplots(2,1, figsize=(9.0,6.0))
+    figure, axs = plt.subplots(2,1, figsize=(9.0,4.0))
 
-    rows, columns, bs_data = boxscore.get_bs_data(starters + bench)
-    tc = [['black'] * len(columns)] * len(rows)
+    bs_rows, bs_columns, bs_data = boxscore.get_bs_data(starters + bench + ['TEAM'])
+    tc = [['black'] * len(bs_columns)] * len(bs_rows)
 
     the_table = axs[1].table(
         cellText= bs_data, 
         cellColours=tc, 
         cellLoc='center', 
-        colWidths=[.10]*len(columns), 
-        rowLabels=rows, 
+        colWidths=[.10]*len(bs_columns), 
+        rowLabels=bs_rows, 
         #rowColours='k', 
         rowLoc='center', 
-        colLabels=columns, 
+        colLabels=bs_columns, 
         #colColours='k', 
-        colLoc='center', 
-        loc='center', 
-        edges=''
-        )
+        colLoc='center', loc='center', edges='' )
+    
+    the_table.auto_set_font_size(False)
+    the_table.set_fontsize(9)
+
     axs[1].yaxis.set_visible(False)
     axs[1].xaxis.set_visible(False)
 
@@ -180,7 +215,7 @@ def plot3(game, title, play_by_play, debug_str, boxscore):
 
     labels = list(playTimesbyPlayer.keys())
  
-    figure.canvas.manager.set_window_title(debug_str)
+    figure.canvas.manager.set_window_title(debug_title)
     ax = axs[0]
     
     ax.invert_yaxis()

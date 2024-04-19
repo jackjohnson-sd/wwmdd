@@ -48,44 +48,14 @@ def main():
 
     dfs,gamesByTeam = loadNBA()
 
-    test_data = getTestData(gamesByTeam)
+    test_data, _START_DAY, _STOP_DAY, _TEAM, _SEASON = getTestData(gamesByTeam)
     
-    start_duration_by_date = generatePBP(test_data)
+    start_duration_by_date = generatePBP(test_data, _TEAM)
 
-    dates = list(start_duration_by_date.keys())
-
-    for date in dates:
-
-        game = start_duration_by_date[date][0]
-        players = list(game.keys())
-
-        starters = []
-        for player in players:
-            if game[player][0][0] == ['IN',1,'12:00']:
-                starters += [player]            
-        bench = list(set(players) - set(starters))
-        players = starters + bench
-
-        boxscore = box_score(start_duration_by_date[date][2])
-        
-        total_secs_playing_time = boxscore.sum_item('secs')
-
-        g = gamesByTeam[HOME_TEAM]['2021'][date]
-        if g.matchup_home.split(' vs. ')[0] == HOME_TEAM:
-            score = f'{int(g.pts_home)}-{int(g.pts_away)}'
-        else:
-            score = f'{int(g.pts_away)}-{int(g.pts_home)}'
-
-        t = str(timedelta(seconds=total_secs_playing_time)).split(':')
-        title = f'{g.matchup_home} {score}  {date} '
-        debug_title = f'DEBUG {t[0]}:{t[1]}  {g.game_id}'
-
-        if total_secs_playing_time != SECONDS_PER_GAME*5 or True: 
-            ps = list(start_duration_by_date[date][0].keys())
-            #dump_play_by_play(['Kenrich Williams'], g.play_by_play[0])
-    
-            plot3(start_duration_by_date[date], title, g.play_by_play, debug_title, boxscore)    
-
+    for date in start_duration_by_date:     
+        game_data = gamesByTeam[_TEAM][_SEASON][date]
+        play_by_play = test_data[date].play_by_play[0]
+        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play)    
 
     """
     tests(test_data)
@@ -98,62 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
-play_by_play feilds
-
-[
-'game_id', 'eventnum', 
-
-'eventmsgtype', 
-'eventmsgactiontype', 
-
-'period', 'wctimestring', 'pctimestring', 
-
-'homedescription', 
-'neutraldescription', 
-'visitordescription', 
-
-'score', 
-'scoremargin', 
-
-'person1type', 'player1_id', 'player1_name', 'player1_team_id', 'player1_team_city', 'player1_team_nickname', 'player1_team_abbreviation', 
-'person2type', 'player2_id', 'player2_name', 'player2_team_id', 'player2_team_city', 'player2_team_nickname', 'player2_team_abbreviation', 
-'person3type', 'player3_id', 'player3_name', 'player3_team_id', 'player3_team_city', 'player3_team_nickname', 'player3_team_abbreviation', 
-
-'video_available_flag'
-]
-
-game feilds
-[
-    'season_id', 'team_id_home', 
-    'team_abbreviation_home', 'team_name_home',
-    'game_id', 'game_date', 'matchup_home', 'wl_home', 'min', 
-
-    'fgm_home','fga_home', 'fg_pct_home', 'fg3m_home', 'fg3a_home', 'fg3_pct_home',
-    'ftm_home', 'fta_home', 'ft_pct_home', 'oreb_home', 'dreb_home',
-    'reb_home', 'ast_home', 'stl_home', 'blk_home', 'tov_home', 'pf_home',
-    'pts_home', 'plus_minus_home', 
-       
-    'video_available_home', 
-    
-    'team_id_away', 'team_abbreviation_away', 'team_name_away', 'matchup_away', 'wl_away',
-       
-    'fgm_away', 'fga_away', 'fg_pct_away', 
-    'fg3m_away', 'fg3a_away','fg3_pct_away', 
-    'ftm_away', 'fta_away', 'ft_pct_away', 
-    'oreb_away', dreb_away', 'reb_away', 
-    'ast_away', 'stl_away', 'blk_away', 'tov_away', 'pf_away', 
-       
-    'pts_away', 'plus_minus_away', 
-       
-       'video_available_away',
-       'season_type', 
-       'play_by_play'
-
- keeps = ['Shai Gilgeous-Alexander','Jalen Williams', 'Josh Giddey', 
-     'Tre Mann','Jaylin Williams', 'Dario Saric', 'Ousmane Dieng'
-     'Isaiah Joe', 'Kenrich Williams',
-     'Mike Muscala','Luguentz Dort','Aaron Wiggins','Jeremiah Robinson-Earl' ]
-
-"""

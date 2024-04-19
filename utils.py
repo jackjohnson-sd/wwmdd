@@ -40,7 +40,9 @@ def secDiff(start,stop):
     #start/stop = ['',period,'clock']
     # flip clock time so its from the start of the period o.e starts at 00:00 vs 12:00
     # add offset for diferences in periods
-    return period_clock_seconds(stop) - period_clock_seconds(start)
+    stop_pcs = period_clock_seconds(stop)
+    start_pcs = period_clock_seconds(start)
+    return stop_pcs - start_pcs, start_pcs, stop_pcs
 
 def dump(df,keepers):
     for i in df.index:

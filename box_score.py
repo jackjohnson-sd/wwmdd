@@ -4,15 +4,15 @@ class box_score:
 
     _bsItemsA = ['MIN','FG','3PT','FT','REB','BLK','AST', 'STL','TO','PF','+/-','PTS']
     _bsItemsB =['3miss','3make','make','miss','FTmiss','FTmake','secs']
-    _bsItems = _bsItemsA + _bsItemsB
-    
+    _bsItems = _bsItemsA + _bsItemsB 
     _boxScore = None
+    _flip = False
 
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
     
-    def xx__init__(self):
-        self._boxScore = {}
+    def plus_minus_flip(self,flip):
+        self._flip = flip
 
     def getBoxScore(self):
         return self._boxScore
@@ -35,14 +35,20 @@ class box_score:
             tFGShots = tFGMisses + tFGMakes
 
             t3Shots = d['3miss'] + d['3make']
-            d['FG'] = f'{tFGShots}-{tFGMakes}'
-            d['3PT'] = f'{t3Shots}-{d["3make"]}'
-            d['FT']  = f'{d["FTmake"] + d["FTmiss"]}-{d["FTmake"]}'   
-            d['MIN'] =  str(timedelta(seconds=d['secs']))[2:] 
-
-            #for key in self._boxScore:
-            #    for item in self._bsItemsB:
-            #        del self._boxScore[key][item]
+            if key != 'TEAM':
+                d['FG'] = f'{tFGShots}-{tFGMakes}'
+                d['3PT'] = f'{t3Shots}-{d["3make"]}'
+                d['FT']  = f'{d["FTmake"] + d["FTmiss"]}-{d["FTmake"]}'   
+                d['MIN'] =  str(timedelta(seconds=d['secs']))[2:] 
+            else:
+                d['FG'] = str(int(float(tFGMakes)/float(tFGShots) * 100)) + '%'
+                d['3PT'] = str(int(float(d['3make'])/float(t3Shots) * 100)) + '%'
+                d['FT'] = str(int(float(d['FTmake'])/float(d["FTmake"] + d["FTmiss"]) * 100)) + '%'
+                d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:]
+                d['+/-'] =  int(d['+/-']/5)
+                
+                
+                # d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:]
 
     def dump(self,_players = []):
         print('                    ',end = '')
@@ -70,6 +76,12 @@ class box_score:
     def get_players(self):
         return list(self._boxScore.keys())
 
+    def get_item(self,_player, _item):
+        if _player != None:
+            if _player in self.get_players():
+                return self._boxScore[_player][_item]
+        return None
+    
     def get_items(self, item, players = []):
         ourPlayers = self._boxScore.keys() if players == [] else players 
         return list(map(lambda x:self._boxScore[x][item], ourPlayers))
@@ -78,6 +90,11 @@ class box_score:
         if _player != None:
             if _player in self.get_players():
                 self._boxScore[_player][_item] += val
+
+    def set_item(self, _player, _item, val):
+        if _player != None:
+            if _player in self.get_players():
+                self._boxScore[_player][_item] = val
 
     def sum_item(self, item):
         return sum(self.get_items(item))
@@ -147,6 +164,10 @@ class box_score:
         for key in rows:
             data2 = []
             for key2 in self._bsItemsA:
-                data2 +=  [self._boxScore[key][key2]]
+                if key2 == '+/-':
+                    fp = 1 if self._flip else  -1
+                    data2 += [fp*self._boxScore[key][key2]]
+                else:
+                    data2 +=  [self._boxScore[key][key2]]
             data += [data2]
         return rows, columns, data

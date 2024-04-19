@@ -41,6 +41,8 @@ def getTestData(_games):
 #
 # get arguments, if any
 # 
+# this is test for vs code/git collaboration test
+# check below for gittest
 
 def  getArgs():
   opponent = "ANY"
@@ -63,6 +65,9 @@ def  getArgs():
     
   return(opponent, plotNbr)
 
+# gitest
+# main starts below
+#
 
 def main():
 
@@ -71,6 +76,9 @@ def main():
 
     # gamesByTeam['OKC']['2022]['2023-01-03']  -- gets game via team,year,game_date
     # Get arguments, if any
+    # more gittest
+    print("START WWMDD")
+
     opponent, plotNbr = getArgs()        
     #print("opponent - ", opponent)      # test code, comment to run  
     #print("plotnumber - ", plotNbr)     # test code, comment to run 
@@ -85,7 +93,9 @@ def main():
     for date in start_duration_by_date:     
         game_data = gamesByTeam[_TEAM][_SEASON][date]
         play_by_play = test_data[date].play_by_play[0]
-        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play)    
+        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play) 
+        if (input("Press x to exit, any other key to continue. ") == 'x'):
+           break  
 
     """
     tests(test_data)
@@ -98,3 +108,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+print("END WWMDD")
+#
+# end gittest

@@ -1,0 +1,11 @@
+Gemini
+1. List the last 10 prompts in this chat  (This is the current prompt)
+2. What are the last 20 plays of this game 
+3. continue the play by plays until the end of game  
+4. continue the play by play in great detail until the end of game
+5. give me the play by play in csv format where the columns are periods, game time, event, event type, players involved
+6. give me the play by play in csv format where the columns are game period, game time, event, event type, players involved  
+7. game period is the period of the game in which the play by play events occurs 
+8. players involved are the players mentioned in the play by play event or event type  
+9. give me the play by play in csv format where the columns are game period, game time, players involved, event, event type
+10. continue  (Referring to continuing the play-by-play in CSV format)

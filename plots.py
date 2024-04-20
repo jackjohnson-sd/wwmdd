@@ -7,6 +7,8 @@ from datetime import datetime,timedelta
 from utils import period_clock_seconds
 from box_score import box_score
 
+LABLE_SIZE = 9
+
 def eventToSize (player, eventRecord):
 
     SMALL_P = 15.0
@@ -93,30 +95,85 @@ def eventToColor (player, eventRecord):
 
     return color
 
-# def plot3(game, title, play_by_play, debug_str,flipper):
+def plot3_PBPnChart(axd, boxscore, players, R, playTimesbyPlayer, L, events_by_player):  
 
-# def plot3(game, title, play_by_play, debug_str,flipper):
-def plot3( start_duration_by_date, game_data, HOME_TEAM, play_by_play):
+    bs_rows, bs_columns, bs_data = boxscore.get_bs_data( players + ['TEAM'])
+    tc = [['black'] * len(bs_columns)] * len(bs_rows)
 
-    game = start_duration_by_date[0]
-    boxscore = box_score(start_duration_by_date[1])
+    the_table = axd[R].table(
+        cellText= bs_data, 
+        cellColours=tc, 
+        cellLoc='center', 
+        colWidths=[.09]*len(bs_columns), 
+        rowLabels= [''] * len(bs_rows), #bs_rows, 
+        #rowColours='k', 
+        rowLoc='center', 
+        colLabels=bs_columns, 
+        #colColours='k', 
+        colLoc='center', loc='center', edges='' )
+
+    the_table.scale(1.0, 0.75)
+    the_table.auto_set_font_size(False)
+    the_table.set_fontsize(LABLE_SIZE)
+
+    labels = list(playTimesbyPlayer.keys())
+    
+    for i,label in enumerate(labels):
+
+        data = playTimesbyPlayer[label]
+        starts = list(map(lambda x:x[0],data))
+        widths = list(map(lambda x:x[1],data))
+        rects = axd[L].barh(label, widths, left=starts, color='plum', height=.15, zorder=3)
+    
+        axd[L].scatter(
+            events_by_player[label][0::3],
+            [i] * len(events_by_player[label][0::3]), 
+            color = events_by_player[label][1::3], 
+            s = events_by_player[label][2::3], 
+            marker = ',',
+            zorder = 3 )
+
+    axd[L].invert_yaxis()
+    axd[L].yaxis.set_visible(True)
+    axd[L].set_xlim(-50, (48 * 60) + 50)
+    axd[L].set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
+    
+    axd[L].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
+    axd[L].set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
+    axd[L].set_yticks( range(0,len(labels)), labels)
+    axd[L].tick_params(axis='y',which='major', labelsize=LABLE_SIZE, pad=0, direction='in')
+    axd[L].tick_params(axis='x',which='minor', labelsize=LABLE_SIZE, pad=0, direction='in')
+    axd[L].grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2, zorder=0)
+    axd[L].tick_params(axis=u'both', which=u'both',length=0)
+    # axd[L].yaxis.tick_right()
+
+def plot3_prep(our_durations_by_date, game_data, play_by_play, HOME ,isOpponent):
+
+    game = our_durations_by_date[0]
+    boxscore = box_score(our_durations_by_date[1])
 
     players = list(game.keys())
     starters = []
     for player in players:
-        if game[player][0][0] == ['IN',1,'12:00']:
-            starters += [player]            
+        if len(game[player]) > 0:
+            if game[player][0][0] == ['IN',1,'12:00']:
+                starters += [player]            
     bench = list(set(players) - set(starters))
     players = starters + bench
 
-    # boxscore = box_score(start_duration_by_date[date][2])
-
     total_secs_playing_time = boxscore.sum_item('secs')
     t = str(timedelta(seconds=total_secs_playing_time)).split(':')
-    debug_title = f'DEBUG {t[0]}:{t[1]}  {game_data.game_id}'
 
-    title = f'{game_data.matchup_away} {int(game_data.pts_away)}-{int(game_data.pts_home)} {game_data.game_date[0:10]}'
-    flipper = game_data.matchup_away.split(' ')[0] != HOME_TEAM
+    debug_title = f'DEBUG {t[0]}:{t[1]}  {game_data.game_id}'
+    title =f'{game_data.matchup_away} {int(game_data.pts_away)}-{int(game_data.pts_home)} {game_data.game_date[0:10]}'
+
+    title = title + ' ' + debug_title
+
+    if isOpponent:
+        flipper = game_data.matchup_away.split(' ')[0] != HOME
+    else:
+        flipper = game_data.matchup_away.split(' ')[0] == HOME
+
     boxscore.plus_minus_flip(flipper)
 
     # create scoremargin for every second of the game all 14400 = 60 * 12 * 4
@@ -149,7 +206,6 @@ def plot3( start_duration_by_date, game_data, HOME_TEAM, play_by_play):
         for i, stint in enumerate(usage):
             start = scoreMargins[stint[3]]
             stop = scoreMargins[stint[4]]
-            # print(player,stint[3],stint[4],start,stop,stop-start)
             boxscore.add_plus_minus(player, start, stop)
 
         def timespantoSecs(a):
@@ -184,91 +240,70 @@ def plot3( start_duration_by_date, game_data, HOME_TEAM, play_by_play):
     tmp = boxscore.get_item('TEAM','MIN') 
     boxscore.set_item('TEAM','MIN',tmp[0:5])
 
+    return boxscore, playTimesbyPlayer, events_by_player, scoreMargins, title, players 
+
+def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_durations):
+
+    boxscore1, playTimesbyPlayer1, events_by_player1, scoreMargins1, title1, players1 = \
+    plot3_prep(our_durations_by_date, game_data, play_by_play, HOME_TEAM ,False)
+
+    boxscore2, playTimesbyPlayer2, events_by_player2, scoreMargins2, title2, players2 = \
+    plot3_prep(opponent_durations, game_data, play_by_play, HOME_TEAM ,True)
+
     plt.style.use('dark_background')
-    figure, axs = plt.subplots(2,1, figsize=(9.0,4.0))
 
-    bs_rows, bs_columns, bs_data = boxscore.get_bs_data(starters + bench + ['TEAM'])
-    tc = [['black'] * len(bs_columns)] * len(bs_rows)
-
-    the_table = axs[1].table(
-        cellText= bs_data, 
-        cellColours=tc, 
-        cellLoc='center', 
-        colWidths=[.10]*len(bs_columns), 
-        rowLabels=bs_rows, 
-        #rowColours='k', 
-        rowLoc='center', 
-        colLabels=bs_columns, 
-        #colColours='k', 
-        colLoc='center', loc='center', edges='' )
+    E1 = '1'
+    TL = '2'
+    TR = '3'
+    MD = '4'
+    E2 = '5'
+    BL = '6'
+    BR = '7'
     
-    the_table.auto_set_font_size(False)
-    the_table.set_fontsize(9)
-
-    axs[1].yaxis.set_visible(False)
-    axs[1].xaxis.set_visible(False)
-
-    axs[1].spines['top'].set_visible(False)
-    axs[1].spines['right'].set_visible(False)
-    axs[1].spines['bottom'].set_visible(False)
-    axs[1].spines['left'].set_visible(False)
-
-    labels = list(playTimesbyPlayer.keys())
+    layout = [
+        [E1, TL,TL,TL,TL, TL,TR,TR,TR,TR],
+        [E1, MD,MD,MD,MD, MD,MD,MD,MD,MD],
+        [E1, BL,BL,BL,BL, BL,BR,BR,BR,BR],
+        ]
+    
+    figure, axd = plt.subplot_mosaic(layout, figsize=(10.0,6.0), )
+    
+    plot3_PBPnChart(axd, boxscore1, players1, TR, playTimesbyPlayer1, TL, events_by_player1)
+    plot3_PBPnChart(axd, boxscore2, players2, BR, playTimesbyPlayer2, BL, events_by_player2)
  
-    figure.canvas.manager.set_window_title(debug_title)
-    ax = axs[0]
+    figure.canvas.manager.set_window_title(title1)
+
+    _colors = list(map(lambda x:'red' if x < 0 else 'green'  ,scoreMargins1))
+    axd[MD].scatter(range(0,len(scoreMargins1)),scoreMargins1, color=_colors, s=6)
+
+    mx = abs(max(scoreMargins1))
+    mi = abs(min(scoreMargins1))
+    m = (max(mx,mi))
+    m = 5 - (m % 5) + m 
+    axd[MD].set_yticks( range(-m,m+5,10), list(range(-m,m+5,10)))
+    axd[MD].margins(x=0)
+    axd[MD].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
+    axd[MD].set_xticklabels(['Q1','Q2','Q3','Q4'], minor=True)
+    axd[MD].set_xticks([12*60,24*60,36*60,48*60],['','','',''])
+    axd[MD].tick_params(axis=u'both', which=u'both', length=0, labelsize=LABLE_SIZE, pad=3)
+    axd[MD].grid(True, axis = 'both', color='darkgrey', linestyle='-', linewidth=1, zorder=0)
+    axd[MD].set_ylabel("plus/minus")
     
-    ax.invert_yaxis()
-    ax.yaxis.set_visible(True)
-    ax.set_xlim(-100, (48 * 60) + 100)
-    ax.set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
+    for r in [E1,TL,TR,BL,BR,MD]:
+        for s in ['top','right','bottom','left']:
+            axd[r].spines[s].set_visible(False)
+
+    for r in [E1,TL,TR,BL,BR,MD]:
+        axd[r].title.set_visible(False)
     
-    ax.set_title(title, fontsize=10)
-    #ax.set_xlabel('periods')
-    ax.set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
-    ax.set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
-
-    for i,label in enumerate(labels):
-
-        data = playTimesbyPlayer[label]
-        starts = list(map(lambda x:x[0],data))
-        widths = list(map(lambda x:x[1],data))
-        rects = ax.barh(label, widths, left=starts, color='plum', height=0.6, zorder=3)
-
-        eventTimes = events_by_player[label][0::3]
-        _colors = events_by_player[label][1::3] 
-        __sizes = events_by_player[label][2::3]
-
-        ax.scatter(eventTimes,[i] * len(eventTimes), color=_colors, s=__sizes , marker= ',',zorder=3 )
-
-    y1, y2 = ax.get_ylim()
-    x1, x2 = ax.get_xlim()
-    ax2 = ax.twinx()
-    #ax2.set_ylim(y1, y2)
-
-    #ax2.set_yticks( range(0,len(player_minutes_played)),player_minutes_played )
-    #ax2.tick_params(axis=u'both', which=u'both',length=0)
-    _colors = list(map(lambda x:'red' if x < 0 else 'green'  ,scoreMargins))
-    ax2.scatter(range(0,len(scoreMargins)),scoreMargins, color=_colors, s=6)
-    ax2.set_yticks( range(-50,50,10), list(range(-50,50,10)))
-    ax.tick_params(axis=u'both', which=u'both',length=0)
+    for r in [E1,TR,BR]:
+        axd[r].yaxis.set_visible(False)    
+        axd[r].xaxis.set_visible(False)    
     
-    #ax2.set_ylabel('minutes played')
-    ax2.set_xlim(x1, x2)
-    
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    ax.spines['bottom'].set_visible(False)
-    ax.spines['left'].set_visible(False)
-
-    ax2.spines['top'].set_visible(False)
-    ax2.spines['right'].set_visible(False)
-    ax2.spines['bottom'].set_visible(False)
-    ax2.spines['left'].set_visible(False)
-
-    ax.grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2, zorder=0)
     plt.tight_layout()
+    plt.subplots_adjust(wspace=.105,hspace=.105,right=0.98, left=0.02,top=0.98, bottom=0.02)
     plt.show()
+
     plt.close('all')
 
 def plot2(data):

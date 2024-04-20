@@ -39,16 +39,13 @@ class box_score:
                 d['FG'] = f'{tFGShots}-{tFGMakes}'
                 d['3PT'] = f'{t3Shots}-{d["3make"]}'
                 d['FT']  = f'{d["FTmake"] + d["FTmiss"]}-{d["FTmake"]}'   
-                d['MIN'] =  str(timedelta(seconds=d['secs']))[2:] 
+                d['MIN'] =  str(timedelta(seconds=d['secs']))[2:4] 
             else:
                 d['FG'] = str(int(float(tFGMakes)/float(tFGShots) * 100)) + '%'
                 d['3PT'] = str(int(float(d['3make'])/float(t3Shots) * 100)) + '%'
                 d['FT'] = str(int(float(d['FTmake'])/float(d["FTmake"] + d["FTmiss"]) * 100)) + '%'
-                d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:]
+                d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:4]
                 d['+/-'] =  int(d['+/-']/5)
-                
-                
-                # d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:]
 
     def dump(self,_players = []):
         print('                    ',end = '')

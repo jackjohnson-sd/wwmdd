@@ -81,11 +81,12 @@ def main():
     test_data, _START_DAY, _STOP_DAY, _TEAM, _SEASON = getTestData(gamesByTeam)
     
     start_duration_by_date = generatePBP(test_data, _TEAM)
+    opponent_start_duration_by_date = generatePBP(test_data, _TEAM, OPPONENT=True)
 
     for date in start_duration_by_date:     
         game_data = gamesByTeam[_TEAM][_SEASON][date]
         play_by_play = test_data[date].play_by_play[0]
-        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play)    
+        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play, opponent_start_duration_by_date[date])    
 
     """
     tests(test_data)

@@ -1,7 +1,7 @@
 from utils import secDiff
 from box_score import  box_score
 
-def getTimeSpansByPlayer(playbyplay, players, boxscore):
+def getTimeSpansByPlayer(playbyplay, players):
 
     # collect timespans played by this player
     # also calculate +/- for each player stint
@@ -70,14 +70,15 @@ def getTimeSpansByPlayer(playbyplay, players, boxscore):
 
                 case _ : print('-*-*-*-*-*-*-*-*')
 
-        lastEvent = ourPlayerEvents.iloc[-1]
-        le_period = int(lastEvent.period)
-        if lastEvent.eventmsgtype != 8:
-            # not SUB message at end, end span at end of last period used
-            _timeSpans[player].append(['OUT',le_period,'0:00']) 
-        elif lastEvent.player2_name == player:
-            # last message is IN end span at end of period used
-            _timeSpans[player].append(['OUT',le_period,'0:00'])
+        if len(ourPlayerEvents) > 0:
+            lastEvent = ourPlayerEvents.iloc[-1]
+            le_period = int(lastEvent.period)
+            if lastEvent.eventmsgtype != 8:
+                # not SUB message at end, end span at end of last period used
+                _timeSpans[player].append(['OUT',le_period,'0:00']) 
+            elif lastEvent.player2_name == player:
+                # last message is IN end span at end of period used
+                _timeSpans[player].append(['OUT',le_period,'0:00'])
 
     return _timeSpans
 
@@ -98,7 +99,7 @@ def checkScoreErrors(pbpEvents):
                 print('ERROR B',x,y) 
     return score_errors
     
-def generatePBP(games_data,team_abbreviation):
+def generatePBP(games_data,team_abbreviation, OPPONENT=False):
    
     test_days = list(games_data.keys())
 
@@ -114,14 +115,19 @@ def generatePBP(games_data,team_abbreviation):
 
             #score_errors = checkScoreErrors(pbp_forDate)
 
-            p1s = pbp_forDate.query(f'player1_team_abbreviation == "{team_abbreviation}"')['player1_name'] 
-            p2s = pbp_forDate.query(f'player2_team_abbreviation == "{team_abbreviation}"')['player2_name']
-            playersInGame = list(set(p1s) | set(p2s))
+            if OPPONENT:
+                p1s = pbp_forDate.query(f'player1_team_abbreviation != "{team_abbreviation}"')['player1_name'] 
+                p2s = pbp_forDate.query(f'player2_team_abbreviation != "{team_abbreviation}"')['player2_name']
+            else:
+                p1s = pbp_forDate.query(f'player1_team_abbreviation == "{team_abbreviation}"')['player1_name'] 
+                p2s = pbp_forDate.query(f'player2_team_abbreviation == "{team_abbreviation}"')['player2_name']
+            
+            playersInGame = list(set(p1s.dropna()) | set(p2s.dropna()))
 
             boxSc = box_score({})
             boxSc.stuff_bs(games_data[date].play_by_play[0], playersInGame)
 
-            timeSpans = getTimeSpansByPlayer(pbp_forDate, playersInGame, boxSc)  # collect timespans played by this player
+            timeSpans = getTimeSpansByPlayer(pbp_forDate, playersInGame)  # collect timespans played by this player
 
             for player in timeSpans.keys():
 

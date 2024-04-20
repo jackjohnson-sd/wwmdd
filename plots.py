@@ -8,6 +8,8 @@ from utils import period_clock_seconds
 from box_score import box_score
 
 LABLE_SIZE = 9
+COLWIDTH = .085
+SCALE = .75
 
 def eventToSize (player, eventRecord):
 
@@ -95,26 +97,36 @@ def eventToColor (player, eventRecord):
 
     return color
 
+def shorter(what, max_length):
+    if len(what) < max_length : return what
+    half = int(len(what)/2)
+    return what[0:half-2] + '...' + what[-(half-2):]
+
 def plot3_PBPnChart(axd, boxscore, players, R, playTimesbyPlayer, L, events_by_player):  
 
     bs_rows, bs_columns, bs_data = boxscore.get_bs_data( players + ['TEAM'])
     tc = [['black'] * len(bs_columns)] * len(bs_rows)
 
+    trows = list(map(lambda x:shorter(x,14), bs_rows))
+
     the_table = axd[R].table(
         cellText= bs_data, 
         cellColours=tc, 
         cellLoc='center', 
-        colWidths=[.09]*len(bs_columns), 
-        rowLabels= [''] * len(bs_rows), #bs_rows, 
+        colWidths=[COLWIDTH]*len(bs_columns), 
+        rowLabels= trows, 
         #rowColours='k', 
-        rowLoc='center', 
+        rowLoc='right', 
         colLabels=bs_columns, 
         #colColours='k', 
         colLoc='center', loc='center', edges='' )
 
-    the_table.scale(1.0, 0.75)
+    SCALE = 9/len(bs_rows)
+    the_table.scale(1.0, SCALE)
     the_table.auto_set_font_size(False)
     the_table.set_fontsize(LABLE_SIZE)
+
+    print('rows', len(bs_rows),'lable size', LABLE_SIZE, 'SCALE', SCALE, 'COLWIDTH', COLWIDTH)
 
     labels = list(playTimesbyPlayer.keys())
     
@@ -134,13 +146,14 @@ def plot3_PBPnChart(axd, boxscore, players, R, playTimesbyPlayer, L, events_by_p
             zorder = 3 )
 
     axd[L].invert_yaxis()
-    axd[L].yaxis.set_visible(True)
+    axd[L].yaxis.set_visible(False)
     axd[L].set_xlim(-50, (48 * 60) + 50)
     axd[L].set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
     
     axd[L].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
     axd[L].set_xticklabels(['Q1','Q2','Q3','Q4'],minor=True)
-    axd[L].set_yticks( range(0,len(labels)), labels)
+    # axd[L].set_yticks( range(0,len(labels)), labels)
+
     axd[L].tick_params(axis='y',which='major', labelsize=LABLE_SIZE, pad=0, direction='in')
     axd[L].tick_params(axis='x',which='minor', labelsize=LABLE_SIZE, pad=0, direction='in')
     axd[L].grid(True, axis = 'x', color='darkgrey', linestyle='-', linewidth=2, zorder=0)
@@ -252,18 +265,19 @@ def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_d
 
     plt.style.use('dark_background')
 
-    E1 = '1'
+    E1 = None
     TL = '2'
     TR = '3'
     MD = '4'
     E2 = '5'
     BL = '6'
     BR = '7'
+    E3 = None
     
     layout = [
-        [E1, TL,TL,TL,TL, TL,TR,TR,TR,TR],
-        [E1, MD,MD,MD,MD, MD,MD,MD,MD,MD],
-        [E1, BL,BL,BL,BL, BL,BR,BR,BR,BR],
+        [TL, TL,TL,TL,TL, TL, TR,TR,TR,TR],
+        [MD, MD,MD,MD,MD, MD, E2,E2,E2,E2],
+        [BL, BL,BL,BL,BL, BL, BR,BR,BR,BR],
         ]
     
     figure, axd = plt.subplot_mosaic(layout, figsize=(10.0,6.0), )
@@ -275,33 +289,46 @@ def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_d
 
     _colors = list(map(lambda x:'red' if x < 0 else 'green'  ,scoreMargins1))
     axd[MD].scatter(range(0,len(scoreMargins1)),scoreMargins1, color=_colors, s=6)
+    axd[MD].set_xlim(-50, (48 * 60) + 50)
 
     mx = abs(max(scoreMargins1))
     mi = abs(min(scoreMargins1))
     m = (max(mx,mi))
     m = 5 - (m % 5) + m 
     axd[MD].set_yticks( range(-m,m+5,10), list(range(-m,m+5,10)))
-    axd[MD].margins(x=0)
-    axd[MD].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
-    axd[MD].set_xticklabels(['Q1','Q2','Q3','Q4'], minor=True)
-    axd[MD].set_xticks([12*60,24*60,36*60,48*60],['','','',''])
-    axd[MD].tick_params(axis=u'both', which=u'both', length=0, labelsize=LABLE_SIZE, pad=3)
+    # axd[MD].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
+    # axd[MD].set_xticklabels(['Q1','Q2','Q3','Q4'], minor=True)
+    axd[MD].set_xticks([0,12*60,24*60,36*60,48*60],['','','','',''])
+    axd[MD].tick_params(axis=u'both', which=u'both', length=0, labelsize=0, pad=0)
     axd[MD].grid(True, axis = 'both', color='darkgrey', linestyle='-', linewidth=1, zorder=0)
-    axd[MD].set_ylabel("plus/minus")
-    
-    for r in [E1,TL,TR,BL,BR,MD]:
-        for s in ['top','right','bottom','left']:
-            axd[r].spines[s].set_visible(False)
+    # axd[MD].yaxis.set_visible(False)
 
-    for r in [E1,TL,TR,BL,BR,MD]:
-        axd[r].title.set_visible(False)
+    axr = axd[MD].twinx()
+    for s in ['top','right','bottom','left']:
+        axr.spines[s].set_visible(False)
+
+    axr.yaxis.set_visible(True)
+    axr.tick_params(axis=u'both', which=u'both', length=0, labelsize=LABLE_SIZE, pad=3)
+    axr.set_yticks( range(-m,m+5,10), list(range(-m,m+5,10)))
+    axr.set_ylabel("plus/minus")
+
+    for r in [E1,E2,E3,TL,TR,BL,BR,MD]:
+        if r != None:
+            for s in ['top','right','bottom','left']:
+                axd[r].spines[s].set_visible(False)
+
+    for r in [E1,E2,E3,TL,TR,BL,BR,MD]:
+        if r != None:
+            axd[r].title.set_visible(False)
     
-    for r in [E1,TR,BR]:
-        axd[r].yaxis.set_visible(False)    
-        axd[r].xaxis.set_visible(False)    
+    for r in [E1,E2,E3,TR,BR]:
+        if r != None:
+            axd[r].yaxis.set_visible(False)    
+            axd[r].xaxis.set_visible(False)    
+        
     
     plt.tight_layout()
-    plt.subplots_adjust(wspace=.105,hspace=.105,right=0.98, left=0.02,top=0.98, bottom=0.02)
+    plt.subplots_adjust(wspace=15.3,hspace=.105,right=0.98, left=0.02,top=0.96, bottom=0.02)
     plt.show()
 
     plt.close('all')

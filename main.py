@@ -31,10 +31,10 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY = '2022-01-31'
-    _STOP_DAY = '2022-04-31'
+    _START_DAY = '2023-01-01'
+    _STOP_DAY = '2023-01-31'
     _TEAM = HOME_TEAM
-    _SEASON = '2021'
+    _SEASON = '2022'
 
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
@@ -86,7 +86,12 @@ def main():
     for date in start_duration_by_date:     
         game_data = gamesByTeam[_TEAM][_SEASON][date]
         play_by_play = test_data[date].play_by_play[0]
-        plot3(start_duration_by_date[date], game_data, _TEAM, play_by_play, opponent_start_duration_by_date[date])    
+        plot3(
+           start_duration_by_date[date], 
+           game_data, 
+           _TEAM, 
+           play_by_play, 
+           opponent_start_duration_by_date[date])    
 
     """
     tests(test_data)

@@ -1,4 +1,4 @@
-# jack comment Bruce added his.
+# jack comment Bruce added his. Bruces second comment.
 import sys
 from datetime import datetime,timedelta
 

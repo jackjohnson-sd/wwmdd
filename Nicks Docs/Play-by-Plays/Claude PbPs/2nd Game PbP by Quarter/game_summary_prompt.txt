@@ -1,0 +1,7 @@
+COMMENT:
+Each team should have a total player time of 240 minutes (5 active players X 4 quarters X 12 min)
+The Warriors have a total of 194 playing minutes. The Lakers have a total of 178 playing minutes. 
+Either in the PbP itself or in calculating minutes, there is an error present. 
+
+PROMPT:
+Provide scoring summaries and playing times from all 4 quarters for each player

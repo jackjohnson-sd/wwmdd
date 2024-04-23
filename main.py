@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# jack comment Bruce added his. Bruces second comment.
-=======
-# jack comment Bruce added his. jacks seconds commend
->>>>>>> 195ae3e436ede997ab2642d963901fd30f09d579
+# jack comment Bruce added his. jacks seconds commend. Bruces second change.
 import sys
 from datetime import datetime,timedelta
 

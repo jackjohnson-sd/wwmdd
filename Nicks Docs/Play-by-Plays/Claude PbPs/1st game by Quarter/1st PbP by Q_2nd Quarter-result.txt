@@ -1,0 +1,55 @@
+RESULT:
+
+2nd Quarter:
+12:00 - Bobby Portis makes a mid-range jumper. (Bucks 43-40)
+11:45 - Derrick White makes a floater in the lane. (Bucks 43-42)
+11:30 - Pat Connaughton misses a 3-point attempt.
+11:15 - Jayson Tatum makes a driving layup. (Celtics 44-43)
+11:00 - Giannis Antetokounmpo makes a dunk. (Bucks 45-44)
+10:45 - Grant Williams makes a corner 3-point shot. (Celtics 47-45)
+10:30 - Jrue Holiday makes a pullup jumper. (Tied 47-47)
+10:15 - Jaylen Brown misses a 3-point attempt.
+10:00 - Khris Middleton makes a mid-range jumper. (Bucks 49-47)
+9:45 - Marcus Smart enters the game for Derrick White.
+9:45 - Al Horford enters the game for Grant Williams.
+9:30 - Jayson Tatum makes a step-back 3-point shot. (Celtics 50-49)
+9:15 - Giannis Antetokounmpo makes a layup. (Bucks 51-50)
+9:00 - Al Horford makes a hook shot. (Celtics 52-51)
+8:45 - Jrue Holiday makes a 3-point shot. (Bucks 54-52)
+8:30 - Jaylen Brown makes a mid-range jumper. (Tied 54-54)
+8:15 - Brook Lopez enters the game for Bobby Portis.
+8:00 - Giannis Antetokounmpo makes a fadeaway jumper. (Bucks 56-54)
+7:45 - Marcus Smart makes a 3-point shot. (Celtics 57-56)
+7:30 - Khris Middleton makes a driving layup. (Bucks 58-57)
+7:15 - Jayson Tatum misses a jump shot.
+7:00 - Giannis Antetokounmpo makes a dunk. (Bucks 60-57)
+6:45 - Celtics call a timeout.
+6:30 - Al Horford makes a mid-range jumper. (Bucks 60-59)
+6:15 - Jrue Holiday makes a driving layup. (Bucks 62-59)
+6:00 - Jaylen Brown makes a 3-point shot. (Tied 62-62)
+5:45 - Brook Lopez makes a hook shot. (Bucks 64-62)
+5:30 - Marcus Smart makes a floater in the lane. (Tied 64-64)
+5:15 - Giannis Antetokounmpo makes a layup and is fouled by Al Horford. 
+Antetokounmpo makes the free throw. (Bucks 67-64)
+5:00 - Jayson Tatum makes a step-back jumper. (Bucks 67-66)
+4:45 - Khris Middleton makes a 3-point shot. (Bucks 70-66)
+4:30 - Jaylen Brown makes a driving layup. (Bucks 70-68)
+4:15 - Giannis Antetokounmpo makes a fadeaway jumper. (Bucks 72-68)
+4:00 - Marcus Smart misses a 3-point attempt.
+3:45 - Jrue Holiday makes a mid-range jumper. (Bucks 74-68)
+3:30 - Jayson Tatum makes a 3-point shot. (Bucks 74-71)
+3:15 - Brook Lopez makes a hook shot. (Bucks 76-71)
+3:00 - Al Horford makes a layup. (Bucks 76-73)
+2:45 - Giannis Antetokounmpo makes a dunk. (Bucks 78-73)
+2:30 - Jaylen Brown makes a fadeaway jumper. (Bucks 78-75)
+2:15 - Khris Middleton makes a 3-point shot. (Bucks 81-75)
+2:00 - Celtics call a timeout.
+1:45 - Jayson Tatum makes a driving layup. (Bucks 81-77)
+1:30 - Jrue Holiday makes a floater in the lane. (Bucks 83-77)
+1:15 - Marcus Smart makes a 3-point shot. (Bucks 83-80)
+1:00 - Giannis Antetokounmpo makes a fadeaway jumper. (Bucks 85-80)
+0:45 - Jaylen Brown makes a mid-range jumper. (Bucks 85-82)
+0:30 - Brook Lopez makes a hook shot. (Bucks 87-82)
+0:15 - Jayson Tatum misses a 3-point attempt.
+0:00 - End of the 2nd Quarter. Score: Bucks 87, Celtics 82.
+

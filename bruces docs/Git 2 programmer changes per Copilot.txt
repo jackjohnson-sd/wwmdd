@@ -1,0 +1,92 @@
+Prompt:
+This is a Git question.  Assume 2 programers, p1, p2, have pulled filex.py from repository.  Eash have made changes, ch1, ch2.  If ch1 changes have been committed, how should p2 commit change ch2 so that  the result contains both sets of changes?
+
+Response:
+Certainly! When two programmers, p1 and p2, have pulled the same file (`filex.py`) from a repository and made separate changes (`ch1` and `ch2`), here's how p2 can commit their changes to include both sets of modifications:
+
+1. **Stash P2's Changes:**
+   - Before proceeding, p2 should stash their local changes (`ch2`). This ensures that p2's working directory is clean and ready for the next steps.
+   - Run the following command in the terminal:
+     ```bash
+     git stash save "My changes (ch2)"
+     ```
+
+2. **Update the Local Repository:**
+   - To ensure p2 has the latest changes from the remote repository, they should pull the latest commits:
+     ```bash
+     git pull origin main
+     ```
+
+3. **Apply Stashed Changes:**
+   - Now that p2's working directory is up-to-date, they can apply their stashed changes:
+     ```bash
+     git stash apply
+     ```
+
+4. **Resolve Conflicts (if any):**
+   - If there are conflicts between p1's changes (`ch1`) and p2's changes (`ch2`), Git will indicate where the conflicts occur.
+   - P2 should manually resolve these conflicts by editing the affected files.
+   - After resolving conflicts, mark them as resolved using:
+     ```bash
+     git add <conflicted_file(s)>
+     ```
+
+5. **Commit the Combined Changes:**
+   - Finally, p2 can commit the combined changes:
+     ```bash
+     git commit -m "Combined changes from p1 (ch1) and my changes (ch2)"
+     ```
+
+6. **Push to Remote Repository:**
+   - Push the changes to the remote repository:
+     ```bash
+     git push origin main
+     ```
+
+Now, the remote repository will contain both sets of changes from p1 and p2. Remember to communicate with other team members to ensure everyone is aware of the combined changes. 
+
+Prompt 2: 
+Assume 2 programers, p1, p2, have pulled filex.py from repository.  Eash have made changes, ch1, ch2.  If ch1 changes have been committed, how should p2 commit change ch2 so that  the result contains both sets of changes?  Assume p1 and p2 are using VS Code.
+
+Response 2: 
+Certainly! When two programmers, **p1** and **p2**, have pulled the same file (`filex.py`) from a repository and made separate changes (`ch1` and `ch2`), here's how **p2** can commit their changes to include both sets of modifications using **Visual Studio Code (VS Code)**:
+
+1. **Stash P2's Changes**:
+   - Before proceeding, **p2** should stash their local changes (`ch2`). This ensures that **p2's** working directory is clean and ready for the next steps.
+   - In VS Code, open the Source Control view (click the Git icon in the sidebar).
+   - Click the "..." icon and select "Stash Changes."
+   - Give the stash a descriptive name like "My changes (ch2)."
+
+2. **Update the Local Repository**:
+   - To ensure **p2** has the latest changes from the remote repository, they should pull the latest commits:
+     - Click the "..." icon in the Source Control view and select "Pull."
+
+3. **Apply Stashed Changes**:
+   - Now that **p2's** working directory is up-to-date, they can apply their stashed changes:
+     - Click the "..." icon and select "Apply Stashed Changes."
+
+4. **Resolve Conflicts (if any)**:
+   - If there are conflicts between **p1's** changes (`ch1`) and **p2's** changes (`ch2`), VS Code will indicate where the conflicts occur.
+   - **p2** should manually resolve these conflicts by editing the affected files.
+   - After resolving conflicts, mark them as resolved using the Source Control view.
+
+5. **Commit the Combined Changes**:
+   - Finally, **p2** can commit the combined changes:
+     - Click the "+" icon next to the modified files in the Source Control view to stage them.
+     - Enter a commit message (e.g., "Combined changes from p1 (ch1) and my changes (ch2)").
+     - Click the checkmark icon to commit the changes.
+
+6. **Push to Remote Repository**:
+   - Push the changes to the remote repository:
+     - Click the "..." icon and select "Push."
+
+Now, the remote repository will contain both sets of changes from **p1** and **p2**. Remember to communicate with other team members to ensure everyone is aware of the combined changes. 😊
+
+Source: Conversation with Bing, 4/19/2024
+(1) Using Git with Visual Studio Code (Official Beginner Tutorial). https://www.youtube.com/watch?v=i_23KUAEtUM.
+(2) GitLens Tutorial: How to Use GitLens in VS Code. https://www.youtube.com/watch?v=UQPb73Zz9qk.
+(3) How to Install Git & Use Git in Visual Studio Code | Git in VSCode (For Beginners). https://www.youtube.com/watch?v=3Tsaxxv9sls.
+(4) Introduction to Git in VS Code - Visual Studio Code. https://code.visualstudio.com/docs/sourcecontrol/intro-to-git.
+(5) Introduction to GitHub in Visual Studio Code - Training. https://learn.microsoft.com/en-us/training/modules/introduction-to-github-visual-studio-code/.
+(6) Working with GitHub in VS Code - Visual Studio Code. https://code.visualstudio.com/docs/sourcecontrol/github.
+(7) Version control in VS Code - Visual Studio Code. https://code.visualstudio.com/docs/introvideos/versioncontrol.😊

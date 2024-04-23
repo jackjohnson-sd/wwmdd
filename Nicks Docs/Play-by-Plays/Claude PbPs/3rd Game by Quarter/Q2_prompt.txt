@@ -1,0 +1,8 @@
+COMMENT:
+The more realistic scoring pattern continues. It seems as 
+though Claude incorporates more missed shots in the PbP to
+achieve lower scoring frequencies. 
+
+PROMPT:
+Create a game play-by-play of the second quarter of this game.
+

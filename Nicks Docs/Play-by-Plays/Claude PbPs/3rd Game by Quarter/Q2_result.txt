@@ -1,0 +1,57 @@
+RESULT:
+
+2nd Quarter:
+
+12:00 - Lakers start the quarter with Westbrook, Nunn, Austin Reaves, 
+Wenyen Gabriel, and Toscano-Anderson. Celtics start with Brogdon, Payton 
+Pritchard, Sam Hauser, Griffin, and Luke Kornet.
+11:45 - Westbrook makes a pullup jumper (LAL 32-26).
+11:28 - Brogdon misses a 3-pointer. Gabriel rebounds.
+11:15 - Nunn makes a driving layup (LAL 34-26).
+10:58 - Griffin makes a hook shot (LAL 34-28).
+10:41 - Reaves misses a 3-pointer. Kornet rebounds.
+10:24 - Pritchard makes a 3-pointer off an assist from Brogdon (LAL 34-31).
+10:05 - Westbrook is fouled by Kornet on a drive. Westbrook makes 1 of 2 
+free throws (LAL 35-31).
+9:47 - Hauser misses a 3-pointer. Toscano-Anderson rebounds.
+9:29 - Gabriel makes a dunk off an assist from Westbrook (LAL 37-31).
+9:12 - Brogdon makes a floater (LAL 37-33). Lakers substitute James for 
+Toscano-Anderson.
+8:55 - James makes a fadeaway jumper (LAL 39-33).
+8:37 - Griffin misses a hook shot. James rebounds.
+8:19 - Nunn makes a 3-pointer off an assist from James (LAL 42-33). Celtics 
+call timeout.
+8:01 - Tatum checks back in for the Celtics, replacing Hauser.
+7:52 - Tatum makes a driving layup (LAL 42-35).
+7:35 - James misses a jumper. Tatum rebounds.
+7:18 - Pritchard misses a 3-pointer. Gabriel rebounds.
+7:00 - Reaves makes a cutting layup off a pass from Westbrook (LAL 44-35).
+6:43 - Brogdon makes a pullup jumper (LAL 44-37). Celtics substitute Smart 
+for Pritchard.
+6:25 - James makes a turnaround jumper over Tatum (LAL 46-37).
+6:07 - Tatum misses a 3-pointer. Westbrook rebounds.
+5:49 - Nunn misses a jumper. Kornet rebounds. Lakers substitute Davis for 
+Gabriel.
+5:31 - Smart makes a 3-pointer off an assist from Brogdon (LAL 46-40).
+5:14 - Davis makes a hook shot over Kornet (LAL 48-40).
+4:57 - Tatum makes a stepback jumper (LAL 48-42).
+4:39 - James misses a fadeaway jumper. Griffin rebounds. Celtics substitute 
+Horford for Griffin.
+4:22 - Brogdon misses a jumper. Davis rebounds.
+4:05 - Westbrook makes a layup (LAL 50-42).
+3:48 - Smart is fouled by Reaves on a 3-point attempt. Smart makes all three 
+free throws (LAL 50-45).
+3:29 - James makes a 3-pointer (LAL 53-45).
+3:11 - Tatum makes a driving dunk (LAL 53-47). Lakers call timeout.
+2:54 - Davis makes a jumper off an assist from James (LAL 55-47).
+2:36 - Horford misses a 3-pointer. Westbrook rebounds.
+2:18 - James makes a driving layup (LAL 57-47).
+2:01 - Tatum makes a jumper (LAL 57-49).
+1:44 - Davis misses a jumper. Tatum rebounds.
+1:27 - Smart makes a 3-pointer off an assist from Tatum (LAL 57-52).
+1:09 - James makes a fadeaway jumper (LAL 59-52).
+0:52 - Tatum misses a jumper. Davis rebounds.
+0:34 - Westbrook misses a layup. Horford rebounds.
+0:14 - Tatum makes a 3-pointer at the buzzer (LAL 59-55).
+
+End of 2nd Quarter: Lakers 59, Celtics 55.

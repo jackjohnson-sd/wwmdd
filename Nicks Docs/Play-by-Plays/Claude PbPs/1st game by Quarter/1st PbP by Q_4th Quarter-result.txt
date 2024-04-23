@@ -1,0 +1,56 @@
+RESULT:
+
+12:00 - Jaylen Brown makes a 3-point shot. (Tied 134-134)
+11:45 - Giannis Antetokounmpo makes a dunk. (Bucks 136-134)
+11:30 - Jayson Tatum makes a fadeaway jumper. (Tied 136-136)
+11:15 - Khris Middleton makes a mid-range jumper. (Bucks 138-136)
+11:00 - Marcus Smart makes a 3-point shot. (Celtics 139-138)
+10:45 - Brook Lopez makes a hook shot. (Bucks 140-139)
+10:30 - Al Horford makes a mid-range jumper. (Celtics 141-140)
+10:15 - Jrue Holiday makes a driving layup. (Bucks 142-141)
+10:00 - Jaylen Brown makes a step-back jumper. (Celtics 143-142)
+9:45 - Giannis Antetokounmpo makes a fadeaway jumper. (Bucks 144-143)
+9:30 - Jayson Tatum makes a 3-point shot. (Celtics 146-144)
+9:15 - Khris Middleton makes a 3-point shot. (Bucks 147-146)
+9:00 - Marcus Smart makes a floater in the lane. (Celtics 148-147)
+8:45 - Brook Lopez makes a hook shot. (Bucks 149-148)
+8:30 - Jaylen Brown makes a driving layup. (Celtics 150-149)
+8:15 - Giannis Antetokounmpo makes a dunk. (Bucks 151-150)
+8:00 - Celtics call a timeout.
+7:45 - Jayson Tatum makes a step-back jumper. (Celtics 152-151)
+7:30 - Jrue Holiday makes a 3-point shot. (Bucks 154-152)
+7:15 - Al Horford makes a mid-range jumper. (Tied 154-154)
+7:00 - Giannis Antetokounmpo makes a layup. (Bucks 156-154)
+6:45 - Jaylen Brown makes a 3-point shot. (Celtics 157-156)
+6:30 - Khris Middleton makes a mid-range jumper. (Bucks 158-157)
+6:15 - Marcus Smart makes a 3-point shot. (Celtics 160-158)
+6:00 - Brook Lopez makes a hook shot. (Tied 160-160)
+5:45 - Jayson Tatum makes a fadeaway jumper. (Celtics 162-160)
+5:30 - Giannis Antetokounmpo makes a dunk. (Tied 162-162)
+5:15 - Jaylen Brown makes a driving layup. (Celtics 164-162)
+5:00 - Bucks call a timeout.
+4:45 - Jrue Holiday makes a 3-point shot. (Bucks 165-164)
+4:30 - Jayson Tatum makes a step-back 3-point shot. (Celtics 167-165)
+4:15 - Khris Middleton makes a mid-range jumper. (Tied 167-167)
+4:00 - Marcus Smart makes a floater in the lane. (Celtics 169-167)
+3:45 - Giannis Antetokounmpo makes a fadeaway jumper. (Tied 169-169)
+3:30 - Al Horford makes a 3-point shot. (Celtics 172-169)
+3:15 - Brook Lopez makes a hook shot. (Celtics 172-171)
+3:00 - Jaylen Brown makes a mid-range jumper. (Celtics 174-171)
+2:45 - Jrue Holiday makes a driving layup. (Celtics 174-173)
+2:30 - Jayson Tatum makes a step-back jumper. (Celtics 176-173)
+2:15 - Giannis Antetokounmpo makes a dunk. (Celtics 176-175)
+2:00 - Marcus Smart makes a 3-point shot. (Celtics 179-175)
+1:45 - Khris Middleton makes a 3-point shot. (Celtics 179-178)
+1:30 - Jaylen Brown makes a driving layup. (Celtics 181-178)
+1:15 - Brook Lopez makes a hook shot. (Celtics 181-180)
+1:00 - Jayson Tatum makes a fadeaway jumper. (Celtics 183-180)
+0:45 - Giannis Antetokounmpo makes a layup. (Celtics 183-182)
+0:30 - Celtics call a timeout.
+0:20 - Marcus Smart makes a floater in the lane. (Celtics 185-182)
+0:10 - Jrue Holiday misses a 3-point attempt.
+0:00 - End of the 4th Quarter. Final Score: Celtics 185, Bucks 182.
+
+The Boston Celtics win the game 185-182 in a closely contested,
+high-scoring match against the Milwaukee Bucks.
+

@@ -1,9 +1,0 @@
-COMMENT:
-Claude seems to have "forgotten" that a game lasts 12 minutes and
-to not end at 4 minutes. This error sporadic, occuring in future pbp(s). 
-This error would be easy to fine-tune/train out of it, or through specific 
-prompting, but if we try to adress many issues in prompt, prompts could become
-convoluted, potentially leading to new issues in PbP generations...
-
-PROMPT:
-why did you initially end the first quarter after 8 minutes?

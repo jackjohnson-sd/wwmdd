@@ -1,6 +1,0 @@
-COMMENT: 
-Claude continues with an unusually high frequency of scoring events.
-The play times are formulaic (usually every 15 seconds there's a play)
-
-PROMPT:
-Generate the play-by-play of the third quarter of this game. 

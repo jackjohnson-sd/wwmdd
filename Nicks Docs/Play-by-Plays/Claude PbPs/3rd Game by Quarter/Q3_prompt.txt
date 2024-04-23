@@ -1,7 +1,0 @@
-COMMENT:
-Continued mention of missed shots, more realsitic scoring continues
-(although still high scoring, it's more within range of typical games)
-No missing scoring events when prompt for one quarter at a time.
-
-PROMPT:
-Create a game play-by-play of the third quarter of this game.

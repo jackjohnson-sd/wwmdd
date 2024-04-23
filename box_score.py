@@ -168,3 +168,12 @@ class box_score:
                     data2 +=  [self._boxScore[key][key2]]
             data += [data2]
         return rows, columns, data
+
+    def make_summary(self):
+        self.add_player('TEAM')
+        for n in self._bsItems:
+            v = self.sum_item(n)
+            self.update('TEAM',n,v)
+        self.clean()
+        tmp = self.get_item('TEAM','MIN') 
+        self.set_item('TEAM','MIN',tmp[0:5])

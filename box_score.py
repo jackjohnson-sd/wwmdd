@@ -39,11 +39,17 @@ class box_score:
                 d['FG'] = f'{tFGShots}-{tFGMakes}'
                 d['3PT'] = f'{t3Shots}-{d["3make"]}'
                 d['FT']  = f'{d["FTmake"] + d["FTmiss"]}-{d["FTmake"]}'   
-                d['MIN'] =  str(timedelta(seconds=d['secs']))[2:4] 
+                d['MIN'] =  str(timedelta(seconds=int(d['secs'])))[2:4] 
             else:
-                d['FG'] = str(int(float(tFGMakes)/float(tFGShots) * 100)) + '%'
-                d['3PT'] = str(int(float(d['3make'])/float(t3Shots) * 100)) + '%'
-                d['FT'] = str(int(float(d['FTmake'])/float(d["FTmake"] + d["FTmiss"]) * 100)) + '%'
+
+                d['FG'] = '--' if tFGShots == 0 else str(int(float(tFGMakes)/float(tFGShots) * 100)) + '%'
+                d['3PT'] = '--' if t3Shots == 0 else str(int(float(d['3make'])/float(t3Shots) * 100)) + '%'
+                FTma = d['FTmake']
+                FTmi = d['FTmiss']
+                if FTma + FTmi == 0:
+                    d['FT'] = '--'
+                else:
+                    d['FT'] = str(int(float(d['FTmake'])/float(d["FTmake"] + d["FTmiss"]) * 100)) + '%'
                 d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:4]
                 d['+/-'] =  int(d['+/-']/5)
 
@@ -83,7 +89,7 @@ class box_score:
         ourPlayers = self._boxScore.keys() if players == [] else players 
         return list(map(lambda x:self._boxScore[x][item], ourPlayers))
         
-    def update(self,_player, _item, val):
+    def update(self, _player, _item, val):
         if _player != None:
             if _player in self.get_players():
                 self._boxScore[_player][_item] += val
@@ -153,14 +159,15 @@ class box_score:
     def add_plus_minus(self, player, start, end):
         self.update(player,'+/-', end - start)
 
-    def get_bs_data(self, players = []):
+    def get_bs_data(self, players = [], all=False):
 
+        itemlist = self._bsItemsA if not all else self._bsItems
         rows = players if players != [] else list(self, self._boxScore.keys())
-        columns = self._bsItemsA
+        columns = itemlist
         data = []
         for key in rows:
             data2 = []
-            for key2 in self._bsItemsA:
+            for key2 in itemlist:
                 if key2 == '+/-':
                     fp = 1 if self._flip else  -1
                     data2 += [fp*self._boxScore[key][key2]]
@@ -171,6 +178,7 @@ class box_score:
 
     def make_summary(self):
         self.add_player('TEAM')
+        
         for n in self._bsItems:
             v = self.sum_item(n)
             self.update('TEAM',n,v)

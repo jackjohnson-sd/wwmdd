@@ -1,8 +1,0 @@
-COMMENT:
-Too high scoring, most likely due to my prompt instructions for Claude to 
-follow competitve NBA scoring. The player-team assignment is accurate 
-(based on rosters before sept2021), compared to Gemini's inaccuracies seen
- in 4/19 meeting during PbP generations
-
-PROMPT:
-Generate the play-by-play of the third quarter of this game. 

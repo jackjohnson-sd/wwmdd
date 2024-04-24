@@ -7,10 +7,18 @@ from datetime import datetime,timedelta
 
 from utils import period_clock_seconds
 from box_score import box_score
+import re
 
 LABLE_SIZE = 9
 COLWIDTH = .09
 SCALE = .75
+
+def line_up_abbr(lineup_):
+    # utility - takes CAPS from player names to make lineup name
+    def _lu_small(name_):  return re.sub('[^A-Z]', '', name_)        
+    l_key = list(map(lambda x:_lu_small(x),lineup_))
+    l_key.sort()
+    return '-'.join(l_key)
 
 def eventToSize (player, eventRecord):
 
@@ -107,15 +115,13 @@ def shorter(what, max_length):
     return what[0:half-2] + '...' + what[-(half-2):]
 
 def plot3_boxscore(boxscore, ax, players):
-
+    # comments here show up on mouseover
     bs_rows, bs_columns, bs_data = boxscore.get_bs_data( players + ['TEAM'])
     tc = [['black'] * len(bs_columns)] * len(bs_rows)
-    trows = list(map(lambda x:shorter(x,14), bs_rows))
+    trows = list(map(lambda x:shorter(x,20), bs_rows))
     
     cws = [COLWIDTH]*len(bs_columns)
     cws[2] *= 1.2
-
-    # cws[4:9] *= 09
 
     the_table = ax.table(
         cellText    = bs_data, 
@@ -177,13 +183,13 @@ def plot3_stints(playTimesbyPlayer, ax, events_by_player):
         widths = list(map(lambda x:x[1],data))
         rects = ax.barh(str(label), widths, left=starts, color='plum', height=.5, zorder=3)
     
-        # ax.scatter(
-        #     events_by_player[label][0::3],
-        #     [i] * len(events_by_player[label][0::3]), 
-        #     color = events_by_player[label][1::3], 
-        #     s = events_by_player[label][2::3], 
-        #     marker = ',',
-        #     zorder = 3 )
+        ax.scatter(
+            events_by_player[label][0::3],
+            [i] * len(events_by_player[label][0::3]), 
+            color = events_by_player[label][1::3], 
+            s = events_by_player[label][2::3], 
+            marker = ',',
+            zorder = 3 )
 
     ax.invert_yaxis()
     ax.yaxis.set_visible(False)
@@ -311,8 +317,8 @@ def plot3_prep(our_durations_by_date, play_by_play, scoreMargins):
     return boxscore, playTimesbyPlayer, events_by_player, players 
 
 def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
-
-    # create stints by line_up, we have play times per player
+    # create stints by line_up, from stints by per player
+   
     players = list(playTimesbyPlayer)
     
     stints_by_player = []
@@ -323,33 +329,24 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
             stint_duration = int(stint[1])
             stints_by_player.extend([[stint_start,stint_duration,player]])
     
-    def line_up_abbr(lineup_):
-        import re
-        # just get the CAPS in the names players to make lineup name
-        def _lu_small(name_): 
-            return re.sub('[^A-Z]', '', name_)        
-        l_key = list(map(lambda x:_lu_small(x),lineup_))
-        l_key.sort()
-        return '-'.join(l_key)
-
-    boxscore = box_score({})
     events_by_lineup = {}
 
-    # create stints by line up
-    # flattend player stints are sorted by time of stint start
-    # after you have 5 in the next stint cause some one to leave
+    # create stints by line up. 
+    # Stints are the timespans that a player or lineup is playing.
+    # Flattend player stints are sorted by time of stint start.
+    # After you have 5 players the next stint cause some one to leave
     # and some one to enter.  The enter starts a new stint and
-    # the leaving one close off at this time. Add it to the list 
-    # of stints for this line and save this time as the start of
+    # the leaving one close off the current stint. Add it to the list 
+    # of stints for this lineup and save this time as the start of
     # the next stint
 
-    stints_by_lineup = {}
-    players_in_lineup = {}
-
-    data_by_lineup = {}
+    stints_by_lineup    = {}  # collected stints for a linup
+    players_by_lineup   = {}  # players in a linup
+    bs_data_by_lineup   = {}  # boxscore summary data for each lineup
+    events_by_lineup    = {}  # shots, fouls, etc by lneup
     
-    current_lineup = []
-    last_start = 0
+    current_lineup      = []  # collect players currently playing
+    last_start          = 0   # last time we started a stint
     
     for player_stint in sorted(stints_by_player, key=lambda x: x[0]):
         if len(current_lineup) != 5:
@@ -359,15 +356,26 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
             player_names = list(np.array(current_lineup)[:,2])
             key = line_up_abbr(player_names)
             for _player in current_lineup:
-                if _player[0] + _player[1] == player_stint[0]:
+
+                pstart =  _player[0]
+                pduration = _player[1]
+                pend = pstart + pduration
+
+                if pend == player_stint[0]:
                     if key in list(stints_by_lineup.keys()):
-                        if player_stint[0]-last_start > 0:
-                            # print('extend', last_start, player_stint[0]-last_start,key)
-                            stints_by_lineup[key].extend([[last_start,player_stint[0] -last_start]])
-                    else:
                         if player_stint[0] - last_start > 30:
+                            # print('extend', last_start, player_stint[0]-last_start,key)
+                            stints_by_lineup[key].extend([[last_start, player_stint[0] -last_start]])
+                            # box_score.update(_player[2], 'secs', pduration)
+                            # box_score.update(_player[2], '+/-', scoreMargins[pend] - scoreMargins[pstart])
+
+                    else:
+                        if player_stint[0] - last_start > 90:
                             stints_by_lineup[key] = [[last_start, player_stint[0]-last_start]]
-                            players_in_lineup[key] = player_names.copy()
+                            players_by_lineup[key] = player_names.copy()
+                            # box_score.update(_player[2], 'secs', pduration)
+                            # box_score.update(_player[2], '+/-', scoreMargins[pend] - scoreMargins[pstart])
+                            
                             # print('start', last_start, stint[0] - last_start, key)
                   
                     last_start = player_stint[0]
@@ -382,7 +390,9 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
   
     for line_up in stints_by_lineup:
 
-        players_in_lineup = players_in_lineup[line_up]
+        boxscore = box_score({}) 
+
+        players_in_lineup = players_by_lineup[line_up]
         stints_in_lineup = stints_by_lineup[line_up]
         
         # create an unattached column with an index
@@ -392,41 +402,57 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
         b_ = play_by_play['player2_name'].isin(players_in_lineup)
         c_ = play_by_play['player3_name'].isin(players_in_lineup)
 
-        def fx__(row):
-            sec = row.sec
+        def in_stint__(row):
             for stint in stints_in_lineup:
-                if sec > stint[0] and sec < stint[0] + stint[1]:
+                if (row.sec > stint[0]) & (row.sec < (stint[0] + stint[1])):
                     return True
             return False
         
-        e_ = play_by_play.apply(lambda row: fx__(row), axis = 1)
+        e_ = play_by_play.apply(lambda row: in_stint__(row), axis = 1)
 
-        plays_this_stint_this_player = play_by_play[a_ | b_ |c_ & e_ ]
+        ours = (a_ | b_ |c_) & e_
 
-        events_by_lineup = []
+        plays_this_stint_this_player = play_by_play[ours]
+
+        events_for_lineup = []
         for i,v in plays_this_stint_this_player.iterrows():
-            ec = eventToColor(players_in_lineup, v)
-            es = eventToSize(players_in_lineup, v)
-            events_by_lineup.extend([v.sec, ec, es])
+            if ours[i]: 
+                ec = eventToColor(players_in_lineup, v)
+                es = eventToSize(players_in_lineup, v)
+                events_for_lineup.extend([v.sec, ec, es])
+            else:
+                print('WHAT')
+
+        events_by_lineup[line_up] = events_for_lineup
 
         secs_total_this_lineup =  sum(np.array(stints_in_lineup)[:,1])
 
-        def sm(x): 
-            return scoreMargins[x[0]] - scoreMargins[x[0] + x[1]]
-        stintMargin_this_lineup = sum(list(map(lambda x:sm(x),stints_by_lineup[line_up])))
+        def sm(x):return scoreMargins[x[0]] - scoreMargins[x[0]] + scoreMargins[x[1]]
+        scoreMargin_this_lineup = sum(list(map(lambda x:sm(x),stints_by_lineup[line_up])))
+        print(line_up,secs_total_this_lineup,scoreMargin_this_lineup)
 
-        for player in players_in_lineup:
-            boxscore.stuff_bs(plays_this_stint_this_player, [player])
+        boxscore.stuff_bs(plays_this_stint_this_player, players_in_lineup)
 
         boxscore.make_summary()
-        bs_rows, bs_columns, bs_data = boxscore.get_bs_data(['TEAM'])
-        bs_data[0][bs_columns.index('+/-')] = stintMargin_this_lineup
-        bs_data[0][bs_columns.index('MIN')] = secs_total_this_lineup
-        data_by_lineup[line_up] = bs_data[0]
-    
-    bx = boxscore(data_by_lineup)
+
+        bs_rows, bs_columns, bs_data = boxscore.get_bs_data(['TEAM'], all=True)
+        bs_data[0][bs_columns.index('secs')] = secs_total_this_lineup
+        bs_data[0][bs_columns.index('+/-')] = scoreMargin_this_lineup
+        bs_data_by_lineup[line_up] = bs_data[0]
+
+    box_score_for_lineups = box_score({})
+    l_players = list(bs_data_by_lineup.keys())
+    box_score_for_lineups.add_players(l_players)
+    for l_players in l_players:
+        for index, item in enumerate(bs_columns):
+            val = bs_data_by_lineup[l_players][index] if item not in ['MIN','3PT','FG','FT'] else 0
+            box_score_for_lineups.set_item(l_players,item,val)
+
+    box_score_for_lineups.make_summary()
+    box_score_for_lineups.clean()
+
     #return boxscore, playTimesbyPlayer, events_by_player, players 
-    return bx, stints_by_lineup
+    return box_score_for_lineups, stints_by_lineup, events_by_lineup
 
 def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_durations):
 
@@ -435,21 +461,21 @@ def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_d
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \
     plot3_prep(our_durations_by_date, play_by_play, scoreMargins)
 
-    # stints_by_lineup = plot3_lineup_prep(
-    #     playTimesbyPlayer = playTimesbyPlayer1, 
-    #     play_by_play = play_by_play, 
-    #     boxscore_    = our_durations_by_date[1],
-    #     scoreMargins = scoreMargins)
+    box_for_lineups, stints_by_lineup, events_by_lineup = plot3_lineup_prep(
+        playTimesbyPlayer = playTimesbyPlayer1, 
+        play_by_play = play_by_play, 
+        boxscore_    = our_durations_by_date[1],
+        scoreMargins = scoreMargins)
 
-    boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
-    plot3_prep(opponent_durations, play_by_play, scoreMargins)
+    # boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
+    # plot3_prep(opponent_durations, play_by_play, scoreMargins)
 
     title = get_title(game_data, boxscore1)
 
     flipper = title[0:3] == HOME_TEAM
 
     boxscore1.plus_minus_flip(not flipper)
-    boxscore2.plus_minus_flip(flipper)
+    # boxscore2.plus_minus_flip(flipper)
 
     plt.style.use('dark_background')
 
@@ -472,14 +498,16 @@ def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_d
     figure.canvas.manager.set_window_title(title)
     
     axd[TL].sharey(axd[TR])
-    # axd[BL].sharey(axd[BR])
+    axd[BL].sharey(axd[BR])
     
-    plot3_boxscore(boxscore1, axd[TR], players1)
-    plot3_boxscore(boxscore2, axd[BR], players2)
-
-    # plot3_stints(stints_by_lineup, axd[BL], None)
+    plot3_stints(stints_by_lineup, axd[BL], events_by_lineup)
+    plot3_boxscore(box_for_lineups, axd[BR], box_for_lineups.get_players()[0:-1])
+    
     plot3_PBP_chart(playTimesbyPlayer1, axd[TL], events_by_player1)
-    plot3_PBP_chart(playTimesbyPlayer2, axd[BL], events_by_player2)
+    plot3_boxscore(boxscore1, axd[TR], players1)
+
+    #plot3_boxscore(boxscore2, axd[BR], players2)    
+    #plot3_PBP_chart(playTimesbyPlayer2, axd[BL], events_by_player2)
  
     plot_3_MID(axd[MD], scoreMargins, flipper)
 

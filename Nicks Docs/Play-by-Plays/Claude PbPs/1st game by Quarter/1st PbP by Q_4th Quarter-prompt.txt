@@ -1,7 +1,0 @@
-COMMENT:
-Claude continues with high scoring, lack of defensive plays mentioned.
-All events mentioned are scoring events. I will prompt for more defensive
-plays, which might balance high scoring... 
-
-PROMPT:
-Generate the play-by-play of the fourth quarter of this game.  

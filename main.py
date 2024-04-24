@@ -1,4 +1,4 @@
-# jack comment
+# jack comment Bruce added his. jacks seconds commend. Bruces second change.
 import sys
 from datetime import datetime,timedelta
 

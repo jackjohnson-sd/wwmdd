@@ -1,0 +1,10 @@
+Here are the steps to open the conflict editor in Visual Studio Code (VS Code) on Windows 11 to resolve merge conflicts:
+Open VS Code and navigate to the file with conflicts in the Explorer pane. You should see an exclamation mark (!) next to the file.
+Right-click the file with conflicts and select "Git: Open in Merge Editor" from the context menu.
+The Merge Editor will open with three sections:
+Left: Incoming changes from the remote branch
+Right: Your local changes
+Center: The result of the merge
+Resolve conflicts by selecting the checkboxes on the left and right sides or manually editing the code in the center section.
+Once you've resolved all conflicts, save the file, stage it, and commit your changes.
+To enable the Merge Editor, go to File > Preferences > Settings, type "merge editor" in the search bar, and check the "Open the merge editor for files that are currently under conflict" option under the "Git: Merge Editor" setting.

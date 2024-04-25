@@ -23,7 +23,7 @@ def line_up_abbr(lineup_):
 def eventToSize (player, eventRecord):
 
     SMALL_P = 10.0
-    MID___P = 20.0
+    MID___P = 25.0
     LARGE_P = 30.0
 
     p1Name = eventRecord.player1_name
@@ -67,6 +67,7 @@ def eventToColor (player, eventRecord):
     _MEH = 'yellow'
     _GOOD = 'lime'
     _BAD = 'red'
+    _REB = 'green'
 
     color = _MEH
 
@@ -91,7 +92,7 @@ def eventToColor (player, eventRecord):
 
         case 4: #rebound
             if p1Name in players: 
-                color = _GOOD
+                color = _REB
 
         case 5: # steal
             if p1Name in players: color = _BAD  # turnover
@@ -449,9 +450,14 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
             box_score_for_lineups.set_item(l_players,item,val)
 
     box_score_for_lineups.make_summary()
-    box_score_for_lineups.clean()
 
-    #return boxscore, playTimesbyPlayer, events_by_player, players 
+    # undo damage done by make_summary which work for 5 players
+    secs = box_score_for_lineups.get_item('TEAM','secs')
+    box_score_for_lineups.set_item('TEAM','MIN', str(timedelta(seconds=int(secs)))[2:4])
+
+    plus_minus = box_score_for_lineups.get_item('TEAM','+/-')
+    box_score_for_lineups.set_item('TEAM','+/-', plus_minus * 5)
+
     return box_score_for_lineups, stints_by_lineup, events_by_lineup
 
 def plot3( our_durations_by_date, game_data, HOME_TEAM, play_by_play, opponent_durations):

@@ -33,7 +33,7 @@ def loadNBA():
 def getTestData(_games):
 
     _START_DAY = '2023-01-27'
-    _STOP_DAY = '2023-02-27'
+    _STOP_DAY = '2023-03-27'
     _TEAM = HOME_TEAM
     _SEASON = '2022'
 

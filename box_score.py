@@ -36,9 +36,9 @@ class box_score:
 
             t3Shots = d['3miss'] + d['3make']
             if key != 'TEAM':
-                d['FG'] = f'{tFGShots}-{tFGMakes}'
-                d['3PT'] = f'{t3Shots}-{d["3make"]}'
-                d['FT']  = f'{d["FTmake"] + d["FTmiss"]}-{d["FTmake"]}'   
+                d['FG'] = f'{tFGMakes}-{tFGShots}'
+                d['3PT'] = f'{d['3make']}-{t3Shots}'
+                d['FT']  = f'{d['FTmake']} - {d['FTmake'] + d['FTmiss']}'   
                 d['MIN'] =  str(timedelta(seconds=int(d['secs'])))[2:4] 
             else:
 

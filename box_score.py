@@ -38,7 +38,7 @@ class box_score:
             if key != 'TEAM':
                 d['FG'] = f'{tFGMakes}-{tFGShots}'
                 d['3PT'] = f'{d['3make']}-{t3Shots}'
-                d['FT']  = f'{d['FTmake']} - {d['FTmake'] + d['FTmiss']}'   
+                d['FT']  = f'{d['FTmake']}-{d['FTmake'] + d['FTmiss']}'   
                 d['MIN'] =  str(timedelta(seconds=int(d['secs'])))[2:4] 
             else:
 
@@ -176,7 +176,7 @@ class box_score:
             data += [data2]
         return rows, columns, data
 
-    def make_summary(self):
+    def summary(self):
         self.add_player('TEAM')
         
         for n in self._bsItems:

@@ -1,4 +1,4 @@
-# Bruce wants this line 
+# Jack wants this line 
 import sys
 from datetime import datetime,timedelta
 
@@ -92,7 +92,7 @@ def main():
     for date in our_player_stints_by_date:     
         game_data = gamesByTeam[_TEAM][_SEASON][date]
         play_by_play = test_data[date].play_by_play[0]
-        
+
         plot3(
            our_player_stints_by_date[date], 
            game_data, 

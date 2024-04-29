@@ -1,4 +1,4 @@
-# Jack wants this line Jac will notgive it up
+# Jack wants this line. Bruce still wants this line.
 import sys
 from datetime import datetime,timedelta
 

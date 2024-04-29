@@ -140,21 +140,22 @@ def plot3_PBP_chart(playTimesbyPlayer, ax, events_by_player):
     for i, label in enumerate(labels):
 
         data = playTimesbyPlayer[label]
-        starts = list(map(lambda x: x[0], data))
-        widths = list(map(lambda x: x[1], data))
-        rects = ax.barh(label, widths, left=starts, color="plum", height=0.15, zorder=3)
+        if len(data) > 0:
+            starts = list(map(lambda x: x[0], data))
+            widths = list(map(lambda x: x[1], data))
+            rects = ax.barh(label, widths, left=starts, color="plum", height=0.15, zorder=3)
 
-        evnt_cnt = len(events_by_player[label][0::4])
+            evnt_cnt = len(events_by_player[label][0::4])
 
-        scatter = mscatter(
-            events_by_player[label][0::4],
-            [i] * evnt_cnt,
-            c  = events_by_player[label][1::4], 
-            s  = events_by_player[label][2::4], 
-            m  = events_by_player[label][3::4], 
-            ax = ax,
-            zorder = 3,
-            alpha = [.7] * evnt_cnt)
+            scatter = mscatter(
+                events_by_player[label][0::4],
+                [i] * evnt_cnt,
+                c  = events_by_player[label][1::4], 
+                s  = events_by_player[label][2::4], 
+                m  = events_by_player[label][3::4], 
+                ax = ax,
+                zorder = 3,
+                alpha = [.7] * evnt_cnt)
 
     ax.invert_yaxis()
     ax.yaxis.set_visible(False)
@@ -212,11 +213,14 @@ def plot_3_MID(ax, scoreMargins, flipper):
     ax.scatter(range(0, len(scoreMargins)), scoreMargins, color=_colors, s=4)
     ax.set_xlim(-10, (48 * 60) + 10)
 
+    import math
     mx = abs(max(scoreMargins))
     mi = abs(min(scoreMargins))
     m = max(mx, mi)
-    m = 5 - (m % 5) + m
-    ax.set_yticks(range(-m, m + 5, 10), list(range(-m, m + 5, 10)))
+    m = int(math.ceil(m/10) * 10)
+    r = range(-m, m, 10)
+
+    ax.set_yticks(r, r)
     # axd[MD].set_xticks([6*60, 18*60, 30*60,42*60], minor=True)
     # axd[MD].set_xticklabels(['Q1','Q2','Q3','Q4'], minor=True)
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ["", "", "", "", ""])
@@ -472,7 +476,7 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
     return box_score_for_lineups, stints_by_lineup, events_by_lineup
 
 def plot3(our_stints, game_data, HOME_TEAM, play_by_play, opponent_stints):
-        # create an attached column with an index
+    # creates a computed column of seconds into game of event 
     play_by_play["sec"] = play_by_play.apply(
         lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
     )
@@ -483,15 +487,15 @@ def plot3(our_stints, game_data, HOME_TEAM, play_by_play, opponent_stints):
         our_stints, play_by_play, scoreMargins
     )
 
-    box_for_lineups, stints_by_lineup, events_by_lineup = plot3_lineup_prep(
-        playTimesbyPlayer = playTimesbyPlayer1,
-        play_by_play      = play_by_play,
-        boxscore_         = our_stints[1],
-        scoreMargins      = scoreMargins
-    )
+    # box_for_lineups, stints_by_lineup, events_by_lineup = plot3_lineup_prep(
+    #     playTimesbyPlayer = playTimesbyPlayer1,
+    #     play_by_play      = play_by_play,
+    #     boxscore_         = our_stints[1],
+    #     scoreMargins      = scoreMargins
+    # )
 
-    # boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
-    # plot3_prep(our_stints, play_by_play, scoreMargins)
+    boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
+    plot3_prep(opponent_stints, play_by_play, scoreMargins)
 
     title = get_title(game_data, boxscore1)
 
@@ -526,15 +530,15 @@ def plot3(our_stints, game_data, HOME_TEAM, play_by_play, opponent_stints):
     axd[TL].sharey(axd[TR])
     axd[BL].sharey(axd[BR])
 
-    plot3_stints(stints_by_lineup, axd[BL], events_by_lineup)
-    plot3_boxscore(box_for_lineups, axd[BR], box_for_lineups.get_players()[0:-1])
+    # plot3_stints(stints_by_lineup, axd[BL], events_by_lineup)
+    # plot3_boxscore(box_for_lineups, axd[BR], box_for_lineups.get_players()[0:-1])
 
     plot3_PBP_chart(playTimesbyPlayer1, axd[TL], events_by_player1)
     plot3_boxscore(boxscore1, axd[TR], players1)
 
-    # plot3_boxscore(boxscore2, axd[BR], players2)
-    # plot3_PBP_chart(playTimesbyPlayer2, axd[BL], events_by_player2)
-
+    plot3_PBP_chart(playTimesbyPlayer2, axd[BL], events_by_player2)
+    plot3_boxscore(boxscore2, axd[BR], players2)
+    
     plot_3_MID(axd[MD], scoreMargins, flipper)
 
     for r in [E1, E2, E3, TL, TR, BL, BR, MD]:

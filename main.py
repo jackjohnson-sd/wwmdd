@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Jack A
-=======
-# Bruce change A
->>>>>>> 6374fcf0a39f89aa03f204977448b17293966907
 import sys
 from datetime import datetime,timedelta
 

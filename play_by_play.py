@@ -1,8 +1,8 @@
 from utils import secDiff
 from box_score import  box_score
+from utils import period_clock_seconds
 
 def getTimeSpansByPlayer(playbyplay, players):
-
     # collect timespans played by this player
     # also calculate +/- for each player stint
     _timeSpans = {}  
@@ -31,7 +31,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                     a = 1
                 else:
                     if _timeSpans[player][-1][0] != 'OUT':
-                        _timeSpans[player].append(['OUT', lastPeriod, '0:00'])
+                        _timeSpans[player].append(['OUT', lastPeriod, '0:00',(lastPeriod) * 720])
 
                 inTheGame = False
                 lastPeriod = period
@@ -45,25 +45,25 @@ def getTimeSpansByPlayer(playbyplay, players):
                             # we're in and have a message saying we're in
                             print('We missed an OUT  ----- ')
                         else:
-                            _timeSpans[player].append(['OUT', period,  pctimestring])
+                            _timeSpans[player].append(['OUT', period, pctimestring, d.sec])
                             inTheGame = False 
                                 
                     else: # we are not in the game last thing should be OUT
                         if Entering:
                             inTheGame = True
-                            _timeSpans[player].append(['IN',period, pctimestring])
+                            _timeSpans[player].append(['IN', period, pctimestring, d.sec])
                         else:
                             # we have a leaving message and we're out
                             # set to starting at beginning of period
-                            _timeSpans[player].append(['IN',period,'12:00'])
-                            _timeSpans[player].append(['OUT',period, pctimestring])
+                            _timeSpans[player].append(['IN', period, '12:00',(period -1) * 720])
+                            _timeSpans[player].append(['OUT', period, pctimestring, d.sec])
                      
                 case 1 | 2 | 3 | 4 | 5 | 6:
                     
                     if not inTheGame:
                         # if not in game add an IN at beggining of period
                         inTheGame = True
-                        _timeSpans[player].append(['IN', period, '12:00']) 
+                        _timeSpans[player].append(['IN', period, '12:00', (period - 1) * 720]) 
 
                         # this happens when a player enters the game between periods
                         # set start of span to the beginning of this period
@@ -75,10 +75,10 @@ def getTimeSpansByPlayer(playbyplay, players):
             le_period = int(lastEvent.period)
             if lastEvent.eventmsgtype != 8:
                 # not SUB message at end, end span at end of last period used
-                _timeSpans[player].append(['OUT',le_period,'0:00']) 
+                _timeSpans[player].append(['OUT',le_period,'0:00', le_period * 720]) 
             elif lastEvent.player2_name == player:
                 # last message is IN end span at end of period used
-                _timeSpans[player].append(['OUT',le_period,'0:00'])
+                _timeSpans[player].append(['OUT',le_period,'0:00', le_period * 720])
 
     return _timeSpans
 
@@ -112,6 +112,10 @@ def generatePBP(games_data,team_abbreviation, OPPONENT=False):
         pbp_forDate = games_data[date].play_by_play[0]
 
         if pbp_forDate.shape[0] != 0:
+            # creates a computed column of seconds into game of event 
+            pbp_forDate["sec"] = pbp_forDate.apply(
+                lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
+            )
 
             #score_errors = checkScoreErrors(pbp_forDate)
 
@@ -130,26 +134,28 @@ def generatePBP(games_data,team_abbreviation, OPPONENT=False):
             timeSpans = getTimeSpansByPlayer(pbp_forDate, playersInGame)  # collect timespans played by this player
 
             for player in timeSpans.keys():
-
-                starttime_duration_byPlayer[player] = []
                 _tss = timeSpans[player]
 
                 if len(_tss) > 0:
+
+                    starttime_duration_byPlayer[player] = []
 
                     lenTss = len(_tss)
                     for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
                         start_ts  = _tss[x]
                         stop_ts   = _tss[y]
                         if start_ts[0] == 'IN' and stop_ts[0] == 'OUT':
-                            ts,start,stop = secDiff(start_ts,stop_ts)
-                            starttime_duration_byPlayer[player].append([start_ts,ts,stop_ts,start,stop])
+                            _duration = stop_ts[3] - start_ts[3]
+                            _start = start_ts[3]
+                            _stop = stop_ts[3]
+                            starttime_duration_byPlayer[player].append([start_ts, _duration , stop_ts, _start, _stop])
                         else:
                             print('Error forming spans ',player,start_ts,stop_ts)  
                  
-                secs = sum(list(map(lambda x:x[1],starttime_duration_byPlayer[player])))
-                boxSc.update(player,'secs',secs) 
+                    _total_secs = sum(list(map(lambda x:x[1],starttime_duration_byPlayer[player])))
+                    boxSc.update(player,'secs',_total_secs) 
 
-            starttime_duration_bydate[date] = [starttime_duration_byPlayer, dict(boxSc.getBoxScore())]
+                starttime_duration_bydate[date] = [starttime_duration_byPlayer, dict(boxSc.getBoxScore())]
 
     return starttime_duration_bydate
                                                                                                                 

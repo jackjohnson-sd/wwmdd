@@ -91,7 +91,7 @@ def plot3_boxscore(boxscore, ax, players):
     # comments here show up on mouseover
     bs_rows, bs_columns, bs_data = boxscore.get_bs_data(players + ["TEAM"])
     tc = [["black"] * len(bs_columns)] * len(bs_rows)
-    trows = list(map(lambda x: shorten_player_name(x, 15), bs_rows))
+    trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
 
     cws = [COLWIDTH] * len(bs_columns)
     cws[2] *= 1.2
@@ -135,24 +135,28 @@ def mscatter(x,y,ax=None, m=None, **kw):
 
 def plot3_PBP_chart(playTimesbyPlayer, ax, events_by_player):
 
-    labels = list(playTimesbyPlayer.keys())
+    _players = list(playTimesbyPlayer.keys())
 
-    for i, label in enumerate(labels):
+    for i, _player in enumerate(_players):
 
-        data = playTimesbyPlayer[label]
+        data = playTimesbyPlayer[_player]
         if len(data) > 0:
             starts = list(map(lambda x: x[0], data))
             widths = list(map(lambda x: x[1], data))
-            rects = ax.barh(label, widths, left=starts, color="plum", height=0.15, zorder=3)
+            rects = ax.barh(_player, widths, 
+                            left = starts, 
+                            color = "plum", 
+                            height = 0.15, 
+                            zorder = 3)
 
-            evnt_cnt = len(events_by_player[label][0::4])
+            evnt_cnt = len(events_by_player[_player][0::4])
 
             scatter = mscatter(
-                events_by_player[label][0::4],
+                events_by_player[_player][0::4],
                 [i] * evnt_cnt,
-                c  = events_by_player[label][1::4], 
-                s  = events_by_player[label][2::4], 
-                m  = events_by_player[label][3::4], 
+                c  = events_by_player[_player][1::4], 
+                s  = events_by_player[_player][2::4], 
+                m  = events_by_player[_player][3::4], 
                 ax = ax,
                 zorder = 3,
                 alpha = [.7] * evnt_cnt)
@@ -162,8 +166,8 @@ def plot3_PBP_chart(playTimesbyPlayer, ax, events_by_player):
     ax.set_xlim(-50, (48 * 60) + 50)
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ["", "", "", "", ""])
 
-    ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor=True)
-    ax.set_xticklabels(["Q1", "Q2", "Q3", "Q4"], minor=True)
+    ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor = True)
+    ax.set_xticklabels(["Q1", "Q2", "Q3", "Q4"], minor = True)
 
     ax.tick_params(axis="y", which="major", labelsize=LABLE_SIZE, pad=0, direction="in")
     ax.tick_params(axis="x", which="minor", labelsize=LABLE_SIZE, pad=0, direction="in")
@@ -279,7 +283,7 @@ def plot3_prep(our_stints_by_date, play_by_play, scoreMargins):
     starters = []
     for player in players:
         if len(game[player]) > 0:
-            if game[player][0][0] == ["IN", 1, "12:00"]:
+            if game[player][0][0][3] == 0:
                 starters += [player]
 
     bench = list(set(players) - set(starters))
@@ -295,17 +299,17 @@ def plot3_prep(our_stints_by_date, play_by_play, scoreMargins):
             stop = scoreMargins[stint[4]]
             boxscore.add_plus_minus(player, start, stop)
 
-        def timespantoSecs(a):
-            start = period_clock_seconds(a[0])
-            return (int(start), int(a[1]))
-
+        def timespantoSecs(a): return (a[0][3], a[1])
         playTimesbyPlayer[player] = list(map(lambda x: timespantoSecs(x), game[player]))
 
         _events = []
 
-        plays_for_player = play_by_play.query(
-            f'player1_name == "{player}" or player2_name == "{player}" or player3_name == "{player}"'
-        )
+        a_ = play_by_play["player1_name"] == player
+        b_ = play_by_play["player2_name"] == player
+        c_ = play_by_play["player3_name"] == player
+
+        ours = (a_ | b_ | c_)
+        plays_for_player = play_by_play[ours]
 
         for i, v in plays_for_player.iterrows():
 
@@ -435,9 +439,8 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
         events_by_lineup[line_up] = events_for_lineup
 
         secs_total_this_lineup = sum(np.array(stints_in_lineup)[:, 1])
-        print(line_up,secs_total_this_lineup)
-        def sm(x): return scoreMargins[x[0]] - scoreMargins[x[0]] + scoreMargins[x[1]]
 
+        def sm(x): return scoreMargins[x[0]] - scoreMargins[x[0]] + scoreMargins[x[1]]
         scoreMargin_this_lineup = sum(
             list(map(lambda x: sm(x), stints_by_lineup[line_up]))
         )
@@ -476,10 +479,6 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
     return box_score_for_lineups, stints_by_lineup, events_by_lineup
 
 def plot3(our_stints, game_data, HOME_TEAM, play_by_play, opponent_stints):
-    # creates a computed column of seconds into game of event 
-    play_by_play["sec"] = play_by_play.apply(
-        lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
-    )
 
     scoreMargins = get_score_margin(play_by_play)
 

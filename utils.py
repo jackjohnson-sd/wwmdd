@@ -31,6 +31,12 @@ def totalTeamMinutes(starttime_duration_bydate, date):
     return total
  
 def period_clock_seconds(pc):
+    _period = int(pc[1])
+    _minsec = pc[2].split(':')
+    _secs =  (_period * 720) - (int(_minsec[0]) * 60) - int(_minsec[1])
+    return _secs
+
+
     _period = int(pc[1]) - 1
     _clock = datetime.strptime(pc[2], '%M:%S') 
     delta = datetime.strptime('12:00', '%M:%S') - _clock + timedelta(seconds = _period * 12 * 60)

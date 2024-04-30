@@ -1,4 +1,4 @@
-# Jack A ack B Bruce C Bruce D-1 Bruce D-2 Jack-3 jack4
+# Jack A ack B Bruce C Bruce D-1 Bruce D-2 Jack-3 Bruce-3
 import sys
 from datetime import datetime,timedelta
 

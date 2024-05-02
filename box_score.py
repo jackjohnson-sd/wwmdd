@@ -1,8 +1,10 @@
 from datetime import timedelta
 
+
+PM = '\xB1'
 class box_score:
 
-    _bsItemsA = ['MIN','FG','3PT','FT','REB','BLK','AST', 'STL','TO','PF','+/-','PTS']
+    _bsItemsA = ['MIN','FG','3PT','FT','REB','BLK','AST', 'STL','TO','PF',PM,'PTS']
     _bsItemsB =['3miss','3make','make','miss','FTmiss','FTmake','secs']
     _bsItems = _bsItemsA + _bsItemsB 
     _boxScore = None
@@ -51,7 +53,7 @@ class box_score:
                 else:
                     d['FT'] = str(int(float(d['FTmake'])/float(d["FTmake"] + d["FTmiss"]) * 100)) + '%'
                 d['MIN'] =  str(timedelta(seconds=d['secs']/5))[2:4]
-                d['+/-'] =  int(d['+/-']/5)
+                d[PM] =  int(d[PM]/5)
 
     def dump(self,_players = []):
         print('                    ',end = '')
@@ -157,7 +159,7 @@ class box_score:
                 #case 8: # substitution    
 
     def add_plus_minus(self, player, start, end):
-        self.update(player,'+/-', end - start)
+        self.update(player,PM, end - start)
 
     def get_bs_data(self, players = [], all=False):
 
@@ -168,7 +170,7 @@ class box_score:
         for key in rows:
             data2 = []
             for key2 in itemlist:
-                if key2 == '+/-':
+                if key2 == PM:
                     fp = 1 if self._flip else  -1
                     data2 += [fp*self._boxScore[key][key2]]
                 else:

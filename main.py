@@ -46,6 +46,8 @@ db_con = None       # keep this around to get play_by_play when needed
 
 def loadNBA():
 
+    # we're limiting the data to 2020 and after 
+    # this is jus to make the initial load quicker
     START_SEASON = '2020-01-01'
     DB_FILENAME = "nba.sqlite"
 
@@ -59,8 +61,8 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY = '2023-01-10'
-    _STOP_DAY = '2023-04-10'
+    _START_DAY = '2023-01-01'
+    _STOP_DAY = '2023-04-20'
     _TEAM = 'OKC'
     _SEASON = '2022'
 
@@ -89,6 +91,8 @@ def main():
     our_player_stints_by_date = generatePBP(test_data, _TEAM)
     opponent_player_stints_by_date = generatePBP(test_data, _TEAM, OPPONENT=True)
 
+    db_con.close()
+    
     for date in our_player_stints_by_date:     
         game_data = gamesByTeam[_TEAM][_SEASON][date]
         play_by_play = test_data[date].play_by_play[0]
@@ -111,5 +115,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-print("END WWMDD")

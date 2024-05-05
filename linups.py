@@ -4,6 +4,14 @@ import matplotlib.pyplot as plt
 from box_score import box_score, PM
 import re
 
+
+    # box_for_lineups, stints_by_lineup, events_by_lineup = plot3_lineup_prep(
+    #     playTimesbyPlayer = playTimesbyPlayer1,
+    #     play_by_play      = play_by_play,
+    #     boxscore_         = our_stints[1],
+    #     scoreMargins      = scoreMargins
+    # )
+
 from plots import mscatter, event_to_size_color_shape, LABLE_SIZE
 
 from datetime import timedelta

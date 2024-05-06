@@ -69,6 +69,64 @@ def getTestData(_games):
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
 
+def t1():
+    sec_ = [10,100,150,150,150,200,250,250, 300,300,300,300,300,300,300,300,300,500,600,700]
+    y_  = [0] * len(sec_)
+
+    idx_max = len(sec_)
+    idx = 0
+    while idx < idx_max:
+
+        start = sec_[idx]
+        start_index = idx
+        idx += 1
+        # find first opening where we have space
+        while idx < idx_max:
+            if sec_[idx] - start < 20:
+                idx += 1
+            else: break
+
+        # i is next availab le slot
+        n = idx - start_index     # number of items we need to place
+        slotOffset = 20
+        slotPosition = 0
+        while n > 0:
+            if n >= 3:          # place 3 1 on line 2 staddle the one
+                print(f'place 3 sp:{slotPosition} n:{n} si:{start_index}') 
+                y_[start_index] += 3
+                y_[start_index + 2] -=3
+
+                sec_[    start_index] += slotOffset * slotPosition 
+                sec_[1 + start_index] += slotOffset * slotPosition 
+                sec_[2 + start_index] += slotOffset * slotPosition 
+
+                n -= 3
+                start_index += 3
+                slotPosition += 1
+ 
+            elif n == 2:          # place 2 to straddle the line
+                print(f'place 2 n:{n} si:{start_index} sp:{slotPosition}') 
+                
+                y_[start_index] += 2
+                y_[start_index + 1] -= 2
+                sec_[    start_index] += slotOffset * slotPosition 
+                sec_[1 + start_index] += slotOffset * slotPosition 
+                
+                n -= 2
+                start_index += 2
+                slotPosition += 1
+
+            elif n == 1:               
+                print(f'place 1 sp:{slotPosition} n:{n} si:{start_index}') 
+                sec_[    start_index] += slotOffset * slotPosition 
+                
+                n -= 1
+                start_index += 1
+                slotPosition += 1
+
+    print('As',sec_)
+    print('Ay',y_)
+            
 def main():
 
     global dfs 

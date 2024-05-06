@@ -67,7 +67,7 @@ def or_dr(_style, _color, _size, eventRecord, current_or_count):
     return _style, _color, _size
 
 ylo = 'dimgrey'; _1 = a1a; _2 = a2a; _3 = a3a  
-red = 'tomato'
+red = 'cornflowerblue'
 lime = 'limegreen'
 event_map = {
     1: [ lime, 30.0, _2,'FG',       lime, 30.0, aAa,'AST',    [1, 2], em_fg, 0.8], # make, assist
@@ -201,7 +201,7 @@ def P3_boxscore(boxscore, ax, players):
     else: index = len(bs_rows) - 5
     SCALEY = _scale[index]
     # SCALEY =  13.2 / (len(bs_rows))
-    print(index, SCALEY, len(bs_rows))
+    # print(index, SCALEY, len(bs_rows))
     the_table.scale(0.92, SCALEY)
     the_table.auto_set_font_size(False)
     the_table.set_fontsize(9)
@@ -222,6 +222,76 @@ def mscatter(x,y,ax=None, m=None, **kw):
             paths.append(path)
         sc.set_paths(paths)
     return sc
+
+# def fitMarkers(sec_, y_, color_):
+def fitMarkers(y_, sec_, color_, size_, marker_):
+
+    try:
+        a = list(map(lambda x:x != ylo,color_ ))
+        first_no_sub_item = a.index(True)
+    except Exception as err:
+        first_no_sub_item = 0
+        a = []
+          
+    idx_max = len(sec_)
+    idx = first_no_sub_item
+
+    while idx < idx_max:
+
+        if color_[idx] == ylo:
+            print(f'color error {idx} {first_no_sub_item}')
+            print(f'{color_}')
+            print(f'{a}')
+
+        OPEN_OFFSET = 14
+        start = sec_[idx]
+        start_index = idx
+        idx += 1
+        # find first opening where we have space
+        while idx < idx_max:
+            if sec_[idx] - sec_[idx-1] < OPEN_OFFSET:
+                idx += 1
+            else: break
+
+        # i is next availab le slot
+        n = idx - start_index     # number of items we need to place
+        slotOffset = OPEN_OFFSET - 1
+        slotPosition = 0
+        while n > 0:
+            if n >= 3:          # place 3 1 on line 2 staddle the one
+                # print(f'place 3 sp:{slotPosition} n:{n} si:{start_index}') 
+                y_[start_index] += 3.6
+                y_[start_index + 2] -= 3.6
+
+                sec_[1 + start_index] += slotOffset * slotPosition 
+                sec_[    start_index] = sec_[1 + start_index] 
+                sec_[2 + start_index] = sec_[1 + start_index] 
+                
+                # sec_[2 + start_index] += slotOffset * slotPosition 
+
+                n -= 3
+                start_index += 3
+                slotPosition += 1
+ 
+            elif n == 2:          # place 2 to straddle the line
+                # print(f'place 2 n:{n} si:{start_index} sp:{slotPosition}') 
+                
+                y_[start_index] += 2.4
+                y_[start_index + 1] -= 2.4
+                sec_[    start_index] += slotOffset * slotPosition 
+                sec_[1 + start_index] += slotOffset * slotPosition 
+                
+                n -= 2
+                start_index += 2
+                slotPosition += 1
+
+            elif n == 1:               
+                # print(f'place 1 sp:{slotPosition} n:{n} si:{start_index}') 
+                sec_[    start_index] += slotOffset * slotPosition 
+                
+                n -= 1
+                start_index += 1
+                slotPosition += 1
 
 def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, x_labels = 'TOP'):
 
@@ -272,23 +342,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
 
-            toggle = False
-            for i in range(0,evnt_cnt-2):
-
-                if sec__[i+2] - sec__[i] < 20:# and color__[i] != ylo:
-                    # found 3 events separated by < 20 seconds
-                    # ignored sub i.e. ylo in/out we'll be on top of them
-                    
-                    if color__[i] != ylo:
-                        # ignored sub i.e. ylo in/out we'll be on top of them
-                        y__[i] += 6.5 if toggle else -6.5 
-                        toggle = not toggle
-                
-                elif sec__[i+1] - sec__[i] < 20:
-                    #we have 2
-                    if color__[i] != ylo:
-                        y__[i] += 2.5
-                        y__[i+1] -= 2.5 
+            fitMarkers(y__,sec__, color__, size__, marker__)
 
             scatter = mscatter(
                 sec__, y__, c = color__, s = size__, m = marker__, 

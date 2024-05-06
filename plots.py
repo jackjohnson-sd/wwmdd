@@ -1,37 +1,23 @@
+import re
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-import re
-
-from box_score import box_score
-
-
-import numpy as np; np.random.seed(32)
 from matplotlib.path import Path
 from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
-import matplotlib.pyplot as plt
+from matplotlib import font_manager 
+
+from box_score import box_score
 
 # fp = FontProperties(fname=r"C:\Windows\Fonts\Font Awesome 5 Free-Solid-900.otf")
-fp = FontProperties({'fontname':'Wingdings'})
-
-
-# fig, ax = plt.subplots()
+fp = FontProperties({'fontname':'Arial'})
 
 def get_marker(symbol):
     v, codes = TextToPath().get_text_path(fp, symbol)
     v = np.array(v)
     mean = np.mean([np.max(v,axis=0), np.min(v, axis=0)], axis=0)
     return Path(v-mean, codes, closed=False)
-
-# x = np.random.randn(4,10)
-# c = np.random.rand(10)
-# s = np.random.randint(120,500, size=10)
-# plt.scatter(*x[:2], s=s, c=c, marker=get_marker(symbols["cloud"]), 
-#             edgecolors="none", linewidth=2)
-# plt.scatter(*x[2:], s=s, c=c, marker=get_marker(symbols["fish"]), 
-#             edgecolors="none", linewidth=2)   
 
 aAa = get_marker('A')
 aDa = get_marker('D')
@@ -64,7 +50,7 @@ def em_fg(_style, _color, _size, eventRecord, current_or_count):
 def em_ft(_style, _color, _size, eventRecord, current_or_count):
     # differentiate made vs missed free throw by color
     if type(eventRecord.score) != type('a'): 
-        _color= 'red'
+        _color= red
     return _style, _color, _size
     
 def or_dr(_style, _color, _size, eventRecord, current_or_count):
@@ -80,20 +66,19 @@ def or_dr(_style, _color, _size, eventRecord, current_or_count):
     if is_or: _style = aOa
     return _style, _color, _size
 
-ylo = 'darkgrey'; _1 = '$1$'; _2 = '$2$'; _3 = '$3$'  
-ylo = 'darkgrey'; _1 = a1a; _2 = a2a; _3 = a3a  
-
+ylo = 'dimgrey'; _1 = a1a; _2 = a2a; _3 = a3a  
+red = 'tomato'
+lime = 'limegreen'
 event_map = {
-    1: [ 'lime', 30.0, _2,'FG',      'lime', 30.0, aAa,'AST',     [1, 2], em_fg, 1.0], # make, assist
-    2: [  'red', 30.0, _2,'MISS',    'lime', 30.0, aBa,'BLK',     [1, 3], em_mi, 1.0],  # miss, block
-    3: [ 'lime', 30.0, _1,'FT',       None,   None, ',','',       [1],    em_ft, 1.0], # free throw
-    4: [ 'lime', 30.0, aDa,'DREB',    None,   None, ',','',       [1],    or_dr, 1.0],  # rebound
-    5: [ 'lime', 30.0, aSa,'STL',     'red',  30.0, aTa,'TO',     [2, 1], None,  1.0],  # steal, turnover
-    6: [  'red', 30.0, aFa,'PF',      None,   None, 's','PF\'d',  [1, 2], None,  1.0],  # foul, fouled
-    8: [    ylo, 15.0, 'o','SUB',     ylo,    15.0, 'o','OUT',    [1, 2], None,  1.0],  # substitution
-    20:[ 'lime', 30.0, aOa,'OREB',    'lime', 30.0, _3,'3PT',     [1],    None,  1.0],
+    1: [ lime, 30.0, _2,'FG',       lime, 30.0, aAa,'AST',    [1, 2], em_fg, 0.8], # make, assist
+    2: [  red, 30.0, _2,'MISS',     lime, 30.0, aBa,'BLK',    [1, 3], em_mi, 0.8],  # miss, block
+    3: [ lime, 30.0, _1,'FT',       None, None, ',','',       [1],    em_ft, 0.8], # free throw
+    4: [ lime, 30.0, aDa,'DREB',    None, None, ',','',       [1],    or_dr, 0.8],  # rebound
+    5: [ lime, 30.0, aSa,'STL',     red,  30.0, aTa,'TO',     [2, 1], None,  0.8],  # steal, turnover
+    6: [  red, 30.0, aFa,'PF',      None, None, 's','PF\'d',  [1, 2], None,  0.8],  # foul, fouled
+    8: [  ylo, 15.0, 'o','SUB',     ylo,  15.0, 'o','OUT',    [1, 2], None,  1.0],  # substitution
+    20:[ lime, 30.0, aOa,'OREB',    lime, 30.0, _3,'3PT',     [1],    None,  0.8],
 }
-
 
 def event_legend():
 
@@ -137,7 +122,6 @@ def event_to_size_color_shape(player, eventRecord, current_or_count):
     _style2 = ','
 
     if eventRecord.eventmsgtype in event_map.keys():
-    # if eventRecord.eventmsgtype in [1,2,3,4]:                               ########
         # this is an event we want to report on
         action = event_map[eventRecord.eventmsgtype]
 
@@ -199,7 +183,7 @@ def P3_boxscore(boxscore, ax, players):
         colWidths     = cws,  # [COLWIDTH]*len(bs_columns),
         rowLabels     = trows,
         # rowColours='k',
-        rowLoc        = 'right',
+        rowLoc        = 'center',
         colLabels     = bs_columns,
         # colColours='k',
         colLoc        = 'center',
@@ -280,7 +264,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         data = playTimesbyPlayer[_player]
         if len(data) > 0:
 
-            evnt_cnt = len(events_by_player[_player][0::4])
+            evnt_cnt = int(len(events_by_player[_player])/4)
             
             y__ = [((nplyrs - i - 1) * 10)] * evnt_cnt
             sec__     = events_by_player[_player][0::4]
@@ -288,11 +272,23 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
 
-            for i in range(0,evnt_cnt-1):
-                if sec__[i+1] - sec__[i] < 20:
-                    if color__[i] != ylo and color__[i+1] != ylo:
-                        y__[i] += 2.6
-                        y__[i+1] -= 2.6 
+            toggle = False
+            for i in range(0,evnt_cnt-2):
+
+                if sec__[i+2] - sec__[i] < 20:# and color__[i] != ylo:
+                    # found 3 events separated by < 20 seconds
+                    # ignored sub i.e. ylo in/out we'll be on top of them
+                    
+                    if color__[i] != ylo:
+                        # ignored sub i.e. ylo in/out we'll be on top of them
+                        y__[i] += 6.5 if toggle else -6.5 
+                        toggle = not toggle
+                
+                elif sec__[i+1] - sec__[i] < 20:
+                    #we have 2
+                    if color__[i] != ylo:
+                        y__[i] += 2.5
+                        y__[i+1] -= 2.5 
 
             scatter = mscatter(
                 sec__, y__, c = color__, s = size__, m = marker__, 
@@ -305,12 +301,14 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
    
     ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor = True)
-    ax.set_xticklabels(['Q1', 'Q2', 'Q3', 'Q4'], minor = True)
-    
-    if x_labels == 'TOP': ax.xaxis.tick_top()
-    _lsize = 0 if x_labels == 'NONE' else 9
 
-    ax.tick_params(axis='x', which='both', labelsize=_lsize, pad=3, length=0)
+    ax.xaxis.tick_top()  
+    tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
+    ax.set_xticklabels(tls, minor = True)
+     
+    # _lsize = 0 if x_labels == 'NONE' else 9
+
+    ax.tick_params(axis='x', which='both', labelsize=9, pad=3, length=0)
     ax.tick_params(axis='y', which='both', labelsize=0, length=0, pad=0, direction='out')
     ax.grid(True, axis='x', color='dimgrey', linestyle='-', linewidth=1.5, zorder= Z_GRID)
     
@@ -380,7 +378,9 @@ def get_title(game_data, boxscore):
         top_team = team_away
         bot_team = team_home
 
-    title = f'{game_data.matchup_away} {int(game_data.pts_away)}-{int(game_data.pts_home)} {game_data.game_date[0:10]}'
+    gd = game_data.game_date[0:10].split('-')
+    gds = f'{gd[1]}/{gd[2]}/{gd[0]}'
+    title = f'{gds}  {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}   '
     title = title + '  ' + debug_title
     return title, top_team, bot_team, team_home
 
@@ -435,12 +435,16 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
         plays_for_player = play_by_play[ours]
 
         for i, v in plays_for_player.iterrows():
+            if v.eventmsgtype == 8:
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
+                if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
+                if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
-            _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count)
-            if _ec != None:
-                _events.extend([v.sec, _ec, _es, _et ])
-            if _ec2 != None:
-                _events.extend([v.sec, _ec2, _es2, _et2])
+        for i, v in plays_for_player.iterrows():
+            if v.eventmsgtype != 8:
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
+                if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
+                if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         events_by_player[player] = _events
 
@@ -520,7 +524,7 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
 
 
     # print(f'tt:{top_team} bt:{bot_team} ht:{home_team} g1f:{_ad1_flip} g2f:{_ad2_flip}')
-    P3_PBP_chart(playTimesbyPlayer1, _ad1_[0], events_by_player1, scoreMargins, flipper = _ad1_flip)
+    P3_PBP_chart(playTimesbyPlayer1, _ad1_[0], events_by_player1, scoreMargins, flipper = _ad1_flip, x_labels='TOP')
     boxscore1.plus_minus_flip(_ad1_flip)
     P3_boxscore(boxscore1, _ad1_[1], players1)
     # axd[TR].sharey(axd[TL])

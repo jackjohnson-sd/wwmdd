@@ -19,12 +19,11 @@ def loadFromCSV():
         __fn = os.path.split(filename)[1].split('.')[0]
         dfFromCSV[__fn] = df
 
-dfs = {}            # has everthing that was in db as dict of DateFrame by column name
 gamesByTeam = {}    # reorganized game data is in gamesByTeam
 
 def loadNBA_data(_filename_):
 
-    _dfs = {}
+    _dfs = {}            # has everthing that was in db as dict of DateFrame by column name
 
     db_con = sqlite3.connect(_filename_)
     db_cursor = db_con.cursor()
@@ -46,13 +45,9 @@ def loadNBA_data(_filename_):
 
         for chunk in pd.read_sql_query(query, db_con, chunksize=chunk_size,index_col= indexCol):
             chunks.append(chunk)
-            #print('.',end = "")
             count += chunk_size
 
         _dfs[table_name] = pd.concat(chunks)
-        #print(table_name, _dfs[table_name].shape)
-
-    print('LOAD COMPLETE') 
 
     # strip leading digit from season, its signifies pre, post and regular season
     _dfs['game']['season_id'] = _dfs['game']['season_id'].apply(lambda x:x[1:])

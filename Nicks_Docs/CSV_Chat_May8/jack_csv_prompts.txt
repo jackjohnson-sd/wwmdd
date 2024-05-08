@@ -1,0 +1,9 @@
+PROMPTS:
+
+1. simulate the events in the entire first quarter in csv format
+
+2. simulate the events in the entire second quarter in csv format
+
+3. simulate the events in the entire third quarter in csv format
+
+4. simulate the events in the entire fourth quarter in csv format

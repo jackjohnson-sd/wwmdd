@@ -1,0 +1,6 @@
+COMMENT:
+The scoring frequency is formulaic, with scoring events almost every 15 seconds and
+at times ending in 0 and 5. That is not realistic. 
+
+PROMPT:
+Create a game play-by-play of the third quarter of this game.

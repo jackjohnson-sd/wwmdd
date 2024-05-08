@@ -1,0 +1,7 @@
+COMMENT:
+The amount of substitutions made (16) follows the typical amount of subs made during an NBA game.
+I found online that each team makes about 8 - 10 subs per game.
+Claude seems to be incorporating a reasonable amount of subs...
+
+PROMPT:
+Provide a summary of all player substitutions made during the game.

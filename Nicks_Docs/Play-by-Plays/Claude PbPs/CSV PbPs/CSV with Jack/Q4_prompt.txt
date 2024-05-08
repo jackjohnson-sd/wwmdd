@@ -1,0 +1,14 @@
+COMMENT:
+In the quarter, the number of event types that occured are:
+
+Shot: 32
+Assist: 1
+Turnover: 1
+Timeout: 3
+Rebound: 1
+
+Final Score: Dallas Mavericks 159, Oklahoma City Thunder 156
+
+PROMPT:
+
+can you give us the fourth quarter of the game

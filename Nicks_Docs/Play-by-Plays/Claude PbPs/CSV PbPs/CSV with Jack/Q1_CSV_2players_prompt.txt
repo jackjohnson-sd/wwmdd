@@ -1,0 +1,7 @@
+COMMENT:
+Claude adds 'player 1' and 'player 2 as values and omits 'player'.
+
+PROMPT:
+when a play involves more than one player (such as assist or foul), include the second 
+players name in the file. if no other player involved (like a shot), leave the second 
+player blank

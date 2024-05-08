@@ -1,0 +1,75 @@
+RESULT:
+
+Game: Los Angeles Lakers vs. Golden State Warriors
+Date: October 18, 2024
+Venue: Chase Center, San Francisco, CA
+
+Starting Lineups:
+Los Angeles Lakers:
+PG: D'Angelo Russell
+SG: Austin Reaves
+SF: LeBron James
+PF: Anthony Davis
+C: Jarred Vanderbilt
+
+Golden State Warriors:
+PG: Stephen Curry
+SG: Klay Thompson
+SF: Andrew Wiggins
+PF: Draymond Green
+C: Kevon Looney
+
+1st Quarter:
+
+12:00 - Tip-off won by the Warriors. Looney passes to Curry.
+11:45 - Curry misses a 3-point shot. Rebound by Davis.
+11:30 - James makes a layup. Lakers lead 2-0.
+11:15 - Thompson misses a mid-range jumper. Rebound by Vanderbilt.
+10:55 - Russell makes a 3-point shot. Assist by James. Lakers lead 5-0.
+10:35 - Green makes a layup. Assist by Curry. Lakers lead 5-2.
+10:20 - Davis misses a hook shot. Rebound by Looney.
+10:05 - Wiggins makes a 3-point shot. Assist by Curry. Tied game 5-5.
+9:50 - James makes a driving layup. Lakers lead 7-5.
+9:30 - Curry makes a 3-point shot. Warriors lead 8-7.
+9:10 - Reaves misses a 3-point shot. Rebound by Green.
+8:55 - Thompson makes a mid-range jumper. Assist by Green. Warriors lead 10-7.
+8:40 - Lakers call a timeout.
+8:25 - Davis makes a dunk. Assist by Russell. Warriors lead 10-9.
+8:05 - Curry misses a layup. Rebound by Davis.
+7:50 - James makes a fadeaway jumper. Lakers lead 11-10.
+7:35 - Wiggins makes a 3-point shot. Assist by Curry. Warriors lead 13-11.
+7:20 - Davis is fouled by Looney. Davis makes both free throws. Tied game 13-13.
+7:05 - Thompson makes a 3-point shot. Assist by Curry. Warriors lead 16-13.
+6:50 - Russell makes a mid-range jumper. Warriors lead 16-15.
+6:35 - Green is fouled by Vanderbilt. Green makes 1 of 2 free throws. Warriors lead 17-15.
+6:20 - James makes a layup. Tied game 17-17.
+6:05 - Warriors call a timeout.
+5:55 - Curry makes a 3-point shot. Warriors lead 20-17.
+5:40 - Davis makes a dunk. Assist by James. Warriors lead 20-19.
+5:25 - Thompson misses a 3-point shot. Rebound by Vanderbilt.
+5:10 - Reaves makes a 3-point shot. Assist by Russell. Lakers lead 22-20.
+4:55 - Curry makes a layup. Tied game 22-22.
+4:40 - James makes a fadeaway jumper. Lakers lead 24-22.
+4:25 - Wiggins misses a 3-point shot. Rebound by Davis.
+4:10 - Russell makes a mid-range jumper. Lakers lead 26-22.
+3:55 - Green makes a layup. Assist by Curry. Lakers lead 26-24.
+3:40 - Lakers call a timeout. Rui Hachimura enters the game for Vanderbilt.
+3:30 - Davis makes a hook shot. Lakers lead 28-24.
+3:15 - Thompson makes a 3-point shot. Assist by Curry. Lakers lead 28-27.
+3:00 - James misses a layup. Rebound by Looney.
+2:45 - Curry makes a 3-point shot. Warriors lead 30-28.
+2:30 - Hachimura makes a mid-range jumper. Tied game 30-30.
+2:15 - Wiggins makes a dunk. Assist by Green. Warriors lead 32-30.
+2:00 - Russell misses a 3-point shot. Rebound by Looney.
+1:45 - Thompson makes a 3-point shot. Assist by Curry. Warriors lead 35-30.
+1:30 - James makes a layup. Warriors lead 35-32.
+1:15 - Curry misses a 3-point shot. Rebound by Hachimura.
+1:00 - Davis makes a dunk. Assist by James. Warriors lead 35-34.
+0:45 - Green makes a layup. Assist by Curry. Warriors lead 37-34.
+0:30 - James misses a fadeaway jumper. Rebound by Looney.
+0:15 - Curry makes a 3-point shot. Warriors lead 40-34.
+0:00 - Russell misses a half-court shot at the buzzer.
+
+End of 1st Quarter:
+Golden State Warriors: 40
+Los Angeles Lakers: 34

@@ -1,0 +1,96 @@
+RESULT:
+
+Starting Lineups:
+
+Home Team:
+PG: Stephen Curry
+SG: Klay Thompson
+SF: Andrew Wiggins
+PF: Draymond Green
+C: Kevon Looney
+
+Away Team:
+PG: Chris Paul
+SG: Devin Booker
+SF: Mikal Bridges
+PF: Cameron Johnson
+C: Deandre Ayton
+
+1st Quarter Play-by-Play:
+
+11:45 - Devin Booker wins the tip-off for the Away Team.
+11:30 - Chris Paul makes a 16-foot jumper. (Away Team 2 - 0 Home Team)
+11:15 - Stephen Curry misses a 3-point attempt. Deandre Ayton with the 
+defensive rebound.
+10:58 - Mikal Bridges makes a layup. Assist by Chris Paul. 
+(Away Team 4 - 0 Home Team)
+10:40 - Klay Thompson makes a 3-pointer. Assist by Draymond Green. 
+(Away Team 4 - 3 Home Team)
+10:20 - Deandre Ayton misses a hook shot. Andrew Wiggins with the 
+defensive rebound.
+10:05 - Stephen Curry makes a driving layup. (Away Team 4 - 5 Home Team)
+9:45 - Cameron Johnson makes a 3-pointer. Assist by Devin Booker. 
+(Away Team 7 - 5 Home Team)
+9:28 - Draymond Green called for a personal foul. Chris Paul to the 
+free-throw line.
+9:28 - Chris Paul makes both free throws. (Away Team 9 - 5 Home Team)
+9:10 - Andrew Wiggins makes a dunk. Assist by Stephen Curry. 
+(Away Team 9 - 7 Home Team)
+8:50 - Devin Booker makes a fadeaway jumper. (Away Team 11 - 7 Home Team)
+8:32 - Kevon Looney makes a layup. Assist by Klay Thompson. 
+(Away Team 11 - 9 Home Team)
+8:15 - Chris Paul called for an offensive foul. Turnover.
+8:00 - Stephen Curry makes a 3-pointer. (Away Team 11 - 12 Home Team)
+7:45 - Deandre Ayton makes an alley-oop dunk. Assist by Chris Paul. 
+(Away Team 13 - 12 Home Team)
+7:30 - Home Team calls a timeout.
+7:15 - Klay Thompson misses a 3-point attempt. Mikal Bridges with 
+the defensive rebound.
+6:58 - Devin Booker makes a 15-foot jumper. 
+(Away Team 15 - 12 Home Team)
+6:40 - Draymond Green makes a layup. Assist by Stephen Curry. 
+(Away Team 15 - 14 Home Team)
+6:20 - Cameron Johnson misses a 3-point attempt. Kevon Looney with 
+the defensive rebound.
+6:05 - Andrew Wiggins makes a 3-pointer. Assist by Draymond Green. 
+(Away Team 15 - 17 Home Team)
+5:50 - Deandre Ayton makes a dunk. Assist by Devin Booker. 
+(Away Team 17 - 17 Home Team)
+5:35 - Stephen Curry misses a layup. Andrew Wiggins with the offensive 
+rebound and putback. (Away Team 17 - 19 Home Team)
+5:20 - Mikal Bridges misses a 3-point attempt. Klay Thompson with the 
+defensive rebound.
+5:05 - Klay Thompson makes a 3-pointer. Assist by Stephen Curry. 
+(Away Team 17 - 22 Home Team)
+4:50 - Away Team calls a timeout.
+4:35 - Chris Paul makes a 12-foot jumper. (Away Team 19 - 22 Home Team)
+4:20 - Draymond Green makes a layup. Assist by Klay Thompson. 
+(Away Team 19 - 24 Home Team)
+4:00 - Devin Booker makes a fadeaway jumper. (Away Team 21 - 24 Home Team)
+3:45 - Kevon Looney called for an offensive foul. Turnover.
+3:30 - Cameron Johnson makes a 3-pointer. Assist by Chris Paul. 
+(Away Team 24 - 24 Home Team)
+3:15 - Stephen Curry makes a 3-pointer. (Away Team 24 - 27 Home Team)
+3:00 - Mikal Bridges makes a layup. (Away Team 26 - 27 Home Team)
+2:45 - Klay Thompson makes a 16-foot jumper. (Away Team 26 - 29 Home Team)
+2:30 - Devin Booker misses a 3-point attempt. Kevon Looney with 
+the defensive rebound.
+2:15 - Andrew Wiggins makes a dunk. Assist by Draymond Green. 
+(Away Team 26 - 31 Home Team)
+2:00 - Chris Paul makes a 3-pointer. (Away Team 29 - 31 Home Team)
+1:45 - Stephen Curry misses a 3-point attempt. Deandre Ayton with 
+the defensive rebound.
+1:30 - Devin Booker makes a layup. (Away Team 31 - 31 Home Team)
+1:15 - Draymond Green makes a layup. Assist by Klay Thompson. 
+(Away Team 31 - 33 Home Team)
+1:00 - Cameron Johnson misses a 3-point attempt. Andrew Wiggins 
+with the defensive rebound.
+0:45 - Klay Thompson makes a 3-pointer. Assist by Stephen Curry. 
+(Away Team 31 - 36 Home Team)
+0:30 - Mikal Bridges makes a dunk. Assist by Chris Paul. 
+(Away Team 33 - 36 Home Team)
+0:10 - Stephen Curry makes a 3-pointer. 
+(Away Team 33 - 39 Home Team)
+0:00 - Chris Paul misses a half-court shot at the buzzer.
+
+End of 1st Quarter: Home Team 39, Away Team 33

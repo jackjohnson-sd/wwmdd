@@ -1,0 +1,12 @@
+COMMENT:
+I'm prompting for more defenisve plays (blocks, steals). 
+Claude ends the quarter with 4:35 left...
+At least Gemini ends the quarter due to output limits (abt 500 words)
+
+Why does Claude have this issue? (seen in 1st game PbP by Quarter)
+
+
+PROMPT:
+Create a game play-by-play of the first quarter of an NBA game. Include the lineups, all 
+scoring events, fouls, player substitutions, free throws, attempts, blocks, steals, turnovers, 
+ejections, and other typical basketball game events. 

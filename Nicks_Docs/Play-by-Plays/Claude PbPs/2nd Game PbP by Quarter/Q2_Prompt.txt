@@ -1,0 +1,8 @@
+COMMENT:
+Unrealistic/high scoring persists in new chat, leading me to wonder how much context 
+Claude carries from an old chat to a new chat (Claude claims each new chat rids previous chat
+instructions/prompts) 
+Claude is still seemingly following the prompt of "competitive NBA scoring"...
+
+PROMPT:
+Create a game play-by-play of the second quarter of this game.

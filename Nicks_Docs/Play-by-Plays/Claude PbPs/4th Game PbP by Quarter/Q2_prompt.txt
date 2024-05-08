@@ -1,0 +1,8 @@
+COMMENT:
+I asked it why it didn't mention team names, and Claude responded that it omitted them
+to produce more relevant results, so the focus is on the plays and score. It asked if
+I wanted to regenerate the first quarter with team names, but I continued to prompt it 
+to generate the second quarter. That's why this PbP now has team names...
+
+PROMPT:
+Create a game play-by-play of the second quarter of this game.

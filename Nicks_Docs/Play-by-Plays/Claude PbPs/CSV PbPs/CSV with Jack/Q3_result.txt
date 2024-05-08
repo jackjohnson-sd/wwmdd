@@ -1,0 +1,48 @@
+RESULT:
+
+Sure, here's the play-by-play for the third quarter of the hypothetical game between the Dallas Mavericks and the Oklahoma City Thunder:
+
+Period,Time,Team,Event Type,Player 1,Player 2,Description,Score
+3,12:00,DAL,Shot,Luka Dončić,,3-pointer,DAL 83-74
+3,11:40,OKC,Shot,Luguentz Dort,,Driving layup,DAL 83-76
+3,11:20,DAL,Turnover,Kristaps Porziņģis,,Lost ball,DAL 83-76
+3,11:05,OKC,Shot,Shai Gilgeous-Alexander,,Pullup jumper,DAL 83-78
+3,10:45,DAL,Shot,Tim Hardaway Jr.,,3-pointer,DAL 86-78
+3,10:25,OKC,Shot,Darius Bazley,,Dunk,DAL 86-80
+3,10:05,DAL,Shot,Dorian Finney-Smith,,Corner 3-pointer,DAL 89-80
+3,9:45,OKC,Turnover,Josh Giddey,,Bad pass,DAL 89-80
+3,9:30,DAL,Shot,Luka Dončić,,Fadeaway jumper,DAL 91-80
+3,9:10,OKC,Shot,Shai Gilgeous-Alexander,,Floater,DAL 91-82
+3,8:50,DAL,Shot,Kristaps Porziņģis,,Hook shot,DAL 93-82
+3,8:30,OKC,Shot,Luguentz Dort,,3-pointer,DAL 93-85
+3,8:10,DAL,Foul,Maxi Kleber,Jeremiah Robinson-Earl,Shooting foul on Robinson-Earl,DAL 93-85
+3,8:10,OKC,Free Throw,Jeremiah Robinson-Earl,,Makes both free throws,DAL 93-87
+3,7:55,DAL,Shot,Jalen Brunson,,Layup,DAL 95-87
+3,7:35,OKC,Shot,Darius Bazley,,3-pointer,DAL 95-90
+3,7:15,DAL,Timeout,Coach Jason Kidd,,Calls a timeout,DAL 95-90
+3,7:00,DAL,Shot,Luka Dončić,,Step-back 3-pointer,DAL 98-90
+3,6:40,OKC,Shot,Shai Gilgeous-Alexander,,Driving layup,DAL 98-92
+3,6:20,DAL,Shot,Tim Hardaway Jr.,,Mid-range jumper,DAL 100-92
+3,6:00,OKC,Shot,Mike Muscala,,3-pointer,DAL 100-95
+3,5:40,DAL,Shot,Kristaps Porziņģis,,Alley-oop dunk,DAL 102-95
+3,5:40,DAL,Assist,Luka Dončić,Kristaps Porziņģis,Assists Porziņģis,DAL 102-95
+3,5:20,OKC,Shot,Josh Giddey,,Floater,DAL 102-97
+3,5:00,DAL,Shot,Jalen Brunson,,3-pointer,DAL 105-97
+3,4:40,OKC,Shot,Shai Gilgeous-Alexander,,Pullup jumper,DAL 105-99
+3,4:20,DAL,Shot,Dorian Finney-Smith,,Corner 3-pointer,DAL 108-99
+3,4:00,OKC,Timeout,Coach Mark Daigneault,,Calls a timeout,DAL 108-99
+3,3:50,OKC,Shot,Luguentz Dort,,3-pointer,DAL 108-102
+3,3:30,DAL,Shot,Luka Dončić,,Driving layup,DAL 110-102
+3,3:10,OKC,Shot,Darius Bazley,,Dunk,DAL 110-104
+3,2:50,DAL,Shot,Tim Hardaway Jr.,,3-pointer,DAL 113-104
+3,2:30,OKC,Shot,Shai Gilgeous-Alexander,,Fadeaway jumper,DAL 113-106
+3,2:10,DAL,Shot,Kristaps Porziņģis,,Hook shot,DAL 115-106
+3,1:50,OKC,Shot,Mike Muscala,,3-pointer,DAL 115-109
+3,1:30,DAL,Shot,Jalen Brunson,,Floater,DAL 117-109
+3,1:10,OKC,Shot,Josh Giddey,,Layup,DAL 117-111
+3,0:50,DAL,Shot,Luka Dončić,,Step-back jumper,DAL 119-111
+3,0:30,OKC,Shot,Shai Gilgeous-Alexander,,3-pointer,DAL 119-114
+3,0:10,DAL,Shot,Dorian Finney-Smith,,Dunk,DAL 121-114
+3,0:00,OKC,Shot,Luguentz Dort,,Buzzer-beater attempt (misses),DAL 121-114
+
+End of 3rd Quarter: Dallas Mavericks 121, Oklahoma City Thunder 114

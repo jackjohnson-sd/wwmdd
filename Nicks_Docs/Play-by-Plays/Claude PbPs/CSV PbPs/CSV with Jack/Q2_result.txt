@@ -1,0 +1,52 @@
+RESULT:
+
+Here's the play-by-play for the second quarter of the hypothetical game between the Dallas Mavericks and the Oklahoma City Thunder:
+
+Period,Time,Team,Event Type,Player 1,Player 2,Description,Score
+2,12:00,OKC,Shot,Theo Maledon,,3-pointer,DAL 39-37
+2,11:40,DAL,Shot,Spencer Dinwiddie,,Driving layup,DAL 41-37
+2,11:20,OKC,Shot,Aleksej Pokusevski,,Hook shot,DAL 41-39
+2,11:00,DAL,Shot,Davis Bertans,,3-pointer,DAL 44-39
+2,10:40,OKC,Turnover,Theo Maledon,,Bad pass,DAL 44-39
+2,10:25,DAL,Shot,Jalen Brunson,,Pullup jumper,DAL 46-39
+2,10:05,OKC,Shot,Darius Bazley,,Dunk,DAL 46-41
+2,9:50,DAL,Foul,Maxi Kleber,Darius Bazley,Shooting foul on Bazley,DAL 46-41
+2,9:50,OKC,Free Throw,Darius Bazley,,Makes 1 of 2,DAL 46-42
+2,9:35,DAL,Shot,Jalen Brunson,,Floater,DAL 48-42
+2,9:15,OKC,Shot,Kenrich Williams,,3-pointer,DAL 48-45
+2,9:00,DAL,Timeout,Coach Jason Kidd,,Calls a timeout,DAL 48-45
+2,8:50,DAL,Shot,Luka Dončić,,Step-back 3-pointer,DAL 51-45
+2,8:30,OKC,Shot,Shai Gilgeous-Alexander,,Layup,DAL 51-47
+2,8:10,DAL,Turnover,Kristaps Porziņģis,,Traveling violation,DAL 51-47
+2,7:55,OKC,Shot,Josh Giddey,,3-pointer,DAL 51-50
+2,7:35,DAL,Shot,Tim Hardaway Jr.,,Mid-range jumper,DAL 53-50
+2,7:15,OKC,Shot,Jeremiah Robinson-Earl,,Putback layup,DAL 53-52
+2,6:55,DAL,Shot,Luka Dončić,,Driving layup,DAL 55-52
+2,6:55,DAL,Foul,Luka Dončić,Jeremiah Robinson-Earl,And-1 on Robinson-Earl,DAL 55-52
+2,6:55,DAL,Free Throw,Luka Dončić,,Makes the free throw,DAL 56-52
+2,6:40,OKC,Turnover,Josh Giddey,,Bad pass,DAL 56-52
+2,6:25,DAL,Shot,Dorian Finney-Smith,,3-pointer,DAL 59-52
+2,6:05,OKC,Shot,Shai Gilgeous-Alexander,,Fadeaway jumper,DAL 59-54
+2,5:45,DAL,Shot,Kristaps Porziņģis,,Dunk,DAL 61-54
+2,5:45,DAL,Assist,Luka Dončić,Kristaps Porziņģis,Assists Porziņģis,DAL 61-54
+2,5:25,OKC,Shot,Luguentz Dort,,3-pointer,DAL 61-57
+2,5:10,DAL,Shot,Jalen Brunson,,Layup,DAL 63-57
+2,4:50,OKC,Shot,Mike Muscala,,3-pointer,DAL 63-60
+2,4:30,DAL,Shot,Tim Hardaway Jr.,,Pullup jumper,DAL 65-60
+2,4:10,OKC,Shot,Shai Gilgeous-Alexander,,Driving layup,DAL 65-62
+2,3:50,DAL,Shot,Luka Dončić,,3-pointer,DAL 68-62
+2,3:30,OKC,Shot,Darius Bazley,,Alley-oop dunk,DAL 68-64
+2,3:30,OKC,Assist,Josh Giddey,Darius Bazley,Assists Bazley,DAL 68-64
+2,3:10,DAL,Shot,Spencer Dinwiddie,,3-pointer,DAL 71-64
+2,2:50,OKC,Timeout,Coach Mark Daigneault,,Calls a timeout,DAL 71-64
+2,2:40,OKC,Shot,Shai Gilgeous-Alexander,,Driving layup,DAL 71-66
+2,2:20,DAL,Shot,Luka Dončić,,Fadeaway jumper,DAL 73-66
+2,2:00,OKC,Shot,Josh Giddey,,Floater,DAL 73-68
+2,1:40,DAL,Shot,Kristaps Porziņģis,,Hook shot,DAL 75-68
+2,1:20,OKC,Shot,Luguentz Dort,,3-pointer,DAL 75-71
+2,1:00,DAL,Shot,Jalen Brunson,,Layup,DAL 77-71
+2,0:40,OKC,Shot,Mike Muscala,,3-pointer,DAL 77-74
+2,0:20,DAL,Shot,Luka Dončić,,Step-back 3-pointer,DAL 80-74
+2,0:00,OKC,Shot,Shai Gilgeous-Alexander,,Buzzer-beater attempt (misses),DAL 80-74
+
+Halftime Score: Dallas Mavericks 80, Oklahoma City Thunder 74

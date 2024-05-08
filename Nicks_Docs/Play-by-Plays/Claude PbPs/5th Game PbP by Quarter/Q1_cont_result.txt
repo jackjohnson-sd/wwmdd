@@ -1,0 +1,27 @@
+RESULT:
+
+I apologize for the confusion. In an NBA game, each quarter lasts 12 minutes, 
+and the clock counts down from 12:00 to 0:00. I should have continued the 
+play-by-play until the end of the quarter at 0:00. Here's the continuation 
+of the first quarter:
+
+4:20 - Jaylen Brown makes a driving layup. Celtics 21, Bucks 21.
+4:05 - Khris Middleton makes a 17-foot jumper. Bucks 23, Celtics 21.
+3:45 - Grant Williams misses a 3-point attempt.
+3:30 - Giannis Antetokounmpo makes a fadeaway jumper. Bucks 25, Celtics 21.
+3:12 - Derrick White makes a 3-point shot. Bucks 25, Celtics 24.
+2:55 - Brook Lopez is called for an offensive foul. Turnover Bucks.
+2:40 - Jayson Tatum makes a pull-up jumper. Celtics 26, Bucks 25.
+2:20 - Jrue Holiday misses a 3-point attempt.
+2:05 - Robert Williams III makes a put-back dunk. Celtics 28, Bucks 25.
+1:50 - Pat Connaughton misses a 3-point attempt.
+1:35 - Jaylen Brown makes a 15-foot jumper. Celtics 30, Bucks 25.
+1:20 - Giannis Antetokounmpo makes a driving layup. Celtics 30, Bucks 27.
+1:00 - Jayson Tatum misses a step-back jumper.
+0:45 - Khris Middleton makes a 3-point shot. Tied 30-30.
+0:30 - Derrick White misses a 3-point attempt.
+0:15 - Giannis Antetokounmpo makes a driving dunk. Bucks 32, Celtics 30.
+0:03 - Jaylen Brown misses a 3-point attempt at the buzzer.
+
+End of 1st Quarter: Bucks 32, Celtics 30.
+

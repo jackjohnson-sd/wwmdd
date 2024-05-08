@@ -1,0 +1,50 @@
+RESULT:
+
+Here's a revised hypothetical first quarter play-by-play with more bench players included:
+
+Time,Team,Event Type,Player,Description,Score
+12:00,DAL,Jump Ball,Luka Dončić,Wins the tip-off,DAL 0-0
+11:45,DAL,Shot,Luka Dončić,Step-back 3-pointer,DAL 3-0
+11:45,DAL,Assist,Kristaps Porziņģis,Assists Dončić,DAL 3-0
+11:20,OKC,Shot,Shai Gilgeous-Alexander,Driving layup,DAL 3-2
+10:55,DAL,Shot,Kristaps Porziņģis,Scores in the post,DAL 5-2
+10:55,DAL,Assist,Luka Dončić,Assists Porziņģis,DAL 5-2
+10:35,OKC,Shot,Luguentz Dort,Open 3-pointer,Tied 5-5
+10:35,OKC,Assist,Josh Giddey,Assists Dort,Tied 5-5
+10:10,DAL,Substitution,Jalen Brunson,Enters the game for Dončić,Tied 5-5
+10:05,DAL,Shot,Tim Hardaway Jr.,Mid-range jumper,DAL 7-5
+9:50,OKC,Shot,Jeremiah Robinson-Earl,Easy dunk,Tied 7-7
+9:50,OKC,Assist,Darius Bazley,Assists Robinson-Earl,Tied 7-7
+9:30,DAL,Shot,Jalen Brunson,Floater in the lane,DAL 9-7
+9:15,OKC,Substitution,Ty Jerome,Enters the game for Giddey,DAL 9-7
+9:10,OKC,Foul,Shai Gilgeous-Alexander,Draws a foul and makes both free throws,Tied 9-9
+9:10,DAL,Foul,Dorian Finney-Smith,Commits a foul,Tied 9-9
+8:55,DAL,Shot,Dorian Finney-Smith,Corner 3-pointer,DAL 12-9
+8:55,DAL,Assist,Jalen Brunson,Assists Finney-Smith,DAL 12-9
+8:40,OKC,Shot,Darius Bazley,Dunk,DAL 12-11
+8:40,OKC,Assist,Ty Jerome,Assists Bazley,DAL 12-11
+8:20,DAL,Substitution,Maxi Kleber,Enters the game for Porziņģis,DAL 12-11
+8:15,DAL,Rebound,Maxi Kleber,Put-back layup after an offensive rebound,DAL 14-11
+7:55,OKC,Shot,Shai Gilgeous-Alexander,Pull-up jumper from the elbow,DAL 14-13
+7:35,DAL,Shot,Tim Hardaway Jr.,3-pointer,DAL 17-13
+7:35,DAL,Assist,Jalen Brunson,Assists Hardaway Jr.,DAL 17-13
+7:20,OKC,Substitution,Mike Muscala,Enters the game for Robinson-Earl,DAL 17-13
+7:10,OKC,Shot,Mike Muscala,Hook shot,DAL 17-15
+6:50,DAL,Substitution,Luka Dončić,Enters the game for Brunson,DAL 17-15
+6:45,DAL,Foul,Luka Dončić,Fouled on a drive and makes 1 of 2 free throws,DAL 18-15
+6:45,OKC,Foul,Luguentz Dort,Commits a foul,DAL 18-15
+6:30,OKC,Substitution,Kenrich Williams,Enters the game for Dort,DAL 18-15
+6:20,OKC,Shot,Kenrich Williams,Misses a 3-pointer,DAL 18-15
+6:20,DAL,Rebound,Maxi Kleber,Rebounds Williams' miss,DAL 18-15
+5:55,DAL,Foul,Kristaps Porziņģis,Fouled on a post-up and makes both free throws,DAL 20-15
+5:55,OKC,Foul,Darius Bazley,Commits a foul,DAL 20-15
+5:40,OKC,Substitution,Josh Giddey,Enters the game for Jerome,DAL 20-15
+5:35,OKC,Shot,Josh Giddey,Driving layup,DAL 20-17
+5:15,DAL,Shot,Luka Dončić,Step-back jumper over Williams,DAL 22-17
+4:55,OKC,Shot,Shai Gilgeous-Alexander,3-pointer off a screen,DAL 22-20
+4:55,OKC,Assist,Josh Giddey,Assists Gilgeous-Alexander,DAL 22-20
+4:40,DAL,Substitution,Spencer Dinwiddie,Enters the game for Hardaway Jr.,DAL 22-20
+4:30,DAL,Shot,Spencer Dinwiddie,Pull-up jumper,DAL 24-20
+4:10,OKC,Shot,Mike Muscala,3-pointer,DAL 24-23
+4:10,OKC,Assist,Shai Gilgeous-Alexander,Assists Muscala,DAL 24-23
+3:50,DAL,Timeout,Coach Jason Kidd,Calls a timeout,DAL 24-23

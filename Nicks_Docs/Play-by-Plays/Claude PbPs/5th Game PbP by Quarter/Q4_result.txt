@@ -1,0 +1,61 @@
+RESULT:
+
+12:00 - Start of the fourth quarter.
+
+Bucks starters: Jrue Holiday, Pat Connaughton, Khris Middleton, Giannis 
+Antetokounmpo, Brook Lopez
+Celtics starters: Derrick White, Jaylen Brown, Jayson Tatum, Grant Williams, 
+Robert Williams III
+
+11:45 - Jayson Tatum makes a mid-range jumper. Bucks 114, Celtics 108.
+11:25 - Jrue Holiday makes a 3-point shot. Bucks 117, Celtics 108.
+11:05 - Jaylen Brown makes a driving layup. Bucks 117, Celtics 110.
+10:45 - Giannis Antetokounmpo makes a fadeaway jumper. Bucks 119, Celtics 110.
+10:25 - Derrick White makes a 3-point shot. Bucks 119, Celtics 113.
+10:05 - Brook Lopez makes a hook shot. Bucks 121, Celtics 113.
+9:45 - Jayson Tatum makes a step-back 3-point shot. Bucks 121, Celtics 116.
+9:25 - Khris Middleton misses a mid-range jumper.
+9:10 - Robert Williams III makes an alley-oop dunk, assisted by Jaylen Brown. 
+Bucks 121, Celtics 118.
+8:50 - Giannis Antetokounmpo makes a layup. Bucks 123, Celtics 118.
+8:30 - Jaylen Brown makes a 3-point shot. Bucks 123, Celtics 121.
+
+Bucks timeout.
+
+8:15 - Jrue Holiday makes a driving layup. Bucks 125, Celtics 121.
+7:55 - Jayson Tatum makes a mid-range jumper. Bucks 125, Celtics 123.
+7:35 - Pat Connaughton misses a 3-point attempt.
+7:20 - Derrick White makes a 3-point shot. Celtics 126, Bucks 125.
+7:00 - Giannis Antetokounmpo makes a dunk. Bucks 127, Celtics 126.
+6:40 - Jaylen Brown makes a driving layup. Celtics 128, Bucks 127.
+6:20 - Khris Middleton makes a 3-point shot. Bucks 130, Celtics 128.
+6:00 - Grant Williams misses a 3-point attempt.
+5:45 - Brook Lopez makes a hook shot. Bucks 132, Celtics 128.
+5:25 - Jayson Tatum makes a fadeaway jumper. Bucks 132, Celtics 130.
+5:05 - Jrue Holiday makes a 3-point shot. Bucks 135, Celtics 130.
+4:45 - Robert Williams III makes a dunk, assisted by Derrick White. 
+    Bucks 135, Celtics 132.
+    
+4:25 - Giannis Antetokounmpo makes a layup. Bucks 137, Celtics 132.
+
+Celtics timeout.
+
+4:10 - Jaylen Brown makes a 3-point shot. Bucks 137, Celtics 135.
+3:50 - Khris Middleton makes a mid-range jumper. Bucks 139, Celtics 135.
+3:30 - Jayson Tatum makes a step-back 3-point shot. Bucks 139, Celtics 138.
+3:10 - Pat Connaughton makes a 3-point shot, assisted by Jrue Holiday. 
+    Bucks 142, Celtics 138.
+
+2:50 - Derrick White misses a 3-point attempt.
+2:35 - Giannis Antetokounmpo makes a fadeaway jumper. Bucks 144, Celtics 138.
+2:15 - Jaylen Brown makes a driving layup. Bucks 144, Celtics 140.
+1:55 - Brook Lopez makes a hook shot. Bucks 146, Celtics 140.
+1:35 - Jayson Tatum makes a 3-point shot. Bucks 146, Celtics 143.
+1:15 - Jrue Holiday makes a driving layup. Bucks 148, Celtics 143.
+0:55 - Grant Williams misses a 3-point attempt.
+0:40 - Giannis Antetokounmpo makes a dunk. Bucks 150, Celtics 143.
+0:25 - Jaylen Brown makes a 3-point shot. Bucks 150, Celtics 146.
+0:10 - Khris Middleton makes two free throws. Bucks 152, Celtics 146.
+0:00 - Jayson Tatum misses a 3-point attempt at the buzzer.
+
+Final Score: Bucks 152, Celtics 146. The Milwaukee Bucks win the game.

@@ -1,0 +1,9 @@
+COMMENT:
+
+At the end of the PbP, Claude explains how the Warriors achieved victory, noting that
+the bench contributed to their lead. This shows that Claude doesn't simply play the best
+performing players all game to win, but realizes that a winning strategy requires rotation.
+
+PROMPT:
+
+Create a game play-by-play of the fourth quarter of this game. 

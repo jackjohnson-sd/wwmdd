@@ -1,0 +1,16 @@
+COMMENT:
+In the quarter, the number of event types that occured are:
+
+Shot: 34
+Assist: 1
+Turnover: 2
+Foul: 1
+Free Throw: 1
+Timeout: 2
+
+End of 3rd Quarter: Dallas Mavericks 121, Oklahoma City Thunder 114
+
+
+PROMPT:
+
+can you give us the third quarter of the game

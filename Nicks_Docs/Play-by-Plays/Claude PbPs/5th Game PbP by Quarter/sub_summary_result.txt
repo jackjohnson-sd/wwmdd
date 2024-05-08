@@ -1,0 +1,31 @@
+RESULT:
+
+Here is a summary of all player substitutions made during the simulated game:
+
+1st Quarter:
+- Celtics: Grant Williams enters for Al Horford
+- Bucks: Pat Connaughton enters for Grayson Allen
+- Celtics: Derrick White enters for Marcus Smart
+
+2nd Quarter:
+- Bucks: Bobby Portis and Joe Ingles enter for Brook Lopez and Jrue Holiday
+- Celtics: Malcolm Brogdon and Sam Hauser enter for Jaylen Brown and Robert 
+Williams III
+- Celtics: Marcus Smart enters for Derrick White
+- Bucks: Jrue Holiday enters for Pat Connaughton
+- Celtics: Al Horford enters for Grant Williams
+- Bucks: Brook Lopez enters for Bobby Portis
+- Celtics: Jaylen Brown enters for Sam Hauser
+
+3rd Quarter:
+- Celtics: Derrick White enters for Marcus Smart
+- Celtics: Grant Williams enters for Al Horford
+- Bucks: Pat Connaughton enters for Grayson Allen
+
+4th Quarter:
+No substitutions were mentioned in the 4th quarter play-by-play.
+
+Please note that this summary is based on the substitutions mentioned in the 
+simulated play-by-play. In an actual NBA game, there would likely be more 
+substitutions to manage player fatigue and foul trouble, as well as to match 
+up with the opposing team's lineups.

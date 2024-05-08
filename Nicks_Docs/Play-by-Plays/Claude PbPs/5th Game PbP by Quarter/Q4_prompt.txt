@@ -1,0 +1,9 @@
+COMMENT:
+(skipped Q3 b/c no new findings in results)
+Game ends high scoring (298 total points)
+Prompting more defense might lower scoring event frequency, but so far 
+it hasn't produced significant changes in scoring...
+
+PROMPT:
+
+Create a game play-by-play of the fourth quarter of this game.

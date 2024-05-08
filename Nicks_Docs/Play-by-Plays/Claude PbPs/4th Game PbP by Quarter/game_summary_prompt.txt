@@ -1,0 +1,6 @@
+COMMENT:
+The total playing time is is not adding up to 4 hours for each team...
+Is the error in the PbP or in Claude calculating the total minutes? 
+
+PROMPT:
+Provide scoring summaries and playing times from all 4 quarters for each player

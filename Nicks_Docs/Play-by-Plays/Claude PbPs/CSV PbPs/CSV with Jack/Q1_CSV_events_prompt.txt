@@ -1,0 +1,6 @@
+COMMENT:
+Claude adds 'event type' and 'description' as vlaues in the CSV format. 
+Claude omits 'action' value.
+
+PROMPT:
+event types are things like shots, fouls, assists, rebounds, steals

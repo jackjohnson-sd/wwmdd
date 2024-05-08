@@ -1,0 +1,16 @@
+COMMENT:
+Claude doesn't give us event times in PbP
+
+PROMPT:
+
+"create a hypothetical game"
+
+but before I asked:
+"give us a 1st quarter play by play for these two teams"
+with Claude responding that it can't provide PbP of specific game (not what we were asking in 1st place)
+
+and before that prompt I asked:
+
+"what are all the players on the Mavericks during Jan 2022"
+with Claude repsonding with an accurate roster.
+That is why Claude responds with a PbP between Mavs and OKC...

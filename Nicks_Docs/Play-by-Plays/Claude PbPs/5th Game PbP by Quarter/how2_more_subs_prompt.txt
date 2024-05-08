@@ -1,0 +1,12 @@
+COMMENT:
+Claude recommends to mention:
+-context of subs (ex: to help player fatigue)
+-importance of subs (want x amount in game PbP)
+-specific sub scenarios
+-reminder to use bench players
+
+
+PROMPT:
+When I prompt you to generate NBA game play-by-plays, what's the best way I 
+can prompt you to include more substitutions that are typical in an actual 
+NBA game?

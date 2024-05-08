@@ -1,0 +1,6 @@
+COMMENT:
+Claude finishes the quarter with no more substitutions, 2 turnovers (bad pass, lost ball),
+and 2 assists. 
+
+PROMPT:
+finish the quarter

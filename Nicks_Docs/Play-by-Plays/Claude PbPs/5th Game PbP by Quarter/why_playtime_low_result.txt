@@ -1,0 +1,19 @@
+RESULT:
+
+I apologize for the inconsistency in the total playing time for each team. 
+In an actual NBA game, you are correct that the total playing time for all 
+players on one team should add up to 240 minutes (5 players x 4 quarters x 
+12 minutes). 
+
+In the simulated play-by-play, I made substitutions but didn't accurately 
+track the minutes for each player. This led to the discrepancy in the total 
+playing time for both the Bucks and the Celtics.
+
+To maintain consistency and accuracy, I should have ensured that the total 
+playing time for each team added up to 240 minutes. Thank you for pointing 
+out this error. In future simulations, I will be more careful to track playing 
+time accurately and ensure that the total minutes for each team are consistent
+with the rules of the game.
+
+
+

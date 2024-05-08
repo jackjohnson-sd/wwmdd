@@ -1,0 +1,68 @@
+RESULT:
+
+Here is a play-by-play of the first quarter of an NBA game between the 
+Los Angeles Lakers and the Boston Celtics:
+
+Starting Lineups:
+Lakers: Patrick Beverley, Lonnie Walker IV, LeBron James, Anthony Davis, 
+Thomas Bryant 
+Celtics: Marcus Smart, Derrick White, Jayson Tatum, Al Horford, Robert 
+Williams III
+
+1st Quarter:
+
+11:44 - Celtics win the tip-off. Tatum misses a 17-foot jumper.
+11:28 - James makes a layup (LAL 2-0). 
+11:09 - Smart misses a 3-pointer. 
+10:52 - Davis makes a dunk off an assist from James (LAL 4-0).
+10:39 - Tatum makes a driving layup (LAL 4-2).
+10:15 - James misses a jumper. Williams rebounds.
+9:58 - Horford makes a 3-pointer off an assist from Smart (LAL 4-5).
+9:44 - Walker makes a 3-pointer off an assist from Beverley (LAL 7-5). 
+9:25 - White makes a layup (LAL 7-7).
+9:12 - James misses a 3-pointer. Bryant rebounds and scores (LAL 9-7).
+8:55 - Tatum makes a jumper (LAL 9-9). 
+8:34 - Davis is fouled by Williams on a shot attempt. Davis makes both 
+free throws (LAL 11-9).
+8:15 - Smart makes a 3-pointer (LAL 11-12). Timeout Lakers.
+7:58 - Walker misses a jumper. Davis rebounds. 
+7:41 - James makes a driving layup (LAL 13-12).
+7:25 - Tatum makes a fadeaway jumper over James (LAL 13-14).  
+7:08 - Beverley misses a 3-pointer. White rebounds.
+6:49 - Horford misses a jumper. Bryant rebounds. Celtics substitute Grant 
+Williams for Robert Williams III. 
+6:33 - Davis makes a turnaround jumper (LAL 15-14).
+6:13 - White misses a driving layup. Bryant rebounds. Lakers substitute 
+Kendrick Nunn for Walker.
+5:58 - James is fouled by G. Williams on a drive to the basket. James makes 
+1 of 2 free throws (LAL 16-14). 
+5:47 - Tatum makes a 3-pointer off an assist from Smart (LAL 16-17). 
+5:29 - Davis misses a hook shot. G. Williams rebounds.
+5:15 - Smart misses a 3-pointer. Davis rebounds.
+4:56 - Beverley makes a corner 3-pointer off an assist from James (LAL 19-17).
+4:39 - White misses a jumper. James rebounds. Celtics substitute Malcolm 
+Brogdon for White.
+4:19 - Nunn makes a driving layup (LAL 21-17).  
+4:01 - Tatum misses a jumper. Davis rebounds. Lakers substitute Juan 
+Toscano-Anderson for Davis.
+3:48 - James makes a stepback 3-pointer (LAL 24-17). Celtics call timeout. 
+3:29 - Brogdon misses a jumper. James rebounds.
+3:11 - Toscano-Anderson makes a cutting layup off a pass from James 
+(LAL 26-17). 
+2:53 - Tatum is fouled on a drive by Bryant. Tatum makes both free throws 
+(LAL 26-19).
+2:36 - James misses a fadeaway jumper. G. Williams rebounds.
+2:18 - Tatum makes a pullup jumper (LAL 26-21). Celtics substitute Blake 
+Griffin for Horford. 
+2:00 - Bryant makes an alley-oop dunk off a lob pass from James (LAL 28-21).
+1:41 - Smart makes a floater in the lane (LAL 28-23). 
+1:24 - Beverley misses a 3-pointer. Tatum rebounds. Lakers substitute Russell 
+Westbrook for Beverley.
+1:05 - Tatum makes a stepback 3-pointer over Toscano-Anderson (LAL 28-26).
+0:49 - James makes a driving finger roll layup (LAL 30-26).
+0:33 - Brogdon misses a 3-pointer. Bryant rebounds.
+0:14 - Westbrook misses a pullup jumper. Griffin rebounds.
+0:02 - Tatum misses a deep 3-pointer at the buzzer. 
+
+End of 1st Quarter: Lakers 30, Celtics 26.
+

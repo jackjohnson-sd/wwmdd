@@ -1,0 +1,13 @@
+COMMENT:
+Claude produces more realistic scoring frequency, which could be 
+due to me asking it in the previous chat of the 2nd game 'why the 
+scoring is so high' (paraphrased)
+
+Claude is also generating a PbP with NBA teams that I usmentioned in previous 
+prompts of pbp generations. This hints at a remembrance between chats... 
+The question is, to what degree can it recall learned behavior from past chats? 
+
+PROMPT:
+Create a game play-by-play of the first quarter of an NBA game. 
+Include the lineups, all scoring events, fouls, player substitutions, 
+free throws, attempts, and other basketball game event types. 

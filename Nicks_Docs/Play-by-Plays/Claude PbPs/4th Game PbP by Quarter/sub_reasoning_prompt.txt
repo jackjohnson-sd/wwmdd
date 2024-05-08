@@ -1,0 +1,11 @@
+COMMENT:
+While Claude doesn't mention reasoning for the specific subs made, it provides
+its reasoning for as to why substitutions can benefit a team's gameplay, such as:
+
+-starters needing rest
+-bench players disrupting game flow with their skills/energy
+-starters returning to secure a win
+
+
+PROMPT:
+Why did you make these specific substitutions?   

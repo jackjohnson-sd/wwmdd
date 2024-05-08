@@ -1,0 +1,12 @@
+COMMENT:
+Claude doesn't mention specific teams in the play-by-play, but refers to them as "home" and "away".
+This issue hasn't been seen before, why did Claude "randomly" drop detail that's inherent to a 
+basketball game? 
+
+Also, to address my ask for it to include defensive plays, Claude adds 'defensive' infront of rebound.
+I'll be prompting more specifically to gain better insights of defense in these generated games...
+
+PROMPT:
+Create a game play-by-play of the first quarter of an NBA game. Include the lineups, 
+all scoring events, fouls, player substitutions, free throws, attempts, defensive plays, 
+and other basketball game event types. 

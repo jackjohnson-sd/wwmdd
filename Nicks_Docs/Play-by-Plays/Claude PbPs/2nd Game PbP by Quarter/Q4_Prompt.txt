@@ -1,0 +1,5 @@
+COMMENT:
+Game finishes with a total of 313 points (unusually high sum)
+
+PROMPT:
+Generate the play-by-play of the fourth quarter of this game.  

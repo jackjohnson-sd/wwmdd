@@ -1,0 +1,9 @@
+COMMENT:
+Claude created a complete, 12 minute quarter. High scoring game so far, 
+might be an unrealitic high scoring game if frequency of scoring contiues 
+in other quarters...
+
+PROMPT:
+Create a game play-by-play of the first quarter of an NBA game.
+Include the lineups, all scoring events, fouls, player substitutions,
+free throws, attempts, and other basketball game event types. 

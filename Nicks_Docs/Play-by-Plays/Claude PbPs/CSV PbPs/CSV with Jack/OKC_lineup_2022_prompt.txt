@@ -1,0 +1,7 @@
+COMMENT:
+-info cutoff AUg 2023
+-provides starting lineup from 2021-22 season
+
+PROMPT:
+
+do you know the lineup for the OKC thunder January 2022

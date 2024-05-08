@@ -1,0 +1,65 @@
+RESULT:
+
+Here's the entire first quarter of the hypothetical game between the Dallas Mavericks and the Oklahoma City Thunder:
+
+Period,Time,Team,Event Type,Player 1,Player 2,Description,Score
+1,12:00,DAL,Jump Ball,Luka Dončić,,Wins the tip-off,DAL 0-0
+1,11:45,DAL,Shot,Luka Dončić,,Step-back 3-pointer,DAL 3-0
+1,11:45,DAL,Assist,Kristaps Porziņģis,Luka Dončić,Assists Dončić,DAL 3-0
+1,11:20,OKC,Shot,Shai Gilgeous-Alexander,,Driving layup,DAL 3-2
+1,10:55,DAL,Shot,Kristaps Porziņģis,,Scores in the post,DAL 5-2
+1,10:55,DAL,Assist,Luka Dončić,Kristaps Porziņģis,Assists Porziņģis,DAL 5-2
+1,10:35,OKC,Shot,Luguentz Dort,,Open 3-pointer,Tied 5-5
+1,10:35,OKC,Assist,Josh Giddey,Luguentz Dort,Assists Dort,Tied 5-5
+1,10:10,DAL,Substitution,Jalen Brunson,Luka Dončić,Enters the game for Dončić,Tied 5-5
+1,10:05,DAL,Shot,Tim Hardaway Jr.,,Mid-range jumper,DAL 7-5
+1,9:50,OKC,Shot,Jeremiah Robinson-Earl,,Easy dunk,Tied 7-7
+1,9:50,OKC,Assist,Darius Bazley,Jeremiah Robinson-Earl,Assists Robinson-Earl,Tied 7-7
+1,9:30,DAL,Shot,Jalen Brunson,,Floater in the lane,DAL 9-7
+1,9:15,OKC,Substitution,Ty Jerome,Josh Giddey,Enters the game for Giddey,DAL 9-7
+1,9:10,OKC,Foul,Shai Gilgeous-Alexander,Dorian Finney-Smith,Draws a foul from Finney-Smith and makes both free throws,Tied 9-9
+1,8:55,DAL,Shot,Dorian Finney-Smith,,Corner 3-pointer,DAL 12-9
+1,8:55,DAL,Assist,Jalen Brunson,Dorian Finney-Smith,Assists Finney-Smith,DAL 12-9
+1,8:40,OKC,Shot,Darius Bazley,,Dunk,DAL 12-11
+1,8:40,OKC,Assist,Ty Jerome,Darius Bazley,Assists Bazley,DAL 12-11
+1,8:20,DAL,Substitution,Maxi Kleber,Kristaps Porziņģis,Enters the game for Porziņģis,DAL 12-11
+1,8:15,DAL,Rebound,Maxi Kleber,,Put-back layup after an offensive rebound,DAL 14-11
+1,7:55,OKC,Shot,Shai Gilgeous-Alexander,,Pull-up jumper from the elbow,DAL 14-13
+1,7:35,DAL,Shot,Tim Hardaway Jr.,,3-pointer,DAL 17-13
+1,7:35,DAL,Assist,Jalen Brunson,Tim Hardaway Jr.,Assists Hardaway Jr.,DAL 17-13
+1,7:20,OKC,Substitution,Mike Muscala,Jeremiah Robinson-Earl,Enters the game for Robinson-Earl,DAL 17-13
+1,7:10,OKC,Shot,Mike Muscala,,Hook shot,DAL 17-15
+1,6:50,DAL,Substitution,Luka Dončić,Jalen Brunson,Enters the game for Brunson,DAL 17-15
+1,6:45,DAL,Foul,Luka Dončić,Luguentz Dort,Fouled by Dort on a drive and makes 1 of 2 free throws,DAL 18-15
+1,6:30,OKC,Substitution,Kenrich Williams,Luguentz Dort,Enters the game for Dort,DAL 18-15
+1,6:20,OKC,Shot,Kenrich Williams,,Misses a 3-pointer,DAL 18-15
+1,6:20,DAL,Rebound,Maxi Kleber,,Rebounds Williams' miss,DAL 18-15
+1,5:55,DAL,Foul,Kristaps Porziņģis,Darius Bazley,Fouled by Bazley on a post-up and makes both free throws,DAL 20-15
+1,5:40,OKC,Substitution,Josh Giddey,Ty Jerome,Enters the game for Jerome,DAL 20-15
+1,5:35,OKC,Shot,Josh Giddey,,Driving layup,DAL 20-17
+1,5:15,DAL,Shot,Luka Dončić,,Step-back jumper over Williams,DAL 22-17
+1,4:55,OKC,Shot,Shai Gilgeous-Alexander,,3-pointer off a screen,DAL 22-20
+1,4:55,OKC,Assist,Josh Giddey,Shai Gilgeous-Alexander,Assists Gilgeous-Alexander,DAL 22-20
+1,4:40,DAL,Substitution,Spencer Dinwiddie,Tim Hardaway Jr.,Enters the game for Hardaway Jr.,DAL 22-20
+1,4:30,DAL,Shot,Spencer Dinwiddie,,Pull-up jumper,DAL 24-20
+1,4:10,OKC,Shot,Mike Muscala,,3-pointer,DAL 24-23
+1,4:10,OKC,Assist,Shai Gilgeous-Alexander,Mike Muscala,Assists Muscala,DAL 24-23
+1,3:50,DAL,Timeout,Coach Jason Kidd,,Calls a timeout,DAL 24-23
+1,3:40,DAL,Shot,Luka Dončić,,Driving layup,DAL 26-23
+1,3:20,OKC,Shot,Shai Gilgeous-Alexander,,Pullup jumper,DAL 26-25
+1,3:00,DAL,Shot,Spencer Dinwiddie,,3-pointer,DAL 29-25
+1,2:45,OKC,Turnover,Darius Bazley,,Bad pass,DAL 29-25
+1,2:30,DAL,Shot,Luka Dončić,,Fadeaway jumper,DAL 31-25
+1,2:10,OKC,Shot,Kenrich Williams,,Cutting layup,DAL 31-27
+1,2:10,OKC,Assist,Josh Giddey,Kenrich Williams,Assists Williams,DAL 31-27
+1,1:50,DAL,Shot,Kristaps Porziņģis,,Alley-oop dunk,DAL 33-27
+1,1:50,DAL,Assist,Luka Dončić,Kristaps Porziņģis,Assists Porziņģis,DAL 33-27
+1,1:35,OKC,Shot,Mike Muscala,,3-pointer,DAL 33-30
+1,1:20,DAL,Turnover,Spencer Dinwiddie,,Lost ball,DAL 33-30
+1,1:00,OKC,Shot,Shai Gilgeous-Alexander,,Driving finger roll,DAL 33-32
+1,0:45,DAL,Shot,Luka Dončić,,Step-back 3-pointer,DAL 36-32
+1,0:25,OKC,Shot,Josh Giddey,,Floater,DAL 36-34
+1,0:05,DAL,Shot,Luka Dončić,,Deep 3-pointer,DAL 39-34
+1,0:00,OKC,Shot,Shai Gilgeous-Alexander,,Half-court heave (misses),DAL 39-34
+
+End of 1st Quarter: Dallas Mavericks 39, Oklahoma City Thunder 34

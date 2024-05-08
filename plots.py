@@ -19,6 +19,7 @@ good_evnt   = settings.get('GOOD_EVENT_COLOR')
 grid_color  = settings.get('GRID_COLOR')
 table_color = settings.get('TABLE_COLOR')
 
+
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
 
@@ -28,16 +29,18 @@ def get_marker(symbol):
     mean = np.mean([np.max(v,axis=0), np.min(v, axis=0)], axis=0)
     return Path(v-mean, codes, closed=False)
 
-aAa = get_marker('A')
-aDa = get_marker('D')
-aOa = get_marker('O') 
-a1a = get_marker('1')
-a2a = get_marker('2')
-a3a = get_marker('3')
-aFa = get_marker('F')
-aBa = get_marker('B')
-aSa = get_marker('S')
-aTa = get_marker('T')
+mrk = {
+    'A': get_marker('A'),
+    'D': get_marker('D'),
+    'O': get_marker('O'),
+    '1': get_marker('1'),
+    '2': get_marker('2'),
+    '3': get_marker('3'),
+    'F': get_marker('F'),
+    'B': get_marker('B'),
+    'S': get_marker('S'),
+    'T': get_marker('T'),
+}
 
 # print(matplotlib.get_data_path())
 
@@ -48,14 +51,14 @@ def is3(eventRecord):
 
 def em_mi(_style, _color, _size, eventRecord, current_or_count):
     # helper to make 3PT makes a bigger shape on plots
-    if _style == a2a and is3(eventRecord):
-        _style = a3a
+    if _style == mrk['2'] and is3(eventRecord):
+        _style = mrk['3']
     return _style, _color, _size    
 
 def em_fg(_style, _color, _size, eventRecord, current_or_count):
     # helper to make 3PT makes a bigger shape on plots
-    if _style == a2a and is3(eventRecord):
-        _style = a3a
+    if _style == mrk['2'] and is3(eventRecord):
+        _style = mrk['3']
     return _style, _color, _size    
 
 def em_ft(_style, _color, _size, eventRecord, current_or_count):
@@ -74,18 +77,18 @@ def or_dr(_style, _color, _size, eventRecord, current_or_count):
     except Exception as err:
         is_or = or_count == 1
     current_or_count[eventRecord.player1_name] = or_count
-    if is_or: _style = aOa
+    if is_or: _style = mrk['O']
     return _style, _color, _size
 
 event_map = {
-    1: [ good_evnt, 30.0, a2a,'FG',       good_evnt, 30.0, aAa,'AST',  [1, 2], em_fg, 0.8],  # make, assist
-    2: [  bad_evnt, 30.0, a2a,'MISS',     good_evnt, 30.0, aBa,'BLK',  [1, 3], em_mi, 0.8],  # miss, block
-    3: [ good_evnt, 30.0, a1a,'FT',       None, None, ',','',          [1],    em_ft, 0.8],  # free throw
-    4: [ good_evnt, 30.0, aDa,'DREB',     None, None, ',','',          [1],    or_dr, 0.8],  # rebound
-    5: [ good_evnt, 30.0, aSa,'STL',      bad_evnt,  30.0, aTa,'TO',   [2, 1], None,  0.8],  # steal, turnover
-    6: [ bad_evnt,  30.0, aFa,'PF',       None, None, 's','PF\'d',     [1, 2], None,  0.8],  # foul, fouled
-    8: [ stint_c,   15.0, 'o','SUB',      stint_c,  15.0, 'o','OUT',   [1, 2], None,  1.0],  # substitution
-    20:[ good_evnt, 30.0, aOa,'OREB',     good_evnt, 30.0, a3a,'3PT',  [1],    None,  0.8],
+1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.8,0.8],  # make, assist
+2: [  bad_evnt, 30.0, mrk['2'],'MISS',  good_evnt, 30.0, mrk['B'],'BLK',  [1, 3], em_mi, 0.8,0.8],  # miss, block
+3: [ good_evnt, 30.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft, 0.8,0.8],  # free throw
+4: [ good_evnt, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
+5: [ good_evnt, 30.0, mrk['S'],'STL',   bad_evnt,  30.0, mrk['T'],'TO',   [2, 1], None,  0.8,0.8],  # steal, turnover
+6: [ bad_evnt,  30.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None,  0.8,0.8],  # foul, fouled
+8: [ stint_c,   15.0, 'o','SUB',        stint_c,  15.0, 'o','OUT',        [1, 2], None,  1.0,1.0],  # substitution
+20:[ good_evnt, 30.0, mrk['O'],'OREB',  good_evnt, 30.0, mrk['3'],'3PT',  [1],    None,  0.8,0.8],
 }
 
 def event_legend():
@@ -151,11 +154,11 @@ def event_to_size_color_shape(player, eventRecord, current_or_count):
                     _si *= action[10]
                     if i == 0:
                         _color1 = _co
-                        _size1  = _si
+                        _size1  = _si * action[10]
                         _style1 = _st
                     else:   
                         _color2 = _co
-                        _size2  = _si
+                        _size2  = _si * action[11]
                         _style2 = _st
 
     # return c/si/st for both possible players
@@ -228,7 +231,6 @@ def P3_boxscore(boxscore, ax, players):
     for cell in table_cells: 
         cell.get_text().set_color(table_color)
 
-
 def mscatter(x,y,ax=None, m=None, **kw):
     import matplotlib.markers as mmarkers
     if not ax: ax=plt.gca()
@@ -246,17 +248,22 @@ def mscatter(x,y,ax=None, m=None, **kw):
         sc.set_paths(paths)
     return sc
 
-def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
+M2OFFSET = settings.get('M2OFFSET')
+M3OFFSET = settings.get('M3OFFSET')
+MKR_WIDTH = settings.get('MKR_WIDTH')
 
+def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
+    
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
     # on top of them. Which is what we want
     try:
-        za = list(map(lambda x:x != stint_c,color_ ))
-        first_no_sub_item = za.index(True)
+        nsubs_ = list(map(lambda x:x != stint_c,color_ ))
+        first_no_sub_item = nsubs_.index(True)
     except Exception as err:
         first_no_sub_item = 0
 
+    # we stack 3 if we have them, then stack 2
     idx_max = len(sec_)
     idx = first_no_sub_item
 
@@ -264,57 +271,65 @@ def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
 
         m = nplayers_ / 14
 
-        OPEN_SPACE = 20
+        # each marker takes this number of seconds
+        OPEN_SPACE = MKR_WIDTH
 
         start_index = idx
         idx += 1
 
+        n = 1
+        
         # find first opening where we have space
         while idx < idx_max:
-            if sec_[idx] - sec_[start_index] < OPEN_SPACE:
+            aval_space = OPEN_SPACE * (int(n/3) + 1)
+            space_since_we_started =  sec_[idx] - sec_[start_index]
+            if space_since_we_started < aval_space:
+                n += 1
                 idx += 1
             else: break
+
+        # print(f'n:{n} start:{start_index} now:{idx} {space_since_we_started} {aval_space}')
 
         # idx is next available slot
         # number of items we need to place
         n = idx - start_index     
-        slotOffset = OPEN_SPACE - 1
-        slotPosition = 0
+        slot_offset = OPEN_SPACE
+        slot_position = 0
+        slot_index = start_index
         while n > 0:
+
+            available_slot = sec_[start_index] + (slot_position * slot_offset)
+
             if n >= 3:          # place 3 1 on line 2 staddle the one
-                # print(f'place 3 sp:{slotPosition} n:{n} si:{start_index}') 
-                y_[start_index] += 4.9 * m
-                y_[start_index + 2] -= 4.9 * m
 
-                sec_[1 + start_index] += slotOffset * slotPosition 
-                sec_[    start_index] = sec_[1 + start_index] 
-                sec_[2 + start_index] = sec_[1 + start_index] 
+                y_[slot_index] += M3OFFSET * m
+                y_[slot_index + 2] -= M3OFFSET * m
+
+                sec_[slot_index + 1] = available_slot 
+                sec_[slot_index    ] = available_slot 
+                sec_[slot_index + 2] = available_slot
                 
-                # sec_[2 + start_index] += slotOffset * slotPosition 
-
                 n -= 3
-                start_index += 3
-                slotPosition += 1
+                slot_index += 3
+                slot_position += 1
  
             elif n == 2:          # place 2 to straddle the line
-                # print(f'place 2 n:{n} si:{start_index} sp:{slotPosition}') 
                 
-                y_[start_index] += 3.0 * m
-                y_[start_index + 1] -= 3.0 * m
-                sec_[    start_index] += slotOffset * slotPosition 
-                sec_[1 + start_index] += slotOffset * slotPosition 
+                y_[slot_index    ] += M2OFFSET * m
+                y_[slot_index + 1] -= M2OFFSET * m
+             
+                sec_[slot_index    ] = available_slot
+                sec_[slot_index + 1] = available_slot 
                 
                 n -= 2
-                start_index += 2
-                slotPosition += 1
+                slot_index += 2
+                slot_position += 1
 
             elif n == 1:               
-                # print(f'place 1 sp:{slotPosition} n:{n} si:{start_index}') 
-                sec_[    start_index] += slotOffset * slotPosition 
-                
+
+                sec_[slot_index    ] = available_slot                
                 n -= 1
-                start_index += 1
-                slotPosition += 1
+                
 
 def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, x_labels = 'TOP'):
 
@@ -364,7 +379,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             color__   = events_by_player[_player][1::4]
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
-
+##############################################################################################
             fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
 
             scatter = mscatter(
@@ -523,7 +538,19 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
                 _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
+#################################################################################
+# 28 spacing non overlapping "B"s
+        # if player == 'Josh Giddey':
+        #     for i in range(0,28,4):
+        #         _events[i + 0] = 120 + 12 * i/4
+        #         _events[i + 1] = _events[21]
+        #         _events[i + 2] = _events[22]
+        #         _events[i + 3] = mrk['B']
+        #         print(i,20 + 9 * i)
+        #     _events = _events[0:28]
+        # else: _events = []
 
+##################################################################################
         events_by_player[player] = _events
 
         try:

@@ -1,20 +1,22 @@
 {
     "GOOD_EVENT_COLOR"  : "mediumseagreen",
-    "BAD_EVENT_COLOR"   : "cornflowerblue",
+    "BAD_EVENT_COLOR"   : "cornflowerbltoue",
     "GRID_COLOR"        : "dimgrey",
     "STINT_COLOR"       : "dimgrey",
     "PM_PLUS_COLOR"     : "maroon",
     "PM_MINUS_COLOR"    : "darkgreen",
-    "TABLE_COLOR"      : "darkgoldenrod",
-    "zTABLE_COLOR"       : "lightgrey",
+    "TABLE_COLOR"       : "goldenrod",
     "PLOT_COLOR_STYLE"  : "dark_background",
 
-    "DB_NAME"     : "nba.sqlite",
-    "DATA_START"  : "2020-01-01",
+    "DB_NAME"           : "nba.sqlite",
+    "DATA_BEGIN_DATE"   : "2021-08-01",
 
-    "TD_START_DAY" : "2023-01-01",
-    "TD_STOP_DAY"  : "2023-04-20",
+    "TD_START_DAY" : "2023-01-03",
+    "TD_STOP_DAY"  : "2023-04-03",
     "TD_TEAM"      : "OKC",
-    "TD_SEASON"    : "2022"
+    "TD_SEASON"    : "2022",
 
+    "M2OFFSET"     : 3.0,
+    "M3OFFSET"     : 4.7,
+    "MKR_WIDTH"    : 28
 }

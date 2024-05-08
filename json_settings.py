@@ -26,7 +26,11 @@ class defaults :
                     'TD_START_DAY'    : '2023-01-01', 
                     'TD_STOP_DAY'     : '2023-04-20', 
                     'TD_TEAM'         : 'OKC', 
-                    'TD_SEASON'       : '2022'
+                    'TD_SEASON'       : '2022',
+                    
+                    "M2OFFSET"        : 4.0,
+                    "M3OFFSET"        : 2.5,
+                    "MKR_WIDTH"       : 28
                 }
 
     def get(self, name):

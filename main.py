@@ -38,7 +38,7 @@ def loadNBA():
 
     # we're limiting the data to 2020 and after 
     # this is just to make the initial load quicker
-    START_DATE = settings.get('DATA_START')
+    START_DATE = settings.get('DATA_BEGIN_DATE')
     DB_FILENAME = settings.get('DB_NAME')
 
     global db_con

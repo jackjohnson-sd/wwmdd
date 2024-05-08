@@ -4,7 +4,7 @@ from datetime import timedelta
 PM = '\xB1'
 class box_score:
 
-    _bsItemsA = ['MIN','FG','3PT','FT','REB','BLK','AST', 'STL','TO','PF',PM,'PTS']
+    _bsItemsA = ['PTS', 'MIN','FG','3PT','FT','REB','BLK','AST', 'STL','TO','PF',PM]
     _bsItemsB =['3miss','3make','make','miss','FTmiss','FTmake','secs','ORS']
     _bsItems = _bsItemsA + _bsItemsB 
     _boxScore = None

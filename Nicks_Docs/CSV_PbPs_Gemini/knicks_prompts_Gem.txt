@@ -1,0 +1,40 @@
+
+PROMPT:
+
+
+1. You are an NBA basketball coach for The New York Knicks creating your team’s lineup for a 
+basketball game against The New Orleans Pelicans. 
+
+Create the starting lineup for your team and the expected starting lineup of The New Orleans 
+Pelicans.
+
+Create an expected game play-by-play of the first quarter, with each quarter being 12 minutes long. 
+
+In the play-by-play: 
+
+-Include the times of all events
+
+-Include 20 – 25 total player substitutions throughout the entire game to involve bench players and 
+manage player fatigue.
+
+-Include defensive events, such as defensive rebounds and steals.
+
+-Include all scoring events that lead to the final scores. 
+
+
+-Generate the play-by-play in CSV format, with the Period,Time,Team,Event Type,Player 1,Player 2,
+Description,Score
+
+2. Finish the first quarter
+
+3. Generate the second quarter
+
+4. Finish the second quarter
+
+5. Generate the third quarter
+
+6. Finish the third quarter
+
+7. Generate the fourth quarter
+
+8. Finish the fourth quarter

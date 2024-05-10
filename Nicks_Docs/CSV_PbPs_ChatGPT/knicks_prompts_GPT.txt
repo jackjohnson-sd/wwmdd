@@ -1,6 +1,9 @@
 COMMENT:
 
-GPT stops generating the quarter with 3 minutes left, but instead of prompting to finish quarter, there is a 'continue generating' button that completes the PbP. 
+GPT 3.5 stops generating the quarter with 3 minutes left, but instead of prompting to finish quarter, 
+there is a 'continue generating' button that completes the PbP. 
+
+There are more advanced models available to test ChatGPT's PbP generation capabilites.
 
 PROMPT:
 

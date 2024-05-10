@@ -1,6 +1,6 @@
 eventmsgtype,period,pctimestring,score,scoremargin,player1_name,player2_name,player3_name,homedescription,visitordescription,neutraldescription
-MADE FG - ASSISTMISS-BLOCK,1,12:00,,,,,,,,Start of 1st Period (8:11 PM EST)
-MADE FG - ASSIST0,1,12:00,,,Nikola Vucevic,Mike Muscala,Luguentz Dort,Jump Ball Vucevic vs. Muscala: Tip to Dort,,
+MADE FG - ASSIST,1,12:00,,,,,,,,Start of 1st Period (8:11 PM EST)
+MADE FG - ASSIST,1,12:00,,,Nikola Vucevic,Mike Muscala,Luguentz Dort,Jump Ball Vucevic vs. Muscala: Tip to Dort,,
 FOUL,1,11:57,,,Ayo Dosunmu,Luguentz Dort,,Dosunmu S.FOUL (P1.T1) (D.Taylor),,
 MADE FREE THROW,1,11:57,Jan-00,-1,Luguentz Dort,,,,Dort Free Throw 1 of 2 (1 PTS),
 MADE FREE THROW,1,11:57,Feb-00,-2,Luguentz Dort,,,,Dort Free Throw 2 of 2 (2 PTS),

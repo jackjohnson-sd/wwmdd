@@ -1,8 +1,10 @@
 import re
+import matplotlib.text
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.text import Text
 from matplotlib.path import Path
 from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
@@ -30,16 +32,17 @@ def get_marker(symbol):
     return Path(v-mean, codes, closed=False)
 
 mrk = {
-    'A': get_marker('A'),
-    'D': get_marker('D'),
-    'O': get_marker('O'),
-    '1': get_marker('1'),
-    '2': get_marker('2'),
-    '3': get_marker('3'),
-    'F': get_marker('F'),
-    'B': get_marker('B'),
-    'S': get_marker('S'),
-    'T': get_marker('T'),
+    # 'A': get_marker('A'),
+    'A': ['A'],
+    'D': ['D'],
+    'O': ['O'],
+    '1': ['1'],
+    '2': ['2'],
+    '3': ['3'],
+    'F': ['F'],
+    'B': ['B'],
+    'S': ['S'],
+    'T': ['T'],
 }
 
 # print(matplotlib.get_data_path())
@@ -81,7 +84,7 @@ def or_dr(_style, _color, _size, eventRecord, current_or_count):
     return _style, _color, _size
 
 event_map = {
-1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.8,0.8],  # make, assist
+1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.80,0.8],  # make, assist
 2: [  bad_evnt, 30.0, mrk['2'],'MISS',  good_evnt, 30.0, mrk['B'],'BLK',  [1, 3], em_mi, 0.8,0.8],  # miss, block
 3: [ good_evnt, 30.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft, 0.8,0.8],  # free throw
 4: [ good_evnt, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
@@ -105,14 +108,21 @@ def event_legend():
     for x in event_legend_map:
         e      = event_map[x[0]]
         offset = x[1] * 4
+        if type(e[2 + offset]) == type([]):
+            
+            # l = 'JJ'
+            # l = Text(0,0,text=e[2 + offset][0],fontsize= e[1 + offset] * x[2],label= e[2 + offset][0] )
+            marker_ = '$'+e[2 + offset][0] +'$'
+        else: 
+            marker_ = e[2 + offset]
         l = Line2D([0], [0], 
-                   lw                = 0, 
-                   marker            = e[2 + offset], 
-                   color             = e[    offset], 
-                   label             = e[3 + offset], 
-                   markerfacecolor   = e[    offset],  
-                   markersize        = e[1 + offset]/8 * x[2])
-        
+                lw                = 0, 
+                marker            = marker_, 
+                color             = e[    offset], 
+                label             = e[3 + offset], 
+                markerfacecolor   = e[    offset],  
+                markersize        = e[1 + offset]/8 * x[2])
+    
         legend_elements.extend([l])
 
     legend_elements.extend([Line2D([0], [0], lw=1, color=stint_c, label=' STINT' )])
@@ -248,9 +258,15 @@ def mscatter(x,y,ax=None, m=None, **kw):
         sc.set_paths(paths)
     return sc
 
-M2OFFSET = settings.get('M2OFFSET')
-M3OFFSET = settings.get('M3OFFSET')
-MKR_WIDTH = settings.get('MKR_WIDTH')
+M2OFFSET      = settings.get('M2OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET      = settings.get('M3OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH     = settings.get('MRK_WIDTH')   # used to determine if markes will overlap
+MRK_FONTSCALE  = settings.get('MRK_FONTSCALE')
+MRK_FONTWEIGHT = settings.get('MRK_FONTWEIGHT')
+DBG_A         = settings.get('dbga')
+DBG_B         = settings.get('dbgb')
+DBG_C         = settings.get('dbgc')
+
 
 def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
     
@@ -267,40 +283,39 @@ def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
     idx_max = len(sec_)
     idx = first_no_sub_item
 
+    # a hopeless attempt to scale size based # players
+    # more players means less space for our stack of 3
+    m = nplayers_ / 14
+
+    # each marker takes this number of seconds to display
+    open_space = MKR_WIDTH
+
     while idx < idx_max:
-
-        m = nplayers_ / 14
-
-        # each marker takes this number of seconds
-        OPEN_SPACE = MKR_WIDTH
 
         start_index = idx
         idx += 1
-
-        n = 1
+        markers_to_place = 1
         
         # find first opening where we have space
         while idx < idx_max:
-            aval_space = OPEN_SPACE * (int(n/3) + 1)
+            needed_space = open_space * (int(markers_to_place/3) + 1)
             space_since_we_started =  sec_[idx] - sec_[start_index]
-            if space_since_we_started < aval_space:
-                n += 1
+            if space_since_we_started < needed_space:
+                markers_to_place += 1
                 idx += 1
             else: break
 
-        # print(f'n:{n} start:{start_index} now:{idx} {space_since_we_started} {aval_space}')
-
         # idx is next available slot
-        # number of items we need to place
-        n = idx - start_index     
-        slot_offset = OPEN_SPACE
+        # markers_to_place = number of items we need to place
+        
         slot_position = 0
         slot_index = start_index
-        while n > 0:
 
-            available_slot = sec_[start_index] + (slot_position * slot_offset)
+        while markers_to_place > 0:
 
-            if n >= 3:          # place 3 1 on line 2 staddle the one
+            available_slot = sec_[start_index] + (slot_position * open_space)
+
+            if markers_to_place >= 3:          # place 3 1 on line 2 staddle the one
 
                 y_[slot_index] += M3OFFSET * m
                 y_[slot_index + 2] -= M3OFFSET * m
@@ -309,11 +324,11 @@ def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
                 sec_[slot_index    ] = available_slot 
                 sec_[slot_index + 2] = available_slot
                 
-                n -= 3
+                markers_to_place -= 3
                 slot_index += 3
                 slot_position += 1
  
-            elif n == 2:          # place 2 to straddle the line
+            elif markers_to_place == 2:          # place 2 to straddle the line
                 
                 y_[slot_index    ] += M2OFFSET * m
                 y_[slot_index + 1] -= M2OFFSET * m
@@ -321,16 +336,15 @@ def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
                 sec_[slot_index    ] = available_slot
                 sec_[slot_index + 1] = available_slot 
                 
-                n -= 2
+                markers_to_place -= 2
                 slot_index += 2
                 slot_position += 1
 
-            elif n == 1:               
+            elif markers_to_place == 1:               
 
                 sec_[slot_index    ] = available_slot                
-                n -= 1
+                markers_to_place = 0
                 
-
 def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, x_labels = 'TOP'):
 
     Z_GRID = 0  # bottom
@@ -380,14 +394,19 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
 ##############################################################################################
-            fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
+            if 'ON' != DBG_B: fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
 
-            scatter = mscatter(
-                sec__, y__, c = color__, s = size__, m = marker__, 
-                ax = ax2,
-                zorder = Z_EVNT,
-                # alpha = .7
-                )
+            for i in range(0,len(sec__)):
+                 if type(marker__[i]) != type([]):
+                     ax2.scatter(sec__[i],y__[i], marker = marker__[i], color=color__[i], s=size__[i])
+                 else:
+                    ax2.text(sec__[i],y__[i], s = marker__[i][0], color=color__[i], 
+                             size=size__[i] / MRK_FONTSCALE, 
+                             va ='center_baseline', 
+                             ha = 'center',
+                             fontweight = MRK_FONTWEIGHT
+                            #  fontstretch = 'condensed'
+                             )
 
     ax.set_xlim(-50, (48 * 60) + 50)
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
@@ -444,7 +463,7 @@ def make_scoremargin(play_by_play):
         if scoremargin == 'TIE':
             scoremargin = 0
         scoremargin = int(scoremargin)
-    
+        #       ///////// this is a little broken  ////////
         now = v.sec
         scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
         scoreMargins.extend([scoremargin])
@@ -508,8 +527,28 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
     current_or_count = {}    
 
     for player in players:
-            
+
+        def score_change_check(player,stint):
+            for where in [3,4]:
+                score = scoreMargins[stint[where]]
+                scorep = scoreMargins[stint[where]+1]
+                scorem = scoreMargins[stint[where]-1]
+                if stint[where] != 0:
+                    if score != scorep or score != scorem:
+                        print(player,stint)
+                        print(f'{where,stint[where], scorem, score,scorep }')
+                        return True
+                    return False
+
         for i, stint in enumerate(game[player]):
+            # stint = [
+            #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
+            #   492,                       # length 
+            #   ['OUT', 1, '3:48', 492],   # see above
+            #   0,                         # start   
+            #   492                        # stop
+            # ]  
+            score_change_check(player,stint)
             start = scoreMargins[stint[3]]
             stop = scoreMargins[stint[4]]
             # dd(player,stint[3],stint[4],start,stop)
@@ -540,15 +579,18 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 #################################################################################
 # 28 spacing non overlapping "B"s
-        # if player == 'Josh Giddey':
-        #     for i in range(0,28,4):
-        #         _events[i + 0] = 120 + 12 * i/4
-        #         _events[i + 1] = _events[21]
-        #         _events[i + 2] = _events[22]
-        #         _events[i + 3] = mrk['B']
-        #         print(i,20 + 9 * i)
-        #     _events = _events[0:28]
-        # else: _events = []
+        if 'ON' == DBG_A:
+            NCNT = 20
+            NSPCE = 10
+            if player == 'Josh Giddey':
+                for i in range(0,4 * NCNT,4):
+                    _events[i + 0] = 120 + NSPCE * i/4
+                    _events[i + 1] = _events[21]
+                    _events[i + 2] = _events[22]
+                    _events[i + 3] = mrk['B']
+                    print(i,20 + 9 * i)
+                _events = _events[0:4 * NCNT]
+            else: _events = []
 
 ##################################################################################
         events_by_player[player] = _events

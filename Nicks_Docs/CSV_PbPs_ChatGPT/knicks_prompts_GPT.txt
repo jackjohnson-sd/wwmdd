@@ -1,0 +1,40 @@
+COMMENT:
+
+GPT 3.5 stops generating the quarter with 3 minutes left, but instead of prompting to finish quarter, 
+there is a 'continue generating' button that completes the PbP. 
+
+There are more advanced models available to test ChatGPT's PbP generation capabilites.
+
+PROMPT:
+
+
+1. You are an NBA basketball coach for The New York Knicks creating your team’s lineup for a 
+basketball game against The New Orleans Pelicans. 
+
+Create the starting lineup for your team and the expected starting lineup of The New Orleans 
+Pelicans.
+
+Create an expected game play-by-play of the first quarter, with each quarter being 12 minutes long. 
+
+In the play-by-play: 
+
+-Include the times of all events
+
+-Include 20 – 25 total player substitutions throughout the entire game to involve bench players and 
+manage player fatigue.
+
+-Include defensive events, such as defensive rebounds and steals.
+
+-Include all scoring events that lead to the final scores. 
+
+
+-Generate the play-by-play in CSV format, with the Period,Time,Team,Event Type,Player 1,Player 2,
+Description,Score
+
+
+
+2. Generate the second quarter
+
+3. Generate the third quarter
+
+4. Generate the fourth quarter

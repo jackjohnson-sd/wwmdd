@@ -1,0 +1,44 @@
+COMMENT:
+I'm using new prompt engineering techniques, such as role assignment (coach), numbered 
+lists for instructions, and explicit mentions of desired results (ie. 20 - 25 subs).
+
+These tips are from Anthropic's website. I'm investigating more prompt engineering 
+techniques as well, but these techniques (such as listed instructions) have yielded 
+(so far) consistent results (quarters all complete, subs made, mix of defensive and 
+offensive plays). 
+
+However, consistency is only true when prompts/results  are examined many times 
+(not just 1 game)... More to come. 
+
+PROMPT:
+
+
+1. You are an NBA basketball coach for The New York Knicks creating your team’s lineup for a 
+basketball game against The New Orleans Pelicans. 
+
+Create the starting lineup for your team and the expected starting lineup of The New Orleans 
+Pelicans.
+
+Create an expected game play-by-play of the first quarter, with each quarter being 12 minutes long. 
+
+In the play-by-play: 
+
+Include the times of all events
+Include 20 – 25 total player substitutions throughout the entire game to involve bench players and 
+manage player fatigue.
+
+Include defensive events, such as defensive rebounds and steals.
+
+Include all scoring events that lead to the final scores. 
+
+
+Generate the play-by-play in CSV format, with the Period,Time,Team,Event Type,Player 1,Player 2,
+Description,Score
+
+
+
+2. Generate the second quarter
+
+3. Generate the third quarter
+
+4. Generate the fourth quarter

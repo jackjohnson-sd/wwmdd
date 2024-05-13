@@ -1,9 +1,0 @@
-COMMENT:
-15 total substitutions made during the game from both teams. 
-Online I found the averager subs made during a game is about 20...
-Claude could generate more subs, but how without overprompting...
-Let's ask! (next prompt)
-
-PROMPT:
-Provide a summary of all player substitutions made during the game.
-

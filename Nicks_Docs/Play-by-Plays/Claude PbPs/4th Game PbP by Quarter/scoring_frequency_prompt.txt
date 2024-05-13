@@ -1,9 +1,0 @@
-COMMENT:
-
-Claude's scoring frquency this game is about 1 point made every 9.8 seconds, whereas a 
-typical NBA game has a scoring frequency of 1 point every 12.6 seonds. While that's not abhorent, 
-Claude produces PbPs with structured scoring frequency (every 15 seonds is a scoring event) which
-is unrealisitic.
-
-PROMPT:
-What’s the typical scoring frequency in an NBA game? 

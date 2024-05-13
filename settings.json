@@ -1,6 +1,10 @@
 {
+    "dbga"         : "OFF",
+    "dbgb"         : "OFF",
+    "dbgc"         : "OFF",
+
     "GOOD_EVENT_COLOR"  : "mediumseagreen",
-    "BAD_EVENT_COLOR"   : "cornflowerbltoue",
+    "BAD_EVENT_COLOR"   : "cornflowerblue",
     "GRID_COLOR"        : "dimgrey",
     "STINT_COLOR"       : "dimgrey",
     "PM_PLUS_COLOR"     : "maroon",
@@ -8,15 +12,21 @@
     "TABLE_COLOR"       : "goldenrod",
     "PLOT_COLOR_STYLE"  : "dark_background",
 
+    "DATA_BEGIN_DATE"    : "2023-03-15",
+    "DATA_END_DATE"      : "2023-03-18",
+
+    "TESTDATA_START_DAY" : "2023-03-15",
+    "TESTDATA_STOP_DAY"  : "2023-03-18",
+    "TESTDATA_TEAM"      : "OKC",
+    "TESTDATA_SEASON"    : "2022",
+
     "DB_NAME"           : "nba.sqlite",
-    "DATA_BEGIN_DATE"   : "2021-08-01",
-
-    "TD_START_DAY" : "2023-01-03",
-    "TD_STOP_DAY"  : "2023-04-03",
-    "TD_TEAM"      : "OKC",
-    "TD_SEASON"    : "2022",
-
-    "M2OFFSET"     : 3.0,
-    "M3OFFSET"     : 4.7,
-    "MKR_WIDTH"    : 28
+    "zDB_NAME"            : "web",
+    
+    "M2OFFSET"           : 2.7,
+    "M3OFFSET"           : 4.7,
+    "MRK_WIDTH"          : 28,
+    "MRK_FONTSCALE"      : 2.7,
+    "MRK_FONTWEIGHT"     : "demi"
+ 
 }

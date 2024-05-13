@@ -12,6 +12,7 @@ class defaults :
         except:
                 print(f'Failed to load {self.fn} as json settings file.')
                 print('Using default values.')
+                
                 self.stuff = {
                     'GOOD_EVENT_COLOR': 'mediumseagreen', 
                     'BAD_EVENT_COLOR' : 'cornflowerblue', 
@@ -21,23 +22,28 @@ class defaults :
                     'PM_MINUS_COLOR'  : 'darkgreen', 
                     'TABLE_COLOR'     : 'darkgoldenrod', 
                     'PLOT_COLOR_STYLE': 'dark_background', 
+
                     'DB_NAME'         : 'nba.sqlite', 
-                    'DATA_START'      : '2020-01-01', 
-                    'TD_START_DAY'    : '2023-01-01', 
-                    'TD_STOP_DAY'     : '2023-04-20', 
-                    'TD_TEAM'         : 'OKC', 
-                    'TD_SEASON'       : '2022',
+                    'DATA_START'      : '2024-01-01', 
+                    
+                    'TESTDATA_START_DAY'    : '2023-04-01', 
+                    'TESTDATA_STOP_DAY'     : '2023-04-10', 
+                    'TESTDATA_TEAM'         : 'OKC', 
+                    'TESTDATA_SEASON'       : '2022',
                     
                     "M2OFFSET"        : 4.0,
                     "M3OFFSET"        : 2.5,
-                    "MKR_WIDTH"       : 28
+                    "MRK_WIDTH"       : 28,
+
+                    "MRK_FONTSCALE"      : 2.7,
+                    "MRK_FONTWEIGHT"    : "demi"
                 }
 
-    def get(self, name):
-       return self.stuff[name]
+    def get(self, _name):
+       return self.stuff[_name]
 
-    def set(self,name, value):
-       self.stuff[name] = value
+    def set(self,_name, _value):
+       self.stuff[_name] = _value
 
     def save(self):
         with open(self.fn, "w") as f:

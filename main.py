@@ -51,10 +51,10 @@ def loadNBA():
   
 def getTestData(_games):
 
-    _START_DAY  = settings.get('TD_START_DAY') # 2023-01-01
-    _STOP_DAY   = settings.get('TD_STOP_DAY')  # 2023-04-20
-    _TEAM       = settings.get('TD_TEAM')      # OKC
-    _SEASON     = settings.get('TD_SEASON')    # 2022
+    _START_DAY  = settings.get('TESTDATA_START_DAY') # 2023-01-01
+    _STOP_DAY   = settings.get('TESTDATA_STOP_DAY')  # 2023-04-20
+    _TEAM       = settings.get('TESTDATA_TEAM')      # OKC
+    _SEASON     = settings.get('TESTDATA_SEASON')    # 2022
 
     results = filterGamesByDateRange( _START_DAY, _STOP_DAY, _games[_TEAM][_SEASON])
     return results, _START_DAY, _STOP_DAY, _TEAM, _SEASON
@@ -93,6 +93,10 @@ def main():
 
 if __name__ == "__main__":
     print("START WWMDD")
-    main()
+
+    if settings.get('DB_NAME') =='web':
+      import remote_main
+      remote_main.main()
+    else: main()
     print("END WWMDD")
     

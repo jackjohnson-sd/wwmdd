@@ -6,7 +6,6 @@ from matplotlib.lines import Line2D
 from matplotlib.path import Path
 from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
-from matplotlib import font_manager 
 import matplotlib
 from box_score import box_score
 from json_settings import defaults
@@ -19,7 +18,6 @@ good_evnt   = settings.get('GOOD_EVENT_COLOR')
 grid_color  = settings.get('GRID_COLOR')
 table_color = settings.get('TABLE_COLOR')
 
-
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
 
@@ -30,16 +28,17 @@ def get_marker(symbol):
     return Path(v-mean, codes, closed=False)
 
 mrk = {
-    'A': get_marker('A'),
-    'D': get_marker('D'),
-    'O': get_marker('O'),
-    '1': get_marker('1'),
-    '2': get_marker('2'),
-    '3': get_marker('3'),
-    'F': get_marker('F'),
-    'B': get_marker('B'),
-    'S': get_marker('S'),
-    'T': get_marker('T'),
+    # 'A': get_marker('A'),
+    'A': ['A'],
+    'D': ['D'],
+    'O': ['O'],
+    '1': ['1'],
+    '2': ['2'],
+    '3': ['3'],
+    'F': ['F'],
+    'B': ['B'],
+    'S': ['S'],
+    'T': ['T'],
 }
 
 # print(matplotlib.get_data_path())
@@ -81,7 +80,7 @@ def or_dr(_style, _color, _size, eventRecord, current_or_count):
     return _style, _color, _size
 
 event_map = {
-1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.8,0.8],  # make, assist
+1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.80,0.8],  # make, assist
 2: [  bad_evnt, 30.0, mrk['2'],'MISS',  good_evnt, 30.0, mrk['B'],'BLK',  [1, 3], em_mi, 0.8,0.8],  # miss, block
 3: [ good_evnt, 30.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft, 0.8,0.8],  # free throw
 4: [ good_evnt, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
@@ -105,14 +104,18 @@ def event_legend():
     for x in event_legend_map:
         e      = event_map[x[0]]
         offset = x[1] * 4
+        if type(e[2 + offset]) == type([]):
+            marker_ = '$'+e[2 + offset][0] +'$'
+        else: 
+            marker_ = e[2 + offset]
         l = Line2D([0], [0], 
-                   lw                = 0, 
-                   marker            = e[2 + offset], 
-                   color             = e[    offset], 
-                   label             = e[3 + offset], 
-                   markerfacecolor   = e[    offset],  
-                   markersize        = e[1 + offset]/8 * x[2])
-        
+                lw                = 0, 
+                marker            = marker_, 
+                color             = e[    offset], 
+                label             = e[3 + offset], 
+                markerfacecolor   = e[    offset],  
+                markersize        = e[1 + offset]/8 * x[2])
+    
         legend_elements.extend([l])
 
     legend_elements.extend([Line2D([0], [0], lw=1, color=stint_c, label=' STINT' )])
@@ -221,8 +224,6 @@ def P3_boxscore(boxscore, ax, players):
     elif len(bs_rows) > 15: index = 10
     else: index = len(bs_rows) - 5
     SCALEY = _scale[index]
-    # SCALEY =  13.2 / (len(bs_rows))
-    # print(index, SCALEY, len(bs_rows))
     the_table.scale(0.92, SCALEY)
     the_table.auto_set_font_size(False)
     the_table.set_fontsize(9)
@@ -248,11 +249,16 @@ def mscatter(x,y,ax=None, m=None, **kw):
         sc.set_paths(paths)
     return sc
 
-M2OFFSET = settings.get('M2OFFSET')
-M3OFFSET = settings.get('M3OFFSET')
-MKR_WIDTH = settings.get('MKR_WIDTH')
+M2OFFSET      = settings.get('M2OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET      = settings.get('M3OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH     = settings.get('MRK_WIDTH')   # used to determine if markes will overlap
+MRK_FONTSCALE  = settings.get('MRK_FONTSCALE')
+MRK_FONTWEIGHT = settings.get('MRK_FONTWEIGHT')
+DBG_A         = settings.get('dbga')
+DBG_B         = settings.get('dbgb')
+DBG_C         = settings.get('dbgc')
 
-def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
+def fitMarkers(yy_, sec_, color_, size_, marker_, nplayers_):
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
@@ -267,71 +273,71 @@ def fitMarkers(y_, sec_, color_, size_, marker_, nplayers_):
     idx_max = len(sec_)
     idx = first_no_sub_item
 
+    # a hopeless attempt to scale size based # players
+    # more players means less space for our stack of 3
+    m = nplayers_ / 14
+
+    # each marker takes this number of seconds to display
+    open_space = MKR_WIDTH
+
     while idx < idx_max:
-
-        m = nplayers_ / 14
-
-        # each marker takes this number of seconds
-        OPEN_SPACE = MKR_WIDTH
 
         start_index = idx
         idx += 1
-
-        n = 1
+        markers_to_place = 1
         
         # find first opening where we have space
         while idx < idx_max:
-            aval_space = OPEN_SPACE * (int(n/3) + 1)
+            needed_space = open_space * (int(markers_to_place/3) + 1)
             space_since_we_started =  sec_[idx] - sec_[start_index]
-            if space_since_we_started < aval_space:
-                n += 1
+            if space_since_we_started < needed_space:
+                markers_to_place += 1
                 idx += 1
             else: break
 
-        # print(f'n:{n} start:{start_index} now:{idx} {space_since_we_started} {aval_space}')
-
         # idx is next available slot
-        # number of items we need to place
-        n = idx - start_index     
-        slot_offset = OPEN_SPACE
+        # markers_to_place = number of items we need to place
+        
         slot_position = 0
         slot_index = start_index
-        while n > 0:
 
-            available_slot = sec_[start_index] + (slot_position * slot_offset)
+        while markers_to_place > 0:
 
-            if n >= 3:          # place 3 1 on line 2 staddle the one
+            available_slot = sec_[start_index] + (slot_position * open_space)
 
-                y_[slot_index] += M3OFFSET * m
-                y_[slot_index + 2] -= M3OFFSET * m
+            if markers_to_place >= 3:          # place 3 1 on line 2 staddle the one
+
+                yy_[slot_index] += M3OFFSET * m
+                yy_[slot_index + 2] -= M3OFFSET * m
 
                 sec_[slot_index + 1] = available_slot 
                 sec_[slot_index    ] = available_slot 
                 sec_[slot_index + 2] = available_slot
                 
-                n -= 3
+                markers_to_place -= 3
                 slot_index += 3
                 slot_position += 1
  
-            elif n == 2:          # place 2 to straddle the line
+            elif markers_to_place == 2:          # place 2 to straddle the line
                 
-                y_[slot_index    ] += M2OFFSET * m
-                y_[slot_index + 1] -= M2OFFSET * m
+                yy_[slot_index    ] += M2OFFSET * m
+                yy_[slot_index + 1] -= M2OFFSET * m
              
                 sec_[slot_index    ] = available_slot
                 sec_[slot_index + 1] = available_slot 
                 
-                n -= 2
+                markers_to_place -= 2
                 slot_index += 2
                 slot_position += 1
 
-            elif n == 1:               
+            elif markers_to_place == 1:               
 
                 sec_[slot_index    ] = available_slot                
-                n -= 1
+                markers_to_place = 0
                 
-
-def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, x_labels = 'TOP'):
+def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, 
+                 x_labels = 'TOP',
+                 box_score = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
@@ -343,27 +349,69 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 
     _players = list(playTimesbyPlayer.keys())
 
+    bs_rows, bs_columns, bs_data = box_score.get_bs_data(_players +  [box_score._team_name])
+
+    trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
+
+    wdts = [4,4,6,6,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4]
+
+    def format_bs_rows(r_data):
+      s__ = ''
+      for i,x in enumerate(r_data):
+            s__ += f'{x:^{wdts[i]}}'
+      return s__
+
+    bs_labels = ['            ' + format_bs_rows(bs_columns)]
+
+    for i,x in enumerate(trows):
+        bs_labels.extend([f'{trows[i]:^12}' + format_bs_rows(bs_data[i])])
+
+    ax.set_xlim(-50, (48 * 60) + 50) 
+
+    _plen = len(_players)
+    ax.set_ylim(-5 , (10 * _plen + 2) + 5)
+    
     for i, _player in enumerate(_players):
 
         data = playTimesbyPlayer[_player]
-        if len(data) > 0:
-            starts = list(map(lambda x: x[0], data))
-            widths = list(map(lambda x: x[1], data))
-            rects = ax.barh(_player, widths, 
-                            left = starts, 
-                            color = stint_c, 
-                            height = 0.05, 
-                            zorder = Z_HBAR)
+
+        if len(playTimesbyPlayer[_player]) > 0:
             
-    ax.invert_yaxis()
-    ax.yaxis.set_visible(False)
+            starts = list(map(lambda x: x[0], playTimesbyPlayer[_player]))
+            widths = list(map(lambda x: x[1], playTimesbyPlayer[_player]))
+
+            y_yyy = -5 + ((_plen - i) * 10) 
     
+            for j,x in enumerate(starts):
+                start = x
+                width = widths[j]
+               
+                # print(_player,start,start+width,y_yyy)
+
+                l = matplotlib.lines.Line2D([start, start + width], [y_yyy, y_yyy],lw = 1.0, label = _player, ls= '-', c= 'g')
+                ax.add_line(l)                
+        else:
+            print('No Data',_player)
+              
     ymin, ymax = ax.get_ylim()
 
+    _plen = len(_players) + 2
+    y_ticks = list(np.arange(-5, 10 * (_plen - 1), 10))
+
     ax2 = ax.twinx() 
-    ax2.set_ylim(ymax * 10, ymin * 10)
-    ax2.tick_params(axis='both', which='both', labelsize=0, pad=0, direction='in')
-    ax2.yaxis.set_visible(False)
+    bs_labels.reverse()
+
+    ax2.set_ylim(-5 , y_ticks[-1]+2)  
+    # trial and error produced the +2, stint lines not going through
+    # not going in the middle of the marker or letters 
+    ax2.set_yticks(y_ticks, labels=bs_labels, color=table_color)
+    
+    ax2.tick_params(axis='x', which='both', labelsize=0, pad=0, direction='in')
+    ax2.tick_params(axis='y', which='minor', labelsize=0, pad=0, direction='in')
+    ax2.tick_params(axis='y', which='major', labelsize=8, length=0,pad=0)
+
+    ax2.yaxis.set_visible(True)
+    plt.yticks(fontname = "monospace")
     
     nplyrs = len(_players) 
 
@@ -372,22 +420,25 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         data = playTimesbyPlayer[_player]
         if len(data) > 0:
 
-            evnt_cnt = int(len(events_by_player[_player])/4)
-            
-            y__ = [((nplyrs - i - 1) * 10)] * evnt_cnt
             sec__     = events_by_player[_player][0::4]
             color__   = events_by_player[_player][1::4]
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
-##############################################################################################
-            fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
 
-            scatter = mscatter(
-                sec__, y__, c = color__, s = size__, m = marker__, 
-                ax = ax2,
-                zorder = Z_EVNT,
-                # alpha = .7
-                )
+            y__ = [-25 + ((_plen - i) * 10)] * len(sec__)
+##############################################################################################
+            if 'ON' != DBG_B: fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
+
+            for i in range(0,len(sec__)):
+                 if type(marker__[i]) != type([]):
+                     ax2.scatter(sec__[i],y__[i], marker = marker__[i], color=color__[i], s=size__[i])
+                 else:
+                    ax2.text(sec__[i],y__[i], s = marker__[i][0], color=color__[i], 
+                             size=size__[i] / MRK_FONTSCALE, 
+                             va ='center_baseline', 
+                             ha = 'center',
+                             fontweight = MRK_FONTWEIGHT
+                             )
 
     ax.set_xlim(-50, (48 * 60) + 50)
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
@@ -398,8 +449,9 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
     ax.set_xticklabels(tls, minor = True, color=table_color)
 
-    ax.tick_params(axis='x', which='both', labelsize=9, pad=3, length=0)
-    ax.tick_params(axis='y', which='both', labelsize=0, length=0, pad=0, direction='out')
+    ax.tick_params(axis='x', which='both', labelsize=9, pad=0, length=0)
+    ax.tick_params(axis='y', which='minor', labelsize=0, length=0, direction='in')
+    ax.tick_params(axis='y', which='major', labelsize=0, length=0, direction='in')
     ax.grid(True, axis='x', color=grid_color, linestyle='-', linewidth=1.5, zorder= Z_GRID)
     
     for s in ['top', 'right', 'bottom', 'left']:
@@ -444,21 +496,24 @@ def make_scoremargin(play_by_play):
         if scoremargin == 'TIE':
             scoremargin = 0
         scoremargin = int(scoremargin)
-    
+        #       ///////// this is a little broken  ////////
         now = v.sec
-        scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
-        scoreMargins.extend([scoremargin])
+        if (now - lastscoretime) != 0:
+            scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
+            scoreMargins.extend([scoremargin])
+        else: scoreMargins[-1] = scoremargin
+
         lastscoretime = now
         lastscorevalue = scoremargin
-
     return scoreMargins
 
 def get_title(game_data, boxscore):
     # total_secs_playing_time = boxscore.sum_item('secs')
     # t = str(timedelta(seconds=total_secs_playing_time)).split(':')
 
+################################################################### web fix nn ##########
     debug_title = f'{game_data.game_id}'
-    # debug_title = f'DEBUG {t[0]}:{t[1]}  {game_data.game_id}'
+    
     # 
     w_home = game_data.wl_home
     team_home = game_data.team_abbreviation_home
@@ -470,7 +525,7 @@ def get_title(game_data, boxscore):
     else:
         top_team = team_away
         bot_team = team_home
-
+################################################################### web fix nn ##########
     gd = game_data.game_date[0:10].split('-')
     gds = f'{gd[1]}/{gd[2]}/{gd[0]}'
     title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}   '
@@ -502,21 +557,38 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
     playTimesbyPlayer = {}
     events_by_player = {}
 
-    # def dd(pl,st,se,stv,sev):
-    #     print(f'{pl} st:{st} se:{se} stv:{stv} ste:{sev} PM:{sev-stv}')
-
     current_or_count = {}    
 
     for player in players:
-            
+
+        def score_change_check(player,stint):
+            for where in [3,4]:
+                score = scoreMargins[stint[where]]
+                scorep = scoreMargins[stint[where]+1]
+                scorem = scoreMargins[stint[where]-1]
+                if stint[where] != 0:
+                    if score != scorep or score != scorem:
+                        print('BAD', player,stint)
+                        print(f'BAD {where,stint[where], scorem, score,scorep }')
+                        return True
+                    return False
+
         for i, stint in enumerate(game[player]):
+            # stint = [
+            #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
+            #   492,                       # length 
+            #   ['OUT', 1, '3:48', 492],   # see above
+            #   0,                         # start   
+            #   492                        # stop
+            # ]  
+            # score_change_check(player,stint)
             start = scoreMargins[stint[3]]
             stop = scoreMargins[stint[4]]
-            # dd(player,stint[3],stint[4],start,stop)
+
             boxscore.add_plus_minus(player, start, stop)
 
-        def timespantoSecs(a): return (a[0][3], a[1])
-        playTimesbyPlayer[player] = list(map(lambda x: timespantoSecs(x), game[player]))
+        # remnent of change when caclualaion all times as seconds moved to on load of date
+        playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), game[player]))
 
         _events = []
 
@@ -540,15 +612,18 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 #################################################################################
 # 28 spacing non overlapping "B"s
-        # if player == 'Josh Giddey':
-        #     for i in range(0,28,4):
-        #         _events[i + 0] = 120 + 12 * i/4
-        #         _events[i + 1] = _events[21]
-        #         _events[i + 2] = _events[22]
-        #         _events[i + 3] = mrk['B']
-        #         print(i,20 + 9 * i)
-        #     _events = _events[0:28]
-        # else: _events = []
+        if 'ON' == DBG_A:
+            NCNT = 20
+            NSPCE = 10
+            if player == 'Josh Giddey':
+                for i in range(0,4 * NCNT,4):
+                    _events[i + 0] = 120 + NSPCE * i/4
+                    _events[i + 1] = _events[21]
+                    _events[i + 2] = _events[22]
+                    _events[i + 3] = mrk['B']
+                    print(i,20 + 9 * i)
+                _events = _events[0:4 * NCNT]
+            else: _events = []
 
 ##################################################################################
         events_by_player[player] = _events
@@ -631,23 +706,23 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
     else:
         _ad1_flip = True
 
-
-    # print(f'tt:{top_team} bt:{bot_team} ht:{home_team} g1f:{_ad1_flip} g2f:{_ad2_flip}')
+    boxscore1.plus_minus_flip(_ad1_flip)
     P3_PBP_chart(playTimesbyPlayer1, _ad1_[0], events_by_player1, scoreMargins, 
                  flipper  = _ad1_flip, 
-                 x_labels =_ad1_label)
+                 x_labels =_ad1_label,
+                 box_score = boxscore1)
     
-    boxscore1.plus_minus_flip(_ad1_flip)
-    P3_boxscore(boxscore1, _ad1_[1], players1)
-    # axd[TR].sharey(axd[TL])
+    # P3_boxscore(boxscore1, _ad1_[1], players1)
+    # # axd[TR].sharey(axd[TL])
 
+    boxscore2.plus_minus_flip(_ad2_flip)
     P3_PBP_chart(playTimesbyPlayer2, _ad2_[0], events_by_player2, scoreMargins, 
                  flipper  = _ad2_flip, 
-                 x_labels =_ad2_label)
+                 x_labels =_ad2_label,
+                 box_score = boxscore2)
     
-    boxscore2.plus_minus_flip(_ad2_flip)
-    P3_boxscore(boxscore2, _ad2_[1], players2)
-    # axd[BR].sharey(axd[BL])
+    # P3_boxscore(boxscore2, _ad2_[1], players2)
+    # # axd[BR].sharey(axd[BL])
 
     axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=table_color)
     
@@ -732,3 +807,4 @@ def plot1(data):
     ax.set_title('Thunder')
     ax.legend(loc=2, title='', ncol=2)
     return
+

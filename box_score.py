@@ -178,9 +178,9 @@ class box_score:
             for key2 in itemlist:
                 if key2 == PM:
                     fp = -1 if self._flip else 1
-                    data2 += [fp*self._boxScore[key][key2]]
+                    data2 += [str(fp*self._boxScore[key][key2])]
                 else:
-                    data2 +=  [self._boxScore[key][key2]]
+                    data2 +=  [str(self._boxScore[key][key2])]
             data += [data2]
         return rows, columns, data
 

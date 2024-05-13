@@ -1,7 +1,0 @@
-COMMENT:
-Claude adds 8 substitution events. 
-
-PROMPT:
-
-typically players play for aprox 5 minutes at a time. Make sure some bench players are 
-included for both team. Bench players usually play for 2 -- 3 minutes at a time

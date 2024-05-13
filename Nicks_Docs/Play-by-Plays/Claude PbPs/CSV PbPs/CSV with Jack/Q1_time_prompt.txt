@@ -1,5 +1,0 @@
-COMMENT:
-Claude adds event times and includes 3 fouls, 8 assists, 1 rebound (offensive)
-
-PROMPT:
-include time of each event during the quarter and include rebounds, fouls, and assists

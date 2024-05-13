@@ -1,5 +1,0 @@
-COMMENT:
-Claude includes time, team, player, action, score as values. 
-
-PROMPT:
-format the play by play in csv format

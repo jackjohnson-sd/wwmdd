@@ -1,6 +1,0 @@
-COMMENT:
-CLaude recognizes that it might be incorrect in its OKC roster due to events common in basketball, 
-such as injuries, trades, releases. 
-
-PROMPT:
-do you know all the players on OKC in Jan 2022

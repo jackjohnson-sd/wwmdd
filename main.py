@@ -93,8 +93,10 @@ def main():
 
 if __name__ == "__main__":
     print("START WWMDD")
-    # import remote_data
-    # remote_data.tester()
-    main()
+
+    if settings.get('DB_NAME') =='web':
+      import remote_main
+      remote_main.main()
+    else: main()
     print("END WWMDD")
     

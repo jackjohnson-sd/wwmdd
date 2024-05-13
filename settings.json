@@ -12,14 +12,17 @@
     "TABLE_COLOR"       : "goldenrod",
     "PLOT_COLOR_STYLE"  : "dark_background",
 
-    "DB_NAME"           : "nba.sqlite",
-    "DATA_BEGIN_DATE"   : "2022-09-01",
+    "DATA_BEGIN_DATE"    : "2023-03-15",
+    "DATA_END_DATE"      : "2023-03-18",
 
-    "TESTDATA_START_DAY" : "2023-01-01",
-    "TESTDATA_STOP_DAY"  : "2023-01-13",
+    "TESTDATA_START_DAY" : "2023-03-15",
+    "TESTDATA_STOP_DAY"  : "2023-03-18",
     "TESTDATA_TEAM"      : "OKC",
     "TESTDATA_SEASON"    : "2022",
 
+    "DB_NAME"           : "nba.sqlite",
+    "zDB_NAME"            : "web",
+    
     "M2OFFSET"           : 2.7,
     "M3OFFSET"           : 4.7,
     "MRK_WIDTH"          : 28,

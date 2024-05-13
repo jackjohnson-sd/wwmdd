@@ -22,11 +22,12 @@ class defaults :
                     'PM_MINUS_COLOR'  : 'darkgreen', 
                     'TABLE_COLOR'     : 'darkgoldenrod', 
                     'PLOT_COLOR_STYLE': 'dark_background', 
+
                     'DB_NAME'         : 'nba.sqlite', 
-                    'DATA_START'      : '2020-01-01', 
+                    'DATA_START'      : '2024-01-01', 
                     
-                    'TESTDATA_START_DAY'    : '2023-01-01', 
-                    'TESTDATA_STOP_DAY'     : '2023-04-20', 
+                    'TESTDATA_START_DAY'    : '2023-04-01', 
+                    'TESTDATA_STOP_DAY'     : '2023-04-10', 
                     'TESTDATA_TEAM'         : 'OKC', 
                     'TESTDATA_SEASON'       : '2022',
                     

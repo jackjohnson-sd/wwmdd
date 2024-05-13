@@ -1,0 +1,48 @@
+COMMENT:
+
+Gemini's PbP has about 160 lines of events, compared to Claude's ~410 lines of events and GPT's ~310 lines of events. 
+
+Using Gemini 1.0 Pro. Gemini 1.0 Ultra is most capable, then 1.5 Pro, then 1.0 Pro. 
+
+Should we get access to 1.0 Ultra for better comparison to Claude, since we're using Claude 
+3 Opus for Claude PbP generations? 
+
+PROMPT:
+
+
+1. You are an NBA basketball coach for The New York Knicks creating your team’s lineup for a 
+basketball game against The New Orleans Pelicans. 
+
+Create the starting lineup for your team and the expected starting lineup of The New Orleans 
+Pelicans.
+
+Create an expected game play-by-play of the first quarter, with each quarter being 12 minutes long. 
+
+In the play-by-play: 
+
+-Include the times of all events
+
+-Include 20 – 25 total player substitutions throughout the entire game to involve bench players and 
+manage player fatigue.
+
+-Include defensive events, such as defensive rebounds and steals.
+
+-Include all scoring events that lead to the final scores. 
+
+
+-Generate the play-by-play in CSV format, with the Period,Time,Team,Event Type,Player 1,Player 2,
+Description,Score
+
+2. Finish the first quarter
+
+3. Generate the second quarter
+
+4. Finish the second quarter
+
+5. Generate the third quarter
+
+6. Finish the third quarter
+
+7. Generate the fourth quarter
+
+8. Finish the fourth quarter

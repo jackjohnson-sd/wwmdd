@@ -388,13 +388,11 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
                
                 # print(_player,start,start+width,y_yyy)
 
-                l = matplotlib.lines.Line2D([start, start + width], [y_yyy, y_yyy],lw = 1.0, label = _player, ls= '-', c= 'g')
+                l = matplotlib.lines.Line2D([start, start + width], [y_yyy, y_yyy],lw = 1.0, label = _player, ls= '-', c=stint_c)
                 ax.add_line(l)                
         else:
             print('No Data',_player)
               
-    ymin, ymax = ax.get_ylim()
-
     _plen = len(_players) + 2
     y_ticks = list(np.arange(-5, 10 * (_plen - 1), 10))
 
@@ -406,10 +404,10 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     # not going in the middle of the marker or letters 
     ax2.set_yticks(y_ticks, labels=bs_labels, color=table_color)
     
-    ax2.tick_params(axis='x', which='both', labelsize=0, pad=0, direction='in')
-    ax2.tick_params(axis='y', which='minor', labelsize=0, pad=0, direction='in')
-    ax2.tick_params(axis='y', which='major', labelsize=8, length=0,pad=0)
-
+    ax2.tick_params(axis='y', which='minor', labelsize=0, length = 0, pad=0, direction='in')
+    ax2.tick_params(axis='y', which='major', labelsize=7.5, length = 0, pad=0, direction='in')
+    ax2.tick_params(axis='x', which='both',  labelsize=0, length = 0, pad=0, direction='in')
+    
     ax2.yaxis.set_visible(True)
     plt.yticks(fontname = "monospace")
     
@@ -426,7 +424,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             marker__  = events_by_player[_player][3::4] 
 
             y__ = [-25 + ((_plen - i) * 10)] * len(sec__)
-##############################################################################################
+
             if 'ON' != DBG_B: fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
 
             for i in range(0,len(sec__)):
@@ -449,26 +447,17 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
     ax.set_xticklabels(tls, minor = True, color=table_color)
 
-    ax.tick_params(axis='x', which='both', labelsize=9, pad=0, length=0)
-    ax.tick_params(axis='y', which='minor', labelsize=0, length=0, direction='in')
-    ax.tick_params(axis='y', which='major', labelsize=0, length=0, direction='in')
+    ax.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
+    ax.tick_params(axis='x', which='minor', labelsize=9, pad=-10, length = 0)
+    
+    ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
     ax.grid(True, axis='x', color=grid_color, linestyle='-', linewidth=1.5, zorder= Z_GRID)
     
     for s in ['top', 'right', 'bottom', 'left']:
         ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)
 
-def P3_scoremargin(ax, _scoreMargins, flipper, _zorder):
-
-    if flipper:
-        _scoreMargins = list(map(lambda x: -x, _scoreMargins))
-    
-    c_minus = settings.get('PM_PLUS_COLOR')    
-    c_plus  = settings.get('PM_MINUS_COLOR')   
-    _colors = list(map(lambda x: c_minus if x < 0 else c_plus, _scoreMargins))
-
-    ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=1, zorder=_zorder)
-    ax.set_xlim(0, (48 * 60) - 1)
+def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
 
     import math
     mx = abs(max(_scoreMargins))
@@ -477,9 +466,22 @@ def P3_scoremargin(ax, _scoreMargins, flipper, _zorder):
     m = int(math.ceil(m/10) * 10)
     r = list(range(-m, m+10, 10))
 
-    ax.set_yticks(r, r)
-    ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
-    ax.yaxis.set_visible(False)
+    _ax.set_yticks(r, r)
+    _ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
+    _ax.yaxis.set_visible(False)
+    _ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
+  
+    if flipper:
+        _scoreMargins = list(map(lambda x: -x, _scoreMargins))
+    
+    c_minus = settings.get('PM_PLUS_COLOR')    
+    c_plus  = settings.get('PM_MINUS_COLOR')   
+    _colors = list(map(lambda x: c_minus if x < 0 else c_plus, _scoreMargins))
+
+    _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=1, zorder=_zorder)
+    _ax.set_xlim(0, (48 * 60) - 1)
+
+   
 
 def make_scoremargin(play_by_play):
     # create scoremargin for every second of the game all 14400 = 60 * 12 * 4
@@ -508,13 +510,9 @@ def make_scoremargin(play_by_play):
     return scoreMargins
 
 def get_title(game_data, boxscore):
-    # total_secs_playing_time = boxscore.sum_item('secs')
-    # t = str(timedelta(seconds=total_secs_playing_time)).split(':')
-
-################################################################### web fix nn ##########
+    
     debug_title = f'{game_data.game_id}'
     
-    # 
     w_home = game_data.wl_home
     team_home = game_data.team_abbreviation_home
     team_away = game_data.team_abbreviation_away
@@ -525,7 +523,7 @@ def get_title(game_data, boxscore):
     else:
         top_team = team_away
         bot_team = team_home
-################################################################### web fix nn ##########
+
     gd = game_data.game_date[0:10].split('-')
     gds = f'{gd[1]}/{gd[2]}/{gd[0]}'
     title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}   '
@@ -680,7 +678,7 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
 
     plt.style.use(settings.get('PLOT_COLOR_STYLE'))
 
-    axd,E1,TL,TR,MD,E2,BL,BR,E3= p3_layout(title)
+    axd,E1,TL,TR,MD,E2,BL,BR,E3 = p3_layout(title)
 
     # winning team goes on top 
     # TEAM1 is group1 data, opponennt is group2 data
@@ -754,7 +752,7 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
             axd[r].xaxis.set_visible(False)
     
     plt.subplots_adjust(
-        wspace=35, hspace=0.4, right=0.98, left=0.01, top=0.95, bottom=0.08
+        wspace=3, hspace=0.1, right=0.98, left=0.02, top=0.98, bottom=0.02
     )
 
     plt.show()

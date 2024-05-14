@@ -23,13 +23,11 @@ class defaults :
                     'TABLE_COLOR'     : 'darkgoldenrod', 
                     'PLOT_COLOR_STYLE': 'dark_background', 
 
-                    'DB_NAME'         : 'nba.sqlite', 
-                    'DATA_START'      : '2024-01-01', 
+                    'DB_NAME'         : 'web', 
                     
                     'TESTDATA_START_DAY'    : '2023-04-01', 
                     'TESTDATA_STOP_DAY'     : '2023-04-10', 
                     'TESTDATA_TEAM'         : 'OKC', 
-                    'TESTDATA_SEASON'       : '2022',
                     
                     "M2OFFSET"        : 4.0,
                     "M3OFFSET"        : 2.5,

@@ -1,9 +1,11 @@
 COMMENT:
 
-GPT 3.5 stops generating the quarter with 3 minutes left, but instead of prompting to finish quarter, 
-there is a 'continue generating' button that completes the PbP. 
+Gemini's PbP has about 160 lines of events, compared to Claude's ~410 lines of events and GPT's ~310 lines of events. 
 
-There are more advanced models available to test ChatGPT's PbP generation capabilites.
+Using Gemini 1.0 Pro. Gemini 1.0 Ultra is most capable, then 1.5 Pro, then 1.0 Pro. 
+
+Should we get access to 1.0 Ultra for better comparison to Claude, since we're using Claude 
+3 Opus for Claude PbP generations? 
 
 PROMPT:
 
@@ -31,10 +33,16 @@ manage player fatigue.
 -Generate the play-by-play in CSV format, with the Period,Time,Team,Event Type,Player 1,Player 2,
 Description,Score
 
+2. Finish the first quarter
 
+3. Generate the second quarter
 
-2. Generate the second quarter
+4. Finish the second quarter
 
-3. Generate the third quarter
+5. Generate the third quarter
 
-4. Generate the fourth quarter
+6. Finish the third quarter
+
+7. Generate the fourth quarter
+
+8. Finish the fourth quarter

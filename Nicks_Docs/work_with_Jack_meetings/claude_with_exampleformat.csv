@@ -1,0 +1,17 @@
+Here is a play-by-play in the provided CSV format for a simulated game between the Oklahoma City Thunder (OKC) and the Dallas Mavericks (DAL) for the first two minutes, taking into account the descriptions for each event type:
+
+event,period,playclock,score,scoremargin,player1,player2,player3,homedescription,visitordescription,neutraldescription
+MISS_FG,1,11:45,,,Shai Gilgeous-Alexander,,,,Gilgeous-Alexander MISS 18' Pullup Jump Shot,
+DREB_OREB,1,11:42,,,Dwight Powell,,,,Powell REBOUND (Off:0 Def:1),
+MADE_FG,1,11:30,0-3,-3,Luka Doncic,,,,Doncic 26' 3PT Jump Shot (3 PTS),
+MADE_FG,1,11:12,2-3,-1,Josh Giddey,,,,Giddey 12' Driving Floating Jump Shot (2 PTS),
+MISS_FG,1,10:58,,,Reggie Bullock,,,,Bullock MISS 25' 3PT Jump Shot,
+DREB_OREB,1,10:55,,,Luguentz Dort,,,,Dort REBOUND (Off:0 Def:1),
+MADE_FG,1,10:45,4-3,1,Lu Dort,,,,Dort 16' Pullup Jump Shot (2 PTS),
+STEAL_TURNOVER,1,10:28,,,Josh Giddey,Spencer Dinwiddie,,,Dinwiddie TURNOVER (Lost Ball) Giddey STEAL (1 STL)
+MISS_BLOCK,1,10:20,,,Jalen Williams,,Maxi Kleber,,Jal. Williams MISS 5' Driving Layup BLOCK by Kleber (1 BLK)
+DREB_OREB,1,10:18,,,Dwight Powell,,,,Powell REBOUND (Off:0 Def:2),
+MADE_FG,1,10:10,4-6,-2,Kyrie Irving,,,,Irving 29' 3PT Stepback Jump Shot (3 PTS),
+FOUL,1,09:52,,,Shai Gilgeous-Alexander,Kyrie Irving,,,Irving P.FOUL (P1.T1) (J.Capers)
+TIMEOUT,1,09:52,,,,,,DAL Timeout: Regular (Full 1 Short 0),,
+SUBSTITUTION,1,09:52,,,Jaden Hardy,Reggie Bullock,,,SUB: Hardy FOR Bullock,

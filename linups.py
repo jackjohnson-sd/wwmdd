@@ -174,7 +174,6 @@ def plot3_lineup_prep(playTimesbyPlayer, play_by_play, boxscore_, scoreMargins):
 
     return box_score_for_lineups, stints_by_lineup, events_by_lineup
 
-
 def plot3_stints(playTimesbyPlayer, ax, events_by_player):
 
     labels = list(playTimesbyPlayer.keys())

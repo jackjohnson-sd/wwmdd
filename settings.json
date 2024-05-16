@@ -1,28 +1,40 @@
 {
     "dbga"         : "OFF",
     "dbgb"         : "OFF",
-    "dbgc"         : "OFF",
+    "dbgc"         : "OFF"
 
-    "GOOD_EVENT_COLOR"  : "mediumseagreen",
-    "BAD_EVENT_COLOR"   : "cornflowerblue",
-    "GRID_COLOR"        : "dimgrey",
-    "STINT_COLOR"       : "dimgrey",
-    "PM_PLUS_COLOR"     : "maroon",
-    "PM_MINUS_COLOR"    : "darkgreen",
-    "TABLE_COLOR"       : "goldenrod",
-    "PLOT_COLOR_STYLE"  : "dark_background",
+    , "GOOD_EVENT_COLOR"  : "mediumseagreen"
+    , "BAD_EVENT_COLOR"   : "cornflowerblue"
+    , "GRID_COLOR"        : "dimgrey"
+    , "STINT_COLOR"       : "dimgrey"
+    , "PM_PLUS_COLOR"     : "maroon"
+    , "PM_MINUS_COLOR"    : "darkgreen"
+    , "TABLE_COLOR"       : "goldenrod"
+    , "PLOT_COLOR_STYLE"  : "dark_background"
  
-    "TESTDATA_START_DAY" : "2024-04-15",
-    "TESTDATA_STOP_DAY"  : "2024-05-14",
-    "TESTDATA_TEAM"      : "OKC",
+    , "MARKER_2_STACK_OFFSET"  : 2.7 
+    , "MARKER_3_STACK_OFFSET"  : 4.7
+    , "MARKER_WIDTH"           : 28
+    , "MARKER_FONTSCALE"       : 2.7
+    , "MARKER_FONTWEIGHT"      : "demi"
+    , "GRID_linewidth"         : 1.2
+
+
+    , "BOX_COL_COLOR"         : "sienna"
+    , "BOX_COL_COLOR_ALT"     : "chocolate"
+
+    , "in DB-START_DAY" : "2023-02-10"
+    , "in DB-STOP_DAY"  : "2023-03-15"
+
+    , "play off-START_DAY" : "2024-04-10"
+    , "play off-STOP_DAY"  : "2024-06-31"
+
+    , "START_DAY" : "2024-04-10"
+    , "STOP_DAY"  : "2024-06-01"
+
+    , "TEAM"      : "OKC"
  
-    "xDB_NAME"            : "nba.sqlite",
-    "DB_NAME"             : "web",
-    
-    "M2OFFSET"           : 2.7,
-    "M3OFFSET"           : 4.7,
-    "MRK_WIDTH"          : 28,
-    "MRK_FONTSCALE"      : 2.7,
-    "MRK_FONTWEIGHT"     : "demi"
- 
+    , "xDB_NAME"            : "nba.sqlite"
+    , "DB_NAME"             : "web"
+     
 }

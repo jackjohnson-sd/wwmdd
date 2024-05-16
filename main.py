@@ -35,13 +35,13 @@ db_con      = None  # keep this around to get play_by_play when needed
 
 def main():
 
-    _TEAM       = settings.get('TESTDATA_TEAM')      # OKC
-    _START_DAY  = settings.get('TESTDATA_START_DAY') # 2023-01-01
-    _STOP_DAY   = settings.get('TESTDATA_STOP_DAY')  # 2023-04-20
+    _TEAM       = settings.get('TEAM')      # OKC
+    _START_DAY  = settings.get('START_DAY') # 2023-01-01
+    _STOP_DAY   = settings.get('STOP_DAY')  # 2023-04-20
     DB_FILENAME = settings.get('DB_NAME')
     
     _dfs, db_con = loadNBA_data(DB_FILENAME)
-
+    # brutal appoach to get data from the first 'cell' in a data frame
     _team_id = _dfs['team'][_dfs['team'].abbreviation == _TEAM].id.iloc[0]
 
     qs = f'game_date >= "{_START_DAY} 00:00:00" and game_date <= "{_STOP_DAY} 00:00:00" and team_id_home == "{int(_team_id)}"'
@@ -52,18 +52,16 @@ def main():
         qs = f"select * from play_by_play where game_id == '{game_data.game_id}'"
         play_by_play = pd.read_sql_query(qs, db_con)
 
-        game_data.play_by_play = [play_by_play]
-        td = {game_data.game_date:game_data}
-        our_player_stints_by_date      = generatePBP(td, _TEAM)
-        opponent_player_stints_by_date = generatePBP(td, _TEAM, OPPONENT=True)
-          
-        _date = list(our_player_stints_by_date.keys())[0]
-        plot3(
-            our_player_stints_by_date[_date], 
-            game_data, 
-            _TEAM, 
-            play_by_play, 
-            opponent_player_stints_by_date[_date])    
+        game_data.play_by_play = play_by_play  # returns a series?
+        
+        # provides stints by Player, Box Score for game
+        
+        our_playerstints_and_boxscore      = generatePBP(game_data, _TEAM)
+        opponent_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
+
+        plot3(_TEAM, game_data,
+            our_playerstints_and_boxscore, 
+            opponent_playerstints_and_boxscore)    
 
     db_con.close()
 

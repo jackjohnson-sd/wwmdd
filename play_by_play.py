@@ -99,63 +99,56 @@ def checkScoreErrors(pbpEvents):
                 print('ERROR B',x,y) 
     return score_errors
     
-def generatePBP(games_data,team_abbreviation, OPPONENT=False):
+def generatePBP(game_data, team_abbreviation, OPPONENT=False):
    
-    test_days = list(games_data.keys())
+    pbp = game_data.play_by_play
 
-    starttime_duration_bydate = {}
+    if  pbp.shape[0] != 0:
+        # creates a computed column of seconds into game of event 
+        pbp["sec"] = pbp.apply(
+            lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
+        )
 
-    for date in test_days:
+        #score_errors = checkScoreErrors(pbp)
 
-        starttime_duration_byPlayer = {}
+        if OPPONENT:
+            p1s = pbp.query(f'player1_team_abbreviation != "{team_abbreviation}"')['player1_name'] 
+            p2s = pbp.query(f'player2_team_abbreviation != "{team_abbreviation}"')['player2_name']
+        else:
+            p1s = pbp.query(f'player1_team_abbreviation == "{team_abbreviation}"')['player1_name'] 
+            p2s = pbp.query(f'player2_team_abbreviation == "{team_abbreviation}"')['player2_name']
+        
+        playersInGame = list(set(p1s.dropna()) | set(p2s.dropna()))
 
-        pbp_forDate = games_data[date].play_by_play[0]
+        boxSc = box_score({})
+        boxSc.stuff_bs(game_data.play_by_play, playersInGame)
 
-        if pbp_forDate.shape[0] != 0:
-            # creates a computed column of seconds into game of event 
-            pbp_forDate["sec"] = pbp_forDate.apply(
-                lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
-            )
+        timeSpans = getTimeSpansByPlayer(pbp, playersInGame)  # collect timespans played by this player
+        
+        stints_by_player = {}
 
-            #score_errors = checkScoreErrors(pbp_forDate)
+        for player in timeSpans.keys():
+            _tss = timeSpans[player]
 
-            if OPPONENT:
-                p1s = pbp_forDate.query(f'player1_team_abbreviation != "{team_abbreviation}"')['player1_name'] 
-                p2s = pbp_forDate.query(f'player2_team_abbreviation != "{team_abbreviation}"')['player2_name']
-            else:
-                p1s = pbp_forDate.query(f'player1_team_abbreviation == "{team_abbreviation}"')['player1_name'] 
-                p2s = pbp_forDate.query(f'player2_team_abbreviation == "{team_abbreviation}"')['player2_name']
-            
-            playersInGame = list(set(p1s.dropna()) | set(p2s.dropna()))
+            if len(_tss) > 0:
 
-            boxSc = box_score({})
-            boxSc.stuff_bs(games_data[date].play_by_play[0], playersInGame)
+                stints_by_player[player] = []
 
-            timeSpans = getTimeSpansByPlayer(pbp_forDate, playersInGame)  # collect timespans played by this player
-
-            for player in timeSpans.keys():
-                _tss = timeSpans[player]
-
-                if len(_tss) > 0:
-
-                    starttime_duration_byPlayer[player] = []
-
-                    lenTss = len(_tss)
-                    for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
-                        start_ts  = _tss[x]
-                        stop_ts   = _tss[y]
-                        if start_ts[0] == 'IN' and stop_ts[0] == 'OUT':
-                            _duration = stop_ts[3] - start_ts[3]
-                            _start = start_ts[3]
-                            _stop = stop_ts[3]
-                            starttime_duration_byPlayer[player].append([start_ts, _duration , stop_ts, _start, _stop])
-                        else:
-                            print('Error forming spans ',player,start_ts,stop_ts)  
+                lenTss = len(_tss)
+                for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
+                    start_ts  = _tss[x]
+                    stop_ts   = _tss[y]
+                    if start_ts[0] == 'IN' and stop_ts[0] == 'OUT':
+                        _duration = stop_ts[3] - start_ts[3]
+                        _start = start_ts[3]
+                        _stop = stop_ts[3]
+                        stints_by_player[player].append([start_ts, _duration , stop_ts, _start, _stop])
+                    else:
+                        print('Error forming spans ',player,start_ts,stop_ts)  
+                
+                _total_secs = sum(list(map(lambda x:x[1],stints_by_player[player])))
+                boxSc.update(player,'secs',_total_secs) 
                  
-                    _total_secs = sum(list(map(lambda x:x[1],starttime_duration_byPlayer[player])))
-                    boxSc.update(player,'secs',_total_secs) 
-
-                starttime_duration_bydate[date] = [starttime_duration_byPlayer, dict(boxSc.getBoxScore())]
-
-    return starttime_duration_bydate
+        return [stints_by_player, dict(boxSc.getBoxScore())]
+    return [{},{}]
                                                                                                                 

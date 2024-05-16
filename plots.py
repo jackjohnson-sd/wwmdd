@@ -7,7 +7,7 @@ from matplotlib.path import Path
 from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
 import matplotlib
-from box_score import box_score
+from box_score import box_score,PM
 from json_settings import defaults
 
 settings  = defaults()
@@ -17,6 +17,10 @@ bad_evnt    = settings.get('BAD_EVENT_COLOR')
 good_evnt   = settings.get('GOOD_EVENT_COLOR') 
 grid_color  = settings.get('GRID_COLOR')
 table_color = settings.get('TABLE_COLOR')
+BOX_COL_COLOR = settings.get('BOX_COL_COLOR')
+BOX_COL_COLOR_ALT = settings.get('BOX_COL_COLOR_ALT')
+
+DB_NAME = settings.get('DB_NAME')
 
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -183,55 +187,6 @@ def shorten_player_name(what, max_length):
         return what[0] + '. ' + what.split(' ')[1]
     return what
 
-LABLE_SIZE = 11
-COLWIDTH = 0.09
-
-def P3_boxscore(boxscore, ax, players):
-    # comments here show up on mouseover
-
-    bs_rows, bs_columns, bs_data = boxscore.get_bs_data(players +  [boxscore._team_name])
-
-    tc = [[table_color] * len(bs_columns)] * len(bs_rows)
-    trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
-
-    cws = [COLWIDTH] * len(bs_columns)
-    cws[1] *= 1.4
-    cws[2] *= 1.3
-    cws[3] *= 1.4
-    cws[4] *= 1.3
-
-    the_table = ax.table(
-        cellText      = bs_data,
-        cellColours   = tc,
-        cellLoc       = 'center',
-        colWidths     = cws,  # [COLWIDTH]*len(bs_columns),
-        rowLabels     = trows,
-        # rowColours    = 'r',
-        rowLoc        = 'left',
-        colLabels     = bs_columns,
-        # colColours    = 'r',
-        colLoc        = 'center',
-        loc           = 'center',
-        edges         = '', 
-    )
-    
-    _scale = [
-        1.000,  1.000,  1.000,  1.000,  1.500, # 5,6,7,8,9  
-        1.330,  1.192,  1.065,  0.970,  0.880, # 10,11,12,13,14  
-        1.000]                                 # 15
-    
-    if len(bs_rows) < 5 : index = 0
-    elif len(bs_rows) > 15: index = 10
-    else: index = len(bs_rows) - 5
-    SCALEY = _scale[index]
-    the_table.scale(0.92, SCALEY)
-    the_table.auto_set_font_size(False)
-    the_table.set_fontsize(9)
-
-    table_cells = the_table.properties()['children']
-    for cell in table_cells: 
-        cell.get_text().set_color(table_color)
-
 def mscatter(x,y,ax=None, m=None, **kw):
     import matplotlib.markers as mmarkers
     if not ax: ax=plt.gca()
@@ -249,16 +204,18 @@ def mscatter(x,y,ax=None, m=None, **kw):
         sc.set_paths(paths)
     return sc
 
-M2OFFSET      = settings.get('M2OFFSET')    # vertical offset for 2 markers at one place
-M3OFFSET      = settings.get('M3OFFSET')    # vertical offset for 3 markers at one place
-MKR_WIDTH     = settings.get('MRK_WIDTH')   # used to determine if markes will overlap
-MRK_FONTSCALE  = settings.get('MRK_FONTSCALE')
-MRK_FONTWEIGHT = settings.get('MRK_FONTWEIGHT')
+M2OFFSET      = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET      = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH     = settings.get('MARKER_WIDTH')   # used to determine if markes will overlap
+MRK_FONTSCALE  = settings.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT = settings.get('MARKER_FONTWEIGHT')
 DBG_A         = settings.get('dbga')
 DBG_B         = settings.get('dbgb')
 DBG_C         = settings.get('dbgc')
+GRID_LINEWIDTH = settings.get('GRID_linewidth')
+TABLE_COLOR = settings.get('TABLE_COLOR')
 
-def fitMarkers(yy_, sec_, color_, size_, marker_, nplayers_):
+def fitMarkers(yy_, sec_, color_, nplayers_):
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
@@ -337,110 +294,15 @@ def fitMarkers(yy_, sec_, color_, size_, marker_, nplayers_):
                 
 def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, 
                  x_labels = 'TOP',
-                 box_score = None):
+                 bx_score = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
     Z_HBAR = 20
     Z_EVNT = 30
 
-    ax3 = ax.twinx()
-    P3_scoremargin(ax3, scoreMargins, flipper, Z_SCRM)
-
-    _players = list(playTimesbyPlayer.keys())
-
-    bs_rows, bs_columns, bs_data = box_score.get_bs_data(_players +  [box_score._team_name])
-
-    trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
-
-    wdts = [4,4,6,6,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4]
-
-    def format_bs_rows(r_data):
-      s__ = ''
-      for i,x in enumerate(r_data):
-            s__ += f'{x:^{wdts[i]}}'
-      return s__
-
-    bs_labels = ['            ' + format_bs_rows(bs_columns)]
-
-    for i,x in enumerate(trows):
-        bs_labels.extend([f'{trows[i]:^12}' + format_bs_rows(bs_data[i])])
-
-    ax.set_xlim(-50, (48 * 60) + 50) 
-
-    _plen = len(_players)
-    ax.set_ylim(-5 , (10 * _plen + 2) + 5)
-    
-    for i, _player in enumerate(_players):
-
-        data = playTimesbyPlayer[_player]
-
-        if len(playTimesbyPlayer[_player]) > 0:
-            
-            starts = list(map(lambda x: x[0], playTimesbyPlayer[_player]))
-            widths = list(map(lambda x: x[1], playTimesbyPlayer[_player]))
-
-            y_yyy = -5 + ((_plen - i) * 10) 
-    
-            for j,x in enumerate(starts):
-                start = x
-                width = widths[j]
-               
-                # print(_player,start,start+width,y_yyy)
-
-                l = matplotlib.lines.Line2D([start, start + width], [y_yyy, y_yyy],lw = 1.0, label = _player, ls= '-', c=stint_c)
-                ax.add_line(l)                
-        else:
-            print('No Data',_player)
-              
-    _plen = len(_players) + 2
-    y_ticks = list(np.arange(-5, 10 * (_plen - 1), 10))
-
-    ax2 = ax.twinx() 
-    bs_labels.reverse()
-
-    ax2.set_ylim(-5 , y_ticks[-1]+2)  
-    # trial and error produced the +2, stint lines not going through
-    # not going in the middle of the marker or letters 
-    ax2.set_yticks(y_ticks, labels=bs_labels, color=table_color)
-    
-    ax2.tick_params(axis='y', which='minor', labelsize=0, length = 0, pad=0, direction='in')
-    ax2.tick_params(axis='y', which='major', labelsize=7.5, length = 0, pad=0, direction='in')
-    ax2.tick_params(axis='x', which='both',  labelsize=0, length = 0, pad=0, direction='in')
-    
-    ax2.yaxis.set_visible(True)
-    plt.yticks(fontname = "monospace")
-    
-    nplyrs = len(_players) 
-
-    for i, _player in enumerate(_players):
-
-        data = playTimesbyPlayer[_player]
-        if len(data) > 0:
-
-            sec__     = events_by_player[_player][0::4]
-            color__   = events_by_player[_player][1::4]
-            size__    = events_by_player[_player][2::4] 
-            marker__  = events_by_player[_player][3::4] 
-
-            y__ = [-25 + ((_plen - i) * 10)] * len(sec__)
-
-            if 'ON' != DBG_B: fitMarkers(y__,sec__, color__, size__, marker__, nplyrs)
-
-            for i in range(0,len(sec__)):
-                 if type(marker__[i]) != type([]):
-                     ax2.scatter(sec__[i],y__[i], marker = marker__[i], color=color__[i], s=size__[i])
-                 else:
-                    ax2.text(sec__[i],y__[i], s = marker__[i][0], color=color__[i], 
-                             size=size__[i] / MRK_FONTSCALE, 
-                             va ='center_baseline', 
-                             ha = 'center',
-                             fontweight = MRK_FONTWEIGHT
-                             )
-
     ax.set_xlim(-50, (48 * 60) + 50)
     ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
-   
     ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor = True)
 
     ax.xaxis.tick_top()  
@@ -451,25 +313,158 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     ax.tick_params(axis='x', which='minor', labelsize=9, pad=-10, length = 0)
     
     ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
-    ax.grid(True, axis='x', color=grid_color, linestyle='-', linewidth=1.5, zorder= Z_GRID)
+    ax.grid(True, axis='x', color=grid_color, linestyle='-', linewidth=GRID_LINEWIDTH, zorder= Z_GRID)
+ 
+    ax3 = ax.twinx()
+    P3_scoremargin(ax3, scoreMargins, flipper, Z_SCRM)
+
+    _players = list(playTimesbyPlayer.keys())
+    
+    ax.set_ylim(-5 , (10 * len(_players) + 2) + 5)
+    
+    for i, _player in enumerate(_players):
+
+        data = playTimesbyPlayer[_player]
+
+        if len(playTimesbyPlayer[_player]) > 0:
+            
+            starts = list(map(lambda x: x[0], playTimesbyPlayer[_player]))
+            widths = list(map(lambda x: x[1], playTimesbyPlayer[_player]))
+
+            _y = -5 + ((len(_players) - i) * 10) 
+    
+            for j, x in enumerate(starts):
+                start = x
+                width = widths[j]
+               
+                l = matplotlib.lines.Line2D([start, start + width], [_y, _y],lw = 1.0, label = _player, ls= '-', c=stint_c)
+                ax.add_line(l)                
+        else:
+            print('No Data',_player)
+              
+    y_ticks = list(np.arange(-5, 10 * (len(_players) + 1), 10))
+
+    ax2 = ax.twinx() 
+    ax2.yaxis.set_visible(False)
+    ax2.set_ylim(-5 , y_ticks[-1] + 2)  
+    # trial and error produced the +2, stint lines 
+    # not going in the middle of the marker or letters 
     
     for s in ['top', 'right', 'bottom', 'left']:
         ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)
 
+    for i, _player in enumerate(_players):
+
+        y = -25 + ((len(_players) + 2 - i) * 10)
+        data = playTimesbyPlayer[_player]
+        if len(data) > 0:
+
+            sec__     = events_by_player[_player][0::4]
+            color__   = events_by_player[_player][1::4]
+            size__    = events_by_player[_player][2::4] 
+            marker__  = events_by_player[_player][3::4] 
+            y__ = [y] * len(sec__)
+        
+            if DBG_B == 'OFF': 
+
+                fitMarkers(y__, sec__, color__, len(_players))
+
+            for idx in range(0,len(sec__)):
+                 if type(marker__[idx]) != type([]):
+                     ax2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
+                 else:
+                    ax2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
+                             size=size__[idx] / MRK_FONTSCALE, 
+                             va ='center_baseline', 
+                             ha = 'center',
+                             fontweight = MRK_FONTWEIGHT
+                             )
+
+    bs_rows, bs_columns, bs_data = bx_score.get_bs_data(_players +  [bx_score._team_name])
+    trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
+
+    color_by_col_name = {
+          'PTS' : BOX_COL_COLOR
+        , 'MIN' : BOX_COL_COLOR_ALT
+        , 'FG'  : BOX_COL_COLOR
+        , '3PT' : BOX_COL_COLOR_ALT
+        , 'FT'  : BOX_COL_COLOR        
+        , 'REB' : BOX_COL_COLOR_ALT
+        , 'BLK' : good_evnt
+        , 'AST' : good_evnt
+        , 'STL' : good_evnt
+        ,  'TO' : bad_evnt
+        , 'PF'  : bad_evnt
+        , PM    : BOX_COL_COLOR_ALT
+    }
+
+    colors_4_col = [TABLE_COLOR]
+    for k in bs_columns:
+        c = color_by_col_name[k] if k in list(color_by_col_name.keys()) else TABLE_COLOR
+        colors_4_col.extend([c])
+
+    def column_widths(r):
+
+        # 3-4 free throws vs.  3 assists type data
+        rx = '00-00' if r in ['FG','REB','3PT','FT'] else '000'
+
+        # gets tick width
+        t = ax2.text(0, 0, 
+            s = rx, 
+            size = 22 / MRK_FONTSCALE, 
+            # fontweight = MRK_FONTWEIGHT
+        )
+        
+        transf = ax2.transData.inverted()
+        bb = t.get_window_extent()
+        bb_xy = bb.transformed(transf)
+        t.remove()
+        # return text width in as yet unknown units
+        # funky as REB is last of the 00-00 columns others are 000
+        # the .9 is so we have space on wither side
+        # we use this to center our values under our column labels
+        return (bb_xy.x1 - bb_xy.x0) + (-50 if r == 'REB' else 0.9)
+
+    rw = [460] + list(map(lambda x:column_widths(x),bs_columns))
+   
+    def plot_row(start, y, row):
+        for idx,r in enumerate(row):
+            ax2.text(start, y, s = r,
+                color = colors_4_col[idx], 
+                size = 24 / MRK_FONTSCALE, 
+                va = 'center_baseline', 
+                ha = 'left' if idx == 0 else 'center',
+                # fontweight = MRK_FONTWEIGHT
+            )
+
+            start += rw[idx]
+
+    ROW_START = 2880 + 30
+
+    # does the column headers
+    plot_row(ROW_START,-5 + len(trows) * 10,[''] + bs_columns)
+
+    trows.reverse()
+    bs_data.reverse()
+
+    for i, bs in enumerate(bs_data):
+        start = ROW_START 
+        y = -5 + ((i) * 10)
+        plot_row(start,y,[trows[i]] + bs)
+        
 def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
 
     import math
     mx = abs(max(_scoreMargins))
     mi = abs(min(_scoreMargins))
-    m = max(mx, mi)
+    m = max(mx, mi) * 3
     m = int(math.ceil(m/10) * 10)
     r = list(range(-m, m+10, 10))
 
-    _ax.set_yticks(r, r)
-    _ax.set_xticks([0, 12 * 60, 24 * 60, 36 * 60, 48 * 60], ['', '', '', '', ''])
+    _ax.set_ylim(-m, m)
     _ax.yaxis.set_visible(False)
-    _ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
+    _ax.xaxis.set_visible(False)
   
     if flipper:
         _scoreMargins = list(map(lambda x: -x, _scoreMargins))
@@ -479,9 +474,6 @@ def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
     _colors = list(map(lambda x: c_minus if x < 0 else c_plus, _scoreMargins))
 
     _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=1, zorder=_zorder)
-    _ax.set_xlim(0, (48 * 60) - 1)
-
-   
 
 def make_scoremargin(play_by_play):
     # create scoremargin for every second of the game all 14400 = 60 * 12 * 4
@@ -511,7 +503,7 @@ def make_scoremargin(play_by_play):
 
 def get_title(game_data, boxscore):
     
-    debug_title = f'{game_data.game_id}'
+    debug_title = f'{game_data.game_id}:{DB_NAME}'
     
     w_home = game_data.wl_home
     team_home = game_data.team_abbreviation_home
@@ -525,25 +517,25 @@ def get_title(game_data, boxscore):
         bot_team = team_home
 
     gd = game_data.game_date[0:10].split('-')
-    gds = f'{gd[1]}/{gd[2]}/{gd[0]}'
-    title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}   '
-    title = title + '  ' + debug_title
-    return title, top_team, bot_team, team_home
+    gds = f'{gd[1]}/{gd[2]}/{gd[0]}'   # US date formate mm/dd/yyyy
 
-def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponent = False):
+    title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}'
+    return title, debug_title, top_team, bot_team, team_home
 
-    game = our_stints_by_date[0]
-    boxscore = box_score(our_stints_by_date[1])
+def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
-    players = list(game.keys())
+    our_stints_by_player = our_stints[0]
+    boxscore = box_score(our_stints[1])
+
+    players = list(our_stints_by_player.keys())
     starters = []
     for player in players:
-        if len(game[player]) > 0:
-            if game[player][0][0][3] == 0:
+        if len(our_stints_by_player[player]) > 0:
+            if our_stints_by_player[player][0][0][3] == 0:
                 starters += [player]
 
     if opponent:
-        teams = set(play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
+        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
         teams.remove(team)
         team = list(teams)[0]
     
@@ -571,7 +563,7 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
                         return True
                     return False
 
-        for i, stint in enumerate(game[player]):
+        for i, stint in enumerate(our_stints_by_player[player]):
             # stint = [
             #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
             #   492,                       # length 
@@ -586,16 +578,16 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
             boxscore.add_plus_minus(player, start, stop)
 
         # remnent of change when caclualaion all times as seconds moved to on load of date
-        playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), game[player]))
+        playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), our_stints_by_player[player]))
 
         _events = []
 
-        a_ = play_by_play['player1_name'] == player
-        b_ = play_by_play['player2_name'] == player
-        c_ = play_by_play['player3_name'] == player
+        a_ = game_data.play_by_play['player1_name'] == player
+        b_ = game_data.play_by_play['player2_name'] == player
+        c_ = game_data.play_by_play['player3_name'] == player
 
         ours = (a_ | b_ | c_)
-        plays_for_player = play_by_play[ours]
+        plays_for_player = game_data.play_by_play[ours]
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype == 8:
@@ -610,7 +602,7 @@ def P3_prep(our_stints_by_date, play_by_play, scoreMargins, team = None, opponen
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 #################################################################################
 # 28 spacing non overlapping "B"s
-        if 'ON' == DBG_A:
+        if DBG_A == 'ON':
             NCNT = 20
             NSPCE = 10
             if player == 'Josh Giddey':
@@ -647,13 +639,13 @@ def p3_layout(title):
     BR = '7'
     E3 = None
     
-    E1,TL,TR,MD,E2,BL,BR,E3
-
     layout = [
         [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
         [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
         [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
+        [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
         [E2, E2, E2, E2, E2, E2, E1, E1, E1, E1],
+        [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
         [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
         [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
         [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
@@ -664,21 +656,21 @@ def p3_layout(title):
 
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
+def plot3(TEAM_1, game_data, our_stints, opponent_stints):
 
-    scoreMargins = make_scoremargin(play_by_play)
+    scoreMargins = make_scoremargin(game_data.play_by_play)
 
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \
-    P3_prep(our_stints, play_by_play, scoreMargins, team=TEAM_1)
+    P3_prep(our_stints, game_data, scoreMargins, team=TEAM_1)
 
     boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
-    P3_prep(opponent_stints, play_by_play, scoreMargins, team=TEAM_1, opponent=True)
+    P3_prep(opponent_stints, game_data, scoreMargins, team=TEAM_1, opponent=True)
 
-    title, top_team, bot_team, home_team = get_title(game_data, boxscore1)
+    title, debug_title, top_team, bot_team, home_team = get_title(game_data, boxscore1)
 
     plt.style.use(settings.get('PLOT_COLOR_STYLE'))
 
-    axd,E1,TL,TR,MD,E2,BL,BR,E3 = p3_layout(title)
+    axd,E1,TL,TR,MD,E2,BL,BR,E3 = p3_layout(debug_title)
 
     # winning team goes on top 
     # TEAM1 is group1 data, opponennt is group2 data
@@ -708,19 +700,14 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
     P3_PBP_chart(playTimesbyPlayer1, _ad1_[0], events_by_player1, scoreMargins, 
                  flipper  = _ad1_flip, 
                  x_labels =_ad1_label,
-                 box_score = boxscore1)
-    
-    # P3_boxscore(boxscore1, _ad1_[1], players1)
-    # # axd[TR].sharey(axd[TL])
+                 bx_score = boxscore1)
 
     boxscore2.plus_minus_flip(_ad2_flip)
     P3_PBP_chart(playTimesbyPlayer2, _ad2_[0], events_by_player2, scoreMargins, 
                  flipper  = _ad2_flip, 
                  x_labels =_ad2_label,
-                 box_score = boxscore2)
+                 bx_score = boxscore2)
     
-    # P3_boxscore(boxscore2, _ad2_[1], players2)
-    # # axd[BR].sharey(axd[BL])
 
     axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=table_color)
     
@@ -752,57 +739,9 @@ def plot3(our_stints, game_data, TEAM_1, play_by_play, opponent_stints):
             axd[r].xaxis.set_visible(False)
     
     plt.subplots_adjust(
-        wspace=3, hspace=0.1, right=0.98, left=0.02, top=0.98, bottom=0.02
+        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.01
     )
 
     plt.show()
     plt.close('all')
-
-def plot2(data):
-
-    _data = data.filter(['play_by_play', 'pts_home'])
-    _data['play_by_play'] = _data['play_by_play'].apply(
-        lambda x: 15 if x.shape[0] == 0 else x.shape[0]
-    )
-
-    #  convert the index to datetime
-    #  reindex! so we get spaces on dates with no game
-    _data.index = pd.DatetimeIndex(_data.index)
-    _data = _data.reindex(pd.date_range(_data.index[0], _data.index[-1]), fill_value=15)
-    _data.index = _data.index.strftime('%b %d')
-
-    fig, ax = plt.subplots()
-
-    for l in _data:
-        ax.bar(_data.index, list(_data[l]), label=l)
-
-    plt.xticks(rotation=90)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.legend(loc=2, title='PBP Data', ncols=3)
-
-    plt.show()
-    return
-
-def plot1(data):
-
-    plus_home = ['ast_home', 'stl_home', 'blk_home', 'tov_away']
-    minus_home = ['ast_away', 'stl_away', 'blk_away', 'tov_home']
-
-    _mp = data.filter(minus_home + plus_home)
-    for key in _mp.keys():
-        if key in minus_home:
-            _mp[key] = _mp[key] * -1
-
-    #  convert the index to datetime
-    #  reindex! so we get 0 on dates with no game
-    _mp.index = pd.DatetimeIndex(_mp.index)
-    _mp = _mp.reindex(pd.date_range(_mp.index[0], _mp.index[-1]), fill_value=0)
-    _mp.index = _mp.index.strftime('%b-%d')
-
-    ax = _mp.plot.bar(stacked=True)
-    ax.set_xticks(ax.get_xticks()[::7])
-    ax.set_ylabel('plus/minus')
-    ax.set_title('Thunder')
-    ax.legend(loc=2, title='', ncol=2)
-    return
 

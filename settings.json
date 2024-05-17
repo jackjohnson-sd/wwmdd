@@ -19,22 +19,22 @@
     , "MARKER_FONTWEIGHT"      : "demi"
     , "GRID_linewidth"         : 1.2
 
-
     , "BOX_COL_COLOR"         : "sienna"
     , "BOX_COL_COLOR_ALT"     : "chocolate"
 
-    , "in DB-START_DAY" : "2023-02-10"
-    , "in DB-STOP_DAY"  : "2023-03-15"
+    , "in DB-START_DAY"      : "2023-02-10"
+    , "in DB-STOP_DAY"       : "2023-03-15"
 
-    , "play off-START_DAY" : "2024-04-10"
-    , "play off-STOP_DAY"  : "2024-06-31"
+    , "play off-START_DAY"   : "2024-04-10"
+    , "play off-STOP_DAY"    : "2024-06-31"
 
-    , "START_DAY" : "2024-04-10"
-    , "STOP_DAY"  : "2024-06-01"
+    , "START_DAY"            : "2024-04-10"
+    , "STOP_DAY"             : "2024-06-15"
 
-    , "TEAM"      : "OKC"
+    , "TEAM"                 : "DEN"
  
-    , "xDB_NAME"            : "nba.sqlite"
-    , "DB_NAME"             : "web"
+    , "yDB_NAME"             : "nba.sqlite"
+    , "DB_NAME"              : "web"
+    , "xDB_NAME"             : "FILE:claude.csv"
      
 }

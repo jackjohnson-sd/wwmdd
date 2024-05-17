@@ -136,18 +136,5 @@ def main():
             our_playerstints_and_boxscore, 
             opp_playerstints_and_boxscore)    
 
-  
-    # GET TEAM_ID FROM NAME
-    # GET DATE RANGE
-    # GET GAMES FOR TEAM AND DATE RANGE
-    # FOR EACH GAME IN GAMES
-    #   GET GAME RECORD
-    #   GET OPPONENT GAME RECORD
-    #   GET PBP FOR GAME RECORD
-    #   MAKE BOX SCORE FROM ROSTER
-    #   MAKE STINTS FROM PPBP
-    #   FIX COLUM NAMES IN GAME RECORDs AND PBP
-    #   MERGE OPPONENT AND OUR GAME RECORD
-    #   DETERMINE HOME AWAY WINNER LOSER
     return 
 

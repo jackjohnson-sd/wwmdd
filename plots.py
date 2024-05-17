@@ -319,64 +319,57 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     P3_scoremargin(ax3, scoreMargins, flipper, Z_SCRM)
 
     _players = list(playTimesbyPlayer.keys())
+    _player_cnt = len(_players)
     
-    ax.set_ylim(-5 , (10 * len(_players) + 2) + 5)
+    first_ytick = -5
+    last_ytick = -5 + (10 * (_player_cnt + 2)) + 5
+
+    # players does not include TEAM HEADER rows
+    ax.set_ylim(first_ytick , last_ytick)
+
+    # ax2 is where we plot boxscore and events
+    ax2 = ax.twinx()        
+    ax2.set_ylim(first_ytick , last_ytick)
+    ax2.yaxis.set_visible(False)
     
+    for s in ['top', 'right', 'bottom', 'left']:
+        ax3.spines[s].set_visible(False)
+        ax2.spines[s].set_visible(False)    
+
     for i, _player in enumerate(_players):
 
-        data = playTimesbyPlayer[_player]
+        play_times = playTimesbyPlayer[_player]
 
-        if len(playTimesbyPlayer[_player]) > 0:
+        if len(play_times) == 0: print('No Data',_player)
+        else:   
             
-            starts = list(map(lambda x: x[0], playTimesbyPlayer[_player]))
-            widths = list(map(lambda x: x[1], playTimesbyPlayer[_player]))
+            _y = -5 + ((_player_cnt - i) * 10) 
+            
+            starts = list(map(lambda x: x[0], play_times))
+            widths = list(map(lambda x: x[1], play_times))
 
-            _y = -5 + ((len(_players) - i) * 10) 
-    
             for j, x in enumerate(starts):
                 start = x
                 width = widths[j]
                
-                l = matplotlib.lines.Line2D([start, start + width], [_y, _y],lw = 1.0, label = _player, ls= '-', c=stint_c)
+                l = matplotlib.lines.Line2D([start, start + width], [_y, _y], lw = 1.0, ls= '-', c=stint_c)
                 ax.add_line(l)                
-        else:
-            print('No Data',_player)
-              
-    y_ticks = list(np.arange(-5, 10 * (len(_players) + 1), 10))
-
-    ax2 = ax.twinx() 
-    ax2.yaxis.set_visible(False)
-    ax2.set_ylim(-5 , y_ticks[-1] + 2)  
-    # trial and error produced the +2, stint lines 
-    # not going in the middle of the marker or letters 
-    
-    for s in ['top', 'right', 'bottom', 'left']:
-        ax3.spines[s].set_visible(False)
-        ax2.spines[s].set_visible(False)
-
-    for i, _player in enumerate(_players):
-
-        y = -25 + ((len(_players) + 2 - i) * 10)
-        data = playTimesbyPlayer[_player]
-        if len(data) > 0:
-
+            
             sec__     = events_by_player[_player][0::4]
             color__   = events_by_player[_player][1::4]
             size__    = events_by_player[_player][2::4] 
             marker__  = events_by_player[_player][3::4] 
-            y__ = [y] * len(sec__)
+            y__       = [_y] * len(sec__)
         
-            if DBG_B == 'OFF': 
-
-                fitMarkers(y__, sec__, color__, len(_players))
+            fitMarkers(y__, sec__, color__, _player_cnt)
 
             for idx in range(0,len(sec__)):
                  if type(marker__[idx]) != type([]):
-                     ax2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
+                    ax2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
                  else:
                     ax2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
                              size=size__[idx] / MRK_FONTSCALE, 
-                             va ='center_baseline', 
+                             va = 'center_baseline', 
                              ha = 'center',
                              fontweight = MRK_FONTWEIGHT
                              )
@@ -404,13 +397,13 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         c = color_by_col_name[k] if k in list(color_by_col_name.keys()) else TABLE_COLOR
         colors_4_col.extend([c])
 
-    def column_widths(r):
+    def make_column_widths(col_label, test_ax):
 
         # 3-4 free throws vs.  3 assists type data
-        rx = '00-00' if r in ['FG','REB','3PT','FT'] else '000'
+        rx = '00-00' if col_label in ['FG','REB','3PT','FT'] else '000'
 
         # gets tick width
-        t = ax2.text(0, 0, 
+        t = test_ax.text(0, 0, 
             s = rx, 
             size = 22 / MRK_FONTSCALE, 
             # fontweight = MRK_FONTWEIGHT
@@ -424,11 +417,11 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         # funky as REB is last of the 00-00 columns others are 000
         # the .9 is so we have space on wither side
         # we use this to center our values under our column labels
-        return (bb_xy.x1 - bb_xy.x0) + (-50 if r == 'REB' else 0.9)
+        return (bb_xy.x1 - bb_xy.x0) + (-50 if col_label == 'REB' else 0.9)
 
-    rw = [460] + list(map(lambda x:column_widths(x),bs_columns))
+    column_widths = [470] + list(map(lambda x:make_column_widths(x,ax2),bs_columns))
    
-    def plot_row(start, y, row):
+    def plot_boxscore_row(start, y, row):
         for idx,r in enumerate(row):
             ax2.text(start, y, s = r,
                 color = colors_4_col[idx], 
@@ -438,12 +431,12 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
                 # fontweight = MRK_FONTWEIGHT
             )
 
-            start += rw[idx]
+            start += column_widths[idx]
 
     ROW_START = 2880 + 30
 
     # does the column headers
-    plot_row(ROW_START,-5 + len(trows) * 10,[''] + bs_columns)
+    plot_boxscore_row(ROW_START,-5 + len(trows) * 10,[''] + bs_columns)
 
     trows.reverse()
     bs_data.reverse()
@@ -451,7 +444,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
     for i, bs in enumerate(bs_data):
         start = ROW_START 
         y = -5 + ((i) * 10)
-        plot_row(start,y,[trows[i]] + bs)
+        plot_boxscore_row(start, y,[trows[i]] + bs)
         
 def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
 
@@ -501,7 +494,7 @@ def make_scoremargin(play_by_play):
         lastscorevalue = scoremargin
     return scoreMargins
 
-def get_title(game_data, boxscore):
+def get_title_and_friends(game_data, boxscore):
     
     debug_title = f'{game_data.game_id}:{DB_NAME}'
     
@@ -551,18 +544,6 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
     for player in players:
 
-        def score_change_check(player,stint):
-            for where in [3,4]:
-                score = scoreMargins[stint[where]]
-                scorep = scoreMargins[stint[where]+1]
-                scorem = scoreMargins[stint[where]-1]
-                if stint[where] != 0:
-                    if score != scorep or score != scorem:
-                        print('BAD', player,stint)
-                        print(f'BAD {where,stint[where], scorem, score,scorep }')
-                        return True
-                    return False
-
         for i, stint in enumerate(our_stints_by_player[player]):
             # stint = [
             #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
@@ -600,22 +581,7 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
                 _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
-#################################################################################
-# 28 spacing non overlapping "B"s
-        if DBG_A == 'ON':
-            NCNT = 20
-            NSPCE = 10
-            if player == 'Josh Giddey':
-                for i in range(0,4 * NCNT,4):
-                    _events[i + 0] = 120 + NSPCE * i/4
-                    _events[i + 1] = _events[21]
-                    _events[i + 2] = _events[22]
-                    _events[i + 3] = mrk['B']
-                    print(i,20 + 9 * i)
-                _events = _events[0:4 * NCNT]
-            else: _events = []
 
-##################################################################################
         events_by_player[player] = _events
 
         try:
@@ -656,17 +622,17 @@ def p3_layout(title):
 
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def plot3(TEAM_1, game_data, our_stints, opponent_stints):
+def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     scoreMargins = make_scoremargin(game_data.play_by_play)
 
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \
-    P3_prep(our_stints, game_data, scoreMargins, team=TEAM_1)
+    P3_prep(our_stints, game_data, scoreMargins, team=TEAM1)
 
     boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
-    P3_prep(opponent_stints, game_data, scoreMargins, team=TEAM_1, opponent=True)
+    P3_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True)
 
-    title, debug_title, top_team, bot_team, home_team = get_title(game_data, boxscore1)
+    title, debug_title, top_team, bot_team, home_team = get_title_and_friends(game_data, boxscore1)
 
     plt.style.use(settings.get('PLOT_COLOR_STYLE'))
 
@@ -680,35 +646,34 @@ def plot3(TEAM_1, game_data, our_stints, opponent_stints):
     _ad1_flip = False
     _ad2_flip = False
     
-    if top_team == TEAM_1:
-        _ad1_ = (axd[TL],axd[TR])
-        _ad2_ = (axd[BL],axd[BR])
+    if top_team == TEAM1:
+        _ad1_ = axd[TL]
+        _ad2_ = axd[BL]
         _ad1_label = 'TOP'
         _ad2_label = None
     else :
-        _ad1_ = (axd[BL],axd[BR])
-        _ad2_ = (axd[TL],axd[TR])
+        _ad1_ = axd[BL]
+        _ad2_ = axd[TL]
         _ad2_label = 'TOP'
         _ad1_label = None
 
-    if TEAM_1 == home_team:
+    if TEAM1 == home_team:
         _ad2_flip = True
     else:
         _ad1_flip = True
 
     boxscore1.plus_minus_flip(_ad1_flip)
-    P3_PBP_chart(playTimesbyPlayer1, _ad1_[0], events_by_player1, scoreMargins, 
+    P3_PBP_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
                  flipper  = _ad1_flip, 
                  x_labels =_ad1_label,
                  bx_score = boxscore1)
 
     boxscore2.plus_minus_flip(_ad2_flip)
-    P3_PBP_chart(playTimesbyPlayer2, _ad2_[0], events_by_player2, scoreMargins, 
+    P3_PBP_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
                  flipper  = _ad2_flip, 
                  x_labels =_ad2_label,
                  bx_score = boxscore2)
     
-
     axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=table_color)
     
     axd[E2].legend( 
@@ -739,9 +704,8 @@ def plot3(TEAM_1, game_data, our_stints, opponent_stints):
             axd[r].xaxis.set_visible(False)
     
     plt.subplots_adjust(
-        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.01
+        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.015
     )
 
     plt.show()
     plt.close('all')
-

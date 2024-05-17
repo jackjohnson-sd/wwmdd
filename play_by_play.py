@@ -154,7 +154,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
     return [{},{}]
 
-def dump_pbp(play_by_play):
+def dump_pbp(game):
     pbp_event_map = {
         1: [['FG',   'AST'],  [1, 2]],  # make, assist
         2: [['MISS', 'BLK'],  [1, 3]],
@@ -166,7 +166,7 @@ def dump_pbp(play_by_play):
     }
     keys = list(pbp_event_map.keys())
     stuff = []
-    for i,p in play_by_play.iterrows():
+    for i,p in game.play_by_play.iterrows():
         event = p.eventmsgtype 
         if event in keys:
             emap = pbp_event_map[event]
@@ -176,7 +176,7 @@ def dump_pbp(play_by_play):
             if event == 1:
                 match = True   
                 if p.player2_name != None:
-                    event_name = '-'.join(emap[0])
+                    event_name = '_'.join(emap[0])
                 else:    
                     event_name = emap[0][0]
                 if '3PT' in desc:
@@ -190,20 +190,19 @@ def dump_pbp(play_by_play):
                     
             elif event == 2:
                 match = True
-                if p.player2_name != None:
-                    event_name = '-'.join(emap[0])
+                if p.player3_name != None:
+                    event_name = '_'.join(emap[0])
                 else:    
                     event_name = emap[0][0]
 
-                e = '3FG-' if '3PT' in desc else '2FG-'
+                e = '3FG_' if '3PT' in desc else '2FG_'
                 event_name = e + event_name
                     
             elif event == 3:
                 event_name = emap[0][0]  
                 match = True
-                event_name = 'FT-MISS' if 'MISS' in desc else 'FT-MAKE'
+                event_name = 'FT_MISS' if 'MISS' in desc else 'FT_MAKE'
                 
-
             elif event == 6:
                 event_name = emap[0][0]  
                 match = True
@@ -211,7 +210,7 @@ def dump_pbp(play_by_play):
             elif event == 5:
                 match = True
                 if p.player2_name != None:
-                    event_name = '-'.join(emap[0])
+                    event_name = '_'.join(emap[0])
                 else:    
                     event_name = emap[0][1]
 
@@ -256,7 +255,10 @@ def dump_pbp(play_by_play):
             
     f = play_by_play.to_csv()
 
-    fl=open("test.csv","w")
+    print(game.game_date)
+    t = game.matchup_home.split(' ')
+    fn = f'{t[0]}.{t[2]}.{game.game_date}_.csv'
+    fl=open(fn,"w")
     fl.write(f)
     fl.close()
 

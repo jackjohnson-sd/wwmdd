@@ -625,7 +625,7 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    dump_pbp(game_data.play_by_play)
+    dump_pbp(game_data)
     
     scoreMargins = make_scoremargin(game_data.play_by_play)
 

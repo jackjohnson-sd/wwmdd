@@ -53,25 +53,34 @@ def is3(eventRecord):
     hom = eventRecord.visitordescription
     return (str(vis) + str(hom)).find('3PT') != -1
 
-def em_mi(_style, _color, _size, eventRecord, current_or_count):
+def em_mi(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_fg(_style, _color, _size, eventRecord, current_or_count):
+def em_fg(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_ft(_style, _color, _size, eventRecord, current_or_count):
+def em_ft(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
     # differentiate made vs missed free throw by color
     if type(eventRecord.score) != type('a'): 
         _color= bad_evnt
     return _style, _color, _size
-    
-def or_dr(_style, _color, _size, eventRecord, current_or_count):
+sc1 = 0
+def em_st(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
+    global sc1
+    # sc2 = scoreMargins[eventRecord.sec]
+    # diff = sc1 - sc2 
+    # if diff != 0:
+    #     _color = 'green' if diff < 0 else 'red' 
+    # sc1 = sc2
+    return _style, _color, _size
+        
+def or_dr(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
     
     s = str(eventRecord.visitordescription) + str(eventRecord.homedescription)
     or_count = re.search('Off:(.*) Def:', s).group(1)
@@ -91,7 +100,7 @@ event_map = {
 4: [ good_evnt, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
 5: [ good_evnt, 30.0, mrk['S'],'STL',   bad_evnt,  30.0, mrk['T'],'TO',   [2, 1], None,  0.8,0.8],  # steal, turnover
 6: [ bad_evnt,  30.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None,  0.8,0.8],  # foul, fouled
-8: [ stint_c,   15.0, 'o','SUB',        stint_c,  15.0, 'o','OUT',        [1, 2], None,  1.0,1.0],  # substitution
+8: [ stint_c,   15.0, 'o','SUB',        stint_c,  15.0, 'o','OUT',        [1, 2], em_st,  1.0,1.0],  # substitution
 20:[ good_evnt, 30.0, mrk['O'],'OREB',  good_evnt, 30.0, mrk['3'],'3PT',  [1],    None,  0.8,0.8],
 }
 
@@ -126,7 +135,7 @@ def event_legend():
     legend_elements.extend([Line2D([0], [0], lw=1, color=stint_c, label=' STINT' )])
     return legend_elements
             
-def event_to_size_color_shape(player, eventRecord, current_or_count):
+def event_to_size_color_shape(player, eventRecord, current_or_count, scoreMargins):
 
     # call with player or list of players
     players = [player] if type(player) != type([]) else player
@@ -156,7 +165,7 @@ def event_to_size_color_shape(player, eventRecord, current_or_count):
                 if _co != None:
                     # if we need help figuring this out call helper
                     if action[9] != None: 
-                        _st,_co, _si = action[9](_st, _co, _si, eventRecord, current_or_count)
+                        _st,_co, _si = action[9](_st, _co, _si, eventRecord, current_or_count,scoreMargins)
             
                     # first person return in xxx1 all others xxx2
                     _si *= action[10]
@@ -573,13 +582,13 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype == 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count, scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype != 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
@@ -625,7 +634,7 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    dump_pbp(game_data)
+    if DBG_A == 'YES': dump_pbp(game_data)
     
     scoreMargins = make_scoremargin(game_data.play_by_play)
 

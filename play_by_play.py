@@ -156,12 +156,12 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
 def dump_pbp(game):
     pbp_event_map = {
-        1: [['FG',   'AST'],  [1, 2]],  # make, assist
-        2: [['MISS', 'BLK'],  [1, 3]],
-        3: [['FT',   ''   ],  [1]   ],  # free throw
-        4: [['REB', ''   ],  [1]   ],  # rebound
-        5: [['STL',  'TO' ],  [2, 1]],
-        6: [['PF',   ''   ],  [1]   ],
+        1: [['POINT',   'ASSIST'],  [1, 2]],  # make, assist
+        2: [['MISS', 'BLOCK'],  [1, 3]],
+        3: [['FREETHROW',   ''   ],  [1]   ],  # free throw
+        4: [['REBOUND', ''   ],  [1]   ],  # rebound
+        5: [['STEAL',  'TURNOVER' ],  [2, 1]],
+        6: [['FOUL',   ''   ],  [1]   ],
         8: [['SUB',  ''],     [1]   ],  # substitution
     }
     keys = list(pbp_event_map.keys())
@@ -195,13 +195,13 @@ def dump_pbp(game):
                 else:    
                     event_name = emap[0][0]
 
-                e = '3FG_' if '3PT' in desc else '2FG_'
+                e = '3POINT' if '3PT' in desc else '2POINT'
                 event_name = e + event_name
                     
             elif event == 3:
                 event_name = emap[0][0]  
                 match = True
-                event_name = 'FT_MISS' if 'MISS' in desc else 'FT_MAKE'
+                event_name = 'FTMISS' if 'MISS' in desc else 'FTMAKE'
                 
             elif event == 6:
                 event_name = emap[0][0]  

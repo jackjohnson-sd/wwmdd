@@ -9,6 +9,7 @@ from matplotlib.font_manager import FontProperties
 import matplotlib
 from box_score import box_score,PM
 from json_settings import defaults
+from play_by_play import dump_pbp
 
 settings  = defaults()
 
@@ -572,13 +573,13 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype == 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype != 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
@@ -624,6 +625,8 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
+    dump_pbp(game_data.play_by_play)
+    
     scoreMargins = make_scoremargin(game_data.play_by_play)
 
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \

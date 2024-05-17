@@ -1,6 +1,7 @@
 from utils import secDiff
 from box_score import  box_score
 from utils import period_clock_seconds
+import pandas as pd
 
 def getTimeSpansByPlayer(playbyplay, players):
     # collect timespans played by this player
@@ -100,7 +101,7 @@ def checkScoreErrors(pbpEvents):
     return score_errors
     
 def generatePBP(game_data, team_abbreviation, OPPONENT=False):
-   
+
     pbp = game_data.play_by_play
 
     if  pbp.shape[0] != 0:
@@ -150,5 +151,114 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
                 boxSc.update(player,'secs',_total_secs) 
                  
         return [stints_by_player, dict(boxSc.getBoxScore())]
+
     return [{},{}]
-                                                                                                                
+
+def dump_pbp(play_by_play):
+    pbp_event_map = {
+        1: [['FG',   'AST'],  [1, 2]],  # make, assist
+        2: [['MISS', 'BLK'],  [1, 3]],
+        3: [['FT',   ''   ],  [1]   ],  # free throw
+        4: [['REB', ''   ],  [1]   ],  # rebound
+        5: [['STL',  'TO' ],  [2, 1]],
+        6: [['PF',   ''   ],  [1]   ],
+        8: [['SUB',  ''],     [1]   ],  # substitution
+    }
+    keys = list(pbp_event_map.keys())
+    stuff = []
+    for i,p in play_by_play.iterrows():
+        event = p.eventmsgtype 
+        if event in keys:
+            emap = pbp_event_map[event]
+            desc = str(p.homedescription) + str(p.neutraldescription) + str(p.visitordescription)
+            
+            match = False   
+            if event == 1:
+                match = True   
+                if p.player2_name != None:
+                    event_name = '-'.join(emap[0])
+                else:    
+                    event_name = emap[0][0]
+                if '3PT' in desc:
+                    event_name = '3' + event_name
+                else:
+                    event_name = '2' + event_name
+           
+            elif event == 4:
+                event_name = emap[0][0]
+                match = True
+                    
+            elif event == 2:
+                match = True
+                if p.player2_name != None:
+                    event_name = '-'.join(emap[0])
+                else:    
+                    event_name = emap[0][0]
+
+                e = '3FG-' if '3PT' in desc else '2FG-'
+                event_name = e + event_name
+                    
+            elif event == 3:
+                event_name = emap[0][0]  
+                match = True
+                event_name = 'FT-MISS' if 'MISS' in desc else 'FT-MAKE'
+                
+
+            elif event == 6:
+                event_name = emap[0][0]  
+                match = True
+                
+            elif event == 5:
+                match = True
+                if p.player2_name != None:
+                    event_name = '-'.join(emap[0])
+                else:    
+                    event_name = emap[0][1]
+
+            elif event == 8: 
+                event_name = emap[0][0]
+                match = True
+
+            if match:
+                a = [
+                    event_name,
+                    p.period, 
+                    p.pctimestring,
+                    p.homedescription,
+                    p.neutraldescription,
+                    p.visitordescription,
+                    p.score,
+                    p.scoremargin,
+                    p.player1_name, p.player1_team_abbreviation,
+                    p.player2_name, p.player2_team_abbreviation,
+                    p.player3_name, p.player3_team_abbreviation
+                    ]
+                stuff.extend([a])
+                    
+    new_cols = [
+        'eventmsgtype',
+        'period', 
+        'pctimestring',
+        'homedescription',
+        'neutraldescription',
+        'visitordescription',
+        'score',
+        'scoremargin',
+        'player1_name', 'player1_team_abbreviation',
+        'player2_name', 'player2_team_abbreviation',
+        'player3_name', 'player3_team_abbreviation'
+    
+    ]
+    play_by_play = pd.DataFrame(
+            data    = stuff,           # values
+            # index   = oink [1:,0],    # 1st column as index
+            columns = new_cols)  
+            
+    f = play_by_play.to_csv()
+
+    fl=open("test.csv","w")
+    fl.write(f)
+    fl.close()
+
+    a = 1
+                                                                                                               

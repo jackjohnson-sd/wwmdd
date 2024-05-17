@@ -1,9 +1,0 @@
-Hi Jack.  This is Bruce.
-I am adding these for Git learning.
-
-To start. Bruce will commit the four lines below.
-Here is a line Bruce should change.
-Here is a line Jack should delete.
-Add a line below this one.
-Here is a new line.
-That's all folks!

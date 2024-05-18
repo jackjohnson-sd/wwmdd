@@ -63,71 +63,105 @@ def main():
 
 def main_csv(filename):
 
-    df = pd.read_csv(filename)
+    df = pd.read_csv(filename, keep_default_na=False)
     df.iloc[::-1] # reverse dataframe
 
     event_map = {
-        'MADE_FG'			: [1,1], 
-        'MADE_FG_ASSIST'	: [1,2], 
-        'SUBSTITUTION'		: [8,2],  # id#, player[1,2,3] 
-        'SUB_OUT'			: [8,1], 
-        'MISS_FG'			: [2,1], 
-        'BLOCK' 			: [2,2],
-        'MADE_FREE_THROW'	: [3,1], 
-        'MISS_FREE_THROW'	: [3,1], 
-        'DREB'				: [4,1], 
-        'OREB'				: [4,1], 
+        '2POINT'			: [1,1], 
+        '2POINT_ASSIST'	    : [1,1,2], 
+        '3POINT'            : [1,1],
+        '3POINT_ASSIST'     : [1,2],
+        'FTMAKE'            : [3,1], 
+        'FTMISS'            : [3,1], 
+        '2POINTMISS'        : [3,1],
+        '3POINTMISS'        : [3,1],
+        '2POINTMISS_BLOCK'  : [3,1,2],
+        '3POINTMISS_BLOCK'  : [3,1,2],
+        'REBOUND'			: [4,1],
         'STEAL'				: [5,1], 
-        'TURNOVER'			: [5,1], 
+        'TURNOVER'			: [5,2], 
+        'STEAL_TURNOVER'    : [5,1,2],
         'FOUL'				: [6,1], 
+        'SUB'		        : [8,1,2],  # id#, player[1,2,3] 
         'TIMEOUT'			: [None], 
         'END_GAME'			: [None], 
         'END_PERIOD'		: [None], 
         'TIP'				: [None], 
         }
-
     new_cols = [
-        'eventmsgtype',  
-        'period', 
-        'pctimestring', 
-        'homedescription', 
-        'neutraldescription', 
-        'visitordescription', 
-        'score', 
-        'scoremargin', 
-        'player1_name', ''
-        'player2_name', 
-        'player3_name'
+        'eventmsgtype', 'period', 'pctimestring', 
+        'homedescription','neutraldescription', 'visitordescription', 
+        'score', 'scoremargin', 
+        'player1_name', 'player1_team_abbreviation',
+        'player2_name', 'player2_team_abbreviation',
+        'player3_name', 'player3_team_abbreviation',
        ]
 
     def bethere(row):
-        return event_map[row.event]
+        return event_map[row.eventmsgtype]
     
     oink = []
     for i, r in df.iterrows():
-        id = bethere(r)
-        if id[0] != None:
-            a = [
-            r.period, 
-            r.playclock,
-            id[0],
-            r.homedescription,
-            r.neutraldescription,
-            r.visitordescription,
-            r.score,
-            r.scoremargin,
-            r.player1,
-            r.player2,
-            r.player3]
-            oink.extend([a])
+        if r.eventmsgtype in event_map.keys():
+            id = event_map[r.eventmsgtype]
+            
+            if id[0] != None:
+                a = [
+                id[0],
+                r.period, r.pctimestring,
+                r.homedescription,
+                r.neutraldescription,
+                r.visitordescription,
+                r.score, r.scoremargin,
+                r.player1_name, r.player1_team_abbreviation,
+                r.player2_name, r.player2_team_abbreviation,
+                r.player3_name, r.player3_team_abbreviation]
+                
+                oink.extend([a])
         
     play_by_play = pd.DataFrame(
                 data    = oink,           # values
                 # index   = oink [1:,0],    # 1st column as index
                 columns = new_cols)  
     
-    print(play_by_play.shape)
+    home = list(play_by_play[play_by_play.homedescription != ''].player1_team_abbreviation)[0]
+    away = list(play_by_play[play_by_play.homedescription == ''].player1_team_abbreviation)[0]
+    game_data = {
+    'season_id_home' :'',
+    'team_id_home'	: '',
+    'team_abbreviation_home': home,
+    'team_name_home': '',
+    'game_id'		: '',
+    'game_date'		: '2024-10-10',
+    'matchup_home'	: 'DAL @ OKC',
+    'wl_home'		: 'W',
+    'blk_home'		: '',
+    'season_id_away': '',
+    'team_id_away'	: '',
+    'team_abbreviation_away': away,
+    'team_name_away': '',
+    'game_id_away'	: '',
+    'game_date_away': '',
+    'matchup_away'	: '',
+    'wl_away'		: '',
+    'blk_away'        : '',
+    'tov_away'        : '',
+    'pf_away'         : '',
+    'plus_minus_away' :'',
+    'play_by_play'    : play_by_play
+    }
 
+    pds_game_data = pd.Series(game_data)
+    
+    our_playerstints_and_boxscore      = generatePBP(pds_game_data, home)
+    opponent_playerstints_and_boxscore = generatePBP(pds_game_data, home, OPPONENT=True)
+
+    plot3(home, pds_game_data,
+        our_playerstints_and_boxscore,
+        opponent_playerstints_and_boxscore)
+
+    
+    """
     csvcol = 'event,period,playclock,score,scoremargin,player1,player2,player3,homedescription,visitordescription,neutraldescription'
     pbpevents = {
         'SUB_OUT': '', 
@@ -148,26 +182,6 @@ def main_csv(filename):
         'MADE_FG': '', 
         'STEAL' : ''
     }
-    pbp = [
-        'game_id', 
-        'eventnum', 'eventmsgtype', 'eventmsgactiontype', 
-        'period', 'wctimestring', 'pctimestring', 
-        'homedescription', 'neutraldescription', 'visitordescription', 
-        'score', 'scoremargin', 
-       
-        'person1type', 'player1_id', 'player1_name', 
-        'player1_team_id', 'player1_team_city',
-           'player1_team_nickname', 'player1_team_abbreviation', 
-       
-           'person2type','player2_id', 'player2_name', 
-           'player2_team_id', 'player2_team_city',
-           'player2_team_nickname', 'player2_team_abbreviation',
-        
-           'person3type', 'player3_id', 'player3_name', 
-           'player3_team_id','player3_team_city',
-           'player3_team_nickname', 'player3_team_abbreviation',
-           'video_available_flag']
-      
     v = {
     'season_id_home' :'',
     'team_id_home'	: '',
@@ -196,7 +210,7 @@ def main_csv(filename):
 
     return 0
 
-
+"""
 if __name__ == "__main__":
 
     data_source = settings.get('DB_NAME')

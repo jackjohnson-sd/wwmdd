@@ -12,6 +12,10 @@
     , "TABLE_COLOR"       : "goldenrod"
     , "PLOT_COLOR_STYLE"  : "dark_background"
  
+    , "STINT_COLOR_PLUS"       : "forestgreen"
+    , "STINT_COLOR_MINUS"      : "firebrick"
+
+
     , "MARKER_2_STACK_OFFSET"  : 2.7 
     , "MARKER_3_STACK_OFFSET"  : 4.7
     , "MARKER_WIDTH"           : 28
@@ -35,6 +39,6 @@
  
     , "xDB_NAME"              : "nba.sqlite"
     , "DB_NAME"             : "web"
-    , "yDB_NAME"             : "FILE:claude.csv"
+    , "xDB_NAME"             : "FILE:claude.csv"
      
 }

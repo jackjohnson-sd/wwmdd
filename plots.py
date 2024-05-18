@@ -214,16 +214,19 @@ def mscatter(x,y,ax=None, m=None, **kw):
         sc.set_paths(paths)
     return sc
 
-M2OFFSET      = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
-M3OFFSET      = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
-MKR_WIDTH     = settings.get('MARKER_WIDTH')   # used to determine if markes will overlap
+M2OFFSET       = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET       = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH      = settings.get('MARKER_WIDTH')   # used to determine if markes will overlap
 MRK_FONTSCALE  = settings.get('MARKER_FONTSCALE')
 MRK_FONTWEIGHT = settings.get('MARKER_FONTWEIGHT')
-DBG_A         = settings.get('dbga')
-DBG_B         = settings.get('dbgb')
-DBG_C         = settings.get('dbgc')
-GRID_LINEWIDTH = settings.get('GRID_linewidth')
-TABLE_COLOR = settings.get('TABLE_COLOR')
+DBG_A          = settings.get('dbga')
+DBG_B          = settings.get('dbgb')
+DBG_C          = settings.get('dbgc')
+GRID_LINEWIDTH   = settings.get('GRID_linewidth')
+TABLE_COLOR      = settings.get('TABLE_COLOR')
+STINT_COLOR_PLUS = settings.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = settings.get('STINT_COLOR_MINUS')
+
 
 def fitMarkers(yy_, sec_, color_, nplayers_):
     
@@ -352,17 +355,18 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 
         if len(play_times) == 0: print('No Data',_player)
         else:   
-            
+        # elif _player == 'Josh Giddey':    
             _y = -5 + ((_player_cnt - i) * 10) 
             
             starts = list(map(lambda x: x[0], play_times))
             widths = list(map(lambda x: x[1], play_times))
-
+            pms    = list(map(lambda x: x[2], play_times))
             for j, x in enumerate(starts):
                 start = x
-                width = widths[j]
-               
-                l = matplotlib.lines.Line2D([start, start + width], [_y, _y], lw = 1.0, ls= '-', c=stint_c)
+                sc = stint_c         
+                if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
+                elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
+                l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
                 ax.add_line(l)                
             
             sec__     = events_by_player[_player][0::4]
@@ -488,20 +492,22 @@ def make_scoremargin(play_by_play):
     lastscorevalue = 0
 
     z = play_by_play.scoremargin.dropna().index
+    
     for i, v in play_by_play.loc[z].iterrows():
         scoremargin = v.scoremargin
-        if scoremargin == 'TIE':
-            scoremargin = 0
-        scoremargin = int(scoremargin)
-        #       ///////// this is a little broken  ////////
-        now = v.sec
-        if (now - lastscoretime) != 0:
-            scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
-            scoreMargins.extend([scoremargin])
-        else: scoreMargins[-1] = scoremargin
+        if scoremargin != '':
+            if scoremargin == 'TIE' :
+                scoremargin = 0
+            scoremargin = int(scoremargin)
+            #       ///////// this is a little broken  ////////
+            now = v.sec
+            if (now - lastscoretime) != 0:
+                scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
+                scoreMargins.extend([scoremargin])
+            else: scoreMargins[-1] = scoremargin
 
-        lastscoretime = now
-        lastscorevalue = scoremargin
+            lastscoretime = now
+            lastscorevalue = scoremargin
     return scoreMargins
 
 def get_title_and_friends(game_data, boxscore):
@@ -554,7 +560,7 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
     for player in players:
 
-        for i, stint in enumerate(our_stints_by_player[player]):
+        def bosco(stint,player):
             # stint = [
             #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
             #   492,                       # length 
@@ -562,14 +568,20 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
             #   0,                         # start   
             #   492                        # stop
             # ]  
-            # score_change_check(player,stint)
-            start = scoreMargins[stint[3]]
-            stop = scoreMargins[stint[4]]
+            
+            start = stint[3]
+            length = stint[1]
+            
+            startM = scoreMargins[start]
+            stopM = scoreMargins[start+length]
 
-            boxscore.add_plus_minus(player, start, stop)
-
+            boxscore.add_plus_minus(player, startM, stopM)
+            
+            return (start, length, startM-stopM)
+            
+        playTimesbyPlayer[player] = list(map(lambda x: bosco(x,player), our_stints_by_player[player]))
         # remnent of change when caclualaion all times as seconds moved to on load of date
-        playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), our_stints_by_player[player]))
+        # playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), our_stints_by_player[player]))
 
         _events = []
 
@@ -637,6 +649,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     if DBG_A == 'YES': dump_pbp(game_data)
     
     scoreMargins = make_scoremargin(game_data.play_by_play)
+
 
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \
     P3_prep(our_stints, game_data, scoreMargins, team=TEAM1)

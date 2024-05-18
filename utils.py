@@ -31,8 +31,8 @@ def totalTeamMinutes(starttime_duration_bydate, date):
     return total
  
 def period_clock_seconds(pc):
-    _period = int(pc[1])
-    _minsec = pc[2].split(':')
+    _period = int(pc[0])
+    _minsec = pc[1].split(':')
     _secs =  (_period * 720) - (int(_minsec[0]) * 60) - int(_minsec[1])
     return _secs
 
@@ -41,14 +41,6 @@ def period_clock_seconds(pc):
     _clock = datetime.strptime(pc[2], '%M:%S') 
     delta = datetime.strptime('12:00', '%M:%S') - _clock + timedelta(seconds = _period * 12 * 60)
     return int(delta.total_seconds())
-
-def secDiff(start,stop):        
-    #start/stop = ['',period,'clock']
-    # flip clock time so its from the start of the period o.e starts at 00:00 vs 12:00
-    # add offset for diferences in periods
-    stop_pcs = period_clock_seconds(stop)
-    start_pcs = period_clock_seconds(start)
-    return stop_pcs - start_pcs, start_pcs, stop_pcs
 
 def dump(df,keepers):
     for i in df.index:

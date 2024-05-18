@@ -1,4 +1,4 @@
-from utils import secDiff
+
 from box_score import  box_score
 from utils import period_clock_seconds
 import pandas as pd
@@ -107,7 +107,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
     if  pbp.shape[0] != 0:
         # creates a computed column of seconds into game of event 
         pbp["sec"] = pbp.apply(
-            lambda row: period_clock_seconds(["", row.period, row.pctimestring]), axis=1
+            lambda row: period_clock_seconds([row.period, row.pctimestring]), axis=1
         )
 
         #score_errors = checkScoreErrors(pbp)
@@ -156,13 +156,13 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
 def dump_pbp(game):
     pbp_event_map = {
-        1: [['POINT',   'ASSIST'],  [1, 2]],  # make, assist
-        2: [['MISS', 'BLOCK'],  [1, 3]],
-        3: [['FREETHROW',   ''   ],  [1]   ],  # free throw
-        4: [['REBOUND', ''   ],  [1]   ],  # rebound
-        5: [['STEAL',  'TURNOVER' ],  [2, 1]],
-        6: [['FOUL',   ''   ],  [1]   ],
-        8: [['SUB',  ''],     [1]   ],  # substitution
+        1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist
+        2: [['MISS', 'BLOCK'],    [1, 3]],
+        3: [['FREETHROW', ''],    [1]   ],  # free throw
+        4: [['REBOUND', ''],      [1]   ],  # rebound
+        5: [['STEAL', 'TURNOVER'],[2, 1]],
+        6: [['FOUL',''],          [1]   ],
+        8: [['SUB', ''],          [1]   ],  # substitution
     }
     keys = list(pbp_event_map.keys())
     stuff = []

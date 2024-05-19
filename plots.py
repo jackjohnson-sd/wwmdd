@@ -8,7 +8,7 @@ from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
 import matplotlib
 from box_score import box_score,PM
-from json_settings import defaults
+from settings import defaults
 from play_by_play import dump_pbp
 
 settings  = defaults()
@@ -21,7 +21,7 @@ table_color = settings.get('TABLE_COLOR')
 BOX_COL_COLOR = settings.get('BOX_COL_COLOR')
 BOX_COL_COLOR_ALT = settings.get('BOX_COL_COLOR_ALT')
 
-DB_NAME = settings.get('DB_NAME')
+DB_NAME = settings.get('SOURCE')
 
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -501,6 +501,7 @@ def make_scoremargin(play_by_play):
             scoremargin = int(scoremargin)
             #       ///////// this is a little broken  ////////
             now = v.sec
+            # print(v.sec,scoremargin,v.period,v.pctimestring,len(scoreMargins))
             if (now - lastscoretime) != 0:
                 scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
                 scoreMargins.extend([scoremargin])
@@ -508,6 +509,10 @@ def make_scoremargin(play_by_play):
 
             lastscoretime = now
             lastscorevalue = scoremargin
+
+    needed = 60*48 - len(scoreMargins)        
+    if needed > 0:
+        scoreMargins.extend([lastscorevalue] * needed )
     return scoreMargins
 
 def get_title_and_friends(game_data, boxscore):

@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 nba.sqlite
 .DS_Store
+_tmp.txt
+ZZ_junk_ignored_by_git.txt
+_save_and_ignore/

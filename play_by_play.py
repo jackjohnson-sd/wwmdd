@@ -1,6 +1,5 @@
 
 from box_score import  box_score
-from utils import period_clock_seconds
 import pandas as pd
 
 def getTimeSpansByPlayer(playbyplay, players):
@@ -100,6 +99,12 @@ def checkScoreErrors(pbpEvents):
                 print('ERROR B',x,y) 
     return score_errors
     
+def period_clock_to_seconds(pc):
+    _period = int(pc[0])
+    _minsec = pc[1].split(':')
+    _secs =  (_period * 720) - (int(_minsec[0]) * 60) - int(_minsec[1])
+    return _secs
+
 def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
     pbp = game_data.play_by_play
@@ -107,7 +112,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
     if  pbp.shape[0] != 0:
         # creates a computed column of seconds into game of event 
         pbp["sec"] = pbp.apply(
-            lambda row: period_clock_seconds([row.period, row.pctimestring]), axis=1
+            lambda row: period_clock_to_seconds([row.period, row.pctimestring]), axis=1
         )
 
         #score_errors = checkScoreErrors(pbp)

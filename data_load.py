@@ -13,13 +13,9 @@ def loadFromCSV():
 
     dfFromCSV = {}
     for filename in all_files:
-        print(filename)
         df = pd.read_csv(filename, index_col=None, header=0)
-        print(df.shape)
         __fn = os.path.split(filename)[1].split('.')[0]
         dfFromCSV[__fn] = df
-
-gamesByTeam = {}    # reorganized game data is in gamesByTeam
 
 def loadNBA_data(_filename_):
 

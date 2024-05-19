@@ -29,16 +29,16 @@
     , "in DB-START_DAY"      : "2023-02-10"
     , "in DB-STOP_DAY"       : "2023-03-15"
 
-    , "play off-START_DAY"   : "2024-04-10"
-    , "play off-STOP_DAY"    : "2024-06-31"
+    , "play off-START_DAY"   : "2024-05-10"
+    , "play off-STOP_DAY"    : "2024-05-31"
 
-    , "START_DAY"            : "2024-05-10"
+    , "START_DAY"            : "2024-05-10" 
     , "STOP_DAY"             : "2024-05-31"
 
     , "TEAM"                 : "OKC"
  
-    , "xDB_NAME"              : "nba.sqlite"
-    , "DB_NAME"             : "web"
-    , "xDB_NAME"             : "FILE:claude.csv"
+    , "xSOURCE"               : "nba.sqlite"
+    , "SOURCE"              : "WEB:"
+    , "ySOURCE"              : "FILE:claude.csv"
      
 }

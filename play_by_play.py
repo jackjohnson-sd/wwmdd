@@ -1,4 +1,3 @@
-
 from box_score import  box_score
 import pandas as pd
 
@@ -31,7 +30,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                     a = 1
                 else:
                     if _timeSpans[player][-1][0] != 'OUT':
-                        _timeSpans[player].append(['OUT', lastPeriod, '0:00',(lastPeriod) * 720])
+                        _timeSpans[player].append(['OUT',(lastPeriod) * 720])
 
                 inTheGame = False
                 lastPeriod = period
@@ -45,25 +44,25 @@ def getTimeSpansByPlayer(playbyplay, players):
                             # we're in and have a message saying we're in
                             print('We missed an OUT  ----- ')
                         else:
-                            _timeSpans[player].append(['OUT', period, pctimestring, d.sec])
+                            _timeSpans[player].append(['OUT', d.sec])
                             inTheGame = False 
                                 
                     else: # we are not in the game last thing should be OUT
                         if Entering:
                             inTheGame = True
-                            _timeSpans[player].append(['IN', period, pctimestring, d.sec])
+                            _timeSpans[player].append(['IN', d.sec])
                         else:
                             # we have a leaving message and we're out
                             # set to starting at beginning of period
-                            _timeSpans[player].append(['IN', period, '12:00',(period -1) * 720])
-                            _timeSpans[player].append(['OUT', period, pctimestring, d.sec])
+                            _timeSpans[player].append(['IN',(period -1) * 720])
+                            _timeSpans[player].append(['OUT', d.sec])
                      
                 case 1 | 2 | 3 | 4 | 5 | 6:
                     
                     if not inTheGame:
                         # if not in game add an IN at beggining of period
                         inTheGame = True
-                        _timeSpans[player].append(['IN', period, '12:00', (period - 1) * 720]) 
+                        _timeSpans[player].append(['IN', (period - 1) * 720]) 
 
                         # this happens when a player enters the game between periods
                         # set start of span to the beginning of this period
@@ -75,10 +74,10 @@ def getTimeSpansByPlayer(playbyplay, players):
             le_period = int(lastEvent.period)
             if lastEvent.eventmsgtype != 8:
                 # not SUB message at end, end span at end of last period used
-                _timeSpans[player].append(['OUT',le_period,'0:00', le_period * 720]) 
+                _timeSpans[player].append(['OUT', le_period * 720]) 
             elif lastEvent.player2_name == player:
                 # last message is IN end span at end of period used
-                _timeSpans[player].append(['OUT',le_period,'0:00', le_period * 720])
+                _timeSpans[player].append(['OUT',le_period * 720])
 
     return _timeSpans
 
@@ -99,20 +98,27 @@ def checkScoreErrors(pbpEvents):
                 print('ERROR B',x,y) 
     return score_errors
     
-def period_clock_to_seconds(pc):
-    _period = int(pc[0])
-    _minsec = pc[1].split(':')
+def period_clock_to_seconds(row):
+    _period = int(row.period)
+    _minsec = row.pctimestring.split(':')
     _secs =  (_period * 720) - (int(_minsec[0]) * 60) - int(_minsec[1])
-    return _secs
+    home_score = None
+    away_score = None
+    if row.score != '' and row.score != None:
+        score = row.score.split(' - ')
+        home_score = int(score[0])
+        away_score = int(score[1])
+    return _secs, home_score, away_score
 
 def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
     pbp = game_data.play_by_play
+    game_data.team_color = 'green' if not OPPONENT else 'blue'
 
     if  pbp.shape[0] != 0:
         # creates a computed column of seconds into game of event 
-        pbp["sec"] = pbp.apply(
-            lambda row: period_clock_to_seconds([row.period, row.pctimestring]), axis=1
+        pbp[['sec','score_home','score_away']] = pbp.apply(
+            lambda row: period_clock_to_seconds(row), axis=1, result_type='expand'
         )
 
         #score_errors = checkScoreErrors(pbp)
@@ -126,6 +132,9 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
         
         playersInGame = list(set(p1s.dropna()) | set(p2s.dropna()))
 
+        # happens in csv read where we have a team rebound with no players
+        if '' in playersInGame: playersInGame.remove('')
+        
         boxSc = box_score({})
         boxSc.stuff_bs(game_data.play_by_play, playersInGame)
 
@@ -141,18 +150,19 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
                 stints_by_player[player] = []
 
                 lenTss = len(_tss)
+                _total_secs = 0
                 for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
                     start_ts  = _tss[x]
                     stop_ts   = _tss[y]
                     if start_ts[0] == 'IN' and stop_ts[0] == 'OUT':
-                        _duration = stop_ts[3] - start_ts[3]
-                        _start = start_ts[3]
-                        _stop = stop_ts[3]
-                        stints_by_player[player].append([start_ts, _duration , stop_ts, _start, _stop])
+                        _duration = stop_ts[1] - start_ts[1]
+                        _total_secs += _duration
+                        _start = start_ts[1]
+                        _stop = stop_ts[1]
+                        stints_by_player[player].append([_duration , _start, _stop])
                     else:
                         print('Error forming spans ',player,start_ts,stop_ts)  
                 
-                _total_secs = sum(list(map(lambda x:x[1],stints_by_player[player])))
                 boxSc.update(player,'secs',_total_secs) 
                  
         return [stints_by_player, dict(boxSc.getBoxScore())]
@@ -160,6 +170,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
     return [{},{}]
 
 def dump_pbp(game):
+    
     pbp_event_map = {
         1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist
         2: [['MISS', 'BLOCK'],    [1, 3]],
@@ -167,16 +178,31 @@ def dump_pbp(game):
         4: [['REBOUND', ''],      [1]   ],  # rebound
         5: [['STEAL', 'TURNOVER'],[2, 1]],
         6: [['FOUL',''],          [1]   ],
+        7: [['VIOLATION',''],     [1,2]   ],
         8: [['SUB', ''],          [1]   ],  # substitution
+        9: [['TIMEOUT', ''],      [1]   ],  # time out
+        
+        10: [['JUMPBALL', ''],   [1,2,3] ],  # jump ball
+        11: [['EJECTION', ''],    [1]   ],  # 
+        12: [['STARTOFPERIOD', ''], [1]   ],  # START of period
+        13: [['ENDOFPERIOD', ''], [1]   ],  # END of period
     }
     keys = list(pbp_event_map.keys())
     stuff = []
+    lastScore = 0
+    lastScoreMargin = 0
     for i,p in game.play_by_play.iterrows():
         event = p.eventmsgtype 
         if event in keys:
             emap = pbp_event_map[event]
             desc = str(p.homedescription) + str(p.neutraldescription) + str(p.visitordescription)
-            
+            desc = desc.replace('None','')
+            if p.score == None:
+                p.score = lastScore
+                p.scoremargin = lastScoreMargin
+            else:
+                lastScore = p.score
+                lastScoreMargin = p.scoremargin
             match = False   
             if event == 1:
                 match = True   
@@ -223,14 +249,16 @@ def dump_pbp(game):
                 event_name = emap[0][0]
                 match = True
 
+            elif event in [7,9,10,11,12,13]:
+                event_name = emap[0][0]
+                match = True
+
             if match:
                 a = [
                     event_name,
                     p.period, 
                     p.pctimestring,
-                    p.homedescription,
-                    p.neutraldescription,
-                    p.visitordescription,
+                    desc,
                     p.score,
                     p.scoremargin,
                     p.player1_name, p.player1_team_abbreviation,
@@ -243,9 +271,7 @@ def dump_pbp(game):
         'eventmsgtype',
         'period', 
         'pctimestring',
-        'homedescription',
         'neutraldescription',
-        'visitordescription',
         'score',
         'scoremargin',
         'player1_name', 'player1_team_abbreviation',
@@ -260,7 +286,6 @@ def dump_pbp(game):
             
     f = play_by_play.to_csv()
 
-    print(game.game_date)
     t = game.matchup_home.split(' ')
     fn = f'{t[0]}.{t[2]}.{game.game_date}_.csv'
     fl=open(fn,"w")

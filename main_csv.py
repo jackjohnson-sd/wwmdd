@@ -3,7 +3,7 @@ import pandas as pd
 from play_by_play import generatePBP
 from plots import plot3, settings
 
-def main_csv(filename):
+def main(filename):
 
     df = pd.read_csv(filename, keep_default_na=False)
     df.iloc[::-1] # reverse dataframe
@@ -15,10 +15,10 @@ def main_csv(filename):
         '3POINT_ASSIST'     : [1,2],
         'FTMAKE'            : [3,1], 
         'FTMISS'            : [3,1], 
-        '2POINTMISS'        : [3,1],
-        '3POINTMISS'        : [3,1],
-        '2POINTMISS_BLOCK'  : [3,1,2],
-        '3POINTMISS_BLOCK'  : [3,1,2],
+        '2POINTMISS'        : [2,1],
+        '3POINTMISS'        : [2,1],
+        '2POINTMISS_BLOCK'  : [2,1,2],
+        '3POINTMISS_BLOCK'  : [2,1,2],
         'REBOUND'			: [4,1],
         'STEAL'				: [5,1], 
         'TURNOVER'			: [5,2], 
@@ -52,7 +52,9 @@ def main_csv(filename):
                 a = [
                 id[0],
                 r.period, r.pctimestring,
-                r.homedescription, r.neutraldescription, r.visitordescription,
+                r.homedescription, 
+                r.neutraldescription, 
+                r.visitordescription,
                 r.score, r.scoremargin,
                 r.player1_name, r.player1_team_abbreviation,
                 r.player2_name, r.player2_team_abbreviation,
@@ -67,6 +69,8 @@ def main_csv(filename):
     
     home = list(play_by_play[play_by_play.homedescription != ''].player1_team_abbreviation)[0]
     away = list(play_by_play[play_by_play.homedescription == ''].player1_team_abbreviation)[0]
+    
+
     game_data = {
     'season_id_home' :'',
     'team_id_home'	: '',
@@ -76,6 +80,8 @@ def main_csv(filename):
     'game_date'		: '2024-10-10',
     'matchup_home'	: 'DAL @ OKC',
     'wl_home'		: 'W',
+    'pts_home'      : '100',
+    'pts_away'      : '101',
     'blk_home'		: '',
     'season_id_away': '',
     'team_id_away'	: '',

@@ -10,18 +10,19 @@ import matplotlib
 from box_score import box_score,PM
 from settings import defaults
 from play_by_play import dump_pbp
+from nba_colors import get_color, dimmer 
 
 settings  = defaults()
 
-stint_c     = settings.get('STINT_COLOR')       
-bad_evnt    = settings.get('BAD_EVENT_COLOR')    
-good_evnt   = settings.get('GOOD_EVENT_COLOR') 
-grid_color  = settings.get('GRID_COLOR')
-table_color = settings.get('TABLE_COLOR')
+STINT_C     = settings.get('STINT_COLOR')       
+BAD_EVNT    = settings.get('BAD_EVENT_COLOR')    
+GOOD_EVNT   = settings.get('GOOD_EVENT_COLOR') 
+GRID_C      = settings.get('GRID_COLOR')
+TABLE_C     = settings.get('TABLE_COLOR')
 BOX_COL_COLOR = settings.get('BOX_COL_COLOR')
 BOX_COL_COLOR_ALT = settings.get('BOX_COL_COLOR_ALT')
-
-DB_NAME = settings.get('SOURCE')
+DB_NAME     = settings.get('SOURCE')
+DUMP_PBP    = settings.get('DUMP_PBP')
 
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -53,55 +54,54 @@ def is3(eventRecord):
     hom = eventRecord.visitordescription
     return (str(vis) + str(hom)).find('3PT') != -1
 
-def em_mi(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
+def em_mi(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_fg(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
+def em_fg(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_ft(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
+def em_ft(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     # differentiate made vs missed free throw by color
     if type(eventRecord.score) != type('a'): 
-        _color= bad_evnt
+        _color= BAD_EVNT
     return _style, _color, _size
-sc1 = 0
-def em_st(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
-    global sc1
-    # sc2 = scoreMargins[eventRecord.sec]
-    # diff = sc1 - sc2 
-    # if diff != 0:
-    #     _color = 'green' if diff < 0 else 'red' 
-    # sc1 = sc2
+
+def em_st(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     return _style, _color, _size
         
-def or_dr(_style, _color, _size, eventRecord, current_or_count, scoreMargins):
+def or_dr(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     
-    s = str(eventRecord.visitordescription) + str(eventRecord.homedescription)
-    or_count = re.search('Off:(.*) Def:', s).group(1)
-    is_or = False
     try:
-        is_or = current_or_count[eventRecord.player1_name] != or_count
+        s = str(eventRecord.visitordescription) + str(eventRecord.homedescription)
+        or_count = re.search('Off:(.*) Def:', s).group(1)
+        is_or = False
+        _player1 = eventRecord.player1_name
+        if _player1 not in current_oreb_count.keys():
+            current_oreb_count[_player1]  = 0 
+
+        is_or = current_oreb_count[_player1] != or_count
+        current_oreb_count[_player1] = or_count
+        if is_or: _style = mrk['O']
     except Exception as err:
-        is_or = or_count == 1
-    current_or_count[eventRecord.player1_name] = or_count
-    if is_or: _style = mrk['O']
+        print(err)
+
     return _style, _color, _size
 
 event_map = {
-1: [ good_evnt, 30.0, mrk['2'],'FG',    good_evnt, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.80,0.8],  # make, assist
-2: [  bad_evnt, 30.0, mrk['2'],'MISS',  good_evnt, 30.0, mrk['B'],'BLK',  [1, 3], em_mi, 0.8,0.8],  # miss, block
-3: [ good_evnt, 30.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft, 0.8,0.8],  # free throw
-4: [ good_evnt, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
-5: [ good_evnt, 30.0, mrk['S'],'STL',   bad_evnt,  30.0, mrk['T'],'TO',   [2, 1], None,  0.8,0.8],  # steal, turnover
-6: [ bad_evnt,  30.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None,  0.8,0.8],  # foul, fouled
-8: [ stint_c,   15.0, 'o','SUB',        stint_c,  15.0, 'o','OUT',        [1, 2], em_st,  1.0,1.0],  # substitution
-20:[ good_evnt, 30.0, mrk['O'],'OREB',  good_evnt, 30.0, mrk['3'],'3PT',  [1],    None,  0.8,0.8],
+1: [ GOOD_EVNT, 30.0, mrk['2'],'FG',    GOOD_EVNT, 30.0, mrk['A'],'AST',  [1, 2], em_fg, 0.8,0.8],  # make, assist
+2: [  BAD_EVNT, 30.0, mrk['2'],'MISS',  GOOD_EVNT, 30.0, mrk['B'],'BLK',  [1, 3], em_mi, 0.8,0.8],  # miss, block
+3: [ GOOD_EVNT, 30.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft, 0.8,0.8],  # free throw
+4: [ GOOD_EVNT, 30.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr, 0.8,0.8],  # rebound
+5: [ GOOD_EVNT, 30.0, mrk['S'],'STL',   BAD_EVNT,  30.0, mrk['T'],'TO',   [2, 1], None,  0.8,0.8],  # steal, turnover
+6: [ BAD_EVNT,  30.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None,  0.8,0.8],  # foul, fouled
+8: [ STINT_C,   15.0, 'o','SUB',        STINT_C,  15.0, 'o','OUT',        [1, 2], None,  1.0,1.0],  # substitution
+20:[ GOOD_EVNT, 30.0, mrk['O'],'OREB',  GOOD_EVNT, 30.0, mrk['3'],'3PT',  [1],    None,  0.8,0.8],  # for legend
 }
 
 def event_legend():
@@ -132,10 +132,10 @@ def event_legend():
     
         legend_elements.extend([l])
 
-    legend_elements.extend([Line2D([0], [0], lw=1, color=stint_c, label=' STINT' )])
+    legend_elements.extend([Line2D([0], [0], lw=1, color=STINT_C, label=' STINT' )])
     return legend_elements
             
-def event_to_size_color_shape(player, eventRecord, current_or_count, scoreMargins):
+def event_to_size_color_shape(player, eventRecord, current_oreb_count, scoreMargins):
 
     # call with player or list of players
     players = [player] if type(player) != type([]) else player
@@ -165,7 +165,7 @@ def event_to_size_color_shape(player, eventRecord, current_or_count, scoreMargin
                 if _co != None:
                     # if we need help figuring this out call helper
                     if action[9] != None: 
-                        _st,_co, _si = action[9](_st, _co, _si, eventRecord, current_or_count,scoreMargins)
+                        _st,_co, _si = action[9](_st, _co, _si, eventRecord, current_oreb_count,scoreMargins)
             
                     # first person return in xxx1 all others xxx2
                     _si *= action[10]
@@ -197,22 +197,6 @@ def shorten_player_name(what, max_length):
         return what[0] + '. ' + what.split(' ')[1]
     return what
 
-def mscatter(x,y,ax=None, m=None, **kw):
-    import matplotlib.markers as mmarkers
-    if not ax: ax=plt.gca()
-    sc = ax.scatter(x, y, **kw)
-    if (m is not None) and (len(m)==len(x)):
-        paths = []
-        for marker in m:
-            if isinstance(marker, mmarkers.MarkerStyle):
-                marker_obj = marker
-            else:
-                marker_obj = mmarkers.MarkerStyle(marker)
-            path = marker_obj.get_path().transformed(
-                        marker_obj.get_transform())
-            paths.append(path)
-        sc.set_paths(paths)
-    return sc
 
 M2OFFSET       = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
 M3OFFSET       = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
@@ -228,13 +212,13 @@ STINT_COLOR_PLUS = settings.get('STINT_COLOR_PLUS')
 STINT_COLOR_MINUS = settings.get('STINT_COLOR_MINUS')
 
 
-def fitMarkers(yy_, sec_, color_, nplayers_):
+def stack_markers(yy_, sec_, color_, nplayers_):
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
     # on top of them. Which is what we want
     try:
-        nsubs_ = list(map(lambda x:x != stint_c,color_ ))
+        nsubs_ = list(map(lambda x:x != STINT_C,color_ ))
         first_no_sub_item = nsubs_.index(True)
     except Exception as err:
         first_no_sub_item = 0
@@ -304,10 +288,12 @@ def fitMarkers(yy_, sec_, color_, nplayers_):
 
                 sec_[slot_index    ] = available_slot                
                 markers_to_place = 0
-                
+
 def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, 
                  x_labels = 'TOP',
-                 bx_score = None):
+                 bx_score = None,
+                 score    = None,
+                 game_team_desc = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
@@ -320,24 +306,30 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 
     ax.xaxis.tick_top()  
     tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
-    ax.set_xticklabels(tls, minor = True, color=table_color)
+    ax.set_xticklabels(tls, minor = True, color=TABLE_C)
 
     ax.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
     ax.tick_params(axis='x', which='minor', labelsize=9, pad=-10, length = 0)
     
     ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
-    ax.grid(True, axis='x', color=grid_color, linestyle='-', linewidth=GRID_LINEWIDTH, zorder= Z_GRID)
- 
+    ax.grid(True, axis='x', color=GRID_C, linestyle='-', linewidth=GRID_LINEWIDTH, zorder= Z_GRID)
+    
     ax3 = ax.twinx()
-    P3_scoremargin(ax3, scoreMargins, flipper, Z_SCRM)
+
+    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+   
+    if bx_score._team_name == top_team:         
+        P3_score(ax3, score[0], score[1], game_team_desc)
+    else:
+        P3_scoremargin(ax3, scoreMargins, flipper, Z_SCRM, game_team_desc)
 
     _players = list(playTimesbyPlayer.keys())
     _player_cnt = len(_players)
     
     first_ytick = -5
+    # +2 is header and team summary in table
     last_ytick = -5 + (10 * (_player_cnt + 2)) + 5
 
-    # players does not include TEAM HEADER rows
     ax.set_ylim(first_ytick , last_ytick)
 
     # ax2 is where we plot boxscore and events
@@ -363,7 +355,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             pms    = list(map(lambda x: x[2], play_times))
             for j, x in enumerate(starts):
                 start = x
-                sc = stint_c         
+                sc = STINT_C         
                 if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
                 elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
                 l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
@@ -375,7 +367,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
             marker__  = events_by_player[_player][3::4] 
             y__       = [_y] * len(sec__)
         
-            fitMarkers(y__, sec__, color__, _player_cnt)
+            stack_markers(y__, sec__, color__, _player_cnt)
 
             for idx in range(0,len(sec__)):
                  if type(marker__[idx]) != type([]):
@@ -398,15 +390,15 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         , '3PT' : BOX_COL_COLOR_ALT
         , 'FT'  : BOX_COL_COLOR        
         , 'REB' : BOX_COL_COLOR_ALT
-        , 'BLK' : good_evnt
-        , 'AST' : good_evnt
-        , 'STL' : good_evnt
-        ,  'TO' : bad_evnt
-        , 'PF'  : bad_evnt
+        , 'BLK' : GOOD_EVNT
+        , 'AST' : GOOD_EVNT
+        , 'STL' : GOOD_EVNT
+        ,  'TO' : BAD_EVNT
+        , 'PF'  : BAD_EVNT
         , PM    : BOX_COL_COLOR_ALT
     }
 
-    colors_4_col = [TABLE_COLOR]
+    colors_4_col = [get_color(bx_score._team_name)]
     for k in bs_columns:
         c = color_by_col_name[k] if k in list(color_by_col_name.keys()) else TABLE_COLOR
         colors_4_col.extend([c])
@@ -459,8 +451,33 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
         start = ROW_START 
         y = -5 + ((i) * 10)
         plot_boxscore_row(start, y,[trows[i]] + bs)
-        
-def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
+
+def P3_score(_ax, home_scores, away_scores, game_team_desc):
+    
+    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+    print(f'P3_score  US:{our_team} OPP:{opp_team} TT:{top_team} BT:{bot_team} HT:{home_team} AT:{away_team}')
+    D1_color = dimmer(get_color(top_team))
+    D2_color = dimmer(get_color(bot_team))
+       
+    import math
+    mh = abs(max(home_scores))
+    ma = abs(max(away_scores))
+    m = max(mh, ma) 
+    m = int(math.ceil(m/10) * 10)
+
+    _ax.set_ylim(0, m)
+    _ax.yaxis.set_visible(False)
+    _ax.xaxis.set_visible(False)
+  
+    _ax.scatter(range(0, len(home_scores)), home_scores, color=D1_color, s=.01)
+    _ax.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
+    
+def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
+    
+    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+    
+    home_color = dimmer(get_color(top_team))
+    away_color = dimmer(get_color(bot_team))
 
     import math
     mx = abs(max(_scoreMargins))
@@ -473,14 +490,14 @@ def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder):
     _ax.yaxis.set_visible(False)
     _ax.xaxis.set_visible(False)
   
-    if flipper:
-        _scoreMargins = list(map(lambda x: -x, _scoreMargins))
+    # if flipper:
+    #     _scoreMargins = list(map(lambda x: -x, _scoreMargins))
     
     c_minus = settings.get('PM_PLUS_COLOR')    
     c_plus  = settings.get('PM_MINUS_COLOR')   
-    _colors = list(map(lambda x: c_minus if x < 0 else c_plus, _scoreMargins))
+    _colors = list(map(lambda x: away_color if x < 0 else home_color, _scoreMargins))
 
-    _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=1, zorder=_zorder)
+    _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
 
 def make_scoremargin(play_by_play):
     # create scoremargin for every second of the game all 14400 = 60 * 12 * 4
@@ -490,30 +507,54 @@ def make_scoremargin(play_by_play):
     scoreMargins = [0]
     lastscoretime = 0
     lastscorevalue = 0
-
+    home_scores = []
+    away_scores = []
+    last_home_score = 0
+    last_away_score = 0
+    
     z = play_by_play.scoremargin.dropna().index
     
     for i, v in play_by_play.loc[z].iterrows():
         scoremargin = v.scoremargin
+        
         if scoremargin != '':
             if scoremargin == 'TIE' :
                 scoremargin = 0
             scoremargin = int(scoremargin)
             #       ///////// this is a little broken  ////////
-            now = v.sec
+            now = int(v.sec)
             # print(v.sec,scoremargin,v.period,v.pctimestring,len(scoreMargins))
+            home_score = int(v.score_home)
+            away_score = int(v.score_away)
             if (now - lastscoretime) != 0:
                 scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
                 scoreMargins.extend([scoremargin])
-            else: scoreMargins[-1] = scoremargin
+                
+                home_scores.extend([last_home_score] * (now - lastscoretime - 1))
+                home_scores.extend([home_score])
 
+                away_scores.extend([last_away_score] * (now - lastscoretime - 1))
+                away_scores.extend([away_score])
+
+            else: 
+                scoreMargins[-1] = scoremargin
+                home_scores[-1] = home_score
+                away_scores[-1] = away_score
+                
             lastscoretime = now
             lastscorevalue = scoremargin
+            last_home_score = home_score
+            last_away_score = away_score
 
-    needed = 60*48 - len(scoreMargins)        
+    needed = 60*48 - len(scoreMargins)   
+         
     if needed > 0:
-        scoreMargins.extend([lastscorevalue] * needed )
-    return scoreMargins
+        
+        scoreMargins.extend([lastscorevalue] * (needed + 2))
+        home_scores.extend([last_home_score] * (needed + 2))        
+        away_scores.extend([last_away_score] * (needed + 2))
+        
+    return scoreMargins, home_scores, away_scores
 
 def get_title_and_friends(game_data, boxscore):
     
@@ -534,7 +575,7 @@ def get_title_and_friends(game_data, boxscore):
     gds = f'{gd[1]}/{gd[2]}/{gd[0]}'   # US date formate mm/dd/yyyy
 
     title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}'
-    return title, debug_title, top_team, bot_team, team_home
+    return title, debug_title, top_team, bot_team, team_home, team_away
 
 def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
@@ -545,7 +586,8 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
     starters = []
     for player in players:
         if len(our_stints_by_player[player]) > 0:
-            if our_stints_by_player[player][0][0][3] == 0:
+            # stint start from first stint of player that has stints, 0 means start of game
+            if our_stints_by_player[player][0][1] == 0:
                 starters += [player]
 
     if opponent:
@@ -561,32 +603,24 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
     playTimesbyPlayer = {}
     events_by_player = {}
 
-    current_or_count = {}    
+    current_oreb_count = {}    
 
     for player in players:
 
         def bosco(stint,player):
-            # stint = [
-            #   ['IN', 1, '12:00', 0],     # sub event [IN/OUT, period, clock, second(period ,clock) 0:4*12*60 seconds 
-            #   492,                       # length 
-            #   ['OUT', 1, '3:48', 492],   # see above
-            #   0,                         # start   
-            #   492                        # stop
-            # ]  
+            # stint = [ length, start, stop ]
             
-            start = stint[3]
-            length = stint[1]
+            start = int(stint[1])
+            length = int(stint[0])
             
             startM = scoreMargins[start]
             stopM = scoreMargins[start+length]
 
             boxscore.add_plus_minus(player, startM, stopM)
             
-            return (start, length, startM-stopM)
+            return (start, length, startM - stopM)
             
         playTimesbyPlayer[player] = list(map(lambda x: bosco(x,player), our_stints_by_player[player]))
-        # remnent of change when caclualaion all times as seconds moved to on load of date
-        # playTimesbyPlayer[player] = list(map(lambda x: (x[0][3], x[1]), our_stints_by_player[player]))
 
         _events = []
 
@@ -599,20 +633,21 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype == 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count, scoreMargins)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count, scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype != 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_or_count,scoreMargins)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count,scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         events_by_player[player] = _events
 
         try:
-            boxscore.set_item(player,'ORS', int(current_or_count[player]))
+            # hack for getting ORS - Offensive ReboundS
+            boxscore.set_item(player,'ORS', int(current_oreb_count[player]))
         except:
             pass
             # boxscore.set_item(player,'ORS', 0)
@@ -644,28 +679,34 @@ def p3_layout(title):
         [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
     ]
 
-    figure, axd = plt.subplot_mosaic(layout, figsize = (10.0, 6.0) )
+    figure, axd = plt.subplot_mosaic(layout, figsize = (10.0, 6.5) )
+    
     figure.canvas.manager.set_window_title(title)
 
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    if DBG_A == 'YES': dump_pbp(game_data)
+    if DUMP_PBP == 'ON': dump_pbp(game_data)
     
-    scoreMargins = make_scoremargin(game_data.play_by_play)
-
-
+    scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
+            
     boxscore1, playTimesbyPlayer1, events_by_player1, players1 = \
     P3_prep(our_stints, game_data, scoreMargins, team=TEAM1)
 
     boxscore2, playTimesbyPlayer2, events_by_player2, players2 = \
     P3_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True)
 
-    title, debug_title, top_team, bot_team, home_team = get_title_and_friends(game_data, boxscore1)
+    title, debug_title, top_team, bot_team, home_team, away_team = \
+    get_title_and_friends(game_data, boxscore1)
 
+    # top team = winner, bot_team = loser
+    # home_team - plus/minus and score 
+    # home ahead is + plus, if away 
+    # score plot shown for winner needs home/away teams for colors
+    # plus minus the same thing
+    
     plt.style.use(settings.get('PLOT_COLOR_STYLE'))
-
     axd,E1,TL,TR,MD,E2,BL,BR,E3 = p3_layout(debug_title)
 
     # winning team goes on top 
@@ -684,30 +725,40 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     else :
         _ad1_ = axd[BL]
         _ad2_ = axd[TL]
-        _ad2_label = 'TOP'
         _ad1_label = None
+        _ad2_label = 'TOP'
 
     if TEAM1 == home_team:
         _ad2_flip = True
     else:
         _ad1_flip = True
-
+            
+    team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
+          
+    # print('winner',top_team,' loser',bot_team,' home',home_team,' away',away_team)
+    
     boxscore1.plus_minus_flip(_ad1_flip)
     P3_PBP_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
                  flipper  = _ad1_flip, 
                  x_labels =_ad1_label,
-                 bx_score = boxscore1)
+                 bx_score = boxscore1,
+                 score = [home_scores, away_scores],
+                 game_team_desc = team_desc
+                 )
 
     boxscore2.plus_minus_flip(_ad2_flip)
     P3_PBP_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
                  flipper  = _ad2_flip, 
                  x_labels =_ad2_label,
-                 bx_score = boxscore2)
+                 bx_score = boxscore2,
+                 score = [home_scores, away_scores],
+                 game_team_desc = team_desc
+                 )
     
-    axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=table_color)
+    axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=TABLE_C)
     
     axd[E2].legend( 
-        labelcolor = table_color,
+        labelcolor = TABLE_C,
         fontsize ='small',
         markerfirst=True,
         ncols = 5,

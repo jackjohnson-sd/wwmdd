@@ -1,7 +1,8 @@
 {
-    "dbga"         : "OFF",
-    "dbgb"         : "OFF",
-    "dbgc"         : "OFF"
+      "dbga"         : "OFF"
+    , "dbgb"         : "OFF"
+    , "dbgc"         : "OFF"
+    , "DUMP_PBP"     : "OFF"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"
@@ -32,13 +33,13 @@
     , "play off-START_DAY"   : "2024-05-10"
     , "play off-STOP_DAY"    : "2024-05-31"
 
-    , "START_DAY"            : "2024-05-10" 
+    , "START_DAY"            : "2023-01-01" 
     , "STOP_DAY"             : "2024-05-31"
 
     , "TEAM"                 : "OKC"
  
     , "xSOURCE"               : "nba.sqlite"
     , "SOURCE"              : "WEB:"
-    , "ySOURCE"              : "FILE:claude.csv"
+    , "ySOURCE"              : "FILE:TEST.csv"
      
 }

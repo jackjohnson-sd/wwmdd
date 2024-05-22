@@ -59,8 +59,13 @@ Other eventmsgtype are:
 
 
 
+2.
+Provide the first quarter play by play of a hypothetical game between OKC and GSW in January 2023 in this CSV format.
 
-I've attached a full game play by play. 
-Provide the first quarter play by play of a hypothetical game between OKC and PHI in 
-January 12, 2023 in this CSV format.
+((OKC.DAL.2024_05_15_.csv pasted in prompt))
 
+OKC.BOS.2023-01-03_.csv
+OKC.BOS.2023-01-03_.csv
+OKC.BOS.2023-01-03_.csv
+OKC.DAL.2023-01-03_.csv
+MIA.OKC.2023-01-03_.csv

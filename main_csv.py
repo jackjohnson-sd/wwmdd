@@ -22,7 +22,7 @@ def main(file_dir_name):
             '2POINT'			: [1,1], 
             '2POINT.ASSIST'	    : [1,1,2], 
             '3POINT'            : [1,1],
-            '3POINT_ASSIST'     : [1,2],
+            '3POINT.ASSIST'     : [1,2],
             'FTMAKE'            : [3,1], 
             'FTMISS'            : [3,1], 
             '2POINTMISS'        : [2,1],

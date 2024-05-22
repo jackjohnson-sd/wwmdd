@@ -35,13 +35,13 @@
     , "play off-START_DAY"   : "2024-05-10"
     , "play off-STOP_DAY"    : "2024-05-31"
 
-    , "START_DAY"            : "2023-01-01" 
+    , "START_DAY"            : "2023-01-15" 
     , "STOP_DAY"             : "2023-01-15"
 
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "SOURCE"     : "WEB:"
-    , "fSOURCE"    : "FILE:llm_results"
+    , "wSOURCE"     : "WEB:"
+    , "SOURCE"    : "FILE:llm_training_data/BKNvOKC20230115.csv"
      
 }

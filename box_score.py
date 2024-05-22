@@ -129,6 +129,10 @@ class box_score:
             p2 = _evnt.player2_name
             p3 = _evnt.player3_name
 
+            p1 = p1 if p1 != '' else None
+            p2 = p2 if p2 != '' else None
+            p3 = p3 if p3 != '' else None
+            
             match _evnt.eventmsgtype:
                 
                 case 1: # make
@@ -138,6 +142,7 @@ class box_score:
                     self.update(p1,mk,1)
                     self.update(p1,'PTS',pts)
                     self.update(p2,'AST',1)
+                    print(p1,p2,p3,pts,str(_evnt.visitordescription) + str(_evnt.homedescription))
 
                 case 2: # miss
                     is3 = '3PT' in (str(_evnt.visitordescription) + str(_evnt.homedescription))

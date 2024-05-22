@@ -550,14 +550,16 @@ def make_scoremargin(play_by_play):
             last_home_score = home_score
             last_away_score = away_score
 
-    needed = 60*48 - len(scoreMargins)   
+    needed = 60*48 - len(scoreMargins) + 1
          
     if needed > 0:
         
+        print('needed scm',len(scoreMargins),needed) 
         scoreMargins.extend([lastscorevalue] * (needed + 2))
         home_scores.extend([last_home_score] * (needed + 2))        
         away_scores.extend([last_away_score] * (needed + 2))
-        
+
+    print('l scm',len(scoreMargins))    
     return scoreMargins, home_scores, away_scores
 
 def get_title_and_friends(game_data, boxscore):

@@ -8,21 +8,38 @@ from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
 import matplotlib
 from box_score import box_score,PM
-from settings import defaults
+
 from play_by_play import dump_pbp
+from settings import defaults
 from nba_colors import get_color, dimmer 
 
 settings  = defaults()
+
+DBG_A       = settings.get('dbga')
+DBG_B       = settings.get('dbgb')
+DBG_C       = settings.get('dbgc')
+DB_NAME     = settings.get('SOURCE')
+SAVE_GAME_AS_CSV    = settings.get('SAVE_GAME_AS_CSV')
+SAVE_GAME_DIR = settings.get('SAVE_GAME_DIR')
 
 STINT_C     = settings.get('STINT_COLOR')       
 BAD_EVNT    = settings.get('BAD_EVENT_COLOR')    
 GOOD_EVNT   = settings.get('GOOD_EVENT_COLOR') 
 GRID_C      = settings.get('GRID_COLOR')
 TABLE_C     = settings.get('TABLE_COLOR')
+TABLE_COLOR      = settings.get('TABLE_COLOR')
+STINT_COLOR_PLUS = settings.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = settings.get('STINT_COLOR_MINUS')
+
 BOX_COL_COLOR = settings.get('BOX_COL_COLOR')
 BOX_COL_COLOR_ALT = settings.get('BOX_COL_COLOR_ALT')
-DB_NAME     = settings.get('SOURCE')
-DUMP_PBP    = settings.get('DUMP_PBP')
+
+M2OFFSET       = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET       = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH      = settings.get('MARKER_WIDTH')             # used to determine if markes will overlap
+MRK_FONTSCALE  = settings.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT = settings.get('MARKER_FONTWEIGHT')
+GRID_LINEWIDTH   = settings.get('GRID_linewidth')
 
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -198,21 +215,6 @@ def shorten_player_name(what, max_length):
 
         return what[0] + '. ' + what.split(' ')[1]
     return what
-
-
-M2OFFSET       = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
-M3OFFSET       = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
-MKR_WIDTH      = settings.get('MARKER_WIDTH')   # used to determine if markes will overlap
-MRK_FONTSCALE  = settings.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT = settings.get('MARKER_FONTWEIGHT')
-DBG_A          = settings.get('dbga')
-DBG_B          = settings.get('dbgb')
-DBG_C          = settings.get('dbgc')
-GRID_LINEWIDTH   = settings.get('GRID_linewidth')
-TABLE_COLOR      = settings.get('TABLE_COLOR')
-STINT_COLOR_PLUS = settings.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = settings.get('STINT_COLOR_MINUS')
-
 
 def stack_markers(yy_, sec_, color_, nplayers_):
     
@@ -692,7 +694,7 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    if DUMP_PBP == 'ON': dump_pbp(game_data)
+    if SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
     
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
             

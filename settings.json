@@ -2,7 +2,9 @@
       "dbga"         : "OFF"
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
-    , "DUMP_PBP"     : "ON"
+
+    , "SAVE_GAME_AS_CSV"  : "ON"
+    , "SAVE_GAME_DIR"     : "llm_training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"
@@ -39,7 +41,7 @@
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "wSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:./test_files/claude3.csv"
+    , "SOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:llm_results"
      
 }

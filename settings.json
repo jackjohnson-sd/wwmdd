@@ -3,8 +3,8 @@
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
 
-    , "SAVE_GAME_AS_CSV"  : "OFF"
-    , "SAVE_GAME_DIR"     : "training_data"
+    , "SAVE_GAME_AS_CSV"  : "ON"
+    , "SAVE_GAME_DIR"     : "llm_training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"

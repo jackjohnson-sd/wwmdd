@@ -78,7 +78,9 @@ def em_st(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
 def or_dr(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     
     try:
-        s = str(eventRecord.visitordescription) + str(eventRecord.homedescription)
+        s = str(eventRecord.visitordescription) 
+        s2 = str(eventRecord.homedescription)
+        if s != s2: s += s2
         or_count = re.search('Off:(.*) Def:', s).group(1)
         is_or = False
         _player1 = eventRecord.player1_name
@@ -558,7 +560,7 @@ def make_scoremargin(play_by_play):
 
 def get_title_and_friends(game_data, boxscore):
     
-    debug_title = f'{game_data.game_id}:{DB_NAME}'
+    debug_title = f'{game_data.game_id} {DB_NAME}'
     
     w_home = game_data.wl_home
     team_home = game_data.team_abbreviation_home
@@ -593,6 +595,9 @@ def P3_prep(our_stints, game_data, scoreMargins, team = None, opponent = False):
     if opponent:
         teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
         teams.remove(team)
+        try:    teams.remove('')
+        except: a = 1
+        
         team = list(teams)[0]
     
     boxscore.set_team_name(team)
@@ -766,9 +771,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         frameon = False,
         handletextpad= 0.10,
         handles = event_legend())
-
-    # P3_stints(stints_by_lineup, axd[BL], events_by_lineup)
-    # P3_boxscore(box_for_lineups, axd[BR], box_for_lineups.get_players()[0:-1])
 
     for r in [TL, TR, BL, BR, E1, E2, E3, MD]:
         if r != None:

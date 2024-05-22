@@ -105,7 +105,8 @@ def period_clock_to_seconds(row):
     home_score = None
     away_score = None
     if row.score != '' and row.score != None:
-        score = row.score.split(' - ')
+        if row.score == '0': score = ['0','0']
+        else: score = row.score.split('-')
         home_score = int(score[0])
         away_score = int(score[1])
     return _secs, home_score, away_score
@@ -207,7 +208,7 @@ def dump_pbp(game):
             if event == 1:
                 match = True   
                 if p.player2_name != None:
-                    event_name = '_'.join(emap[0])
+                    event_name = '.'.join(emap[0])
                 else:    
                     event_name = emap[0][0]
                 if '3PT' in desc:
@@ -222,7 +223,7 @@ def dump_pbp(game):
             elif event == 2:
                 match = True
                 if p.player3_name != None:
-                    event_name = '_'.join(emap[0])
+                    event_name = '.'.join(emap[0])
                 else:    
                     event_name = emap[0][0]
 
@@ -241,7 +242,7 @@ def dump_pbp(game):
             elif event == 5:
                 match = True
                 if p.player2_name != None:
-                    event_name = '_'.join(emap[0])
+                    event_name = '.'.join(emap[0])
                 else:    
                     event_name = emap[0][1]
 
@@ -287,7 +288,12 @@ def dump_pbp(game):
     f = play_by_play.to_csv()
 
     t = game.matchup_home.split(' ')
+    import os
+    cwd = os.getcwd() + '/' + 'test_files'
+    
     fn = f'{t[0]}.{t[2]}.{game.game_date}_.csv'
+    fn = os.path.join(cwd, fn) 
+    
     fl=open(fn,"w")
     fl.write(f)
     fl.close()

@@ -2,7 +2,7 @@
       "dbga"         : "OFF"
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
-    , "DUMP_PBP"     : "OFF"
+    , "DUMP_PBP"     : "ON"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"
@@ -38,8 +38,8 @@
 
     , "TEAM"                 : "OKC"
  
-    , "xSOURCE"               : "nba.sqlite"
-    , "SOURCE"              : "WEB:"
-    , "ySOURCE"              : "FILE:TEST.csv"
+    , "dSOURCE"    : "nba.sqlite"
+    , "SOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:test_files"
      
 }

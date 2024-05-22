@@ -2,7 +2,9 @@
       "dbga"         : "OFF"
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
-    , "DUMP_PBP"     : "ON"
+
+    , "SAVE_GAME_AS_CSV"  : "OFF"
+    , "SAVE_GAME_DIR"     : "training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"
@@ -40,6 +42,6 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "SOURCE"     : "WEB:"
-    , "fSOURCE"    : "FILE:test_files"
+    , "fSOURCE"    : "FILE:llm_results"
      
 }

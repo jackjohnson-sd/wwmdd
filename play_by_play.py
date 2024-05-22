@@ -1,5 +1,6 @@
 from box_score import  box_score
 import pandas as pd
+from settings import defaults
 
 def getTimeSpansByPlayer(playbyplay, players):
     # collect timespans played by this player
@@ -288,10 +289,11 @@ def dump_pbp(game):
     f = play_by_play.to_csv()
 
     t = game.matchup_home.split(' ')
+
     import os
-    cwd = os.getcwd() + '/' + 'test_files'
+    cwd = os.getcwd() + '/' + defaults().get('SAVE_GAME_DIR')
     
-    fn = f'{t[0]}.{t[2]}.{game.game_date}_.csv'
+    fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
     fn = os.path.join(cwd, fn) 
     
     fl=open(fn,"w")

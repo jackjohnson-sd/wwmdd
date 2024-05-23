@@ -185,7 +185,7 @@ colors = {
 
     'MIA': {
         'color1': 'red',
-        'color2': 'black',
+        'color2': 'red',
         'colors': {
             'red': [ '#862633', [134, 38, 51]],
             'yellow': [ '#ffa300',[255, 163, 0]],
@@ -286,7 +286,7 @@ colors = {
 
     'POR': {
         'color1': 'red',
-        'color2': 'black',
+        'color2': 'silver',
         'colors': {
             'red': [ '#f0163a',[240, 22, 58]],
             'silver': [ '#b6bfbf',[182, 191, 191]],
@@ -308,7 +308,7 @@ colors = {
 
     'SAS': {
         'color1': 'silver',
-        'color2': 'black',
+        'color2': 'silver',
         'colors': {
             'silver': [ '#b6bfbf',[182, 191, 191]],
             'white': pureWhite,

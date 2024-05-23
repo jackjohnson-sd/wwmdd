@@ -696,7 +696,8 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    if SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
+    data_source = settings.get('SOURCE')
+    if   'WEB:'  in data_source and SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
     
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
             

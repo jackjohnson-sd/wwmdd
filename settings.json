@@ -42,7 +42,7 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "wSOURCE"     : "WEB:"
-    , "fSOURCE"    : "FILE:llm_training_data/CHIvOKC20230113.csv"
-    , "SOURCE"    : "FILE:llm_training_data"
+    , "SOURCE"    : "FILE:llm_results/claude5.csv"
+    , "xSOURCE"    : "FILE:llm_training_data"
      
 }

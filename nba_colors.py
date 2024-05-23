@@ -66,7 +66,7 @@ colors = {
     
     'CHI': {
         'color1': 'red',
-        'color2': 'black',
+        'color2': 'red',
         'colors': {
             'red': [ '#ba0c2f',[186, 12, 47]],
             'black': pureBlack,

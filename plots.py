@@ -389,17 +389,17 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 
     color_by_col_name = {
           'PTS' : BOX_COL_COLOR
-        , 'MIN' : BOX_COL_COLOR_ALT
+        , 'MIN' : BOX_COL_COLOR
         , 'FG'  : BOX_COL_COLOR
-        , '3PT' : BOX_COL_COLOR_ALT
+        , '3PT' : BOX_COL_COLOR
         , 'FT'  : BOX_COL_COLOR        
-        , 'REB' : BOX_COL_COLOR_ALT
+        , 'REB' : BOX_COL_COLOR
         , 'BLK' : GOOD_EVNT
         , 'AST' : GOOD_EVNT
         , 'STL' : GOOD_EVNT
         ,  'TO' : BAD_EVNT
         , 'PF'  : BAD_EVNT
-        , PM    : BOX_COL_COLOR_ALT
+        , PM    : BOX_COL_COLOR
     }
 
     colors_4_col = [get_color(bx_score._team_name)]
@@ -459,7 +459,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 def P3_score(_ax, home_scores, away_scores, game_team_desc):
     
     (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    print(f'P3_score  US:{our_team} OPP:{opp_team} TT:{top_team} BT:{bot_team} HT:{home_team} AT:{away_team}')
+    # print(f'P3_score  US:{our_team} OPP:{opp_team} TT:{top_team} BT:{bot_team} HT:{home_team} AT:{away_team}')
     D1_color = dimmer(get_color(top_team))
     D2_color = dimmer(get_color(bot_team))
        
@@ -554,12 +554,12 @@ def make_scoremargin(play_by_play):
          
     if needed > 0:
         
-        print('needed scm',len(scoreMargins),needed) 
+        # print('needed scm',len(scoreMargins),needed) 
         scoreMargins.extend([lastscorevalue] * (needed + 2))
         home_scores.extend([last_home_score] * (needed + 2))        
         away_scores.extend([last_away_score] * (needed + 2))
 
-    print('l scm',len(scoreMargins))    
+    # print('l scm',len(scoreMargins))    
     return scoreMargins, home_scores, away_scores
 
 def get_title_and_friends(game_data, boxscore):

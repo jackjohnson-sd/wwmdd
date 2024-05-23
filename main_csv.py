@@ -54,11 +54,13 @@ def main(file_dir_name):
             return event_map[row.eventmsgtype]
         
         oink = []
+        prev = None
         for i, r in df.iterrows():
             if r.eventmsgtype in event_map.keys():
                 id = event_map[r.eventmsgtype]
                 
                 if id[0] != None:
+                    
                     a = [
                     id[0],
                     r.period, r.pctimestring,
@@ -70,7 +72,16 @@ def main(file_dir_name):
                     r.player2_name, r.player2_team_abbreviation,
                     r.player3_name, r.player3_team_abbreviation]
                     
+                    if type(prev) != type(None):
+                        if prev == a:
+                            print('DUP', r.period, r.pctimestring,r.neutraldescription )
+                            continue
+            
+                    prev = a
                     oink.extend([a])
+                    # if r.player1_name == 'Mike Muscala':
+                    #     if id[0] in [1,3]:
+                    #         print(r.player1_name,id,r.eventmsgtype,r.score)
             
         play_by_play = pd.DataFrame(
                     data    = oink,           # values

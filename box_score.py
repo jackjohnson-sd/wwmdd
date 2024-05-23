@@ -124,7 +124,16 @@ class box_score:
 
         self.add_players(players)
 
+        prev =  None
         for i, _evnt in _evnts.iterrows():  
+            
+            if type(prev) != type(None):
+                if prev.visitordescription == _evnt.visitordescription:
+                    if prev.homedescription == _evnt.homedescription:
+                        if prev.neutraldescription == _evnt.neutraldescription:
+                            # print('duplicat event at ', _evnt.period,_evnt.pctimestring)
+                            continue
+                    
             p1 = _evnt.player1_name
             p2 = _evnt.player2_name
             p3 = _evnt.player3_name
@@ -132,7 +141,9 @@ class box_score:
             p1 = p1 if p1 != '' else None
             p2 = p2 if p2 != '' else None
             p3 = p3 if p3 != '' else None
-            
+
+            prev = _evnt
+            trapon = 'Jack Johnson'
             match _evnt.eventmsgtype:
                 
                 case 1: # make
@@ -142,7 +153,9 @@ class box_score:
                     self.update(p1,mk,1)
                     self.update(p1,'PTS',pts)
                     self.update(p2,'AST',1)
-                    print(p1,p2,p3,pts,str(_evnt.visitordescription) + str(_evnt.homedescription))
+                    if p1 == trapon:
+                        if p1 in self.get_players():
+                            print('FG',pts,_evnt.period, _evnt.pctimestring,p1,p2,p3,str(_evnt.visitordescription) + str(_evnt.homedescription))
 
                 case 2: # miss
                     is3 = '3PT' in (str(_evnt.visitordescription) + str(_evnt.homedescription))
@@ -151,10 +164,14 @@ class box_score:
                     self.update(p3,'BLK',1)
 
                 case 3: # free throw
-                    its_good = _evnt.score != None
+                    its_good = 'MISS' not in (str(_evnt.visitordescription) + str(_evnt.homedescription))
                     self.update(p1,'FTmake' if its_good else 'FTmiss',1)
                     if its_good:
                         self.update(p1,'PTS',1)
+                        if p1 == trapon:
+                            if p1 in self.get_players():
+                                print('FT',1,_evnt.period, _evnt.pctimestring,p1,p2,p3,str(_evnt.visitordescription) + str(_evnt.homedescription))
+
 
                 case 4: #rebound
                     self.update(p1,'REB',1)

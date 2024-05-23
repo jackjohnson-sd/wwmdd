@@ -41,8 +41,8 @@
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "zSOURCE"     : "WEB:"
-    , "xSOURCE"    : "FILE:llm_training_data/CHIvOKC20230113.csv"
+    , "wSOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:llm_training_data/CHIvOKC20230113.csv"
     , "SOURCE"    : "FILE:llm_training_data"
      
 }

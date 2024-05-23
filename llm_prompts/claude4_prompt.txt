@@ -1,5 +1,4 @@
 1.
-
 Here are exerts of a CSV-formatted play by play of an NBA game: 
  ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
@@ -60,12 +59,12 @@ Other eventmsgtype are:
 
 
 2.
-Provide the first quarter play by play of a hypothetical game between OKC and GSW in January 2023 in this CSV format.
+I've attached play by plays of 3 complete NBA games. 
+Provide the first quarter play by play of a hypothetical game between OKC and GSW on January 30, 2023 in this CSV format.
 
-((OKC.DAL.2024_05_15_.csv pasted in prompt))
+((pasted in prompt:
+    BKN.OKC.2023-01-15_.csv
+    CHI.OKC.2023-01-13_.csv
+    PHI.OKC.2023-01-12_.csv
+))
 
-OKC.BOS.2023-01-03_.csv
-OKC.BOS.2023-01-03_.csv
-OKC.BOS.2023-01-03_.csv
-OKC.DAL.2023-01-03_.csv
-MIA.OKC.2023-01-03_.csv

@@ -3,7 +3,7 @@
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
 
-    , "SAVE_GAME_AS_CSV"  : "OFF"
+    , "SAVE_GAME_AS_CSV"  : "ON"
     , "SAVE_GAME_DIR"     : "llm_training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
@@ -35,13 +35,14 @@
     , "play off-START_DAY"   : "2024-05-10"
     , "play off-STOP_DAY"    : "2024-05-31"
 
-    , "START_DAY"            : "2023-01-15" 
-    , "STOP_DAY"             : "2023-01-15"
+    , "START_DAY"            : "2024-01-01" 
+    , "STOP_DAY"             : "2024-01-31"
 
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "wSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_results/claude_jack1.csv"
+    , "zSOURCE"     : "WEB:"
+    , "xSOURCE"    : "FILE:llm_training_data/CHIvOKC20230113.csv"
+    , "SOURCE"    : "FILE:llm_training_data"
      
 }

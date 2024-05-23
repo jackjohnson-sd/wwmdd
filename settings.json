@@ -3,7 +3,7 @@
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
 
-    , "SAVE_GAME_AS_CSV"  : "ON"
+    , "SAVE_GAME_AS_CSV"  : "OFF"
     , "SAVE_GAME_DIR"     : "llm_training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
@@ -42,6 +42,6 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "wSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_training_data/BKNvOKC20230115.csv"
+    , "SOURCE"    : "FILE:llm_results/claude_jack1.csv"
      
 }

@@ -45,13 +45,19 @@ For example, with the SUB event, player1_name enters the game and player2_name l
 For example, with the REBOUND event, player1_name commits the offensive or defensive rebound and
 has possession of the ball. 
 
-For example, with the 3POINT.ASSIST event, player1_name makes the shot and player2_name is credited with the assist.
+For example, with the 3POINT.ASSIST event, player1_name makes the shot for 3 ponts and player2_name is credited with the assist.
 
 For example, with the FTMAKE event, player1_name makes the free throw. 
 
 For example, with the 3POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block. 
 
 For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block.
+
+For example with a 2POINT event, player1_name makes the shot for 3 points and there was no BLOCK or ASSIST
+
+For example with a 3POINT event, player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
+
+For example for a 2POINT.ASSIST , player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
 
 Other eventmsgtype are:  
 2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  

@@ -42,16 +42,7 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "zSOURCE"     : "WEB:"
-<<<<<<< HEAD
     , "SOURCE"    : "FILE:llm_results/claude6.csv"
     , "xSOURCE"    : "FILE:llm_training_data/PHI.OKC.2023-01-12_.csv"
-=======
-    , "xSOURCE"    : "FILE:llm_results/claude5.csv"
-    , "SOURCE"    : "FILE:llm_training_data/PHI.OKC.2023-01-12_.csv"
-=======
-    , "wSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_results/claude5.csv"
-    , "xSOURCE"    : "FILE:llm_training_data"
->>>>>>> 3fd81110ede5451877ed43fc05c81588147a9a1b
      
 }

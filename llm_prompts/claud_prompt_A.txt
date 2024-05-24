@@ -54,3 +54,30 @@ Other eventmsgtype are:
 2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
 3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
 
+
+
+SUBS:
+During a basketball game, different types of events occur. 
+
+These include made shots, miss shots, fouls, rebounds, assists, turnovers, and player substitutions. 
+
+We call these substitution events SUBS. 
+
+In an NBA game, 5 players on each team can play at one time.
+
+A player can only enter a game for his team, and when he enters, a player from his team must exit. 
+
+It's important that a player not play too long for any one time. 
+
+It's also important that a player not play too many minutes during a game. 
+
+Coaches often substitute when a player does not seem competitive during a game. 
+
+Coaches also make player substitutions when a player is in foul trouble. 
+
+Our examples below shows only SUB events of a play by play for an NBA game between OKC and DAL. 
+
+The example also shows the period, time, description of event, score, score margin, and the player who exited and the player who 
+entered the game.
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game.

@@ -63,9 +63,11 @@ def main():
 
 
 if __name__ == "__main__":
-
+    import claude
+    
     data_source = settings.get('SOURCE')
 
     if   'WEB:'  in data_source:  main_web.main()
     elif 'FILE:' in data_source:  main_csv.main(data_source.split(':')[1])
+    elif 'CLAUDE:' in data_source:  claude.main(data_source.split(':')[1])
     else:                         main()

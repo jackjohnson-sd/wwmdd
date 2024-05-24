@@ -41,8 +41,9 @@
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "zSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_results/claude6.csv"
-    , "xSOURCE"    : "FILE:llm_training_data/PHI.OKC.2023-01-12_.csv"
+    , "wSOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:llm_results/claude5.csv"
+    , "xSOURCE"    : "FILE:llm_training_data"
+    , "SOURCE"      :"CLAUDE:claude_test"
      
 }

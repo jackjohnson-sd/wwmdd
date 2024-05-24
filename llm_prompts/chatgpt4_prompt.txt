@@ -1,0 +1,76 @@
+1.
+Here are exerts of a CSV-formatted play by play of an NBA game: 
+ ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
+1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
+2,2POINT.ASSIST,1,11:54,Jal. Williams 2' Cutting Dunk Shot (2 PTS) (Gilgeous-Alexander 1 AST),2 - 0,-2,Jalen Williams,OKC,Shai Gilgeous-Alexander,OKC,,
+3,FOUL,1,11:41,Dort S.FOUL (P1.T1) (T.Brothers),2 - 0,-2,Luguentz Dort,OKC,Luka Doncic,DAL,,
+4,FTMAKE,1,11:41,Doncic Free Throw 1 of 2 (1 PTS),2 - 1,-1,Luka Doncic,DAL,,,,
+6,TURNOVER,1,11:17,Thunder Turnover: Shot Clock (T#1),2 - 2,TIE,,,,,,
+7,STEAL.TURNOVER,1,11:01,Jones Jr. Lost Ball Turnover (P1.T1)Holmgren STEAL (1 STL),2 - 2,TIE,Derrick Jones Jr.,DAL,Chet Holmgren,OKC,,
+8,2POINT.ASSIST,1,10:49,Dort 1' Layup (2 PTS) (Joe 1 AST),4 - 2,-2,Luguentz Dort,OKC,Isaiah Joe,OKC,,
+11,2POINTMISS,1,10:34,MISS Gafford 1' Driving Layup,5 - 2,-3,Daniel Gafford,DAL,,,,
+12,REBOUND,1,10:32,Gafford REBOUND (Off:1 Def:0),5 - 2,-3,Daniel Gafford,DAL,,,,
+13,2POINT,1,10:32,Gafford 1' Putback Dunk (2 PTS),5 - 4,-1,Daniel Gafford,DAL,,,,
+14,3POINT.ASSIST,1,10:14,Holmgren 25' 3PT Jump Shot (3 PTS) (Dort 1 AST),8 - 4,-4,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+15,STEAL.TURNOVER,1,10:02,Doncic Bad Pass Turnover (P1.T2)Jal. Williams STEAL (1 STL),8 - 4,-4,Luka Doncic,DAL,Jalen Williams,OKC,,
+19,3POINT.ASSIST,1,9:22,Dort 25' 3PT Jump Shot (6 PTS) (Jal. Williams 1 AST),13 - 4,-9,Luguentz Dort,OKC,Jalen Williams,OKC,,
+20,TIMEOUT,1,9:22,MAVERICKS Timeout: Regular (Full 1 Short 0),13 - 4,-9,,,,,,
+23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
+26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
+
+
+
+The below lines describe the players’ roles in the events in the CSV-formatted play-by-play:
+
+For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
+column is the player committing the event. 
+
+player1_team_abbreviation is the team that player1_name is a player on.
+
+
+In some cases, the player2_name column is another player associated with this event. 
+
+player2_team_abbreviation is the team that player2_name is a player on. 
+
+For example, with the FOUL event, player1_name is the player committing the foul and player2_name is 
+the player that is being fouled against by player1_name.
+
+For example, with the STEAL.TURNOVER event, player1_name committed the turnover and player2_name is 
+credited with the steal. 
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game. 
+
+For example, with the REBOUND event, player1_name commits the offensive or defensive rebound and
+has possession of the ball. 
+
+For example, with the 3POINT.ASSIST event, player1_name makes the shot for 3 ponts and player2_name is credited with the assist.
+
+For example, with the FTMAKE event, player1_name makes the free throw. 
+
+For example, with the 3POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block. 
+
+For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block.
+
+For example with a 2POINT event, player1_name makes the shot for 3 points and there was no BLOCK or ASSIST
+
+For example with a 3POINT event, player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
+
+For example for a 2POINT.ASSIST , player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
+
+Other eventmsgtype are:  
+2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
+3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
+
+
+
+2.
+I've attached play by plays of 3 complete NBA games. 
+Provide the first quarter play by play of a hypothetical game between OKC and GSW on January 30, 2023 in this CSV format.
+
+((pasted in prompt:
+    BKN.OKC.2023-01-15_.csv
+    CHI.OKC.2023-01-13_.csv
+    PHI.OKC.2023-01-12_.csv
+))
+

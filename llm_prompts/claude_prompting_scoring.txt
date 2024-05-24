@@ -1,0 +1,32 @@
+COMMENTS:
+1 -- 5 was asked in one prompt due to limitations in message amounts. 
+
+The results are in claude6.csv 
+
+Only 1 quarter is uploaded due to message limits.
+
+Based on Q1, Claude is still providing high scoring hypothetical games. 
+
+
+
+PROMPT:
+1.
+Do you know the average scores per game for OKC and GSW during January 2023? 
+
+2. 
+Do you know the average minutes and points per game for the OKC and 
+GSW players during this period?
+
+3.
+Could you use this data in creating a hypothetical NBA game play by play?
+
+4.
+I've uploaded an example of a complete game play by play for OKC and BOS. 
+
+5.
+Provide a play by play for the first quarter using this information of a 
+game between OKC and GSW during mid January 2023. 
+
+((Pasted in prompt:
+        OKC.BOS.2023-01-03_
+                            ))

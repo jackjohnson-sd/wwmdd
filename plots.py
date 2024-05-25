@@ -459,9 +459,10 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 def P3_score(_ax, home_scores, away_scores, game_team_desc):
     
     (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+    print('p3_score h=',home_team,'a=',away_team, 'hf=',home_scores[-1],'af = ',away_scores[-1])
     # print(f'P3_score  US:{our_team} OPP:{opp_team} TT:{top_team} BT:{bot_team} HT:{home_team} AT:{away_team}')
-    D1_color = dimmer(get_color(top_team))
-    D2_color = dimmer(get_color(bot_team))
+    D1_color = dimmer(get_color(home_team))
+    D2_color = dimmer(get_color(away_team))
        
     import math
     mh = abs(max(home_scores))
@@ -480,8 +481,10 @@ def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
     
     (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
     
-    home_color = dimmer(get_color(top_team))
-    away_color = dimmer(get_color(bot_team))
+    home_color = dimmer(get_color(home_team))
+    away_color = dimmer(get_color(away_team))
+    
+    print('p3_scoremargin h=',home_team,'a=',away_team,'scm=',_scoreMargins[-1])
 
     import math
     mx = abs(max(_scoreMargins))
@@ -497,8 +500,6 @@ def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
     # if flipper:
     #     _scoreMargins = list(map(lambda x: -x, _scoreMargins))
     
-    c_minus = settings.get('PM_PLUS_COLOR')    
-    c_plus  = settings.get('PM_MINUS_COLOR')   
     _colors = list(map(lambda x: away_color if x < 0 else home_color, _scoreMargins))
 
     _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
@@ -508,6 +509,7 @@ def make_scoremargin(play_by_play):
     # this is an issue when OT comes along  // TODO
     # score margin is 'TIE' otherwise +/- difference of score. TIE set to 0 for us
     # like most other data elements its None if it is not changed
+    # score is  away - home
     scoreMargins = [0]
     lastscoretime = 0
     lastscorevalue = 0
@@ -528,8 +530,8 @@ def make_scoremargin(play_by_play):
             #       ///////// this is a little broken  ////////
             now = int(v.sec)
             # print(v.sec,scoremargin,v.period,v.pctimestring,len(scoreMargins))
-            home_score = int(v.score_home)
-            away_score = int(v.score_away)
+            away_score = int(v.score_home)
+            home_score = int(v.score_away)
             if (now - lastscoretime) != 0:
                 scoreMargins.extend([lastscorevalue] * (now - lastscoretime - 1))
                 scoreMargins.extend([scoremargin])
@@ -559,7 +561,7 @@ def make_scoremargin(play_by_play):
         home_scores.extend([last_home_score] * (needed + 2))        
         away_scores.extend([last_away_score] * (needed + 2))
 
-    # print('l scm',len(scoreMargins))    
+    print('',len(scoreMargins),'h',home_scores[-1],'a',away_scores[-1])    
     return scoreMargins, home_scores, away_scores
 
 def get_title_and_friends(game_data, boxscore):

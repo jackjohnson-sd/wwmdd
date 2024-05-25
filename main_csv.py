@@ -89,7 +89,7 @@ def main(file_dir_name):
                     columns = new_cols)  
 
         # who's home and away based on score
-        # score is always home_score - away_score
+        # score is always away_score - home_score
         # find first score for home and away and get
         # team from player1's team abbreviation i.e. 'OKC' 'DAL' etc.
         
@@ -100,11 +100,11 @@ def main(file_dir_name):
                 scr = ['0','0']
             else:
                 scr = r.score.split('-')
-            home_scr = int(scr[0])
+            home_scr = int(scr[1])
             if home_scr != 0 and home == None:  
                 home = r.player1_team_abbreviation 
                 
-            away_scr = int(scr[1])
+            away_scr = int(scr[0])
 
             if away_scr !=0 and away == None:
                 away = r.player1_team_abbreviation
@@ -121,10 +121,10 @@ def main(file_dir_name):
         'team_name_home': '',
         'game_id'		: os.path.splitext(os.path.basename(filename))[0],
         'game_date'		: '2024-04-27',
-        'matchup_home'	: f'{away} @ {home}',
-        'wl_home'		: 'W' if int(ha_scores[0]) > int(ha_scores[1]) else 'L',
-        'pts_home'      : ha_scores[0],
-        'pts_away'      : ha_scores[1],
+        'matchup_home'	: f'{home} vs. {away}',
+        'wl_home'		: 'W' if int(ha_scores[1]) > int(ha_scores[0]) else 'L',
+        'pts_home'      : ha_scores[1],
+        'pts_away'      : ha_scores[0],
         'blk_home'		: '',
         'season_id_away': '',
         'team_id_away'	: '',
@@ -132,7 +132,7 @@ def main(file_dir_name):
         'team_name_away': '',
         'game_id_away'	: '',
         'game_date_away': '',
-        'matchup_away'	: f'{home} vs. {away}',
+        'matchup_away'	: f'{away} @ {home}',
         'wl_away'		: '',
         'blk_away'        : '',
         'tov_away'        : '',

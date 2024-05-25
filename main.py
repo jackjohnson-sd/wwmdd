@@ -5,9 +5,6 @@ from play_by_play import generatePBP
 from plots import plot3, settings
 import main_web
 import main_csv
-#
-# get arguments, if any
-#
 
 def getArgs():
 
@@ -50,7 +47,7 @@ def main():
         qs = f"select * from play_by_play where game_id == '{game_data.game_id}'"
         play_by_play = pd.read_sql_query(qs, db_con)
 
-        game_data.play_by_play = play_by_play  # returns a series?
+        game_data.play_by_play = play_by_play  
         
         our_playerstints_and_boxscore      = generatePBP(game_data, _TEAM)
         opponent_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
@@ -67,7 +64,11 @@ if __name__ == "__main__":
     
     data_source = settings.get('SOURCE')
 
+    # get games and play by play from nba_api
     if   'WEB:'  in data_source:  main_web.main()
+    # read play by play from file we or claude created
     elif 'FILE:' in data_source:  main_csv.main(data_source.split(':')[1])
+    # send play_by_play files to claude and have him make one
     elif 'CLAUDE:' in data_source:  claude.main(data_source.split(':')[1])
-    else:                         main()
+    # get games and play_by_play from kaggle sourced nba_sqlite DB
+    else: main()  

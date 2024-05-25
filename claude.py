@@ -1,9 +1,9 @@
 import anthropic
 
-client = anthropic.Anthropic(
-    # defaults to os.environ.get("ANTHROPIC_API_KEY")
-    api_key="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"
-)
+client = anthropic.Anthropic()
+
+# defaults to os.environ.get("ANTHROPIC_API_KEY")
+# https://docs.anthropic.com/en/docs/quickstart-guide#step-3-optional-set-up-your-api-key
 
 
 haiku = 'claude-3-haiku-20240307'

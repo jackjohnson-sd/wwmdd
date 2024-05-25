@@ -41,9 +41,9 @@
     , "TEAM"                 : "OKC"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "wSOURCE"     : "WEB:"
-    , "fSOURCE"    : "FILE:llm_results/claude5.csv"
+    , "SOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:llm_results/claude_sonnet.csv"
     , "xSOURCE"    : "FILE:llm_training_data"
-    , "SOURCE"      :"CLAUDE:claude_test"
+    , "cSOURCE"   : "CLAUDE:claude_test"
      
 }

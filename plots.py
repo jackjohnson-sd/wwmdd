@@ -13,7 +13,7 @@ from play_by_play import dump_pbp
 from settings import defaults
 from nba_colors import get_color, dimmer 
 
-settings  = defaults()
+settings  = defaults()  
 
 DBG_A       = settings.get('dbga')
 DBG_B       = settings.get('dbgb')

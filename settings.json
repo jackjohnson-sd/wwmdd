@@ -3,7 +3,7 @@
     , "dbgb"         : "OFF"
     , "dbgc"         : "OFF"
 
-    , "SAVE_GAME_AS_CSV"  : "OFF"
+    , "SAVE_GAME_AS_CSV"  : "ON"
     , "SAVE_GAME_DIR"     : "llm_training_data"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
@@ -29,8 +29,8 @@
     , "BOX_COL_COLOR"         : "sienna"
     , "BOX_COL_COLOR_ALT"     : "chocolate"
 
-    , "START_DAY"            : "2024-05-01" 
-    , "STOP_DAY"             : "2024-05-31"
+    , "START_DAY"            : "2024-01-01" 
+    , "STOP_DAY"             : "2024-01-31"
     , "TEAM"                 : "DAL"
  
     , "dSOURCE"    : "nba.sqlite"

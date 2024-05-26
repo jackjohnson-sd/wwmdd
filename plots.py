@@ -10,28 +10,29 @@ import matplotlib
 from box_score import box_score,PM
 
 from play_by_play import dump_pbp
-from settings import default
 from nba_colors import get_color, dimmer 
 
-defaults  = default()  
+import settings 
+ 
+defaults  = settings.defaults
 
 DBG_A       = defaults.get('dbga')
 DBG_B       = defaults.get('dbgb')
 DBG_C       = defaults.get('dbgc')
 DB_NAME     = defaults.get('SOURCE')
-SAVE_GAME_AS_CSV    = defaults.get('SAVE_GAME_AS_CSV')
-SAVE_GAME_DIR = defaults.get('SAVE_GAME_DIR')
+SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
+SAVE_GAME_DIR    = defaults.get('SAVE_GAME_DIR')
 
 STINT_C     = defaults.get('STINT_COLOR')       
 BAD_EVNT    = defaults.get('BAD_EVENT_COLOR')    
 GOOD_EVNT   = defaults.get('GOOD_EVENT_COLOR') 
 GRID_C      = defaults.get('GRID_COLOR')
 TABLE_C     = defaults.get('TABLE_COLOR')
-TABLE_COLOR      = defaults.get('TABLE_COLOR')
-STINT_COLOR_PLUS = defaults.get('STINT_COLOR_PLUS')
+TABLE_COLOR       = defaults.get('TABLE_COLOR')
+STINT_COLOR_PLUS  = defaults.get('STINT_COLOR_PLUS')
 STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
 
-BOX_COL_COLOR = defaults.get('BOX_COL_COLOR')
+BOX_COL_COLOR     = defaults.get('BOX_COL_COLOR')
 BOX_COL_COLOR_ALT = defaults.get('BOX_COL_COLOR_ALT')
 
 M2OFFSET       = defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place

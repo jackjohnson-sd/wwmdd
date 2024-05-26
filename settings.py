@@ -8,6 +8,7 @@ class default :
 
     def __init__(self,fn='settings.json'):
         
+        if fn == None: fn = 'settings.json'
         try:    
             with open(fn, "r") as f:
                 self.stuff = json.load(f)

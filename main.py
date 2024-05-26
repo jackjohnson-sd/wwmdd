@@ -1,24 +1,16 @@
-import sys
+import argparse
+import settings
+parser = argparse.ArgumentParser()
+parser.add_argument("--json", help="specify json file. default is settings.json")
+args = parser.parse_args()
+settings.defaults = settings.default(args.json if args.json else None)
+
 import pandas as pd
 from data_load import loadNBA_data
 from play_by_play import generatePBP
 from plots import plot3
 import main_web
 import main_csv
-
-
-def getArgs():
-
-    opponent = None
-
-    for i in range (len(sys.argv)):  # Check for argumentsif sys.argv[i] == '?':
-        print("Usage: python argparse3.py <opponent=opponentName> <plotnumber=plotnumber>")
-
-        if (sys.argv[i].find("opponent=")>-1):
-            opponent = sys.argv[i].split('=')
-            opponent = opponent[1]
-    
-    return opponent
 
 dfs         = {}    # has everthing that was in db as dict of DateFrame by column name from DB
 db_con      = None  # keep this around to get play_by_play when needed
@@ -53,18 +45,10 @@ def main():
 
     db_con.close()
 
-import settings  
-
+ 
 if __name__ == "__main__":
     import claude
 
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--json", help="specify json file. default is settings.json")
-    args = parser.parse_args()
-
-    settings.defaults = settings.default(args.json if args.json else None)
-        
     data_source = settings.defaults.get('SOURCE')
 
     # get games and play by play from nba_api
@@ -76,5 +60,5 @@ if __name__ == "__main__":
     # get games and play_by_play from kaggle sourced nba_sqlite DB
     else: main()  
     
-    # modify launch.json  add  this to use alternate json file 
+    # modify launch.json  add this to use alternate json file 
     # "args": ["--json", "settings2.json"]

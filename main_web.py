@@ -1,6 +1,6 @@
 import pandas as pd
 
-from plots import plot3, settings
+from plots import plot3, defaults
 from play_by_play import generatePBP 
 
 import nba_web_api as nba
@@ -31,9 +31,9 @@ def _get_opp_game(g, teams):
 
 def main():
 
-    _TEAM       = settings.get('TEAM')      # OKC
-    _START_DAY  = settings.get('START_DAY') # 2023-01-01
-    _STOP_DAY   = settings.get('STOP_DAY')  # 2023-04-20
+    _TEAM       = defaults.get('TEAM')      # OKC
+    _START_DAY  = defaults.get('START_DAY') # 2023-01-01
+    _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
 
     teams = nba.get_teams()
 

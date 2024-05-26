@@ -10,36 +10,36 @@ import matplotlib
 from box_score import box_score,PM
 
 from play_by_play import dump_pbp
-from settings import defaults
+from settings import default
 from nba_colors import get_color, dimmer 
 
-settings  = defaults()  
+defaults  = default()  
 
-DBG_A       = settings.get('dbga')
-DBG_B       = settings.get('dbgb')
-DBG_C       = settings.get('dbgc')
-DB_NAME     = settings.get('SOURCE')
-SAVE_GAME_AS_CSV    = settings.get('SAVE_GAME_AS_CSV')
-SAVE_GAME_DIR = settings.get('SAVE_GAME_DIR')
+DBG_A       = defaults.get('dbga')
+DBG_B       = defaults.get('dbgb')
+DBG_C       = defaults.get('dbgc')
+DB_NAME     = defaults.get('SOURCE')
+SAVE_GAME_AS_CSV    = defaults.get('SAVE_GAME_AS_CSV')
+SAVE_GAME_DIR = defaults.get('SAVE_GAME_DIR')
 
-STINT_C     = settings.get('STINT_COLOR')       
-BAD_EVNT    = settings.get('BAD_EVENT_COLOR')    
-GOOD_EVNT   = settings.get('GOOD_EVENT_COLOR') 
-GRID_C      = settings.get('GRID_COLOR')
-TABLE_C     = settings.get('TABLE_COLOR')
-TABLE_COLOR      = settings.get('TABLE_COLOR')
-STINT_COLOR_PLUS = settings.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = settings.get('STINT_COLOR_MINUS')
+STINT_C     = defaults.get('STINT_COLOR')       
+BAD_EVNT    = defaults.get('BAD_EVENT_COLOR')    
+GOOD_EVNT   = defaults.get('GOOD_EVENT_COLOR') 
+GRID_C      = defaults.get('GRID_COLOR')
+TABLE_C     = defaults.get('TABLE_COLOR')
+TABLE_COLOR      = defaults.get('TABLE_COLOR')
+STINT_COLOR_PLUS = defaults.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
 
-BOX_COL_COLOR = settings.get('BOX_COL_COLOR')
-BOX_COL_COLOR_ALT = settings.get('BOX_COL_COLOR_ALT')
+BOX_COL_COLOR = defaults.get('BOX_COL_COLOR')
+BOX_COL_COLOR_ALT = defaults.get('BOX_COL_COLOR_ALT')
 
-M2OFFSET       = settings.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
-M3OFFSET       = settings.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
-MKR_WIDTH      = settings.get('MARKER_WIDTH')             # used to determine if markes will overlap
-MRK_FONTSCALE  = settings.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT = settings.get('MARKER_FONTWEIGHT')
-GRID_LINEWIDTH   = settings.get('GRID_linewidth')
+M2OFFSET       = defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+M3OFFSET       = defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+MKR_WIDTH      = defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
+MRK_FONTSCALE  = defaults.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT = defaults.get('MARKER_FONTWEIGHT')
+GRID_LINEWIDTH   = defaults.get('GRID_linewidth')
 
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -459,8 +459,7 @@ def P3_PBP_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper,
 def P3_score(_ax, home_scores, away_scores, game_team_desc):
     
     (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    print('p3_score h=',home_team,'a=',away_team, 'hf=',home_scores[-1],'af = ',away_scores[-1])
-    # print(f'P3_score  US:{our_team} OPP:{opp_team} TT:{top_team} BT:{bot_team} HT:{home_team} AT:{away_team}')
+    
     D1_color = dimmer(get_color(home_team))
     D2_color = dimmer(get_color(away_team))
        
@@ -484,8 +483,6 @@ def P3_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
     home_color = dimmer(get_color(home_team))
     away_color = dimmer(get_color(away_team))
     
-    print('p3_scoremargin h=',home_team,'a=',away_team,'scm=',_scoreMargins[-1])
-
     import math
     mx = abs(max(_scoreMargins))
     mi = abs(min(_scoreMargins))
@@ -561,7 +558,6 @@ def make_scoremargin(play_by_play):
         home_scores.extend([last_home_score] * (needed + 2))        
         away_scores.extend([last_away_score] * (needed + 2))
 
-    print('',len(scoreMargins),'h',home_scores[-1],'a',away_scores[-1])    
     return scoreMargins, home_scores, away_scores
 
 def get_title_and_friends(game_data, boxscore):
@@ -698,7 +694,7 @@ def p3_layout(title):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
-    data_source = settings.get('SOURCE')
+    data_source = defaults.get('SOURCE')
     if   'WEB:'  in data_source and SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
     
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
@@ -718,7 +714,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     # score plot shown for winner needs home/away teams for colors
     # plus minus the same thing
     
-    plt.style.use(settings.get('PLOT_COLOR_STYLE'))
+    plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
     axd,E1,TL,TR,MD,E2,BL,BR,E3 = p3_layout(debug_title)
 
     # winning team goes on top 

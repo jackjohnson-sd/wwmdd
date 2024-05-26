@@ -1,41 +1,61 @@
 import json 
 
-class defaults :
+defaults = None
+
+class default :
     
     stuff = {}
-    fn = 'settings.json'
 
-    def __init__(self):
+    def __init__(self,fn='settings.json'):
+        
         try:    
-            with open(self.fn, "r") as f:
+            with open(fn, "r") as f:
                 self.stuff = json.load(f)
         except:
-                print(f'Failed to load {self.fn} as json settings file.')
+                print(f'Failed to load {fn} as json settings file.')
                 print('Using default values.')
                 
-                self.stuff = {
-                    'GOOD_EVENT_COLOR': 'mediumseagreen', 
-                    'BAD_EVENT_COLOR' : 'cornflowerblue', 
-                    'GRID_COLOR'      : 'dimgrey', 
-                    'STINT_COLOR'     : 'dimgrey', 
-                    'PM_PLUS_COLOR'   : 'maroon', 
-                    'PM_MINUS_COLOR'  : 'darkgreen', 
-                    'TABLE_COLOR'     : 'darkgoldenrod', 
-                    'PLOT_COLOR_STYLE': 'dark_background', 
+                self.stuff =  {
+                  "dbga"         : "OFF"
+                , "dbgb"         : "OFF"
+                , "dbgc"         : "OFF"
 
-                    'DB_NAME'         : 'web', 
-                    
-                    'TESTDATA_START_DAY'    : '2023-04-01', 
-                    'TESTDATA_STOP_DAY'     : '2023-04-10', 
-                    'TESTDATA_TEAM'         : 'OKC', 
-                    
-                    "M2OFFSET"        : 4.0,
-                    "M3OFFSET"        : 2.5,
-                    "MRK_WIDTH"       : 28,
+                , "SAVE_GAME_AS_CSV"  : "OFF"
+                , "SAVE_GAME_DIR"     : "llm_training_data"
 
-                    "MRK_FONTSCALE"      : 2.7,
-                    "MRK_FONTWEIGHT"    : "demi"
-                }
+                , "GOOD_EVENT_COLOR"  : "mediumseagreen"
+                , "BAD_EVENT_COLOR"   : "cornflowerblue"
+                , "GRID_COLOR"        : "dimgrey"
+                , "STINT_COLOR"       : "dimgrey"
+                , "PM_PLUS_COLOR"     : "maroon"
+                , "PM_MINUS_COLOR"    : "darkgreen"
+                , "TABLE_COLOR"       : "goldenrod"
+                , "PLOT_COLOR_STYLE"  : "dark_background"
+            
+                , "STINT_COLOR_PLUS"       : "forestgreen"
+                , "STINT_COLOR_MINUS"      : "firebrick"
+
+                , "MARKER_2_STACK_OFFSET"  : 2.7 
+                , "MARKER_3_STACK_OFFSET"  : 4.7
+                , "MARKER_WIDTH"           : 28
+                , "MARKER_FONTSCALE"       : 2.7
+                , "MARKER_FONTWEIGHT"      : "demi"
+                , "GRID_linewidth"         : 1.2
+
+                , "BOX_COL_COLOR"         : "sienna"
+                , "BOX_COL_COLOR_ALT"     : "chocolate"
+
+                , "START_DAY"            : "2024-05-01" 
+                , "STOP_DAY"             : "2024-05-31"
+                , "TEAM"                 : "OKC"
+            
+                , "dSOURCE"    : "nba.sqlite"
+                , "SOURCE"     : "WEB:"
+                , "zSOURCE"    : "FILE:llm_results/claude_sonnet.csv"
+                , "tSOURCE"    : "FILE:llm_training_data"
+                , "cSOURCE"    : "CLAUDE:claude_test"
+     
+                }                
 
     def get(self, _name):
        return self.stuff[_name]

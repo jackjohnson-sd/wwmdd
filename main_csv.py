@@ -1,7 +1,7 @@
 import pandas as pd
 
 from play_by_play import generatePBP
-from plots import plot3, settings
+from plots import plot3, defaults
 
 def main(file_dir_name):
 

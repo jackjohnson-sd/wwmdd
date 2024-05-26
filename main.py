@@ -2,9 +2,10 @@ import sys
 import pandas as pd
 from data_load import loadNBA_data
 from play_by_play import generatePBP
-from plots import plot3, settings
+from plots import plot3
 import main_web
 import main_csv
+
 
 def getArgs():
 
@@ -16,12 +17,6 @@ def getArgs():
         if (sys.argv[i].find("opponent=")>-1):
             opponent = sys.argv[i].split('=')
             opponent = opponent[1]
-            # test print("opponent = ",opponent)
-
-        plotNbrStr = ''
-        if (sys.argv[i].find("plotnumber=")>-1):
-            plotNbrStr = sys.argv[i].split('=')
-        # test print("plotnumber = ",plotNbr)
     
     return opponent
 
@@ -29,11 +24,11 @@ dfs         = {}    # has everthing that was in db as dict of DateFrame by colum
 db_con      = None  # keep this around to get play_by_play when needed
 
 def main():
-
-    _TEAM       = settings.get('TEAM')      # OKC
-    _START_DAY  = settings.get('START_DAY') # 2023-01-01
-    _STOP_DAY   = settings.get('STOP_DAY')  # 2023-04-20
-    DB_FILENAME = settings.get('SOURCE')
+    from settings import defaults
+    _TEAM       = defaults.get('TEAM')      # OKC
+    _START_DAY  = defaults.get('START_DAY') # 2023-01-01
+    _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
+    DB_FILENAME = defaults.get('SOURCE')
 
     _dfs, db_con = loadNBA_data(DB_FILENAME)
     # brutal appoach to get data from the first 'cell' in a data frame
@@ -58,11 +53,19 @@ def main():
 
     db_con.close()
 
+import settings  
 
 if __name__ == "__main__":
     import claude
-    
-    data_source = settings.get('SOURCE')
+
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--json", help="specify json file. default is settings.json")
+    args = parser.parse_args()
+
+    settings.defaults = settings.default(args.json if args.json else None)
+        
+    data_source = settings.defaults.get('SOURCE')
 
     # get games and play by play from nba_api
     if   'WEB:'  in data_source:  main_web.main()
@@ -72,3 +75,6 @@ if __name__ == "__main__":
     elif 'CLAUDE:' in data_source:  claude.main(data_source.split(':')[1])
     # get games and play_by_play from kaggle sourced nba_sqlite DB
     else: main()  
+    
+    # modify launch.json  add  this to use alternate json file 
+    # "args": ["--json", "settings2.json"]

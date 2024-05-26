@@ -41,12 +41,11 @@ def shorten_player_name(what, max_length):
         return what[0] + '. ' + what.split(' ')[1]
     return what
 
-def stack_markers(yy_, sec_, color_, nplayers_):
+def stack_markers(yy_, sec_, color_):
     
     M2OFFSET       = defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
     M3OFFSET       = defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
     MKR_WIDTH      = defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
-
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
@@ -63,7 +62,7 @@ def stack_markers(yy_, sec_, color_, nplayers_):
 
     # a hopeless attempt to scale size based # players
     # more players means less space for our stack of 3
-    m = nplayers_ / 14
+    m = 1 #nplayers_ / 14
 
     # each marker takes this number of seconds to display
     open_space = MKR_WIDTH
@@ -380,7 +379,7 @@ def plot_box_score(axis, box_score, players):
         y = -5 + ((i) * 10)
         plot_boxscore_row(start, y,[trows[i]] + bs)
 
-def plot_stints_events(axis, axis2, _y, player_cnt, play_times, events, flipper):
+def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
     starts = list(map(lambda x: x[0], play_times))
     widths = list(map(lambda x: x[1], play_times))
     pms    = list(map(lambda x: x[2], play_times))
@@ -398,7 +397,7 @@ def plot_stints_events(axis, axis2, _y, player_cnt, play_times, events, flipper)
     marker__  = events[3::4] 
     y__       = [_y] * len(sec__)
 
-    stack_markers(y__, sec__, color__, player_cnt)
+    stack_markers(y__, sec__, color__)
 
     for idx in range(0,len(sec__)):
         if type(marker__[idx]) != type([]):
@@ -435,10 +434,6 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, fl
     
     ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
     ax.grid(True, axis='x', color=GRID_C, linestyle='-', linewidth=GRID_LINEWIDTH, zorder= Z_GRID)
-    
-    ax3 = ax.twinx()
-
-    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
    
     _players = list(playTimesbyPlayer.keys())
     _player_cnt = len(_players)
@@ -449,15 +444,17 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, fl
 
     ax.set_ylim(first_ytick , last_ytick)
 
-    # ax2 is where we plot boxscore and events
     ax2 = ax.twinx()        
     ax2.set_ylim(first_ytick , last_ytick)
     ax2.yaxis.set_visible(False)
+
+    ax3 = ax.twinx()
 
     for s in ['top', 'right', 'bottom', 'left']:
         ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)    
 
+    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
     if bx_score._team_name == top_team:
         plot_score(ax3, score[0], score[1], game_team_desc)
     else:
@@ -470,7 +467,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, fl
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints_events(ax,ax2, _y, _player_cnt, play_times, events, flipper)
+        plot_stints_events(ax,ax2, _y, play_times, events, flipper)
         
     plot_box_score(ax2,bx_score,_players)
     
@@ -479,14 +476,6 @@ def plot_prep(our_stints, game_data, scoreMargins, team = None, opponent = False
     our_stints_by_player = our_stints[0]
     boxscore = box_score(our_stints[1])
 
-    players = list(our_stints_by_player.keys())
-    starters = []
-    for player in players:
-        if len(our_stints_by_player[player]) > 0:
-            # stint start from first stint of player that has stints, 0 means start of game
-            if our_stints_by_player[player][0][1] == 0:
-                starters += [player]
-
     if opponent:
         teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
         teams.remove(team)
@@ -494,12 +483,28 @@ def plot_prep(our_stints, game_data, scoreMargins, team = None, opponent = False
         except: a = 1
         
         team = list(teams)[0]
-    
+
     boxscore.set_team_name(team)
 
-    bench = list(set(players) - set(starters))
-    players = starters + bench
+    players = list(our_stints_by_player.keys())
+    
+    # this exercise is to have the starters first then bench sorted by playing time
+    starters = []
+    for player in players:
+        # this should not be needed
+        if len(our_stints_by_player[player]) > 0:
+            # stint start from first stint of player that has stints, 0 means start of game
+            if our_stints_by_player[player][0][1] == 0:
+                starters += [player]
 
+    bench = list(set(players) - set(starters))
+    
+    def fn(p) : return sum(list(map(lambda x:x[0],our_stints_by_player[p])))
+    ben = sorted(bench, key = lambda x:fn(x))
+    ben.reverse()
+    
+    players = starters + ben
+    
     playTimesbyPlayer = {}
     events_by_player = {}
 

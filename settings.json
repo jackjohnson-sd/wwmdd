@@ -31,12 +31,12 @@
 
     , "START_DAY"            : "2024-05-01" 
     , "STOP_DAY"             : "2024-05-31"
-    , "TEAM"                 : "OKC"
+    , "TEAM"                 : "DAL"
  
     , "dSOURCE"    : "nba.sqlite"
     , "SOURCE"     : "WEB:"
     , "zSOURCE"    : "FILE:llm_results/claude_sonnet.csv"
-    , "tSOURCE"    : "FILE:llm_training_data"
+    , "fSOURCE"    : "FILE:llm_training_data"
     , "cSOURCE"    : "CLAUDE:claude_test"
      
 }

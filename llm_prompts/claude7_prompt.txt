@@ -1,0 +1,78 @@
+COMMENT: 
+
+Similar to the 6 series of prompts, I'm using example games (CSV-formatted PbPs) with teams that I do not prompt the LLM to include in the hypothetical game.
+
+However, in the 7 series prompts, I'm prompting the LLMs to provide a game including OKC (OKC vs GSW), so that we can view a game with
+more familiar players to us. 
+
+1.
+Here are exerts from a CSV-formatted play by play of an NBA game: 
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (7:11 PM EST),0,0,,,,,,
+1,JUMPBALL,1,12:00,Jump Ball Capela vs. Lively II: Tip to Johnson,0,0,Clint Capela,ATL,Dereck Lively II,DAL,Jalen Johnson,ATL
+2,2POINT.ASSIST,1,11:40,Johnson 1' Layup (2 PTS) (Young 1 AST),0 - 2,2,Jalen Johnson,ATL,Trae Young,ATL,,
+3,2POINT,1,11:18,Doncic 1' Driving Layup (2 PTS),2 - 2,TIE,Luka Doncic,DAL,,,,
+6,2POINTMISS.BLOCK,1,10:29,MISS Young 1' Driving LayupLively II BLOCK (1 BLK),4 - 4,TIE,Trae Young,ATL,,,Dereck Lively II,DAL
+7,REBOUND,1,10:26,Lively II REBOUND (Off:0 Def:1),4 - 4,TIE,Dereck Lively II,DAL,,,,
+8,3POINT.ASSIST,1,10:24,Green 3PT Running Jump Shot (3 PTS) (G. Williams 1 AST),7 - 4,-3,Josh Green,DAL,Grant Williams,DAL,,
+10,2POINTMISS,1,9:45,MISS Green 6' Turnaround Bank Shot,7 - 7,TIE,Josh Green,DAL,,,,
+12,3POINTMISS,1,9:33,MISS Murray 26' 3PT Pullup Jump Shot,7 - 7,TIE,Dejounte Murray,ATL,,,,
+13,REBOUND,1,9:30,Doncic REBOUND (Off:0 Def:1),7 - 7,TIE,Luka Doncic,DAL,,,,
+14,2POINT,1,9:22,Doncic 17' Step Back Jump Shot (6 PTS),9 - 7,-2,Luka Doncic,DAL,,,,
+15,VIOLATION,1,9:07,Jones Jr. Violation:Kicked Ball (T.Ford),9 - 7,-2,Derrick Jones Jr.,DAL,,,,
+18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+19,TURNOVER,1,8:49,Lively II Offensive Foul Turnover (P1.T1),9 - 7,-2,Dereck Lively II,DAL,,,,
+28,TIMEOUT,1,7:49,HAWKS Timeout: Regular (Full 1 Short 0),11 - 7,-4,,,,,,
+29,SUB,1,7:49,SUB: Hardaway Jr. FOR Jones Jr.,11 - 7,-4,Derrick Jones Jr.,DAL,Tim Hardaway Jr.,DAL,,
+41,FTMAKE,1,7:08,Young Free Throw 1 of 1 (3 PTS),13 - 10,-3,Trae Young,ATL,,,,
+49,FTMISS,1,6:36,MISS Capela Free Throw 1 of 1,16 - 12,-4,Clint Capela,ATL,,,,
+61,STEAL.TURNOVER,1,4:42,Bogdanovic STEAL (1 STL)Exum Lost Ball Turnover (P1.T2),22 - 16,-6,Dante Exum,DAL,Bogdan Bogdanovic,ATL,,
+
+
+
+The below lines describe the players’ roles in the events in the CSV-formatted play-by-play:
+
+For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
+column is the player committing the event. 
+
+player1_team_abbreviation is the team that player1_name is a player on.
+
+In some cases, the player2_name column is another player associated with this event. 
+
+player2_team_abbreviation is the team that player2_name is a player on. 
+
+For example, with the FOUL event, player1_name is the player committing the foul and player2_name is 
+the player that is being fouled against by player1_name.
+
+For example, with the STEAL.TURNOVER event, player1_name committed the turnover and player2_name is 
+credited with the steal. 
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game. 
+
+For example, with the REBOUND event, player1_name commits the offensive or defensive rebound and
+has possession of the ball. 
+
+For example, with the 3POINT.ASSIST event, player1_name makes the shot and player2_name is credited with the assist.
+
+For example, with the FTMAKE event, player1_name makes the free throw. 
+
+For example, with the 3POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block. 
+
+For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block.
+
+Other eventmsgtype are:  
+2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
+3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
+
+
+
+2.
+I've attached play by plays of 3 complete NBA games.  
+
+Provide the first quarter play by play of a hypothetical game between OKC and GSW on January 30, 2023 in this CSV format.
+
+(( Pasted in prompt:
+        MINvDAL20240131.csv
+        DALvSAC20240127.csv
+        DALvORL20240129.csv
+        ))

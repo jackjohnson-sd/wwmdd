@@ -1,23 +1,33 @@
+COMMENTS:
+For exerts from a CSV-formatted play by play, I'm using ATLvDAL20240126.csv 
+
+Therefore, I will not ask ChatGPT to provide a game involving either ATL or DAL.
+
+In PbP event 96 to 97, the score changes without reason... 
+
+
 1.
-Here are exerts of a CSV-formatted play by play of an NBA game: 
- ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
-1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
-2,2POINT.ASSIST,1,11:54,Jal. Williams 2' Cutting Dunk Shot (2 PTS) (Gilgeous-Alexander 1 AST),2 - 0,-2,Jalen Williams,OKC,Shai Gilgeous-Alexander,OKC,,
-3,FOUL,1,11:41,Dort S.FOUL (P1.T1) (T.Brothers),2 - 0,-2,Luguentz Dort,OKC,Luka Doncic,DAL,,
-4,FTMAKE,1,11:41,Doncic Free Throw 1 of 2 (1 PTS),2 - 1,-1,Luka Doncic,DAL,,,,
-6,TURNOVER,1,11:17,Thunder Turnover: Shot Clock (T#1),2 - 2,TIE,,,,,,
-7,STEAL.TURNOVER,1,11:01,Jones Jr. Lost Ball Turnover (P1.T1)Holmgren STEAL (1 STL),2 - 2,TIE,Derrick Jones Jr.,DAL,Chet Holmgren,OKC,,
-8,2POINT.ASSIST,1,10:49,Dort 1' Layup (2 PTS) (Joe 1 AST),4 - 2,-2,Luguentz Dort,OKC,Isaiah Joe,OKC,,
-11,2POINTMISS,1,10:34,MISS Gafford 1' Driving Layup,5 - 2,-3,Daniel Gafford,DAL,,,,
-12,REBOUND,1,10:32,Gafford REBOUND (Off:1 Def:0),5 - 2,-3,Daniel Gafford,DAL,,,,
-13,2POINT,1,10:32,Gafford 1' Putback Dunk (2 PTS),5 - 4,-1,Daniel Gafford,DAL,,,,
-14,3POINT.ASSIST,1,10:14,Holmgren 25' 3PT Jump Shot (3 PTS) (Dort 1 AST),8 - 4,-4,Chet Holmgren,OKC,Luguentz Dort,OKC,,
-15,STEAL.TURNOVER,1,10:02,Doncic Bad Pass Turnover (P1.T2)Jal. Williams STEAL (1 STL),8 - 4,-4,Luka Doncic,DAL,Jalen Williams,OKC,,
-19,3POINT.ASSIST,1,9:22,Dort 25' 3PT Jump Shot (6 PTS) (Jal. Williams 1 AST),13 - 4,-9,Luguentz Dort,OKC,Jalen Williams,OKC,,
-20,TIMEOUT,1,9:22,MAVERICKS Timeout: Regular (Full 1 Short 0),13 - 4,-9,,,,,,
-23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
-26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
+Here are exerts from a CSV-formatted play by play of an NBA game: 
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (7:11 PM EST),0,0,,,,,,
+1,JUMPBALL,1,12:00,Jump Ball Capela vs. Lively II: Tip to Johnson,0,0,Clint Capela,ATL,Dereck Lively II,DAL,Jalen Johnson,ATL
+2,2POINT.ASSIST,1,11:40,Johnson 1' Layup (2 PTS) (Young 1 AST),0 - 2,2,Jalen Johnson,ATL,Trae Young,ATL,,
+3,2POINT,1,11:18,Doncic 1' Driving Layup (2 PTS),2 - 2,TIE,Luka Doncic,DAL,,,,
+6,2POINTMISS.BLOCK,1,10:29,MISS Young 1' Driving LayupLively II BLOCK (1 BLK),4 - 4,TIE,Trae Young,ATL,,,Dereck Lively II,DAL
+7,REBOUND,1,10:26,Lively II REBOUND (Off:0 Def:1),4 - 4,TIE,Dereck Lively II,DAL,,,,
+8,3POINT.ASSIST,1,10:24,Green 3PT Running Jump Shot (3 PTS) (G. Williams 1 AST),7 - 4,-3,Josh Green,DAL,Grant Williams,DAL,,
+10,2POINTMISS,1,9:45,MISS Green 6' Turnaround Bank Shot,7 - 7,TIE,Josh Green,DAL,,,,
+12,3POINTMISS,1,9:33,MISS Murray 26' 3PT Pullup Jump Shot,7 - 7,TIE,Dejounte Murray,ATL,,,,
+13,REBOUND,1,9:30,Doncic REBOUND (Off:0 Def:1),7 - 7,TIE,Luka Doncic,DAL,,,,
+14,2POINT,1,9:22,Doncic 17' Step Back Jump Shot (6 PTS),9 - 7,-2,Luka Doncic,DAL,,,,
+15,VIOLATION,1,9:07,Jones Jr. Violation:Kicked Ball (T.Ford),9 - 7,-2,Derrick Jones Jr.,DAL,,,,
+18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+19,TURNOVER,1,8:49,Lively II Offensive Foul Turnover (P1.T1),9 - 7,-2,Dereck Lively II,DAL,,,,
+28,TIMEOUT,1,7:49,HAWKS Timeout: Regular (Full 1 Short 0),11 - 7,-4,,,,,,
+29,SUB,1,7:49,SUB: Hardaway Jr. FOR Jones Jr.,11 - 7,-4,Derrick Jones Jr.,DAL,Tim Hardaway Jr.,DAL,,
+41,FTMAKE,1,7:08,Young Free Throw 1 of 1 (3 PTS),13 - 10,-3,Trae Young,ATL,,,,
+49,FTMISS,1,6:36,MISS Capela Free Throw 1 of 1,16 - 12,-4,Clint Capela,ATL,,,,
+61,STEAL.TURNOVER,1,4:42,Bogdanovic STEAL (1 STL)Exum Lost Ball Turnover (P1.T2),22 - 16,-6,Dante Exum,DAL,Bogdan Bogdanovic,ATL,,
 
 
 
@@ -27,7 +37,6 @@ For example, the item in the eventmsgtype column is the type of basketball event
 column is the player committing the event. 
 
 player1_team_abbreviation is the team that player1_name is a player on.
-
 
 In some cases, the player2_name column is another player associated with this event. 
 
@@ -61,9 +70,10 @@ Other eventmsgtype are:
 2.
 I've attached play by plays of 3 complete NBA games.  
 
-Provide the first quarter play by play of a hypothetical game between OKC and PHI on January 12, 2023 in this CSV format.
+Provide the first quarter play by play of a hypothetical game between CHI and LAL on March 26, 2023 in this CSV format.
 
 (( Pasted in prompt:
-        OKC.BOS.2023-01-03_.csv
-        OKC.DAL.2024-05-15_.csv
-        MIA.OKC.2023-01-10_.csv))
+        MINvDAL20240131.csv
+        DALvSAC20240127.csv
+        DALvORL20240129.csv
+        ))

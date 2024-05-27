@@ -4,7 +4,7 @@ import matplotlib
 from box_score import box_score,PM
 
 from play_by_play import dump_pbp
-from nba_colors import get_color, dimmer 
+from nba_colors import get_color, dimmer,brighter
 from event_prep import event_legend, event_to_size_color_shape
 
 from settings import defaults 
@@ -261,7 +261,7 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_team_desc):
     lx3 = lx2 + lxoffset
     lx4 = lx3 + lxoffset + 20
     
-    ly0 = y + 8
+    ly0 = y + 5
     
     location = [
         [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0], [lx4,ly0]],
@@ -277,8 +277,8 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_team_desc):
             # fontweight = MRK_FONTWEIGHT
         )
         
-    top_co = get_color(top_team)
-    bot_co = get_color(bot_team)
+    top_co = brighter(get_color(top_team))
+    bot_co = brighter(get_color(bot_team))
     
     top_data = home_scores if top_team == home_team else away_scores
     bot_data = away_scores if bot_team == away_team else home_scores
@@ -339,10 +339,7 @@ def plot_box_score(axis, box_score, players):
         rx = '00-00' if col_label in ['FG','REB','3PT','FT'] else '000'
 
         # gets tick width
-        t = test_ax.text(0, 0, s = rx, 
-            size = 22 / MRK_FONTSCALE, 
-            # fontweight = MRK_FONTWEIGHT
-        )
+        t = test_ax.text(0, 0, s = rx, size = 24 / MRK_FONTSCALE )
         
         transf = axis.transData.inverted()
         bb = t.get_window_extent()
@@ -352,7 +349,7 @@ def plot_box_score(axis, box_score, players):
         # funky as REB is last of the 00-00 columns others are 000
         # the .9 is so we have space on wither side
         # we use this to center our values under our column labels
-        return (bb_xy.x1 - bb_xy.x0) + (-50 if col_label == 'REB' else 0.9)
+        return (bb_xy.x1 - bb_xy.x0) + (-50 if col_label == 'REB' else 0)
 
     column_widths = [470] + list(map(lambda x:make_column_widths(x,axis),bs_columns))
    
@@ -369,7 +366,7 @@ def plot_box_score(axis, box_score, players):
 
             start += column_widths[idx]
 
-    ROW_START = 2880 + 30
+    ROW_START = 2880 + 50
 
     # does the column headers
     plot_boxscore_row(ROW_START,-5 + len(trows) * 10,[''] + bs_columns)
@@ -610,9 +607,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     # top team = winner, bot_team = loser
     # home_team - plus/minus and score 
-    # home ahead is + plus, if away 
-    # score plot shown for winner needs home/away teams for colors
-    # plus minus the same thing
+    # ??? home ahead is + plus, if away 
     
     plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
     axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
@@ -669,7 +664,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         labelcolor = TABLE_C,
         fontsize ='small',
         markerfirst=True,
-        ncols = 5,
+        ncols = 7,
         loc = 'center left', 
         frameon = False,
         handletextpad= 0.10,
@@ -690,7 +685,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             axd[r].xaxis.set_visible(False)
     
     plt.subplots_adjust(
-        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.015
+        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
     )
 
     plt.show()

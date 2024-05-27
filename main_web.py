@@ -67,13 +67,14 @@ def main():
 
         game_data = pd.Series(new_values,index=our_col_names)
         game_data.play_by_play = nba.get_play_by_play(game_data.game_id)
-          
-        our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
-        opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
+        if game_data.play_by_play.shape[0] != 0:
+            our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
+            opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
 
-        plot3(_TEAM, game_data,
-            our_playerstints_and_boxscore, 
-            opp_playerstints_and_boxscore)    
-
+            plot3(_TEAM, game_data,
+                our_playerstints_and_boxscore, 
+                opp_playerstints_and_boxscore)    
+        else:
+            print(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
     return 
 

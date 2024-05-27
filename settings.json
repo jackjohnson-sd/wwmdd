@@ -22,7 +22,7 @@
     , "MARKER_2_STACK_OFFSET"  : 1.8 
     , "MARKER_3_STACK_OFFSET"  : 3.4
     , "MARKER_WIDTH"           : 28
-    , "MARKER_FONTSCALE"       : 2.7
+    , "MARKER_FONTSCALE"       : 2.85
     , "MARKER_FONTWEIGHT"      : "demi"
     , "GRID_linewidth"         : 0.5
 
@@ -31,7 +31,7 @@
 
     , "START_DAY"            : "2024-05-01" 
     , "STOP_DAY"             : "2024-05-31"
-    , "TEAM"                 : "DAL"
+    , "TEAM"                 : "MIN"
  
     , "dSOURCE"    : "nba.sqlite"
     , "SOURCE"     : "WEB:"

@@ -115,7 +115,6 @@ def period_clock_to_seconds(row):
 def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
     pbp = game_data.play_by_play
-    game_data.team_color = 'green' if not OPPONENT else 'blue'
 
     if  pbp.shape[0] != 0:
         # creates a computed column of seconds into game of event 

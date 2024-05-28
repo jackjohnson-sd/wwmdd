@@ -37,7 +37,7 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "SOURCE"     : "WEB:"
-    , "zSOURCE"    : "FILE:llm_results/claude_sonnet.csv"
+    , "SaOURCE"    : "FILE:llm_results/claude7.csv"
     , "fSOURCE"    : "FILE:llm_training_data"
     , "cSOURCE"    : "CLAUDE:claude_test"
      

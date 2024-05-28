@@ -6,9 +6,9 @@ class default :
     
     stuff = {}
 
-    def __init__(self,fn='settings.json'):
+    def __init__(self,fn='wwmdd.json'):
         
-        if fn == None: fn = 'settings.json'
+        if fn == None: fn = 'wwmdd.json'
         try:    
             with open(fn, "r") as f:
                 self.stuff = json.load(f)

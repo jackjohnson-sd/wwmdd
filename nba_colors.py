@@ -6,18 +6,21 @@ def get_color(__name):
     return t['colors'][t['color2']][0]
 
 def brighter(hexstring):
+    import matplotlib
+    if '#' not in hexstring: hexstring = matplotlib.colors.cnames[hexstring]
 
     r = float(int(hexstring[1:3],16)) * 1.3
     g = float(int(hexstring[3:5],16)) * 1.3
     b = float(int(hexstring[5:7],16)) * 1.3
 
     rgbZ = [0,0,0]
-    rgbZ[0] = int(r)
-    rgbZ[1] = int(g)
-    rgbZ[2] = int(b) 
+    rgbZ[0] = min(int(r),255)
+    rgbZ[1] = min(int(g),255)
+    rgbZ[2] = min(int(b),255) 
 
     rgb_s = '#'+ hex(rgbZ[0])[2:].rjust(2,'0') + hex(rgbZ[1])[2:].rjust(2,'0') + hex(rgbZ[2])[2:].ljust(2,'0')
     return rgb_s
+
 def dimmer(hexstring):
 
     r = float(int(hexstring[1:3],16)) * .7

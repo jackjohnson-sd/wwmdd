@@ -1,10 +1,8 @@
 import pandas as pd
 
 from plots import plot3, defaults
-from play_by_play import generatePBP 
-
+from play_by_play import generatePBP, dump_pbp
 import nba_web_api as nba
-
 
 def _get_opp_game(g, teams):
 
@@ -34,6 +32,7 @@ def main():
     _TEAM       = defaults.get('TEAM')      # OKC
     _START_DAY  = defaults.get('START_DAY') # 2023-01-01
     _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
+    SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
 
     teams = nba.get_teams()
 
@@ -67,9 +66,13 @@ def main():
 
         game_data = pd.Series(new_values,index=our_col_names)
         game_data.play_by_play = nba.get_play_by_play(game_data.game_id)
+        
         if game_data.play_by_play.shape[0] != 0:
+            
             our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
             opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
+
+            if SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
 
             plot3(_TEAM, game_data,
                 our_playerstints_and_boxscore, 

@@ -28,9 +28,11 @@
 
     , "BOX_COL_COLOR"         : "sienna"
     , "BOX_COL_COLOR_ALT"     : "chocolate"
+    , "BOX_COL_MAX_COLOR"     : "goldenrod"
+
 
     , "START_DAY"            : "2024-05-01" 
-    , "STOP_DAY"             : "2024-05-31"
+    , "STOP_DAY"             : "2024-05-26"
     , "TEAM"                 : "MIN"
  
     , "dSOURCE"    : "nba.sqlite"

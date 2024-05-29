@@ -7,7 +7,7 @@
 5,2POINT,1,11:10,Dort 10' Driving Layup (2 PTS),4 - 0,4,Luguentz Dort,OKC,,,,
 6,TURNOVER,1,10:55,Smith Lost Ball Turnover (P1.T1),4 - 0,4,Jalen Smith,IND,,,,
 7,STEAL,1,10:53,Gilgeous-Alexander STEAL (1 STL),4 - 0,4,Shai Gilgeous-Alexander,OKC,,,,
-8,2POINTMISS.BLOCK,1,10:39,MISS Giddey 5' Layup, Turner BLOCK (1 BLK),4 - 0,4,Josh Giddey,OKC,,,Myles Turner,IND
+8,2POINTMISS.BLOCK,1,10:39,MISS Giddey 5' Layup Turner BLOCK (1 BLK),4 - 0,4,Josh Giddey,OKC,,,Myles Turner,IND
 9,REBOUND,1,10:37,Turner REBOUND (Def:1),4 - 0,4,Myles Turner,IND,,,,
 10,3POINT,1,10:22,Hield 3PT Jump Shot (3 PTS),4 - 3,1,Buddy Hield,IND,,,,
 11,FOUL,1,10:05,Robinson-Earl Personal Foul (P1),4 - 3,1,Jeremiah Robinson-Earl,OKC,Tyrese Haliburton,IND,,
@@ -295,4 +295,3 @@
 293,STEAL,4,0:14,McConnell STEAL (9 STL),104 - 109,-5,T.J. McConnell,IND,,,,
 294,2POINT,4,0:05,McConnell Layup (38 PTS),104 - 111,-7,T.J. McConnell,IND,,,,
 295,ENDOFPERIOD,4,0:00,End of 4th Period,104 - 111,-7,,,,,,
-

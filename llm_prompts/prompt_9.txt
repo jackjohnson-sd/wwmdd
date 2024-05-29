@@ -1,22 +1,11 @@
-COMMENT:
-I'm continuing to prompt the LLM to provide a hypothetical game between OKC and another team, with both of those teams not appearing in the example
-PbPs in CSV format.
-
-I'm using the same 3 example games, but changing the team OKC is playing against (now NYK, sereies 7 prompt used GSW)
-
-I'm doing this so we can have sets a data to analyze how the LLMs create a hypothetical game.
-
-Since the 3 games are constant, we can see how the LLms deviate in their hypothetical games based on the teams prompted to play.
-
-If we notice strong patterns in the PbP, we can judge how well the LLM performs in creating new data/PbPs, or if the LLM
-
+COMMENTS:
+For exerts from a CSV-formatted play by play, I'm using ATLvDAL20240126.csv 
 
 1.
 Here are exerts from a CSV-formatted play by play of an NBA game: 
 ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 0,STARTOFPERIOD,1,12:00,Start of 1st Period (7:11 PM EST),0,0,,,,,,
 1,JUMPBALL,1,12:00,Jump Ball Capela vs. Lively II: Tip to Johnson,0,0,Clint Capela,ATL,Dereck Lively II,DAL,Jalen Johnson,ATL
-2,2POINT.ASSIST,1,11:40,Johnson 1' Layup (2 PTS) (Young 1 AST),0 - 2,2,Jalen Johnson,ATL,Trae Young,ATL,,
 3,2POINT,1,11:18,Doncic 1' Driving Layup (2 PTS),2 - 2,TIE,Luka Doncic,DAL,,,,
 6,2POINTMISS.BLOCK,1,10:29,MISS Young 1' Driving LayupLively II BLOCK (1 BLK),4 - 4,TIE,Trae Young,ATL,,,Dereck Lively II,DAL
 7,REBOUND,1,10:26,Lively II REBOUND (Off:0 Def:1),4 - 4,TIE,Dereck Lively II,DAL,,,,
@@ -102,17 +91,19 @@ For example, with the SUB event, player1_name enters the game and player2_name l
 2.
 I've attached play by plays of 3 complete NBA games.  
 
-Only use players on the BKN and OKC team rosters during January 2023. 
+Provide the first quarter play by play of a hypothetical game between OKC and IND on March 31, 2023 in this CSV format.
 
-Ensure to include blocks, turnovers, and steals.
+In the play by play:
+
+Only use players on the OKC and IND team rosters during March 2023. 
+
+Ensure to include blocks, turnovers, and steals as events.
 
 Players who start the game play about 32 minutes per game.
 
 Players who enter the game later play about 16 or fewer minutes per game.
 
 All players usually play 6 - 8 minutes at a time at most before exiting the game. 
-
-Provide the first quarter play by play of a hypothetical game between OKC and BKN on January 15, 2023 in this CSV format.
 
 
 (( Pasted in prompt:

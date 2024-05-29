@@ -202,7 +202,7 @@ def plot_score(_ax, home_scores, away_scores, game_team_desc):
     _ax.scatter(range(0, len(home_scores)), home_scores, color=D1_color, s=.01)
     _ax.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
     
-def plot_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
+def plot_scoremargin(_ax, _scoreMargins, _zorder, game_team_desc ):
     
     (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
     
@@ -219,10 +219,7 @@ def plot_scoremargin(_ax, _scoreMargins, flipper, _zorder, game_team_desc ):
     _ax.set_ylim(-m, m)
     _ax.yaxis.set_visible(False)
     _ax.xaxis.set_visible(False)
-  
-    # if flipper:
-    #     _scoreMargins = list(map(lambda x: -x, _scoreMargins))
-    
+      
     _colors = list(map(lambda x: away_color if x < 0 else home_color, _scoreMargins))
 
     _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
@@ -417,7 +414,7 @@ def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
                         # fontweight = MRK_FONTWEIGHT
                         )
 
-def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, flipper, 
+def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,  
                  x_labels = 'TOP',
                  bx_score = None,
                  score    = None,
@@ -470,7 +467,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, fl
     if bx_score._team_name == top_team:
         plot_score(ax3, score[0], score[1], game_team_desc)
     else:
-        plot_scoremargin(ax3, scoreMargins, flipper, Z_SCRM, game_team_desc)
+        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_team_desc)
         plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_team_desc)
     
     for i, _player in enumerate(_players):
@@ -479,7 +476,8 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins, fl
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints_events(ax,ax2, _y, play_times, events, flipper)
+        plot_stints_events(ax,ax2, _y, play_times, events, bx_score.is_flipper()
+)
         
     plot_box_score(ax2,bx_score,_players)
     
@@ -625,9 +623,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     # TEAM1 is group1 data, opponennt is group2 data
     # away team gets the plus/minus flipped
     # plus minus is from the home team perspective
-
-    _ad1_flip = False
-    _ad2_flip = False
     
     if top_team == TEAM1:
         _ad1_ = axd[TL]
@@ -640,26 +635,20 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         _ad1_label = None
         _ad2_label = 'TOP'
 
-    if TEAM1 == home_team:
-        _ad2_flip = True
-    else:
-        _ad1_flip = True
-            
+
     team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
     # print('winner',top_team,' loser',bot_team,' home',home_team,' away',away_team)
     
-    boxscore1.plus_minus_flip(_ad1_flip)
+
     play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
-                 flipper  = _ad1_flip, 
                  x_labels =_ad1_label,
                  bx_score = boxscore1,
                  score = [home_scores, away_scores],
                  game_team_desc = team_desc
                  )
 
-    boxscore2.plus_minus_flip(_ad2_flip)
+
     play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
-                 flipper  = _ad2_flip, 
                  x_labels =_ad2_label,
                  bx_score = boxscore2,
                  score = [home_scores, away_scores],

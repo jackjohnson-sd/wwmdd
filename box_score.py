@@ -23,7 +23,6 @@ class box_score:
     _bsItemsB = ["3miss", "3make", "make", "miss", "FTmiss", "FTmake", "secs", "ORS"]
     _bsItems = _bsItemsA + _bsItemsB
     _boxScore = None
-    _flip = False
     _team_name = None
     _home_team = None
 
@@ -36,10 +35,8 @@ class box_score:
     def set_home_team_name(self, team):
         self._home_team = team
 
-    def plus_minus_flip(self, flip):
-        return
-        self._flip = flip
-
+    def is_flipper(self): self._team_name != self._home_team
+    
     def getBoxScore(self):
         return self._boxScore
 

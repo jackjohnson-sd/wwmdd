@@ -270,7 +270,6 @@ class box_score:
         def get_golden_ticket(bs_item):
                 
             def ech(plr, item):
-                print(plr,bs_item)
                 value = self._boxScore[plr][item]
                 if type(value) == type("aa"):
                     if "-" in value:
@@ -299,5 +298,5 @@ class box_score:
             if "-" in value:
                 value = value.split("-")[i]
                 
-        if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
+        # if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
         return str(self._max_by_items[item]) == str(value)

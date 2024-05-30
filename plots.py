@@ -353,7 +353,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
             return max(a)
 
         column_widthsnew  = [470] + list(map(lambda x:make_column_widths_new(x,axis), bx_col_data))
-        for a in zip(column_widthsnew, bs_columns,[99] + jj_tmp): print(int(a[0]),a[1],a[2])  
+        # for a in zip(column_widthsnew, bs_columns,[99] + jj_tmp): print(int(a[0]),a[1],a[2])  
     else : 
         column_widthsnew  = bx_col_data
 

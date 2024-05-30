@@ -1,3 +1,10 @@
+COMMENT:
+I'm providing Claude with an example game involving OKC.
+
+I'm using the Claude API workbench instead of online chatbot.
+
+PROMPTS:
+
 1.
 Here are exerts of a CSV-formatted play by play of an NBA game: 
  ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
@@ -19,15 +26,12 @@ Here are exerts of a CSV-formatted play by play of an NBA game:
 23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
 26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
 
-
-
 The below lines describe the players’ roles in the events in the CSV-formatted play-by-play:
 
 For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
 column is the player committing the event. 
 
 player1_team_abbreviation is the team that player1_name is a player on.
-
 
 In some cases, the player2_name column is another player associated with this event. 
 
@@ -44,7 +48,7 @@ For example, with the SUB event, player1_name enters the game and player2_name l
 For example, with the REBOUND event, player1_name commits the offensive or defensive rebound and
 has possession of the ball. 
 
-For example, with the 3POINT.ASSIST event, player1_name makes the shot for 3 ponts and player2_name is credited with the assist.
+For example, with the 3POINT.ASSIST event, player1_name makes the shot and player2_name is credited with the assist.
 
 For example, with the FTMAKE event, player1_name makes the free throw. 
 
@@ -52,25 +56,57 @@ For example, with the 3POINTMISS.BLOCK event, player1_name misses the shot and p
 
 For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block.
 
-For example with a 2POINT event, player1_name makes the shot for 3 points and there was no BLOCK or ASSIST
-
-For example with a 3POINT event, player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
-
-For example for a 2POINT.ASSIST , player1_name makes the shot and score 2 points there was no BLOCK or ASSIST
-
 Other eventmsgtype are:  
 2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
 3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
 
 
 
-2.
-I've attached play by plays of 3 complete NBA games. 
-Provide the first quarter play by play of a hypothetical game between OKC and GSW on January 30, 2023 in this CSV format.
+Details on SUB events:
+During a basketball game, different types of events occur. 
 
-((pasted in prompt:
-    BKN.OKC.2023-01-15_.csv
-    CHI.OKC.2023-01-13_.csv
-    PHI.OKC.2023-01-12_.csv
-))
+These include made shots, miss shots, fouls, rebounds, assists, turnovers, and player substitutions. 
+
+We call these substitution events SUBS. 
+
+In an NBA game, 5 players on each team can play at one time.
+
+A player can only enter a game for his team, and when he enters, a player from his team must exit. 
+
+It's important that a player not play too long for any one time. 
+
+It's also important that a player not play too many minutes during a game. 
+
+Coaches often substitute when a player does not seem competitive during a game. 
+
+Coaches also make player substitutions when a player is in foul trouble. 
+
+Our examples below shows only SUB events of a play by play for an NBA game between OKC and DAL. 
+
+The example also shows the period, time, description of event, score, score margin, and the player who exited and the player who 
+entered the game.
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game.
+
+
+In the play by play:
+Ensure to include blocks, turnovers, and steals as events.
+
+Players who start the game play about 32 minutes per game.
+
+Players who enter the game later play about 16 or fewer minutes per game.
+
+All players usually play 6 - 8 minutes at a time at most before exiting the game. 
+
+Only use players on the OKC and IND team rosters during March 2023. 
+
+
+Here is a complete NBA game play by play:
+((pasted: PHI.OKC.2023-01-12_.csv))
+
+
+2.
+I've attached a play by play of 1 complete NBA game.  
+
+Provide the first quarter play by play of a hypothetical game between OKC and IND on March 31, 2023 in this CSV format.
 

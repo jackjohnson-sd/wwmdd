@@ -164,3 +164,4 @@ _save_and_ignore/
 llm_training_data/
 claude_test/
 *.command
+Archive

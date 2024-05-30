@@ -37,7 +37,7 @@
  
     , "dSOURCE"    : "nba.sqlite"
     , "dSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_results/series_9_results"
+    , "SOURCE"    : "FILE:llm_results/series_10_results"
     , "fSOURCE"    : "FILE:llm_training_data"
     , "cSOURCE"    : "CLAUDE:claude_test"
      

@@ -1,8 +1,6 @@
 from datetime import timedelta
 
-
 PM = "\xB1"
-
 
 class box_score:
 
@@ -10,12 +8,12 @@ class box_score:
         "PTS",
         "MIN",
         "FG",
-        "3PT",
+        "3P",
         "FT",
-        "REB",
-        "BLK",
-        "AST",
-        "STL",
+        "RB",
+        "BK",
+        "AS",
+        "ST",
         "TO",
         "PF",
         PM,
@@ -25,6 +23,7 @@ class box_score:
     _boxScore = None
     _team_name = None
     _home_team = None
+    _max_by_items = {}
 
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
@@ -60,18 +59,18 @@ class box_score:
             t3Shots = d["3miss"] + d["3make"]
             if key != self._team_name:
                 d["FG"] = f"{tFGMakes}-{tFGShots}"
-                d["3PT"] = f"{d['3make']}-{t3Shots}"
+                d["3P"] = f"{d['3make']}-{t3Shots}"
                 d["FT"] = f"{d['FTmake']}-{d['FTmake'] + d['FTmiss']}"
                 d["MIN"] = str(timedelta(seconds=int(d["secs"])))[2:4]
-                d["REB"] = f"{d['ORS']}-{d['REB']}"
+                d["RB"] = f"{d['ORS']}-{d['RB']}"
             else:
-                d["REB"] = f"{d['ORS']}-{d['REB']}"
+                d["RB"] = f"{d['ORS']}-{d['RB']}"
                 d["FG"] = (
                     "--"
                     if tFGShots == 0
                     else str(int(float(tFGMakes) / float(tFGShots) * 100)) + "%"
                 )
-                d["3PT"] = (
+                d["3P"] = (
                     "--"
                     if t3Shots == 0
                     else str(int(float(d["3make"]) / float(t3Shots) * 100)) + "%"
@@ -93,6 +92,13 @@ class box_score:
                     )
                 d["MIN"] = str(timedelta(seconds=d["secs"] / 5))[2:4]
                 d[PM] = int(d[PM] / 5)
+
+            # d["MIN"] = '99'
+            # d[PM] = '30'
+            # d["FG"] = '99-99'
+            # d["3P"] = '99-99'
+            # d["FT"] = '99-99'
+            # d["RB"] = '99-99'
 
     def dump(self, _players=[]):
         print("                    ", end="")
@@ -131,14 +137,30 @@ class box_score:
         ourPlayers.remove(self._team_name)
         return list(map(lambda x: self._boxScore[x][item], ourPlayers))
 
+    def get_item_colwidth(self, item):
+        # return max([len(item)]+ list(map(lambda x: len(str(self._boxScore[x][item])), list(self._boxScore.keys()))))
+        # return max([item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys()))))
+        return [item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys())))
+        
+    def get_colwidths(self):
+        return list(map(lambda x: self.get_item_colwidth(x),self._bsItemsA))    
+        
     def update(self, _player, _item, val):
         if _player != None:
             if _player in self.get_players():
+                # if _item in self._bsItems : 
+                #     val = 10
+                #     self._boxScore[_player][_item] = 0
+                    
                 self._boxScore[_player][_item] += val
 
     def set_item(self, _player, _item, val):
         if _player != None:
             if _player in self.get_players():
+                # if _item in self._bsItems : 
+                #     val = 10
+                #     self._boxScore[_player][_item] = 0
+                    
                 self._boxScore[_player][_item] = val
 
     def sum_item(self, item):
@@ -177,72 +199,36 @@ class box_score:
             p3 = p3 if p3 != "" else None
 
             prev = _evnt
-            trapon = "Jack Johnson"
+            event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
+            is3 = "3PT" in event_description
+            
             match _evnt.eventmsgtype:
 
                 case 1:  # make
-                    is3 = "3PT" in (
-                        str(_evnt.visitordescription) + str(_evnt.homedescription)
-                    )
                     pts = 3 if is3 else 2
                     mk = "3make" if is3 else "make"
                     self.update(p1, mk, 1)
                     self.update(p1, "PTS", pts)
-                    self.update(p2, "AST", 1)
-                    if p1 == trapon:
-                        if p1 in self.get_players():
-                            print(
-                                "FG",
-                                pts,
-                                _evnt.period,
-                                _evnt.pctimestring,
-                                p1,
-                                p2,
-                                p3,
-                                str(_evnt.visitordescription)
-                                + str(_evnt.homedescription),
-                            )
+                    self.update(p2, "AS", 1)
 
                 case 2:  # miss
-                    is3 = "3PT" in (
-                        str(_evnt.visitordescription) + str(_evnt.homedescription)
-                    )
                     mk = "3miss" if is3 else "miss"
                     self.update(p1, mk, 1)
-                    self.update(p3, "BLK", 1)
+                    self.update(p3, "BK", 1)
 
                 case 3:  # free throw
-                    its_good = "MISS" not in (
-                        str(_evnt.visitordescription) + str(_evnt.homedescription)
-                    )
+                    its_good = "MISS" not in event_description
                     self.update(p1, "FTmake" if its_good else "FTmiss", 1)
-                    if its_good:
-                        self.update(p1, "PTS", 1)
-                        if p1 == trapon:
-                            if p1 in self.get_players():
-                                print(
-                                    "FT",
-                                    1,
-                                    _evnt.period,
-                                    _evnt.pctimestring,
-                                    p1,
-                                    p2,
-                                    p3,
-                                    str(_evnt.visitordescription)
-                                    + str(_evnt.homedescription),
-                                )
+                    if its_good: self.update(p1, "PTS", 1)
 
-                case 4:  # rebound
-                    self.update(p1, "REB", 1)
+                case 4:  self.update(p1, "RB", 1)
 
                 case 5:  # steal
                     self.update(p1, "TO", 1)
-                    self.update(p2, "STL", 1)
+                    self.update(p2, "ST", 1)
 
-                case 6:  # foul
-                    self.update(p1, "PF", 1)
-                    # bs_update(p1,'PFd',1) # got fouled
-
+                case 6:  self.update(p1, "PF", 1)
+  
                 # case 8: # substitution
 
     def add_plus_minus(self, player, start, end):
@@ -265,8 +251,6 @@ class box_score:
             data += [data2]
         return rows, columns, data
 
-    max_by_item = {}
-
     def summary(self):
         self.add_player(self._team_name)
 
@@ -280,36 +264,40 @@ class box_score:
 
         ourPlayers = list(self._boxScore.keys())
         ourPlayers.remove(self._team_name)
-        self.max_by_items = {}
-        for bs_item in self._bsItems:
+        
+        # get max column values to show our Golden ticket
 
+        def get_golden_ticket(bs_item):
+                
             def ech(plr, item):
+                print(plr,bs_item)
                 value = self._boxScore[plr][item]
                 if type(value) == type("aa"):
                     if "-" in value:
-                        i = 1 if item == "REB" else 0
+                        i = 1 if item == "RB" else 0
                         value = int(value.split("-")[i])
                 return value
+           
+            __tmp = list(map(lambda plr: ech(plr, bs_item), ourPlayers))
 
-            a = max(list(map(lambda plr: ech(plr, bs_item), ourPlayers)))
-            if self._home_team != self._team_name:
-                if bs_item == PM:
-                    a = min(list(map(lambda plr: ech(plr, bs_item), ourPlayers)))
-                
+            flip_it = (self._home_team != self._team_name) and bs_item == PM
+            
+            self._max_by_items[bs_item] = min(__tmp) if flip_it else max(__tmp)
+            
+        self._max_by_items = {}
+        list(map(lambda x:get_golden_ticket(x),self._bsItems))     
 
-            self.max_by_items[bs_item] = a
-
-    def is_max(self, item, value):
+     
+    def is_max(self, item, value,who):
         if item == PM:
             if self._home_team != self._team_name:
-                try:
-                    value = -int(value)
-                except:
-                    pass
+                try: value = -int(value)
+                except: pass
 
         if type(value) == type("aa"):
-            i = 1 if item == "REB" else 0
+            i = 1 if item == "RB" else 0
             if "-" in value:
                 value = value.split("-")[i]
-
-        return str(self.max_by_items[item]) == str(value)
+                
+        if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
+        return str(self._max_by_items[item]) == str(value)

@@ -304,7 +304,7 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_team_desc):
         qs_text(lh[0], lh[1], top_data, top_co) 
         qs_text(la[0], la[1], bot_data, bot_co)
 
-def plot_box_score(axis, box_score, players):
+def plot_box_score(axis, box_score, players, bx_col_data):
     
     bs_rows, bs_columns, bs_data = box_score.get_bs_data(players +  [box_score._team_name])
     trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
@@ -317,12 +317,12 @@ def plot_box_score(axis, box_score, players):
           'PTS' : BOX_COL_COLOR
         , 'MIN' : BOX_COL_COLOR
         , 'FG'  : BOX_COL_COLOR
-        , '3PT' : BOX_COL_COLOR
+        , '3P' : BOX_COL_COLOR
         ,  'FT' : BOX_COL_COLOR        
-        , 'REB' : BOX_COL_COLOR
-        , 'BLK' : GOOD_EVNT
-        , 'AST' : GOOD_EVNT
-        , 'STL' : GOOD_EVNT
+        , 'RB' : BOX_COL_COLOR
+        , 'BK' : GOOD_EVNT
+        , 'AS' : GOOD_EVNT
+        , 'ST' : GOOD_EVNT
         ,  'TO' : BAD_EVNT
         ,  'PF' : BAD_EVNT
         ,   PM  : BOX_COL_COLOR
@@ -333,34 +333,38 @@ def plot_box_score(axis, box_score, players):
         c = color_by_col_name[k] if k in list(color_by_col_name.keys()) else TABLE_COLOR
         colors_4_col.extend([c])
 
-    def make_column_widths(col_label, test_ax):
-
-        # 3-4 free throws vs.  3 assists type data
-        rx = '00-00' if col_label in ['FG','REB','3PT','FT'] else '000'
-
-        # gets tick width
-        t = test_ax.text(0, 0, s = rx, size = 24 / MRK_FONTSCALE )
-        
-        transf = axis.transData.inverted()
-        bb = t.get_window_extent()
-        bb_xy = bb.transformed(transf)
-        t.remove()
-        # return text width in as yet unknown units
-        # funky as REB is last of the 00-00 columns others are 000
-        # the .9 is so we have space on wither side
-        # we use this to center our values under our column labels
-        return (bb_xy.x1 - bb_xy.x0) + (-50 if col_label == 'REB' else 0)
-
-    column_widths = [470] + list(map(lambda x:make_column_widths(x,axis),bs_columns))
-    
     bs_columns = [''] + bs_columns
+ 
+    if type(bx_col_data[0]) != type(1):
+        jj_tmp = []
+        def make_column_widths_new(col_data, test_ax):
+            
+            def ln(x):
+                t = test_ax.text(0, 0, s = x, size = 24 / MRK_FONTSCALE )
+                transf = axis.transData.inverted()
+                bb = t.get_window_extent()
+                bb_xy = bb.transformed(transf)
+                t.remove()
+                return (bb_xy.x1 - bb_xy.x0) + 1.5
+            
+            a = list(map(lambda x:ln(x),col_data))
+            jj_tmp.extend([col_data[a.index(max(a))]])
+            # print(col_data[a.index(max(a))],int(max(a)))
+            return max(a)
+
+        column_widthsnew  = [470] + list(map(lambda x:make_column_widths_new(x,axis), bx_col_data))
+        for a in zip(column_widthsnew, bs_columns,[99] + jj_tmp): print(int(a[0]),a[1],a[2])  
+    else : 
+        column_widthsnew  = bx_col_data
+
+        
     def plot_boxscore_row(start, y, row):
         for idx,r in enumerate(row):
             c = colors_4_col[idx]
             if idx > 0 and idx < len(bs_columns): 
-                if box_score.is_max(bs_columns[idx],r):
+                if box_score.is_max(bs_columns[idx],r,row[0]):
                     c = BOX_COL_MAX_COLOR
-                    
+                
             axis.text(start, y, s = r,
                 color = c, 
                 size = 24 / MRK_FONTSCALE, 
@@ -370,7 +374,7 @@ def plot_box_score(axis, box_score, players):
                 # fontweight = MRK_FONTWEIGHT
             )
 
-            start += column_widths[idx]
+            start += column_widthsnew[idx]
 
     ROW_START = 2880 + 50
 
@@ -381,6 +385,8 @@ def plot_box_score(axis, box_score, players):
         start = ROW_START 
         y = -5 + ((i) * 10)
         plot_boxscore_row(start, y,[trows[i]] + bs)
+    
+    return column_widthsnew
 
 def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
     
@@ -417,6 +423,7 @@ def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
 def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,  
                  x_labels = 'TOP',
                  bx_score = None,
+                 bx_widths = None,
                  score    = None,
                  game_team_desc = None):
 
@@ -476,15 +483,14 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints_events(ax,ax2, _y, play_times, events, bx_score.is_flipper()
-)
+        plot_stints_events(ax,ax2, _y, play_times, events, bx_score.is_flipper())
         
-    plot_box_score(ax2,bx_score,_players)
+    return plot_box_score(ax2,bx_score,_players, bx_widths)
     
-def plot_prep(our_stints, game_data, scoreMargins, team = None, opponent = False, home_team = None):
+def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, home_team = None):
 
-    our_stints_by_player = our_stints[0]
-    boxscore = box_score(our_stints[1])
+    our_stints_by_player = _stints[0]
+    boxscore = box_score(_stints[1])
 
     if opponent:
         teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
@@ -616,13 +622,12 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=home_team)
+
     plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
     axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
     # winning team goes on top 
     # TEAM1 is group1 data, opponennt is group2 data
-    # away team gets the plus/minus flipped
-    # plus minus is from the home team perspective
     
     if top_team == TEAM1:
         _ad1_ = axd[TL]
@@ -635,14 +640,16 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         _ad1_label = None
         _ad2_label = 'TOP'
 
-
     team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
     # print('winner',top_team,' loser',bot_team,' home',home_team,' away',away_team)
     
+    
+    box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
 
-    play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
+    colwidths = play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
                  x_labels =_ad1_label,
                  bx_score = boxscore1,
+                 bx_widths = box_scores_data_by_col,
                  score = [home_scores, away_scores],
                  game_team_desc = team_desc
                  )
@@ -651,6 +658,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
                  x_labels =_ad2_label,
                  bx_score = boxscore2,
+                 bx_widths = colwidths,
                  score = [home_scores, away_scores],
                  game_team_desc = team_desc
                  )

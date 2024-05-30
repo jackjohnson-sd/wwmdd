@@ -1,12 +1,8 @@
-COMMENT:
-I'm providing Claude with an example game involving OKC.
-
-I'm using the Claude API workbench instead of online chatbot.
-
 PROMPTS:
 
 1.
-Here are exerts of a CSV formatted play by play of an NBA game: 
+<excerpts of a play by play in CSV format>
+Here are excerpts of a CSV formatted play by play of an NBA game between OKC and DAL: 
  ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
 1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
@@ -25,8 +21,10 @@ Here are exerts of a CSV formatted play by play of an NBA game:
 20,TIMEOUT,1,9:22,MAVERICKS Timeout: Regular (Full 1 Short 0),13 - 4,-9,,,,,,
 23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
 26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
+</excerpts of a play by play in CSV format>
 
-The below lines describe the players’ roles in the events in the CSV-formatted play-by-play:
+<description of CSV formatted play by play>
+The below lines describe the players’ roles in the events in the CSV formatted play by play:
 
 For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
 column is the player committing the event. 
@@ -59,10 +57,10 @@ For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and p
 Other eventmsgtype are:  
 2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
 3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
+</description of CSV formatted play by play>
 
 
-
-Details on SUB events:
+<details on SUB events>
 During a basketball game, different types of events occur. 
 
 These include made shots, miss shots, fouls, rebounds, assists, turnovers, and player substitutions. 
@@ -81,32 +79,28 @@ Coaches often substitute when a player does not seem competitive during a game.
 
 Coaches also make player substitutions when a player is in foul trouble. 
 
-Our examples below shows only SUB events of a play by play for an NBA game between OKC and DAL. 
-
-The example also shows the period, time, description of event, score, score margin, and the player who exited and the player who 
-entered the game.
-
 For example, with the SUB event, player1_name enters the game and player2_name leaves the game.
-
-
-In the play by play:
-Ensure to include blocks, turnovers, and steals as events.
 
 Players who start the game play about 32 minutes per game.
 
 Players who enter the game later play about 16 or fewer minutes per game.
 
 All players usually play 6 - 8 minutes at a time at most before exiting the game. 
+</details on SUB events>
 
-Only use players on the OKC and IND team rosters during March 2023. 
 
-
-Here is a complete NBA game play by play:
-((pasted: PHI.OKC.2023-01-12_.csv))
+Do not summarize this prompt; this prompt is for chat context. 
 
 
 2.
-I've attached a play by play of 1 complete NBA game.  
+I've attached play by plays of 3 complete NBA games as examples.  
 
-Provide the first quarter play by play of a hypothetical game between OKC and IND on March 31, 2023 in this CSV format.
+Provide the first quarter play by play of a hypothetical game between OKC and GSW on January 30, 2023 in this CSV format.
 
+Only use players from OKC and GSW during January 2023. 
+
+(( pasted in prompt:
+GSWvATL20230102.csv
+PHI.OKC.2023-01-12_.csv
+BKN.OKC20230115.csv
+))

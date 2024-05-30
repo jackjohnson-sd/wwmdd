@@ -182,12 +182,10 @@ def make_scoremargin(play_by_play):
 
     return scoreMargins, home_scores, away_scores
 
-def plot_score(_ax, home_scores, away_scores, game_team_desc):
-    
-    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    
-    D1_color = dimmer(get_color(home_team))
-    D2_color = dimmer(get_color(away_team))
+def plot_score(_ax, home_scores, away_scores, game_info):
+        
+    D1_color = dimmer(get_color(game_info['H']))
+    D2_color = dimmer(get_color(game_info['T']))
        
     import math
     mh = abs(max(home_scores))
@@ -202,12 +200,10 @@ def plot_score(_ax, home_scores, away_scores, game_team_desc):
     _ax.scatter(range(0, len(home_scores)), home_scores, color=D1_color, s=.01)
     _ax.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
     
-def plot_scoremargin(_ax, _scoreMargins, _zorder, game_team_desc ):
-    
-    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    
-    home_color = dimmer(get_color(home_team))
-    away_color = dimmer(get_color(away_team))
+def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
+       
+    home_color = dimmer(get_color(game_info['H']))
+    away_color = dimmer(get_color(game_info['A']))
     
     import math
     mx = abs(max(_scoreMargins))
@@ -244,11 +240,22 @@ def get_title_and_friends(game_data):
     gds = f'{gd[1]}/{gd[2]}/{gd[0]}'   # US date formate mm/dd/yyyy
 
     title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}'
-    return title, debug_title, top_team, bot_team, team_home, team_away
-
-def plot_quarter_score(home_scores, away_scores, axis, x,y, game_team_desc):
     
-    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+    game_info = { 
+          'T' : top_team
+        , 'B' : bot_team
+        , 'H' : team_home
+        , 'A' : team_away
+        
+        }
+    return title, debug_title, game_info # top_team, bot_team, team_home, team_away
+
+def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
+    
+    top_team = game_info['T']
+    bot_team = game_info['B']
+    home_team = game_info['H']
+    away_team = game_info['A']
         
     quarter_end  =  [12*60, 24*60,36*60,48*60]
     quarter_start = [0,     12*60,24*60,36*60]
@@ -389,7 +396,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     return column_widthsnew
 
 def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
-    
+
     starts = list(map(lambda x: x[0], play_times))
     widths = list(map(lambda x: x[1], play_times))
     pms    = list(map(lambda x: x[2], play_times))
@@ -425,7 +432,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
                  bx_score = None,
                  bx_widths = None,
                  score    = None,
-                 game_team_desc = None):
+                 game_info = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
@@ -470,12 +477,12 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
         ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)    
 
-    (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    if bx_score._team_name == top_team:
-        plot_score(ax3, score[0], score[1], game_team_desc)
+    # (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
+    if bx_score._team_name == game_info['T']:
+        plot_score(ax3, score[0], score[1], game_info)
     else:
-        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_team_desc)
-        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_team_desc)
+        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
+        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info)
     
     for i, _player in enumerate(_players):
         
@@ -612,16 +619,15 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     # home_team affects plus/minus and score 
     # VERIFY  home ahead is positive in plus/minus if ahead,  
   
-    title, debug_title, top_team, bot_team, home_team, away_team = \
-    get_title_and_friends(game_data)
+    title, debug_title, game_info = get_title_and_friends(game_data)
 
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
             
     boxscore1, playTimesbyPlayer1, events_by_player1 = \
-    plot_prep(our_stints, game_data, scoreMargins, team=TEAM1, home_team=home_team)
+    plot_prep(our_stints, game_data, scoreMargins, team=TEAM1, home_team=game_info['H'])
 
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
-    plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=home_team)
+    plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
 
     plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
     axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
@@ -629,7 +635,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     # winning team goes on top 
     # TEAM1 is group1 data, opponennt is group2 data
     
-    if top_team == TEAM1:
+    if game_info['T'] == TEAM1:
         _ad1_ = axd[TL]
         _ad2_ = axd[BL]
         _ad1_label = 'TOP'
@@ -640,9 +646,10 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         _ad1_label = None
         _ad2_label = 'TOP'
 
-    team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
+    # team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
     # print('winner',top_team,' loser',bot_team,' home',home_team,' away',away_team)
-    
+    game_info['1'] = boxscore1._team_name
+    game_info['2'] = boxscore2._team_name
     
     box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
 
@@ -651,7 +658,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
                  bx_score = boxscore1,
                  bx_widths = box_scores_data_by_col,
                  score = [home_scores, away_scores],
-                 game_team_desc = team_desc
+                 game_info = game_info
                  )
 
 
@@ -660,7 +667,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
                  bx_score = boxscore2,
                  bx_widths = colwidths,
                  score = [home_scores, away_scores],
-                 game_team_desc = team_desc
+                 game_info = game_info
                  )
     
     axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=TABLE_C)

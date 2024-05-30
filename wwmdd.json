@@ -35,9 +35,9 @@
     , "TEAM"                 : "MIN"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "wSOURCE"     : "WEB:"
-    , "xSOURCE"    : "FILE:llm_results/series_10_results"
-    , "fSOURCE"    : "FILE:llm_training_data"
-    , "SOURCE"    : "CLAUDE:claude_test"
+    , "SOURCE"     : "WEB:"
+    , "lOURCE"    : "FILE:llm_results/series_10_results"
+    , "sSOURCE"    : "FILE:llm_training_data"
+    , "cSOURCE"    : "CLAUDE:claude_test"
      
 }

@@ -4,7 +4,7 @@ Line 98, 102, and 107 must be changed based on desired game date, teams playing,
 PROMPTS:
 
 1.
-Here are exerts of a CSV-formatted play by play of an NBA game: 
+Here are exerts of a CSV formatted play by play of an NBA game between OKC and DAL: 
  ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
 1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
@@ -78,11 +78,6 @@ Coaches often substitute when a player does not seem competitive during a game.
 
 Coaches also make player substitutions when a player is in foul trouble. 
 
-Our examples below shows only SUB events of a play by play for an NBA game between OKC and DAL. 
-
-The example also shows the period, time, description of event, score, score margin, and the player who exited and the player who 
-entered the game.
-
 For example, with the SUB event, player1_name enters the game and player2_name leaves the game.
 
 
@@ -95,11 +90,9 @@ Players who enter the game later play about 16 or fewer minutes per game.
 
 All players usually play 6 - 8 minutes at a time at most before exiting the game. 
 
-Only use players on the OKC and IND team rosters during March 2023. 
-
 
 Here is a complete NBA game play by play:
-((pasted: PHI.OKC.2023-01-12_.csv))
+
 
 2.
 I've attached a play by play of 1 complete NBA game.  

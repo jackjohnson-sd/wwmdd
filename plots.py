@@ -221,10 +221,7 @@ def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
     _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
 
 def get_title_and_friends(game_data):
-    
-    DATA_SOURCE    = defaults.get('SOURCE')
-    debug_title = f'{game_data.game_id} {DATA_SOURCE}'
-    
+        
     w_home = game_data.wl_home
     team_home = game_data.team_abbreviation_home
     team_away = game_data.team_abbreviation_away
@@ -241,13 +238,14 @@ def get_title_and_friends(game_data):
 
     title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}'
     
-    game_info = { 
-          'T' : top_team
-        , 'B' : bot_team
-        , 'H' : team_home
-        , 'A' : team_away
-        
-        }
+    game_info = { 'T' : top_team, 'B' : bot_team, 'H' : team_home, 'A' : team_away }
+    
+    DATA_SOURCE    = defaults.get('SOURCE')
+    if 'WEB' in DATA_SOURCE:
+        debug_title = f' WEB {gds} {game_data.matchup_away}'
+    else:    
+        debug_title = f'{game_data.game_id} {DATA_SOURCE}'
+
     return title, debug_title, game_info # top_team, bot_team, team_home, team_away
 
 def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
@@ -692,6 +690,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     plt.subplots_adjust(
         wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
     )
-
+    
     plt.show()
     plt.close('all')

@@ -32,7 +32,9 @@ def stream_claude(system_prompt, prompt ):
     print('\n\n\n  ------ system_prompt')
     print(system_prompt)
     print('\n\n')
-
+    
+    as_prompt = 'Im here to help'
+    
     while doit:
         
         # messages are state less.  
@@ -49,11 +51,12 @@ def stream_claude(system_prompt, prompt ):
                  
         with client.messages.stream(
 
-
             system = system_prompt,
 
             messages = [
-                { "role": "user", "content": prompt}
+                { "role": "user", "content": prompt},
+                { "role": "assistant", "content": as_prompt},
+                
             ],
             max_tokens=2000,
             model = sonnet,
@@ -68,17 +71,27 @@ def stream_claude(system_prompt, prompt ):
         # delete last partial. assumed for the moment
         # and the first which is the column headers
         t2 = ('\n').join(t[1:-1])
-     
-        # append to our total responess so far
-        new_responce += t2
-         
+        
+        as_prompt = t2
+
+        a = the_responce.find('<')
+        from xml.etree import cElementTree as ET
+        # e.ElementTree.fromstring(text, parser=None)
+
+        try:    
+            tree = ET.fromstring(as_prompt)
+            root = tree.getroot()
+        except:
+            print('Not xml') 
+            pass
+        
+        print(f'{as_prompt}')
+        
         prompt = \
         """
         This is a partial play by play for an OKC vs GSW game in Jan 2023
-        """ + \
-        new_responce + \
-        """
         Please complete the play by play from where it left off.
+        Please provide the results in an XML tag
         """
     
         # end when we see end of ENDOFPERIOD,4

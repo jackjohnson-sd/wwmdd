@@ -34,7 +34,7 @@ class box_score:
     def set_home_team_name(self, team):
         self._home_team = team
 
-    def is_flipper(self): self._team_name != self._home_team
+    def is_flipper(self): return self._team_name != self._home_team
     
     def getBoxScore(self):
         return self._boxScore

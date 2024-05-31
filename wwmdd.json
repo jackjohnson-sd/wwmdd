@@ -30,15 +30,14 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-
     , "START_DAY"            : "2024-05-01" 
-    , "STOP_DAY"             : "2024-05-26"
+    , "STOP_DAY"             : "2024-06-15"
     , "TEAM"                 : "MIN"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "dSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:llm_results/series_10_results"
-    , "fSOURCE"    : "FILE:llm_training_data"
+    , "SOURCE"     : "WEB:"
+    , "lOURCE"    : "FILE:llm_results/series_10_results"
+    , "sSOURCE"    : "FILE:llm_training_data"
     , "cSOURCE"    : "CLAUDE:claude_test"
      
 }

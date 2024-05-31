@@ -27,25 +27,62 @@ def stream_claude(system_prompt, prompt ):
 
     doit = True
     the_responce = ''
+    new_responce = ''
+
+    print('\n\n\n  ------ system_prompt')
+    print(system_prompt)
+    print('\n\n')
+
     while doit:
+        
+        # messages are state less.  
+        # i.e. no memory this is it.
+         
+        # system prompt is the this is our format
+        # this is the events, here is a sample game
+        
+        # prompt is give me play by play from this game
+        # and contine from from from where it left off
+        print('\n\n\n  ------ prompt')
+        print(prompt)
+        print('\n')
+                 
         with client.messages.stream(
+
+
             system = system_prompt,
+
+            messages = [
+                { "role": "user", "content": prompt}
+            ],
             max_tokens=2000,
-            messages=[{"role": "user", "content": prompt}],
-            model = haiku,
+            model = sonnet,
         ) as stream:
             for text in stream.text_stream:
-                print(text, end="", flush=True)
+                print('.', end="", flush=True)
                 the_responce += text
-                
+        print()
+        
         t = the_responce.split('\n')
+        # clean up the response
+        # delete last partial. assumed for the moment
+        # and the first which is the column headers
         t2 = ('\n').join(t[1:-1])
-        t2 += """
-            this is a partial play by play for and OKC vs PHI game in Jan 2023 please complete the play by play from where it left off
+     
+        # append to our total responess so far
+        new_responce += t2
+         
+        prompt = \
         """
-        prompt += '\n' + t2
-
-        doit = 'ENDOFPERIOD,4,0:00' not in text
+        This is a partial play by play for an OKC vs GSW game in Jan 2023
+        """ + \
+        new_responce + \
+        """
+        Please complete the play by play from where it left off.
+        """
+    
+        # end when we see end of ENDOFPERIOD,4
+        doit = 'ENDOFPERIOD,4,0:00' not in the_responce
     
     print('the end')
 def claude_test(system_prompt_file,prompt_file):
@@ -59,7 +96,7 @@ def claude_test(system_prompt_file,prompt_file):
     stream_claude(_system_prompt,_prompt)
 
 def main(file_directory):
-    return
+
     import os
 
     if os.path.isdir(file_directory):

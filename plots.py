@@ -324,12 +324,12 @@ def plot_box_score(axis, box_score, players, bx_col_data):
           'PTS' : BOX_COL_COLOR
         , 'MIN' : BOX_COL_COLOR
         , 'FG'  : BOX_COL_COLOR
-        , '3P' : BOX_COL_COLOR
+        , '3PT' : BOX_COL_COLOR
         ,  'FT' : BOX_COL_COLOR        
-        , 'RB' : BOX_COL_COLOR
-        , 'BK' : GOOD_EVNT
-        , 'AS' : GOOD_EVNT
-        , 'ST' : GOOD_EVNT
+        , 'REB' : BOX_COL_COLOR
+        , 'BLK' : GOOD_EVNT
+        , 'AST' : GOOD_EVNT
+        , 'STL' : GOOD_EVNT
         ,  'TO' : BAD_EVNT
         ,  'PF' : BAD_EVNT
         ,   PM  : BOX_COL_COLOR
@@ -343,35 +343,37 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     bs_columns = [''] + bs_columns
  
     if type(bx_col_data[0]) != type(1):
-        jj_tmp = []
+
         def make_column_widths_new(col_data, test_ax):
             
             def ln(x):
-                t = test_ax.text(0, 0, s = x, size = 24 / MRK_FONTSCALE )
+                t = test_ax.text(0, 0, s = x, size = 24 / MRK_FONTSCALE,        
+                                va = 'center_baseline', 
+                                ha = 'center')
                 transf = axis.transData.inverted()
                 bb = t.get_window_extent()
                 bb_xy = bb.transformed(transf)
                 t.remove()
-                return (bb_xy.x1 - bb_xy.x0) + 1.5
+                return (bb_xy.x1 - bb_xy.x0) * 0.66 # WTF
             
             a = list(map(lambda x:ln(x),col_data))
-            jj_tmp.extend([col_data[a.index(max(a))]])
-            # print(col_data[a.index(max(a))],int(max(a)))
             return max(a)
 
         column_widthsnew  = [470] + list(map(lambda x:make_column_widths_new(x,axis), bx_col_data))
-        # for a in zip(column_widthsnew, bs_columns,[99] + jj_tmp): print(int(a[0]),a[1],a[2])  
     else : 
         column_widthsnew  = bx_col_data
 
         
     def plot_boxscore_row(start, y, row):
+        
         for idx,r in enumerate(row):
+            
             c = colors_4_col[idx]
             if idx > 0 and idx < len(bs_columns): 
                 if box_score.is_max(bs_columns[idx],r,row[0]):
                     c = BOX_COL_MAX_COLOR
-                
+
+            if idx != 0: start += column_widthsnew[idx]/2    
             axis.text(start, y, s = r,
                 color = c, 
                 size = 24 / MRK_FONTSCALE, 
@@ -381,7 +383,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
                 # fontweight = MRK_FONTWEIGHT
             )
 
-            start += column_widthsnew[idx]
+            start += int(column_widthsnew[idx])
 
     ROW_START = 2880 + 50
 
@@ -389,9 +391,8 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns)
 
     for i, bs in enumerate(bs_data):
-        start = ROW_START 
         y = -5 + ((i) * 10)
-        plot_boxscore_row(start, y,[trows[i]] + bs)
+        plot_boxscore_row(ROW_START, y,[trows[i]] + bs)
     
     return column_widthsnew
 

@@ -1,24 +1,24 @@
 from datetime import timedelta
 
-PM = "\xB1"
+PM = '\xB1'
 
 class box_score:
 
     _bsItemsA = [
-        "PTS",
-        "MIN",
-        "FG",
-        "3P",
-        "FT",
-        "RB",
-        "BK",
-        "AS",
-        "ST",
-        "TO",
-        "PF",
+        'PTS',
+        'MIN',
+        'FG',
+        '3PT',
+        'FT',
+        'REB',
+        'BLK',
+        'AST',
+        'STL',
+        'TO',
+        'PF',
         PM,
     ]
-    _bsItemsB = ["3miss", "3make", "make", "miss", "FTmiss", "FTmake", "secs", "ORS"]
+    _bsItemsB = ['3miss', '3make', 'make', 'miss', 'FTmiss', 'FTmake', 'secs', 'ORS']
     _bsItems = _bsItemsA + _bsItemsB
     _boxScore = None
     _team_name = None
@@ -52,66 +52,66 @@ class box_score:
     def clean(self):
         for key in self._boxScore:
             d = self._boxScore[key]
-            tFGMakes = d["make"] + d["3make"]
-            tFGMisses = d["miss"] + d["3miss"]
+            tFGMakes = d['make'] + d['3make']
+            tFGMisses = d['miss'] + d['3miss']
             tFGShots = tFGMisses + tFGMakes
 
-            t3Shots = d["3miss"] + d["3make"]
+            t3Shots = d['3miss'] + d['3make']
             if key != self._team_name:
-                d["FG"] = f"{tFGMakes}-{tFGShots}"
-                d["3P"] = f"{d['3make']}-{t3Shots}"
-                d["FT"] = f"{d['FTmake']}-{d['FTmake'] + d['FTmiss']}"
-                d["MIN"] = str(timedelta(seconds=int(d["secs"])))[2:4]
-                d["RB"] = f"{d['ORS']}-{d['RB']}"
+                d['FG'] = f'{tFGMakes}-{tFGShots}'
+                d['3PT'] = f'{d['3make']}-{t3Shots}'
+                d['FT'] = f'{d['FTmake']}-{d['FTmake'] + d['FTmiss']}'
+                d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
+                d['REB'] = f'{d['ORS']}-{d['REB']}'
             else:
-                d["RB"] = f"{d['ORS']}-{d['RB']}"
-                d["FG"] = (
-                    "--"
+                d['REB'] = f'{d['ORS']}-{d['REB']}'
+                d['FG'] = (
+                    '--'
                     if tFGShots == 0
-                    else str(int(float(tFGMakes) / float(tFGShots) * 100)) + "%"
+                    else str(int(float(tFGMakes) / float(tFGShots) * 100)) + '%'
                 )
-                d["3P"] = (
-                    "--"
+                d['3PT'] = (
+                    '--'
                     if t3Shots == 0
-                    else str(int(float(d["3make"]) / float(t3Shots) * 100)) + "%"
+                    else str(int(float(d['3make']) / float(t3Shots) * 100)) + '%'
                 )
-                FTma = d["FTmake"]
-                FTmi = d["FTmiss"]
+                FTma = d['FTmake']
+                FTmi = d['FTmiss']
                 if FTma + FTmi == 0:
-                    d["FT"] = "--"
+                    d['FT'] = '--'
                 else:
-                    d["FT"] = (
+                    d['FT'] = (
                         str(
                             int(
-                                float(d["FTmake"])
-                                / float(d["FTmake"] + d["FTmiss"])
+                                float(d['FTmake'])
+                                / float(d['FTmake'] + d['FTmiss'])
                                 * 100
                             )
                         )
-                        + "%"
+                        + '%'
                     )
-                d["MIN"] = str(timedelta(seconds=d["secs"] / 5))[2:4]
+                d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:4]
                 d[PM] = int(d[PM] / 5)
 
-            # d["MIN"] = '99'
+            # d['MIN'] = '99'
             # d[PM] = '30'
-            # d["FG"] = '99-99'
-            # d["3P"] = '99-99'
-            # d["FT"] = '99-99'
-            # d["RB"] = '99-99'
+            # d['FG'] = '99-99'
+            # d['3PT'] = '99-99'
+            # d['FT'] = '99-99'
+            # d['REB'] = '99-99'
 
     def dump(self, _players=[]):
-        print("                    ", end="")
+        print('                    ', end='')
         for label in self._bsItems:
-            print(f"{label:<5} ", end="")
+            print(f'{label:<5} ', end='')
         print()
 
         players = _players if _players != [] else list(self._boxScore.keys())
         for name in players:
-            print(f"{name[:15]:<19} ", end="")
+            print(f'{name[:15]:<19} ', end='')
             for item in self._bsItems:
-                print(f"{self._boxScore[name][item]:<6}", end="")
-            print("")
+                print(f'{self._boxScore[name][item]:<6}', end='')
+            print('')
 
     def add_player(self, _player):
         if _player not in self._boxScore.keys():
@@ -149,7 +149,7 @@ class box_score:
         if _player != None:
             if _player in self.get_players():
                 # if _item in self._bsItems : 
-                #     val = 10
+                #     val = 16
                 #     self._boxScore[_player][_item] = 0
                     
                 self._boxScore[_player][_item] += val
@@ -158,7 +158,7 @@ class box_score:
         if _player != None:
             if _player in self.get_players():
                 # if _item in self._bsItems : 
-                #     val = 10
+                #     val = 33
                 #     self._boxScore[_player][_item] = 0
                     
                 self._boxScore[_player][_item] = val
@@ -194,40 +194,40 @@ class box_score:
             p2 = _evnt.player2_name
             p3 = _evnt.player3_name
 
-            p1 = p1 if p1 != "" else None
-            p2 = p2 if p2 != "" else None
-            p3 = p3 if p3 != "" else None
+            p1 = p1 if p1 != '' else None
+            p2 = p2 if p2 != '' else None
+            p3 = p3 if p3 != '' else None
 
             prev = _evnt
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
-            is3 = "3PT" in event_description
+            is3 = '3PT' in event_description
             
             match _evnt.eventmsgtype:
 
                 case 1:  # make
                     pts = 3 if is3 else 2
-                    mk = "3make" if is3 else "make"
+                    mk = '3make' if is3 else 'make'
                     self.update(p1, mk, 1)
-                    self.update(p1, "PTS", pts)
-                    self.update(p2, "AS", 1)
+                    self.update(p1, 'PTS', pts)
+                    self.update(p2, 'AST', 1)
 
                 case 2:  # miss
-                    mk = "3miss" if is3 else "miss"
+                    mk = '3miss' if is3 else 'miss'
                     self.update(p1, mk, 1)
-                    self.update(p3, "BK", 1)
+                    self.update(p3, 'BLK', 1)
 
                 case 3:  # free throw
-                    its_good = "MISS" not in event_description
-                    self.update(p1, "FTmake" if its_good else "FTmiss", 1)
-                    if its_good: self.update(p1, "PTS", 1)
+                    its_good = 'MISS' not in event_description
+                    self.update(p1, 'FTmake' if its_good else 'FTmiss', 1)
+                    if its_good: self.update(p1, 'PTS', 1)
 
-                case 4:  self.update(p1, "RB", 1)
+                case 4:  self.update(p1, 'REB', 1)
 
                 case 5:  # steal
-                    self.update(p1, "TO", 1)
-                    self.update(p2, "ST", 1)
+                    self.update(p1, 'TO', 1)
+                    self.update(p2, 'STL', 1)
 
-                case 6:  self.update(p1, "PF", 1)
+                case 6:  self.update(p1, 'PF', 1)
   
                 # case 8: # substitution
 
@@ -259,8 +259,8 @@ class box_score:
             self.set_item(self._team_name, n, v)
 
         self.clean()
-        tmp = self.get_item(self._team_name, "MIN")
-        self.set_item(self._team_name, "MIN", tmp[0:5])
+        tmp = self.get_item(self._team_name, 'MIN')
+        self.set_item(self._team_name, 'MIN', tmp[0:5])
 
         ourPlayers = list(self._boxScore.keys())
         ourPlayers.remove(self._team_name)
@@ -271,10 +271,10 @@ class box_score:
                 
             def ech(plr, item):
                 value = self._boxScore[plr][item]
-                if type(value) == type("aa"):
-                    if "-" in value:
-                        i = 1 if item == "RB" else 0
-                        value = int(value.split("-")[i])
+                if type(value) == type('aa'):
+                    if '-' in value:
+                        i = 1 if item == 'REB' else 0
+                        value = int(value.split('-')[i])
                 return value
            
             __tmp = list(map(lambda plr: ech(plr, bs_item), ourPlayers))
@@ -293,10 +293,10 @@ class box_score:
                 try: value = -int(value)
                 except: pass
 
-        if type(value) == type("aa"):
-            i = 1 if item == "RB" else 0
-            if "-" in value:
-                value = value.split("-")[i]
+        if type(value) == type('aa'):
+            i = 1 if item == 'REB' else 0
+            if '-' in value:
+                value = value.split('-')[i]
                 
         # if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
         return str(self._max_by_items[item]) == str(value)

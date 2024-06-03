@@ -691,5 +691,19 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
     )
     
-    plt.show()
+    # see wwmdd.json 
+    SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
+    
+    if(SAVE_GAME_AS_CSV == "ON"):
+        # from play_by_play.dump_pbp from BES (06/03/2024)
+        import os
+        cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+        t = game_data.matchup_home.split(' ')
+        fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
+        fn = os.path.join(cwd, fn) 
+        plt.savefig(fn)
+    else:
+        plt.show()    
+
+
     plt.close('all')

@@ -1,10 +1,14 @@
 {
       "dbga"         : "OFF"
     , "dbgb"         : "OFF"
-    , "dbgc"         : "OFF"
+    , "dbgc"          : "OFF"
 
     , "SAVE_GAME_AS_CSV"  : "ON"
     , "SAVE_GAME_DIR"     : "llm_training_data"
+   
+    , "SAVE_PLOT_AS_PDF"  : "ON"
+    , "SAVE_PLOT_DIR"     : "llm_training_plots"
+    , "SHOW_PLOT"         : "OFF"
 
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"

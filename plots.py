@@ -700,6 +700,11 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
         t = game_data.matchup_home.split(' ')
         fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
+    
+        # test/make dir for plots (BES)
+        if not(os.path.exists(cwd)):
+            os.mkdir(cwd)
+  
         fn = os.path.join(cwd, fn) 
         plt.savefig(fn)
 

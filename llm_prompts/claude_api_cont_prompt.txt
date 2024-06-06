@@ -63,7 +63,7 @@ Other eventmsgtype are:
 <details on SUB events>
 In an NBA game, each team can have a maximum of 5 players on the court at any given time. 
 
-Player substitution events, called SUBS, occur throughout the game to manage playing time, foul trouble, and tactical adjustments. 
+Player substitution events, called SUB, occur throughout the game to manage playing time, foul trouble, and tactical adjustments. 
 
 A player can only enter the game for their own team, replacing a teammate who must exit the court. 
 

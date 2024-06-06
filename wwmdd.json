@@ -32,12 +32,15 @@
 
     , "START_DAY"            : "2024-05-01" 
     , "STOP_DAY"             : "2024-06-15"
-    , "TEAM"                 : "MIN"
+    , "TEAM"                 : "DAL"
  
     , "dSOURCE"    : "nba.sqlite"
-    , "SOURCE"     : "WEB:"
-    , "xSOURCE"    : "FILE:llm_results/series_12_results"
-    , "sSOURCE"    : "FILE:llm_training_data"
-    , "aSOURCE"    : "CLAUDE:claude_test"
+    , "wSOURCE"     : "WEB:"
+    , "fSOURCE"    : "FILE:gemini_test"
+    , "zSOURCE"    : "FILE:claude_test"
+    , "cSOURCE"     : "CLAUDE:claude_test"
+    , "gSOURCE"     : "GEMINI:gemini_test"
+    , "SOURCE"     : "TOKENS:gemini_test"
+
      
 }

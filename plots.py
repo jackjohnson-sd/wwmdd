@@ -185,7 +185,7 @@ def make_scoremargin(play_by_play):
 def plot_score(_ax, home_scores, away_scores, game_info):
         
     D1_color = dimmer(get_color(game_info['H']))
-    D2_color = dimmer(get_color(game_info['T']))
+    D2_color = dimmer(get_color(game_info['A']))
        
     import math
     mh = abs(max(home_scores))
@@ -248,7 +248,7 @@ def get_title_and_friends(game_data):
 
     return title, debug_title, game_info # top_team, bot_team, team_home, team_away
 
-def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
+def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info, bs_sum):
     
     top_team = game_info['T']
     bot_team = game_info['B']
@@ -263,14 +263,16 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     lx1 = lx0 + lxoffset 
     lx2 = lx1 + lxoffset
     lx3 = lx2 + lxoffset
-    lx4 = lx3 + lxoffset + 20
+    lx4 = lx3 + lxoffset + 10
+    lx5 = lx4 + lxoffset
+    lx6 = lx5 + lxoffset  
     
     ly0 = y + 6
     
     location = [
-        [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0], [lx4,ly0]],
-        [[x, y], [lx0,  y],[lx1,  y],[lx2, y], [lx3,  y], [lx4,  y]],
-                ]
+        [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0], [lx4,ly0], [lx5,ly0], [lx6,ly0]],
+        [[x, y], [lx0,  y],[lx1,  y],[lx2, y], [lx3,  y], [lx4,  y], [lx5,  y], [lx6,  y]]
+        ]
 
     def qs_text(x,y,text, _color):
         axis.text(x, y, s = text,
@@ -288,10 +290,10 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     bot_data = away_scores if bot_team == away_team else home_scores
     
     qs_text(x, ly0, top_team, top_co)
-    qs_text(location[0][-1][0], ly0, str(top_data[-1]), top_co)
+    qs_text(location[0][5][0], ly0, str(top_data[-1]), top_co)
 
     qs_text(x, y, bot_team, bot_co)
-    qs_text(location[1][-1][0], y, str(bot_data[-1]), bot_co)
+    qs_text(location[1][5][0], y, str(bot_data[-1]), bot_co)
 
     for i,v in enumerate(quarter_end):
         home_q_end_score = home_scores[v-1]
@@ -309,6 +311,15 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
         qs_text(lh[0], lh[1], top_data, top_co) 
         qs_text(la[0], la[1], bot_data, bot_co)
 
+    bs0 = (' ').join(bs_sum[0])
+    bs1 = (' ').join(bs_sum[1])
+    
+    lh = location[0][-1]
+    la = location[1][-1]
+
+    qs_text(lh[0], lh[1], bs0, top_co) 
+    qs_text(la[0], la[1], bs1, bot_co) 
+    
 def plot_box_score(axis, box_score, players, bx_col_data):
     
     bs_rows, bs_columns, bs_data = box_score.get_bs_data(players +  [box_score._team_name])
@@ -360,8 +371,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
         column_widthsnew  = [470] + list(map(lambda x:make_column_widths_new(x,axis), bx_col_data))
     else : 
         column_widthsnew  = bx_col_data
-
-        
+      
     def plot_boxscore_row(start, y, row):
         
         for idx,r in enumerate(row):
@@ -431,7 +441,8 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
                  bx_score = None,
                  bx_widths = None,
                  score    = None,
-                 game_info = None):
+                 game_info = None,
+                 bs_sum = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
@@ -481,7 +492,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
         plot_score(ax3, score[0], score[1], game_info)
     else:
         plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
-        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info)
+        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
     
     for i, _player in enumerate(_players):
         
@@ -644,31 +655,33 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         _ad2_ = axd[TL]
         _ad1_label = None
         _ad2_label = 'TOP'
-
-    # team_desc = (boxscore1._team_name, boxscore2._team_name, top_team, bot_team, home_team, away_team)
-    # print('winner',top_team,' loser',bot_team,' home',home_team,' away',away_team)
-    game_info['1'] = boxscore1._team_name
-    game_info['2'] = boxscore2._team_name
     
+    b1 = boxscore1.shooting_percentages(boxscore1._team_name)
+    b2 = boxscore2.shooting_percentages(boxscore2._team_name)
+
+    ts1 = boxscore1.ts_percentage(boxscore1._team_name) 
+    ts2 = boxscore2.ts_percentage(boxscore2._team_name)    
+    
+    bs_sum = [b1 + [ts1], b2 + [ts2]]
+
     box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
 
     colwidths = play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
-                 x_labels =_ad1_label,
-                 bx_score = boxscore1,
-                 bx_widths = box_scores_data_by_col,
-                 score = [home_scores, away_scores],
-                 game_info = game_info
-                 )
-
-
-    play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
-                 x_labels =_ad2_label,
-                 bx_score = boxscore2,
-                 bx_widths = colwidths,
-                 score = [home_scores, away_scores],
-                 game_info = game_info
-                 )
+            x_labels =_ad1_label,
+            bx_score = boxscore1,
+            bx_widths = box_scores_data_by_col,
+            score = [home_scores, away_scores],
+            game_info = game_info,
+            bs_sum = bs_sum)
     
+    play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
+                x_labels =_ad2_label,
+                bx_score = boxscore2,
+                bx_widths = colwidths,
+                score = [home_scores, away_scores],
+                game_info = game_info,
+                bs_sum = bs_sum)
+
     axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=TABLE_C)
     
     event_legend(axd[E2],35,20)

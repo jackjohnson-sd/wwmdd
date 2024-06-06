@@ -11,6 +11,7 @@ import main_web
 import main_csv
 import main_db
 import claude
+import gemini
 
 if __name__ == "__main__":
     
@@ -22,6 +23,8 @@ if __name__ == "__main__":
     elif 'FILE:' in data_source:  main_csv.main(data_source.split(':')[1])
     # send play_by_play files to claude and have him make one
     elif 'CLAUDE:' in data_source:  claude.main(data_source.split(':')[1])
+    elif 'GEMINI:' in data_source:  gemini.main(data_source.split(':')[1])
+    elif 'TOKENS:' in data_source:  gemini.do_tokens(data_source.split(':')[1])
     # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
     else: main_db.main()  
     

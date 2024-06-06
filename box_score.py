@@ -24,6 +24,7 @@ class box_score:
     _team_name = None
     _home_team = None
     _max_by_items = {}
+    
 
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
@@ -48,48 +49,59 @@ class box_score:
             self._boxScore[player] = {}
         for key in self._bsItems:
             self._boxScore[player][key] = 0
+    
+    def shooting_percentages(self, player):
+        d = self._boxScore[player]
+        tFGMakes = d['make'] + d['3make']
+        tFGMisses = d['miss'] + d['3miss']
+        tFGShots = tFGMisses + tFGMakes
+        t3Shots = d['3miss'] + d['3make']
+        fgp = (
+            '--' if tFGShots == 0
+            else str(int(float(tFGMakes) / float(tFGShots) * 100))
+        )
 
+        f3p = (
+            '--' if t3Shots == 0
+            else str(int(float(d['3make']) / float(t3Shots) * 100))
+        )
+
+        FTma = d['FTmake']
+        FTmi = d['FTmiss']
+        if FTma + FTmi == 0: ftp = '--'
+        else: ftp  = (
+                str(int(
+                float(d['FTmake']) / float(d['FTmake'] + d['FTmiss'])* 100))
+            )
+        return [f3p,fgp, ftp]
+
+    def ts_percentage(self, player):
+        # TS% =  PTS/(2 * (FGA /(.044 X FTA)))
+        src = ['PTS','make','miss','FTmake','FTmiss']
+        b = list(map(lambda x:self._boxScore[player][x] ,src))
+        ftA = int(b[3]) + int(b[4])
+        fgA = int(b[1]) + int(b[2])
+        pts = int(b[0])
+        ts = (pts * 100) / (2*(fgA/(0.044 * ftA)))
+        print(pts,b[1],b[2],b[3],b[4],ftA,fgA,pts,ts)
+        return str(int((pts * 100) / (2*(fgA/(0.044 * ftA)))))
+    
     def clean(self):
         for key in self._boxScore:
             d = self._boxScore[key]
             tFGMakes = d['make'] + d['3make']
             tFGMisses = d['miss'] + d['3miss']
             tFGShots = tFGMisses + tFGMakes
-
             t3Shots = d['3miss'] + d['3make']
+            
+            d['REB'] = f'{d['ORS']}-{d['REB']}'
+            d['FG'] = f'{tFGMakes}-{tFGShots}'
+            d['3PT'] = f'{d['3make']}-{t3Shots}'
+            d['FT'] = f'{d['FTmake']}-{d['FTmake'] + d['FTmiss']}'
+
             if key != self._team_name:
-                d['FG'] = f'{tFGMakes}-{tFGShots}'
-                d['3PT'] = f'{d['3make']}-{t3Shots}'
-                d['FT'] = f'{d['FTmake']}-{d['FTmake'] + d['FTmiss']}'
                 d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
-                d['REB'] = f'{d['ORS']}-{d['REB']}'
             else:
-                d['REB'] = f'{d['ORS']}-{d['REB']}'
-                d['FG'] = (
-                    '--'
-                    if tFGShots == 0
-                    else str(int(float(tFGMakes) / float(tFGShots) * 100)) + '%'
-                )
-                d['3PT'] = (
-                    '--'
-                    if t3Shots == 0
-                    else str(int(float(d['3make']) / float(t3Shots) * 100)) + '%'
-                )
-                FTma = d['FTmake']
-                FTmi = d['FTmiss']
-                if FTma + FTmi == 0:
-                    d['FT'] = '--'
-                else:
-                    d['FT'] = (
-                        str(
-                            int(
-                                float(d['FTmake'])
-                                / float(d['FTmake'] + d['FTmiss'])
-                                * 100
-                            )
-                        )
-                        + '%'
-                    )
                 d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:4]
                 d[PM] = int(d[PM] / 5)
 
@@ -285,8 +297,7 @@ class box_score:
             
         self._max_by_items = {}
         list(map(lambda x:get_golden_ticket(x),self._bsItems))     
-
-     
+   
     def is_max(self, item, value,who):
         if item == PM:
             if self._home_team != self._team_name:

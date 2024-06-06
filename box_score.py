@@ -82,9 +82,10 @@ class box_score:
         ftA = int(b[3]) + int(b[4])
         fgA = int(b[1]) + int(b[2])
         pts = int(b[0])
-        ts = (pts * 100) / (2*(fgA/(0.044 * ftA)))
+        try : ts = (pts * 100) / (2*(fgA/(0.044 * ftA)))
+        except: ts = 'ERR'
         print(pts,b[1],b[2],b[3],b[4],ftA,fgA,pts,ts)
-        return str(int((pts * 100) / (2*(fgA/(0.044 * ftA)))))
+        return str(ts)
     
     def clean(self):
         for key in self._boxScore:

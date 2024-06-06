@@ -4,7 +4,7 @@ import os
 
 import google.generativeai as genai
 
-MODEL = 'models/gemini-1.0-pro'
+MODEL = 'models/gemini-1.5-pro'
 
 """
     models/gemini-1.0-pro
@@ -52,7 +52,7 @@ def do_tokens(file_directory):
         with open(fn, 'r') as content_file:
             prompt = content_file.read()
         resp = token_count(prompt)
-        print(f'{resp.total_tokens} tokens from {fn}')
+        print(f'{resp.total_tokens:<10} tokens from {fn}')
 
     
 def clean_responce(the_responce):

@@ -704,5 +704,27 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
     )
     
-    plt.show()
+    # see wwmdd.json 
+    SAVE_PLOT_AS_PDF = defaults.get('SAVE_PLOT_AS_PDF')
+    
+    if(SAVE_PLOT_AS_PDF == "ON"):
+        # from wwmdd.json
+        import os
+        cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
+        t = game_data.matchup_home.split(' ')
+        fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
+    
+        # test/make dir for plots (BES)
+        if not(os.path.exists(cwd)):
+            os.mkdir(cwd)
+  
+        fn = os.path.join(cwd, fn) 
+        plt.savefig(fn)
+
+    SHOW_PLOT =  defaults.get('SHOW_PLOT')  
+    
+    if(SHOW_PLOT == "ON"):    
+        plt.show()    
+
+
     plt.close('all')

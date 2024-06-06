@@ -24,6 +24,10 @@ class default :
                 , "SAVE_GAME_AS_CSV"  : "OFF"
                 , "SAVE_GAME_DIR"     : "llm_training_data"
 
+                , "SAVE_PLOT_AS_PDF"  : "OFF"
+                , "SAVE_PLOT_DIR"     : "llm_training_plots"
+                , "SHOW_PLOT"         : "ON"
+
                 , "GOOD_EVENT_COLOR"  : "mediumseagreen"
                 , "BAD_EVENT_COLOR"   : "cornflowerblue"
                 , "GRID_COLOR"        : "dimgrey"

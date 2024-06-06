@@ -295,6 +295,10 @@ def dump_pbp(game):
     fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
     fn = os.path.join(cwd, fn) 
     
+    # test/make dir for csv (BES)
+    if not(os.path.exists(cwd)):
+        os.mkdir(cwd)   
+    
     fl=open(fn,"w")
     fl.write(f)
     fl.close()

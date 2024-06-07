@@ -3,7 +3,7 @@
     , "dbgb"         : "OFF"
     , "dbgc"          : "OFF"
 
-    , "SAVE_GAME_AS_CSV"  : "ON"
+    , "SAVE_GAME_AS_CSV"  : "OFF"
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
     , "SAVE_PLOT_AS_PDF"  : "OFF"
@@ -34,18 +34,17 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2024-05-01" 
-    , "STOP_DAY"             : "2024-06-15"
-    , "TEAM"                 : "DAL"
+    , "START_DAY"            : "2023-01-01" 
+    , "STOP_DAY"             : "2023-01-31"
+    , "TEAM"                 : "GSW"
  
     , "dSOURCE"    : "nba.sqlite"
     , "wSOURCE"     : "WEB:"
-    , "SOURCE"    : "FILE:gemini_test"
+    , "agSOURCE"    : "FILE:gemini_test"
     , "zSOURCE"    : "FILE:claude_test"
 
     , "cSOURCE"     : "CLAUDE:claude_test"
-    , "gSOURCE"     : "GEMINI:gemini_test"
+    , "SOURCE"     : "GEMINI:gemini_test"
     , "tSOURCE"     : "TOKENS:gemini_test"
 
-     
 }

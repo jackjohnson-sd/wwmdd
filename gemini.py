@@ -4,7 +4,7 @@ import os
 
 import google.generativeai as genai
 
-MODEL = 'models/gemini-1.5-pro'
+MODEL = 'models/gemini-1.5-pro-latest'
 
 """
     models/gemini-1.0-pro
@@ -87,8 +87,12 @@ def clean_responce(the_responce):
         print(err)
         return ''
 
-def start_stream(prompt):
+def promp_trimmer(prompt):
+    nlines = prompt.count('\n') / 20
     
+    prompt[:nlines*80] + ('a' * 10) + prompt[:-nlines*80]
+    
+def start_stream(prompt):
     try:      
         model = genai.GenerativeModel(MODEL)
         chat = model.start_chat(history=[])
@@ -106,16 +110,29 @@ def start_stream(prompt):
         
     return gemini_data,response
     
-def stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directory):
-                  
-
-    key1 = '<example_play_by_play>'
-    key2 = '<\\example_play_by_play>'
+# def stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directory):
+def stream_gemini(prompt,
+                  system_prompt,
+                  example0_game,
+                  example1_game,
+                  example2_game,
+                  example3_game,
+                  continue_prompt,
+                  file_directory):
+            
     
-    s = system_prompt.find(key1) + len(key1)
-    e = system_prompt.find(key2)
-    prompt = system_prompt[0:s] + '\n' + example_game + system_prompt[e:-1]
+    x = [example0_game,example1_game,example2_game,example3_game]
+    for i,d in enumerate(x):
+        
+        key1 = f'<example{i}_play_by_play>'
+        key2 = f'<\\example{i}_play_by_play>'
+        
+        s = system_prompt.find(key1) + len(key1)
+        e = system_prompt.find(key2)
+        
+        system_prompt = system_prompt[0:s] + '\n' + d + system_prompt[e:-1]
 
+    prompt = system_prompt
     err_count = 0
     cnt = 0
     total_responce = ''
@@ -129,6 +146,7 @@ def stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directo
             
             print(f'\n{cnt}  prompt ------  \n' + prompt)
             gemini_responce, gemini_raw = start_stream(prompt)
+            if cnt == 0: print(gemini_raw.text)
             if '' != gemini_responce: 
                 do_no_more = False
                 # print(f'\n{cnt}  gemini raw responce ------ \n' + gemini_responce)
@@ -137,7 +155,7 @@ def stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directo
                 total_raw_resp += '\n'+ gemini_raw.text
                 total_responce += '\n' + cleaned_responce + '\n'
                     
-                prompt = f'{system_prompt[0:s]} {example_game} {total_responce}  {continue_prompt}'
+                prompt = f'{system_prompt[e:-1]} {total_responce} {continue_prompt}'
                 cnt =+ 1
             else: 
                 do_no_more = True 
@@ -162,17 +180,35 @@ def stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directo
             content_file.write(total_raw_resp)
 
 def gemini_test(files,file_directory):
-    prompt = None; system_prompt = None; example_game = None; continue_prompt = None
+    prompt = None; system_prompt = None; example0_game = None; continue_prompt = None
+    example1_game = None; example2_game = None; example3_game = None; continue_prompt = None
     for fn in files:
         with open(fn, 'r') as content_file:
             if 'initial_prompt' in fn: prompt = content_file.read()       
             if 'system_prompt'  in fn: system_prompt = content_file.read() 
-            if 'example_game'   in fn: example_game = content_file.read()       
+            if 'example0_game'   in fn: example0_game = content_file.read()       
+            if 'example1_game'   in fn: example1_game = content_file.read()       
+            if 'example2_game'   in fn: example2_game = content_file.read()       
+            if 'example3_game'   in fn: example3_game = content_file.read()       
             if 'coninue_prompt' in fn: continue_prompt = content_file.read()  
     
-    tmp = [prompt != None, system_prompt != None, example_game != None, continue_prompt != None]
+    tmp = [  prompt != None\
+           , system_prompt != None\
+           , example0_game != None\
+           , example1_game != None\
+           , example2_game != None\
+           , example3_game != None\
+           , continue_prompt != None
+           ]
+    
     if all(tmp):     
-        stream_gemini(prompt,system_prompt,example_game,continue_prompt,file_directory)
+        stream_gemini(prompt,system_prompt,
+                      example0_game,
+                      example1_game,
+                      example2_game,
+                      example3_game,
+                      continue_prompt,
+                      file_directory)
 
 def main(file_directory):
     

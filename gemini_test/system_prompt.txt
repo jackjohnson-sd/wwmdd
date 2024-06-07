@@ -100,12 +100,30 @@ These substitutions can occur at the beginning of each quarter or during timeout
 For the SUB events in the example play by play, player1_name enters the game and player2_name leaves the game.
 </details on SUB events>
 
-<example_play_by_play>
 
-<\example_play_by_play>
+<example0_play_by_play>
 
-Do not provide a summary.
-Use this example play by play as a guide for hypothetical game play by plays.
 
-Use the NOP and OKC teams from January of 2023.
-Create a play_by_play in csv format starting from the beginning for the first 5 minutes.
+<\example0_play_by_play>
+
+<example1_play_by_play>
+
+
+<\example1_play_by_play>
+
+<example2_play_by_play>
+
+
+<\example2_play_by_play>
+
+<example3_play_by_play>
+
+
+<\example3_play_by_play>
+
+No summaries
+Use these four example play by plays are as guides for hypothetical game play by plays.
+
+Use only players from OKC and GSW. Use them in typical playing times,scoring rebounding and other events.
+
+Use these exanple and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.

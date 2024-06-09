@@ -1,8 +1,10 @@
 import pandas as pd
 
-from plots import plot3, defaults
+from plots import plot3, defaults, quitGame
 from play_by_play import generatePBP, dump_pbp
 import nba_web_api as nba
+
+ 
 
 def _get_opp_game(g, teams):
 
@@ -39,7 +41,7 @@ def main():
     _team_id = nba.getTeamID(teams,_TEAM)
 
     games = nba.get_games_game_id(_team_id, _START_DAY, _STOP_DAY)
-
+    print("About to enter for loop in main_web")
     for i, game_data in games.iterrows():
 
         _opp = _get_opp_game(game_data, teams)
@@ -79,5 +81,9 @@ def main():
                 opp_playerstints_and_boxscore)    
         else:
             print(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
+        # next game or quit
+        if(quitGame()==True):
+            break
+
     return 
 

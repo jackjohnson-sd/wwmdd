@@ -27,6 +27,12 @@ MRK_FONTSCALE  = defaults.get('MARKER_FONTSCALE')
 MRK_FONTWEIGHT = defaults.get('MARKER_FONTWEIGHT')
 GRID_LINEWIDTH   = defaults.get('GRID_linewidth')
 
+def quitGame():
+    thatsAll = False
+    if input("Enter Q to quit or any other key to continue: ") == 'Q': 
+      thatsAll = True
+    return thatsAll
+
 def removeLower(str): 
     regex = "[a-z .-]"
     return (re.sub(regex, "", str))
@@ -722,8 +728,8 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         plt.savefig(fn)
 
     SHOW_PLOT =  defaults.get('SHOW_PLOT')  
-    
-    if(SHOW_PLOT == "ON"): plt.show() 
+    print("Should show plot? ", SHOW_PLOT)
+    if(SHOW_PLOT == "ON"): plt.show(block = True) 
     else: print('Show plot disabled in json config file')   
 
     plt.close('all')

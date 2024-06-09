@@ -1,3 +1,0 @@
-Using the NOP and OKC teams from January of 2023 to create a play_by_play in csv format starting from the beginning.
-Do not provide a summary just the play by play.
-Create an entire game.

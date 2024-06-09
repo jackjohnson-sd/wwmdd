@@ -14,8 +14,8 @@ class default :
                 self.stuff = json.load(f)
         except:
                 print(f'Failed to load {fn} as json settings file.')
-                print('Using default values.')
-                
+                print('----------- Using default values.       ------------ ')
+                # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff =  {
                     
 

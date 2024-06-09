@@ -126,4 +126,4 @@ Use these four example play by plays are as guides for hypothetical game play by
 
 Use only players from OKC and GSW. Use them in typical playing times,scoring rebounding and other events.
 
-Use these exanple and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.
+Use these examples and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.

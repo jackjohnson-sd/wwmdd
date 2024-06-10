@@ -1,5 +1,9 @@
 {
-      "dbga"         : "OFF"
+      "LOG"         : "ON"
+    , "TRIM"        : "ON"
+    , "CONSOLE"     : "ON"
+
+    , "dbga"         : "OFF"
     , "dbgb"         : "OFF"
     , "dbgc"          : "OFF"
 
@@ -22,7 +26,6 @@
     , "STINT_COLOR_PLUS"       : "forestgreen"
     , "STINT_COLOR_MINUS"      : "firebrick"
 
-
     , "MARKER_2_STACK_OFFSET"  : 1.8 
     , "MARKER_3_STACK_OFFSET"  : 3.4
     , "MARKER_WIDTH"           : 28
@@ -38,13 +41,14 @@
     , "STOP_DAY"             : "2023-01-31"
     , "TEAM"                 : "GSW"
  
-    , "dSOURCE"    : "nba.sqlite"
+    , "dSOURCE"     : "nba.sqlite"
     , "wSOURCE"     : "WEB:"
     , "agSOURCE"    : "FILE:gemini_test"
-    , "zSOURCE"    : "FILE:claude_test"
+    , "zSOURCE"     : "FILE:claude_test"
 
-    , "cSOURCE"     : "CLAUDE:claude_test"
-    , "SOURCE"     : "GEMINI:gemini_test"
+    , "xSOURCE"     : "CLAUDE:claude_test"
+    , "SOURCE"      : "GEMINI:gemini_test"
     , "tSOURCE"     : "TOKENS:gemini_test"
+
 
 }

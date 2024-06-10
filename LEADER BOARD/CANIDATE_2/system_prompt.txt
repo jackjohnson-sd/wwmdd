@@ -1,6 +1,6 @@
-1.
 
-Here are exerts of a CSV-formatted play by play of an NBA game: 
+Here are play by play excerpts of a CSV formatted play by play of an NBA game between OKC and DAL: 
+<play by play excerpts>
  ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
 1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
@@ -19,16 +19,26 @@ Here are exerts of a CSV-formatted play by play of an NBA game:
 20,TIMEOUT,1,9:22,MAVERICKS Timeout: Regular (Full 1 Short 0),13 - 4,-9,,,,,,
 23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
 26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
+</play by play excerpts>
 
+<description of CSV formatted play by play>
 
+For example, game score for the event are shown in the score feild.
 
-The below lines describe the players’ roles in the events in the CSV-formatted play-by-play:
+If a team has not scored there score is 0.
+
+The initial score is 0 - 0
+
+The score is the home team's score first then a '-' followed by the away team.
+
+The game is over if at the end of the 4th or subsequent periods is not tied.
+
+The below lines describe the players’ roles in the events in the CSV formatted play by play:
 
 For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
 column is the player committing the event. 
 
 player1_team_abbreviation is the team that player1_name is a player on.
-
 
 In some cases, the player2_name column is another player associated with this event. 
 
@@ -56,10 +66,64 @@ For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and p
 Other eventmsgtype are:  
 2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
 3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
+</description of CSV formatted play by play>
 
 
+<details on SUB events>
+
+Teams can only SUB players from there rosters at the time of the game.
+
+In an NBA game, each team can have a maximum of 5 players on the court at any given time. 
+
+Player substitution events, called SUB, occur throughout the game to manage playing time, foul trouble, and tactical adjustments. 
+
+A player can only enter the game for their own team, replacing a teammate who must exit the court. 
+
+There is no limit to the number of substitutions a team can make during a game.
+
+Coaches aim to distribute playing time effectively to maintain player performance and prevent fatigue. 
+
+Starters typically play around 32 minutes per game, while bench players usually play 16 minutes or less. 
+
+Players generally play in 6-8 minute stints to stay fresh and competitive.
+
+Substitutions are also made when players are in foul trouble. 
+
+Each player is allowed 6 personal fouls before being disqualified from the game. 
+
+Coaches may substitute players with a high number of fouls to avoid disqualification.
+
+Tactical substitutions are made to match up against opposing players, change the team's playing style, or adjust to game situations.
+
+These substitutions can occur at the beginning of each quarter or during timeouts.
+
+For the SUB events in the example play by play, player1_name enters the game and player2_name leaves the game.
+</details on SUB events>
 
 
-I've attached a full game play by play. 
-Provide the first quarter play by play of a hypothetical game between OKC and PHI in 
-January 12, 2023 in this CSV format.
+<example0_play_by_play>
+
+
+<\example0_play_by_play>
+
+<example1_play_by_play>
+
+
+<\example1_play_by_play>
+
+<example2_play_by_play>
+
+
+<\example2_play_by_play>
+
+<example3_play_by_play>
+
+
+<\example3_play_by_play>
+
+No summaries.
+Use these four example play by plays as guides for hypothetical game play by plays.
+
+Use only players from OKC and GSW. Use them in typical playing times,scoring rebounding and other events.
+
+Use these examples and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.

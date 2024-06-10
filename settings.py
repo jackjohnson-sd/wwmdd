@@ -66,6 +66,11 @@ class default :
                     , "cSOURCE"    : "CLAUDE:claude_test"
                     , "gSOURCE"    : "GEMINI:gemini_test"
                     , "tSOURCE"    : "TOKENS:gemini_test"
+                    
+                    , "LOG"        : "OFF"
+                    , "TRIM"       : "OFF"
+                    , "CONSOLE"    : "ON"
+
                 }
      
 

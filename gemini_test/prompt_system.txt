@@ -101,25 +101,17 @@ For the SUB events in the example play by play, player1_name enters the game and
 </details on SUB events>
 
 
-<example0_play_by_play>
+<example_play_by_play0>
+<\example_play_by_play0>
 
+<example_play_by_play1>
+<\example_play_by_play1>
 
-<\example0_play_by_play>
+<example_play_by_play2>
+<\example_play_by_play2>
 
-<example1_play_by_play>
-
-
-<\example1_play_by_play>
-
-<example2_play_by_play>
-
-
-<\example2_play_by_play>
-
-<example3_play_by_play>
-
-
-<\example3_play_by_play>
+<example_play_by_play3>
+<\example_play_by_play3>
 
 No summaries
 Use these four example play by plays are as guides for hypothetical game play by plays.

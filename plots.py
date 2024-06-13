@@ -728,7 +728,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         plt.savefig(fn)
 
     SHOW_PLOT =  defaults.get('SHOW_PLOT')  
-    print("Should show plot? ", SHOW_PLOT)
     if(SHOW_PLOT == "ON"): plt.show(block = True) 
     else: print('Show plot disabled in json config file')   
 

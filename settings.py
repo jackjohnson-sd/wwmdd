@@ -14,8 +14,8 @@ class default :
                 self.stuff = json.load(f)
         except:
                 print(f'Failed to load {fn} as json settings file.')
-                print('Using default values.')
-                
+                print('----------- Using default values.       ------------ ')
+                # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff =  {
                     
 
@@ -66,6 +66,11 @@ class default :
                     , "cSOURCE"    : "CLAUDE:claude_test"
                     , "gSOURCE"    : "GEMINI:gemini_test"
                     , "tSOURCE"    : "TOKENS:gemini_test"
+                    
+                    , "LOG"        : "OFF"
+                    , "TRIM"       : "OFF"
+                    , "CONSOLE"    : "ON"
+
                 }
      
 

@@ -1,16 +1,19 @@
 import argparse
 import settings
 
+
 # before anything else happens, likely too cheesy and won't servive long
 parser = argparse.ArgumentParser()
 parser.add_argument("--json", help="specify json file. default is settings.json")
 parser.add_argument("--tokens", help="report on tokens per file in a directory")
 parser.add_argument("--show", help="plot display file file in a directory")
 parser.add_argument("--gemini", help="call gemini to get game for files in a directory")
+parser.add_argument("--web", help="call nba to get games")
 
 args = parser.parse_args()
-
 settings.defaults = settings.default(args.json if args.json else None)
+
+from logger import log
 
 import main_web
 import main_csv
@@ -23,6 +26,7 @@ if __name__ == "__main__":
     if   args.show != None: main_csv.main(args.show)
     elif args.gemini != None: gemini.main(args.gemini)
     elif args.tokens != None: gemini.do_tokens(args.tokens)
+    elif args.web != None: main_web.main()
     else:
 
         data_source = settings.defaults.get('SOURCE')

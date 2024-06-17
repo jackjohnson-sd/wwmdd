@@ -1,6 +1,7 @@
 from box_score import  box_score
 import pandas as pd
 from settings import defaults
+from gemini import save_files
  
 def getTimeSpansByPlayer(playbyplay, players):
     # collect timespans played by this player
@@ -117,6 +118,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
     pbp = game_data.play_by_play
 
     if  pbp.shape[0] != 0:
+        
         # creates a computed column of seconds into game of event 
         pbp[['sec','score_home','score_away']] = pbp.apply(
             lambda row: period_clock_to_seconds(row), axis=1, result_type='expand'
@@ -160,7 +162,12 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
                         _total_secs += _duration
                         _start = start_ts[1]
                         _stop = stop_ts[1]
-                        stints_by_player[player].append([_duration , _start, _stop])
+                        if OPPONENT :
+                            if team_abbreviation != game_data.team_abbreviation_home:
+                                team_abbreviation = game_data.team_abbreviation_home
+                            
+                                
+                        stints_by_player[player].append([int(_duration) , int(_start), int(_stop),team_abbreviation])
                     else:
                         print('Error forming spans ',player,start_ts,stop_ts)  
                 
@@ -170,8 +177,187 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
 
     return [{},{}]
 
-def dump_pbp(game):
+def _ms(_sec) : return pms(_sec).replace(' ',',')[1:]
+        
+def pms(_sec):  # p eriod m inute s econd
     
+    q        = int(_sec / 720) + 1
+    s_into_q = int(_sec % 720)
+    m_into_q = s_into_q / 60
+    s_into_m = int(s_into_q % 60)
+    if s_into_m == 0:
+        s_into_m = 60
+    s = f'{q},{int(12-m_into_q):02d}:{int(60-s_into_m):02d}'
+    return s
+
+def save_starts(starts):
+    
+    def sfn(event):  
+        when = _ms(event[1] if event[5] == 'I' else event[2])
+        return (' ').join([when] + list(map(lambda a : str(a), event)))  
+    
+    f = ('\n').join(list(map(lambda a : sfn(a), starts)))  
+    save_files('tmp.txt','_save_and_ignore',[['tmp.txt',f]])
+   
+def sub_fix(game_stints):
+
+    results = []
+
+    def leaving_game(event,idx,starts):
+        found_out = False
+        in_game = False
+        for key in currents.keys():
+            _current_player = currents[key]
+            # match everything but I/O
+            # if idx >= 37:
+            #     print('current',_current_player[3:5])
+            #     print('event',event)
+
+            if _current_player[3:5] == event[3:5]:
+                # currently playing enter matches our exit
+                in_game = True
+                # delete from currently playing
+                del currents[key]
+                
+                # look in event list that came before
+                priors = reversed(starts[0:idx])
+                for j,prior in enumerate(priors):
+                    
+                    # for an I for our team
+                    if prior[3] == event[3] and prior[5] == 'I':
+                        # if idx >= 37:
+                        #     print('prior',prior)
+                        #     print('event',event)
+                        # that enters the same as our exit
+                        if prior[1] == event[2]:
+                            
+                            # tell the world we have an I/O pair
+                            # str_in = f'{_current_player[4]:>20} {_ms(_current_player[1])} {_ms(_current_player[2])}'
+                            # str_r =  f'{prior[4]:>20} {_ms(prior[1])} {_ms(prior[2])}'
+                            # print(idx,pms(event[2]),f'IN {str_r}       OUT,{str_in}',)
+                            
+                            str_in = f'{_current_player[4]:>20} {_ms(_current_player[1])} {_ms(_current_player[2])}'
+                            str_r =  f'{prior[4]:>20} {_ms(prior[1])} {_ms(prior[2])}'
+
+                            p1_ln = prior[4].split(' ')[1]
+                            p2_ln = _current_player[4].split(' ')[1]
+                            s = f'SUB: {p1_ln} FOR {p2_ln}'
+        
+                            s1 = f'SUB,{pms(event[2])},{s},,,{prior[4]},{prior[3]},{_current_player[4]},{_current_player[3]},,'
+                            results.extend([s1])
+                         
+                            # print(idx,f'SUB,{pms(event[2])},{s},,,{prior[4]},{prior[3]},{_current_player[4]},{_current_player[3]},,',)
+
+                            # mark it as used
+                            starts[idx - (j + 1)][3] = '***'
+                            found_out = True
+                            break
+                break
+            
+        if not found_out: 
+            if not in_game:
+                print(idx,'        WARNING -- NOT IN GAME',event[4],event[3])
+            else:
+                # we have an out for some one who is not playing
+                print(idx,'        WARNING -- NO HISTORY MATCH - LEFT WITHOUT ENTER',event[4],event[3])
+           
+    flattened_stints  = []
+    for key in game_stints.keys():
+        stints = game_stints[key]
+        for stint in stints:
+            stint += [key]
+            flattened_stints.extend([stint])
+            
+    starts = sorted(flattened_stints, key=lambda stint: stint[1]) 
+    starts = list(map(lambda x:x +['I'],starts))
+    ends   = sorted(flattened_stints, key=lambda stint: stint[2]) 
+    ends   = list(map(lambda x:x +['O'],ends))
+    
+    starts = starts + ends
+    def fn(stint): return stint[1] if stint[5] == 'I' else stint[2]
+    starts = sorted(starts, key=lambda stint: fn(stint)) 
+    
+    save_starts(starts)
+    
+    currents = {}
+    now = pms(starts[0][1])
+    
+    then_start = 0
+    then = starts[0][1] if starts[0][5] == 'I' else starts[0][2]
+    
+    for i,d in enumerate(starts):
+    
+        #[376, 0, 376, 'OKC', 'Chet Holmgren', 'I'] duration,start,end,player,direction
+
+        now = d[1] if d[5] == 'I' else d[2]
+        if now != then:
+            # print(list(range(then_start,i)))
+                    
+            for m in range(then_start,i):
+                d = starts[m]
+                if d[5] == 'I': 
+                    # print('Enter',d[4])
+                    if d[4] in currents.keys():
+                        currents[d[4]][2] = d[2]
+                        currents[d[4]][0] += d[0]
+                    else: 
+                        if len(list(currents.keys())) < 10:
+                            p1_ln = d[4].split(' ')[1]
+                            s = f'SUB: {p1_ln} Enters'
+                            s1 = f'SUB,{pms(d[1])},{s},,,{d[4]},{d[3]},,,,'
+                            results.extend([s1])
+                            # print(i,s1)
+
+                            # print(i,_ms(d[1]),f'IN {d[4]},{d[3]}')
+
+                        currents[d[4]] = d.copy()
+
+            for m in range(then_start,i):
+                d = starts[m]
+                if d[5] == 'O': 
+                    # is an Input for this Output
+                    # in our group of simultaneous events
+                    # if so ignore the exit
+                    fi = False
+                    for x in range(then_start,i):
+                        # check is I for our
+                        if starts[x][5] == 'I':
+                            # check its our name
+                            if starts[x][4] == d[4]: 
+                                # print('in for out in our group')
+                                # print(x,'|',starts[x],d)
+                                fi = True
+                                break
+                    if not fi:     
+                        # not an in/out pair        
+                        leaving_game(d,i,starts)
+
+            then_start = i
+            then = now
+
+    for key in currents.keys():
+        d = currents[key]
+        q = int(d[2] / 720) 
+        s = f'{q},00:00'
+        
+        ln = d[4].split(' ')[1]
+        f = f'SUB: {ln} Exits.'
+        s1 = f'SUB,{s},{f},,,,,{d[4]},{d[3]},,'
+        print(i,s1)
+        results.extend([s1])
+
+    f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation' + \
+        ('\n,').join(results)  
+    
+    save_files('subs.csv','_save_and_ignore',[['subs.csv',f]])
+
+    return results
+
+def dump_pbp(game, game_stints):
+    
+    # ds = sub_fix(game_stints)
+    # return
+
     pbp_event_map = {
         1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist
         2: [['MISS', 'BLOCK'],    [1, 3]],

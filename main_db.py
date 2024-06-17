@@ -1,7 +1,8 @@
 import pandas as pd
 from data_load import loadNBA_data
 from play_by_play import generatePBP
-from plots import plot3
+from plots import plot3, quitGame
+ 
 
 from settings import defaults
  
@@ -35,6 +36,9 @@ def main():
         plot3(_TEAM, game_data,
             our_playerstints_and_boxscore,
             opponent_playerstints_and_boxscore)
-
+                # next game or quit
+        # prompt for quit (bes) 
+        if(quitGame()==True):
+            break
     db_con.close()
 

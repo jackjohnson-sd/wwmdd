@@ -121,9 +121,9 @@ For the SUB events in the example play by play, player1_name enters the game and
 
 <\example3_play_by_play>
 
-No summaries
-Use these four example play by plays are as guides for hypothetical game play by plays.
+No summaries.
+Use these four example play by plays as guides for hypothetical game play by plays.
 
 Use only players from OKC and GSW. Use them in typical playing times,scoring rebounding and other events.
 
-Use these exanple and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.
+Use these examples and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.

@@ -29,6 +29,10 @@ If a team has not scored there score is 0.
 
 The initial score is 0 - 0
 
+The score is the home team's score first then a '-' followed by the away team.
+
+The game is over if at the end of the 4th or subsequent periods is not tied.
+
 The below lines describe the players’ roles in the events in the CSV formatted play by play:
 
 For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
@@ -96,8 +100,22 @@ These substitutions can occur at the beginning of each quarter or during timeout
 For the SUB events in the example play by play, player1_name enters the game and player2_name leaves the game.
 </details on SUB events>
 
-<example_play_by_play>
 
-<\example_play_by_play>
+<example_play_by_play0>
+<\example_play_by_play0>
 
-Use the example play by play to guide creation of hypothetical play by plays.
+<example_play_by_play1>
+<\example_play_by_play1>
+
+<example_play_by_play2>
+<\example_play_by_play2>
+
+<example_play_by_play3>
+<\example_play_by_play3>
+
+No summaries
+Use these four example play by plays are as guides for hypothetical game play by plays.
+
+Use only players from OKC and GSW. Use them in typical playing times,scoring rebounding and other events.
+
+Use these examples and guidance to to create a hypothetical play by play in csv format that blends what you know about these teams.

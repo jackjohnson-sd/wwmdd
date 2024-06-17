@@ -1,8 +1,10 @@
 import pandas as pd
 
-from plots import plot3, defaults
+from plots import plot3, defaults, quitGame
 from play_by_play import generatePBP, dump_pbp
 import nba_web_api as nba
+
+ 
 
 def _get_opp_game(g, teams):
 
@@ -72,12 +74,21 @@ def main():
             our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
             opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
 
-            if SAVE_GAME_AS_CSV == 'ON': dump_pbp(game_data)
+            def Merge(dict1, dict2): return {**dict1, **dict2}
+            game_stints = Merge(our_playerstints_and_boxscore[0], opp_playerstints_and_boxscore[0])
+
+            if SAVE_GAME_AS_CSV == 'ON': 
+                #  just one team for testing dump_pbp(game_data, our_playerstints_and_boxscore[0])
+                dump_pbp(game_data, game_stints)
 
             plot3(_TEAM, game_data,
                 our_playerstints_and_boxscore, 
                 opp_playerstints_and_boxscore)    
         else:
             print(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
+        # next game or quit
+        if(quitGame()==True):
+            break
+
     return 
 

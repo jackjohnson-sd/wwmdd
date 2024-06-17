@@ -1,4 +1,11 @@
 import os
+from cleaner import cleaner, progress
+
+import os
+from logger import log,logd,loge,LOG
+
+from gemini import get_file_names,save_files 
+
 import anthropic
 
 client = anthropic.Anthropic()
@@ -10,12 +17,14 @@ haiku = 'claude-3-haiku-20240307'
 sonnet	= 'claude-3-sonnet-20240229'
 opus   = 'claude-3-opus-20240229'
 
+MODEL = sonnet
+MAX_TOKENS = 2000
 
 def to_claude(system_prompt='', prompt = ''):
     
     message = client.messages.create(
         model       = "claude-3-opus-20240229",
-        max_tokens  = 1000,
+        max_tokens  = 2000,
         temperature = 0.0,
         system      = system_prompt,
         messages=[ { "role" : "user" , "content" : prompt}]
@@ -23,124 +32,123 @@ def to_claude(system_prompt='', prompt = ''):
 
     return message.content
 
+def stream_claude(prompt,system_prompt,assistant_prompt):
+    
+    the_responce = ''
+    
+    if LOG == 'OFF': print('CLAUDE?  ', end='', flush=True)
+    else: log('CLAUDE stream START')
 
-def stream_claude(prompt,system_prompt,example_game,continue_prompt, file_directory ):
+    try:
+   
+        with client.messages.stream (
 
-    def show_progress():
-        a = ['a','b','c','d','e']
-        i = 0
-        while True:
-            print('\010', end="", flush=True) 
-            print(a[i], end="", flush=True) 
-            i += 1
-            i = i % 5
+            system = system_prompt,
 
-    doit = True
-    err_count = 0
+            messages = [
+                { "role": "user",       "content": prompt},
+                { "role": "assistant",  "content": assistant_prompt},
+            ],
 
-    cnt = 0
-    total_responce = ''
-    total_raw_resp = ''
+            max_tokens=MAX_TOKENS,
+        
+            model = MODEL,
+        
+        ) as stream:
+           
+            for text in stream.text_stream:
+                if LOG == 'OFF': progress.show()
+                the_responce += text
+        
+        if LOG == 'OFF': print()
+        else: log('CLAUDEI stream END')
+        
+        return the_responce
+    
+    except Exception as err:
+        loge(f'CLAUDE: start_stream ERROR  {err}')
+        return '','' 
+
+def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory ):
+
+    # 13 rows and don't duplicate the header
+    clnr = cleaner(13)
+    
+    hdr = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation'
+    clnr.set_header(hdr)
+
+    do_no_more = False
 
     assistant_prompt = 'Hello, no responce needed.'
     
+    # insert our example files
     key1 = '<example_play_by_play>'
     key2 = '<\\example_play_by_play>'
     
     s = system_prompt.find(key1) + len(key1)
     e = system_prompt.find(key2)
+    
+    if e == -1 :
+        loge('\nCLAUDE ERROR NO PLACE FOR EXAMPLE FILE IN SYSTEM PROMPT ----------\n')           
+        do_no_more = True
+        
     system_prompt = system_prompt[0:s] + '\n' + example_game + system_prompt[e:-1]
     
-    print(f'\n{0}------system prompt --- \n{system_prompt} \n')
+    total_responce = ''
+    total_raw_resp = ''
+
+    log(f'CLAUDE Model {MODEL}')
     
-    while doit :
+    while not do_no_more :
         
         # messages are state less.  
         # i.e. no memory this is it.
-         
-        # system prompt is the this is our format
-        # this is the events, here is a sample game
-        
-        # prompt is give me play by play from this game
-        # and continue from from from where it left off
-        
-        print(f'\n{cnt}------prompt --- \n{prompt} \n')
-        print(f'\n{cnt}------assistant ---\n {assistant_prompt} \n')
-        the_responce = ''        
-        do_no_more = False
-        try:
-            with client.messages.stream(
-
-                system = system_prompt,
-
-                messages = [
-                    { "role": "user", "content": prompt},
-                    { "role": "assistant", "content": assistant_prompt},
-                ],
-                
-                max_tokens=4000,
-                model = sonnet,
-            ) as stream:
-                for text in stream.text_stream:
-
-                    print('.', end="", flush=True)
-                    the_responce += text
-            print()
-        except Exception as err:
-            print(err)
             
-        try:
-            the_responce += '\n'
-            if the_responce == '':
-                err_count += 1
-                if err_count == 5: break
-            else:
-                err_count = 0
-                total_raw_resp += the_responce
-                t = the_responce.split('\n')
-                # clean up the response
-                # THROUGH OUT NON CSV 
-                
-                while True:
-                    la = t[-1].split(',')
-                    if len(la) != 13:
-                        t.remove(t[-1])
-                    else:
-                        break
-                while True:
-                    la = t[0].split(',')
-                    if len(la) != 13:
-                        t.remove(t[0])
-                    else:
-                        break
-                    
-            t2 = ('\n').join(t)
-            total_responce += t2
-            a = t[-1].split(',')
-            period = a[2]
-            time = a[3]
-            assistant_prompt = t2 #'<hypothetical_play_by_play>\n' + t2 + '\n<\\hypothetical_play_by_play>' 
- 
-        except Exception as err: 
-            print(err)           
-            do_no_more = True 
+        the_responce = ''        
         
-        prompt = continue_prompt
-        cnt =+ 1
-        # end when we see end of ENDOFPERIOD,4
-        doit = 'ENDOFPERIOD,4,0:00' not in the_responce or do_no_more
+        the_responce = stream_claude(
+            prompt,
+            system_prompt,
+            assistant_prompt
+        )
+        
+        if '' == the_responce:
+            do_no_more = True 
+            loge('CLAUDE:ERROR No response.')
+        else: 
+            
+            try:            
+                cleaned, good_line_cnt, dead_line_cnt, cln_error = clnr.clean_responce([prompt,assistant_prompt,system_prompt],the_responce)
+                if cln_error:
+                    do_no_more = True
+                else:
+                    total_responce += '\n' + cleaned
+                    total_raw_resp += '\n' + the_responce
+                    
+                    assistant_prompt = cleaned #'<hypothetical_play_by_play>\n' + t2 + '\n<\\hypothetical_play_by_play>' 
+
+                    # end when we see ENDOFPERIOD,4
+                    do_no_more = clnr.are_we_done()
+
+            except Exception as err: # ABORT
+                loge(f'CLAUDE:CLNR ERROR {err}')
+                do_no_more = True
+                            
+            prompt = continue_prompt
+
     
-    fn = os.getcwd() + '/' + file_directory + '/' + 'made_by_claude.csv'
-    with open(fn, 'w') as content_file:
-        content_file.write(total_responce)
+    clnr.browse()
+    
+    the_files = [
+        ['made_by_claude.csv', total_responce],
+        ['made_by_claude_raw.txt', total_raw_resp]
+    ]
+    
+    save_files('CLAUDE', file_directory,the_files)
 
-    fn = os.getcwd() + '/' + file_directory + '/' + 'raw_made_by_claude.txt'
-    with open(fn, 'w') as content_file:
-        content_file.write(total_raw_resp)
+def main(file_directory):
 
-    print('the end look here',fn)
-
-def claude_test(files,file_directory):
+    files = get_file_names(file_directory)
     
     prompt = None; system_prompt = None; example_game = None; continue_prompt = None
     for fn in files:
@@ -153,18 +161,10 @@ def claude_test(files,file_directory):
     tmp = [prompt == None, system_prompt == None, example_game == None, continue_prompt == None]
     if not any(tmp):    
         
-        stream_claude(prompt,system_prompt,example_game,continue_prompt,file_directory)
-
-def main(file_directory):
-
-    import os
-
-    if os.path.isdir(file_directory):
-        cwd = os.getcwd() + '/' + file_directory
-        files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
+        ask_claude(prompt,system_prompt,example_game,continue_prompt,file_directory)
     else:
-        files = [file_directory]
-        
-    claude_test(files,file_directory)
+        loge('\n ERROR -- CLAUDE file(s) missing!\n' )
+        loge('Need initial_prompt.txt, system_prompt.txt, example_game.csv, continue_prompt.txt')
 
+        
 # anthropic-cookbook/misc/metaprompt.ipynb

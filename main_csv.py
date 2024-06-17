@@ -1,7 +1,8 @@
 import pandas as pd
 
 from play_by_play import generatePBP
-from plots import plot3, defaults
+from plots import plot3, defaults, quitGame
+
 
 def main(file_dir_name):
 
@@ -149,3 +150,7 @@ def main(file_dir_name):
         plot3(home, pds_game_data,
             our_playerstints_and_boxscore,
             opponent_playerstints_and_boxscore)
+        
+        # next game or quit (bes) untested from this module!
+        if(quitGame()==True):
+            break

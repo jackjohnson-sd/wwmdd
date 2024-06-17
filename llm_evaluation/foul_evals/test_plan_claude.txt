@@ -1,0 +1,89 @@
+6/16:
+-combining prompt 1 and 2, to be one context statement. 
+-Claude answered Q 7 -- 9 correctly, but failed Q10. 
+
+PROMPT 1:
+    The following information details the structure and rules of quarters and fouls in play by plays of NBA games in CSV format.
+    
+    Quarter Rules: 
+    A quarter, or period, in a basketball game is 12 minutes. 
+
+    There are 4 quarters, or periods, in a basketball game. 
+
+    If the teams' scores are tied at the end of the fourth quarter, then the game enters overtime and the fifth quarter begins. 
+
+    In the CSV formatted play by play of a basketball game, the 'period' column contains numbers '1', '2', '3', or '4'. 
+    '1' signifies the first quarter, or period.
+    '2' signifies the second quarter, or period. 
+    '3' signifies the third quarter, or period.
+    '4' signifies the fourth quarter, or period.
+
+    The 'pctimestring' column signifies the time remaining in the quarter or period.
+
+    For example, this is an event row from a play by play in CSV format: 
+
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    193,2POINT,2,0:59,Doncic 1' Driving Layup (39 PTS),64 - 62,-2,Luka Doncic,DAL,,,,
+
+    Here, the game is in the second (2) quarter because '2' is in the 'period' column and there is 59 seconds left in the second quarter 
+    because '0:59' is in the 'pctimestring' column. 
+
+
+    FOUL Rules:
+    In a FOUL eventmsgtype event, player1_name commits the foul against player2_name.
+
+    An example of a foul event is here:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+
+    ‘FOUL’ is in the eventmsgtype column which means this row describes a foul event.
+
+    Dereck Lively II commits the foul because his name is named in the player1_name column. 
+    player1_name is a player on the team DAL because ‘DAL’ is in player1_team_abbreviation. 
+    player1_name is credited with the foul, which counts towards his and player1_team_abbreviation's foul counts.
+
+    Clint Capela is the victim of player1_name's foul because Clint Capela is named in the player2_name column. 
+    player2_name is not credited with the foul and the foul does not count towards his or player2_team_abbreviation's foul counts. 
+
+
+
+
+
+
+
+
+6/13:
+Prompt 2a:
+    Refer to these foul rules when answering questions in this chat session.
+
+Prompt 2b:
+    Based on the play-by-play data and the FOUL rules I provided earlier, please find all the events where 'Josh Giddey' 
+    is listed in the 'player1_name' column in rows where 'FOUL' is listed in the 'eventmsgtype' column. 
+
+    These events indicate the fouls committed by Josh Giddey. 
+
+    Please provide the exact event row(s) from the play-by-play data for the foul(s) committed by Josh Giddey, including 
+    all the columns in the original format.
+
+
+Discussion: 
+Claude consistently pulls events which do not occur in the example game. 
+Claude passed questions 1 and 2, but failed 3, 4, 5.
+When asked how many fouls Josh Giddey committed, Claude responded with the correct toal but provided an
+event row where Giddey is fouled against, not committing the foul. 
+
+Claude seemed to acknowledge that it didn't follow my prompt, which leads me to wonder
+how viable Claude will be in our applications. 
+
+I added Prompt 2 (above) to the end of Prompt A when I began a new chat session, and Claude correctly 
+answers Q 1 - 4, but fails 5.
+
+When Claude provided the OKC fouls, it pulled Foul events where GSW commits the fouls. 
+
+In its reasoning, Claude incorrectly references my foul rules, demonstrating a lack of comprehension.
+
+I prompt Claude to give me feedback on my prompts to better address Claude's errors. 
+That prompt is Prompt 2b. I sed this prompt in questions 3, 4, and 5, changing the names when applicable. 
+
+Claude answered the questions correctly but the event rows pulled are inaccurate. 
+The event is either missreported (wrong time, score, players) or an event where GSW commits the foul.

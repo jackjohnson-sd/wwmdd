@@ -1,0 +1,182 @@
+NAME: Fouls Test Plan 
+
+data sets used:
+    OKCvGSW20230130.CSV  (in llm_training_data)
+
+Test Model: Claude 3 Opus, Gemini 1.5 Pro 
+
+Prompt 1:
+    In a FOUL eventmsgtype event, player1_name commits the foul against player2_name.
+
+    An example of a foul event is here:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+
+    ‘FOUL’ is in the eventmsgtype column which means this row describes a foul event.
+
+    Dereck Lively II commits the foul because his name is named in the player1_name column. 
+    player1_name is a player on the team DAL because ‘DAL’ is in player1_team_abbreviation. 
+    player1_name is credited with the foul, which counts towards his and player1_team_abbreviation's foul counts.
+
+    Clint Capela is the victim of player1_name's foul because Clint Capela is named in the player2_name column. 
+    player2_name is not credited with the foul and the foul does not count towards his or player2_team_abbreviation's foul counts. 
+
+    Please do not provide event rows with your answers, just the number of fouls or what the question is asking explicitly.
+
+Prompt 2:
+    A quarter, or period, in a basketball game is 12 minutes. 
+
+    There are 4 quarters, or periods, in a basketball game. 
+
+    If the teams' scores are tied at the end of the fourth quarter, then the game enters overtime and the fifth quarter begins. 
+
+    In the CSV formatted play by play of a basketball game, the 'period' column contains numbers '1', '2', '3', or '4'. 
+    '1' signifies the first quarter, or period.
+    '2' signifies the second quarter, or period. 
+    '3' signifies the third quarter, or period.
+    '4' signifies the fourth quarter, or period.
+
+    The 'pctimestring' column signifies the time remaining in the quarter or period.
+
+    For example, this is an event row from a play by play in CSV format: 
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    193,2POINT,2,0:59,Doncic 1' Driving Layup (39 PTS),64 - 62,-2,Luka Doncic,DAL,,,,
+    Here, the game is in the second (2) quarter because '2' is in the 'period' column and there is 59 seconds left in the second quarter 
+    because '0:59' is in the 'pctimestring' column. 
+
+
+    
+
+Prompts:
+    1. What teams played in the game?
+    2. Who are the players on each team? 
+    3. How many fouls did Josh Giddey commit in the example game?
+    4. How many fouls did Isaiah Joe commit?
+    5. How many fouls did OKC team commit? 
+
+    6. Consolidated prompts 1 - 5 into questions_1 below
+
+    7. How many fouls did Giddey commit in the first quarter?
+
+    8. How many fouls did Giddey commit in the fourth quarter?
+
+    9. How many fouls did Giddey commit in the third and fourth quarter?
+
+    10. How many more fouls did GSW commit than OKC?
+
+
+
+The Plan: 
+    1. Reset LLM chat to no history 
+    2. Load example game into llm and Prompt 1
+    3. Prompt model with each prompt in prompt list 
+        3a. Check response against prompt expected results 
+        3b. Did we pass? If no, why? 
+    
+
+The Meta Plan:
+    1. execute the Plan
+    2. document failures only
+    3. If failures, 
+        3a. Improve prompt 
+        3b. try agains (go to 1)
+
+questions_1:
+    Based on the play-by-play data and the FOUL rules I provided earlier, please find all the events where 
+    'FOUL' is named in the 'eventmsgtype' column.
+
+    These events indicate the player named in the 'player1_name' column commits the foul. 
+    
+    What teams played in the game?
+
+    Who are the players on each team? 
+
+    How many fouls did Kenrich Williams commit?
+    How many fouls did Shai Gilgeous-Alexander commit?
+    How many fouls did Josh Giddey commit?
+    How many fouls did Jalen Williams commit?
+    How many fouls did Aaron Wiggins commit?
+    How many fouls did Mike Muscala commit?
+    How many fouls did Tre Mann commit?
+    How many fouls did Isaiah Joe commit?
+    How many fouls did Ousmane Dieng commit?
+    How many fouls did Jaylin Williams commit?
+    How many fouls did Darius Bazley commit?
+
+    How many fouls did OKC team commit?
+
+
+Answers: 
+
+    questions_1 answers:
+
+    The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+    The players on the Oklahoma City Thunder were:
+    Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+    The players on the Golden State Warriors were:
+    Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+    Foul counts for Oklahoma City Thunder players:
+
+    Kenrich Williams committed 1 foul.
+    Shai Gilgeous-Alexander committed 3 fouls.
+    Josh Giddey committed 2 fouls.
+    Jalen Williams committed 1 foul.
+    Aaron Wiggins committed 1 foul.
+    Mike Muscala committed 2 fouls.
+    Tre Mann committed 2 fouls.
+    Isaiah Joe committed 3 fouls.
+    Ousmane Dieng committed 1 foul.
+    Jaylin Williams committed 1 foul.
+    Darius Bazley committed 1 foul.
+
+    The Oklahoma City Thunder team committed a total of 18 fouls.
+    
+    questions 7 - 10 answers:
+
+    7. Josh Giddey commits 0 fouls in the first quarter.
+
+    8. Josh Giddey commits 1 foul in the fourth quarter.
+
+    9. Josh Giddey commits 1 foul in the third and fourth quarter.
+
+    10. GSW commits 0 more fouls than OKC. 
+
+
+
+Discussion:
+        Attempt 1:
+
+        Both Gemini and Claude passed questions_1 prompt when compared to the babe_ruth.txt file. 
+
+        Q7: Gemini shows a lack of understanding of what the first quarter is, believing that times 
+        before the 7 minute mark are in the first quarter, when the quarter is listed in the period column. 
+        
+        Gemini did answer correctly though, with Giddey having zero fouls committed in the first quarter.
+
+        Q7: Claude incorrectly answers Giddey's foul count for the first quarter, believing he committed 1 foul.
+
+        I'm moving on to Q 8 -- 10 before adjusting prompts... 
+
+        Q8: Claude correct, Gemini incorrect. 
+
+        Q9: Both incorrect, Claude says he commits 1 third quarter and 1 in fourth quarter. 
+            Gemini says he commits 0 fouls in the third and fourth quarter. 
+
+        Q10: Both answered correctly, "0 more fouls"
+
+        Attempt 2:
+        In Prompt 2, I defined what a quarter, or period, is to the LLMS and re-asked questions 7 -- 10 (the ones failed by the LLMs)
+        
+        Claude failed with Prompt 2 addition. 
+
+        Gemini passed Q7 -- Q10.
+
+        Attempt 3:
+        After editing Prompt 1 with Prompt 2 content, Claude passed Q7 -- 9, but failed Q10. 
+    
+        Monday Morning:
+        -Gemini passes Q 1 - 10 with prompt 1 (quarter rules and foul rules)
+        
+        -Claude passes Q 1 - 9, fails Q10. It correctly provides the OKC foul count, but believed GSW committed 19 fouls. 
+
+

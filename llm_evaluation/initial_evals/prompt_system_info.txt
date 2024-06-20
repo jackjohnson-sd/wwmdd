@@ -1,0 +1,68 @@
+SYSTEM INFORMATION ABOUT PBPs in CSV Format:
+
+PLAYER and TEAM:
+The player in the player1_name column is on the team in the player1_team_abbreviation column of the same row.
+The player in the player2_name column is on the team in the player2_team_abbreviation column of the same row.
+The player in the player3_name column is on the team in the player3_team_abbreviation column of the same row.
+
+
+SCORE:
+The teams’ scores are located in the score column, with the first value in the column representing the score of the away team, 
+while the second value represents the score of the home team. 
+
+The STARTOFPERIOD eventmsgtype signals the start of the period.
+The first STARTOFPERIOD eventmsgtype signals the start of the game. 
+The teams' scores are listed as 0 - 0 in the score column in the first STARTOFPERIOD eventmsgtype row.
+
+The ENDOFPERIOD eventmsgtype signals the end of the period.
+The last ENDOFPERIOD eventmsgtype signals the end of the game.  
+The teams’ end of game scores are in the score column in the last ENDOFPERIOD eventmsgtype row.
+
+Scoring events are the following eventsmsgtypes: 3POINT, 3POINT.ASSIST, FTMAKE, 2POINT, 2POINT.ASSIST
+
+In a FTMAKE eventmsgtype row, the player named in the player1_name column makes the free throw.
+
+In a 3POINT eventmsgtype row, the player named in the player1_name column makes the 3-point field goal. 
+
+In a 2POINT eventmsgtype row, the player named in the player1_name column makes the 2-point field goal. 
+
+In a 3POINT.ASSIST eventmsgtype row, the player named in the player1_name column makes the 3-point field goal, 
+and the player named in the player2_name column assists player1_name. 
+
+In a 2POINT.ASSIST eventmsgtype row, the player named in the player1_name column makes the 2-point field goal, 
+and the player named in the player2_name column assists player1_name. 
+
+So, for 3POINT.ASSIST and 2POINT.ASSIST eventmsgtypes, player1_name is credited with scoring in the game, while player2_name is credited with the assist.
+
+
+MISS:
+In a FTMISS eventmsgtype row, the player named in the player1_name column misses the free throw.
+
+In a 3POINTMISS eventmsgtype row, the player named in the player1_name column misses the 3-point field goal.
+
+In a 2POINTMISS eventmsgtype row, the player named in the player1_name column misses the 2-point field goal.
+
+In a 3POINTMISS.BLOCK eventmsgtype row, the player named in the player1_name column misses the 3-point field goal. 
+The player named in the player3_name column blocks the field goal and is not considered to miss the 3 point shot. 
+
+In a 2POINTMISS.BLOCK eventmsgtype row, the player named in the player1_name column misses the 2-point field goal.
+The player named in the player3_name column blocks the field goal and is not considered to miss the 2 point shot. 
+
+
+TURNOVER and STEAL:
+In a TURNOVER eventmsgtype row, the player named in the player1_name column loses possession of the ball and commits the turnover.
+
+In a STEAL.TURNOVER eventmsgtype row, the player named in the player2_name column commits the steal and gains possession of the ball, 
+while the player named in the player1_name column loses possession of the ball and commits the turnover.
+
+
+SUB:
+In a SUB eventmsgtype row, player2_name enters the game for player1_name. 
+Player1_name leaves the game.
+
+FOUL:
+In a FOUL eventmsgtype row, player1_name commits the foul against player2_name.
+
+REBOUND:
+In a REBOUND eventmsgtype row, a player is usually credited with committing the rebound. 
+That player is named in the player1_name column. 

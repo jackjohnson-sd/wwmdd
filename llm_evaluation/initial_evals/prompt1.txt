@@ -1,0 +1,54 @@
+Game: OKC vs GSW 12/08/2023
+
+1. The attached file is a play by play of an NBA game. What teams are playing?
+
+2. Who are all the players on OKC that played in this game?
+
+3. Who are all the players on GSW that played in this game?
+
+4. How many points did OKC score in the game? 
+
+5. How many points did GSW score in the game?
+
+6. Who scored the most points on OKC?
+
+7. Who scored the least points on OKC?
+
+8. Who scored the most points on GSW?
+
+9. Who scored the least points on GSW?
+
+10. How many fouls did OKC players commit?
+
+11. How many fouls did GSW players commit?
+
+12. Were players who committed fouls subsequently subbed out of the game?
+
+13. How many points did each player on OKC score?
+
+14. How many points did each player on GSW score?
+
+15. How many steals did each player on OKC commit?
+
+16. How many steals did each player on GSW commit?
+
+17. How many free throws did each player miss and make on OKC?
+
+18. How many free throws did each player miss and make on GSW?
+
+19. How many 3 point shots did players miss and make on OKC?
+
+20. How many 3 point shots did players miss and make on GSW?
+
+21. How many blocks did each player in the game commit? 
+
+22. How many rebounds did each player in the game commit? 
+
+23. How many assists did each player in the game commit?
+
+24. How many substitution events occurred in the game and who was subbed for who? 
+
+25. Which player is leaving the game and which player is entering the game? 
+
+26. How many turnovers did each player commit?
+

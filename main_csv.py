@@ -50,9 +50,6 @@ def main(file_dir_name):
             'player2_name', 'player2_team_abbreviation',
             'player3_name', 'player3_team_abbreviation',
         ]
-
-        def bethere(row):
-            return event_map[row.eventmsgtype]
         
         oink = []
         prev = None
@@ -71,7 +68,7 @@ def main(file_dir_name):
                     r.score, r.scoremargin,
                     r.player1_name, r.player1_team_abbreviation,
                     r.player2_name, r.player2_team_abbreviation,
-                    r.player3_name, r.player3_team_abbreviation]
+                    r.player3_name, r.player3_team_abbreviation,]
                     
                     if type(prev) != type(None):
                         if prev == a:
@@ -96,8 +93,11 @@ def main(file_dir_name):
         
         home = None
         away = None
+        home_scr = None
+        away_scr= None
+
         for i,r in play_by_play.iterrows():
-            if r.score == '0':
+            if r.score == '0' or r.score == '':
                 scr = ['0','0']
             else:
                 scr = r.score.split('-')
@@ -113,8 +113,15 @@ def main(file_dir_name):
             if (home != None) and (away != None): 
                 break    
 
+        if home == None: home = 'OKC'
+        if away == None: away = 'GSW'
+        if home_scr == None: home_scr = '0'
+        if away_scr == None: away_scr = '0'
+         
         ha_scores = play_by_play.tail(1).score.tolist()[0].split('-')
-        
+        if len(ha_scores) != 2:
+            ha_scores = ['0','0']
+            
         game_data = {
         'season_id_home' :'',
         'team_id_home'	: '',
@@ -152,5 +159,7 @@ def main(file_dir_name):
             opponent_playerstints_and_boxscore)
         
         # next game or quit (bes) untested from this module!
-        if(quitGame()==True):
-            break
+        # if(quitGame()==True):
+        home = None
+        away = None
+        #     break

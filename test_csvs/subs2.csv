@@ -1,0 +1,35 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+,SUB,1,2:00,SUBa: Giddey Enters,,,,,Josh Giddey,OKC,,
+,SUB,2,10:00,SUBa: Giddey Exits,,,Josh Giddey,OKC,,,,
+,SUB,2,4:00,SUBa: Giddey Enters,,,,,Josh Giddey,OKC,,
+,SUB,3,8:00,SUBa: Giddey Exits,,,Josh Giddey,OKC,,,,
+,SUB,3,9:00,SUBa: Giddey Exits,,,Josh Giddey,OKC,,,,
+,SUB,4,4:00,SUBa: Giddey Enters,,,,,Josh Giddey,OKC,,
+,SUB,4,0:00,SUBa: Giddey Exits,,,Josh Giddey,OKC,,,,
+
+,SUB,1,2:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
+,SUB,2,10:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,SUB,2,4:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
+,SUB,3,8:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,SUB,3,9:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,SUB,4,4:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
+,SUB,4,0:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+
+,SUB,1,2:00,SUBa: SherriJJ Enters,,,,,SherriJJ,OKC,,
+,SUB,2,10:00,SUBa: SherriJJ Exits,,,SherriJJ,OKC,,,,
+,SUB,2,4:00,SUBa: SherriJJ Enters,,,,,SherriJJ,OKC,,
+,SUB,3,11:00,SUBa: SherriJJ Exits,,,SherriJJ,OKC,,,,
+,SUB,3,9:00,SUBa: SherriJJ Exits,,,SherriJJ,OKC,,,,
+,SUB,4,4:00,SUBa: SherriJJ Enters,,,,,SherriJJ,OKC,,
+,SUB,4,0:00,SUBa: SherriJJ Exits,,,SherriJJ,OKC,,,,
+
+
+,SUB,1,2:00,SUBa: Johnson Enters,,,,,Jack Johnson,GSW,,
+,SUB,2,10:00,SUBa: Johnson Exits,,,Jack Johnson,GSW,,,,
+,SUB,2,4:00,SUBa: Johnson Enters,,,,,Jack Johnson,GSW,,
+,SUB,3,8:00,SUBa: Johnson Exits,,,Jack Johnson,GSW,,,,
+,SUB,3,9:00,SUBa: Johnson Exits,,,Jack Johnson,GSW,,,,
+,REBOUND,4,5:00,Johnson REBOUND,,,Jack Johnson,GSW,,,,
+,SUB,4,4:00,SUBa: Johnson Enters,,,,,Jack Johnson,GSW,,
+,SUB,4,0:00,SUBa: Johnson Exits,,,Jack Johnson,GSW,,,,

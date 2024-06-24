@@ -4,7 +4,6 @@ from plots import plot3, defaults, quitGame
 from play_by_play import generatePBP, dump_pbp
 import nba_web_api as nba
 
- 
 
 def _get_opp_game(g, teams):
 
@@ -29,8 +28,12 @@ def _get_opp_game(g, teams):
     nba.convert_column_names(opp_game, opp_msg)
     return opp_game
 
-def main():
-
+def main(team=None,start=None,stop=None):
+    
+    if team != None: defaults.set('TEAM',team)
+    if start != None: defaults.set('START_DAY',start)
+    if stop != None: defaults.set('STOP_DAY',stop)
+        
     _TEAM       = defaults.get('TEAM')      # OKC
     _START_DAY  = defaults.get('START_DAY') # 2023-01-01
     _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
@@ -72,13 +75,11 @@ def main():
         if game_data.play_by_play.shape[0] != 0:
             
             our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
-            opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
-
-            def Merge(dict1, dict2): return {**dict1, **dict2}
-            game_stints = Merge(our_playerstints_and_boxscore[0], opp_playerstints_and_boxscore[0])
+            opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = True)
 
             if SAVE_GAME_AS_CSV == 'ON': 
-                #  just one team for testing dump_pbp(game_data, our_playerstints_and_boxscore[0])
+                def Merge(dict1, dict2): return {**dict1, **dict2}
+                game_stints = Merge(our_playerstints_and_boxscore[0], opp_playerstints_and_boxscore[0])
                 dump_pbp(game_data, game_stints)
 
             plot3(_TEAM, game_data,
@@ -86,9 +87,6 @@ def main():
                 opp_playerstints_and_boxscore)    
         else:
             print(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
-        # next game or quit
-        if(quitGame()==True):
-            break
 
     return 
 

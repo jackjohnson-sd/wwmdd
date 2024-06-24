@@ -5,13 +5,13 @@ from settings import defaults
 LOG     = defaults.get('LOG')      
 CON     = defaults.get('CONSOLE')       
 
-logging.basicConfig(filename='wwmdd.log',
-                    filemode='a',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.DEBUG)
-
-_log = logging.getLogger("wwmdd")
+if LOG == 'ON':
+    logging.basicConfig(filename='wwmdd.log',
+                        filemode='a',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.DEBUG)
+    _log = logging.getLogger("wwmdd")
 
 def log(txt):
     if LOG == 'ON': _log.info(txt)

@@ -1,0 +1,13 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+,COMMENT FOUL @ 4:08:00 Should eliminate exit at 4:10:00,,,,,,,,,,,
+,COMMENT since prior exit in not period change ,,,,,,,,,,,
+
+,SUB,4,11:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,4,10:00,SUB: CALI Exits,,,CALI,OKC,,,,
+
+,FOUL,4,8:00,CALI S.FOU,,,CALI,OKC,,,,
+
+,SUB,4,3:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,4,1:00,SUB: CALI Exits,,,CALI,OKC,,,,
+

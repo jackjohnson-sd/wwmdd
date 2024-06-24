@@ -1,11 +1,14 @@
 {
-      "LOG"         : "ON"
+      "LOG"         : "OFF"
     , "TRIM"        : "OFF"
     , "CONSOLE"     : "ON"
 
     , "dbga"         : "OFF"
     , "dbgb"         : "OFF"
     , "dbgc"          : "OFF"
+
+    , "TEST_PLAYERS"     :  ["Larry"]
+    , "aTEST_PLAYERS"      :  []
 
     , "SAVE_GAME_AS_CSV"  : "ON"
     , "SAVE_GAME_DIR"     : "llm_training_data"
@@ -17,7 +20,11 @@
     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
     , "BAD_EVENT_COLOR"   : "cornflowerblue"
     , "GRID_COLOR"        : "dimgrey"
+
     , "STINT_COLOR"       : "dimgrey"
+    , "STINT_COLOR_IN"    : "red"
+    , "STINT_COLOR_OUT"   : "white"
+
     , "PM_PLUS_COLOR"     : "maroon"
     , "PM_MINUS_COLOR"    : "darkgreen"
     , "TABLE_COLOR"       : "goldenrod"
@@ -37,18 +44,21 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2024-04-27" 
-    , "STOP_DAY"             : "2024-04-27"
+    , "START_DAY"            : "2024-04-29" 
+    , "STOP_DAY"             : "2024-04-29"
     , "TEAM"                 : "OKC"
  
-    , "dSOURCE"     : "nba.sqlite"
-    , "SOURCE"     : "WEB:"
-    , "agSOURCE"    : "FILE:gemini_test"
-    , "zSOURCE"     : "FILE:claude_test"
+    , "nSOURCE"     : "nba.sqlite"
 
-    , "xSOURCE"     : "CLAUDE:claude_test"
-    , "gSOURCE"      : "GEMINI:gemini_test"
-    , "tSOURCE"     : "TOKENS:gemini_test"
+    , "aSOURCE"     : "WEB:"
+    , "bSOURCE"     : "FILE:llm_training_data"
+    , "SOURCE"      : "FILE:test_csvs"
+
+    , "cSOURCE"     : "FILE:gemini_test"
+
+    , "dSOURCE"     : "CLAUDE:claude_test"
+    , "eSOURCE"     : "GEMINI:gemini_test"
+    , "fSOURCE"     : "TOKENS:gemini_test"
 
 
 }

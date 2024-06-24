@@ -50,14 +50,17 @@ def getTimeSpansByPlayer(playbyplay, players):
     # collects timespans played by these players
 
     _sub_events_by_player = {}
-
-    def _leave_game(player_name):
+    in_game_players = []
+    in_game_players_cnt = 0
+    
+    def _leave_game(player_name, _players, _cnt):
+        
         if player_name != None:
-            if player_name in in_game_players:
+            if player_name in _players:
                 if _sub_events_by_player[player_name][-1][0] == 'OUT':
                     _sub_events_by_player[player_name].append(['IN', d.sec,'Enter with partner'])
-                    in_game_players = _players_in_game()
-                    in_game_players_cnt = len(in_game_players)
+        _players = _players_in_game()
+        _cnt = len(_players)
 
     def _players_in_game():
         plrs = []
@@ -67,7 +70,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                     plrs.extend([pl])
         return plrs    
     
-    def _last_sub_out():
+    def _last_sub_out_time():
         event_time = -1
         for pl in _sub_events_by_player:
             if len(_sub_events_by_player[pl]) != 0:
@@ -133,17 +136,13 @@ def getTimeSpansByPlayer(playbyplay, players):
                 case 13: pass # ENDOFPERIOD  
 
                 case 8 : # event is SUB IN or OUT
- 
+                    # p2 entering player, p1 leaving player, both optional
                     Entering = p2_name == player
                     
                     if Entering:
                         if not in_the_game:
-                            if p1_name != None:
-                                if p1_name in in_game_players:
-                                    if _sub_events_by_player[p1_name][-1][0] == 'IN':
-                                        _sub_events_by_player[p1_name].append(['OUT', d.sec,'Leaving with partner'])
-                                        in_game_players = _players_in_game()
-                                        in_game_players_cnt = len(in_game_players)
+                            
+                            _leave_game(p1_name, in_game_players, in_game_players_cnt)  # does nothing  p1_name == None
             
                             if in_game_players_cnt < 5:
                                 _sub_event_for_player.append(['IN', d.sec,'Enter not in'])
@@ -183,6 +182,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                         else:
                             # we are in the game and subbed out during period, everthing OK
                             _sub_event_for_player.append(['OUT', d.sec,'Leave in'])
+                            
                             if p2_name != None:
                                 if p2_name in in_game_players:
                                     if _sub_events_by_player[p2_name][-1][0] == 'OUT':
@@ -206,14 +206,15 @@ def getTimeSpansByPlayer(playbyplay, players):
                             
                             if in_game_players_cnt < 5:
                                 if in_game_players_cnt == 4:
-                                    last_sub_out_time = _last_sub_out()
+                                    
+                                    last_sub_out_time = _last_sub_out_time()
                                     
                                     if last_sub_out_time == -1:
                                         # room for #5, last one in
                                         _sub_event_for_player.append(['IN', (period-1) * 720,'First Time' ])
                             
-                                    elif _last_sub_out() == d.sec:
-                                        # player OUT same as out IN, if we extend to period start
+                                    elif last_sub_out_time == d.sec:
+                                        # player OUT same as our IN, if we extend to period start
                                         # we'd have too many players. so start now
                                         _sub_event_for_player.append(['IN', d.sec,'First Time' ])
                                     else:

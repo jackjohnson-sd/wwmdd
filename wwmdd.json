@@ -50,9 +50,9 @@
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "aSOURCE"     : "WEB:"
+    , "xSOURCE"     : "WEB:"
     , "bSOURCE"     : "FILE:llm_training_data"
-    , "SOURCE"      : "FILE:test_csvs"
+    , "SOURCE"      : "FILE:test_csvs/BRUCE_EXAMPLE.csv"
 
     , "cSOURCE"     : "FILE:gemini_test"
 

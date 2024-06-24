@@ -1,5 +1,7 @@
 ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 
+,COMMENTS IN FILE GO LIKE THIS,,,,,,,,,,,
+
 ,SUB,1,2:00,SUBa: BOBBY Enters,,,,,BOBBY,OKC,,
 ,SUB,1,2:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
 ,SUB,1,2:00,SUBa: SHERRI Enters,,,,,SHERRI,OKC,,

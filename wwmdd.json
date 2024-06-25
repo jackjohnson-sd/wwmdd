@@ -7,8 +7,8 @@
     , "dbgb"         : "OFF"
     , "dbgc"          : "OFF"
 
-    , "TEST_PLAYERS"     :  ["Larry"]
-    , "aTEST_PLAYERS"      :  []
+    , "aTEST_PLAYERS"     :  ["Josh Giddey"]
+    , "TEST_PLAYERS"      :  []
 
     , "SAVE_GAME_AS_CSV"  : "ON"
     , "SAVE_GAME_DIR"     : "llm_training_data"
@@ -50,9 +50,10 @@
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "xSOURCE"     : "WEB:"
-    , "bSOURCE"     : "FILE:llm_training_data"
-    , "SOURCE"      : "FILE:test_csvs/BRUCE_EXAMPLE.csv"
+    , "zSOURCE"     : "WEB:"
+    , "SOURCE"     : "FILE:llm_training_data/NOPvOKC20240429RAW.csv"
+    , "zzSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
+    , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
 
     , "cSOURCE"     : "FILE:gemini_test"
 

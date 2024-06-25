@@ -1,0 +1,49 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+,COMMENTS IN FILE GO LIKE THIS,,,,,,,,,,,
+,BOBBY FOUL at 2:10:00  END OF P1 FORCE exit to MARK re-enter,,,,,,,,,,,
+
+,STARTOFPERIOD,1,12:00,Start of 1st Period (9:10 PM EST),,,,,,,,
+
+,FOUL,1,10:00,SUB: BOBBY FOUL,,,BOBBY,OKC,,,,
+,FOUL,1,9:00,SUB: BOBBY FOUL,,,Thomas,OKC,,,,
+,FOUL,1,8:00,SUB: BOBBY FOUL,,,SHERRI,OKC,,,,
+,FOUL,1,7:00,SUB: BOBBY FOUL,,,BRUCE,OKC,,,,
+
+
+,ENDOFPERIOD,1,0:00,End of 1st Period (9:06 PM EST),,,,,,,,
+,STARTOFPERIOD,2,12:00,Start of 2nd Period (9:10 PM EST),,,,,,,,
+
+,FOUL,2,10:00,SUB: BOBBY FOUL,,,BOBBY,OKC,,,,
+
+,aSUB,2,10:00,SUBa: BRUCE Exits,,,BRUCE,OKC,,,,
+,aSUB,2,10:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,aSUB,2,10:00,SUBa: SHERRI Exits,,,SHERRI,OKC,,,,
+
+,SUB_DELETED,2,4:00,SUBa: BOBBY Enters,,,,,BOBBY,OKC,,
+,SUB,2,4:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
+,SUB,2,4:00,SUBa: SHERRI Enters,,,,,SHERRI,OKC,,
+,SUB,2,4:00,SUBa: BRUCE Enters,,,,,BRUCE,OKC,,
+
+,ENDOFPERIOD,2,0:00,End of 2nd Period (9:06 PM EST),,,,,,,,
+,STARTOFPERIOD,3,12:00,Start of 3rd Period (9:10 PM EST),,,,,,,,
+
+,SUB,3,9:00,SUBa: SHERRI Exits,,,SHERRI,OKC,,,,
+,SUB,3,9:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,SUB,3,9:00,SUBa: BRUCE Exits,,,BRUCE,OKC,,,,
+,SUB,3,8:00,SUBa: BOBBY Exits,,,BOBBY,OKC,,,,
+
+,ENDOFPERIOD,3,0:00,End of 3rddd Period (9:06 PM EST),,,,,,,,
+,STARTOFPERIOD,4,12:00,Start of 4th Period (9:10 PM EST),,,,,,,,
+
+,SUB,4,4:00,SUBa: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,4,4:00,SUBa: SHERRI Enters,,,,,SHERRI,OKC,,
+,SUB,4,4:00,SUBa: Thomas Enters,,,,,Thomas,OKC,,
+,SUB,4,4:00,SUBa: BOBBY Enters,,,,,BOBBY,OKC,,
+
+,SUB,4,0:00,SUBa: SHERRI Exits,,,SHERRI,OKC,,,,
+,SUB,4,0:00,SUBa: Thomas Exits,,,Thomas,OKC,,,,
+,SUB,4,0:00,SUBa: BRUCE Exits,,,BRUCE,OKC,,,,
+,SUB,4,0:00,SUBa: BOBBY Exits,,,BOBBY,OKC,,,,
+
+,ENDOFPERIOD,4,0:00,End of 4th Period (9:06 PM EST),,,,,,,,

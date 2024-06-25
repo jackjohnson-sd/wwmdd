@@ -52,7 +52,7 @@
 
     , "xSOURCE"     : "WEB:"
     , "bSOURCE"     : "FILE:llm_training_data"
-    , "SOURCE"      : "FILE:test_csvs/BRUCE_EXAMPLE.csv"
+    , "SOURCE"      : "FILE:test_csvs/bruce_score_tests_v1.csv"
 
     , "cSOURCE"     : "FILE:gemini_test"
 

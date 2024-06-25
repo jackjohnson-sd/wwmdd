@@ -55,7 +55,7 @@
 ,FTMAKE,3,0:38,Gilgeous-Alexander Free Throw 2 of 2 (33 PTS),118 - 99,-19,Shai Gilgeous-Alexander,OKC,,,,
 
 ,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD, n score per team plus sum of scores per team during this perio
-267,ENDOFPERIOD,3,0:00,End of 3rd Period (8:40 PM CST),120 - 101,-19,,,,,,
+,ENDOFPERIOD,3,0:00,End of 3rd Period (8:40 PM CST),120 - 101,-19,,,,,,
 
 ,COMMENT STARTOFPERIOD n, event scores should equal ENDOFPERIOD n-1, event scores per team and score margin
 ,STARTOFPERIOD,4,12:00,Start of 4th Period (8:42 PM CST),120 - 101,-19,,,,,,

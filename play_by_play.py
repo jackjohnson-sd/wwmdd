@@ -50,18 +50,18 @@ def getTimeSpansByPlayer(playbyplay, players):
     # collects timespans played by these players
 
     _sub_events_by_player = {}
-    in_game_players = []
-    in_game_players_cnt = 0
     
-    def _leave_game(player_name, _players, _cnt):
+    def _leave_game(player_name, _players):
         
         if player_name != None:
             if player_name in _players:
                 if _sub_events_by_player[player_name][-1][0] == 'OUT':
                     _sub_events_by_player[player_name].append(['IN', d.sec,'Enter with partner'])
+        
         _players = _players_in_game()
-        _cnt = len(_players)
-
+        
+        return  _players, len(_players)       
+        
     def _players_in_game():
         plrs = []
         for pl in _sub_events_by_player:
@@ -78,10 +78,14 @@ def getTimeSpansByPlayer(playbyplay, players):
                     event_time = max(event_time,_sub_events_by_player[pl][-1][1])
         return event_time
                              
-    a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8,12,13])
+    a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8])
+    a1_ = playbyplay['eventmsgtype'].isin([12,13])
+    
     b_ = playbyplay['player1_name'].isin(players)
     c_ = playbyplay['player2_name'].isin(players)
-    our_events = playbyplay[a_ & (b_ | c_)]
+    d_ = playbyplay['player3_name'].isin(players)
+    
+    our_events = playbyplay[((a_ & (b_ | c_ | d_)) | a1_)]
     
     # we're looking at all events for this player
     # in the NBA data players who enter or exit 
@@ -92,168 +96,156 @@ def getTimeSpansByPlayer(playbyplay, players):
     # in the game if last_event says "IN"
     in_the_game = False
     last_event = None
-
+    players_in_period_count = 0
+    
     for i, d in our_events.iterrows():
-        
-        period = int(d.period)
-        pctimestring = str(d.pctimestring)
-
-        p1_name = d.player1_name
-        p2_name = d.player2_name
-
-        pls = []
-        if p1_name in players: pls.extend([p1_name])
-        if p2_name in players: pls.extend([p2_name])
-        
-        for player in pls:
-            # print(period,pctimestring,d.eventmsgtype,'p1:',p1_name,'p2:',p2_name,d.visitordescription)  
-            if player not in _sub_events_by_player.keys(): _sub_events_by_player[player] = []
-            
-            _sub_event_for_player = _sub_events_by_player[player]
-      
-            
-            if len(_sub_event_for_player) > 0: 
-                last_event = _sub_event_for_player[-1]
-                in_the_game = last_event[0] == 'IN'
-
-            in_game_players = _players_in_game()
-            in_game_players_cnt = len(in_game_players)
                     
-            match d.eventmsgtype:
-
-                case 12: # STARTOFPERIOD
+        if d.eventmsgtype == 13: # ENDOFPERIOD
+            
+            players_in_period_count = 0
+            
+            for player in _sub_events_by_player:
                 
-                    # Why is this check needed? 
-                    if last_event != None:
+                events = _sub_events_by_player[player]
+                if len(events) > 0:
                     
-                        if last_event[0] == 'IN':
-                        
-                            # Last says we are IN the game
-                            # we are forced out at period change
-                            _sub_event_for_player.append(['OUT',(period) * 720,'P change'])    
-
-                    
-                case 13: pass # ENDOFPERIOD  
-
-                case 8 : # event is SUB IN or OUT
-                    # p2 entering player, p1 leaving player, both optional
-                    Entering = p2_name == player
-                    
-                    if Entering:
-                        if not in_the_game:
-                            
-                            _leave_game(p1_name, in_game_players, in_game_players_cnt)  # does nothing  p1_name == None
-            
-                            if in_game_players_cnt < 5:
-                                _sub_event_for_player.append(['IN', d.sec,'Enter not in'])
-                            else:
-                                print(f'ERROR {player} {pms(d.sec)} Entered when 5 in.')
-                                
-                        elif player in TEST_PLAYERS:
-                            print(f'{player} {pms(d.sec)} Entered when IN the game.')
-                                    
-                    else: 
-                        # we are exiting the game, 'OUT'
-                        if not in_the_game:
-                            # leaving not in th game
-                            # we get this when we were forced out at a period change
-                            # and did not have another event till we Exit the game
-                            if last_event == None:
-                                # came in at period break, did nothing 
-                                # and left before next period break
-                                pmss = sec_to_period_time(d.sec)
-
-                                _sub_event_for_player.append(['IN', (int(pmss[0]) - 1) * 720,'Enter in'])
-                                _sub_event_for_player.append(['OUT', d.sec,'Leave'])
-                        
-                            else:
-                                # if last message was out from period change
-                                is_out = last_event[0] == 'OUT'  
-                                is_period_change_time = last_event[1] == (period-1) * 720
-                                
-                                if is_out and is_period_change_time :
-                                    # set last out to now, so it extends over the period break
-                                    last_event[1] = d.sec
-                                    last_event[2] = 'extending out over period change'
-                                else:    
-                                    pass # for now
-                                    if player in TEST_PLAYERS:
-                                        print(f'{player} {d.sec} Exit when NOT IN the game.')
-                        else:
-                            # we are in the game and subbed out during period, everthing OK
-                            _sub_event_for_player.append(['OUT', d.sec,'Leave in'])
-                            
-                            if p2_name != None:
-                                if p2_name in in_game_players:
-                                    if _sub_events_by_player[p2_name][-1][0] == 'OUT':
-                                        _sub_events_by_player[p2_name].append(['IN', d.sec,'Enter with partner'])
-                                        in_game_players = _players_in_game()
-                                        in_game_players_cnt = len(in_game_players)
-
-                            
-                        
-                case 1 | 2 | 3 | 4 | 5 | 6:
-                                        
-                    if not in_the_game:
-
-                        lastEvent = None if len(_sub_event_for_player) == 0 else _sub_event_for_player[-1]
-                        
-                        if lastEvent == None:
-                            # first time this player shows up non sub in/out
-                            # could happen if a period change force out and 
-                            # player has a event, treat as enter at change
-                            # we're lost if already 5 guys in
-                            
-                            if in_game_players_cnt < 5:
-                                if in_game_players_cnt == 4:
-                                    
-                                    last_sub_out_time = _last_sub_out_time()
-                                    
-                                    if last_sub_out_time == -1:
-                                        # room for #5, last one in
-                                        _sub_event_for_player.append(['IN', (period-1) * 720,'First Time' ])
-                            
-                                    elif last_sub_out_time == d.sec:
-                                        # player OUT same as our IN, if we extend to period start
-                                        # we'd have too many players. so start now
-                                        _sub_event_for_player.append(['IN', d.sec,'First Time' ])
-                                    else:
-                                        print('Error',player,sec_to_period_time(d.sec),'too many players')
-                                    
-                                else:
-                                    _sub_event_for_player.append(['IN', (period-1) * 720,'First Time' ])
-                            else:
-                                print('Error',player,sec_to_period_time(d.sec),'too many players in game.')
-                        else:
-                            
-                            """
-                            case 1 prior event out from kicked out at period break
-                                    (i.e. OCCURED at period break times)
-                                    delete the prior event, an out and set us to inTheGame at start 
-                            
-                            case 2 prior event not from kick out 
-                                    (i.e. did NOT OCCUR at period break times)
-                                    this is an error
-                            """
-                            
-                            if lastEvent[0] == 'OUT':
-                                
-                                if lastEvent[1] >= (period-1) * 720: 
-                                    # kicked out prior period break, .pop returns us to IN
-                                    _sub_event_for_player.pop()
-                                else:
-                                    # Non SUB event without an enter, treat 
-                                    # set to in at start of current period
-                                    _sub_event_for_player.append(['IN', (period-1) * 720,'NON SUB while NOT in game'])                                     # last out NOT at the begining of this period?
-                                    # print(f'ReEnter from period change, {d.eventmsgtype}',player,sec_to_period_time(d.sec))
+                    last_event = _sub_events_by_player[player][-1] 
+                    if last_event[0] == 'IN':
+                        events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
         
-                            else:
-                                # last event was an 'IN' ?
-                                print('ERROR X',player)
-                                pass    
+        # 12: # STAQRTOFPERIOD
+        elif  d.eventmsgtype == 12: pass
 
-                case _ : print('-*-*-*-*-*-*-*-*')
- 
+        else:    
+            
+            period = int(d.period)
+            pctimestring = str(d.pctimestring)
+
+            p1_name = d.player1_name
+            p2_name = d.player2_name
+
+            pls = []
+            if p1_name in players: pls.extend([p1_name])
+            if p2_name in players: pls.extend([p2_name])
+            
+            for player in pls:
+                
+                if player not in _sub_events_by_player.keys(): _sub_events_by_player[player] = []
+                
+                _sub_event_for_player = _sub_events_by_player[player]
+        
+                if len(_sub_event_for_player) > 0: 
+                    last_event = _sub_event_for_player[-1]
+                    in_the_game = last_event[0] == 'IN'
+                    
+                if player in TEST_PLAYERS:
+                    print(period,pctimestring,d.eventmsgtype,'p1:',p1_name,'p2:',p2_name,d.visitordescription)  
+            
+                match d.eventmsgtype:
+
+                    case 12: pass # STARTOFPERIOD
+                    case 13: pass # ENDOFPERIOD  
+
+                    case 8 : # event is SUB IN or OUT or BOTH
+                        # p2 entering player, p1 leaving player, both optional
+                        Entering = p2_name == player
+                        
+                        if Entering:
+                            if not in_the_game:
+                                            
+                                if players_in_period_count < 5:
+                                    players_in_period_count += 1
+                                    _sub_event_for_player.append(['IN', d.sec,'SUB in.'])
+                                else:
+                                    print(f'ERROR {player} {pms(d.sec)} SUB in when 5 in.')
+                                    
+                            elif player in TEST_PLAYERS:
+                                print(f'{player} {pms(d.sec)} Entered when IN the game.')
+                                        
+                        else: 
+                            # we are exiting the game, 'OUT'
+                            if not in_the_game:
+                                # leaving not in the game
+                                # we get this when we were forced out at a period change
+                                # and did not have another event till we Exit the game
+                                if last_event == None:
+                                    # came in at period break for first time, did nothing 
+                                    # and left before next period break
+                                    pmss = sec_to_period_time(d.sec)
+
+                                    _sub_event_for_player.append(['IN', (int(pmss[0]) - 1) * 720,'Enter in'])
+                                    _sub_event_for_player.append(['OUT', d.sec,'Leave'])
+                            
+                                else:
+                                    # if last message was out from period change
+                                    is_out = last_event[0] == 'OUT'  
+                                    is_period_change_time = last_event[1] == (period-1) * 720
+                                    
+                                    if is_out and is_period_change_time :
+                                        # set last out to now, so it extends over the period break
+                                        last_event[1] = d.sec
+                                        last_event[2] = 'extending out over period change'
+                                    else:    
+                                        pass # for now
+                                        if player in TEST_PLAYERS:
+                                            print(f'{player} {d.sec} Exit when NOT IN the game.')
+                            else:
+                                # we are in the game and subbed out during period, everthing OK
+                                _sub_event_for_player.append(['OUT', d.sec,'SUB out'])                         
+                            
+                    case 1 | 2 | 3 | 4 | 5 | 6:
+                                            
+                        if not in_the_game:
+
+                            lastEvent = None if len(_sub_event_for_player) == 0 else _sub_event_for_player[-1]
+                            
+                            if lastEvent == None:
+                                # first time this player shows up non sub in/out
+                                # could happen if a period change force out and 
+                                # player has a event, treat as enter at change
+                                # we're lost if already 5 guys in
+                                if players_in_period_count < 5:
+                                    
+                                    players_in_period_count += 1
+                                    _sub_event_for_player.append(['IN', (period-1) * 720,'First non SUB in' ])
+                                                                
+                                else:
+                                    print('Error',player,sec_to_period_time(d.sec),'non SUB ins > 5.')
+                            else:
+                                
+                                """
+                                case 1 prior event out from kicked out at period break
+                                        (i.e. OCCURED at period break times)
+                                        delete the prior event, an out and set us to inTheGame at start 
+                                
+                                case 2 prior event not from kick out 
+                                        (i.e. did NOT OCCUR at period break times)
+                                        this is an error
+                                """
+                                
+                                if lastEvent[0] == 'OUT':
+                                    
+                                    # outed at last period break?
+                                    if lastEvent[1] == (period-1) * 720: 
+                                        # kicked out prior period break, .pop returns us to IN
+                                        _sub_event_for_player.pop()
+                                        print(f'{player} POP {sec_to_period_time(last_event[1])}')
+                                        players_in_period_count += 1
+                                    else:
+                                        # out more than one period ago
+                                        # Non SUB event without an enter,
+                                        # set to in at start of current period
+                                        _sub_event_for_player.append(['IN', (period-1) * 720,'NON SUB while NOT in game']) 
+                                                                        # last out NOT at the begining of this period?
+                                        # print(f'ReEnter from period change, {d.eventmsgtype}',player,sec_to_period_time(d.sec))
+            
+                                else:
+                                    # last event was an 'IN' ?
+                                    print('ERROR X',player)
+                                    pass    
+
+                    case _ : print('-*-*-*-*-*-*-*-*')
+    
     for player in  _sub_events_by_player.keys():
         events = _sub_events_by_player[player]
         if len(events) > 0:
@@ -414,6 +406,7 @@ def clean_stints(game_stints):
             game_stints[player] = ins_and_outs
 
 def make_sub_events(game_stints):
+    
     sub_events = []
 
     for player in game_stints.keys():
@@ -425,9 +418,13 @@ def make_sub_events(game_stints):
             # print(team_name,player_name,this_in_out)
             p1_ln = player_name.split(' ')[1]
             if this_in_out[4] == 'I':
-                s1 = f'SUB,{pms(this_in_out[1])},SUB: {p1_ln} Enters,,,,,{player_name},{team_name},,'
+                x1 = sec_to_period_time(this_in_out[1]).replace(' ',',')
+                s1 = f'SUB,{x1},SUB: {p1_ln} Enters,,,,,{player_name},{team_name},,'
             else:
-                s1 = f'SUB,{pms(this_in_out[2])},SUB: {p1_ln} Exits,,,{player_name},{team_name},,,,'
+                # x2 = sec_to_period_time(this_in_out[2]).replace(' ',',')
+                x2 = pms(this_in_out[2])
+                
+                s1 = f'SUB,{x2},SUB: {p1_ln} Exits,,,{player_name},{team_name},,,,'
   
             sub_events.extend([s1])
             
@@ -464,7 +461,7 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    sub_events = sub_events_from_stints(game_stints)
+    sub_events = [] #sub_events_from_stints(game_stints)
     
     pbp_event_map = {
         1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist
@@ -507,6 +504,9 @@ def dump_pbp(game, game_stints):
             match = False   
             event_name = emap[0][0]
             
+            if event == 8:
+                match = True
+            
             # point.assist
             if event == 1:
                 match = True   
@@ -538,7 +538,7 @@ def dump_pbp(game, game_stints):
                 match = True
 
             # foul, rebound plus others, NO 8 i.e. subs
-            elif event in [4,6,7,9,10,11,12]: match = True
+            elif event in [4,6,7,9,10,11,12,13]: match = True
 
             if match:
                 a = [

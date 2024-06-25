@@ -36,9 +36,10 @@ def main(file_dir_name):
             'STEAL.TURNOVER'    : [5,1,2],
             'FOUL'				: [6,1], 
             'SUB'		        : [8,1,2],  # id#, player[1,2,3] 
+            'STARTOFPERIOD'		: [12,1,1], 
+            'ENDOFPERIOD'       : [13,1,1],
             'TIMEOUT'			: [None], 
             'END_GAME'			: [None], 
-            'END_PERIOD'		: [None], 
             'TIP'				: [None], 
             }
         

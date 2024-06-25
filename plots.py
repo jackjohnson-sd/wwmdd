@@ -599,7 +599,10 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
 
         try:
             # hack for getting ORS - Offensive ReboundS
-            boxscore.set_item(player,'ORS', int(current_oreb_count[player]))
+            try: 
+                n = int(current_oreb_count[player])
+            except: n = 0
+            boxscore.set_item(player,'ORS', n)
         except:
             pass
             # boxscore.set_item(player,'ORS', 0)

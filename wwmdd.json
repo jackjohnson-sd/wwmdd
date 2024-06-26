@@ -44,14 +44,14 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2024-04-29" 
+    , "START_DAY"            : "2024-04-01" 
     , "STOP_DAY"             : "2024-04-29"
     , "TEAM"                 : "OKC"
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "zSOURCE"     : "WEB:"
-    , "SOURCE"     : "FILE:llm_training_data/NOPvOKC20240429RAW.csv"
+    , "aSOURCE"     : "WEB:"
+    , "SOURCE"     : "FILE:llm_training_data"
     , "zzSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
     , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
 

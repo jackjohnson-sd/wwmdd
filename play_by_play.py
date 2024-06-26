@@ -1,10 +1,11 @@
-
 from box_score import box_score
 import pandas as pd
 from settings import defaults
 from gemini import save_files
  
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
+
+def period(sec) : return int(sec / 720) + 1
 
 def period_time_to_sec(period,mmss): 
     # period 1:4, mmss 1:23 1 minute 23 seconds left in period
@@ -93,7 +94,6 @@ def getTimeSpansByPlayer(playbyplay, players):
     # We find then because they show up with playing events
     # while not in the game.
     
-    # in the game if last_event says "IN"
     in_the_game = False
     last_event = None
     players_in_period_count = 0
@@ -101,6 +101,8 @@ def getTimeSpansByPlayer(playbyplay, players):
     for i, d in our_events.iterrows():
                     
         if d.eventmsgtype == 13: # ENDOFPERIOD
+            
+            # print(f'ENDOFPERIOD {players_in_period_count} players set OUT, {int(pms(d.sec)[0])}')
             
             players_in_period_count = 0
             
@@ -110,10 +112,11 @@ def getTimeSpansByPlayer(playbyplay, players):
                 if len(events) > 0:
                     
                     last_event = _sub_events_by_player[player][-1] 
+                    
                     if last_event[0] == 'IN':
                         events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
         
-        # 12: # STAQRTOFPERIOD
+        # 12: # STARTOFPERIOD
         elif  d.eventmsgtype == 12: pass
 
         else:    
@@ -133,9 +136,15 @@ def getTimeSpansByPlayer(playbyplay, players):
                 if player not in _sub_events_by_player.keys(): _sub_events_by_player[player] = []
                 
                 _sub_event_for_player = _sub_events_by_player[player]
-        
+                
+                in_the_game = False
+                last_event = None
+                
                 if len(_sub_event_for_player) > 0: 
+                    
                     last_event = _sub_event_for_player[-1]
+                    
+                    # our last event was IN from sub or other
                     in_the_game = last_event[0] == 'IN'
                     
                 if player in TEST_PLAYERS:
@@ -148,33 +157,33 @@ def getTimeSpansByPlayer(playbyplay, players):
 
                     case 8 : # event is SUB IN or OUT or BOTH
                         # p2 entering player, p1 leaving player, both optional
-                        Entering = p2_name == player
+                        p2_entering = p2_name == player
                         
-                        if Entering:
+                        if p2_entering:
+                            
                             if not in_the_game:
                                             
-                                if players_in_period_count < 5:
-                                    players_in_period_count += 1
-                                    _sub_event_for_player.append(['IN', d.sec,'SUB in.'])
-                                else:
-                                    print(f'ERROR {player} {pms(d.sec)} SUB in when 5 in.')
-                                    
+                                _sub_event_for_player.append(['IN', d.sec,'SUB in.'])
+                                     
                             elif player in TEST_PLAYERS:
                                 print(f'{player} {pms(d.sec)} Entered when IN the game.')
-                                        
-                        else: 
-                            # we are exiting the game, 'OUT'
+                        
+                        p1_leaving = p1_name == player                
+                        
+                        if p1_leaving:
+                                
+                            # p1 is exiting the game, 'OUT'
                             if not in_the_game:
-                                # leaving not in the game
-                                # we get this when we were forced out at a period change
-                                # and did not have another event till we Exit the game
+
+                                # we get this when forced out at a period change
+                                # and did not have another event until then
                                 if last_event == None:
                                     # came in at period break for first time, did nothing 
                                     # and left before next period break
                                     pmss = sec_to_period_time(d.sec)
 
-                                    _sub_event_for_player.append(['IN', (int(pmss[0]) - 1) * 720,'Enter in'])
-                                    _sub_event_for_player.append(['OUT', d.sec,'Leave'])
+                                    _sub_event_for_player.append(['IN', (int(pmss[0]) - 1) * 720, 'Enter in'])
+                                    _sub_event_for_player.append(['OUT', d.sec,'Leave via SUB'])
                             
                                 else:
                                     # if last message was out from period change
@@ -229,7 +238,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                                     if lastEvent[1] == (period-1) * 720: 
                                         # kicked out prior period break, .pop returns us to IN
                                         _sub_event_for_player.pop()
-                                        print(f'{player} POP {sec_to_period_time(last_event[1])}')
+                                        # print(f'{player} POP {sec_to_period_time(last_event[1])}')
                                         players_in_period_count += 1
                                     else:
                                         # out more than one period ago
@@ -244,7 +253,7 @@ def getTimeSpansByPlayer(playbyplay, players):
                                     print('ERROR X',player)
                                     pass    
 
-                    case _ : print('-*-*-*-*-*-*-*-*')
+                    # case _ : print('-*-*-*-*-*-*-*-*')
     
     for player in  _sub_events_by_player.keys():
         events = _sub_events_by_player[player]
@@ -461,7 +470,7 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    sub_events = [] #sub_events_from_stints(game_stints)
+    sub_events = sub_events_from_stints(game_stints)
     
     pbp_event_map = {
         1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist

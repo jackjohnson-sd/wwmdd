@@ -1,9 +1,16 @@
 NAME: Fouls Test Plan 
 
-data sets used:
+Current Status Summary:
+    2 rounds completed.
+
+    ChatGPT passes 1 - 10 (with Prompt 1 & 2)
+    Gemini passes 1 -10.
+    Claude fails 7 - 10. 
+
+Data sets used:
     OKCvGSW20230130.CSV  (in llm_training_data)
 
-Test Model: Claude 3 Opus, Gemini 1.5 Pro 
+Test Model: Claude 3 Opus, Gemini 1.5 Pro, ChatGPT 4o 
 
 Prompt 1:
     In a FOUL eventmsgtype event, player1_name commits the foul against player2_name.
@@ -164,12 +171,20 @@ Discussion:
 
         Q10: Both answered correctly, "0 more fouls"
 
+        ChatGPT 4o:
+            - Answers questions_1 correctly
+            - Answers Q7-10 correctly
+
         Attempt 2:
         In Prompt 2, I defined what a quarter, or period, is to the LLMS and re-asked questions 7 -- 10 (the ones failed by the LLMs)
         
         Claude failed with Prompt 2 addition. 
 
         Gemini passed Q7 -- Q10.
+
+        ChatGPT 4o:
+            - Passes questions_1
+            - Passes Q7-10
 
         Attempt 3:
         After editing Prompt 1 with Prompt 2 content, Claude passed Q7 -- 9, but failed Q10. 

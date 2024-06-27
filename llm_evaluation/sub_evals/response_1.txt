@@ -1,0 +1,18 @@
+The data appears to contain play-by-play information for a basketball game. 
+The columns relevant to determining the teams and players involved are:
+
+player1_name
+player1_team_abbreviation
+player2_name
+player2_team_abbreviation
+eventmsgtype
+
+We can find the teams by looking at the unique values in player1_team_abbreviation and confirm by looking at player2_team_abbreviation. 
+We can then find the players on each team by filtering on the team and looking at the unique values in player1_name and player2_name.
+
+To find how many times Josh Giddey entered the game, we will filter by player2_name for 'Josh Giddey' and eventmsgtype for 'SUB' and count the rows.
+
+The teams that played in the game are OKC and GSW.
+The players on OKC are: Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Tre Mann, Mike Muscala, Isaiah Joe, Ousmane Dieng, Darius Bazley, Jaylin Williams, Aaron Wiggins. The players on GSW are: Kenrich Williams, Andrew Wiggins, Klay Thompson, Stephen Curry, Draymond Green, Jordan Poole, Donte DiVincenzo, Mike Muscala, Anthony Lamb, Kevon Looney, Jonathan Kuminga, Tre Mann, Josh Giddey, Darius Bazley, Ousmane Dieng, Isaiah Joe, Shai Gilgeous-Alexander, Jalen Williams, Jaylin Williams, Aaron Wiggins.
+Josh Giddey entered the game 2 times.
+It appears that some players are listed as playing for both teams. This is likely an error in the data.

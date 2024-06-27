@@ -7,8 +7,8 @@
 
 ,STARTOFPERIOD,1,12:00,Start of 1st Period,0,0,,,,,,
 
-,2POINT,1,11:41,Klay Thompson 18' Jump Shot (2 PTS),,,Klay Thompson,GSW,,,,
-
+,2POINT,1,8:00,Klay Thompson 18' Jump Shot (2 PTS),,,Klay Thompson,GSW,,,,
+,SUB,1,4:00,SUB: Thompson Exits,,,Klay Thompson,GSW,,,,
 ,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
 ,ENDOFPERIOD,1,0:00,End of 1st Period (7:24 PM CST),,,,,,,,
 

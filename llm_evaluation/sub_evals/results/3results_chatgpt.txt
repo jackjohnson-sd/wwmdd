@@ -1,0 +1,64 @@
+ChatGPT 4o
+- Passes Q1 - 6
+
+Q1:
+Teams that played in the game:
+Golden State Warriors (GSW)
+Oklahoma City Thunder (OKC)
+
+
+Q2:
+Players on each team:
+
+Golden State Warriors (GSW):
+Draymond Green
+Stephen Curry
+Andrew Wiggins
+Klay Thompson
+Jordan Poole
+Donte DiVincenzo
+Jonathan Kuminga
+Kevon Looney
+Anthony Lamb
+
+Oklahoma City Thunder (OKC):
+Kenrich Williams
+Shai Gilgeous-Alexander
+Josh Giddey
+Mike Muscala
+Tre Mann
+Darius Bazley
+Ousmane Dieng
+Isaiah Joe
+Jalen Williams
+Jaylin Williams
+Aaron Wiggins
+
+
+Q3:
+Josh Giddey entered the game 4 times.
+
+Q4:
+Josh Giddey entered the game at the following times:
+
+Period 1: 12:00
+Period 2: 12:00
+Period 2: 0:49
+Period 4: 10:04
+
+Q5:
+Josh Giddey exited the game at the following times:
+
+Period 1: 4:31
+Period 2: 7:23
+Period 3: 5:37
+Period 4: 0:00
+
+
+Q6:
+Josh Giddey's stints in the game were as follows:
+
+First Stint: 7 minutes and 29 seconds (Period 1: 12:00 to Period 1: 4:31)
+Second Stint: 4 minutes and 37 seconds (Period 2: 12:00 to Period 2: 7:23)
+Third Stint: 7 minutes and 12 seconds (Period 2: 0:49 to Period 3: 5:37)
+Fourth Stint: 10 minutes and 4 seconds (Period 4: 10:04 to Period 4: 0:00)

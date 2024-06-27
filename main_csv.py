@@ -14,7 +14,11 @@ def main(file_dir_name):
     else:
         files = [file_dir_name]
         
-    for filename in files:
+    if len(files) == 0:
+        print(f'NO files found ... {file_dir_name}')
+        
+    else:     
+      for filename in files:
         if '.csv' not in filename: continue
         df = pd.read_csv(filename, keep_default_na=False)
         df.iloc[::-1] # reverse dataframe
@@ -73,7 +77,7 @@ def main(file_dir_name):
                     
                     if type(prev) != type(None):
                         if prev == a:
-                            print('DUP', r.period, r.pctimestring,r.neutraldescription )
+                            print(filename,'DUP', r.period, r.pctimestring,r.neutraldescription )
                             continue
             
                     prev = a

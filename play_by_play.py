@@ -4,6 +4,7 @@ from settings import defaults
 from gemini import save_files
  
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
+SAVE_RAW_GAME_AS_CSV = defaults.get('SAVE_RAW_GAME_AS_CSV')
 
 def period(sec) : return int(sec / 720) + 1
 
@@ -47,44 +48,17 @@ def pms(_sec):  # p eriod m inute s econd
     s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
     return s
 
-def getTimeSpansByPlayer(playbyplay, players):
+def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
     # collects timespans played by these players
 
     _sub_events_by_player = {}
     
-    def _leave_game(player_name, _players):
-        
-        if player_name != None:
-            if player_name in _players:
-                if _sub_events_by_player[player_name][-1][0] == 'OUT':
-                    _sub_events_by_player[player_name].append(['IN', d.sec,'Enter with partner'])
-        
-        _players = _players_in_game()
-        
-        return  _players, len(_players)       
-        
-    def _players_in_game():
-        plrs = []
-        for pl in _sub_events_by_player:
-            if len(_sub_events_by_player[pl]) != 0:
-                if _sub_events_by_player[pl][-1][0] == 'IN':
-                    plrs.extend([pl])
-        return plrs    
-    
-    def _last_sub_out_time():
-        event_time = -1
-        for pl in _sub_events_by_player:
-            if len(_sub_events_by_player[pl]) != 0:
-                if _sub_events_by_player[pl][-1][0] == 'OUT':
-                    event_time = max(event_time,_sub_events_by_player[pl][-1][1])
-        return event_time
-                             
     a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8])
     a1_ = playbyplay['eventmsgtype'].isin([12,13])
     
-    b_ = playbyplay['player1_name'].isin(players)
-    c_ = playbyplay['player2_name'].isin(players)
-    d_ = playbyplay['player3_name'].isin(players)
+    b_ = playbyplay['player1_name'].isin(player_group)
+    c_ = playbyplay['player2_name'].isin(player_group)
+    d_ = playbyplay['player3_name'].isin(player_group)
     
     our_events = playbyplay[((a_ & (b_ | c_ | d_)) | a1_)]
     
@@ -107,14 +81,14 @@ def getTimeSpansByPlayer(playbyplay, players):
             players_in_period_count = 0
             
             for player in _sub_events_by_player:
-                
-                events = _sub_events_by_player[player]
-                if len(events) > 0:
-                    
-                    last_event = _sub_events_by_player[player][-1] 
-                    
-                    if last_event[0] == 'IN':
-                        events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
+                if needs_spans_fixed:
+                    events = _sub_events_by_player[player]
+                    if len(events) > 0:
+                        
+                        last_event = _sub_events_by_player[player][-1] 
+                        
+                        if last_event[0] == 'IN':
+                            events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
         
         # 12: # STARTOFPERIOD
         elif  d.eventmsgtype == 12: pass
@@ -128,8 +102,8 @@ def getTimeSpansByPlayer(playbyplay, players):
             p2_name = d.player2_name
 
             pls = []
-            if p1_name in players: pls.extend([p1_name])
-            if p2_name in players: pls.extend([p2_name])
+            if p1_name in player_group: pls.extend([p1_name])
+            if p2_name in player_group: pls.extend([p2_name])
             
             for player in pls:
                 
@@ -203,6 +177,8 @@ def getTimeSpansByPlayer(playbyplay, players):
                                 _sub_event_for_player.append(['OUT', d.sec,'SUB out'])                         
                             
                     case 1 | 2 | 3 | 4 | 5 | 6:
+                        
+                        if not needs_spans_fixed: continue
                                             
                         if not in_the_game:
 
@@ -255,22 +231,19 @@ def getTimeSpansByPlayer(playbyplay, players):
 
                     # case _ : print('-*-*-*-*-*-*-*-*')
     
-    for player in  _sub_events_by_player.keys():
-        events = _sub_events_by_player[player]
-        if len(events) > 0:
-            last_event = events[-1] 
-            if last_event[0] == 'IN':
+    # send players 'OUT' at end of game
+    if needs_spans_fixed:
+        
+        for player in  _sub_events_by_player.keys():
+            
+            events = _sub_events_by_player[player]
+            if len(events) > 0:
+                last_event = events[-1] 
+                if last_event[0] == 'IN':
 
-              pmss = sec_to_period_time(last_event[1])
-              _sub_events_by_player[player].append(['OUT', ((int(pmss[0])) * 720),'EndOfGame All IN go out']) 
+                    pmss = sec_to_period_time(last_event[1])
+                    _sub_events_by_player[player].append(['OUT', ((int(pmss[0])) * 720),'EndOfGame All IN go out']) 
                             
-    for player in players:
-        if player in TEST_PLAYERS:
-
-            def sfn(event): return ','.join(list(map(lambda a : str(a), event)))
-            f = ('\n').join(list(map(lambda a : sfn(a), _sub_events_by_player[player]))) 
-            print('\n',player,period,pctimestring,d.sec,'\n\n',f)
-
     return _sub_events_by_player
 
 def checkScoreErrors(pbpEvents):
@@ -302,7 +275,7 @@ def seconds_plus_home_away_scores(row):
         away_score = int(score[1])
     return _secs, home_score, away_score
 
-def generatePBP(game_data, team_abbreviation, OPPONENT=False):
+def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed = True):
 
     pbp = game_data.play_by_play
 
@@ -332,6 +305,12 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
         
         timeSpans = getTimeSpansByPlayer(pbp, playersInGame)  # collect timespans played by this player
         
+        if OPPONENT :
+            if team_abbreviation != game_data.team_abbreviation_home:
+                team_abbreviation = game_data.team_abbreviation_home
+            else:
+                team_abbreviation = game_data.team_abbreviation_away
+                
         stints_by_player = {}
 
         for player in timeSpans.keys():
@@ -354,10 +333,6 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False):
                         _start = start_ts[1]
                         _stop = stop_ts[1]
                         
-                        if OPPONENT :
-                            if team_abbreviation != game_data.team_abbreviation_home:
-                                team_abbreviation = game_data.team_abbreviation_home
-                                                        
                         stints_by_player[player].append([int(_duration) , int(_start), int(_stop),team_abbreviation])
                     else:
                         print('Error forming spans ',player,start_ts,stop_ts)  
@@ -432,7 +407,7 @@ def make_sub_events(game_stints):
             else:
                 # x2 = sec_to_period_time(this_in_out[2]).replace(' ',',')
                 x2 = pms(this_in_out[2])
-                
+                # home of the 5,12:00 problem
                 s1 = f'SUB,{x2},SUB: {p1_ln} Exits,,,{player_name},{team_name},,,,'
   
             sub_events.extend([s1])
@@ -448,6 +423,7 @@ def sub_events_from_stints(game_stints):
     # then removing the second
     # return sorted list of SUB events 
     
+
     clean_stints(game_stints)
     
     sub_events = make_sub_events(game_stints)
@@ -470,23 +446,25 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    sub_events = sub_events_from_stints(game_stints)
+    save_as_raw = False # SAVE_RAW_GAME_AS_CSV
+    
+    sub_events = [] if save_as_raw else sub_events_from_stints(game_stints)
     
     pbp_event_map = {
-        1: [['POINT', 'ASSIST'],  [1, 2]],  # make, assist
-        2: [['MISS', 'BLOCK'],    [1, 3]],
-        3: [['FREETHROW', ''],    [1]   ],  # free throw
-        4: [['REBOUND', ''],      [1]   ],  # rebound
-        5: [['STEAL', 'TURNOVER'],[2, 1]],
-        6: [['FOUL',''],          [1]   ],
-        7: [['VIOLATION',''],     [1,2] ],
-        8: [['SUB', ''],          [1]   ],  # substitution
-        9: [['TIMEOUT', ''],      [1]   ],  # time out
+        1: [['POINT', 'ASSIST'],  [1, 2],],  # make, assist
+        2: [['MISS', 'BLOCK'],    [1, 3],],
+        3: [['FREETHROW', ''],    [1]   ,],  # free throw
+        4: [['REBOUND', ''],      [1]   ,],  # rebound
+        5: [['STEAL', 'TURNOVER'],[2, 1],],
+        6: [['FOUL',''],          [1]   ,],
+        7: [['VIOLATION',''],     [1,2] ,],
+        8: [['SUB', ''],          [1]   ,],  # substitution
+        9: [['TIMEOUT', ''],      [1]   ,],  # time out
         
-        10: [['JUMPBALL', ''],    [1,2,3]], # jump ball
-        11: [['EJECTION', ''],    [1]   ],  # 
-        12: [['STARTOFPERIOD', ''],[1]  ],  # START of period
-        13: [['ENDOFPERIOD', ''], [1]   ],  # END of period
+        10: [['JUMPBALL', ''],    [1,2,3],], # jump ball
+        11: [['EJECTION', ''],    [1]   ,],  # 
+        12: [['STARTOFPERIOD', ''],[1]  ,],  # START of period
+        13: [['ENDOFPERIOD', ''], [1]   ,],  # END of period
     }
     
     keys = list(pbp_event_map.keys())
@@ -513,8 +491,7 @@ def dump_pbp(game, game_stints):
             match = False   
             event_name = emap[0][0]
             
-            if event == 8:
-                match = True
+            if event == 8: match = save_as_raw
             
             # point.assist
             if event == 1:
@@ -563,10 +540,58 @@ def dump_pbp(game, game_stints):
                     ]
                 sub_events.extend([a])
             
-    sub_events = sorted(sub_events,key = lambda x:period_time_to_sec(x[1],x[2]))
+    def fnx(x):
+        """            
+            0            PRE     STARTOF, SUB, NONSUB
+            1 ... 719    Q1      NONSUB, SUB
+            720          Q1-Q2   NONSUB, ENDOF, SUB, STARTOF 
+            721 .. 1439  Q2      NONSUB, SUB
+            1440         Q2-Q3   NONSUB, ENDOF, SUB, STARTOF 
+            1441 .. 2159 Q3      NONSUB, SUB
+            2160         Q3-Q4   NONSUB, ENDOF, SUB, STARTOF 
+            2161 .. 2879 Q4      NONSUB, SUB
+            2880         POST    NONSUB, SUB, ENDOF, STARTOF 
+        """
+        # smaller means first
+        sort_order = {
+            
+            'STARTOFPERIOD' :[0,4,0,0],
+            'SUB'           :[2,1,1,1],
+            'NONSUB'        :[5,0,0,0],
+            'ENDOFPERIOD'   :[3,2,2,0],
+
+        }
+        
+        event_type = x[0]
+        period = int(x[1])
+        
+        game_second = period_time_to_sec(period,x[2])
+        
+        period_1 = int(game_second / 720)
+        mod_period_sec = game_second % 720
+        
+        period_x = 3
+        
+        if mod_period_sec == 0:
+            if period_1 == 0       : period_x = 0
+            elif period_1 in [1,2,3] : period_x = 1 
+            else                   : period_x = 2
+                   
+        if event_type not in sort_order.keys(): event_type = 'NONSUB'
+                    
+        so2 = sort_order[event_type][period_x] 
+        
+        # if exit SUB it goes first                 
+        outs_first = event_type == 'SUB' and x[6] == ''
+        # print(period_x,x[0:3],(game_second, so2, outs_first))
+        return ((game_second, so2, outs_first))
+
+    if not save_as_raw:
+        sub_events = sorted(sub_events,key = lambda x:fnx(x))
     
     # find our sub events that do not have score, margin set
     for i in range(0,len(sub_events)):
+                
         # if we find an event in need
         if sub_events[i][4] == '':
             j = i
@@ -597,6 +622,8 @@ def dump_pbp(game, game_stints):
     cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
     
     fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
+    if save_as_raw : fn = f'RAW-{fn}'
+    
     fn = os.path.join(cwd, fn) 
     
     if not(os.path.exists(cwd)): os.mkdir(cwd)   
@@ -605,5 +632,6 @@ def dump_pbp(game, game_stints):
     f = play_by_play.to_csv()
     fl.write(f)
     fl.close()
+
 
                                                                                                                

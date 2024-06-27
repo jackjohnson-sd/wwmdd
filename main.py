@@ -26,7 +26,6 @@ import claude
 import gemini
 import sys
 
-
 if __name__ == "__main__":
     
     if   args.show != None: 

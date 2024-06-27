@@ -519,7 +519,7 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
     boxscore = box_score(_stints[1])
 
     if opponent:
-        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:20])
+        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:50])
         try:    teams.remove('')
         except: a = 1
         

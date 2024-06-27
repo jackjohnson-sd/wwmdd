@@ -1,0 +1,8 @@
+Comments:
+- Gemini fails Q6,6a
+- Passes Q1-5
+Q6.
+Giddey's stint durations (MM:SS):
+None
+
+Q6a. Giddey's total playing time: 00:00

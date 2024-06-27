@@ -1,0 +1,40 @@
+Gemini 1.5 Pro:
+- Passes Q1-5, fails Q6
+- Gemini is still calculating negative values
+
+Q1:
+The teams that played in the game are GSW and OKC.
+
+ 
+Q2:
+The players on GSW are Jordan Poole, Klay Thompson, Andrew Wiggins, Kevon Looney, 
+Jonathan Kuminga, Anthony Lamb, Stephen Curry, Donte DiVincenzo, and Draymond Green. 
+
+The players on OKC are Tre Mann, Shai Gilgeous-Alexander, Aaron Wiggins, Ousmane Dieng, 
+Jaylin Williams, Kenrich Williams, Jalen Williams, Isaiah Joe, Mike Muscala, Josh Giddey, 
+and Darius Bazley.
+
+Q3:
+Josh Giddey entered the game 4 times.
+
+Q4:
+0 - 0:00
+1 - 0:00
+2 - 0:49
+4 - 10:04
+
+
+Q5:
+1 - 4:31
+2 - 7:23
+3 - 5:37
+4 - 0:00
+
+
+
+Q6:
+The stint lengths calculated are negative. 
+This is likely due to an error in the data where an exit event is recorded before 
+the corresponding entry event. 
+We need to remove these erroneous stints and recalculate.
+

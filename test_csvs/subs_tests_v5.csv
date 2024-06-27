@@ -1,0 +1,24 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+,COMMENT,,,,,,,,,,,
+,SUB,1,10:00,SUB: BARNEY Enters,,,,,BARNEY,OKC,,
+,SUB,1,10:00,SUB: DARIO Enters,,,,,DARIO,OKC,,
+,SUB,1,10:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,1,10:00,SUB: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,1,10:00,SUB: SAM Enters,,,,,SAM,OKC,,
+
+
+,SUB,1,5:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+,FOUL,1,5:00,LARRY S.FOUL,,,LARRY,OKC,,,,
+,FOULD,2,5:00,LARRY S.FOUL,,,LARRY,OKC,,,,
+,FOULD,3,5:00,LARRY S.FOUL,,,LARRY,OKC,,,,
+,FOULD,4,5:00,LARRY S.FOUL,,,LARRY,OKC,,,,
+
+
+,SUB,1,2:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+,SUB,1,2:00,SUB:  DARIO Exits,,,DARIO,OKC,,,,
+,SUB,1,2:00,SUBa: CALI Exits,,,CALI,OKC,,,,
+,SUB,1,2:00,SUBa: BRUCE Exits,,,BRUCE,OKC,,,,
+,SUB,1,2:00,SUBa: SAM Exits,,,SAM,OKC,,,,
+
+,SUB,4,4:00,SUB: SAM Enters,,,,,SAM,OKC,,

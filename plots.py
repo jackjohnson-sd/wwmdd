@@ -2,19 +2,21 @@ import re
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-matplotlib.rcParams['toolbar'] = 'None' 
-
+# matplotlib.rcParams['toolbar'] = 'None' 
+          
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
 from event_prep import event_legend, event_to_size_color_shape
 
 from settings import defaults 
 
-STINT_C     = defaults.get('STINT_COLOR')       
-BAD_EVNT    = defaults.get('BAD_EVENT_COLOR')    
-GOOD_EVNT   = defaults.get('GOOD_EVENT_COLOR') 
-GRID_C      = defaults.get('GRID_COLOR')
-TABLE_C     = defaults.get('TABLE_COLOR')
+STINT_COLOR       = defaults.get('STINT_COLOR')       
+STINT_COLOR_IN    = defaults.get('STINT_COLOR_IN')       
+STINT_COLOR_OUT   = defaults.get('STINT_COLOR_OUT')       
+BAD_EVNT          = defaults.get('BAD_EVENT_COLOR')    
+GOOD_EVNT         = defaults.get('GOOD_EVENT_COLOR') 
+GRID_C            = defaults.get('GRID_COLOR')
+TABLE_C           = defaults.get('TABLE_COLOR')
 TABLE_COLOR       = defaults.get('TABLE_COLOR')
 STINT_COLOR_PLUS  = defaults.get('STINT_COLOR_PLUS')
 STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
@@ -23,15 +25,11 @@ BOX_COL_COLOR     = defaults.get('BOX_COL_COLOR')
 BOX_COL_COLOR_ALT = defaults.get('BOX_COL_COLOR_ALT')
 BOX_COL_MAX_COLOR = defaults.get('BOX_COL_MAX_COLOR')
 
-MRK_FONTSCALE  = defaults.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT = defaults.get('MARKER_FONTWEIGHT')
-GRID_LINEWIDTH   = defaults.get('GRID_linewidth')
+MRK_FONTSCALE     = defaults.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT    = defaults.get('MARKER_FONTWEIGHT')
+GRID_LINEWIDTH    = defaults.get('GRID_linewidth')
 
-def quitGame():
-    thatsAll = False
-    if input("Enter Q to quit or any other key to continue: ") == 'Q': 
-      thatsAll = True
-    return thatsAll
+def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
 def removeLower(str): 
     regex = "[a-z .-]"
@@ -59,7 +57,7 @@ def stack_markers(yy_, sec_, color_):
     # around so skip to first non-SUB. This means we write 
     # on top of them. Which is what we want
     try:
-        nsubs_ = list(map(lambda x:x != STINT_C,color_ ))
+        nsubs_ = list(map(lambda x:x not in [STINT_COLOR_IN,STINT_COLOR_OUT],color_ ))
         first_no_sub_item = nsubs_.index(True)
     except Exception as err:
         first_no_sub_item = 0
@@ -168,10 +166,11 @@ def make_scoremargin(play_by_play):
                 away_scores.extend([away_score])
 
             else: 
-                scoreMargins[-1] = scoremargin
-                home_scores[-1] = home_score
-                away_scores[-1] = away_score
-                
+                try:
+                    scoreMargins[-1] = scoremargin
+                    home_scores[-1] = home_score
+                    away_scores[-1] = away_score
+                except: pass                
             lastscoretime = now
             lastscorevalue = scoremargin
             last_home_score = home_score
@@ -415,9 +414,13 @@ def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
     starts = list(map(lambda x: x[0], play_times))
     widths = list(map(lambda x: x[1], play_times))
     pms    = list(map(lambda x: x[2], play_times))
+    
     for j, x in enumerate(starts):
         start = x
-        sc = STINT_C         
+        axis.scatter(start, _y, marker = 'o', color=STINT_COLOR_IN, s=8.0)
+        axis.scatter(start + widths[j],_y, marker = 'o', color=STINT_COLOR_OUT, s=8.0)
+
+        sc = STINT_COLOR      
         if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
         elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
         l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
@@ -436,7 +439,7 @@ def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
             axis2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
         else:
             axis2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
-                        size=size__[idx] / MRK_FONTSCALE, 
+                        size = size__[idx] / MRK_FONTSCALE, 
                         va = 'center_baseline', 
                         ha = 'center',
                         # fontweight = MRK_FONTWEIGHT
@@ -487,18 +490,18 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     ax2.set_ylim(first_ytick , last_ytick)
     ax2.yaxis.set_visible(False)
 
-    ax3 = ax.twinx()
+    # ax3 = ax.twinx()
 
     for s in ['top', 'right', 'bottom', 'left']:
-        ax3.spines[s].set_visible(False)
+        # ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)    
 
     # (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    if bx_score._team_name == game_info['T']:
-        plot_score(ax3, score[0], score[1], game_info)
-    else:
-        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
-        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
+    # if bx_score._team_name == game_info['T']:
+    #     plot_score(ax3, score[0], score[1], game_info)
+    # else:
+    #     plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
+    #     plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
     
     for i, _player in enumerate(_players):
         
@@ -506,7 +509,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints_events(ax,ax2, _y, play_times, events, bx_score.is_flipper())
+        plot_stints_events(ax, ax2, _y, play_times, events, bx_score.is_flipper())
         
     return plot_box_score(ax2,bx_score,_players, bx_widths)
     
@@ -516,12 +519,17 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
     boxscore = box_score(_stints[1])
 
     if opponent:
-        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:10])
-        teams.remove(team)
+        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:20])
         try:    teams.remove('')
         except: a = 1
         
-        team = list(teams)[0]
+        try: 
+            teams.remove(team)
+            team = list(teams)[0]
+        except: 
+            # when testing with only one team in the data 
+            team = 'OKC'
+        
 
     boxscore.set_team_name(team)
     boxscore.set_home_team_name(home_team)
@@ -547,7 +555,6 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
     
     playTimesbyPlayer = {}
     events_by_player = {}
-
     current_oreb_count = {}    
 
     for player in players:
@@ -576,15 +583,15 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
         ours = (a_ | b_ | c_)
         plays_for_player = game_data.play_by_play[ours]
 
-        for i, v in plays_for_player.iterrows():
-            if v.eventmsgtype == 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count, scoreMargins)
-                if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
-                if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
+        # for i, v in plays_for_player.iterrows():
+        #     if v.eventmsgtype == 8:
+        #         _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count, scoreMargins)
+        #         if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
+        #         if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype != 8:
-                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count,scoreMargins)
+                _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count, scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
 
@@ -592,7 +599,10 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
 
         try:
             # hack for getting ORS - Offensive ReboundS
-            boxscore.set_item(player,'ORS', int(current_oreb_count[player]))
+            try: 
+                n = int(current_oreb_count[player])
+            except: n = 0
+            boxscore.set_item(player,'ORS', n)
         except:
             pass
             # boxscore.set_item(player,'ORS', 0)
@@ -728,7 +738,9 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         plt.savefig(fn)
 
     SHOW_PLOT =  defaults.get('SHOW_PLOT')  
-    if(SHOW_PLOT == "ON"): plt.show(block = True) 
-    else: print('Show plot disabled in json config file')   
+    if(SHOW_PLOT == "ON"): 
+        plt.show(block = True) 
+    else: 
+        print('Show plot disabled in json config file')   
 
     plt.close('all')

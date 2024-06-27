@@ -1,0 +1,39 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+,COMMENT,This file tests scoring events,,,,,,,,,,
+,COMMENT,Two point shot,,,,,,,,,,
+,COMMENT,score and score margin should reflect change from previous score event,,,,,,,,,,
+,COMMENT,neutraldescription should reflect player points (n PTS),,,,,,,,,,
+
+,STARTOFPERIOD,1,12:00,Start of 1st Period,0,0,,,,,,
+
+,2POINT,1,8:00,Klay Thompson 18' Jump Shot (2 PTS),,,Klay Thompson,GSW,,,,
+,SUB,1,4:00,SUB: Thompson Exits,,,Klay Thompson,GSW,,,,
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,1,0:00,End of 1st Period (7:24 PM CST),,,,,,,,
+
+,COMMENT Three point shot,score,,,,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+
+,STARTOFPERIOD,2,12:00,Start of 2nd Period (7:27 PM CST),,,,,,,,
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,2,0:00,End of 2nd Period (7:51 PM CST),,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+,STARTOFPERIOD,3,12:00,Start of 3rd Period (8:11 PM CST),,,,,,,,
+
+,COMMENT FTMAKE score events
+,COMMENT neutraldescription includes Free Throw 1 of (1,2,or 3)
+,COMMENT neutraldescription player points,score and score margin should update +1
+
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,3,0:00,End of 3rd Period (8:40 PM CST),,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+,STARTOFPERIOD,4,12:00,Start of 4th Period (8:42 PM CST),,,,,,,,
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,4,0:00,End of 4th Period (9:11 PM CST),,,,,,,,

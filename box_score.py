@@ -5,18 +5,9 @@ PM = '\xB1'
 class box_score:
 
     _bsItemsA = [
-        'PTS',
-        'MIN',
-        'FG',
-        '3PT',
-        'FT',
-        'REB',
-        'BLK',
-        'AST',
-        'STL',
-        'TO',
-        'PF',
-        PM,
+        'PTS','MIN','FG','3PT','FT',
+        'REB','BLK','AST','STL',
+        'TO','PF', PM,
     ]
     _bsItemsB = ['3miss', '3make', 'make', 'miss', 'FTmiss', 'FTmake', 'secs', 'ORS']
     _bsItems = _bsItemsA + _bsItemsB
@@ -25,7 +16,6 @@ class box_score:
     _home_team = None
     _max_by_items = {}
     
-
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
 
@@ -84,7 +74,7 @@ class box_score:
         pts = int(b[0])
         try : ts = int((pts * 100) / (2*(fgA/(0.044 * ftA))))
         except: ts = 'ERR'
-        print(pts,b[1],b[2],b[3],b[4],ftA,fgA,pts,ts)
+        # print(pts,b[1],b[2],b[3],b[4],ftA,fgA,pts,ts)
         return str(ts)
     
     def clean(self):
@@ -289,13 +279,13 @@ class box_score:
                         i = 1 if item == 'REB' else 0
                         value = int(value.split('-')[i])
                 return value
-           
-            __tmp = list(map(lambda plr: ech(plr, bs_item), ourPlayers))
-
-            flip_it = (self._home_team != self._team_name) and bs_item == PM
-            
-            self._max_by_items[bs_item] = min(__tmp) if flip_it else max(__tmp)
-            
+            if len(ourPlayers) != 0:
+                __tmp = list(map(lambda plr: ech(plr, bs_item), ourPlayers))
+                flip_it = (self._home_team != self._team_name) and bs_item == PM
+                self._max_by_items[bs_item] = min(__tmp) if flip_it else max(__tmp)
+            else : 
+                self._max_by_items[bs_item] = 0
+                
         self._max_by_items = {}
         list(map(lambda x:get_golden_ticket(x),self._bsItems))     
    

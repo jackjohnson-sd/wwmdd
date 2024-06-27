@@ -1,32 +1,45 @@
 import argparse
-import settings
 
+# "args": ["--web","GSW","--start","2023-01-30","--stop","2023-01-30"],
+# wwmdd --web GSW --start 2023-01-30 --stop 2023-01-30
 
 # before anything else happens, likely too cheesy and won't servive long
 parser = argparse.ArgumentParser()
-parser.add_argument("--json", help="specify json file. default is settings.json")
-parser.add_argument("--tokens", help="report on tokens per file in a directory")
-parser.add_argument("--show", help="plot display file file in a directory")
-parser.add_argument("--gemini", help="call gemini to get game for files in a directory")
-parser.add_argument("--web", help="call nba to get games")
+parser.add_argument("--json",   help = "specify json file. default is settings.json")
+parser.add_argument("--tokens", help = "report on tokens per file in a directory")
+parser.add_argument("--show",   help = "plot display file file in a directory")
+parser.add_argument("--gemini", help = "call gemini to get game for files in a directory")
+parser.add_argument("--web",    help = "call nba to get games")
+parser.add_argument("--start",  help = "start date required for web calls")
+parser.add_argument("--stop",   help = "stop date required for web calls")
 
 args = parser.parse_args()
+
+import settings
 settings.defaults = settings.default(args.json if args.json else None)
 
 from logger import log
-
 import main_web
 import main_csv
 import main_db
 import claude
 import gemini
+import sys
+
 
 if __name__ == "__main__":
     
-    if   args.show != None: main_csv.main(args.show)
+    if   args.show != None: 
+        settings.defaults.set('SOURCE', args.show)
+        main_csv.main(args.show)
     elif args.gemini != None: gemini.main(args.gemini)
     elif args.tokens != None: gemini.do_tokens(args.tokens)
-    elif args.web != None: main_web.main()
+    elif args.web != None: 
+        if args.start == None: print('--start required'); sys.exit()
+        if args.stop == None: print('--stop required');sys.exit()
+        # main_web.main(team=args.web, start=args.start, stop=args.stop)
+        main_web.main(team=args.web, start=args.start, stop=args.stop)
+        
     else:
 
         data_source = settings.defaults.get('SOURCE')

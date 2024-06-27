@@ -13,7 +13,10 @@ from settings import defaults
 # DBG_B       = defaults.get('dbgb')
 # DBG_C       = defaults.get('dbgc')
 
-STINT_C     = defaults.get('STINT_COLOR')       
+STINT_CO_IN    = defaults.get('STINT_COLOR_IN')   
+STINT_CO_OUT   = defaults.get('STINT_COLOR_OUT')   
+STINT_CO       = defaults.get('STINT_COLOR')   
+
 BAD_EVNT    = defaults.get('BAD_EVENT_COLOR')    
 GOOD_EVNT   = defaults.get('GOOD_EVENT_COLOR') 
 
@@ -104,7 +107,8 @@ event_map = {
 4: [ GOOD_EVNT, 18.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr,],  # rebound
 5: [ GOOD_EVNT, 18.0, mrk['S'],'STL',   BAD_EVNT,  18.0, mrk['T'],'TO',   [2, 1], None, ],  # steal, turnover
 6: [ BAD_EVNT,  18.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None, ],  # foul, fouled
-8: [ STINT_C,   8.0, 'o','SUB',         STINT_C,  8.0, 'o','OUT',        [1, 2], None,  ],  # substitution
+#8: [ 'white',   8.0, 'o','SUB',         'r',  8.0, 'o','OUT',        [1, 2], None,  ],  # substitution÷
+8: [ STINT_CO_IN,   8.0, 'o','SUB',     STINT_CO_OUT,  8.0, 'o','OUT',    [1, 2], None,  ],  # substitution
 20:[ GOOD_EVNT, 18.0, mrk['O'],'OREB',  GOOD_EVNT, 18.0, mrk['3'],'3PT',  [1],    None, ],  # for legend
 }
 
@@ -191,7 +195,7 @@ def event_legend(ax,xstart,ystart):
     l4x = l3x + 1
     
     l1 = Line2D([l1x,l2x], [y3,y3], lw=1, color=STINT_COLOR_MINUS , label='' )
-    l2 = Line2D([l2x,l3x], [y3,y3], lw=1, color=STINT_C, label='' )
+    l2 = Line2D([l2x,l3x], [y3,y3], lw=1, color=STINT_CO, label='' )
     l3 = Line2D([l3x,l4x], [y3,y3], lw=1, color=STINT_COLOR_PLUS , label='' )
     ax.add_line(l1)
     ax.add_line(l2)

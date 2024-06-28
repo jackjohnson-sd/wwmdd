@@ -77,7 +77,7 @@ def main(file_dir_name):
                     
                     if type(prev) != type(None):
                         if prev == a:
-                            print(filename,'DUP', r.period, r.pctimestring,r.neutraldescription )
+                            print(os.path.basename(filename),'DUP', r.period, r.pctimestring,r.neutraldescription )
                             continue
             
                     prev = a

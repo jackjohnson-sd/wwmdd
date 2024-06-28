@@ -47,15 +47,15 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2023-01-01" 
-    , "STOP_DAY"             : "2023-01-30"
+    , "START_DAY"            : "2023-01-03" 
+    , "STOP_DAY"             : "2023-01-03"
     , "TEAM"                 : "OKC"
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "WSOURCE"      : "WEB:"
-    , "ASOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
-    , "SOURCE"     : "FILE:llm_training_data"
+    , "qqSOURCE"      : "WEB:"
+    , "SOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
+    , "aSOURCE"     : "FILE:llm_training_data"
     , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
     , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
 

@@ -178,6 +178,18 @@ def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                             
                     case 1 | 2 | 3 | 4 | 5 | 6:
                         
+                        
+                        if d.eventmsgtype == 6: #FOUL
+                            ttm = ''
+                            try: 
+                                ttm += str(d.neutraldescription) 
+                                ttm += str(d.homedescription) 
+                                ttm += str(d.visitordescription) 
+                            except : pass
+                            
+                            if 'T.FOUL' in ttm:
+                                if not in_the_game: continue
+                            
                         if not needs_spans_fixed: continue
                                             
                         if not in_the_game:
@@ -446,7 +458,7 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    save_as_raw = False # SAVE_RAW_GAME_AS_CSV
+    save_as_raw = SAVE_RAW_GAME_AS_CSV == 'ON'
     
     sub_events = [] if save_as_raw else sub_events_from_stints(game_stints)
     
@@ -554,11 +566,12 @@ def dump_pbp(game, game_stints):
         """
         # smaller means first
         sort_order = {
-            
-            'STARTOFPERIOD' :[0,4,0,0],
-            'SUB'           :[2,1,1,1],
-            'NONSUB'        :[5,0,0,0],
-            'ENDOFPERIOD'   :[3,2,2,0],
+            #                   PRE  1234 POST INPERIOD 
+            'STARTOFPERIOD' :[  0,   4,   0,   0    ],
+            'SUB'           :[  2,   1,   1,   1    ],
+            'NONSUB'        :[  5,   0,   0,   0    ],
+            'EJECTION'      :[  1,   2,   2,   5    ],
+            'ENDOFPERIOD'   :[  3,   2,   2,   0    ],
 
         }
         

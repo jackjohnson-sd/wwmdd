@@ -137,7 +137,7 @@ colors = {
 
     'GSW': {
         'color1': 'gold',
-        'color2': 'blue',
+        'color2': 'gold',
         'colors': {
             'gold': ['#ffc72d', [255, 199, 44]],
             'blue': [ '#003da5', [0, 61, 165]],
@@ -200,8 +200,8 @@ colors = {
     },
 
     'MIA': {
-        'color1': 'red',
-        'color2': 'red',
+        'color1': 'yellow',
+        'color2': 'yellow',
         'colors': {
             'red': [ '#862633', [134, 38, 51]],
             'yellow': [ '#ffa300',[255, 163, 0]],

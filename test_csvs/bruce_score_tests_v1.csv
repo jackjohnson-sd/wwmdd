@@ -1,14 +1,19 @@
 ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 
 ,COMMENT,This file tests scoring events,,,,,,,,,,
-,COMMENT,Two point shot,,,,,,,,,,
+,COMMENT,2POINT,,,,,,,,,,
+,COMMENT,2POINTMISS,,,,,,,,,,
+,COMMENT,3POINT,,,,,,,,,,
+,COMMENT,3POINTMISS,,,,,,,,,,
+,COMMENT,FTMAKE,,,,,,,,,,
+,COMMENT,FTMISS,,,,,,,,,,
 ,COMMENT,score and score margin should reflect change from previous score event,,,,,,,,,,
 ,COMMENT,neutraldescription should reflect player points (n PTS),,,,,,,,,,
 
 ,STARTOFPERIOD,1,12:00,Start of 1st Period,0,0,,,,,,
-
+,3POINTMISS,1,11:42,MISS Curry 26' 3PT Jump Shot,0,0,Stephen Curry,GSW,,,,
 ,2POINT,1,8:00,Klay Thompson 18' Jump Shot (2 PTS),,,Klay Thompson,GSW,,,,
-,SUB,1,4:00,SUB: Thompson Exits,,,Klay Thompson,GSW,,,,
+
 ,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
 ,ENDOFPERIOD,1,0:00,End of 1st Period (7:24 PM CST),,,,,,,,
 

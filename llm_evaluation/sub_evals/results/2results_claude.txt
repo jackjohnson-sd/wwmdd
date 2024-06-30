@@ -1,0 +1,88 @@
+Claude 3.5 Sonnet:
+- Passes Q1-2, fails Q3-6. 
+- Some stint calculations are correct, so Claude shows some promise. 
+- Claude needs further clarification on 0:00 SUB events...
+
+Q1:
+Golden State Warriors (GSW)
+Oklahoma City Thunder (OKC)
+
+
+Q2:
+Golden State Warriors (GSW):
+Draymond Green
+Stephen Curry
+Andrew Wiggins
+Klay Thompson
+Jordan Poole
+Donte DiVincenzo
+Jonathan Kuminga
+Kevon Looney
+Anthony Lamb
+
+Oklahoma City Thunder (OKC):
+Kenrich Williams
+Shai Gilgeous-Alexander
+Aaron Wiggins
+Jalen Williams
+Josh Giddey
+Jaylin Williams
+Tre Mann
+Isaiah Joe
+Mike Muscala
+Ousmane Dieng
+Darius Bazley
+
+
+Q3:
+Josh Giddey entered the game 3 times:
+
+At the start of the game (period 0, time 0:00)
+In the 2nd quarter (period 2, time 0:00)
+In the 4th quarter (period 4, time 10:04)
+
+Q4:
+Based on the CSV data, Josh Giddey entered the game at the following times:
+
+At the start of the game (period 0, time 0:00) - This is his initial entry as part of the starting lineup.
+At the start of the 2nd quarter (period 2, time 0:00)
+In the 4th quarter at 10:04 remaining (period 4, time 10:04)
+
+So, excluding his initial start, Giddey made two substitution entries during the game.
+
+
+Q5:
+Based on the CSV data, Josh Giddey exited the game at the following times:
+
+1. In the 1st quarter at 4:31 remaining (period 1, time 4:31)
+
+2. At the end of the 3rd quarter (period 3, time 0:00)
+
+3. At the very end of the game (period 4, time 0:00)
+
+These exit times correspond to the "SUB: Giddey Exits" entries in the data. 
+The last exit at the end of the game is part of the mass substitution that typically happens when the game is over.
+
+
+Q6:
+To calculate Giddey's stints, we need to look at the time between his entries and exits. Let's break it down:
+
+1. First stint:
+   Entry: Start of the game (period 0, 0:00)
+   Exit: Period 1, 4:31 remaining
+   Duration: 12:00 - 4:31 = 7 minutes and 29 seconds
+
+2. Second stint:
+   Entry: Start of 2nd quarter (period 2, 0:00)
+   Exit: End of 3rd quarter (period 3, 0:00)
+   Duration: 12:00 (2nd quarter) + 12:00 (3rd quarter) = 24 minutes
+
+3. Third stint:
+   Entry: Period 4, 10:04 remaining
+   Exit: End of game (period 4, 0:00)
+   Duration: 10:04 - 0:00 = 10 minutes and 4 seconds
+
+So, Giddey's stints were:
+1. 7 minutes and 29 seconds
+2. 24 minutes
+3. 10 minutes and 4 seconds

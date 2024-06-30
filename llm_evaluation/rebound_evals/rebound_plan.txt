@@ -1,0 +1,226 @@
+NAME: Rebounds Test Plan 
+
+Current Status Summary:
+
+2 rounds completed (Q1-5, Q6-8)
+
+ChatGPT 4o passes Q1 - 8.
+
+Gemini passes Q 1 - 8. 
+
+Claude fails Q 2 - 8.  
+
+
+data sets used:
+    OKCvGSW20230130.csv (in llm_training_data)
+
+
+Test Model: Claude 3 Opus, Gemini 1.5 Pro, ChatGPT 4o 
+
+Prompt 1:
+A rebound occurs when 'REBOUND' is listed in the eventmsgtype column of a row.
+The player listed in the player1_name column of a row with 'REBOUND' in the eventmsgtype column is the player that commits the rebound. 
+
+An example of a rebound event in CSV format is here:
+26,REBOUND,1,8:07,Burks REBOUND (Off:0 Def:1),3 - 13,10,Alec Burks,DET,,,,
+
+‘REBOUND’ is in the eventmsgtype column which means this row describes a foul event.
+'Alec Burks' is in the player1_name column which means Alec Burks commited the rebound. 
+'DET' is in the player1_team_abbreviation column which means Alec Burks is on the DET team. 
+    
+
+Prompt 2 (includes prompt 1 info, using only Prompt 2 in Attempt 3):
+Here is information about rebound events in basketball game play by plays in CSV format. 
+This information should be used in determining your answers to my upcoming questions. 
+Hold off on providing any rebound counts for now.
+
+1. A rebound occurs when 'REBOUND' is listed in the ‘eventmsgtype’ column of a row.
+2. The player listed in the player1_name column of a row with 'REBOUND' in the ‘eventmsgtype’ column is the player who committed the rebound.
+3. The player in the ‘player1_name’ column is on the team listed in the ‘player1_team_abbreviation’ column of the same row.
+4. In a row with 'REBOUND' in the ‘eventmsgtype’ column, the ‘neutraldescription’ column contains the player's cumulative count of offensive and defensive rebounds. 
+This count is specific to the player's rebounds throughout the game, so the last REBOUND event for a specific player details his total number of offensive and 
+defensive rebounds committed in the game.
+
+To determine the type of rebound (offensive or defensive) a player committed, compare the player's rebound counts in the ‘neutraldescription’ column between 
+consecutive rebound events for that player. 
+If the initial defensive count is 0, the first rebound is offensive. 
+If the initial offensive count is 0, the first rebound is defensive.
+
+An example of analyzing rebound types in CSV format is here:
+251,REBOUND,3,9:55,Burks REBOUND (Off:0 Def:6),64 - 55,-9,Alec Burks,DET,,,,
+287,REBOUND,3,6:21,Burks REBOUND (Off:1 Def:6),71 - 63,-8,Alec Burks,DET,,,,
+
+In row 251, Alec Burks committed the rebound and has 0 offensive rebounds and 6 defensive rebounds up to this point in the game, as indicated 
+by 'Burks REBOUND (Off:0 Def:6)' in the ‘neutraldescription’ column.
+
+In row 287, Alec Burks committed another rebound, and his rebound counts are now 1 offensive rebound and 6 defensive rebounds, as shown 
+by 'Burks REBOUND (Off:1 Def:6)' in the ‘neutraldescription’ column.
+
+To determine the type of rebound Alec Burks committed in row 287, compare his rebound counts between rows 251 and 287. 
+Since his offensive rebound count increased from 0 to 1, the rebound in row 287 is an offensive rebound.
+
+    
+Prompts:
+    1. What teams played in the game?
+    2. Who are the players on each team? 
+    3. How many rebounds did players on OKC commit? 
+    4. How many rebounds did players on GSW commit?
+    5. How many rebounds did Giddey commit in the game? 
+
+    6. How many Offensive and Defensive rebound types did Giddey commit?
+    7. How many Offensive and Defensive rebound types did OKC players commit?
+    8. For each OKC players' committed rebounds, list the period, pctimestring, and rebound type for each rebound.
+    
+    
+    
+The Plan: 
+    1. Reset LLM chat to no history 
+    2. Load example game into llm and Prompt 1
+    3. Prompt model with each prompt in prompt list 
+        3a. Check response against prompt expected results 
+        3b. Did we pass? If no, why? 
+    
+
+The Meta Plan:
+    1. execute the Plan
+    2. document failures only
+    3. If failures, 
+        3a. Improve prompt 
+        3b. try agains (go to 1)
+
+
+Answers: 
+    1.
+    The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+    
+    2.
+    The players on the Oklahoma City Thunder were:
+    Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+    
+    The players on the Golden State Warriors were:
+    Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+    Foul counts for Oklahoma City Thunder players:
+
+    3. 
+    43 rebounds
+
+    Kenrich Williams: 8 rebounds
+    Shai Gilgeous-Alexander: 4 rebounds 
+    Josh Giddey: 8 rebounds
+    Jalen Williams: 4 rebounds
+    Aaron Wiggins: 2 rebounds
+    Ousmane Dieng: 1 rebound
+    Tre Mann: 1 rebound
+    Isaiah Joe: 3 rebounds
+    Jaylin Williams: 8 rebounds
+    Mike Muscala: 2 rebounds
+    Darius Bazley: 2 rebounds
+
+    4. 
+    44 rebounds
+
+    Andrew Wiggins: 4 rebounds
+    Klay Thompson: 7 rebounds 
+    Stephen Curry: 8 rebounds
+    Draymond Green: 9 rebounds
+    Jordan Poole: 0 rebounds
+    Kevon Looney: 6 rebounds
+    Donte DiVincenzo: 4 rebounds 
+    Jonathan Kuminga: 3 rebounds
+    Anthony Lamb: 3 rebounds
+
+    5. 
+    8 rebounds. 
+
+    6. 
+    Josh Giddey commits 2 offensive rebound types and 6 defensive rebound types. 
+
+    7. 
+    OKC players committed 8 offensive rebounds and 35 defensive rebounds.
+
+    8. 
+    player_name	period	pctimestring	rebound_type
+    Aaron Wiggins	1	3:12	defensive
+    Aaron Wiggins	3	1:16	offensive
+    Darius Bazley	2	4:39	defensive
+    Darius Bazley	2	5:26	defensive
+    Isaiah Joe	1	2:02	defensive
+    Isaiah Joe	2	6:47	defensive
+    Isaiah Joe	3	5:02	defensive
+    Jalen Williams	2	5:52	defensive
+    Jalen Williams	3	6:37	offensive
+    Jalen Williams	3	8:27	defensive
+    Jalen Williams	4	5:58	defensive
+    Jaylin Williams	2	2:36	defensive
+    Jaylin Williams	2	3:27	defensive
+    Jaylin Williams	2	7:32	defensive
+    Jaylin Williams	3	6:41	offensive
+    Jaylin Williams	3	9:45	defensive
+    Jaylin Williams	4	7:19	offensive
+    Jaylin Williams	4	8:53	defensive
+    Jaylin Williams	4	9:31	defensive
+    Josh Giddey	1	6:51	defensive
+    Josh Giddey	2	10:36	offensive
+    Josh Giddey	2	10:40	defensive
+    Josh Giddey	3	10:00	defensive
+    Josh Giddey	3	10:56	offensive
+    Josh Giddey	3	5:41	defensive
+    Josh Giddey	4	3:51	defensive
+    Josh Giddey	4	4:27	defensive
+    Kenrich Williams	1	11:06	defensive
+    Kenrich Williams	1	6:20	offensive
+    Kenrich Williams	2	1:08	defensive
+    Kenrich Williams	2	9:11	defensive
+    Kenrich Williams	2	9:35	defensive
+    Kenrich Williams	4	5:22	defensive
+    Kenrich Williams	4	6:20	defensive
+    Kenrich Williams	4	8:26	offensive
+    Mike Muscala	3	1:47	defensive
+    Mike Muscala	3	3:45	defensive
+    Ousmane Dieng	2	8:16	defensive
+    Shai Gilgeous-Alexander	1	10:24	defensive
+    Shai Gilgeous-Alexander	1	9:16	defensive
+    Shai Gilgeous-Alexander	3	4:30	defensive
+    Shai Gilgeous-Alexander	3	6:01	defensive
+    Tre Mann	4	10:54	defensive
+  
+
+    
+
+Discussion:
+        Attempt 1:
+        - Gemini passes Q 1 - 4 without context on rebounds, or even team/player relations in the CSV formatted Play by Play.
+
+        - Claude failed Q 3 - 4. I'll need to define rebounds for Claude. 
+
+        - ChatGPT passes Q1-4 (also 5, but then fails 6 (Off vs Def))
+
+
+        Attempt 2 (added Q5 and Prompt 1): 
+        - Gemini passed Q 1- 5. 
+
+        - Claude failed Q 3 - 5. Passed Q 1,2. 
+            Claude is unable to consistently apply chat context throughout the session.
+
+            When reminded of the rules, it apoligizes without explaining its erroneous logic, making
+            it more difficult to diagnose and prompt engineer compared to Gemini (which provides
+            reasoning and code). 
+
+        - ChatGPT passes Q1-5 (fails Q6)
+
+
+        Attempt 3 (Prompt 2 and added Q6-8):
+        - Gemini passes Q1-8
+
+        - Claude fails Q3-8, passes Q1-2
+
+        -ChatGPT passes Q1-6, required reminding of rules to answer Q7 
+            (I copied from Prompt 2 "To determine the type of rebound..." and re-asked Q7)
+            - Passes Q7.5 (How many Offensive and Defensive rebound types did GSW players commit?)
+            - Passes Q8
+            
+
+
+To Do:
+Providing the correct rebound events for player and tell LLM which ones it got right and wrong, then 
+re-ask the questions. 

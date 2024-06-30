@@ -74,7 +74,7 @@ def main(team=None,start=None,stop=None):
         
         if game_data.play_by_play.shape[0] != 0:
             
-            our_playerstints_and_boxscore = generatePBP(game_data, _TEAM)
+            our_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = False)
             opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = True)
 
             if SAVE_GAME_AS_CSV == 'ON': 

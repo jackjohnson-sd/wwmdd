@@ -490,18 +490,18 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     ax2.set_ylim(first_ytick , last_ytick)
     ax2.yaxis.set_visible(False)
 
-    # ax3 = ax.twinx()
+    ax3 = ax.twinx()
 
     for s in ['top', 'right', 'bottom', 'left']:
-        # ax3.spines[s].set_visible(False)
+        ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)    
 
     # (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    # if bx_score._team_name == game_info['T']:
-    #     plot_score(ax3, score[0], score[1], game_info)
-    # else:
-    #     plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
-    #     plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
+    if bx_score._team_name == game_info['T']:
+        plot_score(ax3, score[0], score[1], game_info)
+    else:
+        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
+        plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
     
     for i, _player in enumerate(_players):
         
@@ -519,7 +519,7 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
     boxscore = box_score(_stints[1])
 
     if opponent:
-        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:20])
+        teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:50])
         try:    teams.remove('')
         except: a = 1
         

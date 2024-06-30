@@ -1,4 +1,5 @@
 {
+
       "LOG"         : "OFF"
     , "TRIM"        : "OFF"
     , "CONSOLE"     : "ON"
@@ -7,10 +8,12 @@
     , "dbgb"         : "OFF"
     , "dbgc"          : "OFF"
 
-    , "aTEST_PLAYERS"     :  ["Josh Giddey"]
+    , "example_TEST_PLAYERS"     :  ["Josh Giddey"]
     , "TEST_PLAYERS"      :  []
 
     , "SAVE_GAME_AS_CSV"  : "ON"
+    , "SAVE_RAW_GAME_AS_CSV" : "OFF"
+
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
     , "SAVE_PLOT_AS_PDF"  : "OFF"
@@ -44,15 +47,16 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2024-04-01" 
-    , "STOP_DAY"             : "2024-04-29"
+    , "START_DAY"            : "2023-01-03" 
+    , "STOP_DAY"             : "2023-01-03"
     , "TEAM"                 : "OKC"
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "aSOURCE"     : "WEB:"
-    , "SOURCE"     : "FILE:llm_training_data"
-    , "zzSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
+    , "qqSOURCE"      : "WEB:"
+    , "SOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
+    , "aSOURCE"     : "FILE:llm_training_data"
+    , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
     , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
 
     , "cSOURCE"     : "FILE:gemini_test"
@@ -60,6 +64,5 @@
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"
     , "fSOURCE"     : "TOKENS:gemini_test"
-
 
 }

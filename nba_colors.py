@@ -289,7 +289,7 @@ colors = {
 
     'PHX': {
         'color1': 'orange',
-        'color2': 'purple',
+        'color2': 'orange',
         'colors': {
             'orange': [ '#e56020',[229, 96, 32]],
             'gold': [ '#1d1160',[29, 17, 96]],

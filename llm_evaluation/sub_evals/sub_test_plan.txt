@@ -1,47 +1,61 @@
 NAME: SUB Test Plan 
 
 Current Status Summary:
-- Seems that there is general confusion over 0:00 SUB events with stint calculations
-- Claude benched for now...
 
-1st attempt w/ Prompt 1:
-    - ChatGPT 4o passes Q1-6
-    - Gemini 1.5 Pro passes Q1-5, but fails Q6
-    - Claude Sonnet 3.5 passes Q1-3, but fails Q4-6.
+    1st attempt w/ Prompt 1:
+        - ChatGPT 4o passes Q1-6
+        - Gemini 1.5 Pro passes Q1-5, but fails Q6
+        - Claude Sonnet 3.5 passes Q1-3, but fails Q4-6.
 
-2nd Attempt w/ Prompt 2 additions:
-    - Gemini 1.5 Pro passes Q1-5, fails Q6 again. 
-    - ChatGPT 4o passes Q1-5, fails Q6. 
-    - Claude Sonnet 3.5 passes Q1-2, fails Q3-6. 
+    2nd Attempt w/ Prompt 2 additions:
+        - Gemini 1.5 Pro passes Q1-5, fails Q6 again. 
+        - ChatGPT 4o passes Q1-5, fails Q6. 
+        - Claude Sonnet 3.5 passes Q1-2, fails Q3-6. 
 
-3rd Attempt w/ new Prompt 1 and edited CSV file (0,0:00 to 1,12:00)
-    - ChatGPT 4o passes Q1 - 6
-    - Gemini passes Q1 - 2, fails Q3 - 6
+    3rd Attempt w/ new Prompt 1 and edited CSV file (0,0:00 to 1,12:00)
+        - ChatGPT 4o passes Q1 - 6
+        - Gemini passes Q1 - 2, fails Q3 - 6
 
-4th Attempt w/ Prompt 1 edited with Prompt 2 (4) and Q7 - 9
-    - ChatGPT 4o
-        - Passes Q1 - 8 
-        - Fails Q9 (by 35 seconds)
-    - Gemini 1.5 Pro
-        - Passes Q1 - 5, Q7 (required follow-ups on Q1,2)
-        - Fails Q6,8,9  
+    4th Attempt w/ Prompt 1 edited with Prompt 2 (4):
+        - ChatGPT 4o
+            - Passes Q1 - 8 
+            - Fails Q9 (by 35 seconds)
+        - Gemini 1.5 Pro
+            - Passes Q1 - 5, Q7 (required follow-ups on Q1,2)
+            - Fails Q6,8,9  
 
-5th Attempt:
--ChatGPT 4o 
-    - Passes Q1 - 8 (with re-asking Q6 but no additional information)
-    - Fails Q9
+    5th Attempt (P5):
+    -ChatGPT 4o 
+        - Passes Q1 - 8 (with re-asking Q6 but no additional information)
+        - Fails Q9
 
-6th Attempt:
-ChatGPT:
-    - Passes Q1 - 9b, 9d 
-    - Initially failed Q9c, but when prompted with 're-check answer' ChatGPT passes Q9c
-Gemini:
-    - Gemini fails Q6,6a
-    - Passes Q1-5
+    6th Attempt (P6):
+    ChatGPT:
+        - Passes Q1 - 9b, 9d 
+        - Initially failed Q9c, but when prompted with 're-check answer' ChatGPT passes Q9c
+    Gemini:
+        - Gemini fails Q6,6a
+        - Passes Q1-5
 
-7th Attempt:
-ChatGPT:
-    - Passes Q1-5
+    7th Attempt (P6, with Q10,11 added):
+
+    ChatGPT:
+        - Passes Q1-5, Q7, Q8-8a, Q9, Q10,a, Q11a
+        -Initially failed Q6,6a, but then passed when prompted to 're-examine results'
+        -Initially failed Q8b,c, but then passed when prompted to 'explain your logic in calculating stint 2 and 3'
+        - Fails Q9a,b
+            "If there are no specific entries for Shai Gilgeous-Alexander in the third period, we 
+            assume he continues from his previous entry." 
+        - Fails Q11, then passes when I prompt "the time in pctimestring descends"
+            -Error in handling time 
+            "Giddey played from 6:00 to 7:23 before exiting.
+            He re-entered at 0:49 and played until the end of the period (0:00)."
+
+    Gemini:
+        - Fails Q1 (only reports GSW, no OKC)
+        - Fails Q6,6a, Q8b,c, 10,11
+        - Passes Q10a
+
 
 Data sets used:
     OKCvGSW20230130.csv  (in llm_evaluation/sub_evals) (GET LATEST)
@@ -56,9 +70,7 @@ Prompt 1:
 
 
 Prompt 2:
-(in chats, this is added stint information section of Prompt 1 above)
-
-A player’s total playing time in the game is equal to the sum of all of his stints. 
+ 
 
 
 
@@ -83,14 +95,18 @@ Prompts:
         8b. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
         8c. How many minutes did Shai Gilgeous-Alexander play? 
 
-    9. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in the first period? 
+    10. How long did Gilgeous-Alexander play in the first 6 minutes of the first period?
+        10a. How long did Gilgeous-Alexander play in the second half of the second period?
+    
+    11. How long did Giddey play in the second half of the second period?
+        11a. How long did Giddey play from time 11:57 to 9:56 in the fourth period?
+
+      
+    was 9. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in the first period? 
         9a. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in the second period?
         9b. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in the third period?
         9c. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in the fourth period?
         9d. How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
-
-    
-    
 
 
 
@@ -184,144 +200,155 @@ Answers:
 
             Sum: 7:29 + :49 + 5:33 = 13:51
 
+    10. 6 minutes
+        10a. 5:02
+
+    11. Josh Giddey played 0 minutes and 49 seconds (0:49) in the second half of the second period.
+        11a. Josh Giddey played 0 minutes and 8 seconds (0:08) from 11:57 to 9:56 in the fourth period.
 
 
 
+1.
+Hierarchy:
+- Build an LLm understanding of play by play file format
+    - column definitions
+    - teams, players, game times, event types
+    - event type definitions
 
 
 
 PREVIOUS PROMPTS
-Prompt 1:  (ATTEMPT 1)
-Here is information about basketball game play by plays in CSV format and SUB events. 
-This information should be used in determining your answers to my upcoming questions. 
-Hold off on providing any SUB counts for now.
+    Prompt 1:  (ATTEMPT 1)
+    Here is information about basketball game play by plays in CSV format and SUB events. 
+    This information should be used in determining your answers to my upcoming questions. 
+    Hold off on providing any SUB counts for now.
 
-Here is information about team rosters:
-The player named in the ‘player1_name’ column is on the team listed in the ‘player1_team_abbreviation’ column of the same row.
-The player named in the ‘player2_name’ column is on the team listed in the ‘player2_team_abbreviation’ column of the same row.
-The player named in the ‘player3_name’ column is on the team listed in the ‘player3_team_abbreviation’ column of the same row.
+    Here is information about team rosters:
+    The player named in the ‘player1_name’ column is on the team listed in the ‘player1_team_abbreviation’ column of the same row.
+    The player named in the ‘player2_name’ column is on the team listed in the ‘player2_team_abbreviation’ column of the same row.
+    The player named in the ‘player3_name’ column is on the team listed in the ‘player3_team_abbreviation’ column of the same row.
 
-Here is an example of SUB events in CSV format:
-,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-,SUB,1,4:31,SUB: Wiggins Exits,,,Andrew Wiggins,GSW,,,,
-,SUB,1,4:31,SUB: Poole Exits,,,Jordan Poole,GSW,,,,
-,SUB,1,4:31,SUB: DiVincenzo Enters,,,,,Donte DiVincenzo,GSW,,
-,SUB,1,4:31,SUB: Green Exits,,,Draymond Green,GSW,,,,
+    Here is an example of SUB events in CSV format:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    ,SUB,1,4:31,SUB: Wiggins Exits,,,Andrew Wiggins,GSW,,,,
+    ,SUB,1,4:31,SUB: Poole Exits,,,Jordan Poole,GSW,,,,
+    ,SUB,1,4:31,SUB: DiVincenzo Enters,,,,,Donte DiVincenzo,GSW,,
+    ,SUB,1,4:31,SUB: Green Exits,,,Draymond Green,GSW,,,,
 
-In a SUB eventmsgtype, the player named in the ‘player1_name’ column exits the game. 
-The player named in the ‘player2_name’ column enters the game. 
-The time the player enters or exits the game is in the ‘pctimestring’ column. 
-The period the player enters or exits the game is in the ‘period’ column. 
+    In a SUB eventmsgtype, the player named in the ‘player1_name’ column exits the game. 
+    The player named in the ‘player2_name’ column enters the game. 
+    The time the player enters or exits the game is in the ‘pctimestring’ column. 
+    The period the player enters or exits the game is in the ‘period’ column. 
 
-Here is information about lineups at the start of the periods:
-Players named in SUB events with ‘1’ in the ‘period’ column and ‘12:00’ in the ‘pctimestring’ column represent the game’s starting lineup.
-Lineup changes that occur between the end of the first period and the start of the second period are represented by SUB events with ‘1’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
-Lineup changes that occur between the end of the second period and the start of the third period are represented by ‘2’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
-Lineup changes that occur between the end of the third period and the start of the fourth period are represented by ‘3’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
+    Here is information about lineups at the start of the periods:
+    Players named in SUB events with ‘1’ in the ‘period’ column and ‘12:00’ in the ‘pctimestring’ column represent the game’s starting lineup.
+    Lineup changes that occur between the end of the first period and the start of the second period are represented by SUB events with ‘1’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
+    Lineup changes that occur between the end of the second period and the start of the third period are represented by ‘2’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
+    Lineup changes that occur between the end of the third period and the start of the fourth period are represented by ‘3’ in the ‘period’ column and ‘0:00’ in the ‘pctimestring’ column. 
 
-Here is stint information:
-A period is 12 minutes long and the value in the ‘pctimestring’ column represents the time left in the period.  
-A player’s stint in basketball refers to a continuous period of time that a player spends on the court during a game before being substituted out.
+    Here is stint information:
+    A period is 12 minutes long and the value in the ‘pctimestring’ column represents the time left in the period.  
+    A player’s stint in basketball refers to a continuous period of time that a player spends on the court during a game before being substituted out.
 
-If a player has no exit SUB event listed in the quarter that he enters, but exits the game in the next quarter, then the player plays through the end of the quarter he entered and plays at the start of the next quarter. 
+    If a player has no exit SUB event listed in the quarter that he enters, but exits the game in the next quarter, then the player plays through the end of the quarter he entered and plays at the start of the next quarter. 
 
-For example, these are 2 consecutive SUB events of a player: 
+    For example, these are 2 consecutive SUB events of a player: 
 
-,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-,SUB,1,0:50,SUB: Poole Enters,,,,,Jordan Poole,GSW,,
-,SUB,2,5:02,SUB: Poole Exits,,,Jordan Poole,GSW,,,,
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    ,SUB,1,0:50,SUB: Poole Enters,,,,,Jordan Poole,GSW,,
+    ,SUB,2,5:02,SUB: Poole Exits,,,Jordan Poole,GSW,,,,
 
-Notice that he enters the game in the first period with 50 seconds remaining before the period ends, because ‘1’ is listed in the ‘period’ column and ‘0:50’ is listed in the ‘pctimestring’ column. He plays for 50 seconds in the first period because 0:50 minus 0:00 is 50.
+    Notice that he enters the game in the first period with 50 seconds remaining before the period ends, because ‘1’ is listed in the ‘period’ column and ‘0:50’ is listed in the ‘pctimestring’ column. He plays for 50 seconds in the first period because 0:50 minus 0:00 is 50.
 
-Notice that he exits the game in the second period with 5 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘5:02’ is listed in the ‘pctimestring’ column. He plays for 6 minutes and 58 seconds in the second period because 12:00 minus 5:02 is 6:58. 
+    Notice that he exits the game in the second period with 5 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘5:02’ is listed in the ‘pctimestring’ column. He plays for 6 minutes and 58 seconds in the second period because 12:00 minus 5:02 is 6:58. 
 
-The player’s stint is 7 minutes and 48 seconds long.  (add sum of those two 50 and 6:58 in 2 periods)
-
-
+    The player’s stint is 7 minutes and 48 seconds long.  (add sum of those two 50 and 6:58 in 2 periods)
 
 
-Prompt 2:  (ATTEMPT 2) (need to better define stints and stint calculations for Claude and Gemini)
-
-Added:
-    (in "In a SUB eventmsgtype..." section)
-    - The format of the time is MM:SS (minutes:seconds) and the time represents time remaining in the period.
-
-    (in "Here is stint information" section)
-    - If a player enters the game at period 3, pctimestring 0:00 and exits at period 4, pctimestring 5:00, 
-    then the player’s stint is 7 minutes long, because he enters the game at the start of the fourth period, 
-    and 12:00 minus 5:00 is 7:00. 
-
-    - If a player enters the game at period 0, pctimestring 0:00 and exits at period 1, pctimestring 0:00, 
-    then the player’s stint is 12 minutes long, because he enters the game at the start of the first period 
-    and exits at the end of the first period, and 12:00 minus 0:00 is 12:00. 
 
 
-    PREVIOUS ANSWERS:
-        Q4:
-        period,pctimestring,neutraldescription,
-        0,0:00,SUB: Giddey Enters,
-        1,0:00,SUB: Giddey Enters,
-        2,0:49,SUB: Giddey Enters,
-        4,10:04,SUB: Giddey Enters,
+    Prompt 2:  (ATTEMPT 2) (need to better define stints and stint calculations for Claude and Gemini)
+
+    Added:
+        (in "In a SUB eventmsgtype..." section)
+        - The format of the time is MM:SS (minutes:seconds) and the time represents time remaining in the period.
+
+        (in "Here is stint information" section)
+        - If a player enters the game at period 3, pctimestring 0:00 and exits at period 4, pctimestring 5:00, 
+        then the player’s stint is 7 minutes long, because he enters the game at the start of the fourth period, 
+        and 12:00 minus 5:00 is 7:00. 
+
+        - If a player enters the game at period 0, pctimestring 0:00 and exits at period 1, pctimestring 0:00, 
+        then the player’s stint is 12 minutes long, because he enters the game at the start of the first period 
+        and exits at the end of the first period, and 12:00 minus 0:00 is 12:00. 
 
 
-Prompt 4 (4th Attempt Prompt)
-Here is information about basketball game play by plays in CSV format and SUB events. 
-This information should be used in determining your answers to my upcoming questions. 
-Hold off on providing any SUB counts for now.
-
-Here is information about team rosters:
-The player named in the ‘player1_name’ column is on the team listed in the ‘player1_team_abbreviation’ column of the same row.
-The player named in the ‘player2_name’ column is on the team listed in the ‘player2_team_abbreviation’ column of the same row.
-The player named in the ‘player3_name’ column is on the team listed in the ‘player3_team_abbreviation’ column of the same row.
-
-Here is an example of SUB events in CSV format:
-,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-88,SUB,1,3:31,SUB: Burks Exits,22 - 15,-7,Alec Burks,DET,,,,
-89,SUB,1,3:31,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,DET,,
-90,SUB,1,3:31,SUB: Bey Exits,22 - 15,-7,Saddiq Bey,DET,,,,
-91,SUB,1,3:31,SUB: Hayes Enters,22 - 15,-7,,,Killian Hayes,DET,,
-
-For a SUB event row in CSV format, ‘SUB’ is listed in the ‘eventmsgtype’ column. 
-The player named in the ‘player1_name’ column exits the game. 
-The player named in the ‘player2_name’ column enters the game. 
-The period the player enters or exits the game is in the ‘period’ column. 
-The time the player enters or exits the game is in the ‘pctimestring’ column. 
-The format of the time is MM:SS (minutes:seconds) and the time represents time remaining in the period.  
-The period begins with ‘12:00’ listed in the ‘pctimestring’ column. 
-The period ends with ‘0:00’ listed in the ‘pctimestring’ column. 
+        PREVIOUS ANSWERS:
+            Q4:
+            period,pctimestring,neutraldescription,
+            0,0:00,SUB: Giddey Enters,
+            1,0:00,SUB: Giddey Enters,
+            2,0:49,SUB: Giddey Enters,
+            4,10:04,SUB: Giddey Enters,
 
 
-Here is information about SUBS at the start and end of periods:
-In SUB event rows with ‘12:00’ listed in the ‘pctimestring’ column, the player named in ‘player2_name’ column plays from the start of the period that’s listed in the ‘period’ column.
-In SUB event rows with ‘0:00’ listed in the pctimestring’ column, the player named in ‘player1_name’ column exits at the end of the period that’s listed in the ‘period’ column, and does not re-enter the game until the player is named in a ‘player2_name’ column of a SUB event row. 
+    Prompt 4 (4th Attempt Prompt)
+    Here is information about basketball game play by plays in CSV format and SUB events. 
+    This information should be used in determining your answers to my upcoming questions. 
+    Hold off on providing any SUB counts for now.
+
+    Here is information about team rosters:
+    The player named in the ‘player1_name’ column is on the team listed in the ‘player1_team_abbreviation’ column of the same row.
+    The player named in the ‘player2_name’ column is on the team listed in the ‘player2_team_abbreviation’ column of the same row.
+    The player named in the ‘player3_name’ column is on the team listed in the ‘player3_team_abbreviation’ column of the same row.
+
+    Here is an example of SUB events in CSV format:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    88,SUB,1,3:31,SUB: Burks Exits,22 - 15,-7,Alec Burks,DET,,,,
+    89,SUB,1,3:31,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,DET,,
+    90,SUB,1,3:31,SUB: Bey Exits,22 - 15,-7,Saddiq Bey,DET,,,,
+    91,SUB,1,3:31,SUB: Hayes Enters,22 - 15,-7,,,Killian Hayes,DET,,
+
+    For a SUB event row in CSV format, ‘SUB’ is listed in the ‘eventmsgtype’ column. 
+    The player named in the ‘player1_name’ column exits the game. 
+    The player named in the ‘player2_name’ column enters the game. 
+    The period the player enters or exits the game is in the ‘period’ column. 
+    The time the player enters or exits the game is in the ‘pctimestring’ column. 
+    The format of the time is MM:SS (minutes:seconds) and the time represents time remaining in the period.  
+    The period begins with ‘12:00’ listed in the ‘pctimestring’ column. 
+    The period ends with ‘0:00’ listed in the ‘pctimestring’ column. 
 
 
-Here is stint information:
-A player’s stint in basketball refers to a continuous period of time that a player spends on the court during a game before being substituted out.
-A player’s total playing time in the game is equal to the sum of all of his stints.
+    Here is information about SUBS at the start and end of periods:
+    In SUB event rows with ‘12:00’ listed in the ‘pctimestring’ column, the player named in ‘player2_name’ column plays from the start of the period that’s listed in the ‘period’ column.
+    In SUB event rows with ‘0:00’ listed in the pctimestring’ column, the player named in ‘player1_name’ column exits at the end of the period that’s listed in the ‘period’ column, and does not re-enter the game until the player is named in a ‘player2_name’ column of a SUB event row. 
 
-Here is an example of calculating a player’s stint time:
-Example SUB events in CSV format:
-,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-204,SUB,2,6:02,SUB: Doncic Enters,50 - 34,-16,,,Luka Doncic,DAL,,
-252,SUB,2,1:12,SUB: Doncic Exits,62 - 48,-14,Luka Doncic,DAL,,,,
 
-Notice that he enters the game in the second period with 6 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘6:02’ is listed in the ‘pctimestring’ column. 
-Notice that he exits the game in the second period with 1 minute and 12 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘1:12’ is listed in the ‘pctimestring’ column.
-The player’s stint is 4 minutes and 50 seconds long because 6:02 minus 1:12 is 4:50.
-	
-Here is another example of stint time calculations:
-If a player has no exit SUB event listed in the quarter that he enters, but exits the game in the next quarter, then the player plays through the end of the quarter he entered and plays at the start of the next quarter. 
+    Here is stint information:
+    A player’s stint in basketball refers to a continuous period of time that a player spends on the court during a game before being substituted out.
+    A player’s total playing time in the game is equal to the sum of all of his stints.
 
-For example, these are 2 consecutive SUB events of a player: 
+    Here is an example of calculating a player’s stint time:
+    Example SUB events in CSV format:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    204,SUB,2,6:02,SUB: Doncic Enters,50 - 34,-16,,,Luka Doncic,DAL,,
+    252,SUB,2,1:12,SUB: Doncic Exits,62 - 48,-14,Luka Doncic,DAL,,,,
 
-,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-111,SUB,1,0:50,SUB: Ivey Enters,35 - 18,-17,,,Jaden Ivey,DET,,
-216,SUB,2,5:02,SUB: Ivey Exits,50 - 34,-16,Jaden Ivey,DET,,,,
+    Notice that he enters the game in the second period with 6 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘6:02’ is listed in the ‘pctimestring’ column. 
+    Notice that he exits the game in the second period with 1 minute and 12 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘1:12’ is listed in the ‘pctimestring’ column.
+    The player’s stint is 4 minutes and 50 seconds long because 6:02 minus 1:12 is 4:50.
+        
+    Here is another example of stint time calculations:
+    If a player has no exit SUB event listed in the quarter that he enters, but exits the game in the next quarter, then the player plays through the end of the quarter he entered and plays at the start of the next quarter. 
 
-Notice that he enters the game in the first period with 50 seconds remaining before the period ends, because ‘1’ is listed in the ‘period’ column and ‘0:50’ is listed in the ‘pctimestring’ column. He plays for 50 seconds in the first period because 0:50 minus 0:00 is 0:50.
+    For example, these are 2 consecutive SUB events of a player: 
 
-Notice that he exits the game in the second period with 5 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘5:02’ is listed in the ‘pctimestring’ column. He plays for 6 minutes and 58 seconds in the second period because 12:00 minus 5:02 is 6:58. 
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    111,SUB,1,0:50,SUB: Ivey Enters,35 - 18,-17,,,Jaden Ivey,DET,,
+    216,SUB,2,5:02,SUB: Ivey Exits,50 - 34,-16,Jaden Ivey,DET,,,,
 
-The player’s stint is 7 minutes and 48 seconds long because 6:58 plus 0:50 is 7:48. 
+    Notice that he enters the game in the first period with 50 seconds remaining before the period ends, because ‘1’ is listed in the ‘period’ column and ‘0:50’ is listed in the ‘pctimestring’ column. He plays for 50 seconds in the first period because 0:50 minus 0:00 is 0:50.
+
+    Notice that he exits the game in the second period with 5 minutes and 2 seconds remaining before the period ends, because ‘2’ is listed in the ‘period’ column and ‘5:02’ is listed in the ‘pctimestring’ column. He plays for 6 minutes and 58 seconds in the second period because 12:00 minus 5:02 is 6:58. 
+
+    The player’s stint is 7 minutes and 48 seconds long because 6:58 plus 0:50 is 7:48. 

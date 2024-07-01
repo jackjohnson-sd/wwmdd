@@ -1,3 +1,4 @@
+import os
 import re
 import matplotlib
 import matplotlib.pyplot as plt
@@ -6,9 +7,12 @@ from matplotlib.lines import Line2D
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
-from event_prep import event_legend, event_to_size_color_shape
+from event_prep import event_to_size_color_shape, event_map
 
 from settings import defaults 
+from play_by_play import _ms
+
+SHOW_PLOTS       = defaults.get('SHOW_PLOTS')       
 
 STINT_COLOR       = defaults.get('STINT_COLOR')       
 STINT_COLOR_IN    = defaults.get('STINT_COLOR_IN')       
@@ -29,7 +33,15 @@ MRK_FONTSCALE     = defaults.get('MARKER_FONTSCALE')
 MRK_FONTWEIGHT    = defaults.get('MARKER_FONTWEIGHT')
 GRID_LINEWIDTH    = defaults.get('GRID_linewidth')
 
+PLAY_TIME_CHECK_ONLY   = defaults.get('PLAY_TIME_CHECK_ONLY')
+
+
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
+
+def do_plot(theplot):
+    if 'ALL' in SHOW_PLOTS: return True
+    if theplot in SHOW_PLOTS: return True
+    return False
 
 def removeLower(str): 
     regex = "[a-z .-]"
@@ -188,7 +200,17 @@ def make_scoremargin(play_by_play):
     return scoreMargins, home_scores, away_scores
 
 def plot_score(_ax, home_scores, away_scores, game_info):
-        
+    
+    if not do_plot('SCORE') : 
+        _ax.yaxis.set_visible(False)
+        _ax.xaxis.set_visible(False)
+        # _ax.set_ylim(0, 0)
+
+        for s in ['top', 'right', 'bottom', 'left']:
+            _ax.spines[s].set_visible(False)
+
+        return
+    
     D1_color = dimmer(get_color(game_info['H']))
     D2_color = dimmer(get_color(game_info['A']))
        
@@ -206,7 +228,16 @@ def plot_score(_ax, home_scores, away_scores, game_info):
     _ax.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
     
 def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
-       
+
+    if not do_plot('MARGIN') :
+        _ax.yaxis.set_visible(False)
+        _ax.xaxis.set_visible(False)
+
+        for s in ['top', 'right', 'bottom', 'left']:
+            _ax.spines[s].set_visible(False)
+            
+        return
+
     home_color = dimmer(get_color(game_info['H']))
     away_color = dimmer(get_color(game_info['A']))
     
@@ -241,9 +272,11 @@ def get_title_and_friends(game_data):
     gd = game_data.game_date[0:10].split('-')
     gds = f'{gd[1]}/{gd[2]}/{gd[0]}'   # US date formate mm/dd/yyyy
 
-    title = f'{gds}   {game_data.matchup_away}   {int(game_data.pts_away)}-{int(game_data.pts_home)}'
-    
-    game_info = { 'T' : top_team, 'B' : bot_team, 'H' : team_home, 'A' : team_away }
+    title = [
+        f'{gds} {game_data.start_time}', 
+        f'{game_data.matchup_away}'
+        ]
+    game_info = { 'T' : top_team, 'B' : bot_team, 'H' : team_home, 'A' : team_away, 'START' : game_data.start_time }
     
     DATA_SOURCE    = defaults.get('SOURCE')
     if 'WEB' in DATA_SOURCE:
@@ -253,7 +286,20 @@ def get_title_and_friends(game_data):
 
     return title, debug_title, game_info # top_team, bot_team, team_home, team_away
 
-def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info, bs_sum):
+
+def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
+    _ax_.text(x, y, s = text,
+        color = _color, 
+        size = scale * (24 / MRK_FONTSCALE), 
+        va = 'center_baseline', 
+        ha = 'left', # 'center',
+        clip_on = False
+        # fontweight = MRK_FONTWEIGHT
+    )
+
+def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
+    
+    if not do_plot('PERIOD_SCORES'): return
     
     top_team = game_info['T']
     bot_team = game_info['B']
@@ -263,16 +309,16 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info, bs_sum):
     quarter_end  =  [12*60, 24*60,36*60,48*60]
     quarter_start = [0,     12*60,24*60,36*60]
 
-    lxoffset = 100
-    lx0 = x + lxoffset + 130
+    lxoffset = 2
+    lx0 = x + lxoffset + 1
     lx1 = lx0 + lxoffset 
     lx2 = lx1 + lxoffset
     lx3 = lx2 + lxoffset
-    lx4 = lx3 + lxoffset + 10
+    lx4 = lx3 + lxoffset + 1
     lx5 = lx4 + lxoffset
     lx6 = lx5 + lxoffset  
     
-    ly0 = y + 6
+    ly0 = y - 22
     
     location = [
         [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0], [lx4,ly0], [lx5,ly0], [lx6,ly0]],
@@ -284,7 +330,8 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info, bs_sum):
             color = _color, 
             size = 24 / MRK_FONTSCALE, 
             va = 'center_baseline', 
-            ha = 'left' # 'center',
+            ha = 'left', # 'center',
+            clip_on = False
             # fontweight = MRK_FONTWEIGHT
         )
         
@@ -316,17 +363,18 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info, bs_sum):
         qs_text(lh[0], lh[1], top_data, top_co) 
         qs_text(la[0], la[1], bot_data, bot_co)
 
-    bs0 = (' ').join(bs_sum[0])
-    bs1 = (' ').join(bs_sum[1])
+    # shooting percentage stuff
+    # bs0 = (' ').join(bs_sum[0])
+    # bs1 = (' ').join(bs_sum[1])
     
-    lh = location[0][-1]
-    la = location[1][-1]
+    # lh = location[0][-1]
+    # la = location[1][-1]
 
-    qs_text(lh[0], lh[1], bs0, top_co) 
-    qs_text(la[0], la[1], bs1, bot_co) 
+    # qs_text(lh[0], lh[1], bs0, top_co) 
+    # qs_text(la[0], la[1], bs1, bot_co) 
     
 def plot_box_score(axis, box_score, players, bx_col_data):
-    
+        
     bs_rows, bs_columns, bs_data = box_score.get_bs_data(players +  [box_score._team_name])
     trows = list(map(lambda x: shorten_player_name(x, 12), bs_rows))
 
@@ -377,15 +425,16 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     else : 
         column_widthsnew  = bx_col_data
       
-    def plot_boxscore_row(start, y, row):
+    def plot_boxscore_row(start, y, row,color = None):
         
         for idx,r in enumerate(row):
+            if color == None:
+                c = colors_4_col[idx]
+                if idx > 0 and idx < len(bs_columns): 
+                    if box_score.is_max(bs_columns[idx],r,row[0]):
+                        c = BOX_COL_MAX_COLOR
+            else: c = color
             
-            c = colors_4_col[idx]
-            if idx > 0 and idx < len(bs_columns): 
-                if box_score.is_max(bs_columns[idx],r,row[0]):
-                    c = BOX_COL_MAX_COLOR
-
             if idx != 0: start += column_widthsnew[idx]/2    
             axis.text(start, y, s = r,
                 color = c, 
@@ -400,50 +449,61 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
     ROW_START = 2880 + 50
 
-    # does the column headers
-    plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns)
+    doRows = do_plot('BOX_SCORE') 
+    
+    if doRows :
+        # does the column headers
+        plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns, color = brighter(BOX_COL_COLOR))
 
     for i, bs in enumerate(bs_data):
         y = -5 + ((i) * 10)
-        plot_boxscore_row(ROW_START, y,[trows[i]] + bs)
+        if doRows:
+            plot_boxscore_row(ROW_START, y,[trows[i]] + bs)
+        else:
+            plot_boxscore_row(ROW_START, y,[trows[i]])
     
     return column_widthsnew
 
-def plot_stints_events(axis, axis2, _y, play_times, events, flipper):
+def plot_stints(axis, _y, play_times, flipper):
 
-    starts = list(map(lambda x: x[0], play_times))
-    widths = list(map(lambda x: x[1], play_times))
-    pms    = list(map(lambda x: x[2], play_times))
-    
-    for j, x in enumerate(starts):
-        start = x
-        axis.scatter(start, _y, marker = 'o', color=STINT_COLOR_IN, s=8.0)
-        axis.scatter(start + widths[j],_y, marker = 'o', color=STINT_COLOR_OUT, s=8.0)
+    if do_plot('STINTS') :
+        starts = list(map(lambda x: x[0], play_times))
+        widths = list(map(lambda x: x[1], play_times))
+        pms    = list(map(lambda x: x[2], play_times))
+        
+        for j, x in enumerate(starts):
+            start = x
+            axis.scatter(start, _y, marker = 'o', color=STINT_COLOR_IN, s=8.0)
+            axis.scatter(start + widths[j],_y, marker = 'o', color=STINT_COLOR_OUT, s=8.0)
 
-        sc = STINT_COLOR      
-        if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
-        elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
-        l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
-        axis.add_line(l)                
-    
-    sec__     = events[0::4]
-    color__   = events[1::4]
-    size__    = events[2::4] 
-    marker__  = events[3::4] 
-    y__       = [_y] * len(sec__)
+            sc = STINT_COLOR      
+            if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
+            elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
+            l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
+            axis.add_line(l)                
 
-    stack_markers(y__, sec__, color__)
+def plot_events(axis2, _y, events):
+        
+    if do_plot('EVENTS'):
+        
+        sec__     = events[0::4]
+        color__   = events[1::4]
+        size__    = events[2::4] 
+        marker__  = events[3::4] 
+        y__       = [_y] * len(sec__)
 
-    for idx in range(0,len(sec__)):
-        if type(marker__[idx]) != type([]):
-            axis2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
-        else:
-            axis2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
-                        size = size__[idx] / MRK_FONTSCALE, 
-                        va = 'center_baseline', 
-                        ha = 'center',
-                        # fontweight = MRK_FONTWEIGHT
-                        )
+        stack_markers(y__, sec__, color__)
+
+        for idx in range(0,len(sec__)):
+            if type(marker__[idx]) != type([]):
+                axis2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
+            else:
+                axis2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
+                            size = size__[idx] / MRK_FONTSCALE, 
+                            va = 'center_baseline', 
+                            ha = 'center',
+                            # fontweight = MRK_FONTWEIGHT
+                            )
 
 def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,  
                  x_labels = 'TOP',
@@ -490,29 +550,195 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     ax2.set_ylim(first_ytick , last_ytick)
     ax2.yaxis.set_visible(False)
 
-    # ax3 = ax.twinx()
+    ax3 = ax.twinx()
 
     for s in ['top', 'right', 'bottom', 'left']:
-        # ax3.spines[s].set_visible(False)
+        ax3.spines[s].set_visible(False)
         ax2.spines[s].set_visible(False)    
 
     # (our_team, opp_team, top_team, bot_team, home_team, away_team) = game_team_desc
-    # if bx_score._team_name == game_info['T']:
-    #     plot_score(ax3, score[0], score[1], game_info)
-    # else:
-    #     plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
-    #     plot_quarter_score(score[0], score[1], ax, 40, (_player_cnt+1)*10, game_info, bs_sum)
+    if bx_score._team_name == game_info['T']:
+        plot_score(ax3, score[0], score[1], game_info)
+    else:
+        plot_scoremargin(ax3, scoreMargins, Z_SCRM, game_info)
     
+    col_widths = []
     for i, _player in enumerate(_players):
         
         events = events_by_player[_player]
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints_events(ax, ax2, _y, play_times, events, bx_score.is_flipper())
-        
-    return plot_box_score(ax2,bx_score,_players, bx_widths)
+        plot_stints(ax, _y, play_times, bx_score.is_flipper())
+        plot_events(ax2, _y, events)
+        col_widths = plot_box_score(ax2,bx_score,_players, bx_widths)
     
+    return col_widths
+
+def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info):
+    
+    _ax_.set_xlim(0, 100)
+    _ax_.set_ylim(100, 0)
+     
+    _ax_.tick_params(axis='both', which='major', labelsize=0, pad=0,   length = 0)
+ 
+    _ax_.yaxis.set_visible(False)
+    _ax_.xaxis.set_visible(False)
+  
+    c2xstart = x
+    c2ystart = y
+    
+    plot_text(_ax_, c2xstart, c2ystart, title[0],TABLE_C,scale=1.1)
+    plot_text(_ax_, c2xstart + 4,c2ystart -22,title[1],TABLE_C, scale=1.1)
+    
+    plot_quarter_score(home_scores, away_scores, _ax_, c2xstart + 2, c2ystart + 50, game_info)
+
+    if do_plot('EVENTS') or True:
+        plot_event_legend(_ax_,20,50)
+
+def plot_event_legend(ax,xstart,ystart):
+    
+    def stint1_marker(x_, y_, color, txt):
+         
+        l1 = Line2D([x_ - 1 , x_ + 1], [y_,y_], lw=2, color=color , label='' )
+        ax.add_line(l1)
+
+        ax.text(x_ + 2, y_, s = txt, 
+            color=color, 
+            size= 22 / MRK_FONTSCALE, 
+            va = 'center', 
+            ha = 'left',
+            clip_on = False
+            # fontweight = MRK_FONTWEIGHT
+            )
+
+    def stint_3marker(x_,y_):
+        
+        al1x = x_ - 5
+        al2x = al1x + 1
+        al3x = al2x + 1
+        al4x = al3x + 1
+        
+        l1 = Line2D([al1x,al2x], [y_,y_], lw=2, color=STINT_COLOR_MINUS , label='' )
+        l2 = Line2D([al2x,al3x], [y_,y_], lw=2, color=STINT_COLOR, label='' )
+        l3 = Line2D([al3x,al4x], [y_,y_], lw=2, color=STINT_COLOR_PLUS , label='' )
+        ax.add_line(l1)
+        ax.add_line(l2)
+        ax.add_line(l3)
+
+        ax.text(al4x + 1,y_, s = 'STINT', 
+            color = BOX_COL_COLOR, 
+            size = 22 / MRK_FONTSCALE, 
+            va = 'center', 
+            ha = 'left',
+            clip_on = False
+            # fontweight = MRK_FONTWEIGHT
+            )
+
+    for s in ['top', 'right', 'bottom', 'left']:
+        ax.spines[s].set_visible(False)
+    
+    xoff = 7
+    x1 = xstart
+    x2 = x1 + xoff 
+    x3 = x2 + xoff
+    x4 = x3 + xoff
+    x5 = x4 + xoff
+    # x6 = x5 + xoff
+    # x7 = x6 + xoff
+    # x8 = x7 + xoff
+    # x9 = x8 + xoff
+    # x10 = x9 + xoff
+    
+    yoff = 22
+    y1 = ystart
+    y2 = y1 + yoff 
+    y3 = y2 + yoff 
+
+    b_events = do_plot('EVENTS') 
+    b_stints = do_plot('STINTS')
+    
+    event_legend_map = []
+    if b_events and b_stints:
+    
+        event_legend_map = [    
+            [20, 1, x1, y1],  # 3PT 
+            [ 1, 0, x1, y2],  # FG
+            [ 3, 0, x1, y3],  # FT
+        
+            [ 2, 0, x2, y1],  # MISS 
+            [ 5, 1, x2, y2],  # TO
+            [ 6, 0, x2, y3],  # PF
+            
+            [ 1, 1, x3, y1], # AST
+            [ 5, 0, x3, y2],  # STL
+            [ 2, 1, x3, y3],  # BLK
+        
+            [ 4, 0, x4, y1],  # OREB
+            [20, 0, x4, y2], # DREB
+            
+            [ 8, 0, x5, y1],    # SUB
+            [ 8, 1, x5, y2] 
+            ]   
+        stint_3marker(x5,y3)
+
+    elif b_stints:
+        
+        event_legend_map = [    
+            [ 8, 0, x1, y1],    # SUB
+            [ 8, 1, x1, y2]    # SUB
+        ]
+        stint1_marker(x2,y1,STINT_COLOR_PLUS,'STINT PLUS')
+        stint1_marker(x2,y2,STINT_COLOR_MINUS,'STINT MINUS')
+        stint1_marker(x2,y3,STINT_COLOR,'STINT NEUTRAL')
+                
+    elif b_events:
+        
+        event_legend_map = [    
+            [20, 1, x1, y1],  # 3PT 
+            [ 1, 0, x1, y2],  # FG
+            [ 3, 0, x1, y3],  # FT
+        
+            [ 2, 0, x2, y1],  # MISS 
+            [ 5, 1, x2, y2],  # TO
+            [ 6, 0, x2, y3],  # PF
+            
+            [ 1, 1, x3, y1], # AST
+            [ 5, 0, x3, y2],  # STL
+            [ 2, 1, x3, y3],  # BLK
+        
+            [ 4, 0, x4, y1],  # OREB
+            [20, 0, x4, y2], # DREB    
+        ]
+
+    for k in event_legend_map:
+        e = event_map[k[0]]
+        offset = k[1] * 4
+        label = e[3 + offset]
+        x = k[2]
+        y = k[3]
+        if type(e[2 + offset]) == type([]):
+            marker_ = e[2 + offset][0]
+            ax.text(x-2,y, s = marker_, color=e[offset], 
+                size= 20 / MRK_FONTSCALE, 
+                va = 'center', 
+                ha = 'left',
+                # fontweight = MRK_FONTWEIGHT
+                )
+            
+        else: 
+            marker_ = e[2 + offset]
+            ax.scatter(x-1.5,y-2, marker = marker_, color=e[offset], s= 26 / MRK_FONTSCALE)
+
+        ax.text(x,y, s = label, 
+            color=BOX_COL_COLOR, 
+            size= 22 / MRK_FONTSCALE, 
+            va = 'center', 
+            ha = 'left',
+            clip_on = False,
+            # fontweight = MRK_FONTWEIGHT
+            )
+        
 def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, home_team = None):
 
     our_stints_by_player = _stints[0]
@@ -591,6 +817,7 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
 
         for i, v in plays_for_player.iterrows():
             if v.eventmsgtype != 8:
+                    
                 _ec, _es, _et, _ec2, _es2, _et2 = event_to_size_color_shape(player, v, current_oreb_count, scoreMargins)
                 if _ec != None:  _events.extend([v.sec, _ec, _es, _et ])
                 if _ec2 != None: _events.extend([v.sec, _ec2, _es2, _et2])
@@ -613,7 +840,7 @@ def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, h
 
 def plot_layout(title):
     
-    E1 = '1'
+    E1 = None
     TL = '2'
     TR = '3'
     MD = None
@@ -622,22 +849,54 @@ def plot_layout(title):
     BR = '7'
     E3 = None
     
+    TX = TR if do_plot('BOX_SCORE') else TL
+    BX = BR if do_plot('BOX_SCORE') else BL
+        
     layout = [
-        [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
-        [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
-        [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
-        [TL, TL, TL, TL, TL, TL, TR, TR, TR, TR],
-        [E2, E2, E2, E2, E2, E2, E1, E1, E1, E1],
-        [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
-        [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
-        [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
-        [BL, BL, BL, BL, BL, BL, BR, BR, BR, BR],
+        [TL, TL, TL, TL, TL, TL, TX, TX, TX, TR],
+        [TL, TL, TL, TL, TL, TL, TX, TX, TX, TR],
+        [TL, TL, TL, TL, TL, TL, TX, TX, TX, TR],
+        [TL, TL, TL, TL, TL, TL, TX, TX, TX, TR],
+        [E2, E2, E2, E2, E2, E2, E2, E2, E2, E2],
+        [BL, BL, BL, BL, BL, BL, BX, BX, BX, BR],
+        [BL, BL, BL, BL, BL, BL, BX, BX, BX, BR],
+        [BL, BL, BL, BL, BL, BL, BX, BX, BX, BR],
+        [BL, BL, BL, BL, BL, BL, BX, BX, BX, BR],
     ]
 
     figure, axd = plt.subplot_mosaic(layout, figsize = (10.0, 6.5) )   
     figure.canvas.manager.set_window_title(title)
     
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
+
+def play_time_check(title,bx1,bx2):
+    
+    m1 = bx1.get_team_secs_played()
+    m2 = bx2.get_team_secs_played()
+    
+    if m1 == m2 and m1 == 14400.0: 
+        print(title[1], title[0], 'OK')
+        return True
+    
+    print()
+    print(title[1], title[0])
+    print()
+    
+    def ms(sec):
+        m = int(sec / 60)
+        s = int(sec % 60)
+        return f'{m}:{s:02d}'
+    
+    print(bx1.get_team_minutes_desc())
+    print('\n'.join(list(map(lambda x:f'{x[0]:20} {ms(x[1])}',bx1.get_names_items('secs')))))
+    print()
+
+    print(bx2.get_team_minutes_desc())
+    print('\n'.join(list(map(lambda x:f'{x[0]:20} {ms(x[1])}',bx2.get_names_items('secs')))))
+    print()
+    print()
+
+    return False
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
@@ -648,99 +907,101 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     title, debug_title, game_info = get_title_and_friends(game_data)
 
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
-            
+        
     boxscore1, playTimesbyPlayer1, events_by_player1 = \
     plot_prep(our_stints, game_data, scoreMargins, team=TEAM1, home_team=game_info['H'])
 
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
-
-    plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
-    axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
-
-    # winning team goes on top 
-    # TEAM1 is group1 data, opponennt is group2 data
     
-    if game_info['T'] == TEAM1:
-        _ad1_ = axd[TL]
-        _ad2_ = axd[BL]
-        _ad1_label = 'TOP'
-        _ad2_label = None
-    else :
-        _ad1_ = axd[BL]
-        _ad2_ = axd[TL]
-        _ad1_label = None
-        _ad2_label = 'TOP'
+    play_time_check(title,boxscore1,boxscore2)
     
-    b1 = boxscore1.shooting_percentages(boxscore1._team_name)
-    b2 = boxscore2.shooting_percentages(boxscore2._team_name)
+    if PLAY_TIME_CHECK_ONLY != 'ON':
 
-    ts1 = boxscore1.ts_percentage(boxscore1._team_name) 
-    ts2 = boxscore2.ts_percentage(boxscore2._team_name)    
-    
-    bs_sum = [b1 + [ts1], b2 + [ts2]]
+        plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
+        axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
-    box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
+        # winning team goes on top 
+        # TEAM1 is group1 data, opponennt is group2 data
+        
+        if game_info['T'] == TEAM1:
+            _ad1_ = axd[TL]
+            _ad2_ = axd[BL]
+            _ad1_label = 'TOP'
+            _ad2_label = None
+        else :
+            _ad1_ = axd[BL]
+            _ad2_ = axd[TL]
+            _ad1_label = None
+            _ad2_label = 'TOP'
+        
+        b1 = boxscore1.shooting_percentages(boxscore1._team_name)
+        b2 = boxscore2.shooting_percentages(boxscore2._team_name)
 
-    colwidths = play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
-            x_labels =_ad1_label,
-            bx_score = boxscore1,
-            bx_widths = box_scores_data_by_col,
-            score = [home_scores, away_scores],
-            game_info = game_info,
-            bs_sum = bs_sum)
-    
-    play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
-                x_labels =_ad2_label,
-                bx_score = boxscore2,
-                bx_widths = colwidths,
+        ts1 = boxscore1.ts_percentage(boxscore1._team_name) 
+        ts2 = boxscore2.ts_percentage(boxscore2._team_name)    
+        
+        bs_sum = [b1 + [ts1], b2 + [ts2]]
+
+        box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
+
+        colwidths = play_by_play_chart(playTimesbyPlayer1, _ad1_, events_by_player1, scoreMargins, 
+                x_labels =_ad1_label,
+                bx_score = boxscore1,
+                bx_widths = box_scores_data_by_col,
                 score = [home_scores, away_scores],
                 game_info = game_info,
                 bs_sum = bs_sum)
+        
+        play_by_play_chart(playTimesbyPlayer2, _ad2_, events_by_player2, scoreMargins, 
+                    x_labels =_ad2_label,
+                    bx_score = boxscore2,
+                    bx_widths = colwidths,
+                    score = [home_scores, away_scores],
+                    game_info = game_info,
+                    bs_sum = bs_sum)
 
-    axd[E1].set_title(title, y=0.4, pad=-1, fontsize=9, color=TABLE_C)
-    
-    event_legend(axd[E2],35,20)
-    
-    for r in [TL, TR, BL, BR, E1, E2, E3, MD]:
-        if r != None:
-            for s in ['top', 'right', 'bottom', 'left']:
-                axd[r].spines[s].set_visible(False)
+        plot_title_legend_Qs(axd[E2],70,52, title, home_scores, away_scores, game_info)
+        
+        for r in [TL, TR, BL, BR, E1, E2, E3, MD]:
+            if r != None:
+                for s in ['top', 'right', 'bottom', 'left']:
+                    axd[r].spines[s].set_visible(False)
 
-    for r in [E2, E3, TL, TR, BL, BR, MD]:
-        if r != None:
-            axd[r].title.set_visible(False)
+        for r in [E3, TL, TR, BL, BR, MD]:
+            if r != None:
+                axd[r].title.set_visible(False)
 
-    for r in [E1, E2, E3, TR, BR]:
-        if r != None:
-            axd[r].yaxis.set_visible(False)
-            axd[r].xaxis.set_visible(False)
-    
-    plt.subplots_adjust(
-        wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
-    )
-    
-    # see wwmdd.json 
-    SAVE_PLOT_AS_PDF = defaults.get('SAVE_PLOT_AS_PDF')
-    
-    if(SAVE_PLOT_AS_PDF == "ON"):
-        # from wwmdd.json
-        import os
-        cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
-        t = game_data.matchup_home.split(' ')
-        fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
-    
-        # test/make dir for plots (BES)
-        if not(os.path.exists(cwd)):
-            os.mkdir(cwd)
-  
-        fn = os.path.join(cwd, fn) 
-        plt.savefig(fn)
+        for r in [E1, E2, E3, TR, BR]:
+            if r != None:
+                axd[r].yaxis.set_visible(False)
+                axd[r].xaxis.set_visible(False)
+        
+        plt.subplots_adjust(
+            wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
+        )
 
-    SHOW_PLOT =  defaults.get('SHOW_PLOT')  
-    if(SHOW_PLOT == "ON"): 
-        plt.show(block = True) 
-    else: 
-        print('Show plot disabled in json config file')   
+        SHOW_PLOT =  defaults.get('SHOW_PLOT')  
+        if(SHOW_PLOT == "ON"): 
+            plt.show(block = True) 
+        else: 
+            print('Show plot disabled in json config file')   
 
-    plt.close('all')
+    
+        SAVE_PLOT_AS_PDF = defaults.get('SAVE_PLOT_AS_PDF')
+        
+        if SAVE_PLOT_AS_PDF == "ON":
+        
+            cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
+            t = game_data.matchup_home.split(' ')
+            fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
+        
+            # test/make dir for plots (BES)
+            if not(os.path.exists(cwd)): os.mkdir(cwd)
+    
+            fn = os.path.join(cwd, fn) 
+            plt.savefig(fn)
+            
+        plt.close('all')
+
+

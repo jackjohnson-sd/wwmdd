@@ -19,10 +19,22 @@ def main(file_dir_name):
         
     else:     
       for filename in files:
+        
+        name = os.path.basename(filename)
+        
         if '.csv' not in filename: continue
         df = pd.read_csv(filename, keep_default_na=False)
         df.iloc[::-1] # reverse dataframe
 
+        try:
+            n = os.path.basename(filename)[-12:-4]
+            if len(n) == 8:
+                game_date = n[0:4] + '-' + n[4:6] + '-' + n[6:8]
+            else:
+                game_date = '-- NO DATE '
+        except:
+            game_date = '-- NO DATE '
+        
         event_map = {
             '2POINT'			: [1,1], 
             '2POINT.ASSIST'	    : [1,1,2], 
@@ -133,7 +145,7 @@ def main(file_dir_name):
         'team_abbreviation_home': home,
         'team_name_home': '',
         'game_id'		: os.path.splitext(os.path.basename(filename))[0],
-        'game_date'		: '2024-04-27',
+        'game_date'		: game_date,
         'matchup_home'	: f'{home} vs. {away}',
         'wl_home'		: 'W' if int(ha_scores[1]) > int(ha_scores[0]) else 'L',
         'pts_home'      : ha_scores[1],

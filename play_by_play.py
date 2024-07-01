@@ -51,6 +51,8 @@ def pms(_sec):  # p eriod m inute s econd
 def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
     # collects timespans played by these players
 
+    start_time = 'UNNKNOWN'
+    
     _sub_events_by_player = {}
     
     a_ = playbyplay['eventmsgtype'].isin([1,2,3,4,5,6,8])
@@ -91,8 +93,10 @@ def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                             events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
         
         # 12: # STARTOFPERIOD
-        elif  d.eventmsgtype == 12: pass
-
+        elif  d.eventmsgtype == 12: 
+            if d.eventmsgtype == 12:                    
+                s = d.neutraldescription
+                start_time = s[s.find('(')+1:s.find(')')]
         else:    
             
             period = int(d.period)
@@ -169,15 +173,38 @@ def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                                         last_event[1] = d.sec
                                         last_event[2] = 'extending out over period change'
                                     else:    
-                                        pass # for now
-                                        if player in TEST_PLAYERS:
-                                            print(f'{player} {d.sec} Exit when NOT IN the game.')
+                                        if is_out:
+                                            pmss = sec_to_period_time(d.sec)
+
+                                            _sub_event_for_player.append(['IN', (int(pmss[0]) - 1) * 720, 'Enter in'])
+                                            _sub_event_for_player.append(['OUT', d.sec,'Leave via SUB'])
+                                        
+                                            # pass # for now
+                                            # if player in TEST_PLAYERS:
+                                            #     print(f'{player} {d.sec} Exit when NOT IN the game.')
                             else:
                                 # we are in the game and subbed out during period, everthing OK
                                 _sub_event_for_player.append(['OUT', d.sec,'SUB out'])                         
                             
                     case 1 | 2 | 3 | 4 | 5 | 6:
                         
+                        if d.sec % 720 == 0:
+                            # this happens when an event occuus with < 1 sec on the clock
+                            # don't do anything about in or out
+                            # print(player,d.sec,d.period,d.pctimestring)
+                            continue
+                        
+                        if d.eventmsgtype == 6: #FOUL
+                            ttm = ''
+                            try: 
+                                ttm += str(d.neutraldescription) 
+                                ttm += str(d.homedescription) 
+                                ttm += str(d.visitordescription) 
+                            except : pass
+                            
+                            if 'T.FOUL' in ttm:
+                                if not in_the_game: continue
+                            
                         if not needs_spans_fixed: continue
                                             
                         if not in_the_game:
@@ -244,7 +271,7 @@ def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                     pmss = sec_to_period_time(last_event[1])
                     _sub_events_by_player[player].append(['OUT', ((int(pmss[0])) * 720),'EndOfGame All IN go out']) 
                             
-    return _sub_events_by_player
+    return _sub_events_by_player, start_time
 
 def checkScoreErrors(pbpEvents):
     sc1 = pbpEvents.query('eventmsgtype == 1 or eventmsgtype == 3')
@@ -303,7 +330,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
         boxSc = box_score({})
         boxSc.stuff_bs(pbp, playersInGame)
         
-        timeSpans = getTimeSpansByPlayer(pbp, playersInGame)  # collect timespans played by this player
+        timeSpans, start_time = getTimeSpansByPlayer(pbp, playersInGame)  # collect timespans played by this player
         
         if OPPONENT :
             if team_abbreviation != game_data.team_abbreviation_home:
@@ -338,10 +365,11 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
                         print('Error forming spans ',player,start_ts,stop_ts)  
                 
                 boxSc.update(player,'secs',_total_secs) 
-                 
+
+        game_data.start_time = start_time       
         return [stints_by_player, dict(boxSc.getBoxScore())]
 
-    return [{},{}]
+    return [{},{}], start_time
 
 def stint_sort_key(stnt): return stnt[1] if stnt[4] == 'I' else stnt[2]
 
@@ -423,7 +451,6 @@ def sub_events_from_stints(game_stints):
     # then removing the second
     # return sorted list of SUB events 
     
-
     clean_stints(game_stints)
     
     sub_events = make_sub_events(game_stints)
@@ -434,7 +461,7 @@ def sub_events_from_stints(game_stints):
         
     sub_events = sorted(sub_events, key = lambda stint: sub_event_to_sec(stint))
 
-    if True:
+    if False:
         f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
             ('\n,').join(sub_events)  
         
@@ -446,7 +473,7 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    save_as_raw = False # SAVE_RAW_GAME_AS_CSV
+    save_as_raw = SAVE_RAW_GAME_AS_CSV == 'ON'
     
     sub_events = [] if save_as_raw else sub_events_from_stints(game_stints)
     
@@ -540,54 +567,8 @@ def dump_pbp(game, game_stints):
                     ]
                 sub_events.extend([a])
             
-    def fnx(x):
-        """            
-            0            PRE     STARTOF, SUB, NONSUB
-            1 ... 719    Q1      NONSUB, SUB
-            720          Q1-Q2   NONSUB, ENDOF, SUB, STARTOF 
-            721 .. 1439  Q2      NONSUB, SUB
-            1440         Q2-Q3   NONSUB, ENDOF, SUB, STARTOF 
-            1441 .. 2159 Q3      NONSUB, SUB
-            2160         Q3-Q4   NONSUB, ENDOF, SUB, STARTOF 
-            2161 .. 2879 Q4      NONSUB, SUB
-            2880         POST    NONSUB, SUB, ENDOF, STARTOF 
-        """
-        # smaller means first
-        sort_order = {
-            
-            'STARTOFPERIOD' :[0,4,0,0],
-            'SUB'           :[2,1,1,1],
-            'NONSUB'        :[5,0,0,0],
-            'ENDOFPERIOD'   :[3,2,2,0],
-
-        }
-        
-        event_type = x[0]
-        period = int(x[1])
-        
-        game_second = period_time_to_sec(period,x[2])
-        
-        period_1 = int(game_second / 720)
-        mod_period_sec = game_second % 720
-        
-        period_x = 3
-        
-        if mod_period_sec == 0:
-            if period_1 == 0       : period_x = 0
-            elif period_1 in [1,2,3] : period_x = 1 
-            else                   : period_x = 2
-                   
-        if event_type not in sort_order.keys(): event_type = 'NONSUB'
-                    
-        so2 = sort_order[event_type][period_x] 
-        
-        # if exit SUB it goes first                 
-        outs_first = event_type == 'SUB' and x[6] == ''
-        # print(period_x,x[0:3],(game_second, so2, outs_first))
-        return ((game_second, so2, outs_first))
-
     if not save_as_raw:
-        sub_events = sorted(sub_events,key = lambda x:fnx(x))
+        sub_events = sorted(sub_events,key = lambda x:event_sort_keys(x))
     
     # find our sub events that do not have score, margin set
     for i in range(0,len(sub_events)):
@@ -632,6 +613,52 @@ def dump_pbp(game, game_stints):
     f = play_by_play.to_csv()
     fl.write(f)
     fl.close()
+                                                                                                            
 
+def event_sort_keys(x):
+        
+        """            
+            0            PRE     STARTOF, SUB, NONSUB
+            1 ... 719    Q1      NONSUB, SUB
+            720          Q1-Q2   NONSUB, ENDOF, SUB, STARTOF 
+            721 .. 1439  Q2      NONSUB, SUB
+            1440         Q2-Q3   NONSUB, ENDOF, SUB, STARTOF 
+            1441 .. 2159 Q3      NONSUB, SUB
+            2160         Q3-Q4   NONSUB, ENDOF, SUB, STARTOF 
+            2161 .. 2879 Q4      NONSUB, SUB
+            2880         POST    NONSUB, SUB, ENDOF, STARTOF 
+        """
+        # smaller means first
+        sort_order = {
+            #                   PRE  1234 POST INPERIOD 
+            'STARTOFPERIOD' :[  0,   4,   0,   0    ],
+            'SUB'           :[  2,   1,   1,   0    ],
+            'NONSUB'        :[  5,   0,   0,   1    ],
+            'EJECTION'      :[  1,   2,   2,   5    ],
+            'ENDOFPERIOD'   :[  3,   2,   2,   0    ],
 
-                                                                                                               
+        }
+        
+        event_type = x[0]
+        period = int(x[1])
+        
+        game_second = period_time_to_sec(period,x[2])
+        
+        period_1 = int(game_second / 720)
+        mod_period_sec = game_second % 720
+        
+        period_x = 3
+        
+        if mod_period_sec == 0:
+            if period_1 == 0       : period_x = 0
+            elif period_1 in [1,2,3] : period_x = 1 
+            else                   : period_x = 2
+                   
+        if event_type not in sort_order.keys(): event_type = 'NONSUB'
+                    
+        so2 = sort_order[event_type][period_x] 
+        
+        # if exit SUB it goes first                 
+        outs_first = event_type == 'SUB' and x[6] == ''
+        # print(period_x,x[0:3],(game_second, so2, outs_first))
+        return ((game_second, so2, outs_first))

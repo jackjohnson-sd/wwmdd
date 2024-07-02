@@ -8,7 +8,7 @@
     , "dbgb"        : "OFF"
     , "dbgc"        : "OFF"
 
-    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "xSCORE", "xMARGIN", "PERIOD_SCORES", "xBOX_SCORE"]
+    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
     , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
 
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
@@ -58,8 +58,9 @@
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "SOURCE"      : "WEB:"
+    , "wSOURCE"      : "WEB:"
     , "aSOURCE"      : "FILE:llm_training_data/RAW-JAYW.csv"
+    , "SOURCE"      : "FILE:test_csvs/sanity_scoring_base_OKCvGSW20230130.csv"
     , "qSOURCE"       : "FILE:llm_training_data"
     , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
     , "aqSOURCE"      : "FILE:_save_and_ignore/subs.csv"

@@ -13,7 +13,7 @@
 ,STARTOFPERIOD,1,12:00,Start of 1st Period,0,0,,,,,,
 ,3POINT.ASSIST,1,11:48,Wiggins 26' 3PT Jump Shot (3 PTS) (Thompson 1 AST),3 - 0,-3,Andrew Wiggins,GSW,Klay Thompson,GSW,,
 
-,3POINTMISS,1,11:42,MISS Curry 26' 3PT Jump Shot,0,0,Stephen Curry,GSW,,,,
+,3POINTMISS,1,11:42,MISS Curry 26' 3PT Jump Shot,3 - 0,-3,Stephen Curry,GSW,,,,
 
 ,2POINTMISS,1,11:30,MISS K. Williams 10' Pullup Jump Shot,3 - 0,-3,Kenrich Williams,OKC,,,,
 
@@ -22,8 +22,10 @@
 ,2POINT,1,10:36,Giddey 8' Driving Floating Jump Shot (2 PTS),5 - 2,-3,Josh Giddey,OKC,,,,
 
 ,FTMAKE,1,7:47,Gilgeous-Alexander Free Throw 1 of 2 (1 PTS),11 - 9,-2,Shai Gilgeous-Alexander,OKC,,,,
-,FTMISS,1,7:47,Gilgeous-Alexander Free Throw 1 of 2 (1 PTS),11 - 9,-2,Shai Gilgeous-Alexander,OKC,,,,
+,FTMISS,1,7:47,Gilgeous-Alexander Free Throw 2 of 2,11 - 9,-2,Shai Gilgeous-Alexander,OKC,,,,
 
 ,ENDOFPERIOD,1,0:00,End of 1st Period (7:24 PM CST),,,,,,,,
 
 ,COMMENT END OF SANITY SCORING BASE TESTS
+,COMMENT EXPECTED RESULTS
+

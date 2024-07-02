@@ -54,11 +54,12 @@
     , "nSOURCE"     : "nba.sqlite"
 
     , "qqSOURCE"      : "WEB:"
-    , "SOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
+    , "rrSOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
     , "aSOURCE"     : "FILE:llm_training_data"
-    , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
+    , "jSOURCE"      : "FILE:test_csvs/jacks_starter_test.csv"
+    , "SOURCE"      : "FILE:test_csvs/sanity_scoring_base_OKCvGSW20230130.csv"
     , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
-
+    , "rSOURCE"      : "FILE:jack_docs/OKCvGSW20230130.csv"
     , "cSOURCE"     : "FILE:gemini_test"
 
     , "dSOURCE"     : "CLAUDE:claude_test"

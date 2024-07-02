@@ -4,15 +4,20 @@
     , "TRIM"        : "OFF"
     , "CONSOLE"     : "ON"
 
-    , "dbga"         : "OFF"
-    , "dbgb"         : "OFF"
-    , "dbgc"          : "OFF"
+    , "dbga"        : "OFF"
+    , "dbgb"        : "OFF"
+    , "dbgc"        : "OFF"
 
-    , "example_TEST_PLAYERS"     :  ["Josh Giddey"]
-    , "TEST_PLAYERS"      :  []
+    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "xSCORE", "xMARGIN", "PERIOD_SCORES", "xBOX_SCORE"]
+    , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
 
-    , "SAVE_GAME_AS_CSV"  : "ON"
-    , "SAVE_RAW_GAME_AS_CSV" : "OFF"
+    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+    , "TEST_PLAYERS"          :  []
+
+    , "SAVE_GAME_AS_CSV"      : "ON"
+    , "SAVE_RAW_GAME_AS_CSV"  : "OFF"
+
+    , "PLAY_TIME_CHECK_ONLY"  : "OFF"
 
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
@@ -25,8 +30,8 @@
     , "GRID_COLOR"        : "dimgrey"
 
     , "STINT_COLOR"       : "dimgrey"
-    , "STINT_COLOR_IN"    : "red"
-    , "STINT_COLOR_OUT"   : "white"
+    , "STINT_COLOR_IN"    : "limegreen"
+    , "STINT_COLOR_OUT"   : "darkorange"
 
     , "PM_PLUS_COLOR"     : "maroon"
     , "PM_MINUS_COLOR"    : "darkgreen"
@@ -47,20 +52,17 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2023-01-03" 
-    , "STOP_DAY"             : "2023-01-03"
+    , "START_DAY"            : "2024-01-01" 
+    , "STOP_DAY"             : "2024-01-30"
     , "TEAM"                 : "OKC"
  
     , "nSOURCE"     : "nba.sqlite"
 
-    , "qqSOURCE"      : "WEB:"
-    , "rrSOURCE"     : "FILE:llm_training_data/OKCvGSW20230130.csv"
-    , "aSOURCE"     : "FILE:llm_training_data"
-    , "jSOURCE"      : "FILE:test_csvs/jacks_starter_test.csv"
-    , "SOURCE"      : "FILE:test_csvs/sanity_scoring_base_OKCvGSW20230130.csv"
-    , "qSOURCE"      : "FILE:_save_and_ignore/subs.csv"
-    , "rSOURCE"      : "FILE:jack_docs/OKCvGSW20230130.csv"
-    , "cSOURCE"     : "FILE:gemini_test"
+    , "SOURCE"      : "WEB:"
+    , "aSOURCE"      : "FILE:llm_training_data/RAW-JAYW.csv"
+    , "qSOURCE"       : "FILE:llm_training_data"
+    , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
+    , "aqSOURCE"      : "FILE:_save_and_ignore/subs.csv"
 
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"

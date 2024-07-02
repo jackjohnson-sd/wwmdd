@@ -1,4 +1,5 @@
 from datetime import timedelta
+import re
 
 PM = '\xB1'
 
@@ -14,6 +15,7 @@ class box_score:
     _boxScore = None
     _team_name = None
     _home_team = None
+    _start_time = 'UNKNOWN'
     _max_by_items = {}
     
     def __init__(self, existing_bs):
@@ -21,6 +23,12 @@ class box_score:
 
     def set_team_name(self, team):
         self._team_name = team
+
+    def get_team_secs_played(self): 
+        return self.get_item(self._team_name, "secs")
+        
+    def get_team_minutes_desc(self):
+        return f'{self._team_name} {self.get_team_secs_played()}'
 
     def set_home_team_name(self, team):
         self._home_team = team
@@ -140,6 +148,11 @@ class box_score:
         ourPlayers.remove(self._team_name)
         return list(map(lambda x: self._boxScore[x][item], ourPlayers))
 
+    def get_names_items(self, item, players=[]):
+        ourPlayers = list(self._boxScore.keys() if players == [] else players)
+        ourPlayers.remove(self._team_name)
+        return list(map(lambda x: [x,self._boxScore[x][item]], ourPlayers))
+
     def get_item_colwidth(self, item):
         # return max([len(item)]+ list(map(lambda x: len(str(self._boxScore[x][item])), list(self._boxScore.keys()))))
         # return max([item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys()))))
@@ -207,6 +220,11 @@ class box_score:
             
             match _evnt.eventmsgtype:
 
+                case 12:
+                    if _evnt.period == 1:
+                        s = _evnt.neutraldescription
+                        self._start_time = s[s.find("(")+1:s.find(")")]
+                                    
                 case 1:  # make
                     pts = 3 if is3 else 2
                     mk = '3make' if is3 else 'make'

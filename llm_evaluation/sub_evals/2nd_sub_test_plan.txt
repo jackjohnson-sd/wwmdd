@@ -1,0 +1,230 @@
+NAME: SUB Test Plan 2
+
+Current Status Summary:
+    A1:
+    - ChatGPT:
+        - Issues with stint calculations (when last SUB event is enter in a period)
+        
+    - Gemini:
+        - Issues with team rosters and stint calculations (investigating stem of errors)
+
+Data sets used:
+    OKCvGSW20230130.csv  (in llm_evaluation/sub_evals) (GET LATEST)
+    giddey_subs.csv
+    curry_subs.csv
+
+Test Model: 
+    Gemini 1.5 Pro, ChatGPT 4o 
+
+Prompt 1:
+    Here is information about basketball game play-by-plays in CSV format. 
+    This information should be used in determining your answers to my upcoming questions. 
+    Hold off on providing any summaries and/or answers for now.
+
+    <information on play-by-plays in CSV format>
+    Play-by-plays describe the events in basketball games. 
+    Play-by-plays are in CSV format. 
+    CSV format, Comma Separated Values, uses commas as a delimiter between values.
+    In CSV formatted play-by-plays, the first row contains the column names separated by commas 
+    which are the names of the values in a CSV row. 
+
+    The following rows are called event rows and describe the events in the game. 
+
+    In the case of basketball game play-by-plays, the column names are as follows:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    
+    .1. The first column's optional value is the event number.
+     Event numbers start at ‘0’ for the first event row.
+     The following rows use sequentially numbered values. 
+
+    .2. The second column is named ‘eventmsgtype’. 
+    It identifies events that occur during the game.
+    Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS, 3POINTMISS, 
+    REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
+
+    .3. The third column is named ‘period’ 
+    It is a number that identifies the period the event occurs. 
+    Basketball games include at least 4 periods. 
+    Period values range from 1 - 4 and increase as the game progresses.
+
+    .4. The fourth column is named ‘pctimestring’.
+    It contains the time remaining in the period.
+    It is formatted as minutes and seconds seperated by a colon.
+    Its value descends in seconds as the game progresses.
+    Its value resets to '12:00' at the start of each period. 
+    Its value is '0:00' at the end of each period. 
+    
+    For example, a pctimestring value of 7:29 occurs at 7 minutes and 29 seconds before the end of the period. 
+    For example, a pctimestring value of 7:29 occurs at 4 minutes and 31 seconds after the start of the period. 
+
+    (define game time)
+    Game time refers to the time an event occurs in the basketball play-by-play.
+    
+    Game time uses the period and pctimestring values to determine when an event occurs into a game. 
+    
+    Game time values are expressed in seconds. 
+
+    A game begins with a game time of 0 seconds.
+    Game time increases by 1 second as each second of the game is played. 
+    A game ends with a game time of 2880 seconds.
+    
+    Each period begins with a game time of ('period value' minus 1) multiplied by 720 seconds. 
+    Each period ends with a game time of period begin game time plus 720 seconds.
+
+
+    .5. The fifth column is named ‘neutraldescription’ and contains a brief description of the event occurring in the event row. 
+
+    .6. The sixth column named ‘score’ contains the two teams’ scores when the event in the event row occurred. 
+    The initial score value is ‘0’, which means neither team has scored yet. 
+    Once a team scores, the score value is formatted as ‘x - y’, where ‘x’ is a positive integer value that represents the away team’s score, and ‘y’ is a positive integer value that represents the home team’s score.
+
+    .7. The seventh column is named ‘scoremargin’ and contains the difference between the teams’ scores. 
+    The difference is calculated by subtracting the away team’s score by the home team's score. 
+
+    .8. The eighth column is named ‘player1_name’ and contains the name of the player involved in the event that the event row describes. 
+
+    .9. The ninth column is named ‘player1_team_abbreviation’ and contains the team abbreviation of the team that the player named in the ‘player1_name’ column is on. 
+
+    .10. The tenth column is named ‘player2_name’ and contains the name of a player involved in the event that the event row describes. 
+
+    .11. The eleventh column is named ‘player2_team_abbreviation’ and contains the team abbreviation of the team that the player named in the ‘player2_name’ column is on. 
+
+    .12. The twelfth column is named ‘player3_name’ and contains the name of a player involved in the event that the event row describes. 
+
+    .13. The thirteenth column is named ‘player3_team_abbreviation’ and contains the team abbreviation of the team that the player named in the ‘player3_name’ column is on. 
+    </information on play-by-plays in CSV format>
+
+    <information on SUB events>
+    ‘SUB’ in the ‘eventmsgtype’ column of an event row signifies a substitution event, and is a SUB event row. 
+    - In a SUB event row, the player named in the ‘player1_name’ column exits the court, and his playing time ends at the time value listed in the ‘pctimestring’ column of that row. 
+    - In a SUB event row, the player named in the ‘player2_name’ column enters the court, and his playing time starts at the time value listed in the ‘pctimestring’ column of that row. 
+    -If a player’s last SUB event in a period is him entering the court, then he plays until the end of that period, and plays from the start of the next period. 
+
+    Here is an example of SUB events in CSV format:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    88,SUB,1,3:31,SUB: Burks Exits,22 - 15,-7,Alec Burks,DET,,,,
+    89,SUB,1,3:31,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,DET,,
+        
+    Alec Burks exits the court with 3 minutes and 31 seconds remaining in the first period, because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Alec Burks’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, and ‘3:31’ is listed in the ‘pctimestring’ column. player1_name is on the team DET because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
+
+    Isaiah Livers enters the game with 3 minutes and 31 seconds remaining in the first period, because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, and ‘3:31’ is listed in the ‘pctimestring’ column. player2_name is on the team DET because ‘DET’ is listed in the ‘player2_team_abbreviation’ column. 
+    </information on SUB events>
+
+
+Prompt 2:
+    1. Remember, if a player’s last SUB event in a period is him entering the court, then he plays 
+    until the end of that period, and plays from the start of the next period, until he appears 
+    in the 'player1_name' column of a SUB event row. 
+
+Prompts:
+    Here is an NBA game in CSV format. 
+    Use it to answer the following questions.
+
+    1. What teams played in the game?
+
+    2. Who are the players on each team? 
+
+    3. How many times did Josh Giddey enter the game?
+        3a. At what times did Giddey enter the game?
+        3b. At what times did Giddey exit the game?
+        3c. How long (in Minutes:Seconds) were Giddey's stints? 
+        3d. How many minutes did Giddey play in the game?
+
+    4. How many times did Kenrich Williams enter the game?
+        4a. At what times did Williams enter the game?
+        4b. At what times did Williams exit the game?
+        4c. How long (in Minutes:Seconds) were Williams's stints? 
+        4d. How many minutes did Williams play in the game?
+
+
+    5. How many times did Shai Gilgeous-Alexander enter the game?
+        5a. At what times did Gilgeous-Alexander enter the game?
+        5b. At what times did Gilgeous-Alexander exit the game?
+        5c. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
+        5d. How many minutes did Gilgeous-Alexander play? 
+
+
+
+
+Answers: 
+    1.  The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+
+    2.  The players on the Oklahoma City Thunder were:
+        Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+        The players on the Golden State Warriors were:
+        Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+    
+    3.  Josh Giddey entered the game 4 times. 
+
+        3a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Giddey Enters,
+            2,12:00,SUB: Giddey Enters,
+            2,0:49,SUB: Giddey Enters,
+            4,10:04,SUB: Giddey Enters,
+
+        3b. 
+            period,pctimestring,neutraldescription,
+            1,4:31,SUB: Giddey Exits,
+            2,7:23,SUB: Giddey Exits,
+            3,5:37,SUB: Giddey Exits,
+            4,0:00,SUB: Giddey Exits,
+
+        
+        3c. 
+            1st Stint: (12 - 4:31) = 7:29
+            2nd Stint: (12-7:23) = 4:37
+            3rd Stint: (0:49 + (12 - 5:37)) = 7:12
+            4th Stint: (10:04 - 0) = 10:04
+
+        3d.
+        29 minutes and 22 seconds
+
+    4. Kenrich Williams entered the game 5 times.
+        4a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Williams Enters,
+            1,0:26,SUB: Williams Enters,
+            2,2:55,SUB: Williams Enters,
+            3,0:25,SUB: Williams Enters,
+            4,10:04,SUB: Williams Enters,
+
+        4b.
+            period,pctimestring,neutraldescription,
+            1,4:31,SUB: Williams Exits,
+            2,7:44,SUB: Williams Exits,
+            3,4:26,SUB: Williams Exits,
+            3,0:00,SUB: Williams Exits,
+            4,0:00,SUB: Williams Exits,
+            
+        4c.
+            1st stint: 7:29
+            2nd stint: 4:42
+            3rd stint: 10:29
+            4th stint: 0:25
+            5th stint: 10:04
+
+        4d. 33 minutes and 9 seconds
+
+    5.
+        5a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Gilgeous-Alexander Enters,
+            2,5:02,SUB: Gilgeous-Alexander Enters,
+            4,5:33,SUB: Gilgeous-Alexander Enters,
+    
+        5b:
+            period,pctimestring,neutraldescription,
+            1,0:00,SUB: Gilgeous-Alexander Exits,
+            4,10:04,SUB: Gilgeous-Alexander Exits,
+            4,0:00,SUB: Gilgeous-Alexander Exits,
+
+        5c:
+            1st Stint: 12:00
+            2nd Stint: 18:58
+            3rd Stint: 5:33
+            
+
+        5d. 
+            24 minutes 31 seconds
+

@@ -186,19 +186,19 @@ Answers:
 
     9. 7 minutes and 29 seconds in the first period. 
 
-    9a. 0:49 seconds
+        9a. 0:49 seconds
 
-    9b. Josh Giddey and Shai Gilgeous-Alexander did not have any overlapping playing time in the third period.
-    
-    9c. 5 minutes and 33 seconds
-    
-    9d. 
-        	Period 1: 12 - 4:31
-            Period 2: 0:49
-            Period 3: 0
-            Period 4: 5:33
+        9b. Josh Giddey and Shai Gilgeous-Alexander did not have any overlapping playing time in the third period.
+        
+        9c. 5 minutes and 33 seconds
+        
+        9d. 
+                Period 1: 12 - 4:31
+                Period 2: 0:49
+                Period 3: 0
+                Period 4: 5:33
 
-            Sum: 7:29 + :49 + 5:33 = 13:51
+                Sum: 7:29 + :49 + 5:33 = 13:51
 
     10. 6 minutes
         10a. 5:02

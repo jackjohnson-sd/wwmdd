@@ -11,9 +11,12 @@
         In CSV formatted play-by-plays, the first row contains the column names separated by commas. 
         The column names are the names of the values in the columns of a CSV row. 
 
-        The following rows are called event rows and describe the events in the game.
         In the case of basketball game play-by-plays, the column names are as follows:
         ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+        The subsequent rows are called event rows.
+        Event rows describe the events in the game.
+
         
         .1. The first column's optional value is the event number.
         Event numbers start at ‘0’ for the first event row.
@@ -24,7 +27,7 @@
         Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS, 3POINTMISS, 
         REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
 
-        .3. The third column is named ‘period’ 
+        .3. The third column is named ‘period’. 
         It is a number that identifies the period the event occurs. 
         Basketball games include at least 4 periods. 
         Period values range from 1 - 4 and increase as the game progresses.
@@ -39,13 +42,12 @@
         For example, an event row with a pctimestring value of 7:29 occurs at 7 minutes and 29 seconds before the end of the period. 
         For example, an event row with a pctimestring value of 7:29 occurs at 4 minutes and 31 seconds after the start of the period. 
 
-    
 
-
-        .5. The fifth column is named ‘neutraldescription’ and contains a brief description of the event occurring in the event row. 
+        .5. The fifth column is named ‘neutraldescription’.
+        It contains a brief description of the event. 
 
         .6. The sixth column is named ‘score’.
-        It contains the two teams’ scores when the event in the event row occurred. 
+        It contains the two teams’ scores at the time of the event. 
         The initial score value is ‘0’.
         This means neither team has scored yet. 
         Once a team scores, the score value is formatted as ‘x - y’. 
@@ -54,36 +56,39 @@
 
         .7. The seventh column is named ‘scoremargin’.
         It contains the difference between the teams’ scores. 
-        The difference is calculated by subtracting the away team’s score by the home team's score. 
+        The value equals 'y' minus 'x'.
 
         .8. The eighth column is named ‘player1_name’.
-        It contains the name of the player involved in the event that the event row describes. 
+        It contains the name of the player involved in the event.
 
         .9. The ninth column is named ‘player1_team_abbreviation’.
-        It contains the team abbreviation of the team that the player named in the ‘player1_name’ column is on. 
+        It contains the team name of the player named in the ‘player1_name’ column. 
 
         .10. The tenth column is named ‘player2_name’.
-        It contains the name of a player involved in the event that the event row describes. 
+        It contains the name of a player involved in the event. 
 
         .11. The eleventh column is named ‘player2_team_abbreviation’. 
-        It contains the team abbreviation of the team that the player named in the ‘player2_name’ column is on. 
+        It contains the team name of the player named in the ‘player2_name’ column. 
 
         .12. The twelfth column is named ‘player3_name’.
-        It contains the name of a player involved in the event that the event row describes. 
+        It contains the name of a player involved in the event.
 
         .13. The thirteenth column is named ‘player3_team_abbreviation’.
-        It contains the team abbreviation of the team that the player named in the ‘player3_name’ column is on. 
-    </information_on_play-by-plays_in_CSV_format>
+        It contains the team name of the player named in the ‘player3_name’ column. 
+</information_on_play-by-plays_in_CSV_format>
 
-    <information_on_SUB_events>
-        ‘SUB’ in the ‘eventmsgtype’ column of an event row signifies a substitution event.
+<information_on_SUB_events>
+        - ‘SUB’ in the ‘eventmsgtype’ column signifies a substitution event.
         This row is a SUB event row. 
-        - In a SUB event row, the player named in the ‘player1_name’ column exits the court.
-        His playing time ends at the time value listed in the ‘pctimestring’ column of that row. 
+
         - In a SUB event row, the player named in the ‘player2_name’ column enters the court.
-        His playing time starts at the time value listed in the ‘pctimestring’ column of that row. 
-        -If a player is named in the 'player2_name' coumn in his last SUB event of a period, then he plays until the end of that period.
-        He also continues playing from the start of the next period until he is named in the 'player1_name' coumn of a SUB event row.
+        His playing time starts at the value listed in the ‘pctimestring’ column of that row. 
+
+        - In a SUB event row, the player named in the ‘player1_name’ column exits the court.
+        His playing time ends at the value listed in the ‘pctimestring’ column of that row. 
+
+        -If a player is named in the 'player2_name' column in his last SUB event of a period, then he plays until the end of that period.
+        He also continues playing from the start of the next period until he is named in the 'player1_name' column of a SUB event row.
 
 
         Here is an example of SUB events in CSV format:
@@ -94,16 +99,17 @@
         In event row 88, Alec Burks exits the court with 3 minutes and 31 seconds remaining in the first period.
         This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Alec Burks’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, 
         and ‘3:31’ is listed in the ‘pctimestring’ column. 
+
         player1_name is on the team DET because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
 
         In event row 89, Isaiah Livers enters the game with 3 minutes and 31 seconds remaining in the first period.
         This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, and ‘3:31’ is listed in the ‘pctimestring’ column. 
-        
-        player2_name is on the team DET because ‘DET’ is listed in the ‘player2_team_abbreviation’ column. 
-    </information_on_SUB_events>
 
-    <information_on_stint_times>
-    <game_time_information>
+        player2_name is on the team DET because ‘DET’ is listed in the ‘player2_team_abbreviation’ column. 
+</information_on_SUB_events>
+
+<information_on_stint_times>
+<game_time_information>
         Game_time refers to the time an event occurs in the basketball play-by-play.
         
         Game_time uses the period and pctimestring values to determine when an event occurs into a game. 
@@ -116,21 +122,19 @@
         
         Each period begins with a game_time of ('period value' minus 1) multiplied by 720 seconds. 
         Each period ends with a game_time of period begin game_time plus 720 seconds.
-    </game_time_information>
+</game_time_information>
 
-
-
-    A player’s stint in basketball refers to a span of time that a player spends on the court during a game before being substituted out.
-    A player’s total playing time in the game is equal to the sum of all of his stints. 
-
-    A player is considered on the court from his player2_name entry time
-    until his player1_name exit time.
+    A player’s stint time refers to a span of time that a player is on the court before leaving the court. 
+    A player’s total playing time in the game is equal to the sum of all of his stint times. 
 
     A player's entry time is the value in the 'pctimestring' column of the same row 
     that the player is named in the 'player2_name' column.
 
     A player's exit time is the value in the 'pctimestring' column of the same row 
     that the player is named in the 'player1_name' column.
+
+    A player is considered on the court from his player2_name entry time
+    until his player1_name exit time.
 
     A player can enter and exit the court multiple times throughout a period.  
 
@@ -139,4 +143,23 @@
 
     He also plays from the start of the next period until he is named in the ‘player1_name’ column of a 
     SUB event row (exits court). 
-    </information_on_stint_times>
+
+<example_stint_calculation>
+    Example SUB events in CSV format:
+    ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    204,SUB,2,6:02,SUB: Bogdanovic Enters,50 - 34,-16,,,Bojan Bogdanovic,DET,,
+    252,SUB,2,1:12,SUB: Bogdanovic Exits,62 - 48,-14,Bojan Bogdanovic,DET,,,,
+
+    Bogdanovic enters the court in the second period with 6 minutes and 2 seconds remaining before the second period ends.
+    This is because ‘2’ is listed in the ‘period’ column and ‘6:02’ is listed in the ‘pctimestring’ column. 
+    The 'pctimestring' value descends as the period progresses. 
+
+    Bogdanovic exits the court in the second period with 1 minute and 12 seconds remaining before the period ends.
+    This is because ‘2’ is listed in the ‘period’ column and ‘1:12’ is listed in the ‘pctimestring’ column.
+
+    Bogdanovic’s stint time is 4 minutes and 50 seconds.
+    This is because 6:02 minus 1:12 is 4:50. 
+    His entrance time is subtracted by his exit time. 
+
+</example_stint_calculation>
+</information_on_stint_times>

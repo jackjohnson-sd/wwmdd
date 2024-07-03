@@ -1,0 +1,21 @@
+Comments:
+- Passes Q1 - 3b, 3d, 4-4d, 5 - 5d
+- Initially fails Q3c
+
+Q3c:
+    Entered at Period 1, Time 12:00 and exited at Period 2, Time 7:23 - Stint Duration: 7:23
+    Entered at Period 2, Time 0:49 and exited at Period 3, Time 5:37 - Stint Duration: 16:48
+    Entered at Period 2, Time 12:00 and exited at Period 4, Time 0:00 - Stint Duration: 12:00
+
+    Follow-up:
+    There are missing SUB events. 
+    Remember when he entered and exited. 
+    Subtract the time he entered by the time he exited. 
+    If he doesn't exit the court in a period, he plays until the end (0:00). 
+    There are 60 seconds in one minute. 
+
+    Q3c:
+    Entered at Period 1, Time 12:00 and exited at Period 1, Time 4:31 - Stint Duration: 7:29
+    Entered at Period 2, Time 12:00 and exited at Period 2, Time 7:23 - Stint Duration: 4:37
+    Entered at Period 2, Time 0:49 and exited at Period 3, Time 5:37 - Stint Duration: 7:12
+    Entered at Period 4, Time 10:04 and exited at Period 4, Time 0:00 - Stint Duration: 10:04

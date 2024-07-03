@@ -1,0 +1,85 @@
+Comments:
+
+-Passes Q1,2,3,3a,3b,3d,4,4a,4b,4d, 5,5a,5b,
+
+-Fails Q3c
+    -It believed that he did not play in the third period, 
+    because he did not have an entrance SUb event in the third period. 
+    He entered near the end of the second period and exited around the middle of the third. 
+-Passes Q3c
+    -It added his 49 second playtime in end of 2nd to his 3rd period stint calculations, which is correct to due, but then
+    it reports wrong start/end times because it adds 49 seconds to his stint in 3rd period (plays until 5:37 not 4:48)
+
+-Fails Q4c
+    -It became confused with ascending/descending times and start of period times.
+-Passes Q4c
+
+-Fails Q5c
+    -It didn't realize to include all of period 3 in stint because no events mentioned in period 3
+    
+Q3c:
+    1st Stint (1st Period): 7 minutes and 29 seconds (Entered at 12:00, Exited at 4:31)
+    2nd Stint (2nd Period): 4 minutes and 37 seconds (Entered at 12:00, Exited at 7:23)
+    3rd Stint (2nd Period): 0 minutes and 49 seconds (Entered at 0:49, Played till end of 2nd period)
+    4th Stint (4th Period): 10 minutes and 4 seconds (Entered at 10:04, Played till end of 4th period)
+
+    Follow-up:
+    Some of these are correct. 
+    Remember, if a player’s last SUB event in a period is him entering the court, then he plays 
+    until the end of that period, and plays from the start of the next period, until he appears 
+    in the 'player1_name' column of a SUB event row. 
+
+    Q3c:
+    1st Stint (1st Period): 7 minutes and 29 seconds (Entered at 12:00, Exited at 4:31)
+    2nd Stint (2nd Period): 4 minutes and 37 seconds (Entered at 12:00, Exited at 7:23)
+    3rd Stint (3rd Period): 7 minutes and 12 seconds (Entered at 12:00, Exited at 4:48)
+    4th Stint (4th Period): 10 minutes and 4 seconds (Entered at 10:04, Played till end of 4th period)
+
+    Follow-up:
+    These numbers are correct. 
+    However, in his 3rd stint, he enters at period 2, time 0:49 and plays until period 3, time 5:37. 
+    What did you do?
+
+    Q3c:
+    1st Stint (1st Period): 7 minutes and 29 seconds (Entered at 12:00, Exited at 4:31)
+    2nd Stint (2nd Period): 4 minutes and 37 seconds (Entered at 12:00, Exited at 7:23)
+    3rd Stint (2nd Period & 3rd Period): 7 minutes and 12 seconds (Entered at 0:49 in 2nd period, Exited at 5:37 in 3rd period)
+    4th Stint (4th Period): 10 minutes and 4 seconds (Entered at 10:04, Played till end of 4th period)
+
+
+Q4c:
+    1st Stint (1st Period): 7 minutes and 29 seconds (Entered at 12:00, Exited at 4:31)
+    2nd Stint (1st Period): 7 minutes and 18 seconds (Entered at 0:26, Exited at 7:44 in the 2nd period)
+    3rd Stint (2nd Period): 1 minute and 31 seconds (Entered at 2:55, Exited at 4:26 in the 3rd period)
+    4th Stint (3rd Period): 0 minutes and 25 seconds (Entered at 0:25, Played till end of 3rd period)
+    5th Stint (4th Period): 10 minutes and 4 seconds (Entered at 10:04, Played till end of 4th period)
+
+    Follow-up:
+    Some of these are correct. 
+    Remember, the time value in the 'pctimestring' column descends and that periods begin at 
+    '12:00' in the 'pctimestring' column. 
+
+    Q3c:
+    1st Stint (1st Period): 7 minutes and 29 seconds (Entered at 12:00, Exited at 4:31)
+    2nd Stint (1st Period & 2nd Period): 4 minutes and 42 seconds (Entered at 0:26 in 1st period, Exited at 7:44 in 2nd period)
+    3rd Stint (2nd Period): 10 minutes and 29 seconds (Entered at 2:55, Exited at 4:26 in 3rd period)
+    4th Stint (3rd Period): 0 minutes and 25 seconds (Entered at 0:25, Played till end of 3rd period)
+    5th Stint (4th Period): 10 minutes and 4 seconds (Entered at 10:04, Played till end of 4th period)
+
+Q5c:
+    1st Stint: 12 minutes and 0 seconds (Entered at 12:00, Played till end of the 1st period)
+    2nd Stint: 5 minutes and 2 seconds (Entered at the start of the 2nd period, Exited at 10:04)
+    3rd Stint: 5 minutes and 33 seconds (Entered at the start of the 4th period, Played till end of the 4th period)
+
+    Follow-Up:
+    Some of these are correct. 
+    However, a player's start time is subtracted by his end time. 
+    If a player is named in the 'player2_name' column of a SUB event row(enters game) in a period (ex: period 1) as 
+    his last SUB event, and is named in the 'player1_name' column of a SUB event row (exits game) in period 3 as his 
+    next SUB event, then he plays all of period 2. 
+    Recalculate the incorrect results.
+
+    Q5c:
+    1st Stint: 12 minutes and 0 seconds (Entered at 12:00 in the 1st period, Played till the end of the 1st period)
+    2nd Stint: 18 minutes and 58 seconds (Entered at the start of the 2nd period, Played till 10:04 in the 3rd period)
+    3rd Stint: 5 minutes and 33 seconds (Entered at the start of the 4th period, Played till the end of the 4th period)

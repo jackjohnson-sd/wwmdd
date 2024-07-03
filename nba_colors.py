@@ -59,7 +59,7 @@ colors = {
 
     'BOS': {
         'color1': 'green',
-        'color2': 'white',
+        'color2': 'green',
         'colors': {
             'green': [ '#007a33',[0, 122, 51]],
             'black': pureBlack,

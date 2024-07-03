@@ -10,9 +10,12 @@ from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, event_map
 
 from settings import defaults 
-from play_by_play import _ms
+from play_by_play import _ms,sec_to_period_time2, dump_pbp
 
 SHOW_PLOTS       = defaults.get('SHOW_PLOTS')       
+PLAY_TIME_CHECK_SHOW  = defaults.get('PLAY_TIME_CHECK_SHOW')       
+TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
+
 
 STINT_COLOR       = defaults.get('STINT_COLOR')       
 STINT_COLOR_IN    = defaults.get('STINT_COLOR_IN')       
@@ -34,7 +37,7 @@ MRK_FONTWEIGHT    = defaults.get('MARKER_FONTWEIGHT')
 GRID_LINEWIDTH    = defaults.get('GRID_linewidth')
 
 PLAY_TIME_CHECK_ONLY   = defaults.get('PLAY_TIME_CHECK_ONLY')
-
+SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
@@ -285,7 +288,6 @@ def get_title_and_friends(game_data):
         debug_title = f'{game_data.game_id} {DATA_SOURCE}'
 
     return title, debug_title, game_info # top_team, bot_team, team_home, team_away
-
 
 def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
     _ax_.text(x, y, s = text,
@@ -869,37 +871,71 @@ def plot_layout(title):
     
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def play_time_check(title,bx1,bx2):
+def play_time_check(title,bx1,bx2,stints1,stints2):
+    # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
+    # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
+    m1 = int(bx1.get_team_secs_played())
+    m2 = int(bx2.get_team_secs_played())
     
-    m1 = bx1.get_team_secs_played()
-    m2 = bx2.get_team_secs_played()
+    if m1 == m2: 
+        print(title[1], title[0], m1, 'OK')
+        ret_value = True
+
+    else:
+        print(title[1], title[0], m1, m2, 'NOK')
+        ret_value = False
+
     
-    if m1 == m2 and m1 == 14400.0: 
-        print(title[1], title[0], 'OK')
-        return True
-    
+    if PLAY_TIME_CHECK_SHOW == 'OFF': return ret_value
+
+    if PLAY_TIME_CHECK_SHOW == 'FAIL_ONLY': 
+        if ret_value : return ret_value
+
     print()
-    print(title[1], title[0])
+    print('STINT REPORT')
     print()
-    
+
     def ms(sec):
         m = int(sec / 60)
         s = int(sec % 60)
-        return f'{m}:{s:02d}'
+        return f'{m:02d}:{s:02d}'
     
+    def stint_dump(stints,player):
+        
+        s = '0,0,0'
+        if player in stints.keys():
+            if player in TEST_PLAYERS or len(TEST_PLAYERS) == 0:
+                
+                stintw = stints[player]
+                s = ''
+                cnt = 0
+                for stint in stintw:
+                    tmp = f'{sec_to_period_time2(stint[1]).replace(' ',':')}-{sec_to_period_time2(stint[2]).replace(' ',':')} {ms(int(stint[0]))}, '
+                    s += tmp
+                    cnt += 1
+                    if cnt > 2:
+                        s += '\n                                           '
+                        cnt = 0
+        return s.strip()
+        
     print(bx1.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:20} {ms(x[1])}',bx1.get_names_items('secs')))))
+    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints1,x[0])}',bx1.get_names_items('secs')))))
     print()
 
     print(bx2.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:20} {ms(x[1])}',bx2.get_names_items('secs')))))
+    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints2,x[0])}',bx2.get_names_items('secs')))))
     print()
     print()
 
-    return False
+    return ret_value
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
+    if SAVE_GAME_AS_CSV == 'ON': 
+        def Merge(dict1, dict2): return {**dict1, **dict2}
+        game_stints = Merge(our_stints[0], opponent_stints[0])
+        dump_pbp(game_data, game_stints)
+
     # top team = winner, bot_team = loser
     # home_team affects plus/minus and score 
     # VERIFY  home ahead is positive in plus/minus if ahead,  
@@ -914,7 +950,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
     
-    play_time_check(title,boxscore1,boxscore2)
+    play_time_check(title,boxscore1,boxscore2,our_stints[0],opponent_stints[0])
     
     if PLAY_TIME_CHECK_ONLY != 'ON':
 
@@ -981,8 +1017,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        SHOW_PLOT =  defaults.get('SHOW_PLOT')  
-        if(SHOW_PLOT == "ON"): 
+        if(defaults.get('SHOW_PLOT') == "ON"): 
             plt.show(block = True) 
         else: 
             print('Show plot disabled in json config file')   
@@ -996,12 +1031,9 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             t = game_data.matchup_home.split(' ')
             fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
         
-            # test/make dir for plots (BES)
             if not(os.path.exists(cwd)): os.mkdir(cwd)
     
             fn = os.path.join(cwd, fn) 
             plt.savefig(fn)
             
         plt.close('all')
-
-

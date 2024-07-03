@@ -1,27 +1,33 @@
 {
 
       "LOG"         : "OFF"
-    , "TRIM"        : "OFF"
+    , "TRIM"        : "OFF"      
     , "CONSOLE"     : "ON"
 
     , "dbga"        : "OFF"
     , "dbgb"        : "OFF"
     , "dbgc"        : "OFF"
 
-    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "xSCORE", "xMARGIN", "PERIOD_SCORES", "xBOX_SCORE"]
+    , "SHOW_PLOTS"            : [       "STINTS", "xEVENTS", "xSCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
     , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
 
-    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+    , "xTEST_PLAYERS"          :  ["Kristaps Porzingis"]
     , "TEST_PLAYERS"          :  []
+    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
     , "SAVE_GAME_AS_CSV"      : "ON"
     , "SAVE_RAW_GAME_AS_CSV"  : "OFF"
 
     , "PLAY_TIME_CHECK_ONLY"  : "OFF"
+    , "PLAY_TIME_CHECK_SHOW"  : "ON"
 
+    , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
+
+    , "SAVE_SUBS_ONLY_FILE"   : "OFF"
+ 
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
-    , "SAVE_PLOT_AS_PDF"  : "OFF"
+    , "SAVE_PLOT_AS_PDF"  : "OFF DOES NOT WORK"
     , "SAVE_PLOT_DIR"     : "llm_training_plots"
     , "SHOW_PLOT"         : "ON"
 
@@ -52,20 +58,17 @@
     , "BOX_COL_COLOR_ALT"     : "chocolate"
     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-    , "START_DAY"            : "2024-01-01" 
-    , "STOP_DAY"             : "2024-01-30"
+    , "START_DAY"            : "2023-01-30" 
+    , "STOP_DAY"             : "2023-01-30"
     , "TEAM"                 : "OKC"
  
-    , "nSOURCE"     : "nba.sqlite"
-
     , "SOURCE"      : "WEB:"
-    , "aSOURCE"      : "FILE:llm_training_data/RAW-JAYW.csv"
-    , "qSOURCE"       : "FILE:llm_training_data"
-    , "zSOURCE"      : "FILE:test_csvs/jacks_starter_test_plus_foul_to_enter.csv"
-    , "aqSOURCE"      : "FILE:_save_and_ignore/subs.csv"
-
+    , "aSOURCE"     : "FILE:llm_training_data"
+    , "bSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
+ 
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"
     , "fSOURCE"     : "TOKENS:gemini_test"
+    , "nSOURCE"     : "nba.sqlite"
 
 }

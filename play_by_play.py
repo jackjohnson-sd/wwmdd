@@ -5,6 +5,7 @@ from gemini import save_files
  
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
 SAVE_RAW_GAME_AS_CSV = defaults.get('SAVE_RAW_GAME_AS_CSV')
+SAVE_SUBS_ONLY_FILE = defaults.get('SAVE_SUBS_ONLY_FILE')
 
 def period(sec) : return int(sec / 720) + 1
 
@@ -33,6 +34,24 @@ def sec_to_period_time(sec):
     
     return f'{p+1} {remaining_minutes}:{remaining_secs:02d}'
 
+def sec_to_period_time2(sec):
+
+    p = int(sec / 720)
+    
+    remaining_secs = int(sec) - p * 720
+    remaining_minutes = int(remaining_secs / 60)
+    remaining_secs = int(sec - p * 720 - remaining_minutes * 60)  
+
+    if remaining_secs == 0:# and remaining_minutes == 0:
+        remaining_secs = 60
+    else:
+        remaining_minutes += 1
+        
+    remaining_secs = 60 - remaining_secs
+    remaining_minutes = 12 - remaining_minutes
+    
+    return f'{p+1}:{remaining_minutes:02d}:{remaining_secs:02d}'
+
 def _ms(_sec) : return pms(_sec).replace(' ',',')[1:]
         
 def pms(_sec):  # p eriod m inute s econd
@@ -48,7 +67,7 @@ def pms(_sec):  # p eriod m inute s econd
     s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
     return s
 
-def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
+def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
     # collects timespans played by these players
 
     start_time = 'UNNKNOWN'
@@ -125,8 +144,8 @@ def getTimeSpansByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                     # our last event was IN from sub or other
                     in_the_game = last_event[0] == 'IN'
                     
-                if player in TEST_PLAYERS:
-                    print(period,pctimestring,d.eventmsgtype,'p1:',p1_name,'p2:',p2_name,d.visitordescription)  
+                # if player in TEST_PLAYERS:
+                #     print(period,pctimestring,d.eventmsgtype,'p1:',p1_name,'p2:',p2_name,d.visitordescription)  
             
                 match d.eventmsgtype:
 
@@ -330,7 +349,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
         boxSc = box_score({})
         boxSc.stuff_bs(pbp, playersInGame)
         
-        timeSpans, start_time = getTimeSpansByPlayer(pbp, playersInGame)  # collect timespans played by this player
+        InsNOuts, start_time = getInsNOutsByPlayer(pbp, playersInGame)  # collect timespans played by this player
         
         if OPPONENT :
             if team_abbreviation != game_data.team_abbreviation_home:
@@ -340,19 +359,20 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
                 
         stints_by_player = {}
 
-        for player in timeSpans.keys():
-            _tss = timeSpans[player]
+        for player in InsNOuts.keys():
+            
+            _sub_events = InsNOuts[player]
 
-            if len(_tss) > 0:
+            if len(_sub_events) > 0:
 
                 stints_by_player[player] = []
 
-                lenTss = len(_tss)
+                lenTss = len(_sub_events)
                 _total_secs = 0
                 
                 for x,y in zip(range(0,lenTss,2),range(1,lenTss,2)):
-                    start_ts  = _tss[x]
-                    stop_ts   = _tss[y]
+                    start_ts  = _sub_events[x]
+                    stop_ts   = _sub_events[y]
                     
                     if start_ts[0] == 'IN' and stop_ts[0] == 'OUT':
                         _duration = stop_ts[1] - start_ts[1]
@@ -360,13 +380,14 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
                         _start = start_ts[1]
                         _stop = stop_ts[1]
                         
-                        stints_by_player[player].append([int(_duration) , int(_start), int(_stop),team_abbreviation])
+                        stints_by_player[player].append([int(_duration) , int(_start), int(_stop), team_abbreviation])
                     else:
                         print('Error forming spans ',player,start_ts,stop_ts)  
                 
                 boxSc.update(player,'secs',_total_secs) 
 
-        game_data.start_time = start_time       
+        game_data.start_time = start_time  
+             
         return [stints_by_player, dict(boxSc.getBoxScore())]
 
     return [{},{}], start_time
@@ -442,7 +463,7 @@ def make_sub_events(game_stints):
             
     return  sub_events
     
-def sub_events_from_stints(game_stints):
+def sub_events_from_stints(game, game_stints):
     
     # game_stints has in/outs for all players
     # go through each stints for player 
@@ -461,21 +482,25 @@ def sub_events_from_stints(game_stints):
         
     sub_events = sorted(sub_events, key = lambda stint: sub_event_to_sec(stint))
 
-    if False:
+    if SAVE_SUBS_ONLY_FILE == 'ON':
         f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
             ('\n,').join(sub_events)  
-        
-        save_files('subs.csv','_save_and_ignore',[['subs.csv',f]])
+
+        ma = game.matchup_away.split(' @ ')
+        gd = game.game_date.split('-')
+        fn = f'SUBS_{ma[0]}a{ma[1]}{gd[0]}{gd[1]}{gd[2]}.csv'
+
+        save_files(fn,'_save_and_ignore',[[fn,f]])
 
     return list(map(lambda x:x.split(','),sub_events))
 
 def dump_pbp(game, game_stints):
-    
+
     period_end_score = {}    
     
     save_as_raw = SAVE_RAW_GAME_AS_CSV == 'ON'
     
-    sub_events = [] if save_as_raw else sub_events_from_stints(game_stints)
+    sub_events = [] if save_as_raw else sub_events_from_stints(game,game_stints)
     
     pbp_event_map = {
         1: [['POINT', 'ASSIST'],  [1, 2],],  # make, assist
@@ -504,7 +529,6 @@ def dump_pbp(game, game_stints):
         event = p.eventmsgtype 
         if event in keys:
             
-            emap = pbp_event_map[event]
             desc = str(p.homedescription) + str(p.neutraldescription) + str(p.visitordescription)
             desc = desc.replace('None','')
             
@@ -515,52 +539,40 @@ def dump_pbp(game, game_stints):
                 lastScore = p.score
                 lastScoreMargin = p.scoremargin
                 
-            match = False   
+            emap  = pbp_event_map[event]
             event_name = emap[0][0]
-            
-            if event == 8: match = save_as_raw
-            
+                        
             # point.assist
-            if event == 1:
-                match = True   
+            if event == 1:              
                 if p.player2_name != None: event_name = '.'.join(emap[0])
                 s = '3' if '3PT' in desc else '2'
                 event_name = s + event_name
             
             # miss.block        
             elif event == 2:
-                match = True
                 if p.player3_name != None: event_name = '.'.join(emap[0])
                 e = '3POINT' if '3PT' in desc else '2POINT'
                 event_name = e + event_name
 
             # free throw        
-            elif event == 3:
-                match = True
-                event_name = 'FTMISS' if 'MISS' in desc else 'FTMAKE'
+            elif event == 3: event_name = 'FTMISS' if 'MISS' in desc else 'FTMAKE'
 
             # steal.turnover    
-            elif event == 5:
-                match = True
+            elif event == 5: 
                 if p.player2_name != None: event_name = '.'.join(emap[0])
                 
             elif event == 13:
                 tk = f'{p.period+1}:12:00'
                 period_end_score[tk] = [p.score, p.scoremargin]
-                # print(tk,period_end_score[tk])
-                match = True
 
-            # foul, rebound plus others, NO 8 i.e. subs
-            elif event in [4,6,7,9,10,11,12,13]: match = True
-
+            match = event != 8 or save_as_raw
+            
             if match:
                 a = [
                     event_name,
-                    p.period, 
-                    p.pctimestring,
+                    p.period, p.pctimestring,
                     desc,
-                    p.score,
-                    p.scoremargin,
+                    p.score, p.scoremargin,
                     p.player1_name, p.player1_team_abbreviation,
                     p.player2_name, p.player2_team_abbreviation,
                     p.player3_name, p.player3_team_abbreviation
@@ -632,7 +644,7 @@ def event_sort_keys(x):
         sort_order = {
             #                   PRE  1234 POST INPERIOD 
             'STARTOFPERIOD' :[  0,   4,   0,   0    ],
-            'SUB'           :[  2,   1,   1,   0    ],
+            'SUB'           :[  2,   1,   1,   2    ],
             'NONSUB'        :[  5,   0,   0,   1    ],
             'EJECTION'      :[  1,   2,   2,   5    ],
             'ENDOFPERIOD'   :[  3,   2,   2,   0    ],
@@ -656,9 +668,17 @@ def event_sort_keys(x):
                    
         if event_type not in sort_order.keys(): event_type = 'NONSUB'
                     
-        so2 = sort_order[event_type][period_x] 
+        so = sort_order[event_type][period_x] 
         
-        # if exit SUB it goes first                 
-        outs_first = event_type == 'SUB' and x[6] == ''
+        if event_type == 'SUB':
+            sub_enter = x[8] != ''
+            if period_x == 3:
+                if sub_enter: 
+                    so = 0
+                else:
+                    # exit during game play
+                    pass
+                
+        outs_first = event_type == 'SUB' and x[6] != ''
         # print(period_x,x[0:3],(game_second, so2, outs_first))
-        return ((game_second, so2, outs_first))
+        return ((game_second, so, outs_first))

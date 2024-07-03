@@ -37,7 +37,6 @@ def main(team=None,start=None,stop=None):
     _TEAM       = defaults.get('TEAM')      # OKC
     _START_DAY  = defaults.get('START_DAY') # 2023-01-01
     _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
-    SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
 
     teams = nba.get_teams()
 
@@ -76,11 +75,6 @@ def main(team=None,start=None,stop=None):
             
             our_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = False)
             opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = True)
-
-            if SAVE_GAME_AS_CSV == 'ON': 
-                def Merge(dict1, dict2): return {**dict1, **dict2}
-                game_stints = Merge(our_playerstints_and_boxscore[0], opp_playerstints_and_boxscore[0])
-                dump_pbp(game_data, game_stints)
 
             plot3(_TEAM, game_data,
                 our_playerstints_and_boxscore, 

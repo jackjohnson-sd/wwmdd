@@ -28,7 +28,7 @@ class box_score:
         return self.get_item(self._team_name, "secs")
         
     def get_team_minutes_desc(self):
-        return f'{self._team_name} {self.get_team_secs_played()}'
+        return f'{self._team_name} {int(self.get_team_secs_played())}'
 
     def set_home_team_name(self, team):
         self._home_team = team

@@ -12,6 +12,7 @@ parser.add_argument("--gemini", help = "call gemini to get game for files in a d
 parser.add_argument("--web",    help = "call nba to get games")
 parser.add_argument("--start",  help = "start date required for web calls")
 parser.add_argument("--stop",   help = "stop date required for web calls")
+parser.add_argument("--noplot", help = "do not plot just process play by play")
 
 args = parser.parse_args()
 
@@ -27,8 +28,11 @@ import gemini
 import sys
 
 if __name__ == "__main__":
-    
-    if   args.show != None: 
+
+    if args.noplot != None:
+        settings.defaults.set('PLAY_TIME_CHECK_ONLY', args.noplot)
+            
+    if args.show != None: 
         settings.defaults.set('SOURCE', args.show)
         main_csv.main(args.show)
     elif args.gemini != None: gemini.main(args.gemini)

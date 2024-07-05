@@ -1,6 +1,7 @@
 Comments:
 - Prefers elapsed time (game_time) over period, pctimestring
-- Passes Q1-3d, 4-4d, 5-5d
+- Passes Q1-3d, 4-4d, 5-5d, 6-6a, 7, 8
+- Fails Q8a, 7a
 
 Q3a:
 Josh Giddey entered the game at the following times (seconds elapsed): 0, 720, 1391, 2276
@@ -27,8 +28,11 @@ Kenrich Williams entered the game at the following times (seconds elapsed): 0, 6
 Q4b:
 Kenrich Williams exited the game at the following times (seconds elapsed): 449, 976, 1894, 2160, 2880
 
-Q4a:
+Q5a:
 Shai Gilgeous-Alexander entered the game at the following times (seconds elapsed): 0, 1138, 2547
 
-Q4b:
+Q5b:
 Shai Gilgeous-Alexander exited the game at the following times (seconds elapsed): 720, 2276, 2880
+
+Q8a:
+Giddey and Gilgeous-Alexander played 0.0 minutes together in the second period.

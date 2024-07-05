@@ -1,0 +1,15 @@
+Comments:
+
+- Passes Q1, 2, 3, 3a, 3b, 3c, 3d, 4-4b, 5-5
+
+- fails 4c, 8
+
+Q4c:
+    - Converts time incorrectly
+        Gemini:
+        We can convert the game time in seconds back to period and pctimestring format using the provided pms function.
+
+        Josh Giddey's entry times (period, pctimestring): 
+        ['Period 1 - 12:00', 'Period 2 - 12:00', 'Period 2 - 8:49', 'Period 4 - 1:56']
+
+Q8:

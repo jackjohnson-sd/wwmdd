@@ -103,7 +103,8 @@
         player1_name is on the team DET because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
 
         In event row 89, Isaiah Livers enters the game with 3 minutes and 31 seconds remaining in the first period.
-        This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, and ‘3:31’ is listed in the ‘pctimestring’ column. 
+        This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, 
+        and ‘3:31’ is listed in the ‘pctimestring’ column. 
 
         player2_name is on the team DET because ‘DET’ is listed in the ‘player2_team_abbreviation’ column. 
 </information_on_SUB_events>
@@ -122,6 +123,21 @@
         
         Each period begins with a game_time of ('period value' minus 1) multiplied by 720 seconds. 
         Each period ends with a game_time of period begin game_time plus 720 seconds.
+
+        This python code converts time from game_time format to period, pctimestring format:
+            # Define the function pms
+            def pms(_sec):  # p eriod m inute s econd
+                
+                q        = int(_sec / 720) + 1
+                s_into_q = int(_sec % 720)
+                m_into_q = s_into_q / 60
+                s_into_m = int(s_into_q % 60)
+                if s_into_m == 0: s_into_m = 60
+                if m_into_q == 0 and s_into_m == 60:
+                    m_into_q = 12
+                    q -= 1
+                s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
+                return s
 </game_time_information>
 
     A player’s stint time refers to a span of time that a player is on the court before leaving the court. 

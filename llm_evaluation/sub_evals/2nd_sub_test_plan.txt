@@ -1,0 +1,547 @@
+NAME: SUB Test Plan 2
+
+Current Status Summary:
+    A1:
+    - ChatGPT:
+        - Issues with stint calculations (when last SUB event is enter in a period)
+        
+    - Gemini:
+        - Issues with team rosters and stint calculations (investigating stem of errors)
+
+Data sets used:
+    OKCvGSW20230130.csv  (in llm_evaluation/sub_evals) (GET LATEST)
+    giddey_subs.csv
+    curry_subs.csv
+
+Test Model: 
+    Gemini 1.5 Pro, ChatGPT 4o 
+
+Prompt 1:
+    <preamble_to_prompt>
+        Here is information about basketball game play-by-plays in CSV format. 
+        This information should be used in determining your answers to my upcoming questions. 
+        Hold off on providing any summaries and/or answers for now.
+    </preamble_to_prompt>
+
+    <information_on_play-by-plays_in_CSV_format>
+        Play-by-plays describe the events in basketball games. 
+        Play-by-plays are in CSV format. 
+        CSV format, Comma Separated Values, uses commas as a delimiter between values.
+        In CSV formatted play-by-plays, the first row contains the column names separated by commas. 
+        The column names are the names of the values in the columns of a CSV row. 
+
+        In the case of basketball game play-by-plays, the column names are as follows:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+        The subsequent rows are called event rows.
+        Event rows describe the events in the game.
+
+        
+        .1. The first column's optional value is the event number.
+        Event numbers start at ‘0’ for the first event row.
+        The following rows use sequentially numbered values. 
+
+        .2. The second column is named ‘eventmsgtype’. 
+        It identifies events that occur during the game.
+        Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS, 3POINTMISS, 
+        REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
+
+        .3. The third column is named ‘period’. 
+        It is a number that identifies the period the event occurs. 
+        Basketball games include at least 4 periods. 
+        Period values range from 1 - 4 and increase as the game progresses.
+
+        .4. The fourth column is named ‘pctimestring’.
+        It contains the time remaining in the period.
+        It is formatted as minutes and seconds seperated by a colon.
+        Its value descends in seconds as the game progresses.
+        Its value is '12:00' at the start of each period. 
+        Its value is '0:00' at the end of each period. 
+        
+        For example, an event row with a pctimestring value of 7:29 occurs at 7 minutes and 29 seconds before the end of the period. 
+        For example, an event row with a pctimestring value of 7:29 occurs at 4 minutes and 31 seconds after the start of the period. 
+
+
+        .5. The fifth column is named ‘neutraldescription’.
+        It contains a brief description of the event. 
+
+        .6. The sixth column is named ‘score’.
+        It contains the two teams’ scores at the time of the event. 
+        The initial score value is ‘0’.
+        This means neither team has scored yet. 
+        Once a team scores, the score value is formatted as ‘x - y’. 
+        ‘x’ is a positive integer value that represents the away team’s score.
+        ‘y’ is a positive integer value that represents the home team’s score.
+
+        .7. The seventh column is named ‘scoremargin’.
+        It contains the difference between the teams’ scores. 
+        The value equals 'y' minus 'x'.
+
+        .8. The eighth column is named ‘player1_name’.
+        It contains the name of the player involved in the event.
+
+        .9. The ninth column is named ‘player1_team_abbreviation’.
+        It contains the team name of the player named in the ‘player1_name’ column. 
+
+        .10. The tenth column is named ‘player2_name’.
+        It contains the name of a player involved in the event. 
+
+        .11. The eleventh column is named ‘player2_team_abbreviation’. 
+        It contains the team name of the player named in the ‘player2_name’ column. 
+
+        .12. The twelfth column is named ‘player3_name’.
+        It contains the name of a player involved in the event.
+
+        .13. The thirteenth column is named ‘player3_team_abbreviation’.
+        It contains the team name of the player named in the ‘player3_name’ column. 
+    </information_on_play-by-plays_in_CSV_format>
+
+    <information_on_SUB_events>
+        - ‘SUB’ in the ‘eventmsgtype’ column signifies a substitution event.
+        This row is a SUB event row. 
+
+        - In a SUB event row, the player named in the ‘player2_name’ column enters the court.
+        His playing time starts at the value listed in the ‘pctimestring’ column of that row. 
+
+        - In a SUB event row, the player named in the ‘player1_name’ column exits the court.
+        His playing time ends at the value listed in the ‘pctimestring’ column of that row. 
+
+        -If a player is named in the 'player2_name' column in his last SUB event of a period, then he plays until the end of that period.
+        He also continues playing from the start of the next period until he is named in the 'player1_name' column of a SUB event row.
+
+
+        Here is an example of SUB events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        88,SUB,1,3:31,SUB: Burks Exits,22 - 15,-7,Alec Burks,DET,,,,
+        89,SUB,1,3:31,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,DET,,
+            
+        In event row 88, Alec Burks exits the court with 3 minutes and 31 seconds remaining in the first period.
+        This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Alec Burks’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, 
+        and ‘3:31’ is listed in the ‘pctimestring’ column. 
+
+        player1_name is on the team DET because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
+
+        In event row 89, Isaiah Livers enters the game with 3 minutes and 31 seconds remaining in the first period.
+        This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, 
+        and ‘3:31’ is listed in the ‘pctimestring’ column. 
+
+        player2_name is on the team DET because ‘DET’ is listed in the ‘player2_team_abbreviation’ column. 
+    </information_on_SUB_events>
+
+    <information_on_stint_times>
+    <game_time_information>
+        Game_time refers to the time an event occurs in the basketball play-by-play.
+        
+        Game_time uses the period and pctimestring values to determine when an event occurs into a game. 
+        
+        Game_time values are expressed in seconds. 
+
+        A game begins with a game_time of 0 seconds.
+        Game_time increases by 1 second as each second of the game is played. 
+        A game ends with a game_time of 2880 seconds.
+        
+        Each period begins with a game_time of ('period value' minus 1) multiplied by 720 seconds. 
+        Each period ends with a game_time of period begin game_time plus 720 seconds.
+
+        This python code converts time from game_time format to period, pctimestring format:
+            # Define the function pms
+            def pms(_sec):  # p eriod m inute s econd
+                
+                q        = int(_sec / 720) + 1
+                s_into_q = int(_sec % 720)
+                m_into_q = s_into_q / 60
+                s_into_m = int(s_into_q % 60)
+                if s_into_m == 0: s_into_m = 60
+                if m_into_q == 0 and s_into_m == 60:
+                    m_into_q = 12
+                    q -= 1
+                s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
+                return s
+    </game_time_information>
+
+        A player’s stint time refers to a span of time that a player is on the court before leaving the court. 
+        A player’s total playing time in the game is equal to the sum of all of his stint times. 
+
+        A player's entry time is the value in the 'pctimestring' column of the same row 
+        that the player is named in the 'player2_name' column.
+
+        A player's exit time is the value in the 'pctimestring' column of the same row 
+        that the player is named in the 'player1_name' column.
+
+        A player is considered on the court from his player2_name entry time
+        until his player1_name exit time.
+
+        A player can enter and exit the court multiple times throughout a period.  
+
+        When a player is named in the ‘player2_name’ column of a SUB event row (enters court) 
+        as his last SUB event of a period, he plays until the end of that period.
+
+        He also plays from the start of the next period until he is named in the ‘player1_name’ column of a 
+        SUB event row (exits court). 
+
+    <example_stint_calculation>
+        Example SUB events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        204,SUB,2,6:02,SUB: Bogdanovic Enters,50 - 34,-16,,,Bojan Bogdanovic,DET,,
+        252,SUB,2,1:12,SUB: Bogdanovic Exits,62 - 48,-14,Bojan Bogdanovic,DET,,,,
+
+        Bogdanovic enters the court in the second period with 6 minutes and 2 seconds remaining before the second period ends.
+        This is because ‘2’ is listed in the ‘period’ column and ‘6:02’ is listed in the ‘pctimestring’ column. 
+        The 'pctimestring' value descends as the period progresses. 
+
+        Bogdanovic exits the court in the second period with 1 minute and 12 seconds remaining before the period ends.
+        This is because ‘2’ is listed in the ‘period’ column and ‘1:12’ is listed in the ‘pctimestring’ column.
+
+        Bogdanovic’s stint time is 4 minutes and 50 seconds.
+        This is because 6:02 minus 1:12 is 4:50. 
+        His entrance time is subtracted by his exit time. 
+
+    </example_stint_calculation>
+    </information_on_stint_times>
+
+
+Prompt 2:
+    Here is information about determining the length of time that two players were on the court together at the same time 
+    (playing time overlap):
+
+    Here are the scenarios about two players' playing time starts and exits:
+
+    The time used is game_time. 
+    A negative or 0 time means no playing time overlap occurs.
+
+    1. player1 and player2 start at the same time. player1 exits before player2
+        The overlap start is player1 start.
+        The overlap stint length is player1 exit minus player1 start.
+        scenario: 
+            overlap stint start:end   7:11
+            overlap stint length: (player1 exit - player1 start) + 1 = 5
+            player1 7:11 ----- --xxx xx--- -----
+            player2 7:14 ----- --xxx xxxxx -----
+            
+    2. player1 and player2 start at the same time. They exit at the same time.
+        The overlap start is player1 start.
+        The overlap stint length is player1 exit minus player1 start.
+        scenario: 
+            overlap stint start:end   6:12
+            overlap stint length:(player1 exit - player1 start) + 1  = 7
+            player1 6:12 ----- -xxxx xxx-- -----
+            player2 6:12 ----- -xxxx xxx-- -----
+            
+
+    3. player1 and player2 start at the same time. player1 exits after player2.
+        The overlap stint length is player2 exit minus player1 start.
+        The overlap start is player1 start.
+        scenario: 
+            overlap stint start:end   6:12
+            overlap stint length :player2 exit - player1 start +1 = 7
+            player1 6:14 ----- -xxxx xxxxx -----
+            player2 6:12 ----- -xxxx xxx-- -----
+            
+
+    4. player1 starts before player2. player1 exits before player2.
+        The overlap start is player2 start.
+        The overlap stint length is player1 exit minus player2 start.
+        scenario: 
+            overlap stint start:end   6:10
+            overlap stint length:player1 exit - player2 start + 1 = 5
+            player1 4:10 ----x xxxxx x---- -----
+            player2 6:12 ----- -xxxx xxx-- -----
+
+    5. player1 starts before player2. They exit at the same time.
+        The overlap start is player2 start.
+        The overlap stint length is player1 exit minus player2 start.
+        scenario: 
+            overlap stint start:end   15:18
+            overlap stint length:player1 exit - player2 start + 1 = 4
+
+            player1 12:18 ----- ----- --xxx xxxx-
+            player2 15:18 ----- ----- ----- xxxx-
+            
+
+    6. player1 starts before player2. player1 exits after player2.
+        The overlap start is player2 start.
+        The overlap stint length is player2 exit minus player2 start.
+        scenario: 
+            overlap stint start:end   7:9
+            overlap stint length:player2 exit - player2 start + 1 = 3
+            player1 1:13 -xxxx xxxxx xxxx- -----
+            player2 7:9  ----- --xxx ----- -----
+
+    7. player1 starts after player2. player1 exits before player2.
+        The overlap start is player1 start.
+        The overlap stint length is player1 exit minus player1 start.
+        scenario: 
+            overlap stint start:end   8:11
+            overlap stint length:player1 exit - player1 start + 1 = 4
+            player1 8:11  ----- ---xx xx--- -----
+            player2 5:16  ----- xxxxx xxxxx xx---
+          
+
+    8. player1 starts after player2. They exit at the same time.
+        The overlap start is player1 start.
+        The overlap stint length is player1 exit minus player1 start.
+        scenario: 
+            overlap stint start:end   8:12
+            overlap stint length:player1 exit - player1 start + 1 = 5
+            player1 8:12  ----- ---xx xxx-- -----
+            player2 5:12  ----- xxxxx xxx-- -----
+
+    9. player1 starts after player2. player1 exits after player2.
+        The overlap start is player1 start.
+        The overlap stint length is player2 exit minus player1 start.
+        scenario_a:
+            overlap stint start:end   9:14
+            overlap stint length:player1 exit - player1 start  + 1 = 6
+            player1 9:19  ----- ----x xxxxx xxxxx
+            player2 5:14  ----- xxxxx xxxxx -----
+ 
+        scenario_b:
+            overlap stint start:end   15:10
+            overlap stint length:player1 exit - player1 start  + 1 = -4
+            player1 15:19  ----- ----- ----- xxxxx
+            player2 1:10   -xxxx xxxxx x---- -----
+
+
+Prompts Added:
+    A stint time refers to the time between enter and exit SUB events of a player.
+Work from Meeting 7/4:
+    scenario:
+    player1 starts after player2. player1 exits after player2.
+    player1 starts 3: 12:00 and ends 3: 0:00.
+    player2 starts 1: 12:00 and ends 1: 0:00. 
+
+    scenario2:
+    player1 1:10
+    player2 15:20
+
+    scenario case9: overlap stint start:end   15:-5   
+    player1 15:19  ----- ----- ----- -xxxx
+    player2 1:10   -xxxx xxxxx X---- -----
+    
+    player2 exit (10) minus player1 start (15) = -5 
+
+ 
+    scenario case9a: overlap stint start:end   player1 start:player2 exit - player1 start  
+    player1 8:19 ----- ---xx xxxxx xxxxx
+    player2 1:10 -xxxx xxxxx x---- -----
+    player2 exit (10) minus player1 start (8) = 2
+
+    [0,1,2,3,4, 5,6,7,8,9, 10,11,12,13,14, 15,16,17,18,19]
+
+
+
+
+Prompts:
+    Here is an NBA game in CSV format. 
+    Use it to answer the following questions.
+
+    1. What teams played in the game?
+
+    2. Who are the players on each team? 
+
+    3. How many times did Josh Giddey enter the game?
+        3a. At what times did Giddey enter the game?
+        3b. At what times did Giddey exit the game?
+        3c. How long (in Minutes:Seconds) were Giddey's stints? 
+        3d. How many minutes did Giddey play in the game?
+
+    4. How many times did Kenrich Williams enter the game?
+        4a. At what times did Williams enter the game?
+        4b. At what times did Williams exit the game?
+        4c. How long (in Minutes:Seconds) were Williams's stints? 
+        4d. How many minutes did Williams play in the game?
+        4e. At what times and for how long did Williams play?
+
+
+    5. How many times did Shai Gilgeous-Alexander enter the game?
+        5a. At what times did Gilgeous-Alexander enter the game?
+        5b. At what times did Gilgeous-Alexander exit the game?
+        5c. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
+        5d. How many minutes did Gilgeous-Alexander play? 
+
+    6. How long did Gilgeous-Alexander play in the first 6 minutes of period 1?
+        6a. How long did Gilgeous-Alexander play in the second half of period 2?
+    
+    7. How long did Giddey play in the second half of period 2?
+        7a. How long did Giddey play from time 11:57 to 9:56 in period 4?
+
+      
+    8. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 1? 
+        8a. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 2?
+        8b. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
+        8c. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
+        8d. How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
+
+
+
+Answers: 
+    1.  The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+
+    2.  The players on the Oklahoma City Thunder were:
+        Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+        The players on the Golden State Warriors were:
+        Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+    
+    3.  Josh Giddey entered the game 4 times. 
+
+        3a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Giddey Enters,
+            2,12:00,SUB: Giddey Enters,
+            2,0:49,SUB: Giddey Enters,
+            4,10:04,SUB: Giddey Enters,
+
+            Josh Giddey entered the game at the following times (seconds elapsed): 0, 720, 1391, 2276
+
+        3b. 
+            period,pctimestring,neutraldescription,
+            1,4:31,SUB: Giddey Exits,
+            2,7:23,SUB: Giddey Exits,
+            3,5:37,SUB: Giddey Exits,
+            4,0:00,SUB: Giddey Exits,
+
+            Josh Giddey exited the game at the following times (seconds elapsed): 449, 997, 1823, 2880
+
+        
+        3c. 
+            1st Stint: (12 - 4:31) = 7:29
+            2nd Stint: (12-7:23) = 4:37
+            3rd Stint: (0:49 + (12 - 5:37)) = 7:12
+            4th Stint: (10:04 - 0) = 10:04
+
+        3d.
+        29 minutes and 22 seconds
+
+    4. Kenrich Williams entered the game 5 times.
+        4a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Williams Enters,
+            1,0:26,SUB: Williams Enters,
+            2,2:55,SUB: Williams Enters,
+            3,0:25,SUB: Williams Enters,
+            4,10:04,SUB: Williams Enters,
+
+        4b.
+            period,pctimestring,neutraldescription,
+            1,4:31,SUB: Williams Exits,
+            2,7:44,SUB: Williams Exits,
+            3,4:26,SUB: Williams Exits,
+            3,0:00,SUB: Williams Exits,
+            4,0:00,SUB: Williams Exits,
+            
+        4c.
+            1st stint: 7:29
+            2nd stint: 4:42
+            3rd stint: 10:29
+            4th stint: 0:25
+            5th stint: 10:04
+
+        4d. 33 minutes and 9 seconds
+
+    5. 3 times
+        5a. 
+            period,pctimestring,neutraldescription,
+            1,12:00,SUB: Gilgeous-Alexander Enters,
+            2,5:02,SUB: Gilgeous-Alexander Enters,
+            4,5:33,SUB: Gilgeous-Alexander Enters,
+    
+        5b:
+            period,pctimestring,neutraldescription,
+            1,0:00,SUB: Gilgeous-Alexander Exits,
+            4,10:04,SUB: Gilgeous-Alexander Exits,
+            4,0:00,SUB: Gilgeous-Alexander Exits,
+
+        5c:
+            1st Stint: 12:00
+            2nd Stint: 18:58
+            3rd Stint: 5:33
+            
+
+        5d. 
+            36 minutes 31 seconds
+
+    6. 6 minutes
+        6a. 5:02
+    
+    7. Josh Giddey played 0 minutes and 49 seconds (0:49) in the second half of the second period.
+        7a. Josh Giddey played 0 minutes and 8 seconds (0:08) from 11:57 to 9:56 in the fourth period.
+
+    8. 7 minutes and 29 seconds in the first period. 
+
+        8a. 0:49 seconds
+
+        8b. Josh Giddey and Shai Gilgeous-Alexander did not have any overlapping playing time in the third period.
+        
+        8c. 5 minutes and 33 seconds
+        
+        8d. 
+                Period 1: 12 - 4:31
+                Period 2: 0:49
+                Period 3: 6:23
+                Period 4: 5:33
+
+                Sum: 7:29 + :49 + 5:33 = 13:51
+
+
+Overlap:
+    Overlap is when and how long two players were on the court at the same time. 
+
+    Here is how to determine overlap.
+
+    For our explanation, we call the two players playerA and playerB. 
+
+    Overlap Start Table is used to determine when the overlap starts.
+
+    Overlap Length Table is used to determine the length of the overlap.
+
+    Overlap Start Table:
+    1. playerA start.
+    2. playerA start.
+    3. playerA start.
+    4. playerB start.
+    5. playerB start.
+    6. playerB start.
+    7. playerA start.
+    8. playerA start.
+    9. playerA start.
+
+    Overlap Length Table:
+    1. playerA exit minus playerA start.
+    2. playerA exit minus playerA start.
+    3. playerB exit minus playerA start.
+    4. playerA exit minus playerB start.
+    5. playerA exit minus playerB start.
+    6. playerB exit minus playerB start.
+    7. playerA exit minus playerA start.
+    8. playerA exit minus playerA start.
+    9. playerB exit minus playerA start.
+
+    Calculate an index based upon the rules below.
+
+    If playerA and playerB start at the same time, index = 1.
+    If playerA starts before playerB,              index equals = 4.
+    If playerA starts after playerB,               index equals = 7.
+
+    If playerA and playerB exit at the same time, index equals += 0
+    If playerA exits before playerB,              index equals += 1
+    If playerA exits after playerB,               index equals += 2
+
+    Use the index to get the overlap start from the Overlap Start Table and the overlap length from the Overlap Length Table. 
+   
+   A negative or 0 overlap length means no overlap occured.
+   
+
+    overlap start = Overlap Start Table [index]
+    overlap length = Overlap Length Table [index]
+    
+    
+
+
+
+
+    
+
+
+
+    
+    

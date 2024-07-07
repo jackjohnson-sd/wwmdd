@@ -1,0 +1,42 @@
+Comments:
+
+-Passes Q1,
+-Fails Q2 (Aaron Wiggins)
+-Fails Q3c
+    -Gemini needs more details about start and end of periods, stints when players overlap quarters 
+
+Q2:
+    OKC: Kenrich Williams, Josh Giddey, Shai Gilgeous-Alexander, Jalen Williams, Mike Muscala, Tre Mann, Darius Bazley, 
+    Ousmane Dieng, Isaiah Joe, Jaylin Williams
+
+    GSW: Andrew Wiggins, Klay Thompson, Stephen Curry, Draymond Green, Jordan Poole, Jonathan Kuminga, Donte DiVincenzo, 
+    Anthony Lamb, Kevon Looney, Aaron Wiggins
+
+    Follow-up:
+    Is Aaron Wiggins on OKC or GSW?
+
+    Q2:
+    The data shows Aaron Wiggins played for both OKC and GSW. 
+    This is likely an error in the data. 
+    It is unusual for a player to play for two different teams in a single game.
+
+    Follow-up:
+    When 'Aaron Wiggins' is mentioned in the 'player1_name' column, what value appears in the 'player1_team_abbreviation' column?
+
+    Q2:
+    OKC
+
+    Follow-up:
+    Does 'GSW' appear in the 'player1_team_abbreviation' column when 'Aaron Wiggins' appears in the 'player1_name' column?
+
+    Q2:
+    No
+
+Q3c:
+    Giddey's stint durations (Minutes:Seconds):
+    -5:23
+    -7:37
+    -6:27
+    -1:11
+
+    The negative values likely indicate an error in the data, as stint durations cannot be negative.

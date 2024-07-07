@@ -1,0 +1,21 @@
+Comments:
+- Fails Q1 (only reports GSW, no OKC)
+- Fails Q6,6a, Q8b,c, 10,11
+- Passes Q10a
+
+Points of Issue:
+- interpreting descending time, SUB in and outs
+Q6:
+Giddey's stint durations were 0 minutes and 0 seconds for each period in the game. 
+
+Q6a. 
+Giddey played a total of 0 minutes in this game.
+
+Q8b. Gilgeous-Alexander's stint durations were 0 minutes and 0 seconds for each period in the game.
+Q8c. Shai Gilgeous-Alexander played a total of 0 minutes in this game.
+
+Q11:
+Josh Giddey played for 0 minutes and 0 seconds in the second half of the second period.
+
+Q11a:
+Josh Giddey played for 0 minutes and 0 seconds from 11:57 to 9:56 in the fourth period.

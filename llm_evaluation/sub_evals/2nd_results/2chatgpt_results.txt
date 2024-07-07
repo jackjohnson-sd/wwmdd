@@ -1,0 +1,114 @@
+Comments:
+- Passes Q1 - 3b, 3d, 4-4d, 5 - 5d, 6-6a, 7, 8
+- Initially fails Q3c
+- Initialy fails Q8a
+
+Q3c:
+    Entered at Period 1, Time 12:00 and exited at Period 2, Time 7:23 - Stint Duration: 7:23
+    Entered at Period 2, Time 0:49 and exited at Period 3, Time 5:37 - Stint Duration: 16:48
+    Entered at Period 2, Time 12:00 and exited at Period 4, Time 0:00 - Stint Duration: 12:00
+
+    Follow-up:
+    There are missing SUB events. 
+    Remember when he entered and exited. 
+    Subtract the time he entered by the time he exited. 
+    If he doesn't exit the court in a period, he plays until the end (0:00). 
+    There are 60 seconds in one minute. 
+
+    Q3c:
+    Entered at Period 1, Time 12:00 and exited at Period 1, Time 4:31 - Stint Duration: 7:29
+    Entered at Period 2, Time 12:00 and exited at Period 2, Time 7:23 - Stint Duration: 4:37
+    Entered at Period 2, Time 0:49 and exited at Period 3, Time 5:37 - Stint Duration: 7:12
+    Entered at Period 4, Time 10:04 and exited at Period 4, Time 0:00 - Stint Duration: 10:04
+
+Q8a:
+    Entry and Exit Times in Period 2
+    Josh Giddey Entry and Exit:
+
+    Entered: 12:00
+    Exited: 7:23
+    Shai Gilgeous-Alexander Entry and Exit:
+
+    Entered: 5:02
+    Exited: No exit recorded in period 2 (assume end of period, 0:00)
+    Calculate Overlap Duration
+    Start Time: The latest entry time (5:02)
+    End Time: The earliest exit time (7:23 for Giddey, 0:00 for Gilgeous-Alexander)
+    Since Gilgeous-Alexander did not exit during the period, the end time will be the end of the period.
+
+    So, the overlap duration in the second period is 5 minutes and 22 seconds.
+
+    Follow-up:
+    To calculate overlap time, examine all SUB events of two players and determine if both players have entered the court at 
+    times before one of the players exits the court. 
+    A player is on the court before his exit SUB event, and after his enter SUB event.
+
+    Q8a:
+    Josh Giddey:
+
+    Entered: 12:00
+    Exited: 7:23
+    Re-entered: 0:49 (and continued into period 3)
+    Shai Gilgeous-Alexander:
+
+    Entered: 5:02
+    No exit recorded in period 2 (assume end of period, 0:00)
+    Steps to Determine Overlap
+    Identify intervals when both players are on the court:
+
+    Giddey: [12:00 to 7:23], [0:49 to end of period]
+    Gilgeous-Alexander: [5:02 to end of period]
+    Calculate overlaps:
+
+    First interval: Overlap between [5:02 to 7:23]
+    Second interval: Overlap between [0:49 to end of period]
+
+    Total overlap in seconds = 141 + 69 = 210 seconds
+    Converted to minutes and seconds: 210 seconds = 3 minutes and 30 seconds
+
+    So, the overlap duration in the second period is 3 minutes and 30 seconds.
+
+    Follow-up:
+    If a player exits before another player enters, then there is no overlap time.  re-calculate
+
+
+    Q8a:
+    Entry and Exit Times in Period 2
+    
+    Josh Giddey:
+    Entered: 12:00
+    Exited: 7:23
+    Re-entered: 0:49 (and continued into period 3)
+    
+    Shai Gilgeous-Alexander:
+    Entered: 5:02
+    No exit recorded in period 2 (assume end of period, 0:00)
+
+    Steps to Determine Overlap
+    Identify intervals when both players are on the court:
+    Giddey: [12:00 to 7:23], [0:49 to end of period]
+    Gilgeous-Alexander: [5:02 to end of period]
+
+    Calculate Overlaps with the Condition
+    
+    Check First Interval:
+    Giddey: [12:00 to 7:23]
+    Gilgeous-Alexander: [5:02 to end of period]
+    No overlap, because Giddey exits before Gilgeous-Alexander enters.
+    
+    Check Second Interval:
+    Giddey: [0:49 to end of period]
+    Gilgeous-Alexander: [5:02 to end of period]
+    Overlap: Only in the interval where both are on the court [0:49 to end of period].
+    
+    Calculate Valid Overlaps
+    Valid Interval (0:49 to end of period):
+    Start time: 0:49 (49 seconds remaining, game time = 1371)
+    End time: 0:00 (end of period, game time = 1440)
+    Overlap: 1440 - 1371 = 69 seconds
+    
+    Total Valid Overlap
+    Total overlap in seconds = 69 seconds
+    Converted to minutes and seconds: 69 seconds = 1 minute and 9 seconds
+
+    So, the overlap duration in the second period is 1 minute and 9 seconds.

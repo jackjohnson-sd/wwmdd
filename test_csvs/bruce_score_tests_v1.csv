@@ -1,0 +1,66 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+,SUB,0,0:00,SUB: Green Enters,0 - 0,0,,,Draymond Green,GSW,,
+,SUB,0,0:00,SUB: Curry Enters,0 - 0,0,,,Stephen Curry,GSW,,
+,SUB,0,0:00,SUB: Wiggins Enters,0 - 0,0,,,Andrew Wiggins,GSW,,
+,SUB,0,0:00,SUB: Thompson Enters,0 - 0,0,,,Klay Thompson,GSW,,
+,SUB,0,0:00,SUB: Poole Enters,0 - 0,0,,,Jordan Poole,GSW,,
+,SUB,0,0:00,SUB: Williams Enters,0 - 0,0,,,Kenrich Williams,OKC,,
+,SUB,0,0:00,SUB: Gilgeous-Alexander Enters,0 - 0,0,,,Shai Gilgeous-Alexander,OKC,,
+,SUB,0,0:00,SUB: Wiggins Enters,0 - 0,0,,,Aaron Wiggins,OKC,,
+,SUB,0,0:00,SUB: Williams Enters,0 - 0,0,,,Jalen Williams,OKC,,
+,SUB,0,0:00,SUB: Giddey Enters,0 - 0,0,,,Josh Giddey,OKC,,
+,COMMENT,This file tests scoring events,,,,,,,,,,
+,COMMENT,2POINT,,,,,,,,,,
+,COMMENT,2POINTMISS,,,,,,,,,,
+,COMMENT,3POINT,,,,,,,,,,
+,COMMENT,3POINTMISS,,,,,,,,,,
+,COMMENT,FTMAKE,,,,,,,,,,
+,COMMENT,FTMISS,,,,,,,,,,
+,COMMENT,score and score margin should reflect change from previous score event,,,,,,,,,,
+,COMMENT,neutraldescription should reflect player points (n PTS),,,,,,,,,,
+
+,STARTOFPERIOD,1,12:00,Start of 1st Period,0,0,,,,,,
+,3POINTMISS,1,11:42,MISS Curry 26' 3PT Jump Shot,0,0,Stephen Curry,GSW,,,,
+,2POINTMISS,1,11:30,MISS K. Williams 10' Pullup Jump Shot,3 - 0,-3,Kenrich Williams,OKC,,,,
+,3POINTMISS,1,11:10,MISS Curry 26' 3PT Jump Shot,3 - 0,-3,Stephen Curry,GSW,,,,
+,2POINTMISS,1,10:54,MISS Gilgeous-Alexander 7' Pullup Jump Shot,3 - 0,-3,Shai Gilgeous-Alexander,OKC,,,,
+,2POINT,1,10:36,Giddey 8' Driving Floating Jump Shot (2 PTS),5 - 2,-3,Josh Giddey,OKC,,,,
+,2POINTMISS,1,10:26,MISS Poole 3' Driving Layup,5 - 2,-3,Jordan Poole,GSW,,,,
+,2POINTMISS,1,9:44,MISS Gilgeous-Alexander 12' Step Back Jump Shot,5 - 4,-1,Shai Gilgeous-Alexander,OKC,,,,
+,3POINTMISS,1,9:20,MISS Wiggins 29' 3PT Jump Shot,7 - 6,-1,Andrew Wiggins,GSW,,,,
+,3POINTMISS,1,9:01,MISS K. Williams 26' 3PT Jump Shot,7 - 6,-1,Kenrich Williams,OKC,,,,
+,3POINTMISS,1,8:53,MISS Poole 31' 3PT Running Jump Shot,7 - 6,-1,Jordan Poole,GSW,,,,
+,2POINT,1,8:35,Giddey 7' Driving Layup (4 PTS),7 - 8,1,Josh Giddey,OKC,,,,
+,2POINTMISS,1,8:16,MISS Jal. Williams 19' Pullup Jump Shot,9 - 8,-1,Jalen Williams,OKC,,,,
+,FTMAKE,1,7:47,Gilgeous-Alexander Free Throw 1 of 2 (1 PTS),11 - 9,-2,Shai Gilgeous-Alexander,OKC,,,,
+,FTMAKE,1,7:47,Gilgeous-Alexander Free Throw 2 of 2 (2 PTS),11 - 10,-1,Shai Gilgeous-Alexander,OKC,,,,
+,2POINT,1,8:00,Klay Thompson 18' Jump Shot (2 PTS),,,Klay Thompson,GSW,,,,
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,1,0:00,End of 1st Period (7:24 PM CST),,,,,,,,
+
+,COMMENT Three point shot,score,,,,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+
+,STARTOFPERIOD,2,12:00,Start of 2nd Period (7:27 PM CST),,,,,,,,
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,2,0:00,End of 2nd Period (7:51 PM CST),,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+,STARTOFPERIOD,3,12:00,Start of 3rd Period (8:11 PM CST),,,,,,,,
+
+,COMMENT FTMAKE score events
+,COMMENT neutraldescription includes Free Throw 1 of (1,2,or 3)
+,COMMENT neutraldescription player points,score and score margin should update +1
+
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,3,0:00,End of 3rd Period (8:40 PM CST),,,,,,,,
+
+,COMMENT STARTOFPERIOD n,event scores should equal ENDOFPERIOD n-1,event scores per team and score margin
+,STARTOFPERIOD,4,12:00,Start of 4th Period (8:42 PM CST),,,,,,,,
+
+,COMMENT ENDOFPERIOD,n event scores should equal STARTOFPERIOD,n score per team plus sum of scores per team during this perio
+,ENDOFPERIOD,4,0:00,End of 4th Period (9:11 PM CST),,,,,,,,

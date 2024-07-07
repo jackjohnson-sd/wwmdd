@@ -1,0 +1,20 @@
+   The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+    The players on the Oklahoma City Thunder were:
+    Billy Bob, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+    The players on the Golden State Warriors were:
+    Stephen Curry, Edgar Rice, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+    Foul counts for Oklahoma City Thunder players:
+
+    Kenrich Williams committed 1 foul.
+    Shai Gilgeous-Alexander committed 13 fouls.
+    Josh Giddey committed 2 fouls.
+    Jalen Williams committed 7 foul.
+    Aaron Wiggins committed 1 foul.
+    Mike Muscala committed 2 fouls.
+    Tre Mann committed 2 fouls.
+    Isaiah Joe committed 0 fouls.
+    Ousmane Dieng committed 1 foul.
+    Jaylin Williams committed 1 foul.
+    Darius Bazley committed 1 foul.
+
+    The Oklahoma City Thunder team committed a total of 18 fouls.

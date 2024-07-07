@@ -1,0 +1,3 @@
+This looks good.  
+Only provide the play by play, no summary.
+Continue the play by play from where it ended

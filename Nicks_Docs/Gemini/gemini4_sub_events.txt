@@ -1,0 +1,111 @@
+Total SUB events per team:
+Golden State Warriors: 40
+Oklahoma City Thunder: 28
+
+Here is a breakdown of the number of SUB events for each team by quarter:
+
+1st Quarter:
+Golden State Warriors: 12
+Oklahoma City Thunder: 4
+
+2nd Quarter:
+Golden State Warriors: 10
+Oklahoma City Thunder: 6
+
+3rd Quarter:
+Golden State Warriors: 10
+Oklahoma City Thunder: 12
+
+4th Quarter:
+Golden State Warriors: 8
+Oklahoma City Thunder: 6
+
+
+
+Here are all the 'SUB' event lines from the document:
+
+16,SUB,1,10:20,SUB: Moody FOR Curry,4 - 6,-2,Stephen Curry,GSW,Moses Moody,GSW,,
+23,SUB,1,9:30,SUB: Green FOR Wiggins,7 - 6,-1,Andrew Wiggins,GSW,Draymond Green,GSW,,
+26,SUB,1,9:13,SUB:  Paul FOR Looney,7 - 6,-1,Kevon Looney,GSW,Chris Paul,GSW,,
+32,SUB,1,8:45,SUB: Dort FOR K. Williams,9 - 6,-3,Kenrich Williams,OKC,Luguentz Dort,OKC,,
+36,SUB,1,8:27,SUB: Wiggins FOR Moody,9 - 6,-3,Moses Moody,GSW,Andrew Wiggins,GSW,,
+41,SUB,1,7:40,SUB: Curry FOR Paul,11 - 8,-3,Chris Paul,GSW,Stephen Curry,GSW,,
+44,SUB,1,7:24,SUB:  Looney FOR Green,11 - 8,-3,Draymond Green,GSW,Kevon Looney,GSW,,
+47,SUB,1,7:00,SUB: Holmgren FOR Dort,11 - 11,TIE,Luguentz Dort,OKC,Chet Holmgren,OKC,,
+51,SUB,1,6:33,SUB: Thompson FOR Wiggins,13 - 11,-2,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+54,SUB,1,6:17,SUB:  Green FOR Looney,13 - 11,-2,Kevon Looney,GSW,Draymond Green,GSW,,
+59,SUB,1,5:55,SUB:  Looney FOR Green,13 - 11,-2,Draymond Green,GSW,Kevon Looney,GSW,,
+64,SUB,1,5:28,SUB: Wiggins FOR Thompson,13 - 11,-2,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+75,SUB,1,4:22,SUB:  Green FOR Looney,15 - 14,-1,Kevon Looney,GSW,Draymond Green,GSW,,
+78,SUB,1,4:05,SUB: Wiggins FOR Thompson,15 - 14,-1,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+83,SUB,1,3:44,SUB:  Looney FOR Green,15 - 14,-1,Draymond Green,GSW,Kevon Looney,GSW,,
+91,SUB,1,2:52,SUB: Wiggins FOR Thompson,17 - 18,1,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+96,SUB,1,2:21,SUB: Dort FOR Holmgren,17 - 20,3,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+114,SUB,1,0:31,SUB: Looney FOR Green,22 - 22,TIE,Draymond Green,GSW,Kevon Looney,GSW,,
+122,SUB,2,11:52,SUB:  Dort FOR Gilgeous-Alexander,27 - 24,-3,Shai Gilgeous-Alexander,OKC,Luguentz Dort,OKC,,
+123,SUB,2,11:52,SUB: K. Williams FOR Holmgren,27 - 24,-3,Chet Holmgren,OKC,Kenrich Williams,OKC,,
+124,SUB,2,11:52,SUB: Giddey FOR Jay. Williams,27 - 24,-3,Jaylin Williams,OKC,Josh Giddey,OKC,,
+125,SUB,2,11:52,SUB: Wiggins FOR Thompson,27 - 24,-3,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+126,SUB,2,11:52,SUB: Green FOR Curry,27 - 24,-3,Stephen Curry,GSW,Draymond Green,GSW,,
+135,SUB,2,11:13,SUB:  Thompson FOR Wiggins,28 - 24,-4,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+139,SUB,2,10:46,SUB: Curry FOR Green,30 - 24,-6,Draymond Green,GSW,Stephen Curry,GSW,,
+145,SUB,2,10:20,SUB: Wiggins FOR Thompson,33 - 25,-8,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+148,SUB,2,10:04,SUB:  Paul FOR Looney,33 - 25,-8,Kevon Looney,GSW,Chris Paul,GSW,,
+154,SUB,2,9:41,SUB:  Green FOR Paul,33 - 27,-6,Chris Paul,GSW,Draymond Green,GSW,,
+161,SUB,2,8:52,SUB: Thompson FOR Wiggins,33 - 32,-1,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+169,SUB,2,8:08,SUB:  Paul FOR Looney,35 - 33,-2,Kevon Looney,GSW,Chris Paul,GSW,,
+180,SUB,2,7:03,SUB: Dort FOR K. Williams,35 - 35,TIE,Kenrich Williams,OKC,Luguentz Dort,OKC,,
+185,SUB,2,6:33,SUB: Green FOR Curry,35 - 35,TIE,Stephen Curry,GSW,Draymond Green,GSW,,
+191,SUB,2,5:54,SUB:  Looney FOR Green,35 - 37,2,Draymond Green,GSW,Kevon Looney,GSW,,
+197,SUB,2,5:09,SUB:  Green FOR Looney,38 - 37,-1,Kevon Looney,GSW,Draymond Green,GSW,,
+202,SUB,2,4:52,SUB: Dort FOR K. Williams,38 - 38,TIE,Kenrich Williams,OKC,Luguentz Dort,OKC,,
+211,SUB,2,3:40,SUB:  Looney FOR Green,42 - 41,-1,Draymond Green,GSW,Kevon Looney,GSW,,
+224,SUB,2,2:39,SUB: Holmgren FOR Dort,45 - 45,TIE,Luguentz Dort,OKC,Chet Holmgren,OKC,,
+251,SUB,2,0:31,SUB:  Looney FOR Green,48 - 48,TIE,Draymond Green,GSW,Kevon Looney,GSW,,
+253,SUB,2,0:15,SUB: Dort FOR Holmgren,51 - 48,-3,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+259,SUB,3,11:52,SUB: Wiggins FOR Thompson,51 - 48,-3,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+260,SUB,3,11:52,SUB: Curry FOR Green,51 - 48,-3,Draymond Green,GSW,Stephen Curry,GSW,,
+261,SUB,3,11:52,SUB: Dort FOR K. Williams,51 - 48,-3,Kenrich Williams,OKC,Luguentz Dort,OKC,,
+262,SUB,3,11:52,SUB: Joe FOR Gilgeous-Alexander,51 - 48,-3,Shai Gilgeous-Alexander,OKC,Isaiah Joe,OKC,,
+263,SUB,3,11:52,SUB: Jay. Williams FOR Giddey,51 - 48,-3,Josh Giddey,OKC,Jaylin Williams,OKC,,
+267,SUB,3,11:22,SUB:  Thompson FOR Wiggins,54 - 48,-6,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+273,SUB,3,10:57,SUB: Green FOR Curry,55 - 49,-6,Stephen Curry,GSW,Draymond Green,GSW,,
+276,SUB,3,10:36,SUB:  Wiggins FOR Thompson,55 - 49,-6,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+281,SUB,3,10:04,SUB:  Curry FOR Wiggins,55 - 49,-6,Andrew Wiggins,GSW,Stephen Curry,GSW,,
+284,SUB,3,9:47,SUB:  Wiggins FOR Curry,55 - 49,-6,Stephen Curry,GSW,Andrew Wiggins,GSW,,
+287,SUB,3,9:25,SUB:  Thompson FOR Wiggins,55 - 49,-6,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+288,SUB,3,9:25,SUB:  Green FOR Looney,55 - 49,-6,Kevon Looney,GSW,Draymond Green,GSW,,
+289,SUB,3,9:25,SUB:  Giddey FOR Jay. Williams,55 - 49,-6,Jaylin Williams,OKC,Josh Giddey,OKC,,
+290,SUB,3,9:25,SUB:  Gilgeous-Alexander FOR Joe,55 - 49,-6,Isaiah Joe,OKC,Shai Gilgeous-Alexander,OKC,,
+293,SUB,3,8:52,SUB:  Wiggins FOR Thompson,57 - 51,-6,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+294,SUB,3,8:52,SUB:  Curry FOR Green,57 - 51,-6,Draymond Green,GSW,Stephen Curry,GSW,,
+301,SUB,3,7:56,SUB:  Dort FOR Holmgren,57 - 58,1,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+302,SUB,3,7:56,SUB:  Jay. Williams FOR Giddey,57 - 58,1,Josh Giddey,OKC,Jaylin Williams,OKC,,
+303,SUB,3,7:56,SUB:  K. Williams FOR Gilgeous-Alexander,57 - 58,1,Shai Gilgeous-Alexander,OKC,Kenrich Williams,OKC,,
+314,SUB,3,6:41,SUB: Holmgren FOR Dort,57 - 65,8,Luguentz Dort,OKC,Chet Holmgren,OKC,,
+315,SUB,3,6:41,SUB: Giddey FOR Jay. Williams,57 - 65,8,Jaylin Williams,OKC,Josh Giddey,OKC,,
+316,SUB,3,6:41,SUB: Gilgeous-Alexander FOR K. Williams,57 - 65,8,Kenrich Williams,OKC,Shai Gilgeous-Alexander,OKC,,
+330,SUB,3,5:18,SUB: Dort FOR Holmgren,60 - 67,7,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+331,SUB,3,5:18,SUB: Giddey FOR Jay. Williams,60 - 67,7,Jaylin Williams,OKC,Josh Giddey,OKC,,
+332,SUB,3,5:18,SUB: Gilgeous-Alexander FOR K. Williams,60 - 67,7,Kenrich Williams,OKC,Shai Gilgeous-Alexander,OKC,,
+342,SUB,3,3:59,SUB: Holmgren FOR Dort,64 - 74,10,Luguentz Dort,OKC,Chet Holmgren,OKC,,
+343,SUB,3,3:59,SUB: K. Williams FOR Giddey,64 - 74,10,Josh Giddey,OKC,Kenrich Williams,OKC,,
+344,SUB,3,3:59,SUB: Jay. Williams FOR Gilgeous-Alexander,64 - 74,10,Shai Gilgeous-Alexander,OKC,Jaylin Williams,OKC,,
+354,SUB,3,3:00,SUB: Dort FOR Holmgren,64 - 77,13,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+355,SUB,3,3:00,SUB: Giddey FOR Jay. Williams,64 - 77,13,Jaylin Williams,OKC,Josh Giddey,OKC,,
+356,SUB,3,3:00,SUB: Gilgeous-Alexander FOR K. Williams,64 - 77,13,Kenrich Williams,OKC,Shai Gilgeous-Alexander,OKC,,
+370,SUB,3,1:16,SUB:  Thompson FOR Wiggins,68 - 80,12,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+382,SUB,4,11:52,SUB: Wiggins FOR Thompson,73 - 85,12,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+383,SUB,4,11:52,SUB: Green FOR Curry,73 - 85,12,Stephen Curry,GSW,Draymond Green,GSW,,
+384,SUB,4,11:52,SUB: Giddey FOR Gilgeous-Alexander,73 - 85,12,Shai Gilgeous-Alexander,OKC,Josh Giddey,OKC,,
+385,SUB,4,11:52,SUB: K. Williams FOR Dort,73 - 85,12,Luguentz Dort,OKC,Kenrich Williams,OKC,,
+386,SUB,4,11:52,SUB: Jay. Williams FOR Holmgren,73 - 85,12,Chet Holmgren,OKC,Jaylin Williams,OKC,,
+389,SUB,4,11:31,SUB: Thompson FOR Wiggins,73 - 85,12,Andrew Wiggins,GSW,Klay Thompson,GSW,,
+393,SUB,4,10:51,SUB: Curry FOR Green,73 - 88,15,Draymond Green,GSW,Stephen Curry,GSW,,
+396,SUB,4,10:25,SUB: Wiggins FOR Thompson,75 - 90,15,Klay Thompson,GSW,Andrew Wiggins,GSW,,
+397,SUB,4,10:25,SUB:  Paul FOR Curry,75 - 90,15,Stephen Curry,GSW,Chris Paul,GSW,,
+398,SUB,4,10:25,SUB: Gilgeous-Alexander FOR Giddey,75 - 90,15,Josh Giddey,OKC,Shai Gilgeous-Alexander,OKC,,
+399,SUB,4,10:25,SUB: Dort FOR K. Williams,75 - 90,15,Kenrich Williams,OKC,Luguentz Dort,OKC,,
+400,SUB,4,10:25,SUB: Holmgren FOR Jay. Williams,75 - 90,15,Jaylin Williams,O
+
+

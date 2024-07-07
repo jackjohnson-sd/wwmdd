@@ -1,0 +1,13 @@
+"""
+sh wwmdd.sh --web OKC  --start 2023-01-30 --stop 2023-01-30
+sh wwmdd.sh --show llm_training_data/OKCvGSW20230130.csv
+sh wwmdd.sh --show _save_and_ignore/subs.csv
+
+csv filter  ==>   
+select * where a2 == 'SUB' && (a10 == 'CJ McCollum' || a8 == 'CJ McCollum')
+select * where a10 == 'Stephen Curry' || a8 == 'Stephen Curry'
+select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis'
+select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+
+select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+"""

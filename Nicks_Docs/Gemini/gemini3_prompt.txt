@@ -1,0 +1,220 @@
+COMMENTS:
+
+- I removed the xml tags.
+
+- I edited the details on SUb events section to say that each team has 5 players on the court at any given time. 
+
+-First quarter PbP has 5 players on each team.
+
+-Second quarter PbP has same 5 players, and when a SUB occurs, there is only SUB out, no SUB in.
+
+-Gemini4_results.csv is the results starting from prompt ((7)), where I advise Gemini based on genereated PbP.
+
+-The first quarter of gemini4 is better for GSW, but OKC only has 5 players for all of first quarter.
+PROMPTS:
+
+
+((  1  ))
+In this chat session, I will eventually ask you to provide a hypothetical play by play for an NBA game between OKC and GSW that occurs during December 2023.
+
+This first prompt is meant to provide you with context and guidance for creating a play by play. 
+
+Do not provide a summary of this prompt. 
+
+Here are play by play excerpts of a CSV formatted play by play of an NBA game between OKC and DAL: 
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:14 PM EST),0,0,,,,,,
+1,JUMPBALL,1,12:00,Jump Ball Gafford vs. Holmgren: Tip to Gilgeous-Alexander,0,0,Daniel Gafford,DAL,Chet Holmgren,OKC,Shai Gilgeous-Alexander,OKC
+2,2POINT.ASSIST,1,11:54,Jal. Williams 2' Cutting Dunk Shot (2 PTS) (Gilgeous-Alexander 1 AST),2 - 0,-2,Jalen Williams,OKC,Shai Gilgeous-Alexander,OKC,,
+3,FOUL,1,11:41,Dort S.FOUL (P1.T1) (T.Brothers),2 - 0,-2,Luguentz Dort,OKC,Luka Doncic,DAL,,
+4,FTMAKE,1,11:41,Doncic Free Throw 1 of 2 (1 PTS),2 - 1,-1,Luka Doncic,DAL,,,,
+6,TURNOVER,1,11:17,Thunder Turnover: Shot Clock (T#1),2 - 2,TIE,,,,,,
+7,STEAL.TURNOVER,1,11:01,Jones Jr. Lost Ball Turnover (P1.T1)Holmgren STEAL (1 STL),2 - 2,TIE,Derrick Jones Jr.,DAL,Chet Holmgren,OKC,,
+8,2POINT.ASSIST,1,10:49,Dort 1' Layup (2 PTS) (Joe 1 AST),4 - 2,-2,Luguentz Dort,OKC,Isaiah Joe,OKC,,
+11,2POINTMISS,1,10:34,MISS Gafford 1' Driving Layup,5 - 2,-3,Daniel Gafford,DAL,,,,
+12,REBOUND,1,10:32,Gafford REBOUND (Off:1 Def:0),5 - 2,-3,Daniel Gafford,DAL,,,,
+13,2POINT,1,10:32,Gafford 1' Putback Dunk (2 PTS),5 - 4,-1,Daniel Gafford,DAL,,,,
+14,3POINT.ASSIST,1,10:14,Holmgren 25' 3PT Jump Shot (3 PTS) (Dort 1 AST),8 - 4,-4,Chet Holmgren,OKC,Luguentz Dort,OKC,,
+15,STEAL.TURNOVER,1,10:02,Doncic Bad Pass Turnover (P1.T2)Jal. Williams STEAL (1 STL),8 - 4,-4,Luka Doncic,DAL,Jalen Williams,OKC,,
+19,3POINT.ASSIST,1,9:22,Dort 25' 3PT Jump Shot (6 PTS) (Jal. Williams 1 AST),13 - 4,-9,Luguentz Dort,OKC,Jalen Williams,OKC,,
+20,TIMEOUT,1,9:22,MAVERICKS Timeout: Regular (Full 1 Short 0),13 - 4,-9,,,,,,
+23,SUB,1,9:13,SUB: Green FOR Washington,13 - 5,-8,P.J. Washington,DAL,Josh Green,DAL,,
+26,2POINTMISS.BLOCK,1,8:31,MISS Jones Jr. 7' Floating Jump ShotGilgeous-Alexander BLOCK (1 BLK),16 - 6,-10,Derrick Jones Jr.,DAL,,,Shai Gilgeous-Alexander,OKC
+
+
+Here is a description of the CSV formatted play by play:
+For example, game score for the event are shown in the score feild.
+
+If a team has not scored, their score is 0.
+
+The initial score is 0 - 0
+
+The score is the home team's score first then a '-' followed by the away team.
+
+The game is over if at the end of the 4th or subsequent periods is not tied.
+
+The below lines describe the players’ roles in the events in the CSV formatted play by play:
+
+For example, the item in the eventmsgtype column is the type of basketball event and the player1_name 
+column is the player committing the event. 
+
+player1_team_abbreviation is the team that player1_name is a player on.
+
+In some cases, the player2_name column is another player associated with this event. 
+
+player2_team_abbreviation is the team that player2_name is a player on. 
+
+For example, with the FOUL event, player1_name is the player committing the foul and player2_name is 
+the player that is being fouled against by player1_name.
+
+For example, with the STEAL.TURNOVER event, player1_name committed the turnover and player2_name is 
+credited with the steal. 
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game. 
+
+For example, with the REBOUND event, player1_name commits the offensive or defensive rebound and
+has possession of the ball. 
+
+For example, with the 3POINT.ASSIST event, player1_name makes the shot and player2_name is credited with the assist.
+
+For example, with the FTMAKE event, player1_name makes the free throw. 
+
+For example, with the 3POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block. 
+
+For example, with the 2POINTMISS.BLOCK event, player1_name misses the shot and player3_name is credited with the block.
+
+Other eventmsgtype are:  
+2POINT, 2POINT.ASSIST, 3POINT, 3POINT.ASSIST, FTMAKE, FTMISS, 2POINTMISS, 3POINTMISS, 2POINTMISS.BLOCK  
+3POINTMISS.BLOCK, REBOUND, STEAL, TURNOVER, STEAL.TURNOVER, FOUL, SUB, TIMEOUT, STARTOFPERIOD, ENDOFPERIOD, JUMPBALL	
+
+
+Details on SUB events:
+Teams can only SUB players from their rosters at the time of the game.
+
+In an NBA game, each team has 5 players on the court at any given time. 
+
+Player substitution events, called SUB, occur throughout the game to manage playing time, foul trouble, and tactical adjustments. 
+
+A player can only enter the game for their own team, replacing a teammate who must exit the court. 
+
+There is no limit to the number of substitutions a team can make during a game.
+
+Coaches aim to distribute playing time effectively to maintain player performance and prevent fatigue. 
+
+Starters typically play around 32 minutes per game, while bench players usually play 16 minutes or less. 
+
+Players generally play in 6-8 minute stints to stay fresh and competitive.
+
+Substitutions are also made when players are in foul trouble. 
+
+Each player is allowed 6 personal fouls before being disqualified from the game. 
+
+Coaches may substitute players with a high number of fouls to avoid disqualification.
+
+Tactical substitutions are made to match up against opposing players, change the team's playing style, or adjust to game situations.
+
+These substitutions can occur at the beginning of each quarter or during timeouts.
+
+For the SUB events in the example play by play, player1_name enters the game and player2_name leaves the game.
+
+Here are the team rosters during December 2023:
+OKC roster: Kenrich Williams, Jaylin Williams, Jalen Williams, Aaron Wiggins, Lindy Waters III, Cason Wallace, Olivier Sarr,
+Mike Muscala, Keyontae Johnson, Isaiah Joe, Chet Holmgren, Gordon Hayward, Shai Gilgeous-Alexander, Josh Giddey, Adam Flagler,
+Luguentz Dort, Ousmane Dieng, Bismack Biyombo
+
+GSW roster: Stephen Curry, Usman Garuba, Draymond Green, Trayce Jackson-Davis, Jonathan Kuminga, Kevon Looney, Moses Moody,
+Chris Paul, Gary Payton II, Brandin Podziemski, Lester Quinones, Jerome Robinson, Gui Santos, Dario Saric, Pat Spencer,
+Klay Thompson, Andrew Wiggins
+
+I have attached 4 complete play by plays of NBA games involving either OKC or GSW from December 2023.
+
+Do not provide a summary; this message is for chat context and guidance on creating hypothetical play by plays.
+
+(( attached in chat:
+DALvOKC20231202.csv
+GSWvPOR20231206.csv
+HOUvOKC20231206.csv
+LACvGSW20231202.csv
+))
+
+
+
+
+((  2  ))
+Provide the play by play for the first quarter of a hypothetical game between OKC and GSW on December 8, 2023 in CSV format that follows 
+the CSV format of the attached play by plays.
+
+In the hypothetical play by play, only use players from OKC and GSW team rosters during December 2023. 
+
+
+((3))
+Provide the second quarter play by play.
+
+((4))
+Why are you not subbing out the players to follow the typical 6 - 8 minute long player stint time that 
+I prompted in the first prompt? 
+
+Look at the example play by plays I attached to see what players' playing times should look like.
+
+
+((5))
+Continue with the third quarter play by play.
+
+
+((6))
+I see there are more subs for OKC. 
+However, GSW still only has the same 5 players playing throughout the game. 
+I provided the rosters for you and rules about SUBS: 
+'Starters typically play around 32 minutes per game, while bench players usually play 16 minutes or less.
+
+Players generally play in 6-8 minute stints to stay fresh and competitive.' 
+
+Please provide the fourth quarter play by play with these rosters and rules in mind. 
+
+
+((7))
+Thank you for providing the play by plays for the four quarters. 
+
+I'm going to give you tips now to improve the play by plays and ask you to re-provide the 
+play by plays for this hypothetical game, taking into consideration my edits. 
+
+GSW only had 5 of the same players throughout the entire game.
+This is not desired. 
+
+I want to see the starter players not play for more than 6 - 8 minutes before being subbed 
+out for bench players. 
+
+Starter players should not play for more than 32 minutes during the entire game. 
+
+Bench players (players subbed in for starter players) should not play for more than 16 minutes 
+during the entire game. 
+
+Refer to the team rosters I provided in the first prompt. 
+
+Now, re-provide the first quarter play by play for this hypothetical game between OKC and GSW 
+following my edits. 
+
+RESPONSE to ((7))
+"You are absolutely correct! I apologize for the continued oversight with the player substitutions. 
+I'm still under development and learning to apply complex rules like these consistently."
+
+
+((8))
+the GSW player stints and subs looks better. 
+However, OKC only has the same 5 players for the first quarter. wWhy is this?
+
+
+((9))
+Provide the second quarter play by play with my feedback in mind. 
+
+
+((10))
+Make sure that 5 players are playing for each team at any given time for the game. 
+
+Include more sub events for OKC, and more for GSW. 
+
+For example, Josh Giddey has been playing for the entire game, when players should 
+only play for 6 - 8 minutes before being subbed out, similar with Shai Gilgeous-Alexander and 
+Kenrich Williams. 
+
+Provide the third quarter following these requests. 

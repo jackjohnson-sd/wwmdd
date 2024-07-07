@@ -1,0 +1,79 @@
+COMMENTS:
+The uploaded CSV-formatted results are from prompts 5 -- 12.
+
+From prompts 2 & 4, Claude repeated the example CSV-formatted PbP.
+
+Prompting Claude to provide a game between 2 teams, where one team is not playing in the CSV example,
+steers Claude to create a hypothetical game, rather than repeating the example play by play.
+
+The example CSV-formatted play by play is between OKC and DAL, so I prompted Claude to provide a 
+play by play of a game between OKC and GSW to have Claude provide a new game. 
+
+
+
+
+PROMPTS:
+1. 
+Please ignore all prior examples of CSV formats and play by plays.
+
+2. 
+Provide a play by play of the first quarter of an NBA game.
+((Prompt_data-05.21.1PM.csv pasted in prompt))
+
+3.
+During a basketball game, different types of events occur. 
+
+These include made shots, miss shots, fouls, rebounds, assists, turnovers, and player substitutions. 
+
+We call these substitution events SUBS. 
+
+In an NBA game, 5 players on each team can play at one time.
+
+A player can only enter a game for his team, and when he enters, a player from his team must exit. 
+
+It's important that a player not play too long for any one time. 
+
+It's also important that a player not play too many minutes during a game. 
+
+Coaches often substitute when a player does not seem competitive during a game. 
+
+Coaches also make player substitutions when a player is in foul trouble. 
+
+Our examples below shows only SUB events of a play by play for an NBA game between OKC and DAL. 
+
+The example also shows the period, time, description of event, score, score margin, and the player who exited and the player who 
+entered the game.
+
+For example, with the SUB event, player1_name enters the game and player2_name leaves the game.
+
+
+4.
+Provide a play by play of the first quarter of an NBA game in CSV format. 
+
+Here is an example of the format ((Prompt_data-05.21.1PM.csv pasted in prompt))
+
+5.
+Provide a play by play of the first quarter of a NBA game between OKC and the GSW in January 2023 in CSV format. 
+
+Here is an example of the format 
+
+6.
+Continue. 
+
+7.
+Provide the second quarter of this game.
+
+8.
+Continue.
+
+9.
+Provide the third quarter of this game.
+
+10.
+Continue.
+
+11.
+Provide the fourth quarter of this game.
+
+12.
+Continue.

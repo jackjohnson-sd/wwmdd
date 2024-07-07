@@ -1,0 +1,81 @@
+Gemini 1.5 Pro
+- Gemini passes Q1 - 2, fails Q3 - 6
+
+Q1:
+The teams that played in the game are OKC and GSW.
+
+Q2:
+The players on each team are:
+
+OKC: Tre Mann, Mike Muscala, Jaylin Williams, Jalen Williams, Darius Bazley, Ousmane Dieng, 
+Shai Gilgeous-Alexander, Josh Giddey, Kenrich Williams, Isaiah Joe, Aaron Wiggins
+
+GSW: Klay Thompson, Jonathan Kuminga, Andrew Wiggins, Kevon Looney, Donte DiVincenzo, 
+Draymond Green, Jordan Poole, Stephen Curry, Anthony Lamb
+
+Q3:
+Josh Giddey did not enter the game according to this dataset.
+
+'Josh Giddey' appears 0 times in the player2_name column when 'SUB' is in the eventmsgtype column.
+
+Q4:
+Josh Giddey did not enter the game as a substitute according to this dataset.
+
+Q5:
+Josh Giddey did not exit the game as a substitute according to this dataset.
+
+Q6:
+Josh Giddey's stint time cannot be determined from the substitution events in this dataset. 
+However, assuming he played the entire game, his stint time would be the length of the game, which is 00:00 according to this dataset.
+
+
+Q7:
+Kenrich Williams enters the game when his name is listed in the player2_name column and the eventmsgtype is 'SUB'. 
+We need to filter for these rows and count the number of occurrences.
+
+Kenrich Williams entered the game 0 times.
+
+
+
+REPROMPT 1 HR Later:
+Gemini passes Q1 - 6
+
+Q1:
+The teams that played in the game are GSW and OKC.
+
+
+Q2:
+The players for each team are:
+GSW: Donte DiVincenzo, Jonathan Kuminga, Anthony Lamb, Kevon Looney, Stephen Curry, Draymond Green, 
+Jordan Poole, Klay Thompson, Andrew Wiggins
+
+OKC: Ousmane Dieng, Shai Gilgeous-Alexander, Kenrich Williams, Isaiah Joe, Jaylin Williams, Jalen Williams, 
+Tre Mann, Josh Giddey, Aaron Wiggins, Darius Bazley, Mike Muscala
+
+
+Q3:
+Josh Giddey entered the game 4 times.
+
+
+Q4:
+Giddey entered the game at the following times:
+
+1st Period, 12:00
+2nd Period, 12:00
+2nd Period, 00:49
+4th Period, 10:04
+
+Q5:
+Giddey exited the game at the following times:
+
+1st Period, 4:31
+2nd Period, 7:23
+3rd Period, 5:37
+4th Period, 0:00
+
+Q6:
+Giddey Period	Giddey Time	Stint Duration
+1	12:00	07:29
+2	12:00	04:37
+2	00:49	07:12
+4	10:04	10:04

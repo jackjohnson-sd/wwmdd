@@ -1,0 +1,38 @@
+Comments:
+- Prefers elapsed time (game_time) over period, pctimestring
+- Passes Q1-3d, 4-4d, 5-5d, 6-6a, 7, 8
+- Fails Q8a, 7a
+
+Q3a:
+Josh Giddey entered the game at the following times (seconds elapsed): 0, 720, 1391, 2276
+
+Q3b:
+Josh Giddey exited the game at the following times (seconds elapsed): 449, 997, 1823, 2880
+
+Q3c:
+We will use the times Giddey entered and exited the game, 
+calculated previously, to determine the length of each stint.
+
+We will convert the time in seconds to minutes and seconds.
+
+Giddey's stint lengths (in Minutes:Seconds) were:
+
+7:29
+4:37
+7:12
+10:04
+
+Q4a:
+Kenrich Williams entered the game at the following times (seconds elapsed): 0, 694, 1265, 2135, 2276
+
+Q4b:
+Kenrich Williams exited the game at the following times (seconds elapsed): 449, 976, 1894, 2160, 2880
+
+Q5a:
+Shai Gilgeous-Alexander entered the game at the following times (seconds elapsed): 0, 1138, 2547
+
+Q5b:
+Shai Gilgeous-Alexander exited the game at the following times (seconds elapsed): 720, 2276, 2880
+
+Q8a:
+Giddey and Gilgeous-Alexander played 0.0 minutes together in the second period.

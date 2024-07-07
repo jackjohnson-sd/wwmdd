@@ -1,0 +1,85 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+
+,SUB,1,10:00,SUBa: BARNEY Enters  PASSED VISUAL TEST vanilla  IN/OUT all in period,,,,,BARNEY,OKC,,
+,SUB,1,2:00,SUBa: BARNEY Exits,,,BARNEY,OKC,,,,
+
+,SUB,2,11:00,SUB: BARNEY Enters,,,,,BARNEY,OKC,,
+,SUB,2,5:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+
+,SUB,3,11:00,SUB: BARNEY Enters,,,,,BARNEY,OKC,,
+,SUB,3,5:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+
+,SUB,4,11:00,SUB: BARNEY Enters,,,,,BARNEY,OKC,,
+,SUB,4,5:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+
+,SUB,4,3:00,SUB: BARNEY Enters,,,,,BARNEY,OKC,,
+,SUB,4,1:00,SUB: BARNEY Exits,,,BARNEY,OKC,,,,
+
+
+,SUB,1,10:00,SUBa: DARIO Enters PASSED VISUAL TEST -  period 3/4 change forced out test,,,,,DARIO,OKC,,
+,SUB,1,2:00,SUBa: DARIO Exits,,,DARIO,OKC,,,,
+
+,SUB,2,11:00,SUB: DARIO Enters,,,,,DARIO,OKC,,
+,SUB,2,5:00,SUB: DARIO Exits,,,DARIO,OKC,,,,
+
+,SUB,3,11:00,SUB: DARIO Enters,,,,,DARIO,OKC,,
+,SUB,3,5:00,SUB: DARIO Exits,,,DARIO,OKC,,,,
+
+,SUB,3,1:00,SUB: DARIO Enters,,,,,DARIO,OKC,,
+,SUB,4,5:00,SUB: DARIO Exits,,,DARIO,OKC,,,,
+
+,SUB,4,3:00,SUB: DARIO Enters,,,,,DARIO,OKC,,
+,SUB,4,1:00,SUB: DARIO Exits,,,DARIO,OKC,,,,
+
+
+,SUB,1,10:00,SUBa: CALI Enters --- FOUL 4:4:00 WHEN NOT IN GAME,,,,,CALI,OKC,,
+,SUB,1,2:00,SUBa: CALI Exits,,,CALI,OKC,,,,
+
+,SUB,2,9:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,2,3:00,SUB: CALI Exits,,,CALI,OKC,,,,
+
+,SUB,3,8:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,3,4:00,SUB: CALI Exits,,,CALI,OKC,,,,
+
+,SUB,4,11:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,4,10:00,SUB: CALI Exits,,,CALI,OKC,,,,
+
+,FOUL,4,8:00,CALI S.FOU,,,CALI,OKC,,,,
+
+,SUB,4,3:00,SUB: CALI Enters,,,,,CALI,OKC,,
+,SUB,4,1:00,SUB: CALI Exits,,,CALI,OKC,,,,
+
+
+,SUB,1,10:01,SUBa: BRUCE Enters --- 5 minutes,,,,,BRUCE,OKC,,
+,SUB,1,2:02,SUBa: BRUCE Exits,,,BRUCE,OKC,,,,
+
+,SUB,2,11:01,SUB: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,2,5:05,SUB: BRUCE Exits,,,BRUCE,OKC,,,,
+
+,SUB,3,11:00,SUB: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,3,5:00,SUB: BRUCE Exits,,,BRUCE,OKC,,,,
+
+,FOUL,4,10:00,BRUCE S.FOUL,,,BRUCE,OKC,,,,
+
+,SUB,4,7:00,SUB: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,4,5:00,SUB: BRUCE Exits,,,BRUCE,OKC,,,,
+
+,SUB,4,3:00,SUB: BRUCE Enters,,,,,BRUCE,OKC,,
+,SUB,4,1:00,SUB: BRUCE Exits,,,BRUCE,OKC,,,,
+
+
+,SUB,1,10:00,SUBa: SAM Enters --- 5 Minute play time,,,,,SAM,OKC,,
+,SUB,1,9:00,SUBa: SAM Exits,,,SAM,OKC,,,,
+
+,SUB,2,11:00,SUB: SAM Enters,,,,,SAM,OKC,,
+,SUB,2,10:00,SUB: SAM Exits,,,SAM,OKC,,,,
+
+,SUB,3,11:00,SUB: SAM Enters,,,,,SAM,OKC,,
+,SUB,3,10:00,SUB: SAM Exits,,,SAM,OKC,,,,
+
+,SUB,4,7:00,SUB: SAM Enters,,,,,SAM,OKC,,
+,SUB,4,6:00,SUB: SAM Exits,,,SAM,OKC,,,,
+
+,SUB,4,3:00,SUB: SAM Enters,,,,,SAM,OKC,,
+,SUB,4,2:00,SUB: SAM Exits,,,SAM,OKC,,,,

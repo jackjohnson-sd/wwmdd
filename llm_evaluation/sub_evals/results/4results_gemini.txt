@@ -1,0 +1,83 @@
+Comments:
+- Passes Q1 - 5, Q7 (required follow-ups on Q1,2)
+- Fails Q6,8,9
+- Reporting minutes as decimal values, not (MM:SS)
+
+Q1:
+The teams that played in the game were the GSW and a team with missing data (displayed as 'nan').
+
+Q2:
+The players for each team are:
+GSW: Draymond Green, Stephen Curry, Andrew Wiggins, Klay Thompson, Jordan Poole, Kenrich Williams, Shai Gilgeous-Alexander, Aaron Wiggins, Jalen Williams, Josh Giddey, Donte DiVincenzo, Jonathan Kuminga, Kevon Looney, Tre Mann, Isaiah Joe, Mike Muscala, Anthony Lamb, Darius Bazley, Ousmane Dieng, Jaylin Williams
+nan: Draymond Green, Andrew Wiggins, Jordan Poole, Kenrich Williams, Jalen Williams, Josh Giddey, Klay Thompson, Stephen Curry, Anthony Lamb, Kevon Looney, Tre Mann, Isaiah Joe, Shai Gilgeous-Alexander, Aaron Wiggins, Mike Muscala, Jonathan Kuminga, Donte DiVincenzo, Ousmane Dieng, Darius Bazley, Jaylin Williams
+
+Q3.
+Josh Giddey entered the game 4 times.
+
+FOLLOW-UPS Q1,2:
+        Q1: What objects appear in the 'player1_team_abbreviation' and 'player2_team_abbreviation' columns?
+
+        The unique team abbreviations that appear in the 'player1_team_abbreviation' and 'player2_team_abbreviation' 
+        columns are 'GSW' and 'OKC'.
+
+        Q2a: Who are the players on OKC?
+        The players on the OKC team are:
+
+        Aaron Wiggins
+        Darius Bazley
+        Isaiah Joe
+        Jalen Williams
+        Jaylin Williams
+        Josh Giddey
+        Kenrich Williams
+        Mike Muscala
+        Ousmane Dieng
+        Shai Gilgeous-Alexander
+        Tre Mann
+
+        Q2b: Who are the players on GSW?
+        The players on the GSW team are:
+
+        Andrew Wiggins
+        Anthony Lamb
+        Donte DiVincenzo
+        Draymond Green
+        Jonathan Kuminga
+        Jordan Poole
+        Kevon Looney
+        Klay Thompson
+        Stephen Curry
+
+Q4:
+Period 1: 12.0 minutes
+Period 2: 12.0 minutes, 0.82 minutes
+Period 3: No stints
+Period 4: 10.07 minutes
+
+Q5:
+Josh Giddey exited the game at the following times:
+
+Period 1 - 4:31
+Period 2 - 7:23
+Period 3 - 5:37
+Period 4 - 0:00
+
+Q6:
+Period 1: 12.0 minutes
+Period 2: 12.0 minutes, 0.82 minutes
+Period 3: No stints
+Period 4: 10.07 minutes
+
+Q6a:
+Josh Giddey played a total of 29.36 minutes in the game.
+
+Q7:
+Kenrich Williams entered the game 5 times.
+
+Q8:
+Shai Gilgeous-Alexander played a total of 30.96 minutes.
+
+Q9:
+Giddey and Shai were in the game at the same time for a total of 0.82 minutes.
+
+

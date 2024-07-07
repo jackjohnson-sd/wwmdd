@@ -1,73 +1,18 @@
-from box_score import box_score
 import pandas as pd
+
+from box_score import box_score
 from settings import defaults
+
 from gemini import save_files
+from overlap import overlap_combos,overlap_dump
+from utils import pms,sec_to_period_time,period_time_to_sec,intersection
  
-TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
-SAVE_RAW_GAME_AS_CSV = defaults.get('SAVE_RAW_GAME_AS_CSV')
-SAVE_SUBS_ONLY_FILE = defaults.get('SAVE_SUBS_ONLY_FILE')
+TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
+SAVE_RAW_GAME_AS_CSV    = defaults.get('SAVE_RAW_GAME_AS_CSV')
+SAVE_SUBS_FILE          = defaults.get('SAVE_SUBS_FILE')
+SHOW_OVERLAP            = defaults.get('SHOW_OVERLAP')
 
-def period(sec) : return int(sec / 720) + 1
-
-def period_time_to_sec(period,mmss): 
-    # period 1:4, mmss 1:23 1 minute 23 seconds left in period
-    _period = int(period)
-    _minsec = mmss.split(':')
-    _secs =  (_period * 720) - (int(_minsec[0]) * 60) - int(_minsec[1])
-    return _secs
-
-def sec_to_period_time(sec):
-
-    p = int(sec / 720)
-    
-    remaining_secs = int(sec) - p * 720
-    remaining_minutes = int(remaining_secs / 60)
-    remaining_secs = int(sec - p * 720 - remaining_minutes * 60)  
-
-    if remaining_secs == 0:# and remaining_minutes == 0:
-        remaining_secs = 60
-    else:
-        remaining_minutes += 1
-        
-    remaining_secs = 60 - remaining_secs
-    remaining_minutes = 12 - remaining_minutes
-    
-    return f'{p+1} {remaining_minutes}:{remaining_secs:02d}'
-
-def sec_to_period_time2(sec):
-
-    p = int(sec / 720)
-    
-    remaining_secs = int(sec) - p * 720
-    remaining_minutes = int(remaining_secs / 60)
-    remaining_secs = int(sec - p * 720 - remaining_minutes * 60)  
-
-    if remaining_secs == 0:# and remaining_minutes == 0:
-        remaining_secs = 60
-    else:
-        remaining_minutes += 1
-        
-    remaining_secs = 60 - remaining_secs
-    remaining_minutes = 12 - remaining_minutes
-    
-    return f'{p+1}:{remaining_minutes:02d}:{remaining_secs:02d}'
-
-def _ms(_sec) : return pms(_sec).replace(' ',',')[1:]
-        
-def pms(_sec):  # p eriod m inute s econd
-    
-    q        = int(_sec / 720) + 1
-    s_into_q = int(_sec % 720)
-    m_into_q = s_into_q / 60
-    s_into_m = int(s_into_q % 60)
-    if s_into_m == 0: s_into_m = 60
-    if m_into_q == 0 and s_into_m == 60:
-        m_into_q = 12
-        q -= 1
-    s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
-    return s
-
-def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
+def getInsNOutsByPlayer(playbyplay, player_group):
     # collects timespans played by these players
 
     start_time = 'UNNKNOWN'
@@ -95,6 +40,7 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
     
     for i, d in our_events.iterrows():
                     
+        score_N_margin = [d.score,d.scoremargin]
         if d.eventmsgtype == 13: # ENDOFPERIOD
             
             # print(f'ENDOFPERIOD {players_in_period_count} players set OUT, {int(pms(d.sec)[0])}')
@@ -102,20 +48,21 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
             players_in_period_count = 0
             
             for player in _sub_events_by_player:
-                if needs_spans_fixed:
-                    events = _sub_events_by_player[player]
-                    if len(events) > 0:
-                        
-                        last_event = _sub_events_by_player[player][-1] 
-                        
-                        if last_event[0] == 'IN':
-                            events.append(['OUT',int(pms(d.sec)[0]) * 720,'P change'])                        
+                
+                events = _sub_events_by_player[player]
+                if len(events) > 0:
+                    
+                    last_event = _sub_events_by_player[player][-1] 
+                    
+                    if last_event[0] == 'IN':
+                        events.append(['OUT',int(pms(d.sec)[0]) * 720, 'P change'])                        
         
         # 12: # STARTOFPERIOD
         elif  d.eventmsgtype == 12: 
-            if d.eventmsgtype == 12:                    
-                s = d.neutraldescription
-                start_time = s[s.find('(')+1:s.find(')')]
+            
+            s = d.neutraldescription
+            start_time = s[s.find('(')+1:s.find(')')]
+            
         else:    
             
             period = int(d.period)
@@ -128,7 +75,11 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
             if p1_name in player_group: pls.extend([p1_name])
             if p2_name in player_group: pls.extend([p2_name])
             
+            processed_players = []
             for player in pls:
+                
+                if player in processed_players:
+                    break
                 
                 if player not in _sub_events_by_player.keys(): _sub_events_by_player[player] = []
                 
@@ -158,6 +109,8 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                         
                         if p2_entering:
                             
+                            processed_players.extend([p2_name])
+                            
                             if not in_the_game:
                                             
                                 _sub_event_for_player.append(['IN', d.sec,'SUB in.'])
@@ -168,6 +121,7 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                         p1_leaving = p1_name == player                
                         
                         if p1_leaving:
+                            processed_players.extend([p1_name])
                                 
                             # p1 is exiting the game, 'OUT'
                             if not in_the_game:
@@ -190,7 +144,7 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                                     if is_out and is_period_change_time :
                                         # set last out to now, so it extends over the period break
                                         last_event[1] = d.sec
-                                        last_event[2] = 'extending out over period change'
+                                        last_event[2] = f'extend after period change, {sec_to_period_time(d.sec)}'
                                     else:    
                                         if is_out:
                                             pmss = sec_to_period_time(d.sec)
@@ -223,8 +177,6 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                             
                             if 'T.FOUL' in ttm:
                                 if not in_the_game: continue
-                            
-                        if not needs_spans_fixed: continue
                                             
                         if not in_the_game:
 
@@ -253,9 +205,9 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                                         (i.e. did NOT OCCUR at period break times)
                                         this is an error
                                 """
-                                
+
                                 if lastEvent[0] == 'OUT':
-                                    
+
                                     # outed at last period break?
                                     if lastEvent[1] == (period-1) * 720: 
                                         # kicked out prior period break, .pop returns us to IN
@@ -263,33 +215,38 @@ def getInsNOutsByPlayer(playbyplay, player_group, needs_spans_fixed = True):
                                         # print(f'{player} POP {sec_to_period_time(last_event[1])}')
                                         players_in_period_count += 1
                                     else:
-                                        # out more than one period ago
-                                        # Non SUB event without an enter,
-                                        # set to in at start of current period
-                                        _sub_event_for_player.append(['IN', (period-1) * 720,'NON SUB while NOT in game']) 
-                                                                        # last out NOT at the begining of this period?
-                                        # print(f'ReEnter from period change, {d.eventmsgtype}',player,sec_to_period_time(d.sec))
-            
+                                        # out not from last period break
+                                        # if last_event[1] % 720 != 0:
+                                            # out not from any prior period break
+                                            # say IN now
+                                            # _sub_event_for_player.append(['IN', d.sec,'NON SUB while NOT in game']) 
+                                        # else:            
+                                            # out from more than one prior period ago
+                                            # Non SUB event not in game,
+                                            # set to in at start of cur
+                                            _sub_event_for_player.append(['IN', (period-1) * 720,f'NON SUB - NOT IN at {d.sec}']) 
+                                        
                                 else:
                                     # last event was an 'IN' ?
                                     print('ERROR X',player)
                                     pass    
 
+
+
                     # case _ : print('-*-*-*-*-*-*-*-*')
     
     # send players 'OUT' at end of game
-    if needs_spans_fixed:
         
-        for player in  _sub_events_by_player.keys():
-            
-            events = _sub_events_by_player[player]
-            if len(events) > 0:
-                last_event = events[-1] 
-                if last_event[0] == 'IN':
+    for player in  _sub_events_by_player.keys():
+        
+        events = _sub_events_by_player[player]
+        if len(events) > 0:
+            last_event = events[-1] 
+            if last_event[0] == 'IN':
 
-                    pmss = sec_to_period_time(last_event[1])
-                    _sub_events_by_player[player].append(['OUT', ((int(pmss[0])) * 720),'EndOfGame All IN go out']) 
-                            
+                pmss = sec_to_period_time(last_event[1])
+                _sub_events_by_player[player].append(['OUT', ((int(pmss[0])) * 720),'EndOfGame All IN go out']) 
+                        
     return _sub_events_by_player, start_time
 
 def checkScoreErrors(pbpEvents):
@@ -309,7 +266,7 @@ def checkScoreErrors(pbpEvents):
                 print('ERROR B',x,y) 
     return score_errors
     
-def seconds_plus_home_away_scores(row):
+def make_seconds_home_away_scores(row):
     _secs = period_time_to_sec(row.period,row.pctimestring)
 
     home_score = None
@@ -329,7 +286,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
         
         # creates a computed column of seconds into game of event 
         pbp[['sec','score_home','score_away']] = pbp.apply(
-            lambda row: seconds_plus_home_away_scores(row), axis=1, result_type='expand'
+            lambda row: make_seconds_home_away_scores(row), axis=1, result_type='expand'
         )
 
         #score_errors = checkScoreErrors(pbp)
@@ -387,7 +344,11 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
                 boxSc.update(player,'secs',_total_secs) 
 
         game_data.start_time = start_time  
-             
+
+        if SHOW_OVERLAP == team_abbreviation:
+        
+            overlap_dump(overlap_combos(stints_by_player),team_abbreviation)
+
         return [stints_by_player, dict(boxSc.getBoxScore())]
 
     return [{},{}], start_time
@@ -482,7 +443,7 @@ def sub_events_from_stints(game, game_stints):
         
     sub_events = sorted(sub_events, key = lambda stint: sub_event_to_sec(stint))
 
-    if SAVE_SUBS_ONLY_FILE == 'ON':
+    if SAVE_SUBS_FILE == 'ON':
         f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
             ('\n,').join(sub_events)  
 
@@ -494,30 +455,30 @@ def sub_events_from_stints(game, game_stints):
 
     return list(map(lambda x:x.split(','),sub_events))
 
+pbp_event_map = {
+    1: [['POINT', 'ASSIST'],  [1, 2],],  # make, assist
+    2: [['MISS', 'BLOCK'],    [1, 3],],
+    3: [['FREETHROW', ''],    [1]   ,],  # free throw
+    4: [['REBOUND', ''],      [1]   ,],  # rebound
+    5: [['STEAL', 'TURNOVER'],[2, 1],],
+    6: [['FOUL',''],          [1]   ,],
+    7: [['VIOLATION',''],     [1,2] ,],
+    8: [['SUB', ''],          [1]   ,],  # substitution
+    9: [['TIMEOUT', ''],      [1]   ,],  # time out
+    
+    10: [['JUMPBALL', ''],    [1,2,3],], # jump ball
+    11: [['EJECTION', ''],    [1]   ,],  # 
+    12: [['STARTOFPERIOD', ''],[1]  ,],  # START of period
+    13: [['ENDOFPERIOD', ''], [1]   ,],  # END of period
+}
+     
 def dump_pbp(game, game_stints):
-
+    
     period_end_score = {}    
     
     save_as_raw = SAVE_RAW_GAME_AS_CSV == 'ON'
     
-    sub_events = [] if save_as_raw else sub_events_from_stints(game,game_stints)
-    
-    pbp_event_map = {
-        1: [['POINT', 'ASSIST'],  [1, 2],],  # make, assist
-        2: [['MISS', 'BLOCK'],    [1, 3],],
-        3: [['FREETHROW', ''],    [1]   ,],  # free throw
-        4: [['REBOUND', ''],      [1]   ,],  # rebound
-        5: [['STEAL', 'TURNOVER'],[2, 1],],
-        6: [['FOUL',''],          [1]   ,],
-        7: [['VIOLATION',''],     [1,2] ,],
-        8: [['SUB', ''],          [1]   ,],  # substitution
-        9: [['TIMEOUT', ''],      [1]   ,],  # time out
-        
-        10: [['JUMPBALL', ''],    [1,2,3],], # jump ball
-        11: [['EJECTION', ''],    [1]   ,],  # 
-        12: [['STARTOFPERIOD', ''],[1]  ,],  # START of period
-        13: [['ENDOFPERIOD', ''], [1]   ,],  # END of period
-    }
+    sub_events = [] if save_as_raw else sub_events_from_stints(game, game_stints)
     
     keys = list(pbp_event_map.keys())
     
@@ -529,8 +490,8 @@ def dump_pbp(game, game_stints):
         event = p.eventmsgtype 
         if event in keys:
             
-            desc = str(p.homedescription) + str(p.neutraldescription) + str(p.visitordescription)
-            desc = desc.replace('None','')
+            desc = f'{p.homedescription} {p.neutraldescription} {p.visitordescription}'
+            desc = desc.replace('None','').strip()
             
             if p.score == None:
                 p.score = lastScore
@@ -626,7 +587,6 @@ def dump_pbp(game, game_stints):
     fl.write(f)
     fl.close()
                                                                                                             
-
 def event_sort_keys(x):
         
         """            
@@ -648,7 +608,6 @@ def event_sort_keys(x):
             'NONSUB'        :[  5,   0,   0,   1    ],
             'EJECTION'      :[  1,   2,   2,   5    ],
             'ENDOFPERIOD'   :[  3,   2,   2,   0    ],
-
         }
         
         event_type = x[0]
@@ -682,3 +641,4 @@ def event_sort_keys(x):
         outs_first = event_type == 'SUB' and x[6] != ''
         # print(period_x,x[0:3],(game_second, so2, outs_first))
         return ((game_second, so, outs_first))
+

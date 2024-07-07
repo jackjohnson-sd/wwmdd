@@ -1,5 +1,4 @@
 {
-
       "LOG"         : "OFF"
     , "TRIM"        : "OFF"      
     , "CONSOLE"     : "ON"
@@ -8,63 +7,42 @@
     , "dbgb"        : "OFF"
     , "dbgc"        : "OFF"
 
-    , "SHOW_PLOTS"            : [       "STINTS", "xEVENTS", "xSCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+    , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
+
+    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
     , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
 
-    , "xTEST_PLAYERS"          :  ["Kristaps Porzingis"]
     , "TEST_PLAYERS"          :  []
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
     , "SAVE_GAME_AS_CSV"      : "ON"
     , "SAVE_RAW_GAME_AS_CSV"  : "OFF"
 
-    , "PLAY_TIME_CHECK_ONLY"  : "OFF"
-    , "PLAY_TIME_CHECK_SHOW"  : "ON"
+    , "SAVE_SUBS_FILE"        : "OFF"
 
+    , "PLAY_TIME_CHECK_ONLY"  : "OFF"
+    , "PLAY_TIME_CHECK_SHOW"  : "OFF"
     , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
 
-    , "SAVE_SUBS_ONLY_FILE"   : "OFF"
+    , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
+    , "SHOW_OVERLAP"          : "NONE"
+    , "OVERLAP_GROUP"         : [4,5]
  
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
     , "SAVE_PLOT_AS_PDF"  : "OFF DOES NOT WORK"
+
     , "SAVE_PLOT_DIR"     : "llm_training_plots"
+
     , "SHOW_PLOT"         : "ON"
 
-    , "GOOD_EVENT_COLOR"  : "mediumseagreen"
-    , "BAD_EVENT_COLOR"   : "cornflowerblue"
-    , "GRID_COLOR"        : "dimgrey"
-
-    , "STINT_COLOR"       : "dimgrey"
-    , "STINT_COLOR_IN"    : "limegreen"
-    , "STINT_COLOR_OUT"   : "darkorange"
-
-    , "PM_PLUS_COLOR"     : "maroon"
-    , "PM_MINUS_COLOR"    : "darkgreen"
-    , "TABLE_COLOR"       : "goldenrod"
-    , "PLOT_COLOR_STYLE"  : "dark_background"
- 
-    , "STINT_COLOR_PLUS"       : "forestgreen"
-    , "STINT_COLOR_MINUS"      : "firebrick"
-
-    , "MARKER_2_STACK_OFFSET"  : 1.8 
-    , "MARKER_3_STACK_OFFSET"  : 3.4
-    , "MARKER_WIDTH"           : 28
-    , "MARKER_FONTSCALE"       : 2.85
-    , "MARKER_FONTWEIGHT"      : "demi"
-    , "GRID_linewidth"         : 0.5
-
-    , "BOX_COL_COLOR"         : "sienna"
-    , "BOX_COL_COLOR_ALT"     : "chocolate"
-    , "BOX_COL_MAX_COLOR"     : "goldenrod"
-
-    , "START_DAY"            : "2023-01-30" 
-    , "STOP_DAY"             : "2023-01-30"
+    , "START_DAY"            : "2024-02-04" 
+    , "STOP_DAY"             : "2024-02-04"
     , "TEAM"                 : "OKC"
  
     , "SOURCE"      : "WEB:"
     , "aSOURCE"     : "FILE:llm_training_data"
-    , "bSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
+    , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"

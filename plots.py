@@ -10,34 +10,39 @@ from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, event_map
 
 from settings import defaults 
-from play_by_play import _ms,sec_to_period_time2, dump_pbp
+from play_by_play import dump_pbp
+from utils import _ms,sec_to_period_time2
 
-SHOW_PLOTS       = defaults.get('SHOW_PLOTS')       
-PLAY_TIME_CHECK_SHOW  = defaults.get('PLAY_TIME_CHECK_SHOW')       
-TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
+import settings
+
+color_defaults = settings.default(defaults.get('COLOR_DEFAULTS'))
+
+SHOW_PLOTS              = defaults.get('SHOW_PLOTS')       
+PLAY_TIME_CHECK_SHOW    = defaults.get('PLAY_TIME_CHECK_SHOW')       
+TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
+PLAY_TIME_CHECK_ONLY    = defaults.get('PLAY_TIME_CHECK_ONLY')
+SAVE_GAME_AS_CSV        = defaults.get('SAVE_GAME_AS_CSV')
 
 
-STINT_COLOR       = defaults.get('STINT_COLOR')       
-STINT_COLOR_IN    = defaults.get('STINT_COLOR_IN')       
-STINT_COLOR_OUT   = defaults.get('STINT_COLOR_OUT')       
-BAD_EVNT          = defaults.get('BAD_EVENT_COLOR')    
-GOOD_EVNT         = defaults.get('GOOD_EVENT_COLOR') 
-GRID_C            = defaults.get('GRID_COLOR')
-TABLE_C           = defaults.get('TABLE_COLOR')
-TABLE_COLOR       = defaults.get('TABLE_COLOR')
-STINT_COLOR_PLUS  = defaults.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
+STINT_COLOR       = color_defaults.get('STINT_COLOR')       
+STINT_COLOR_IN    = color_defaults.get('STINT_COLOR_IN')       
+STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')       
+BAD_EVNT          = color_defaults.get('BAD_EVENT_COLOR')    
+GOOD_EVNT         = color_defaults.get('GOOD_EVENT_COLOR') 
+GRID_C            = color_defaults.get('GRID_COLOR')
+TABLE_C           = color_defaults.get('TABLE_COLOR')
+TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
+STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
 
-BOX_COL_COLOR     = defaults.get('BOX_COL_COLOR')
-BOX_COL_COLOR_ALT = defaults.get('BOX_COL_COLOR_ALT')
-BOX_COL_MAX_COLOR = defaults.get('BOX_COL_MAX_COLOR')
+BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
+BOX_COL_COLOR_ALT = color_defaults.get('BOX_COL_COLOR_ALT')
+BOX_COL_MAX_COLOR = color_defaults.get('BOX_COL_MAX_COLOR')
 
-MRK_FONTSCALE     = defaults.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT    = defaults.get('MARKER_FONTWEIGHT')
-GRID_LINEWIDTH    = defaults.get('GRID_linewidth')
+MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT    = color_defaults.get('MARKER_FONTWEIGHT')
+GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
 
-PLAY_TIME_CHECK_ONLY   = defaults.get('PLAY_TIME_CHECK_ONLY')
-SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
@@ -64,9 +69,9 @@ def shorten_player_name(what, max_length):
 
 def stack_markers(yy_, sec_, color_):
     
-    M2OFFSET       = defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
-    M3OFFSET       = defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
-    MKR_WIDTH      = defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
+    M2OFFSET       = color_defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+    M3OFFSET       = color_defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+    MKR_WIDTH      = color_defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
@@ -954,7 +959,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     if PLAY_TIME_CHECK_ONLY != 'ON':
 
-        plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
+        plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
         # winning team goes on top 

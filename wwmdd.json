@@ -20,7 +20,7 @@
 
     , "SAVE_SUBS_FILE"        : "OFF"
 
-    , "PLAY_TIME_CHECK_ONLY"  : "OFF"
+    , "PLAY_TIME_CHECK_ONLY"  : "ON"
     , "PLAY_TIME_CHECK_SHOW"  : "OFF"
     , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
 
@@ -36,12 +36,12 @@
 
     , "SHOW_PLOT"         : "ON"
 
-    , "START_DAY"            : "2024-02-04" 
-    , "STOP_DAY"             : "2024-02-04"
+    , "START_DAY"            : "2024-01-01" 
+    , "STOP_DAY"             : "2024-06-30"
     , "TEAM"                 : "OKC"
  
-    , "SOURCE"      : "WEB:"
-    , "aSOURCE"     : "FILE:llm_training_data"
+    , "aSOURCE"      : "WEB:"
+    , "SOURCE"     : "FILE:llm_training_data"
     , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"

@@ -1,15 +1,25 @@
 Please Read me
 
-Or not.
+July 7 -- ran WEB then FILE for OKC 23-24 season ~ 92 games
+       --  ATL 11/06, BOS 04/03, TOR 02/04 fail play time check on WEB 
+       --  ATL 11/06, BOS 04/03, TOR 02/04, SAC 12/14, NOP 04/21 failed FILE
+July 7 -- added most all wwmdd.json entries to command line override
+July 7 -- re-orged project, moved bunch of stuff into llm subdirectory
+July 7 -- squashed all prior git commits -- might have been stupid
+Jult 7 -- broke off wwmdd_colors.json from wwmdd.json
+July 6 -- added overlap.py
+July 5 -- some testing on OKC v BOS 2024-04-03?
 
-Data Source
+**Or not.**
+
+# Data Source
     1. NBA API
     2. DB from Kaggle
     3. CSV files derived from 1 and 2 above
     4. JSON and cmd line applicaition control
     5. LLMs play by plays and analasys
 
-Intermediate data structures
+# Intermediate data structures
     1. NBA API play by play format
     2. Text based play by play version with unused feilds deleted  12 kept, 25 deleted
     3. Players and teams
@@ -19,25 +29,26 @@ Intermediate data structures
     7. Box score data collection and display  - min,pts,foul,block,assist,rebound O/D,3-2-FT makes and misses
     8. Box score summarry
     6. Plot data by player and team
-        a. stints lines and markers
-        b. events letters as markers
-        c. event legend
+            stints lines and markers
+            events letters as markers
+            event legend
+            running score
+            margins
+            headlines
+            score for periods
+            shooting percentage
 
-        d. running score
-        d. margins
-        e. headlines
-        g. score for periods
-        h. shooting percentage
-
-Outputs
-    1. Plots
+# Outputs
+`#0969DA` hello
+    1. 	Plots
     2. Box Score
     2. Console Diagnostics / log files
     3. Play by play updates to cvs files and dbs
     4. Interactions with LLMs (IN PROGRESS)
+    6. player overlap
     5. pdfs, jpgs of plots
 
-data_flow
+## data_flow
 
     get game_data if available or build from play_by_play
     get game_play_by_play web/DB/File
@@ -50,13 +61,6 @@ data_flow
     Enhancment.
 
     WISH - On initial read of play by play, events are used to create markers, text and lines for plots, entries in the box score structure for each event.
-
-
-
-    
-
-
-
 
 
 get teams  -  Us and Opponent

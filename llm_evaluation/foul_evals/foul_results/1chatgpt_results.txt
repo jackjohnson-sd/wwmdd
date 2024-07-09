@@ -1,0 +1,20 @@
+Comments:
+
+- Passes: 
+    Q1, 
+    Q2, 
+    Q3a - 3k, 
+    Q4 - 8
+
+- Fails: 
+    3l
+
+Q3l:
+The Oklahoma City Thunder (OKC) team committed 36 fouls in the game.
+
+    Follow-up:
+    A team's total foul count is equal to the sum of the team's players' foul counts. 
+    Re-calculate OKC total foul count.
+
+    Response:
+    The total number of fouls committed by the Oklahoma City Thunder (OKC) team is 18.

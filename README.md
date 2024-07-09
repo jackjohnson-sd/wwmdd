@@ -1,5 +1,6 @@
 Please Read me
 
+July 8 -- reworked command line again 
 July 7 -- ran WEB then FILE for OKC 23-24 season ~ 92 games
        --  ATL 11/06, BOS 04/03, TOR 02/04 fail play time check on WEB 
        --  ATL 11/06, BOS 04/03, TOR 02/04, SAC 12/14, NOP 04/21 failed FILE

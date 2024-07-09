@@ -39,7 +39,6 @@ July 5 -- some testing on OKC v BOS 2024-04-03?
             shooting percentage
 
 # Outputs
-`#0969DA` hello
     1. 	Plots
     2. Box Score
     2. Console Diagnostics / log files

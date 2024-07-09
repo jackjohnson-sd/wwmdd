@@ -1,3 +1,5 @@
+import re
+
 def period(sec) : return int(sec / 720) + 1
 
 def period_time_to_sec(period,mmss): 
@@ -71,3 +73,19 @@ def ms(sec):
 def intersection(lst1, lst2):
     lst3 = [value for value in lst1 if value in lst2]
     return lst3
+
+def removeLower(str): 
+    regex = "[a-z .-]"
+    return (re.sub(regex, "", str))
+
+def shorten_player_name(what, max_length):
+    # if name longer than max turns 'firstname lastname' to 'first_intial.lastname'
+    if len(what) < max_length: return what
+
+    if ' ' in what:
+        ret_v = what[0] + '. ' + what.split(' ')[1]
+        if len(ret_v) > max_length:
+            return removeLower(ret_v)
+
+        return what[0] + '. ' + what.split(' ')[1]
+    return what

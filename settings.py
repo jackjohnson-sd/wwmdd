@@ -26,16 +26,16 @@ class default :
                     , "dbgb"        : "OFF"
                     , "dbgc"        : "OFF"
 
-                    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
-                    , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+                    , "SUB_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+                    , "example_SUB_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
 
                     , "TEST_PLAYERS"          :  []
                     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
-                    , "SAVE_GAME_AS_CSV"      : "OFF"
-                    , "SAVE_RAW_GAME_AS_CSV"  : "OFF"
+                    , "SAVE_GAME_AS_CSV"      : False
+                    , "SAVE_RAW_GAME_AS_CSV"  : False
 
-                    , "PLAY_TIME_CHECK_ONLY"  : "OFF"
+                    , "PLAY_TIME_CHECK_ONLY"  : False
 
                     , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
                     , "SHOW_OVERLAP"          : ""
@@ -44,7 +44,7 @@ class default :
                     , "PLAY_TIME_CHECK_SHOW"  : "OFF"
                     , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
 
-                    , "SAVE_SUBS_FILE"   : "OFF"
+                    , "SAVE_SUBS_FILE"   : False
                 
                     , "SAVE_GAME_DIR"     : "llm_training_data"
                 

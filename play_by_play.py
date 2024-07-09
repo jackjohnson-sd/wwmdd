@@ -8,11 +8,10 @@ from overlap import overlap_combos,overlap_dump
 from utils import pms,sec_to_period_time,period_time_to_sec,intersection
  
 TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
-SAVE_RAW_GAME_AS_CSV    = defaults.get('SAVE_RAW_GAME_AS_CSV')
 SAVE_SUBS_FILE          = defaults.get('SAVE_SUBS_FILE')
-SHOW_OVERLAP            = defaults.get('SHOW_OVERLAP')
 
 def getInsNOutsByPlayer(playbyplay, player_group):
+
     # collects timespans played by these players
 
     start_time = 'UNNKNOWN'
@@ -345,7 +344,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
 
         game_data.start_time = start_time  
 
-        if SHOW_OVERLAP == team_abbreviation:
+        if defaults.get('SHOW_OVERLAP') == team_abbreviation:
         
             overlap_dump(overlap_combos(stints_by_player),team_abbreviation)
 
@@ -443,7 +442,7 @@ def sub_events_from_stints(game, game_stints):
         
     sub_events = sorted(sub_events, key = lambda stint: sub_event_to_sec(stint))
 
-    if SAVE_SUBS_FILE == 'ON':
+    if SAVE_SUBS_FILE:
         f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
             ('\n,').join(sub_events)  
 
@@ -476,7 +475,7 @@ def dump_pbp(game, game_stints):
     
     period_end_score = {}    
     
-    save_as_raw = SAVE_RAW_GAME_AS_CSV == 'ON'
+    save_as_raw = defaults.get('SAVE_RAW_GAME_AS_CSV')
     
     sub_events = [] if save_as_raw else sub_events_from_stints(game, game_stints)
     

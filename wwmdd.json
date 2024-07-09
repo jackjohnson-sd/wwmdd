@@ -9,19 +9,27 @@
 
     , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
 
-    , "SHOW_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
-    , "example_SHOW_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore"]
+    , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "period_scores", "boxscore"]
+    
+    , "SHOW" : ["plot","csv"]
+    , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]
+
+    , "SOURCES" : ["web","file","db"]
+    , "AI"      : ["GEMINI", "CLAUDE"]
+
 
     , "TEST_PLAYERS"          :  []
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
-    , "SAVE_GAME_AS_CSV"      : "ON"
-    , "SAVE_RAW_GAME_AS_CSV"  : "OFF"
+    , "SAVE_GAME_AS_CSV"      : false
+    , "SAVE_RAW_GAME_AS_CSV"  : false
 
-    , "SAVE_SUBS_FILE"        : "OFF"
+    , "SAVE_SUBS_FILE"        : false
 
-    , "PLAY_TIME_CHECK_ONLY"  : "ON"
+    , "PLAY_TIME_CHECK_ONLY"  : false
     , "PLAY_TIME_CHECK_SHOW"  : "OFF"
+
     , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
 
     , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
@@ -30,18 +38,20 @@
  
     , "SAVE_GAME_DIR"     : "llm_training_data"
    
-    , "SAVE_PLOT_AS_PDF"  : "OFF DOES NOT WORK"
+    , "SAVE_PLOT_AS_PDF"  : false
 
     , "SAVE_PLOT_DIR"     : "llm_training_plots"
 
-    , "SHOW_PLOT"         : "ON"
+    , "SHOW_PLOT"         : true
 
     , "START_DAY"            : "2024-01-01" 
-    , "STOP_DAY"             : "2024-06-30"
+    , "STOP_DAY"             : "2024-01-30"
     , "TEAM"                 : "OKC"
  
-    , "aSOURCE"      : "WEB:"
-    , "SOURCE"     : "FILE:llm_training_data"
+    , "FILE"         : "llm_training_data"
+
+    , "SOURCE"      : "WEB:"
+    , "aSOURCE"       : "FILE:llm_training_data"
     , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"

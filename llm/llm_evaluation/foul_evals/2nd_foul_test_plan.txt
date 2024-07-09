@@ -9,7 +9,7 @@ Current Status Summary:
         - passes Q1 - 8
 
 
-Data sets used:
+Data sets used: h
     OKCvGSW20230130.CSV  (in llm_training_data)
 
 Test Model: 

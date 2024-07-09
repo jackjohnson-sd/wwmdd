@@ -1,5 +1,4 @@
 import os
-import re
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -10,63 +9,49 @@ from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, event_map
 
 from settings import defaults 
-from play_by_play import _ms,sec_to_period_time2, dump_pbp
+from play_by_play import dump_pbp
+from utils import _ms,sec_to_period_time2,shorten_player_name
 
-SHOW_PLOTS       = defaults.get('SHOW_PLOTS')       
-PLAY_TIME_CHECK_SHOW  = defaults.get('PLAY_TIME_CHECK_SHOW')       
-TEST_PLAYERS  = defaults.get('TEST_PLAYERS')   
+import settings
 
+color_defaults = settings.default(defaults.get('COLOR_DEFAULTS'))
+    
+TEST_PLAYERS      = defaults.get('TEST_PLAYERS')   
 
-STINT_COLOR       = defaults.get('STINT_COLOR')       
-STINT_COLOR_IN    = defaults.get('STINT_COLOR_IN')       
-STINT_COLOR_OUT   = defaults.get('STINT_COLOR_OUT')       
-BAD_EVNT          = defaults.get('BAD_EVENT_COLOR')    
-GOOD_EVNT         = defaults.get('GOOD_EVENT_COLOR') 
-GRID_C            = defaults.get('GRID_COLOR')
-TABLE_C           = defaults.get('TABLE_COLOR')
-TABLE_COLOR       = defaults.get('TABLE_COLOR')
-STINT_COLOR_PLUS  = defaults.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
+STINT_COLOR       = color_defaults.get('STINT_COLOR')       
+STINT_COLOR_IN    = color_defaults.get('STINT_COLOR_IN')       
+STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')       
+BAD_EVNT          = color_defaults.get('BAD_EVENT_COLOR')    
+GOOD_EVNT         = color_defaults.get('GOOD_EVENT_COLOR') 
+GRID_C            = color_defaults.get('GRID_COLOR')
+TABLE_C           = color_defaults.get('TABLE_COLOR')
+TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
+STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
 
-BOX_COL_COLOR     = defaults.get('BOX_COL_COLOR')
-BOX_COL_COLOR_ALT = defaults.get('BOX_COL_COLOR_ALT')
-BOX_COL_MAX_COLOR = defaults.get('BOX_COL_MAX_COLOR')
+BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
+BOX_COL_COLOR_ALT = color_defaults.get('BOX_COL_COLOR_ALT')
+BOX_COL_MAX_COLOR = color_defaults.get('BOX_COL_MAX_COLOR')
 
-MRK_FONTSCALE     = defaults.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT    = defaults.get('MARKER_FONTWEIGHT')
-GRID_LINEWIDTH    = defaults.get('GRID_linewidth')
+MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT    = color_defaults.get('MARKER_FONTWEIGHT')
+GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
 
-PLAY_TIME_CHECK_ONLY   = defaults.get('PLAY_TIME_CHECK_ONLY')
-SAVE_GAME_AS_CSV = defaults.get('SAVE_GAME_AS_CSV')
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
 def do_plot(theplot):
-    if 'ALL' in SHOW_PLOTS: return True
-    if theplot in SHOW_PLOTS: return True
+    SUB_PLOTS = defaults.get('SUB_PLOTS') 
+    if 'all' in SUB_PLOTS: return True
+    if theplot in SUB_PLOTS: return True
     return False
 
-def removeLower(str): 
-    regex = "[a-z .-]"
-    return (re.sub(regex, "", str))
-
-def shorten_player_name(what, max_length):
-    # if name longer than max turns 'firstname lastname' to 'first_intial.lastname'
-    if len(what) < max_length: return what
-
-    if ' ' in what:
-        ret_v = what[0] + '. ' + what.split(' ')[1]
-        if len(ret_v) > max_length:
-            return removeLower(ret_v)
-
-        return what[0] + '. ' + what.split(' ')[1]
-    return what
 
 def stack_markers(yy_, sec_, color_):
     
-    M2OFFSET       = defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
-    M3OFFSET       = defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
-    MKR_WIDTH      = defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
+    M2OFFSET       = color_defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
+    M3OFFSET       = color_defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
+    MKR_WIDTH      = color_defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
     
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
@@ -204,7 +189,7 @@ def make_scoremargin(play_by_play):
 
 def plot_score(_ax, home_scores, away_scores, game_info):
     
-    if not do_plot('SCORE') : 
+    if not do_plot('score') : 
         _ax.yaxis.set_visible(False)
         _ax.xaxis.set_visible(False)
         # _ax.set_ylim(0, 0)
@@ -232,7 +217,7 @@ def plot_score(_ax, home_scores, away_scores, game_info):
     
 def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
 
-    if not do_plot('MARGIN') :
+    if not do_plot('margin') :
         _ax.yaxis.set_visible(False)
         _ax.xaxis.set_visible(False)
 
@@ -301,7 +286,7 @@ def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
 
 def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     
-    if not do_plot('PERIOD_SCORES'): return
+    if not do_plot('period_scores'): return
     
     top_team = game_info['T']
     bot_team = game_info['B']
@@ -451,7 +436,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
     ROW_START = 2880 + 50
 
-    doRows = do_plot('BOX_SCORE') 
+    doRows = do_plot('boxscore') 
     
     if doRows :
         # does the column headers
@@ -468,7 +453,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
 def plot_stints(axis, _y, play_times, flipper):
 
-    if do_plot('STINTS') :
+    if do_plot('stints') :
         starts = list(map(lambda x: x[0], play_times))
         widths = list(map(lambda x: x[1], play_times))
         pms    = list(map(lambda x: x[2], play_times))
@@ -486,7 +471,7 @@ def plot_stints(axis, _y, play_times, flipper):
 
 def plot_events(axis2, _y, events):
         
-    if do_plot('EVENTS'):
+    if do_plot('events'):
         
         sec__     = events[0::4]
         color__   = events[1::4]
@@ -595,7 +580,7 @@ def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info)
     
     plot_quarter_score(home_scores, away_scores, _ax_, c2xstart + 2, c2ystart + 50, game_info)
 
-    if do_plot('EVENTS') or True:
+    if do_plot('events') or True:
         plot_event_legend(_ax_,20,50)
 
 def plot_event_legend(ax,xstart,ystart):
@@ -657,8 +642,8 @@ def plot_event_legend(ax,xstart,ystart):
     y2 = y1 + yoff 
     y3 = y2 + yoff 
 
-    b_events = do_plot('EVENTS') 
-    b_stints = do_plot('STINTS')
+    b_events = do_plot('events') 
+    b_stints = do_plot('stints')
     
     event_legend_map = []
     if b_events and b_stints:
@@ -851,8 +836,8 @@ def plot_layout(title):
     BR = '7'
     E3 = None
     
-    TX = TR if do_plot('BOX_SCORE') else TL
-    BX = BR if do_plot('BOX_SCORE') else BL
+    TX = TR if do_plot('boxscore') else TL
+    BX = BR if do_plot('boxscore') else BL
         
     layout = [
         [TL, TL, TL, TL, TL, TL, TX, TX, TX, TR],
@@ -885,7 +870,7 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
         print(title[1], title[0], m1, m2, 'NOK')
         ret_value = False
 
-    
+    PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
     if PLAY_TIME_CHECK_SHOW == 'OFF': return ret_value
 
     if PLAY_TIME_CHECK_SHOW == 'FAIL_ONLY': 
@@ -931,7 +916,8 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
-    if SAVE_GAME_AS_CSV == 'ON': 
+    if defaults.get('SAVE_GAME_AS_CSV'):
+    
         def Merge(dict1, dict2): return {**dict1, **dict2}
         game_stints = Merge(our_stints[0], opponent_stints[0])
         dump_pbp(game_data, game_stints)
@@ -952,9 +938,9 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     play_time_check(title,boxscore1,boxscore2,our_stints[0],opponent_stints[0])
     
-    if PLAY_TIME_CHECK_ONLY != 'ON':
+    if not defaults.get('PLAY_TIME_CHECK_ONLY'):
 
-        plt.style.use(defaults.get('PLOT_COLOR_STYLE'))
+        plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
         # winning team goes on top 
@@ -1017,15 +1003,12 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        if(defaults.get('SHOW_PLOT') == "ON"): 
+        if(defaults.get('SHOW_PLOT')): 
             plt.show(block = True) 
         else: 
             print('Show plot disabled in json config file')   
-
-    
-        SAVE_PLOT_AS_PDF = defaults.get('SAVE_PLOT_AS_PDF')
         
-        if SAVE_PLOT_AS_PDF == "ON":
+        if defaults.get('SAVE_PLOT_AS_PDF'):
         
             cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
             t = game_data.matchup_home.split(' ')

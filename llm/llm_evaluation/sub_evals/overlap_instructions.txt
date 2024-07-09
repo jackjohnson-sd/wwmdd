@@ -1,0 +1,87 @@
+### Generalized Instructions for Calculating Playing Time Overlap between Two Players
+
+To calculate the playing time overlap between two players in a specific period, follow these steps:
+
+#### 1. **Identify SUB Events**
+   - Extract all SUB events (`eventmsgtype` = 'SUB') for both players within the specified period.
+   - These events indicate when players enter (`player2_name`) or exit (`player1_name`) the court.
+
+#### 2. **Convert Times to Game Seconds**
+   - Define a function to convert period and pctimestring values to total game seconds.
+   - Example function:
+     ```python
+     def convert_to_game_seconds(period, pctimestring):
+         minutes, seconds = map(int, pctimestring.split(':'))
+         return (period - 1) * 720 + (720 - (minutes * 60 + seconds))
+     ```
+
+#### 3. **Determine Entry and Exit Intervals**
+   - For each player, determine the intervals they are on the court by tracking entry and exit times.
+   - Example intervals for each player:
+     - Player A: [entry1 to exit1], [entry2 to exit2], ...
+     - Player B: [entry1 to exit1], [entry2 to exit2], ...
+
+#### 4. **Identify Overlapping Intervals**
+   - Compare the intervals to find overlap periods:
+     - Overlap starts at the later entry time.
+     - Overlap ends at the earlier exit time.
+   - Ensure that both players are on the court during the overlap period.
+   - Ignore intervals where one player exits before the other enters.
+
+#### 5. **Calculate Overlap Duration**
+   - For each overlapping interval, calculate the duration in seconds:
+     ```python
+     overlap_duration_seconds = overlap_end_time - overlap_start_time
+     ```
+   - Convert the duration back to minutes and seconds:
+     ```python
+     overlap_minutes = overlap_duration_seconds // 60
+     overlap_seconds = overlap_duration_seconds % 60
+     ```
+
+#### 6. **Sum Overlap Durations**
+   - Sum all valid overlapping intervals to get the total overlap duration for the specified period.
+
+### Example Calculation
+
+#### Data Extraction
+   ```python
+   giddy_entries = play_by_play_df[(play_by_play_df['player2_name'] == 'PlayerA') & 
+                                   (play_by_play_df['eventmsgtype'] == 'SUB') & 
+                                   (play_by_play_df['period'] == 2)]
+   
+   giddy_exits = play_by_play_df[(play_by_play_df['player1_name'] == 'PlayerA') & 
+                                 (play_by_play_df['eventmsgtype'] == 'SUB') & 
+                                 (play_by_play_df['period'] == 2)]
+   
+   sga_entries = play_by_play_df[(play_by_play_df['player2_name'] == 'PlayerB') & 
+                                 (play_by_play_df['eventmsgtype'] == 'SUB') & 
+                                 (play_by_play_df['period'] == 2)]
+   
+   sga_exits = play_by_play_df[(play_by_play_df['player1_name'] == 'PlayerB') & 
+                               (play_by_play_df['eventmsgtype'] == 'SUB') & 
+                               (play_by_play_df['period'] == 2)]
+   ```
+
+#### Time Conversion
+   ```python
+   entry_seconds = convert_to_game_seconds(entry['period'], entry['pctimestring'])
+   exit_seconds = convert_to_game_seconds(exit['period'], exit['pctimestring'])
+   ```
+
+#### Determine Overlap
+   ```python
+   for each entry-exit interval of PlayerA:
+       for each entry-exit interval of PlayerB:
+           if PlayerA_entry < PlayerB_exit and PlayerB_entry < PlayerA_exit:
+               overlap_start = max(PlayerA_entry, PlayerB_entry)
+               overlap_end = min(PlayerA_exit, PlayerB_exit)
+               overlap_duration_seconds = overlap_end - overlap_start
+               overlap_minutes = overlap_duration_seconds // 60
+               overlap_seconds = overlap_duration_seconds % 60
+               total_overlap_duration += overlap_duration_seconds
+   ```
+
+#### Summarize Results
+   - Sum the total overlap duration in seconds.
+   - Convert the total overlap duration to minutes and seconds.

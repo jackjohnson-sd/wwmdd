@@ -11,3 +11,7 @@ select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPER
 
 select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 """
+
+TOR @ OKC 02/04/2024 9:30 PM EST 21600 20880 NOK
+OKC @ BOS 04/03/2024 9:33 PM EST 14400 15090 NOK
+

@@ -18,22 +18,48 @@ class default :
                 # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff =  {
                     
+                      "LOG"         : "OFF"
+                    , "TRIM"        : "OFF"      
+                    , "CONSOLE"     : "ON"
 
-                    "dbga"         : "OFF"
-                    , "dbgb"         : "OFF"
-                    , "dbgc"          : "OFF"
+                    , "dbga"        : "OFF"
+                    , "dbgb"        : "OFF"
+                    , "dbgc"        : "OFF"
 
-                    , "SAVE_GAME_AS_CSV"  : "ON"
+                    , "SUB_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+                    , "example_SUB_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+
+                    , "TEST_PLAYERS"          :  []
+                    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+
+                    , "SAVE_GAME_AS_CSV"      : False
+                    , "SAVE_RAW_GAME_AS_CSV"  : False
+
+                    , "PLAY_TIME_CHECK_ONLY"  : False
+
+                    , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
+                    , "SHOW_OVERLAP"          : ""
+                    , "OVERLAP_GROUP"         : [4,5]
+
+                    , "PLAY_TIME_CHECK_SHOW"  : "OFF"
+                    , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
+
+                    , "SAVE_SUBS_FILE"   : False
+                
                     , "SAVE_GAME_DIR"     : "llm_training_data"
                 
-                    , "SAVE_PLOT_AS_PDF"  : "OFF"
+                    , "SAVE_PLOT_AS_PDF"  : "OFF DOES NOT WORK"
                     , "SAVE_PLOT_DIR"     : "llm_training_plots"
                     , "SHOW_PLOT"         : "ON"
 
                     , "GOOD_EVENT_COLOR"  : "mediumseagreen"
                     , "BAD_EVENT_COLOR"   : "cornflowerblue"
                     , "GRID_COLOR"        : "dimgrey"
+
                     , "STINT_COLOR"       : "dimgrey"
+                    , "STINT_COLOR_IN"    : "limegreen"
+                    , "STINT_COLOR_OUT"   : "darkorange"
+
                     , "PM_PLUS_COLOR"     : "maroon"
                     , "PM_MINUS_COLOR"    : "darkgreen"
                     , "TABLE_COLOR"       : "goldenrod"
@@ -41,7 +67,6 @@ class default :
                 
                     , "STINT_COLOR_PLUS"       : "forestgreen"
                     , "STINT_COLOR_MINUS"      : "firebrick"
-
 
                     , "MARKER_2_STACK_OFFSET"  : 1.8 
                     , "MARKER_3_STACK_OFFSET"  : 3.4
@@ -54,25 +79,21 @@ class default :
                     , "BOX_COL_COLOR_ALT"     : "chocolate"
                     , "BOX_COL_MAX_COLOR"     : "goldenrod"
 
-                    , "START_DAY"            : "2024-04-27" 
-                    , "STOP_DAY"             : "2024-05-15"
+                    , "START_DAY"            : "2023-01-30" 
+                    , "STOP_DAY"             : "2023-01-30"
                     , "TEAM"                 : "OKC"
                 
-                    , "SOURCE"     : "WEB:"
-                    , "dSOURCE"    : "nba.sqlite"
-                    , "fSOURCE"    : "FILE:gemini_test"
-                    , "zSOURCE"    : "FILE:claude_test"
-
-                    , "cSOURCE"    : "CLAUDE:claude_test"
-                    , "gSOURCE"    : "GEMINI:gemini_test"
-                    , "tSOURCE"    : "TOKENS:gemini_test"
-                    
-                    , "LOG"        : "OFF"
-                    , "TRIM"       : "OFF"
-                    , "CONSOLE"    : "ON"
+                    , "SOURCE"      : "WEB:"
+                    , "aSOURCE"     : "FILE:llm_training_data"
+                    , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
+                
+                    , "dSOURCE"     : "CLAUDE:claude_test"
+                    , "eSOURCE"     : "GEMINI:gemini_test"
+                    , "fSOURCE"     : "TOKENS:gemini_test"
+                    , "nSOURCE"     : "nba.sqlite"
 
                 }
-     
+                
 
     def get(self, _name):
        return self.stuff[_name]

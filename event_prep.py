@@ -1,33 +1,29 @@
 import re
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
+
 from matplotlib.path import Path
 from matplotlib.textpath import TextToPath
 from matplotlib.font_manager import FontProperties
 
-from settings import defaults
+import settings
 
-# DBG_A       = defaults.get('dbga')
-# DBG_B       = defaults.get('dbgb')
-# DBG_C       = defaults.get('dbgc')
+color_defaults = settings.default(settings.defaults.get('COLOR_DEFAULTS'))
 
-STINT_CO_IN    = defaults.get('STINT_COLOR_IN')   
-STINT_CO_OUT   = defaults.get('STINT_COLOR_OUT')   
-STINT_CO       = defaults.get('STINT_COLOR')   
+STINT_CO_IN     = color_defaults.get('STINT_COLOR_IN')   
+STINT_CO_OUT    = color_defaults.get('STINT_COLOR_OUT')   
+STINT_CO        = color_defaults.get('STINT_COLOR')   
 
-BAD_EVNT    = defaults.get('BAD_EVENT_COLOR')    
-GOOD_EVNT   = defaults.get('GOOD_EVENT_COLOR') 
+BAD_EVNT        = color_defaults.get('BAD_EVENT_COLOR')    
+GOOD_EVNT       = color_defaults.get('GOOD_EVENT_COLOR') 
 
-MRK_FONTSCALE  = defaults.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT = defaults.get('MARKER_FONTWEIGHT')
-BOX_COL_COLOR  = defaults.get('BOX_COL_COLOR')
+MRK_FONTSCALE   = color_defaults.get('MARKER_FONTSCALE')
+MRK_FONTWEIGHT  = color_defaults.get('MARKER_FONTWEIGHT')
+BOX_COL_COLOR   = color_defaults.get('BOX_COL_COLOR')
 
-TABLE_C     = defaults.get('TABLE_COLOR')
+TABLE_C         = color_defaults.get('TABLE_COLOR')
 
-STINT_COLOR_PLUS  = defaults.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = defaults.get('STINT_COLOR_MINUS')
+STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
+STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
  
 fp = FontProperties(family='sans-serif',size='xx-small')
 fp.set_weight('light')
@@ -107,8 +103,7 @@ event_map = {
 4: [ GOOD_EVNT, 18.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr,],  # rebound
 5: [ GOOD_EVNT, 18.0, mrk['S'],'STL',   BAD_EVNT,  18.0, mrk['T'],'TO',   [2, 1], None, ],  # steal, turnover
 6: [ BAD_EVNT,  18.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None, ],  # foul, fouled
-#8: [ 'white',   8.0, 'o','SUB',         'r',  8.0, 'o','OUT',        [1, 2], None,  ],  # substitution÷
-8: [ STINT_CO_IN,   8.0, 'o','IN',     STINT_CO_OUT,  8.0, 'o','OUT',    [1, 2], None,  ],  # substitution
+8: [ STINT_CO_IN,8.0,     'o','IN',     STINT_CO_OUT, 8.0,   'o','OUT',   [1, 2], None, ],  # substitution
 20:[ GOOD_EVNT, 18.0, mrk['O'],'OREB',  GOOD_EVNT, 18.0, mrk['3'],'3PT',  [1],    None, ],  # for legend
 }
 

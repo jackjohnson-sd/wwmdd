@@ -4,14 +4,28 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
-            "name": "Python Debugger: main.py",
+            "name": "Python Debugger: NO args",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": [],            
+            "args": ""
+        },
+        {
+            "name": "Python Debugger: WITH args",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-make",
+                "plot",
+                "-source",
+                "csv",
+                "-file",
+                "llm_training_data/WASvOKC20240108.csv"
+            ]
         }
     ]
 }

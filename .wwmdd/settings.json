@@ -41,9 +41,8 @@
     , "SAVE_PLOT_IMAGE"  : false
 
     , "SAVE_PLOT_DIR"     : "llm_training_data/img"
-    , "SAVE_PLOT_TYPE"    : "pdf"
+    , "SAVE_PLOT_TYPE"    : "png"
     , "SAVE_PLOT_DPI"     : 300
-
 
     , "SHOW_PLOT"         : true
 

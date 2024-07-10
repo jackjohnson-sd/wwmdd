@@ -1021,8 +1021,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        if not defaults.get('SHOW_PLOT'): 
-            print('Show plot disabled.')   
+        if not defaults.get('SHOW_PLOT'):  print('FYI, plot display disabled.')   
         else:
             plt.draw()
             plt.show(block = True) 
@@ -1035,7 +1034,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
             t = game_data.matchup_home.split(' ')
             fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.{img_type}'
-            print(fn)       
+          
             if not(os.path.exists(cwd)): os.mkdir(cwd)
     
             fn = os.path.join(cwd, fn) 

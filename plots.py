@@ -867,7 +867,7 @@ def plot_layout(title):
 
     figure, axd = plt.subplot_mosaic(layout, figsize = (10.0, 6.5) )   
     figure.canvas.manager.set_window_title(title)
-    
+
     return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
 def play_time_check(title,bx1,bx2,stints1,stints2):
@@ -1022,9 +1022,10 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         )
 
         if not defaults.get('SHOW_PLOT'):  print('FYI, plot display disabled.')   
-        else:
-            plt.draw()
-            plt.show(block = True) 
+        else: 
+            n = defaults.get('SHOW_PAUSE')
+            if n == -1: plt.show(block=True)
+            else: plt.pause(n) 
         
         if defaults.get('SAVE_PLOT_IMAGE'):
         
@@ -1038,6 +1039,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             if not(os.path.exists(cwd)): os.mkdir(cwd)
     
             fn = os.path.join(cwd, fn) 
+            plt.draw()
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')

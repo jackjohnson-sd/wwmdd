@@ -12,8 +12,8 @@
     , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
     , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
     
-    , "SHOW" : ["plot","csv"]
-    , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]
+    , "SHOW" : ["plot","csv","img"]
+    , "example_SHOW" : ["plot","csv","raw","img","stints", "overlaps","logs"]
 
     , "SOURCES" : ["web","file","db"]
     , "AI"      : ["GEMINI", "CLAUDE"]
@@ -38,16 +38,16 @@
  
     , "SAVE_GAME_DIR"     : "llm_training_data/csv"
    
-    , "SAVE_PLOT_IMAGE"  : false
-
+    , "SAVE_PLOT_IMAGE"  : true
     , "SAVE_PLOT_DIR"     : "llm_training_data/img"
     , "SAVE_PLOT_TYPE"    : "png"
     , "SAVE_PLOT_DPI"     : 300
 
     , "SHOW_PLOT"         : true
+    , "SHOW_PAUSE"        : 5
 
     , "START_DAY"            : "2024-01-04" 
-    , "STOP_DAY"             : "2024-01-06"
+    , "STOP_DAY"             : "2024-01-16"
     , "TEAM"                 : "OKC"
  
     , "FILE"         : "llm_training_data/csv"

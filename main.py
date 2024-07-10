@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(
                     
 parser.add_argument('-make','-m', nargs='+', 
                     metavar='stuff',
-                    choices = ['plot','csv','raw','png','stints', 'overlaps'],   
+                    choices = ['plot','csv','raw','img','stints', 'overlaps'],   
                     help='What to do, -make plot csv')
 parser.add_argument('-source','-s',
                     choices = ['web','csv'],          
@@ -70,10 +70,10 @@ if __name__ == '__main__':
         plot = 'plot'  in args.make
         csv_save = 'csv' in args.make
         raw_save = 'raw' in args.make
-        png  = 'png' in args.make
+        img  = 'img' in args.make
         
         if plot: settings.defaults.set('SHOW_PLOT', True)
-        settings.defaults.set('SAVE_PLOT_IMAGE', png)
+        settings.defaults.set('SAVE_PLOT_IMAGE', img)
         
         # no plot
         if not plot and stints or olaps:

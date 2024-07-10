@@ -1,7 +1,5 @@
 """
-sh wwmdd.sh --web OKC  --start 2023-01-30 --stop 2023-01-30
-sh wwmdd.sh --show llm_training_data/OKCvGSW20230130.csv
-sh wwmdd.sh --show _save_and_ignore/subs.csv
+sh w.sh -s web -t OKC -d 2023-01-30 -m plot img stints -p stints
 
 csv filter  ==>   
 select * where a2 == 'SUB' && (a10 == 'CJ McCollum' || a8 == 'CJ McCollum')

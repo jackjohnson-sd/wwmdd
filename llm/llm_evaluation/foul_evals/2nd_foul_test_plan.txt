@@ -112,7 +112,7 @@ Prompt 1:
  
         In event row 18, Dereck Lively II committed the foul with 8 minutes and 49 seconds remaining in the first period.
                 
-        This is because ‘FOUL’ is listed in the ‘eventmsgtype’ column, ‘Dereck Lively II’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, 
+        This is because ‘FOUL’ is listed in the ‘eventmsgtype’ column ‘Dereck Lively II’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, 
         and ‘8:49’ is listed in the ‘pctimestring’ column. 
         
         player1_name is on the team DAL because ‘DAL’ is listed in the ‘player1_team_abbreviation’ column. 

@@ -6,9 +6,9 @@ class default :
     
     stuff = {}
 
-    def __init__(self,fn='wwmdd.json'):
+    def __init__(self,fn='.wwmdd/settings.json'):
         
-        if fn == None: fn = 'wwmdd.json'
+        if fn == None: fn = '.wwmdd/settings.json'
         try:    
             with open(fn, "r") as f:
                 self.stuff = json.load(f)
@@ -16,83 +16,68 @@ class default :
                 print(f'Failed to load {fn} as json settings file.')
                 print('----------- Using default values.       ------------ ')
                 # copy/paste contents of wwmmd.json here to update defaults
-                self.stuff =  {
-                    
-                      "LOG"         : "OFF"
-                    , "TRIM"        : "OFF"      
-                    , "CONSOLE"     : "ON"
+                self.stuff = {
+        "LOG"         : "OFF"
+        , "TRIM"        : "OFF"      
+        , "CONSOLE"     : "ON"
 
-                    , "dbga"        : "OFF"
-                    , "dbgb"        : "OFF"
-                    , "dbgc"        : "OFF"
+        , "dbga"        : "OFF"
+        , "dbgb"        : "OFF"
+        , "dbgc"        : "OFF"
 
-                    , "SUB_PLOTS"            : [       "STINTS", "EVENTS", "SCORE", "xMARGIN", "PERIOD_SCORES", "BOX_SCORE"]
-                    , "example_SUB_PLOTS"    : ["ALL", "STINTS", "EVENTS", "SCORE", "MARGIN", "PERIOD_SCORES", "BOX_SCORE"]
+        , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
 
-                    , "TEST_PLAYERS"          :  []
-                    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+        , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore"]
+        , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "period_scores", "boxscore"]
+        
+        , "SHOW" : ["plot","csv"]
+        , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]
 
-                    , "SAVE_GAME_AS_CSV"      : False
-                    , "SAVE_RAW_GAME_AS_CSV"  : False
+        , "SOURCES" : ["web","file","db"]
+        , "AI"      : ["GEMINI", "CLAUDE"]
 
-                    , "PLAY_TIME_CHECK_ONLY"  : False
 
-                    , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
-                    , "SHOW_OVERLAP"          : ""
-                    , "OVERLAP_GROUP"         : [4,5]
+        , "TEST_PLAYERS"          :  []
+        , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
-                    , "PLAY_TIME_CHECK_SHOW"  : "OFF"
-                    , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
+        , "SAVE_GAME_AS_CSV"      : False
+        , "SAVE_RAW_GAME_AS_CSV"  : False
 
-                    , "SAVE_SUBS_FILE"   : False
-                
-                    , "SAVE_GAME_DIR"     : "llm_training_data"
-                
-                    , "SAVE_PLOT_AS_PDF"  : "OFF DOES NOT WORK"
-                    , "SAVE_PLOT_DIR"     : "llm_training_plots"
-                    , "SHOW_PLOT"         : "ON"
+        , "SAVE_SUBS_FILE"        : False
 
-                    , "GOOD_EVENT_COLOR"  : "mediumseagreen"
-                    , "BAD_EVENT_COLOR"   : "cornflowerblue"
-                    , "GRID_COLOR"        : "dimgrey"
+        , "PLAY_TIME_CHECK_ONLY"  : False
+        , "PLAY_TIME_CHECK_SHOW"  : "OFF"
 
-                    , "STINT_COLOR"       : "dimgrey"
-                    , "STINT_COLOR_IN"    : "limegreen"
-                    , "STINT_COLOR_OUT"   : "darkorange"
+        , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
 
-                    , "PM_PLUS_COLOR"     : "maroon"
-                    , "PM_MINUS_COLOR"    : "darkgreen"
-                    , "TABLE_COLOR"       : "goldenrod"
-                    , "PLOT_COLOR_STYLE"  : "dark_background"
-                
-                    , "STINT_COLOR_PLUS"       : "forestgreen"
-                    , "STINT_COLOR_MINUS"      : "firebrick"
+        , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
+        , "SHOW_OVERLAP"          : "NONE"
+        , "OVERLAP_GROUP"         : [2]
+    
+        , "SAVE_GAME_DIR"     : "llm_training_data"
+    
+        , "SAVE_PLOT_IMAGE"  : False
 
-                    , "MARKER_2_STACK_OFFSET"  : 1.8 
-                    , "MARKER_3_STACK_OFFSET"  : 3.4
-                    , "MARKER_WIDTH"           : 28
-                    , "MARKER_FONTSCALE"       : 2.85
-                    , "MARKER_FONTWEIGHT"      : "demi"
-                    , "GRID_linewidth"         : 0.5
+        , "SAVE_PLOT_DIR"     : "llm_training_plots"
 
-                    , "BOX_COL_COLOR"         : "sienna"
-                    , "BOX_COL_COLOR_ALT"     : "chocolate"
-                    , "BOX_COL_MAX_COLOR"     : "goldenrod"
+        , "SHOW_PLOT"         : True
 
-                    , "START_DAY"            : "2023-01-30" 
-                    , "STOP_DAY"             : "2023-01-30"
-                    , "TEAM"                 : "OKC"
-                
-                    , "SOURCE"      : "WEB:"
-                    , "aSOURCE"     : "FILE:llm_training_data"
-                    , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
-                
-                    , "dSOURCE"     : "CLAUDE:claude_test"
-                    , "eSOURCE"     : "GEMINI:gemini_test"
-                    , "fSOURCE"     : "TOKENS:gemini_test"
-                    , "nSOURCE"     : "nba.sqlite"
+        , "START_DAY"            : "2024-01-01" 
+        , "STOP_DAY"             : "2024-01-30"
+        , "TEAM"                 : "OKC"
+    
+        , "FILE"         : "llm_training_data"
 
-                }
+        , "SOURCE"      : "WEB:"
+        , "aSOURCE"       : "FILE:llm_training_data"
+        , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
+    
+        , "dSOURCE"     : "CLAUDE:claude_test"
+        , "eSOURCE"     : "GEMINI:gemini_test"
+        , "fSOURCE"     : "TOKENS:gemini_test"
+        , "nSOURCE"     : "nba.sqlite"
+
+}
                 
 
     def get(self, _name):

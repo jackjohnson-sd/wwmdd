@@ -2,7 +2,6 @@ import os
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-# matplotlib.rcParams['toolbar'] = 'None' 
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
@@ -24,7 +23,7 @@ STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')
 BAD_EVNT          = color_defaults.get('BAD_EVENT_COLOR')    
 GOOD_EVNT         = color_defaults.get('GOOD_EVENT_COLOR') 
 GRID_C            = color_defaults.get('GRID_COLOR')
-TABLE_C           = color_defaults.get('TABLE_COLOR')
+
 TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
 STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
 STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
@@ -45,6 +44,9 @@ def do_plot(theplot):
     if 'all' in SUB_PLOTS: return True
     if theplot in SUB_PLOTS: return True
     return False
+
+if not do_plot('tools'):
+    matplotlib.rcParams['toolbar'] = 'None' 
 
 
 def stack_markers(yy_, sec_, color_):
@@ -412,7 +414,7 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     else : 
         column_widthsnew  = bx_col_data
       
-    def plot_boxscore_row(start, y, row,color = None):
+    def plot_boxscore_row(start, y, row, color = None):
         
         for idx,r in enumerate(row):
             if color == None:
@@ -420,9 +422,13 @@ def plot_box_score(axis, box_score, players, bx_col_data):
                 if idx > 0 and idx < len(bs_columns): 
                     if box_score.is_max(bs_columns[idx],r,row[0]):
                         c = BOX_COL_MAX_COLOR
-            else: c = color
+                else: 
+                    c = colors_4_col[idx]
+            else: 
+                c = color[idx]
             
             if idx != 0: start += column_widthsnew[idx]/2    
+    
             axis.text(start, y, s = r,
                 color = c, 
                 size = 24 / MRK_FONTSCALE, 
@@ -438,14 +444,22 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
     doRows = do_plot('boxscore') 
     
+    brighter_column_color = list(map(lambda x:brighter(x),colors_4_col))
+
     if doRows :
         # does the column headers
-        plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns, color = brighter(BOX_COL_COLOR))
+        # plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns, color = brighter(BOX_COL_COLOR))
+        plot_boxscore_row(ROW_START,-5 + len(trows) * 10, bs_columns, 
+                          color = list(map(lambda x:brighter(x),brighter_column_color)))
 
     for i, bs in enumerate(bs_data):
         y = -5 + ((i) * 10)
         if doRows:
-            plot_boxscore_row(ROW_START, y,[trows[i]] + bs)
+            c = None
+            if i == 0:
+                c = brighter_column_color
+                
+            plot_boxscore_row(ROW_START, y,[trows[i]] + bs,c)
         else:
             plot_boxscore_row(ROW_START, y,[trows[i]])
     
@@ -512,7 +526,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
 
     ax.xaxis.tick_top()  
     tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
-    ax.set_xticklabels(tls, minor = True, color=TABLE_C)
+    ax.set_xticklabels(tls, minor = True, color=TABLE_COLOR)
 
     ax.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
     ax.tick_params(axis='x', which='minor', labelsize=9, pad=-20, length = 0)
@@ -575,12 +589,12 @@ def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info)
     c2xstart = x
     c2ystart = y
     
-    plot_text(_ax_, c2xstart, c2ystart, title[0],TABLE_C,scale=1.1)
-    plot_text(_ax_, c2xstart + 4,c2ystart -22,title[1],TABLE_C, scale=1.1)
+    plot_text(_ax_, c2xstart, c2ystart, title[0],TABLE_COLOR,scale=1.1)
+    plot_text(_ax_, c2xstart + 4,c2ystart -22,title[1],TABLE_COLOR, scale=1.1)
     
     plot_quarter_score(home_scores, away_scores, _ax_, c2xstart + 2, c2ystart + 50, game_info)
 
-    if do_plot('events') or True:
+    if do_plot('legend'):
         plot_event_legend(_ax_,20,50)
 
 def plot_event_legend(ax,xstart,ystart):
@@ -854,7 +868,7 @@ def plot_layout(title):
     figure, axd = plt.subplot_mosaic(layout, figsize = (10.0, 6.5) )   
     figure.canvas.manager.set_window_title(title)
     
-    return axd, E1,TL,TR,MD,E2,BL,BR,E3
+    return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
 def play_time_check(title,bx1,bx2,stints1,stints2):
     # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
@@ -916,11 +930,15 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
-    if defaults.get('SAVE_GAME_AS_CSV'):
-    
+    if defaults.get('SAVE_RAW_GAME_AS_CSV'):
         def Merge(dict1, dict2): return {**dict1, **dict2}
-        game_stints = Merge(our_stints[0], opponent_stints[0])
-        dump_pbp(game_data, game_stints)
+        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+        dump_pbp(game_data, merged_game_stints, do_raw=True)
+
+    if defaults.get('SAVE_GAME_AS_CSV'):
+        def Merge(dict1, dict2): return {**dict1, **dict2}
+        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+        dump_pbp(game_data, merged_game_stints)
 
     # top team = winner, bot_team = loser
     # home_team affects plus/minus and score 
@@ -941,7 +959,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     if not defaults.get('PLAY_TIME_CHECK_ONLY'):
 
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
-        axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
+        figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
         # winning team goes on top 
         # TEAM1 is group1 data, opponennt is group2 data
@@ -1003,20 +1021,24 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        if(defaults.get('SHOW_PLOT')): 
+        if not defaults.get('SHOW_PLOT'): 
+            print('Show plot disabled.')   
+        else:
+            plt.draw()
             plt.show(block = True) 
-        else: 
-            print('Show plot disabled in json config file')   
         
-        if defaults.get('SAVE_PLOT_AS_PDF'):
+        if defaults.get('SAVE_PLOT_IMAGE'):
         
+            img_type = defaults.get('SAVE_PLOT_TYPE')
+            img_dpi  = defaults.get('SAVE_PLOT_DPI')
+
             cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
             t = game_data.matchup_home.split(' ')
-            fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.pdf'
-        
+            fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.{img_type}'
+            print(fn)       
             if not(os.path.exists(cwd)): os.mkdir(cwd)
     
             fn = os.path.join(cwd, fn) 
-            plt.savefig(fn)
+            figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')

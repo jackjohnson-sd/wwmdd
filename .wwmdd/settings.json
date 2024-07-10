@@ -7,10 +7,10 @@
     , "dbgb"        : "OFF"
     , "dbgc"        : "OFF"
 
-    , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
+    , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
 
-    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore"]
-    , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "period_scores", "boxscore"]
+    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
+    , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
     
     , "SHOW" : ["plot","csv"]
     , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]
@@ -34,21 +34,24 @@
 
     , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
     , "SHOW_OVERLAP"          : "NONE"
-    , "OVERLAP_GROUP"         : [4,5]
+    , "OVERLAP_GROUP"         : [2]
  
-    , "SAVE_GAME_DIR"     : "llm_training_data"
+    , "SAVE_GAME_DIR"     : "llm_training_data/csv"
    
-    , "SAVE_PLOT_AS_PDF"  : false
+    , "SAVE_PLOT_IMAGE"  : false
 
-    , "SAVE_PLOT_DIR"     : "llm_training_plots"
+    , "SAVE_PLOT_DIR"     : "llm_training_data/img"
+    , "SAVE_PLOT_TYPE"    : "pdf"
+    , "SAVE_PLOT_DPI"     : 300
+
 
     , "SHOW_PLOT"         : true
 
-    , "START_DAY"            : "2024-01-01" 
-    , "STOP_DAY"             : "2024-01-30"
+    , "START_DAY"            : "2024-01-04" 
+    , "STOP_DAY"             : "2024-01-06"
     , "TEAM"                 : "OKC"
  
-    , "FILE"         : "llm_training_data"
+    , "FILE"         : "llm_training_data/csv"
 
     , "SOURCE"      : "WEB:"
     , "aSOURCE"       : "FILE:llm_training_data"

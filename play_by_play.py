@@ -471,11 +471,11 @@ pbp_event_map = {
     13: [['ENDOFPERIOD', ''], [1]   ,],  # END of period
 }
      
-def dump_pbp(game, game_stints):
+def dump_pbp(game, game_stints, do_raw = False):
     
     period_end_score = {}    
     
-    save_as_raw = defaults.get('SAVE_RAW_GAME_AS_CSV')
+    save_as_raw = do_raw
     
     sub_events = [] if save_as_raw else sub_events_from_stints(game, game_stints)
     

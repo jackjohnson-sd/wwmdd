@@ -1,6 +1,10 @@
 Please Read me
 
-July 8 -- reworked command line again 
+July 9 -- save img N NOW WORKS. dpi and image type set in settings.json
+July 8 -- save to pdf or jpg DOES NOT work. its all black
+July 8 -- moved settings.json and colors.json to .wwmdd sub directory
+July 8 -- added legend and tools to subplots, tested a bit
+July 8 -- reworked command line again, fixed issues with CVS and RAW at same time 
 July 7 -- ran WEB then FILE for OKC 23-24 season ~ 92 games
        --  ATL 11/06, BOS 04/03, TOR 02/04 fail play time check on WEB 
        --  ATL 11/06, BOS 04/03, TOR 02/04, SAC 12/14, NOP 04/21 failed FILE
@@ -40,7 +44,7 @@ July 5 -- some testing on OKC v BOS 2024-04-03?
             shooting percentage
 
 # Outputs
-    1. 	Plots
+    1. Plots
     2. Box Score
     2. Console Diagnostics / log files
     3. Play by play updates to cvs files and dbs

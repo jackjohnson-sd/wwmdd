@@ -3,10 +3,21 @@ import argparse
 # before anything else happens, likely too cheesy and won't servive long
 parser = argparse.ArgumentParser()
 
+helpme = \
+"For example, 'sh w.sh -s web -t OKC -d 2024-03-04 -make cvs raw'\n " + \
+"displays a plot from the OKC game on the date and \n" + \
+"saves csv files in a RAW (as is, i.e. unmodified) format and \n" + \
+"one without a RAW prefix and expanded player subtitution information.\n\n"
 
+parser = argparse.ArgumentParser(
+                    prog ='wwmdd',
+                    description='Mangles and displays BB game event data',
+                    epilog = helpme)
+                    
 parser.add_argument('-make','-m', nargs='+', 
-                    choices = ['plot','csv','raw','pdf','stints', 'overlaps'],   
-                    help='specify what you want to do')
+                    metavar='stuff',
+                    choices = ['plot','csv','raw','png','stints', 'overlaps'],   
+                    help='What to do, -make plot csv')
 parser.add_argument('-source','-s',
                     choices = ['web','csv'],          
                     help='where to get the data')
@@ -15,9 +26,9 @@ parser.add_argument('-file','-f',            help='where to save or get file(s)'
 parser.add_argument('-team','-t',            help='team to use in game searh')
 parser.add_argument('-date','-d', nargs='+', help='date or date range')
 parser.add_argument('-subplots','-p',  nargs ='+',  
-                    choices= ['all','stints', 'events', 'score', 'margin', 'periodscores', 'boxscore'],
+                    choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend","pdf"],
                     help ='select one or more sub plots to display')
-parser.add_argument('-colors',       help='set json file for plot colors')
+parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json ')
 parser.add_argument('-json',         help='specify json file for app config. default is settings.json')
 parser.add_argument('-test_players', help='DEBUG in testing normally []')
 
@@ -57,10 +68,12 @@ if __name__ == '__main__':
         stints = 'stints' in args.make
         olaps = 'overlaps' in args.make
         plot = 'plot'  in args.make
-        c = 'csv' in args.make
-        r = 'raw'  in args.make
+        csv_save = 'csv' in args.make
+        raw_save = 'raw' in args.make
+        png  = 'png' in args.make
         
         if plot: settings.defaults.set('SHOW_PLOT', True)
+        settings.defaults.set('SAVE_PLOT_IMAGE', png)
         
         # no plot
         if not plot and stints or olaps:
@@ -78,26 +91,28 @@ if __name__ == '__main__':
         do_csv = 'csv' in args.source
                     
         if do_web: 
-            settings.defaults.set('SOURCE','WEB')
-            
-            settings.defaults.set('SAVE_RAW_GAME_AS_CSV','raw' in args.make)
-            settings.defaults.set('SAVE_GAME_AS_CSV',    'csv' in args.make)
             
             if args.date == None: print('-date required')
             if args.team == None : print('-team required')
 
             if None in [args.team,args.date]: sys.exit()
-        
+
+            settings.defaults.set('SOURCE','WEB')       
+            settings.defaults.set('SAVE_RAW_GAME_AS_CSV',raw_save)
+            settings.defaults.set('SAVE_GAME_AS_CSV', True if raw_save else csv_save)
+
             start = args.date[0]
-            try: stop  = args.date[1]
+            try:   stop  = args.date[1]
             except: stop = args.date[0]
         
             main_web.main(team=args.team, start=start, stop=stop)
             
         elif do_csv:
-            settings.defaults.set('SOURCE','CSV')
+
             if args.file == None : print('-file required')
             if None in [args.file]: sys.exit()
+
+            settings.defaults.set('SOURCE','CSV')
             main_csv.main(args.file)
 
     else:

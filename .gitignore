@@ -162,6 +162,7 @@ nba.sqlite
 .DS_Store
 _save_and_ignore/
 llm_training_data/
+llm_training_plots/
 claude_test/
 wwmdd.command
 Archive

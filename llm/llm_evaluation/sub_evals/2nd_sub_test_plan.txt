@@ -116,12 +116,14 @@ Prompt 1:
         89,SUB,1,3:31,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,DET,,
             
         In event row 88, Alec Burks exits the court with 3 minutes and 31 seconds remaining in the first period.
+
         This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Alec Burks’ is named in the ‘player1_name’ column, ‘1’ is listed in the ‘period’ column, 
         and ‘3:31’ is listed in the ‘pctimestring’ column. 
 
         player1_name is on the team DET because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
 
         In event row 89, Isaiah Livers enters the game with 3 minutes and 31 seconds remaining in the first period.
+        
         This is because ‘SUB’ is listed in the ‘eventmsgtype’ column, ‘Isaiah Livers’ is named in the ‘player2_name’ column, ‘1’ is listed in the ‘period’ column, 
         and ‘3:31’ is listed in the ‘pctimestring’ column. 
 

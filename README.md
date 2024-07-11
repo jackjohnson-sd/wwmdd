@@ -1,6 +1,7 @@
 Please Read me
 
-July 9 -- save img N NOW WORKS. dpi and image type set in settings.json
+July 11 -- added command line how-to's in readme.mk
+July 9 -- save img NOW WORKS. dpi and image type set in settings.json
 July 8 -- save to pdf or jpg DOES NOT work. its all black
 July 8 -- moved settings.json and colors.json to .wwmdd sub directory
 July 8 -- added legend and tools to subplots, tested a bit
@@ -16,6 +17,53 @@ July 6 -- added overlap.py
 July 5 -- some testing on OKC v BOS 2024-04-03?
 
 **Or not.**
+# cmd line notes
+
+sh w.sh args ==>  python3 main.py args
+(fyi -- if don't think the sh or the .sh is needed but yet to achieve this, with limited effort)
+
+args 
+
+-s,-source [web,csv,db] ==> select one as source of data, web (NBA api), csv (files), or db (data base )
+    if no source specifed uses source declared in .wwmdd/settngs.json
+
+-d,-date YYYY-MM-DD [YYYY-MM-DD] ==> date or date range for 'web' sourced games, 1 entry date, 2 entries date range
+
+-t,-team [TEAM]  ==> team i.e. [NYK, OKC, LAL, etc], select game(s) for this team (TODO support teams)
+
+-f,-file [file or dirctory] ==> file or directory used for 'csv' source
+
+-m,-make [plot,csv,raw,img,stint,overlap] ==> one or more things to make: 
+    plot, csv - enhneced play by play, raw - unchanged play by play, stints by player, overlap by players
+    img - png,jpg formatted image of plot
+
+-p, -subplot [all,tools,stints,events,score,margin,periodscores,boxscore,legend] ==>
+    one or more of things to place on plots
+
+-j, -json [settings_file]  ==> i.e. -j oursetting.json, uses new oursettings.json file
+    anthing done on the command line can be done via a modified settings.json 
+    i.e no command line paramaters means use the json file
+
+-c,-color [colors_file] ==> specify new colors for plots
+    replaces .wwmdd/colors.json with this file.
+
+    sh w.sh   
+    -> runs the app based on whats in the .wwmdd/setting.json and colors.json file
+
+    sh w.sh -s web -t OKC -d 2023-01-30 -m plot csv -p stints
+    -> get data from NBA site for OKC on 2023-01-30 and show and save an enhanced play by play file, and show an plot with stints only
+    
+    sh w.sh -s web -t OKC -d 2023-01-01  2023-01-03 -m plot csv -p stints
+    -> same as above but get all games that occured between 2023-01-01 and 2023-01-30
+
+    sh w.sh -s csv -f OKCvGSW20230130.csv -m plot
+    -> display plot for this file, .wwmdd/settings.json determines whats on plot
+
+    sh w.sh -s csv -f llm\llm_training_data -m plot -p all
+    -> display plot with all features data for csv files in llm\llm_training_data directory
+
+    sh w.sh -j test_colors.json -s csv -f OKCvGSW20230130.csv -m plot
+    -> same as above with terrible colors
 
 # Data Source
     1. NBA API

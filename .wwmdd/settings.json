@@ -44,7 +44,7 @@
     , "SAVE_PLOT_DPI"     : 300
 
     , "SHOW_PLOT"         : true
-    , "SHOW_PAUSE"        : 5
+    , "SHOW_PAUSE"        : -1
 
     , "START_DAY"            : "2024-01-04" 
     , "STOP_DAY"             : "2024-01-16"

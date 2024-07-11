@@ -26,7 +26,7 @@ parser.add_argument('-file','-f',            help='where to save or get file(s)'
 parser.add_argument('-team','-t',            help='team to use in game searh')
 parser.add_argument('-date','-d', nargs='+', help='date or date range')
 parser.add_argument('-subplots','-p',  nargs ='+',  
-                    choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend","pdf"],
+                    choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend","img"],
                     help ='select one or more sub plots to display')
 parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json ')
 parser.add_argument('-json',         help='specify json file for app config. default is settings.json')

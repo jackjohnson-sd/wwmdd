@@ -1,3 +1,8 @@
+
+""" make file exe
+% chmod 755 YourScriptName.sh
+./YourScriptName.sh  to execuute in directory  ./ means execute in directory
+
 """
 csv filter  ==>   
 select * where a2 == 'SUB' && (a10 == 'CJ McCollum' || a8 == 'CJ McCollum')
@@ -41,6 +46,7 @@ args
 examples
 
     sh w.sh   
+    ./w.sh  to make execuutable -> do chmod 755 w.sh
     -> runs the app based on whats in the .wwmdd/setting.json and colors.json file
 
     sh w.sh -s web -t OKC -d 2023-01-30 -m plot csv -p stints
@@ -55,6 +61,6 @@ examples
     sh w.sh -s csv -f llm\llm_training_data -m plot -p all
     -> display plot with all features data for csv files in llm\llm_training_data directory
 
-    sh w.sh -j test_colors.json -s csv -f OKCvGSW20230130.csv -m plot
+    sh w.sh -c test_colors.json -s csv -f OKCvGSW20230130.csv -m plot
     -> same as above with terrible colors
 

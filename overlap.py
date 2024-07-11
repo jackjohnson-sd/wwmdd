@@ -108,6 +108,40 @@ def overlap_dump(game_stints_by_combo, team_abbreviation):
             # print(f'{nP} {dur} {combo} {st} ')
             print(f'{nP} {dur} {combo}\n          {st}')
     
+def overlap_file_save(game_stints_by_combo,team_abbreviation,file_name):
+        
+        def fgg(stints): return sum(list(map(lambda x:x[0],stints)))
+            
+        ol_pt = list(map(lambda x:[x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],game_stints_by_combo.keys())) 
+        ol_pts = sorted(ol_pt, key=lambda x: x[1])   
+
+        the_goods = []
+        ol_pts.reverse()
+        for x in ol_pts[0:25]:
+            st = (', ').join(list(map(lambda x:stint_dump(x),x[2])))
+            nP = f'({1 + x[0].count('_')})' 
+            dur = f'{ms(x[1])}' 
+            combo = f'{x[0]}'
+            the_goods.extend([f'{combo},{st}'])
+
+        f = '\n'.join(the_goods)
+        
+        import os
+        cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+        fn = ''
+        # f'OVR_LPS_{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
+        fn = os.path.join(cwd, fn) 
+        
+        
+        t = [1,1]
+    
+        if not(os.path.exists(cwd)): os.mkdir(cwd)   
+        
+        fl = open(fn,"w")
+        
+        fl.write(f)
+        fl.close()
+
 
 def stint_dump(stint):
     start_time = f'{sec_to_period_time2(stint[1]).replace(' ',':')}'

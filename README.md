@@ -1,6 +1,6 @@
 Please Read me
 
-July 11 -- added command line how-to's in readme.mk
+July 11 -- added command line how-to's in readme.md
 July 9 -- save img NOW WORKS. dpi and image type set in settings.json
 July 8 -- save to pdf or jpg DOES NOT work. its all black
 July 8 -- moved settings.json and colors.json to .wwmdd sub directory
@@ -17,8 +17,7 @@ July 6 -- added overlap.py
 July 5 -- some testing on OKC v BOS 2024-04-03?
 
 **Or not.**
-# cmd line notes
-
+# cmd line note∫
 sh w.sh args ==>  python3 main.py args
 (fyi -- if don't think the sh or the .sh is needed but yet to achieve this, with limited effort)
 

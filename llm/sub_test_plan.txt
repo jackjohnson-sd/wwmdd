@@ -33,7 +33,7 @@ Prompt 1:
         ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
 
         The subsequent rows are called event rows.
-        Event rows describe the events in the game.
+        Event rows describe an event in the game.
 
         
         .1. The first column's optional value is the event number.
@@ -96,9 +96,9 @@ Prompt 1:
     </play-by-plays_in_CSV_format_information>
 
     <game_time_information>
-        Game_time refers to the time an event occurs in the basketball play-by-play.
+        Game_time refers to the time an event occurs in a basketball play-by-play.
         
-        Game_time uses the period and pctimestring values to determine when an event occurs into a game. 
+        Game_time uses the period and pctimestring values to determine when an event occurs in a game. 
         
         Game_time values are expressed in seconds. 
 
@@ -129,10 +129,10 @@ Prompt 1:
         - ‘SUB’ in the ‘eventmsgtype’ column identifies this row as a SUB event row. 
 
         - In a SUB event row, the ‘player2_name’ column player starts playing.
-        His playing time started at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
+        This players playing time started at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
 
         - In a SUB event row, the ‘player1_name’ column player ends playing.
-        His playing time ended at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
+        This players playing time ended at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
     </SUB_event_information>
 
     <SUB_event_example>

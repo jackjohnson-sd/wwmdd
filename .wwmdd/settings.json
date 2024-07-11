@@ -36,10 +36,10 @@
     , "SHOW_OVERLAP"          : "NONE"
     , "OVERLAP_GROUP"         : [2]
  
-    , "SAVE_GAME_DIR"     : "llm_training_data/csv"
+    , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
    
     , "SAVE_PLOT_IMAGE"  : true
-    , "SAVE_PLOT_DIR"     : "llm_training_data/img"
+    , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
     , "SAVE_PLOT_TYPE"    : "png"
     , "SAVE_PLOT_DPI"     : 300
 
@@ -50,11 +50,11 @@
     , "STOP_DAY"             : "2024-01-16"
     , "TEAM"                 : "OKC"
  
-    , "FILE"         : "llm_training_data/csv"
+    , "FILE"         : "llm/llm_training_data/csv"
 
     , "SOURCE"      : "WEB:"
-    , "aSOURCE"       : "FILE:llm_training_data"
-    , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
+    , "aSOURCE"       : "FILE:llm/llm_training_data"
+    , "aaSOURCE"     : "FILE:llm/llm_training_data/RAW_BOSvOKC20240403.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"

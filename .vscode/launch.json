@@ -24,7 +24,7 @@
                 "-source",
                 "csv",
                 "-file",
-                "llm_training_data/csv/BKNvOKC20240105.csv"
+                "llm/llm_training_data/csv/BKNvOKC20240105.csv"
             ]
         }
     ]

@@ -237,38 +237,38 @@ Test Questions:
 
     2. Who are the players on each team? 
 
-    3. How many times did Josh Giddey start playing?
-        3a. At what times did Giddey start playing?
-        3b. At what times did Giddey end playing?
-        3c. How long (in Minutes:Seconds) were Giddey's stints? 
-        3d. How many minutes did Giddey play in the game?
+    3a. How many times did Josh Giddey start playing?
+        3b. At what times did Giddey start playing?
+        3c. At what times did Giddey end playing?
+        3d. How long (in Minutes:Seconds) were Giddey's stints? 
+        3e. How many minutes did Giddey play in the game?
 
-    4. How many times did Kenrich Williams start playing?
-        4a. At what times did Williams start playing?
-        4b. At what times did Williams end playing?
-        4c. How long (in Minutes:Seconds) were Williams's stints? 
-        4d. How many minutes did Williams play in the game?
-        4e. At what times and for how long did Williams play?
+    4a. How many times did Kenrich Williams start playing?
+        4b. At what times did Williams start playing?
+        4c. At what times did Williams end playing?
+        4d. How long (in Minutes:Seconds) were Williams's stints? 
+        4e. How many minutes did Williams play in the game?
+        4f. At what times and for how long did Williams play?
 
 
-    5. How many times did Shai Gilgeous-Alexander start playing?
-        5a. At what times did Gilgeous-Alexander start playing?
-        5b. At what times did Gilgeous-Alexander end playing?
-        5c. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
-        5d. How many minutes did Gilgeous-Alexander play? 
+    5a. How many times did Shai Gilgeous-Alexander start playing?
+        5b. At what times did Gilgeous-Alexander start playing?
+        5c. At what times did Gilgeous-Alexander end playing?
+        5d. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
+        5e. How many minutes did Gilgeous-Alexander play? 
 
-    6. How long did Gilgeous-Alexander play in the first 6 minutes of period 1?
-        6a. How long did Gilgeous-Alexander play in the second half of period 2?
+    6a. How long did Gilgeous-Alexander play in the first 6 minutes of period 1?
+        6b. How long did Gilgeous-Alexander play in the second half of period 2?
     
-    7. How long did Giddey play in the second half of period 2?
-        7a. How long did Giddey play from time 11:57 to 9:56 in period 4?
+    7a. How long did Giddey play in the second half of period 2?
+        7b. How long did Giddey play from time 11:57 to 9:56 in period 4?
 
       
-    8. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 1? 
-        8a. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 2? 
-        8b. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
-        8c. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
-        8d. How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
+    8a. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 1? 
+        8b. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 2? 
+        8c. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
+        8d. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
+        8e. How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
 
 
 
@@ -280,9 +280,9 @@ Answers:
         The players on the Golden State Warriors were:
         Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
     
-    3.  Josh Giddey entered the game 4 times. 
+    3a.  Josh Giddey entered the game 4 times. 
 
-        3a. 
+        3b. 
             period,pctimestring,neutraldescription,
             1,12:00,SUB: Giddey Enters,
             2,12:00,SUB: Giddey Enters,
@@ -291,7 +291,7 @@ Answers:
 
             Josh Giddey entered the game at the following times (seconds elapsed): 0, 720, 1391, 2276
 
-        3b. 
+        3c. 
             period,pctimestring,neutraldescription,
             1,4:31,SUB: Giddey Exits,
             2,7:23,SUB: Giddey Exits,
@@ -301,17 +301,17 @@ Answers:
             Josh Giddey exited the game at the following times (seconds elapsed): 449, 997, 1823, 2880
 
         
-        3c. 
+        3d. 
             1st Stint: (12 - 4:31) = 7:29
             2nd Stint: (12-7:23) = 4:37
             3rd Stint: (0:49 + (12 - 5:37)) = 7:12
             4th Stint: (10:04 - 0) = 10:04
 
-        3d.
+        3e.
         29 minutes and 22 seconds
 
-    4. Kenrich Williams entered the game 5 times.
-        4a. 
+    4a. Kenrich Williams entered the game 5 times.
+        4b. 
             period,pctimestring,neutraldescription,
             1,12:00,SUB: Williams Enters,
             1,0:26,SUB: Williams Enters,
@@ -319,7 +319,7 @@ Answers:
             3,0:25,SUB: Williams Enters,
             4,10:04,SUB: Williams Enters,
 
-        4b.
+        4c.
             period,pctimestring,neutraldescription,
             1,4:31,SUB: Williams Exits,
             2,7:44,SUB: Williams Exits,
@@ -327,58 +327,58 @@ Answers:
             3,0:00,SUB: Williams Exits,
             4,0:00,SUB: Williams Exits,
             
-        4c.
+        4d.
             1st stint: 7:29
             2nd stint: 4:42
             3rd stint: 10:29
             4th stint: 0:25
             5th stint: 10:04
 
-        4d. 33 minutes and 9 seconds
+        4e. 33 minutes and 9 seconds
 
-    5. 3 times
-        5a. 
+    5a. 3 times
+        5b. 
             period,pctimestring,neutraldescription,
             1,12:00,SUB: Gilgeous-Alexander Enters,
             2,5:02,SUB: Gilgeous-Alexander Enters,
             4,5:33,SUB: Gilgeous-Alexander Enters,
     
-        5b:
+        5c:
             period,pctimestring,neutraldescription,
             1,0:00,SUB: Gilgeous-Alexander Exits,
             4,10:04,SUB: Gilgeous-Alexander Exits,
             4,0:00,SUB: Gilgeous-Alexander Exits,
 
-        5c:
+        5d:
             1st Stint: 12:00
             2nd Stint: 18:58
             3rd Stint: 5:33
             
 
-        5d. 
+        5e. 
             36 minutes 31 seconds
 
-    6. 6 minutes
-        6a. 5:02
+    6a. 6 minutes
+        6b. 5:02
     
-    7. Josh Giddey played 0 minutes and 49 seconds (0:49) in the second half of the second period.
-        7a. Josh Giddey played 0 minutes and 8 seconds (0:08) from 11:57 to 9:56 in the fourth period.
+    7a. Josh Giddey played 0 minutes and 49 seconds (0:49) in the second half of the second period.
+        7b. Josh Giddey played 0 minutes and 8 seconds (0:08) from 11:57 to 9:56 in the fourth period.
 
-    8. 7 minutes and 29 seconds in the first period. 
+    8a. 7 minutes and 29 seconds in the first period. 
 
-        8a. 0:49 seconds
+        8b. 0:49 seconds
 
-        8b. Josh Giddey and Shai Gilgeous-Alexander did not have any overlapping playing time in the third period.
+        8c. Josh Giddey and Shai Gilgeous-Alexander did not have any overlapping playing time in the third period.
         
-        8c. 5 minutes and 33 seconds
+        8d. 5 minutes and 33 seconds
         
-        8d. 
+        8e. 
                 Period 1: 12 - 4:31
                 Period 2: 0:49
                 Period 3: 6:23
                 Period 4: 5:33
 
-                Sum: 7:29 + :49 + 5:33 = 13:51
+                Sum: 7:29 + :49 + 6:23 + 5:33 = 20:14
 
 
 

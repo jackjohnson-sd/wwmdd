@@ -1,0 +1,200 @@
+Name: SUB Questions and Answers
+
+Questions from: llm/sub_test_plan.txt
+
+Game used: llm/OKCvGSW20230130.csv
+
+Question 1:
+What teams played in the game?
+
+        Answer 1:
+        The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+
+Question 2:
+Who are the players on each team?
+
+        Answer 2:
+        The players on OKC were:
+        Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+
+        The players on GSW were:
+        Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+
+Question 3a:
+How many times did Josh Giddey start playing?
+
+        Answer 3a:
+        Josh Giddey started playing 4 times.
+
+    Question 3b:
+    At what times did Giddey start playing?
+
+        Answer 3b:
+        period,pctimestring,
+        1,12:00,
+        2,12:00,
+        2,0:49,
+        4,10:04,
+
+    Question 3c:
+    At what times did Giddey end playing?
+
+        Answer 3c:
+        period,pctimestring,
+        1,4:31,
+        2,7:23,
+        3,5:37,
+        4,0:00,
+
+
+    Question 3d:
+    How long (in Minutes:Seconds) were Giddey's stints?
+
+        Answer 3d:
+        1st Stint:   7:29
+        2nd Stint:   4:37
+        3rd Stint:   7:12
+        4th Stint:   10:04
+
+    Question 3e:
+    How many minutes did Giddey play in the game?
+
+        Answer 3e:
+        29:22 
+
+Question 4a:
+How many times did Kenrich Williams start playing?
+
+        Answer 4a:
+        Kenrich Williams started playing 5 times.
+
+    Question 4b:
+    At what times did Williams start playing?
+
+        Answer 4b:
+        period,pctimestring,
+        1,12:00,
+        1,0:26,
+        2,2:55,
+        3,0:25,
+        4,10:04,
+
+    Question 4c:
+    At what times did Williams end playing?
+
+        Answer 4c:
+        period,pctimestring,
+        1,4:31,
+        2,7:44,
+        3,4:26,
+        3,0:00,
+        4,0:00,
+
+
+    Question 4d:
+    How long (in Minutes:Seconds) were Williams's stints? 
+
+        Answer 4d:
+        1st stint: 7:29
+        2nd stint: 4:42
+        3rd stint: 10:29
+        4th stint: 0:25
+        5th stint: 10:04
+
+    Question 4e:
+    How many minutes did Williams play in the game?
+
+        Answer 4e:
+        33:09
+
+Question 5a:
+How many times did Shai Gilgeous-Alexander start playing?
+
+        Answer 5a:
+        Shai Gilgeous-Alexander started playing 3 times.
+
+    Question 5b:
+    At what times did Gilgeous-Alexander start playing?
+
+        Answer 5b:
+        period,pctimestring,
+        1,12:00,
+        2,5:02,
+        4,5:33,
+
+    Question 5c:
+    At what times did Gilgeous-Alexander end playing?
+
+        Answer 5c:
+        period,pctimestring,
+        1,0:00,
+        4,10:04,
+        4,0:00,
+
+    Question 5d:
+    How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
+
+        Answer 5d:
+        1st Stint: 12:00
+        2nd Stint: 18:58
+        3rd Stint: 5:33
+
+    Question 5e:
+    How many minutes did Gilgeous-Alexander play?
+
+        Answer 5e:
+        36:31
+
+Question 6a:
+How long did Gilgeous-Alexander play in the first 6 minutes of period 1?
+
+        Answer 6a:
+        6:00
+
+    Question 6b:
+    How long did Gilgeous-Alexander play in the second half of period 2?
+
+        Answer 6b:
+        5:02
+
+Question 7a:
+How long did Giddey play in the second half of period 2?
+
+        Answer 7a:
+        0:49
+
+    Question 7b:
+    How long did Giddey play from time 11:57 to 9:56 in period 4?
+
+        Answer 7b:
+        0:08
+
+Question 8a:
+How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 1? 
+
+        Answer 8a:
+        7:29
+
+    Question 8b:
+    How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 2?
+
+        Answer 8b:
+        0:49
+
+    Question 8c:
+    How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
+
+        Answer 8c:
+        6:23
+
+    Question 8d:
+    How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
+
+        Answer 8d:
+        5:33
+
+    Question 8e:
+    How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
+
+        Answer 8e:
+        20:14

@@ -1,11 +1,9 @@
 {
-      "LOG"         : "OFF"
-    , "TRIM"        : "OFF"      
-    , "CONSOLE"     : "ON"
+      "LOG"         : false
+    , "TRIM"        : false       
+    , "CONSOLE"     : true
 
-    , "dbga"        : "OFF"
-    , "dbgb"        : "OFF"
-    , "dbgc"        : "OFF"
+    , "DBG"         : false
 
     , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
 
@@ -47,13 +45,14 @@
     , "SHOW_PAUSE"        : -1
 
     , "START_DAY"            : "2024-01-04" 
-    , "STOP_DAY"             : "2024-01-16"
+    , "STOP_DAY"             : "2024-01-05"
     , "TEAM"                 : "OKC"
  
     , "FILE"         : "llm/llm_training_data/csv"
 
     , "SOURCE"      : "WEB:"
-    , "aSOURCE"       : "FILE:llm/llm_training_data"
+    , "wSOURCE"       : "OPEN_AI:FILES"
+    , "aSOURCE"      : "FILE:llm/llm_training_data"
     , "aaSOURCE"     : "FILE:llm/llm_training_data/RAW_BOSvOKC20240403.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"

@@ -22,7 +22,14 @@ def main(file_dir_name):
         
         name = os.path.basename(filename)
         
-        if '.csv' not in filename: continue
+        if '.csv' not in filename: 
+            print(f'Non csv file {name}. Skipped')
+            continue
+        
+        if not (os.path.isfile(filename) and os.access(filename, os.R_OK)):
+            print(f'Problem with file named {name}. Skipped.')
+            continue
+        
         df = pd.read_csv(filename, keep_default_na=False)
         df.iloc[::-1] # reverse dataframe
 

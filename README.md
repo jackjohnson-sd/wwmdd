@@ -1,3 +1,6 @@
+TODO -- bring back loggging, use loguru
+
+
 Please Read me
 
 July 11 -- added command line how-to's in readme.md
@@ -155,4 +158,30 @@ Next Steps
 
 
 
+***PAIRS***
+
+PAIRS is the idea of using more than one AI in an application.
+
+PAIRS start with the basic system information we've been using, 
+i.e. csv formatted play by play, Event definition (SUB, FOULS, SCORES, etc),
+stints, overlap, game time, playing time. 
+
+It then adds the game in question.
+
+We start by asking AI_1 a question from our question and  answer list. AI-2 
+evaluates AI_1's response against our answer list.  If we 'like' the answer it's on to the next question, if its not we ask a secondary question. We repeat this process till we have no more helpers we then ask for its reasoning and halt. We log prompts, questions and answeres.
+
+Our PAIRS answer file looks kinda like this:
+
+Q: What teams played in this game?
+A: OKC, GSW
+H: Team names appear in the player1_team_abbreaviation colummn.
+H: There can be only two teams in a game
+Q: Who played the most for OCK?
+A: OKC, GSW
+H: Calculate minutes played by  .....
+H: Who played the most means who played the most minutes.
+Q: .....
+A: .....
+H: 
 

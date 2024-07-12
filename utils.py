@@ -1,4 +1,8 @@
 import re
+import os
+
+from logger import log,logd,loge,LOG
+
 
 def period(sec) : return int(sec / 720) + 1
 
@@ -89,3 +93,33 @@ def shorten_player_name(what, max_length):
 
         return what[0] + '. ' + what.split(' ')[1]
     return what
+
+def get_file_names(file_directory):
+
+    if os.path.isdir(file_directory):
+        cwd = os.getcwd() + '/' + file_directory
+        files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
+    else:
+        files = [file_directory]
+    return files
+
+def save_files(who,directory,the_files):
+    
+    """ for example
+    the_files = [
+        ['made_by_gemini.csv', total_responce],
+        ['made_by_gemini_raw.txt', total_raw_resp]
+    ]
+    """
+    
+    fn = ''
+    for file in the_files:
+        if file[1] != '':
+            fn = os.getcwd() + '/' + directory + '/' + file[0]
+            with open(fn, 'w') as content_file:
+                content_file.write(file[1])
+    if fn != '':
+        log(f'\n\n{who} is done.  Look here: {fn}\n')
+    else:
+        log(f'\n\n!!! {who} created no files.')
+                

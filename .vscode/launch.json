@@ -20,11 +20,14 @@
             "console": "integratedTerminal",
             "args": [
                 "-make",
-                "plot", "png",
+                "plot",
                 "-source",
-                "csv",
+                "web",
+                "-w","1",
                 "-file",
-                "llm_training_data/csv/BKNvOKC20240105.csv"
+                "llm/llm_training_data/csv",
+                "-combo", 
+                "3","4"
             ]
         }
     ]

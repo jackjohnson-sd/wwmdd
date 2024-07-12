@@ -28,9 +28,17 @@ parser.add_argument('-date','-d', nargs='+', help='date or date range')
 parser.add_argument('-subplots','-p',  nargs ='+',  
                     choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend","img"],
                     help ='select one or more sub plots to display')
-parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json ')
 parser.add_argument('-json',         help='specify json file for app config. default is settings.json')
-parser.add_argument('-test_players', help='DEBUG in testing normally []')
+parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json')
+
+# debug and otrher stuff we don't tell about
+parser.add_argument('-wait','-w',    nargs=1, help=argparse.SUPPRESS)
+parser.add_argument('-combo','-cb',  nargs='+', help=argparse.SUPPRESS)
+parser.add_argument('-log',          help=argparse.SUPPRESS)
+parser.add_argument('-trim',         help=argparse.SUPPRESS)
+parser.add_argument('-console',      help=argparse.SUPPRESS)
+parser.add_argument('-DBG',          help=argparse.SUPPRESS)
+parser.add_argument('-test_players', help=argparse.SUPPRESS)
 
 args = parser.parse_args()
 
@@ -38,12 +46,25 @@ import settings
 
 settings.defaults = settings.default(args.json if args.json else None)
 
-if args.file            != None: settings.defaults.set('FILE',                  args.file)
-if args.team            != None: settings.defaults.set('TEAM',                  args.team)
+# things we don't tell about
+if args.log             != None: settings.defaults.set('LOG',       args.log)
+if args.DBG             != None: settings.defaults.set('DBG',       args.DBG)
+if args.trim            != None: settings.defaults.set('TRIM',      args.trim)
+if args.console         != None: settings.defaults.set('CONSOLE',   args.console)
+if args.wait            != None: settings.defaults.set('SHOW_PAUSE',  int(args.wait[0]))
 
-if args.colors          != None: settings.defaults.set('COLOR_DEFAULTS',        args.colors)
-if args.subplots        != None: settings.defaults.set('SUB_PLOTS',             args.subplots)
-if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',          args.test_players)
+try :
+    if args.combo != None: settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo.split(' '))))
+except:
+    print(f'Problem is combo parameter {args.combo}. combo paramater ignored')
+    
+
+if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',  args.test_players)
+
+if args.file            != None: settings.defaults.set('FILE',          args.file)
+if args.team            != None: settings.defaults.set('TEAM',          args.team)
+if args.colors          != None: settings.defaults.set('COLOR_DEFAULTS',args.colors)
+if args.subplots        != None: settings.defaults.set('SUB_PLOTS',     args.subplots)
 if args.date != None:
     start = args.date[0]
     try: 
@@ -58,8 +79,9 @@ from logger import log
 import main_web
 import main_csv
 import main_db
-import claude
-import gemini
+import llm_api.open_ai as gpt
+import llm_api.claude as claude
+import llm_api.gemini as gemini
 import sys
 
 if __name__ == '__main__':
@@ -73,6 +95,7 @@ if __name__ == '__main__':
         img  = 'img' in args.make
         
         if plot: settings.defaults.set('SHOW_PLOT', True)
+        
         settings.defaults.set('SAVE_PLOT_IMAGE', img)
         
         # no plot
@@ -120,22 +143,21 @@ if __name__ == '__main__':
         data_source = settings.defaults.get('SOURCE')
 
         # get games and play by play from nba_api. get teams and dates from settings.json
-        if 'WEB:' in data_source:
-            main_web.main()
+        if 'WEB:' in data_source: main_web.main()
+
         # read play by play from file we or claude created.  file or directory name
-        elif 'FILE:' in data_source:
-            main_csv.main(data_source.split(':')[1])
+        elif 'FILE:' in data_source: main_csv.main(data_source.split(':')[1])
+
         # send play_by_play files to claude and have him make one
-        elif 'CLAUDE:' in data_source:
-            claude.main(data_source.split(':')[1])
-        elif 'GEMINI:' in data_source:
-            gemini.main(data_source.split(':')[1])
-        elif 'TOKENS:' in data_source:
-            gemini.do_tokens(data_source.split(':')[1])
+        elif 'CLAUDE:' in data_source: claude.main(data_source.split(':')[1])
 
+        elif 'GEMINI:' in data_source: gemini.main(data_source.split(':')[1])
+
+        elif 'OPEN_AI:' in data_source: gpt.main(data_source.split(':')[1])
+
+        elif 'TOKENS:' in data_source: gemini.do_tokens(data_source.split(':')[1])
+
+        elif 'DB:' in data_source: main_db.main()
         # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
-        else:
-            main_db.main()
 
-        # modify launch.json  add this to use alternate json file
-        # 'args': ['--json', 'settings2.json']
+        else: print('NO SOURCE specified in .wwmdd/setttings.json.')

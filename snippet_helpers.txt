@@ -20,6 +20,10 @@ sh w.sh args ==>  python3 main.py args
 
 args 
 
+-bs file            ==> file is a list command line arguments, execute the app with these cmd lines
+-it [jpg,pdf,png]   ==> sets image of save plot images
+-w N                ==> show plot image on screen for N seconds and then proceed
+
 -s,-source [web,csv,db] ==> select one as source of data, web (NBA api), csv (files), or db (data base )
     if no source specifed uses source declared in .wwmdd/settngs.json
 

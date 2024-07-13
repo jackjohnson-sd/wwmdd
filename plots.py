@@ -288,7 +288,7 @@ def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
 
 def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     
-    if not do_plot('period_scores'): return
+    if not do_plot('periodscores'): return
     
     top_team = game_info['T']
     bot_team = game_info['B']

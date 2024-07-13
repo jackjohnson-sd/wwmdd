@@ -27,8 +27,8 @@ class default :
 
         , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
 
-        , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore"]
-        , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "period_scores", "boxscore"]
+        , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "periodscores", "boxscore"]
+        , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "periodscores", "boxscore"]
         
         , "SHOW" : ["plot","csv"]
         , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]

@@ -3,8 +3,6 @@ from utils import ms, sec_to_period_time,sec_to_period_time2,intersection
 
 from settings import defaults
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')  
-OVELAP_GROUP  = defaults.get('OVERLAP_GROUP')  
-
 
 def overlap(stintA, stintB):
     
@@ -53,7 +51,7 @@ def overlap_combos(game_stints_by_player):
     players = list(game_stints_by_player.keys())
     game_stints_by_combo = {}
     
-    for i in OVELAP_GROUP:
+    for i in defaults.get('OVERLAP_GROUP'):
         
         for combo in itertools.combinations(players, i):
             # print(i,combo)

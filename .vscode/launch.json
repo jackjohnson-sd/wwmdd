@@ -19,15 +19,9 @@
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-make",
-                "plot",
-                "-source",
-                "web",
-                "-w","1",
-                "-file",
-                "llm/llm_training_data/csv",
-                "-combo", 
-                "3","4"
+                "-s", "csv",
+                "-f", "llm/llm_training_data/csv/OKCvGSW20230130.csv", 
+                "-m", "plot"
             ]
         }
     ]

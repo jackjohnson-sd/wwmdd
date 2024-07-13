@@ -1,0 +1,11 @@
+-s web -t OKC -d 2023-01-30 -m plot -p stints -w 2
+-s web -t OKC -d 2024-03-10 -m plot -p all -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p stints -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p stints score -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p stints score margin -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p events stints score margin -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p legend events stints score margin -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p legend events stints score margin periodscores -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p legend events stints score margin periodscores boxscore -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p tools legend events stints score margin periodscores boxscore -w 2
+-s csv -f llm/llm_training_data/csv/MEMvOKC20240316.csv -m plot -p all -w 2

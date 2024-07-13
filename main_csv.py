@@ -26,7 +26,7 @@ def main(file_dir_name):
             print(f'Non csv file {name}. Skipped')
             continue
         
-        if not (os.path.isfile(filename) and os.access(filename, os.R_OK)):
+        if not (os.path.isfile(filename)):
             print(f'Problem with file named {name}. Skipped.')
             continue
         

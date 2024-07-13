@@ -45,8 +45,8 @@ def do_plot(theplot):
     if theplot in SUB_PLOTS: return True
     return False
 
-if not do_plot('tools'):
-    matplotlib.rcParams['toolbar'] = 'None' 
+# if not do_plot('tools'):
+#     matplotlib.rcParams['toolbar'] = 'None' 
 
 
 def stack_markers(yy_, sec_, color_):
@@ -930,6 +930,10 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
+    matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+    if not do_plot('tools'):
+        matplotlib.rcParams['toolbar'] = 'None' 
+
     if defaults.get('SAVE_RAW_GAME_AS_CSV'):
         def Merge(dict1, dict2): return {**dict1, **dict2}
         merged_game_stints = Merge(our_stints[0], opponent_stints[0])
@@ -1028,7 +1032,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             else: plt.pause(n) 
         
         if defaults.get('SAVE_PLOT_IMAGE'):
-        
+            
             img_type = defaults.get('SAVE_PLOT_TYPE')
             img_dpi  = defaults.get('SAVE_PLOT_DPI')
 

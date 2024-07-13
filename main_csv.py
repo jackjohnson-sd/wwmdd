@@ -9,7 +9,7 @@ def main(file_dir_name):
     import os
 
     if os.path.isdir(file_dir_name):
-        cwd = os.getcwd() + '/' + file_dir_name
+        cwd = os.path.join(os.getcwd(), file_dir_name)
         files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
     else:
         files = [file_dir_name]

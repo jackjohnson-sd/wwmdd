@@ -1,0 +1,8 @@
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p events stints -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints score -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints margin -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints legend -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints periodscores -w 2
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p stints tools -w 5
+-s csv -f tests/bs_test/OKCvIND20230118.csv -m plot -p all -w 5

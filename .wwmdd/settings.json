@@ -1,5 +1,5 @@
 {
-      "LOG"             : true
+      "LOG"             : false
     , "LOG_ROTATION"    : "1 hour"
     , "LOG_RETENTION"   : "1 week"
     , "LOG_LEVEL"       : "DEBUG"
@@ -24,7 +24,7 @@
     , "TEST_PLAYERS"          :  []
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
-    , "SAVE_GAME_AS_CSV"      : true
+    , "SAVE_GAME_AS_CSV"      : false
     , "SAVE_RAW_GAME_AS_CSV"  : false
 
     , "SAVE_SUBS_FILE"        : false

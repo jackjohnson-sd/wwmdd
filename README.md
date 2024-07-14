@@ -3,6 +3,8 @@ TODO -- bring back loggging, use loguru
 
 Please Read me
 
+July 14 -- log is back,stored in .wwmdd\logs, 
+           -log,-nolog on cmdline else from settings.json
 July 13 -- added -bs for batch, -it to set image type and -w to set wait in cmd line
 July 11 -- added command line how-to's in readme.md
 July 9 -- save img NOW WORKS. dpi and image type set in settings.json
@@ -26,6 +28,8 @@ sh w.sh args ==>  python3 main.py args
 (fyi -- if don't think the sh or the .sh is needed but yet to achieve this, with limited effort)
 
 args 
+-log    starts logger
+-nolog  stops logger
 
 -bs file ==> file is a list command line arguments
 -it [jpg,pdf,png]  ==> sets image of save plot images

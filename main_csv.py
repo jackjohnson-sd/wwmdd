@@ -21,6 +21,9 @@ def main(file_dir_name):
       for filename in files:
         
         name = os.path.basename(filename)
+        if '##' in filename:
+            print('COMMENT:',filename) 
+            continue
         
         if '.csv' not in filename: 
             print(f'Non csv file {name}. Skipped')

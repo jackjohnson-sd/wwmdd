@@ -19,7 +19,7 @@
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/bs_test/args.txt", 
+                "-bs", "tests/bs_test/args.txt",
 
             ]
         }

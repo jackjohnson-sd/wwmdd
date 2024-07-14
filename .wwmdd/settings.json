@@ -1,5 +1,9 @@
 {
-      "LOG"         : false
+      "LOG"             : true
+    , "LOG_ROTATION"    : "1 hour"
+    , "LOG_RETENTION"   : "1 week"
+    , "LOG_LEVEL"       : "DEBUG"
+
     , "TRIM"        : false       
     , "CONSOLE"     : true
 

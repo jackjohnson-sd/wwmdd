@@ -11,6 +11,8 @@ from settings import defaults
 from play_by_play import dump_pbp
 from utils import _ms,sec_to_period_time2,shorten_player_name
 
+from loguru import logger
+
 import settings
 
 color_defaults = settings.default(defaults.get('COLOR_DEFAULTS'))
@@ -877,11 +879,11 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
     m2 = int(bx2.get_team_secs_played())
     
     if m1 == m2: 
-        print(title[1], title[0], m1, 'OK')
+        logger.info(f'{title[1]} {title[0]} {m1} OK')
         ret_value = True
 
     else:
-        print(title[1], title[0], m1, m2, 'NOK')
+        logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
         ret_value = False
 
     PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
@@ -932,6 +934,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     matplotlib.rcParams.update(matplotlib.rcParamsDefault)
     if not do_plot('tools'):
+        logger.warning('Tool bar disabled')
         matplotlib.rcParams['toolbar'] = 'None' 
 
     if defaults.get('SAVE_RAW_GAME_AS_CSV'):
@@ -1044,6 +1047,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
             fn = os.path.join(cwd, fn) 
             plt.draw()
+            logger.info(f'saving image file {fn}')
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')

@@ -17,7 +17,7 @@ class default :
                 print('----------- Using default values.       ------------ ')
                 # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff = {
-        "LOG"         : "OFF"
+        "LOG"         : "ON"
         , "TRIM"        : "OFF"      
         , "CONSOLE"     : "ON"
 

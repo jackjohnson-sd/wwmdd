@@ -1,67 +1,114 @@
+import sys
 import argparse
 
+import settings
+from loguru import logger
 
 # before anything else happens, likely too cheesy and won't servive long
-
-parser = argparse.ArgumentParser(
-                    prog='wwmdd',
-                    description='Mangles and displays BB game event data',
-                    epilog="For example, './w.sh -s web -t OKC -d 2024-03-04 -make plot -p plot"
-                    )
-                    
-parser.add_argument('-make','-m', nargs='+', 
-                    metavar='stuff',
-                    choices = ['plot','csv','raw','img','stints', 'overlaps'],   
-                    help='What to do, -make plot csv')
-parser.add_argument('-source','-s',
-                    choices = ['web','csv'],          
-                    help='where to get the data')
-parser.add_argument('-with ',                help='which AI to use')
-parser.add_argument('-file','-f',            help='where to save or get file(s)')
-parser.add_argument('-team','-t',            help='team to use in game searh')
-parser.add_argument('-date','-d', nargs='+', help='date or date range')
-parser.add_argument('-subplots','-p',  nargs ='+',  
-                    choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend"],
-                    help ='select one or more sub plots to display')
-parser.add_argument('-json',         help='specify json file for app config. default is settings.json')
-parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json')
-
-# debug and otrher stuff we don't tell about
-parser.add_argument('-wait','-w',    nargs=1, help=argparse.SUPPRESS)
-parser.add_argument('-combo','-cb',  nargs='+', help=argparse.SUPPRESS)
-parser.add_argument('-log',          help=argparse.SUPPRESS)
-parser.add_argument('-trim',         help=argparse.SUPPRESS)
-parser.add_argument('-console',      help=argparse.SUPPRESS)
-parser.add_argument('-DBG',          help=argparse.SUPPRESS)
-parser.add_argument('-test_players', help=argparse.SUPPRESS)
-parser.add_argument('-bs', nargs=1,    help=argparse.SUPPRESS)
-parser.add_argument('-it', nargs=1, choices= ['pdf', 'png','jpg'],   help=argparse.SUPPRESS)
-
-
-args = parser.parse_args()
-
-argset = []
-if args.bs != None:
-    try:
-        with open(args.bs[0]) as f: lines = f.readlines()
-        for line in lines:
-            line = line.replace('\n','')
-            line = line.strip()
-            l = line.split(' ')
-            aargs = parser.parse_args(l)
-            argset.extend([aargs])
-    except:
-        print(f'ERROR -- Problem reading {args.bs[0]} file.')
-else:
-    argset = [args]
-            
+def get_args():
     
-import settings
-settings.defaults = settings.default(args.json if args.json else None)
+    parser = argparse.ArgumentParser(
+                        prog='wwmdd',
+                        description='Mangles and displays BB game event data',
+                        epilog="For example, './w.sh -s web -t OKC -d 2024-03-04 -make plot -p plot"
+                        )
+                        
+    parser.add_argument('-log', action='store_true')
+    parser.add_argument('-nolog', action='store_true')
+
+    parser.add_argument('-make','-m', nargs='+', 
+                        metavar='stuff',
+                        choices = ['plot','csv','raw','img','stints', 'overlaps','log','nolog'],   
+                        help='What to do, -make plot csv')
+    parser.add_argument('-source','-s',
+                        choices = ['web','csv'],          
+                        help='where to get the data')
+    parser.add_argument('-with ',                help='which AI to use')
+    parser.add_argument('-file','-f',            help='where to save or get file(s)')
+    parser.add_argument('-team','-t',            help='team to use in game searh')
+    parser.add_argument('-date','-d', nargs='+', help='date or date range')
+    parser.add_argument('-subplots','-p',  nargs ='+',  
+                        choices= ['all','tools', 'stints', 'events', 'score', 'margin', 'periodscores', 'boxscore',"legend"],
+                        help ='select one or more sub plots to display')
+    parser.add_argument('-json',         help='specify json file for app config. default is settings.json')
+    parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json')
+
+    # debug and otrher stuff we don't tell about
+    parser.add_argument('-wait','-w',    nargs=1, help=argparse.SUPPRESS)
+    parser.add_argument('-combo','-cb',  nargs='+', help=argparse.SUPPRESS)
+    parser.add_argument('-trim',         help=argparse.SUPPRESS)
+    parser.add_argument('-console',      help=argparse.SUPPRESS)
+    parser.add_argument('-DBG',          help=argparse.SUPPRESS)
+    parser.add_argument('-test_players', help=argparse.SUPPRESS)
+    parser.add_argument('-bs', nargs=1,    help=argparse.SUPPRESS)
+    parser.add_argument('-it', nargs=1, choices= ['pdf', 'png','jpg'],   help=argparse.SUPPRESS)
+
+    return parser.parse_args(), parser
+
+def start_logger(args):   
+     
+    logger.remove()
+
+    log_ret = settings.default.get('LOG_RETENTION')
+    log_rot = settings.default.get('LOG_ROTATION')
+    log_level = settings.default.get('LOG_LEVEL')
+   
+    log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
+    log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
+
+    logger.add('.wwmdd/logs/wwmdd.log',
+               format=log_format,
+               level=log_level,
+               rotation=log_rot, 
+               retention=log_ret)
+    
+    logger.add(sys.stderr, level='ERROR', format=log_format_error,colorize=True, backtrace=True, diagnose=True)  
+
+    # enable nothing
+    logger.enable('')
+
+    if args.log:   logger.enable('')
+    if args.nolog: logger.disable('')
+
+    if not args.log and not args.nolog:
+        if settings.defaults.get('LOG'): logger.enable('')
+        else: logger.disable('')
+
+def get_argset(args, parser):
+    argset = []
+    if args.bs != None:
+        try:
+            with open(args.bs[0]) as f: lines = f.readlines()
+            for line in lines:
+                
+                if '##' in line:
+                    logger.info(line.strip())
+                    continue
+                
+                line = line.replace('\n','')
+                line = line.strip()
+                l = line.split(' ')
+                if '' in l: l.remove('')
+                if len(l) != 0:
+                    try:
+                        aargs = parser.parse_args(l)
+                        argset.extend([[aargs,line]])
+                    except:
+                        logger.error((' ').join(l))
+                        # logger.error(e)
+                    
+        except:
+            logger.error(f'ERROR -- Problem reading {args.bs[0]} file.')
+    else:
+        argset = [args,sys.argv]
+    return argset
 
 def set_args(args):
     # things we don't tell about
-    if args.log             != None: settings.defaults.set('LOG',       args.log)
+    # settings.defaults.set('LOG', args.log)
+    if args.log:   logger.enable('')
+    if args.nolog: logger.disable('')
+    
     if args.DBG             != None: settings.defaults.set('DBG',       args.DBG)
     if args.trim            != None: settings.defaults.set('TRIM',      args.trim)
     if args.console         != None: settings.defaults.set('CONSOLE',   args.console)
@@ -70,7 +117,7 @@ def set_args(args):
     try :
         if args.combo != None: settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo[0].split(' '))))
     except:
-        print(f'Problem in combo parameter {args.combo}. combo paramater ignored')
+        logger.error(f'Problem in combo parameter {args.combo}. combo paramater ignored')
         
     if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',  args.test_players)
 
@@ -87,20 +134,29 @@ def set_args(args):
             
         settings.defaults.set('START_DAY',start)
         settings.defaults.set('STOP_DAY',stop)
-    
-from logger import log
+
+args, parser = get_args()
+settings.defaults = settings.default(args.json if args.json else None)
+
+start_logger(args)
+logger.info('wwmdd begins! ')
+
 import main_web
 import main_csv
 import main_db
 import llm_api.open_ai as gpt
 import llm_api.claude as claude
 import llm_api.gemini as gemini
-import sys
 
 if __name__ == '__main__':
-
+        
+    argset = get_argset(args,parser)
+    
     for _args in argset:
-        args = _args
+        
+        args = _args[0]
+        logger.info(_args[1])
+        
         set_args(args)
         
         if args.make != None:
@@ -110,6 +166,16 @@ if __name__ == '__main__':
             csv_save = 'csv' in args.make
             raw_save = 'raw' in args.make
             img  = 'img' in args.make
+            log  = 'log' in args.make
+            nolog = 'nolog' in args.make
+            
+            if nolog:
+                logger.warning('Logging disabled.')
+                logger.disable('')
+
+            if log:
+                logger.enable('')
+                logger.warning('Loggging enabled.')
             
             if plot: settings.defaults.set('SHOW_PLOT', True)
             
@@ -177,4 +243,6 @@ if __name__ == '__main__':
             elif 'DB:' in data_source: main_db.main()
             # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
 
-            else: print('NO SOURCE specified in .wwmdd/setttings.json.')
+            else: log.error('NO SOURCE specified in .wwmdd/setttings.json.')
+            
+    logger.info('wwmdd ends.')

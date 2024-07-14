@@ -1,5 +1,5 @@
 import os
-from logger import log,logd,loge,LOG
+from loguru import logger
 from utils import save_files,get_file_names
 
 import google.generativeai as genai
@@ -34,25 +34,24 @@ def do_tokens(file_directory):
         with open(fn, 'r') as content_file:
             prompt = content_file.read()
         resp = token_count(prompt)
-        log(f'{resp.total_tokens:<10} tokens from {fn}')
+        logger.info(f'{resp.total_tokens:<10} tokens from {fn}')
     
 def start_stream(prompt, chat):
     
-    if LOG == 'OFF': print('GEMINI?  ', end='', flush=True)
-    else: log('GEMINI stream START')
+    logger.info('GEMINI stream START')
     
     try:      
         response = chat.send_message(prompt, stream=True)
         gemini_data = ''
         for chunk in response:
             gemini_data += chunk.text
-            if LOG == 'OFF': progress.show()
-            
-        if LOG == 'OFF': print()
-        else: log('GEMINI stream END')
+            progress.show()
+
+        print()    
+        logger.info('GEMINI stream END')
         
     except Exception as err:
-        loge(f'GEMINI: start_stream ERROR  {err}')
+        logger.error(f'GEMINI: start_stream ERROR  {err}')
         return '','' 
         
     return gemini_data,response
@@ -88,7 +87,7 @@ def gemini_stream(prompt,
     hdr = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation'
     clnr.set_header(hdr)
 
-    log(f'GEMINI Model {MODEL}')
+    logger.info(f'GEMINI Model {MODEL}')
     model = genai.GenerativeModel(MODEL)
     chat = model.start_chat(history=[])
 
@@ -102,7 +101,7 @@ def gemini_stream(prompt,
 
             if '' == gemini_responce:
                 do_no_more = True 
-                log('GEMINI:ERROR No response.')
+                logger.error('GEMINI:ERROR No response.')
             else: 
 
                 cleaned_responce, good_line_cnt, dead_line_cnt, cln_error = clnr.clean_responce([prompt],gemini_responce)
@@ -119,7 +118,7 @@ def gemini_stream(prompt,
                     do_no_more = clnr.are_we_done()
                     
         except Exception as err:
-            loge(f'GEMINI:doit ERROR {err}')
+            logger.error(f'GEMINI:doit ERROR {err}')
             do_no_more = True
 
     clnr.browse()
@@ -161,7 +160,7 @@ def main(file_directory):
     if not all(tmp):
         names = ['prompt_initial.txt', 'prompt_system.txt', 'example_game0.csv', 'example_game1.csv', 'example_game2.csv', 'example_game3.csv', 'prompt_coninue.txt']  
         l = list(map(lambda x: x[1] if x[0] else None ,zip(tmp,names)))
-        loge(f'GEMINI MISSIING FILES :  {",".join(l)}')
+        logger.error(f'GEMINI MISSIING FILES :  {",".join(l)}')
     else:     
         gemini_stream(prompt_initial,prompt_system,
                       example_game0,

@@ -19,15 +19,8 @@
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-make",
-                "plot",
-                "-source",
-                "web",
-                "-w","1",
-                "-file",
-                "llm/llm_training_data/csv",
-                "-combo", 
-                "3","4"
+                "-bs", "tests/bs_test/args.txt",
+
             ]
         }
     ]

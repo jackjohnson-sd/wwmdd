@@ -11,6 +11,8 @@ from settings import defaults
 from play_by_play import dump_pbp
 from utils import _ms,sec_to_period_time2,shorten_player_name
 
+from loguru import logger
+
 import settings
 
 color_defaults = settings.default(defaults.get('COLOR_DEFAULTS'))
@@ -45,8 +47,8 @@ def do_plot(theplot):
     if theplot in SUB_PLOTS: return True
     return False
 
-if not do_plot('tools'):
-    matplotlib.rcParams['toolbar'] = 'None' 
+# if not do_plot('tools'):
+#     matplotlib.rcParams['toolbar'] = 'None' 
 
 
 def stack_markers(yy_, sec_, color_):
@@ -288,7 +290,7 @@ def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
 
 def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     
-    if not do_plot('period_scores'): return
+    if not do_plot('periodscores'): return
     
     top_team = game_info['T']
     bot_team = game_info['B']
@@ -877,11 +879,11 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
     m2 = int(bx2.get_team_secs_played())
     
     if m1 == m2: 
-        print(title[1], title[0], m1, 'OK')
+        logger.info(f'{title[1]} {title[0]} {m1} OK')
         ret_value = True
 
     else:
-        print(title[1], title[0], m1, m2, 'NOK')
+        logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
         ret_value = False
 
     PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
@@ -930,6 +932,11 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
+    matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+    if not do_plot('tools'):
+        logger.warning('Tool bar disabled')
+        matplotlib.rcParams['toolbar'] = 'None' 
+
     if defaults.get('SAVE_RAW_GAME_AS_CSV'):
         def Merge(dict1, dict2): return {**dict1, **dict2}
         merged_game_stints = Merge(our_stints[0], opponent_stints[0])
@@ -1028,7 +1035,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             else: plt.pause(n) 
         
         if defaults.get('SAVE_PLOT_IMAGE'):
-        
+            
             img_type = defaults.get('SAVE_PLOT_TYPE')
             img_dpi  = defaults.get('SAVE_PLOT_DPI')
 
@@ -1040,6 +1047,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
             fn = os.path.join(cwd, fn) 
             plt.draw()
+            logger.info(f'saving image file {fn}')
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')

@@ -8,7 +8,6 @@ from overlap import overlap_combos,overlap_dump
 from utils import pms,sec_to_period_time,period_time_to_sec,intersection
  
 TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
-SAVE_SUBS_FILE          = defaults.get('SAVE_SUBS_FILE')
 
 def getInsNOutsByPlayer(playbyplay, player_group):
 
@@ -442,7 +441,7 @@ def sub_events_from_stints(game, game_stints):
         
     sub_events = sorted(sub_events, key = lambda stint: sub_event_to_sec(stint))
 
-    if SAVE_SUBS_FILE:
+    if defaults.get('SAVE_SUBS_FILE'):
         f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
             ('\n,').join(sub_events)  
 

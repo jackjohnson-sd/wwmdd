@@ -1,5 +1,6 @@
 from cleaner import cleaner, progress
-from logger import log,logd,loge,LOG
+from loguru import logger
+
 from utils import get_file_names,save_files 
 
 import anthropic
@@ -32,9 +33,7 @@ def stream_claude(prompt,system_prompt,assistant_prompt):
     
     the_responce = ''
     
-    if LOG == 'OFF': print('CLAUDE?  ', end='', flush=True)
-    else: log('CLAUDE stream START')
-
+    logger.info('CLAUDE stream START')
     try:
    
         with client.messages.stream (
@@ -53,16 +52,16 @@ def stream_claude(prompt,system_prompt,assistant_prompt):
         ) as stream:
            
             for text in stream.text_stream:
-                if LOG == 'OFF': progress.show()
+                # if LOG == 'OFF': 
+                progress.show()
                 the_responce += text
         
-        if LOG == 'OFF': print()
-        else: log('CLAUDEI stream END')
+        logger.info('CLAUDE stream END')
         
         return the_responce
     
     except Exception as err:
-        loge(f'CLAUDE: start_stream ERROR  {err}')
+        logger.error(f'CLAUDE: start_stream ERROR  {err}')
         return '','' 
 
 def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory ):
@@ -85,7 +84,7 @@ def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory
     e = system_prompt.find(key2)
     
     if e == -1 :
-        loge('\nCLAUDE ERROR NO PLACE FOR EXAMPLE FILE IN SYSTEM PROMPT ----------\n')           
+        logger.error('\nCLAUDE ERROR NO PLACE FOR EXAMPLE FILE IN SYSTEM PROMPT ----------\n')           
         do_no_more = True
         
     system_prompt = system_prompt[0:s] + '\n' + example_game + system_prompt[e:-1]
@@ -93,7 +92,7 @@ def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory
     total_responce = ''
     total_raw_resp = ''
 
-    log(f'CLAUDE Model {MODEL}')
+    logger.error(f'CLAUDE Model {MODEL}')
     
     while not do_no_more :
         
@@ -110,7 +109,7 @@ def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory
         
         if '' == the_responce:
             do_no_more = True 
-            loge('CLAUDE:ERROR No response.')
+            logger.error('CLAUDE:ERROR No response.')
         else: 
             
             try:            
@@ -127,7 +126,7 @@ def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory
                     do_no_more = clnr.are_we_done()
 
             except Exception as err: # ABORT
-                loge(f'CLAUDE:CLNR ERROR {err}')
+                logger.error(f'CLAUDE:CLNR ERROR {err}')
                 do_no_more = True
                             
             prompt = continue_prompt
@@ -159,8 +158,8 @@ def main(file_directory):
         
         ask_claude(prompt,system_prompt,example_game,continue_prompt,file_directory)
     else:
-        loge('\n ERROR -- CLAUDE file(s) missing!\n' )
-        loge('Need initial_prompt.txt, system_prompt.txt, example_game.csv, continue_prompt.txt')
+        logger.error('\n ERROR -- CLAUDE file(s) missing!\n' )
+        logger.error('Need initial_prompt.txt, system_prompt.txt, example_game.csv, continue_prompt.txt')
 
         
 # anthropic-cookbook/misc/metaprompt.ipynb

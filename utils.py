@@ -1,7 +1,7 @@
 import re
 import os
 
-from logger import log,logd,loge,LOG
+from loguru import logger
 
 
 def period(sec) : return int(sec / 720) + 1
@@ -119,7 +119,7 @@ def save_files(who,directory,the_files):
             with open(fn, 'w') as content_file:
                 content_file.write(file[1])
     if fn != '':
-        log(f'\n\n{who} is done.  Look here: {fn}\n')
+        logger.info(f'\n\n{who} is done.  Look here: {fn}\n')
     else:
-        log(f'\n\n!!! {who} created no files.')
+        logger.debug(f'\n\n!!! {who} created no files.')
                 

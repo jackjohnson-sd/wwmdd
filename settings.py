@@ -17,66 +17,73 @@ class default :
                 print('----------- Using default values.       ------------ ')
                 # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff = {
-        "LOG"         : "OFF"
-        , "TRIM"        : "OFF"      
-        , "CONSOLE"     : "ON"
+{
+      "LOG"             : False
+    , "LOG_ROTATION"    : "1 hour"
+    , "LOG_RETENTION"   : "1 week"
+    , "LOG_LEVEL"       : "DEBUG"
 
-        , "dbga"        : "OFF"
-        , "dbgb"        : "OFF"
-        , "dbgc"        : "OFF"
+    , "TRIM"        : False       
+    , "CONSOLE"     : False
 
-        , "COLOR_DEFAULTS"        : "wwmdd_colors.json"
+    , "DBG"         : False
 
-        , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore"]
-        , "example_SUB_PLOTS"    : ["all", "stints", "events", "score", "margin", "period_scores", "boxscore"]
-        
-        , "SHOW" : ["plot","csv"]
-        , "example_SHOW" : ["plot","csv","raw","pdf","stints", "overlaps","logs"]
+    , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
 
-        , "SOURCES" : ["web","file","db"]
-        , "AI"      : ["GEMINI", "CLAUDE"]
-
-
-        , "TEST_PLAYERS"          :  []
-        , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
-
-        , "SAVE_GAME_AS_CSV"      : False
-        , "SAVE_RAW_GAME_AS_CSV"  : False
-
-        , "SAVE_SUBS_FILE"        : False
-
-        , "PLAY_TIME_CHECK_ONLY"  : False
-        , "PLAY_TIME_CHECK_SHOW"  : "OFF"
-
-        , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
-
-        , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
-        , "SHOW_OVERLAP"          : "NONE"
-        , "OVERLAP_GROUP"         : [2]
+    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
+    , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
     
-        , "SAVE_GAME_DIR"     : "llm_training_data"
-    
-        , "SAVE_PLOT_IMAGE"  : False
+    , "SHOW" : ["plot","csv","img"]
+    , "example_SHOW" : ["plot","csv","raw","img","stints", "overlaps","logs"]
 
-        , "SAVE_PLOT_DIR"     : "llm_training_plots"
+    , "SOURCES" : ["web","file","db"]
+    , "AI"      : ["GEMINI", "CLAUDE"]
 
-        , "SHOW_PLOT"         : True
 
-        , "START_DAY"            : "2024-01-01" 
-        , "STOP_DAY"             : "2024-01-30"
-        , "TEAM"                 : "OKC"
-    
-        , "FILE"         : "llm_training_data"
+    , "TEST_PLAYERS"          :  []
+    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 
-        , "SOURCE"      : "WEB:"
-        , "aSOURCE"       : "FILE:llm_training_data"
-        , "aaSOURCE"     : "FILE:llm_training_data/RAW_BOSvOKC20240403.csv"
-    
-        , "dSOURCE"     : "CLAUDE:claude_test"
-        , "eSOURCE"     : "GEMINI:gemini_test"
-        , "fSOURCE"     : "TOKENS:gemini_test"
-        , "nSOURCE"     : "nba.sqlite"
+    , "SAVE_GAME_AS_CSV"      : False
+    , "SAVE_RAW_GAME_AS_CSV"  : False
 
+    , "SAVE_SUBS_FILE"        : False
+
+    , "PLAY_TIME_CHECK_ONLY"  : False
+    , "PLAY_TIME_CHECK_SHOW"  : "OFF"
+
+    , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
+
+    , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
+    , "SHOW_OVERLAP"          : "NONE"
+    , "OVERLAP_GROUP"         : [2]
+ 
+    , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
+   
+    , "SAVE_PLOT_IMAGE"  : False
+    , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
+    , "SAVE_PLOT_TYPE"    : "png"
+    , "SAVE_PLOT_DPI"     : 300
+
+    , "SHOW_PLOT"         : True
+    , "SHOW_PAUSE"        : -1
+
+    , "START_DAY"            : "2023-01-15" 
+    , "STOP_DAY"             : "2023-01-25"
+    , "TEAM"                 : "OKC"
+ 
+    , "FILE"         : "llm/llm_training_data/csv"
+
+    , "wwSOURCE"      : "WEB:"
+    , "aSOURCE"       : "OPEN_AI:FILES"
+    , "SOURCE"      : "FILE:llm/llm_training_data/csv"
+    , "aaSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
+ 
+    , "dSOURCE"     : "CLAUDE:claude_test"
+    , "eSOURCE"     : "GEMINI:gemini_test"
+    , "fSOURCE"     : "TOKENS:gemini_test"
+    , "nSOURCE"     : "nba.sqlite"
+
+}
 }
                 
 

@@ -9,7 +9,7 @@ def main(file_dir_name):
     import os
 
     if os.path.isdir(file_dir_name):
-        cwd = os.getcwd() + '/' + file_dir_name
+        cwd = os.path.join(os.getcwd(), file_dir_name)
         files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
     else:
         files = [file_dir_name]
@@ -21,12 +21,15 @@ def main(file_dir_name):
       for filename in files:
         
         name = os.path.basename(filename)
+        if '##' in filename:
+            print('COMMENT:',filename) 
+            continue
         
         if '.csv' not in filename: 
             print(f'Non csv file {name}. Skipped')
             continue
         
-        if not (os.path.isfile(filename) and os.access(filename, os.R_OK)):
+        if not (os.path.isfile(filename)):
             print(f'Problem with file named {name}. Skipped.')
             continue
         

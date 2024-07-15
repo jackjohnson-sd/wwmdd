@@ -20,6 +20,10 @@ sh w.sh args ==>  python3 main.py args
 
 args 
 
+-bs file            ==> file is a list command line arguments, execute the app with these cmd lines
+-it [jpg,pdf,png]   ==> sets image of save plot images
+-w N                ==> show plot image on screen for N seconds and then proceed
+
 -s,-source [web,csv,db] ==> select one as source of data, web (NBA api), csv (files), or db (data base )
     if no source specifed uses source declared in .wwmdd/settngs.json
 
@@ -44,23 +48,36 @@ args
     replaces .wwmdd/colors.json with this file.
 
 examples
-
+    To make powershell execute scripts:
+    1 run powershell as administrator
+      Press Windows+R to open Run.
+      Type “powershell” in the text box.
+      Press Ctrl + Shift + Enter key combination.
+      If a confirmation prompt pops up, click Yes to continue.This will launch PowerShell as an administrator.
+    2 run this command in powershell Set-ExecutionPolicy RemoteSigned
+    powershell must be .ps1 extention
+    
     sh w.sh   
     ./w.sh  to make execuutable -> do chmod 755 w.sh
     -> runs the app based on whats in the .wwmdd/setting.json and colors.json file
 
-    sh w.sh -s web -t OKC -d 2023-01-30 -m plot csv -p stints
+    sh w.sh -s web -t OKC -d 2023-01-30 -m plot csv -p stints   
+    ./w.ps1 -s web -t OKC -d 2023-01-30 -m plot csv -p stints
     -> get data from NBA site for OKC on 2023-01-30 and show and save an enhanced play by play file, and show an plot with stints only
     
-    sh w.sh -s web -t OKC -d 2023-01-01  2023-01-03 -m plot csv -p stints
-    -> same as above but get all games that occured between 2023-01-01 and 2023-01-30
+    sh w.sh -s web -t OKC -d 2023-01-01  2023-01-30 -m plot csv -p stints
+    ./w.ps1 -s web -t OKC -d 2023-01-01  2023-01-30 -m plot csv -p stints
+     -> same as above but get all games that occured between 2023-01-01 and 2023-01-30
 
     sh w.sh -s csv -f OKCvGSW20230130.csv -m plot
+    ./w.ps1 -s csv -f llm/llm_training_data/OKCvGSW20230130.csv -m plot
     -> display plot for this file, .wwmdd/settings.json determines whats on plot
 
     sh w.sh -s csv -f llm\llm_training_data -m plot -p all
+    ./w.ps1 -s csv -f llm\llm_training_data -m plot -p all
     -> display plot with all features data for csv files in llm\llm_training_data directory
 
     sh w.sh -c test_colors.json -s csv -f OKCvGSW20230130.csv -m plot
-    -> same as above with terrible colors
+    ./w.ps1 -c test_colors.json -s csv -f llm/llm_training_data/OKCvGSW20230130.csv -m plot
+    -> same as above with terrible colors (BES:IMO, not so bad.)
 

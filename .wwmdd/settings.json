@@ -1,5 +1,9 @@
 {
-      "LOG"         : false
+      "LOG"             : false
+    , "LOG_ROTATION"    : "1 hour"
+    , "LOG_RETENTION"   : "1 week"
+    , "LOG_LEVEL"       : "DEBUG"
+
     , "TRIM"        : false       
     , "CONSOLE"     : true
 
@@ -36,7 +40,7 @@
  
     , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
    
-    , "SAVE_PLOT_IMAGE"  : true
+    , "SAVE_PLOT_IMAGE"  : false
     , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
     , "SAVE_PLOT_TYPE"    : "png"
     , "SAVE_PLOT_DPI"     : 300
@@ -44,16 +48,16 @@
     , "SHOW_PLOT"         : true
     , "SHOW_PAUSE"        : -1
 
-    , "START_DAY"            : "2024-01-04" 
-    , "STOP_DAY"             : "2024-01-05"
+    , "START_DAY"            : "2023-01-15" 
+    , "STOP_DAY"             : "2023-01-25"
     , "TEAM"                 : "OKC"
  
     , "FILE"         : "llm/llm_training_data/csv"
 
-    , "SOURCE"      : "WEB:"
-    , "wSOURCE"       : "OPEN_AI:FILES"
-    , "aSOURCE"      : "FILE:llm/llm_training_data"
-    , "aaSOURCE"     : "FILE:llm/llm_training_data/RAW_BOSvOKC20240403.csv"
+    , "wwSOURCE"      : "WEB:"
+    , "aSOURCE"       : "OPEN_AI:FILES"
+    , "SOURCE"      : "FILE:llm/llm_training_data/csv"
+    , "aaSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"

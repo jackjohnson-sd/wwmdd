@@ -1,4 +1,4 @@
-NAME: SUB Test Plan 2
+NAME: SUB Test Plan (Pair)
 
 Current Status Summary:
     pre-7/10: 
@@ -42,17 +42,17 @@ Prompt 1:
         The following rows use sequentially numbered values. 
 
         .2. The second column is named ‘eventmsgtype’. 
-        It identifies events that occur during the game.
+        Its value identifies events that occur during the game.
         Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS, 3POINTMISS, 
         REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
 
         .3. The third column is named ‘period’. 
-        It is a number that identifies the period the event occurs. 
+        Its value is a number that identifies the period the event occurs. 
         Basketball games include at least 4 periods. 
         Period values range from 1 - 4 and increase as the game progresses.
 
         .4. The fourth column is named ‘pctimestring’.
-        It contains the time remaining in the period.
+        Its value is the time remaining in the period.
         It is formatted as minutes and seconds seperated by a colon.
         Its value descends in seconds as the game progresses.
         Its value is '12:00' at the start of each period. 
@@ -63,10 +63,10 @@ Prompt 1:
 
 
         .5. The fifth column is named ‘neutraldescription’.
-        It contains a brief description of the event. 
+        Its value is a brief description of the event. 
 
         .6. The sixth column is named ‘score’.
-        It contains the two teams’ scores at the time of the event. 
+        Its value is the two teams’ scores at the time of the event. 
         The initial score value is ‘0’.
         This means neither team has scored yet. 
         Once a team scores, the score value is formatted as ‘x - y’. 
@@ -74,7 +74,7 @@ Prompt 1:
         ‘y’ is a positive integer value that represents the home team’s score.
 
         .7. The seventh column is named ‘scoremargin’.
-        It contains the difference between the teams’ scores. 
+        Its value is the difference between the teams’ scores. 
         The value equals 'y' minus 'x'.
 
         .8. The eighth column is named ‘player1_name’.

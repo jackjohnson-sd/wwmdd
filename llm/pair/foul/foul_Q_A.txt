@@ -1,0 +1,136 @@
+Question:
+What teams played in the game?
+
+Answer:
+The teams that played in the game were the Oklahoma City Thunder (OKC) and the Golden State Warriors (GSW).
+
+
+Question:
+Who are the players on each team?
+
+Answer:
+The players on OKC were:
+Kenrich Williams, Shai Gilgeous-Alexander, Josh Giddey, Jalen Williams, Aaron Wiggins, Mike Muscala, Tre Mann, Isaiah Joe, Ousmane Dieng, Jaylin Williams, and Darius Bazley.
+
+The players on GSW were:
+Stephen Curry, Klay Thompson, Andrew Wiggins, Draymond Green, Jordan Poole, Kevon Looney, Donte DiVincenzo, Jonathan Kuminga, and Anthony Lamb.
+
+
+Question:
+How many fouls did Kenrich Williams commit?
+
+Answer:
+Kenrich Williams committed 1 foul.
+
+
+Question:
+How many fouls did Shai Gilgeous-Alexander commit?
+
+Answer:
+Shai Gilgeous-Alexander committed 3 fouls.
+
+
+Question:
+How many fouls did Josh Giddey commit?
+
+Answer:
+Josh Giddey committed 2 fouls.
+
+
+Question:
+How many fouls did Jalen Williams commit?
+
+Answer:
+Jalen Williams committed 1 foul.
+
+
+Question:
+How many fouls did Aaron Wiggins commit?
+
+Answer:
+Aaron Wiggins committed 1 foul.
+
+
+Question:
+How many fouls did Mike Muscala commit?
+
+Answer:
+Mike Muscala committed 2 fouls.
+
+
+Question:
+How many fouls did Tre Mann commit?
+
+Answer:
+Tre Mann committed 2 fouls.
+
+
+Question:
+How many fouls did Isaiah Joe commit?
+
+Answer:
+Isaiah Joe committed 3 fouls.
+
+
+Question:
+How many fouls did Ousmane Dieng commit?
+
+Answer:
+Ousmane Dieng committed 1 foul.
+
+
+Question:
+How many fouls did Jaylin Williams commit?
+
+Answer:
+Jaylin Williams committed 1 foul.
+
+
+Question:
+How many fouls did Darius Bazley commit?
+
+Answer:
+Darius Bazley committed 1 foul.
+
+
+Question:
+How many fouls did OKC team commit?
+
+Answer:
+The Oklahoma City Thunder team committed a total of 18 fouls.
+
+
+Question:
+How many fouls did Giddey commit in the first period?
+
+Answer:
+Josh Giddey commits 0 fouls in the first period.
+
+
+Question:
+How many fouls did Giddey commit in the fourth period?
+
+Answer:
+Josh Giddey commits 1 foul in the fourth period.
+
+
+Question:
+How many fouls did Giddey commit in the third and fourth periods?
+
+Answer:
+Josh Giddey commits 1 foul in the third and fourth period.
+
+
+Question:
+How many more fouls did GSW commit than OKC?
+
+Answer:
+GSW commits 0 more fouls than OKC. 
+
+
+Question:
+What players fouled out of the game? 
+
+Answer:
+No players fouled out of the game, as no player committed 6 or more fouls.
+

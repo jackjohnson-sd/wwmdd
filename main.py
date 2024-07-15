@@ -49,9 +49,9 @@ def start_logger(args):
      
     logger.remove()
 
-    log_ret = settings.default.get('LOG_RETENTION')
-    log_rot = settings.default.get('LOG_ROTATION')
-    log_level = settings.default.get('LOG_LEVEL')
+    log_ret = settings.defaults.get('LOG_RETENTION')
+    log_rot = settings.defaults.get('LOG_ROTATION')
+    log_level = settings.defaults.get('LOG_LEVEL')
    
     log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
     log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
@@ -100,7 +100,7 @@ def get_argset(args, parser):
         except:
             logger.error(f'ERROR -- Problem reading {args.bs[0]} file.')
     else:
-        argset = [args,sys.argv]
+        argset = [[args,sys.argv[1:0]]]
     return argset
 
 def set_args(args):
@@ -121,22 +121,37 @@ def set_args(args):
         
     if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',  args.test_players)
 
-    if args.file            != None: settings.defaults.set('FILE',          args.file)
+    if args.file            != None: settings.defaults.set('FILE', args.file)
+
     if args.team            != None: settings.defaults.set('TEAM',          args.team)
-    if args.colors          != None: settings.defaults.set('COLOR_DEFAULTS',args.colors)
+    # if args.colors          != None: 
+    #     settings.defaults.update_colors(args.colors)
+    #     print('BS WAS HERE')
+    
     if args.subplots        != None: settings.defaults.set('SUB_PLOTS',     args.subplots)
     if args.date != None:
+        
         start = args.date[0]
-        try: 
-            stop  = args.date[1]
-        except: 
-            stop = args.date[0]
+        stop = start if len(args.date) == 1 else args.date[1]
             
         settings.defaults.set('START_DAY',start)
         settings.defaults.set('STOP_DAY',stop)
 
 args, parser = get_args()
-settings.defaults = settings.default(args.json if args.json else None)
+
+settings.defaults = settings.default()
+if args.json != None: settings.defaults.update(args.json)
+
+cfn = settings.defaults.get('COLOR_DEFAULTS')
+settings.colors = settings.default(cfn)
+
+if args.colors != None: 
+    settings.defaults.update_colors(args.colors)
+    logger.debug('new stint color?' + settings.colors.get('STINT_COLOR'))
+
+    # settings.defaults.update(args.colors)
+
+
 
 start_logger(args)
 logger.info('wwmdd begins! ')
@@ -206,6 +221,14 @@ if __name__ == '__main__':
                 settings.defaults.set('SOURCE','WEB')       
                 settings.defaults.set('SAVE_RAW_GAME_AS_CSV',raw_save)
                 settings.defaults.set('SAVE_GAME_AS_CSV', True if raw_save else csv_save)
+                if args.file: 
+                     settings.defaults.set('WAS_SAVE_GAME_DIR','SAVE_GAME_DIR')
+                     settings.defaults.set('SAVE_GAME_DIR',args.file)
+
+                if args.colors          != None: 
+                    settings.defaults.update_colors(args.colors)
+                    print('BS WAS HERE')
+
 
                 start = args.date[0]
                 try:   stop  = args.date[1]
@@ -213,6 +236,9 @@ if __name__ == '__main__':
             
                 main_web.main(team=args.team, start=start, stop=stop)
                 
+                settings.defaults.set('SAVE_GAME_DIR','WAS_SAVE_GAME_DIR')
+                settings.defaults.update_colors(settings.defaults.get('COLOR_DEFAULTS'))
+
             elif do_csv:
 
                 if args.file == None : print('-file required')

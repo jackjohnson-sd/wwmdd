@@ -19,8 +19,8 @@
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/bs_test/args.txt",
-
+                "-bs", "tests/world_tour/wt_args.txt",
+                "-log", "-colors","tests/world_tour/wt_colors.json"
             ]
         }
     ]

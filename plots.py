@@ -5,39 +5,22 @@ from matplotlib.lines import Line2D
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
-from event_prep import event_to_size_color_shape, event_map
+from event_prep import event_to_size_color_shape, get_event_map
 
 from settings import defaults 
 from play_by_play import dump_pbp
 from utils import _ms,sec_to_period_time2,shorten_player_name
 
+
 from loguru import logger
 
 import settings
 
-color_defaults = settings.default(defaults.get('COLOR_DEFAULTS'))
-    
+color_defaults = None
+
+event_map = None
+
 TEST_PLAYERS      = defaults.get('TEST_PLAYERS')   
-
-STINT_COLOR       = color_defaults.get('STINT_COLOR')       
-STINT_COLOR_IN    = color_defaults.get('STINT_COLOR_IN')       
-STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')       
-BAD_EVNT          = color_defaults.get('BAD_EVENT_COLOR')    
-GOOD_EVNT         = color_defaults.get('GOOD_EVENT_COLOR') 
-GRID_C            = color_defaults.get('GRID_COLOR')
-
-TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
-STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
-STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
-
-BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
-BOX_COL_COLOR_ALT = color_defaults.get('BOX_COL_COLOR_ALT')
-BOX_COL_MAX_COLOR = color_defaults.get('BOX_COL_MAX_COLOR')
-
-MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
-MRK_FONTWEIGHT    = color_defaults.get('MARKER_FONTWEIGHT')
-GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
-
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
@@ -56,7 +39,8 @@ def stack_markers(yy_, sec_, color_):
     M2OFFSET       = color_defaults.get('MARKER_2_STACK_OFFSET')    # vertical offset for 2 markers at one place
     M3OFFSET       = color_defaults.get('MARKER_3_STACK_OFFSET')    # vertical offset for 3 markers at one place
     MKR_WIDTH      = color_defaults.get('MARKER_WIDTH')             # used to determine if markes will overlap
-    
+    STINT_COLOR_IN    = color_defaults.get('STINT_COLOR_IN')       
+    STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')       
     # The SUB markers go first, we don't want to move them
     # around so skip to first non-SUB. This means we write 
     # on top of them. Which is what we want
@@ -279,6 +263,8 @@ def get_title_and_friends(game_data):
     return title, debug_title, game_info # top_team, bot_team, team_home, team_away
 
 def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
+    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
+
     _ax_.text(x, y, s = text,
         color = _color, 
         size = scale * (24 / MRK_FONTSCALE), 
@@ -289,7 +275,9 @@ def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
     )
 
 def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
-    
+
+    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
+
     if not do_plot('periodscores'): return
     
     top_team = game_info['T']
@@ -372,6 +360,15 @@ def plot_box_score(axis, box_score, players, bx_col_data):
     trows.reverse()
     bs_rows.reverse()
     bs_data.reverse()
+
+    BAD_EVNT          = color_defaults.get('BAD_EVENT_COLOR')   
+    GOOD_EVNT         = color_defaults.get('GOOD_EVENT_COLOR') 
+    BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
+
+    BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
+    BOX_COL_MAX_COLOR = color_defaults.get('BOX_COL_MAX_COLOR')
+    TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
+    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
 
     color_by_col_name = {
           'PTS' : BOX_COL_COLOR
@@ -470,6 +467,13 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 def plot_stints(axis, _y, play_times, flipper):
 
     if do_plot('stints') :
+        
+        STINT_COLOR       = color_defaults.get('STINT_COLOR')       
+        STINT_COLOR_IN    = color_defaults.get('STINT_COLOR_IN')       
+        STINT_COLOR_OUT   = color_defaults.get('STINT_COLOR_OUT')     
+        STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
+        STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
+  
         starts = list(map(lambda x: x[0], play_times))
         widths = list(map(lambda x: x[1], play_times))
         pms    = list(map(lambda x: x[2], play_times))
@@ -486,7 +490,9 @@ def plot_stints(axis, _y, play_times, flipper):
             axis.add_line(l)                
 
 def plot_events(axis2, _y, events):
-        
+
+    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')    
+    
     if do_plot('events'):
         
         sec__     = events[0::4]
@@ -521,6 +527,9 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     Z_HBAR = 20
     Z_EVNT = 30
 
+    TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
+    GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
+
     x_ticks = [0, 12 * 60, 24 * 60, 36 * 60, 48 * 60]
     ax.set_xlim(-50, (48 * 60) + 50)
     ax.set_xticks(x_ticks, ['', '', '', '', ''])
@@ -542,6 +551,8 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     first_ytick = -5
     # +2 is header and team summary in table
     last_ytick = -5 + (10 * (_player_cnt + 2)) + 5
+
+    GRID_C            = color_defaults.get('GRID_COLOR')
 
     for x in x_ticks:
         l1 = Line2D([x,x], [first_ytick-15,last_ytick-20], lw=GRID_LINEWIDTH, color=GRID_C, label='' )
@@ -591,6 +602,8 @@ def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info)
     c2xstart = x
     c2ystart = y
     
+    TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
+
     plot_text(_ax_, c2xstart, c2ystart, title[0],TABLE_COLOR,scale=1.1)
     plot_text(_ax_, c2xstart + 4,c2ystart -22,title[1],TABLE_COLOR, scale=1.1)
     
@@ -601,6 +614,12 @@ def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info)
 
 def plot_event_legend(ax,xstart,ystart):
     
+    STINT_COLOR       = color_defaults.get('STINT_COLOR')       
+    STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
+    STINT_COLOR_MINUS = color_defaults.get('STINT_COLOR_MINUS')
+    BOX_COL_COLOR     = color_defaults.get('BOX_COL_COLOR')
+    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
+
     def stint1_marker(x_, y_, color, txt):
          
         l1 = Line2D([x_ - 1 , x_ + 1], [y_,y_], lw=2, color=color , label='' )
@@ -932,6 +951,12 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
+    global color_defaults 
+    color_defaults = settings.colors
+    
+    global event_map
+    event_map = get_event_map()
+
     matplotlib.rcParams.update(matplotlib.rcParamsDefault)
     if not do_plot('tools'):
         logger.warning('Tool bar disabled')

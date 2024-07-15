@@ -11,15 +11,14 @@
 
     , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
 
-    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
-    , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "period_scores", "boxscore","legend"]
+    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
+    , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
     
     , "SHOW" : ["plot","csv","img"]
     , "example_SHOW" : ["plot","csv","raw","img","stints", "overlaps","logs"]
 
     , "SOURCES" : ["web","file","db"]
     , "AI"      : ["GEMINI", "CLAUDE"]
-
 
     , "TEST_PLAYERS"          :  []
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
@@ -39,6 +38,7 @@
     , "OVERLAP_GROUP"         : [2]
  
     , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
+    , "WAS_SAVE_GAME_DIR"     : ""
    
     , "SAVE_PLOT_IMAGE"  : false
     , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
@@ -48,16 +48,15 @@
     , "SHOW_PLOT"         : true
     , "SHOW_PAUSE"        : -1
 
-    , "START_DAY"            : "2023-01-15" 
-    , "STOP_DAY"             : "2023-01-25"
+    , "START_DAY"            : "2024-04-29" 
+    , "STOP_DAY"             : "2024-04-29"
     , "TEAM"                 : "OKC"
  
-    , "FILE"         : "llm/llm_training_data/csv"
+    , "FILE"        : "llm/llm_training_data/csv"
 
-    , "wwSOURCE"      : "WEB:"
-    , "aSOURCE"       : "OPEN_AI:FILES"
-    , "SOURCE"      : "FILE:llm/llm_training_data/csv"
-    , "aaSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
+    , "SOURCE"      : "WEB:"
+    , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
+    , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
  
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"

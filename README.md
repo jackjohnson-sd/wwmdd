@@ -3,6 +3,7 @@ TODO -- bring back loggging, use loguru
 
 Please Read me
 
+July 16 -- log now logs to file and console
 July 14 -- log is back,stored in .wwmdd\logs, 
            -log,-nolog on cmdline else from settings.json
 July 13 -- added -bs for batch, -it to set image type and -w to set wait in cmd line

@@ -1,9 +1,11 @@
 {
-      "LOG"             : false
+      "LOG"             : true
     , "LOG_ROTATION"    : "1 hour"
     , "LOG_RETENTION"   : "1 week"
     , "LOG_LEVEL"       : "DEBUG"
-
+    , "LOG_COLORIZE"    : ["sys.stdout"]
+    , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
+ 
     , "TRIM"        : false       
     , "CONSOLE"     : true
 
@@ -37,8 +39,7 @@
     , "SHOW_OVERLAP"          : "NONE"
     , "OVERLAP_GROUP"         : [2]
  
-    , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
-    , "WAS_SAVE_GAME_DIR"     : ""
+    , "SAVE_GAME_DIR"         : "llm/llm_training_data/csv"
    
     , "SAVE_PLOT_IMAGE"  : false
     , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"

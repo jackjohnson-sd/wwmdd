@@ -1,8 +1,13 @@
--s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_colors.json
-###
--s web -t OKC -d 2024-04-29 -m plot csv raw img -p all -w 2 -f tests/world_tour
-## this is test of the emergency broadcast network
+-s web -t OKC -d 2024-04-29 -m plot img -p stints -w 5 -file tests/world_tour
 
+
+-s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
+-s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
+
+## this is test of the emergency broadcast network
+exiting here because we have and '##exit' in this line. stop here ingore remainder
 -s csv -f tests/world_tour/NOPvOKC20240429.csv -m plot -p all -w 5 
 -s csv -f tests/world_tour/RAW-NOPvOKC20240429.csv -m plot -p all -w 5 
 

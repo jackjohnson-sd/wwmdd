@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: NO args",
+            "name": "Python NO args",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
@@ -13,14 +13,24 @@
             "args": ""
         },
         {
-            "name": "Python Debugger: WITH args",
+            "name": "Python WITH args",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-bs", "tests/world_tour/wt_args.txt",
-                "-log", "-colors","tests/world_tour/wt_colors.json"
+                "-log", "-colors","tests/world_tour/wt_color_white.json"
+            ]
+        },
+        {
+            "name": "Python CAUSE ERROR",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s","web","-t","OKC"
             ]
         }
     ]

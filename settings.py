@@ -1,4 +1,5 @@
 import json 
+from loguru import logger
 
 defaults = None
 colors = None
@@ -100,8 +101,12 @@ class default :
             print(f'Failed to load {fn} as json settings file.')
    
     def get(self, _name):
-       return self.stuff[_name]
-
+        try:
+            return self.stuff[_name]
+        except:
+            logger.error('INVALID settings key {_name')
+            return None
+        
     def set(self,_name, _value):
        self.stuff[_name] = _value
 

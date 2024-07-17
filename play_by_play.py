@@ -7,6 +7,8 @@ from utils import save_files
 from overlap import overlap_combos,overlap_dump
 from utils import pms,sec_to_period_time,period_time_to_sec,intersection
  
+from loguru import logger
+
 TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
 
 def getInsNOutsByPlayer(playbyplay, player_group):
@@ -411,12 +413,12 @@ def make_sub_events(game_stints):
             p1_ln = player_name.split(' ')[1]
             if this_in_out[4] == 'I':
                 x1 = sec_to_period_time(this_in_out[1]).replace(' ',',')
-                s1 = f'SUB,{x1},SUB: {p1_ln} Enters,,,,,{player_name},{team_name},,'
+                s1 = f'SUB,{x1},SUB: {p1_ln} Starts playing.,,,,,{player_name},{team_name},,'
             else:
                 # x2 = sec_to_period_time(this_in_out[2]).replace(' ',',')
                 x2 = pms(this_in_out[2])
                 # home of the 5,12:00 problem
-                s1 = f'SUB,{x2},SUB: {p1_ln} Exits,,,{player_name},{team_name},,,,'
+                s1 = f'SUB,{x2},SUB: {p1_ln} Stops playing.,,,{player_name},{team_name},,,,'
   
             sub_events.extend([s1])
             
@@ -480,7 +482,7 @@ def dump_pbp(game, game_stints, do_raw = False):
     
     keys = list(pbp_event_map.keys())
     
-    lastScore = 0
+    lastScore = '0 - 0'
     lastScoreMargin = 0
     
     for i,p in game.play_by_play.iterrows():
@@ -536,6 +538,7 @@ def dump_pbp(game, game_stints, do_raw = False):
                     p.player2_name, p.player2_team_abbreviation,
                     p.player3_name, p.player3_team_abbreviation
                     ]
+                
                 sub_events.extend([a])
             
     if not save_as_raw:
@@ -553,7 +556,7 @@ def dump_pbp(game, game_stints, do_raw = False):
                 j -= 1
 
             # if we're at the begining it must be 0    
-            sub_events[i][4] = 0 if j == 0 else sub_events[j][4]
+            sub_events[i][4] = '0 - 0' if j == 0 else sub_events[j][4]
             sub_events[i][5] = 0 if j == 0 else sub_events[j][5]
     
     new_cols = [
@@ -579,6 +582,8 @@ def dump_pbp(game, game_stints, do_raw = False):
     fn = os.path.join(cwd, fn) 
     
     if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    logger.info(f'Saving {os.path.basename(fn)}')
     
     fl = open(fn,"w")
     f = play_by_play.to_csv()

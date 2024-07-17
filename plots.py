@@ -156,9 +156,10 @@ def make_scoremargin(play_by_play):
             else: 
                 try:
                     scoreMargins[-1] = scoremargin
-                    home_scores[-1] = home_score
-                    away_scores[-1] = away_score
-                except: pass                
+                    # home_scores[-1] = home_score
+                    # away_scores[-1] = away_score
+                except: pass    
+                            
             lastscoretime = now
             lastscorevalue = scoremargin
             last_home_score = home_score
@@ -959,7 +960,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     matplotlib.rcParams.update(matplotlib.rcParamsDefault)
     if not do_plot('tools'):
-        logger.warning('Tool bar disabled')
         matplotlib.rcParams['toolbar'] = 'None' 
 
     if defaults.get('SAVE_RAW_GAME_AS_CSV'):
@@ -1072,7 +1072,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
             fn = os.path.join(cwd, fn) 
             plt.draw()
-            logger.info(f'saving image file {fn}')
+            logger.info(f'saving image file {os.path.basename(fn)}')
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')

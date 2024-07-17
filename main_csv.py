@@ -185,8 +185,3 @@ def main(file_dir_name):
             our_playerstints_and_boxscore,
             opponent_playerstints_and_boxscore)
         
-        # next game or quit (bes) untested from this module!
-        # if(quitGame()==True):
-        home = None
-        away = None
-        #     break

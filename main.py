@@ -5,6 +5,7 @@ import settings
 from loguru import logger
 
 # before anything else happens, likely too cheesy and won't servive long
+
 def get_args():
     
     parser = argparse.ArgumentParser(
@@ -33,7 +34,7 @@ def get_args():
     parser.add_argument('-json',         help='specify json file for app config. default is settings.json')
     parser.add_argument('-colors',       help='new plot colors file. defaults is colors.json')
 
-    # debug and otrher stuff we don't tell about
+    # debug and other stuff we don't tell about
     parser.add_argument('-wait','-w',    nargs=1, help=argparse.SUPPRESS)
     parser.add_argument('-combo','-cb',  nargs='+', help=argparse.SUPPRESS)
     parser.add_argument('-trim',         help=argparse.SUPPRESS)
@@ -43,70 +44,105 @@ def get_args():
     parser.add_argument('-bs', nargs=1,    help=argparse.SUPPRESS)
     parser.add_argument('-it', nargs=1, choices= ['pdf', 'png','jpg'],   help=argparse.SUPPRESS)
 
-    return parser.parse_args(), parser
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        logger.error('Argument parsing error')
+        return None,'Error'
+    
+    return args, parser
 
 def start_logger(args):   
      
     logger.remove()
+    try:    
+        log_ret = settings.defaults.get('LOG_RETENTION')
+        log_rot = settings.defaults.get('LOG_ROTATION')
+        log_level = settings.defaults.get('LOG_LEVEL')
+        log_colorize = settings.defaults.get('LOG_COLORIZE')
+        log_filename = settings.defaults.get('LOG_FILE')
+    except:
+        # in the event of disaster
+        log_ret = '1 week'
+        log_rot = '1 hour'
+        log_level = 'DEBUG'
+        log_colorize = []
+        log_filename = '.wwmdd/logs/DISASTER.log'
+        
+    log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> <level>{level: <8}</level> <magenta>{file: >10} {line: <4}</magenta> {message}"
+    log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> <level>{level: <8}</level> <magenta>{file: >10} {line: <4}</magenta> {message}"
 
-    log_ret = settings.defaults.get('LOG_RETENTION')
-    log_rot = settings.defaults.get('LOG_ROTATION')
-    log_level = settings.defaults.get('LOG_LEVEL')
-   
-    log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
-    log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> | <level>{level: <8}</level> | <yellow>Line {line: >4} ({file}):</yellow> {message}"
-
-    logger.add('.wwmdd/logs/wwmdd.log',
+    logger.add(log_filename,
                format=log_format,
                level=log_level,
                rotation=log_rot, 
-               retention=log_ret)
+               retention=log_ret,
+               colorize= 'wwmdd.log' in log_colorize,
+               backtrace=True,
+               diagnose=True)
     
-    logger.add(sys.stderr, level='ERROR', format=log_format_error,colorize=True, backtrace=True, diagnose=True)  
+    logger.add(sys.stdout,
+               format=log_format,
+               level=log_level,
+               colorize='sys.stdout' in log_colorize,
+               backtrace=True,
+               diagnose=True)
+    
+    logger.enable('')   # explicitly enable, assume default is on 
+    logger.disable('')  # explicity disable. what are doing this to?
 
-    # enable nothing
-    logger.enable('')
-
-    if args.log:   logger.enable('')
-    if args.nolog: logger.disable('')
-
-    if not args.log and not args.nolog:
+    if args == None:
         if settings.defaults.get('LOG'): logger.enable('')
-        else: logger.disable('')
+    else:    
+        if args.log:   logger.enable('')
+        if args.nolog: logger.disable('')
+
+        if not args.log and not args.nolog:
+            if settings.defaults.get('LOG'): logger.enable('')
+            else: logger.disable('')
 
 def get_argset(args, parser):
     argset = []
     if args.bs != None:
+        # use each line from this file as a cmmd line for the app 
         try:
+            # try and open the file and read it            
             with open(args.bs[0]) as f: lines = f.readlines()
+            
             for line in lines:
+                
+                if '##exit' in line:
+                    argset.extend([[None,line.strip().split(' ')]])
+                    break
                 
                 if '##' in line:
                     logger.info(line.strip())
                     continue
-                
+                        
                 line = line.replace('\n','')
                 line = line.strip()
-                l = line.split(' ')
-                if '' in l: l.remove('')
-                if len(l) != 0:
+                line = line.split(' ')
+                if '' in line: line.remove('')
+                
+                if len(line) != 0:
                     try:
-                        aargs = parser.parse_args(l)
+                        aargs = parser.parse_args(line)
                         argset.extend([[aargs,line]])
-                    except:
-                        logger.error((' ').join(l))
+                    except SystemExit:
+                        logger.error(f'-bs {args.bs[0]} line parsing Error ')
+                        logger.error((' ').join(line))
                         # logger.error(e)
-                    
         except:
             logger.error(f'ERROR -- Problem reading {args.bs[0]} file.')
     else:
+        # use command line as auguments
         argset = [[args,sys.argv[1:0]]]
     return argset
 
 def set_args(args):
     # things we don't tell about
     # settings.defaults.set('LOG', args.log)
-    if args.log:   logger.enable('')
+    if args.log: logger.enable('')
     if args.nolog: logger.disable('')
     
     if args.DBG             != None: settings.defaults.set('DBG',       args.DBG)
@@ -114,22 +150,23 @@ def set_args(args):
     if args.console         != None: settings.defaults.set('CONSOLE',   args.console)
     if args.wait            != None: settings.defaults.set('SHOW_PAUSE',  int(args.wait[0]))
     if args.it              != None: settings.defaults.set('SAVE_PLOT_TYPE', args.it[0])
-    try :
-        if args.combo != None: settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo[0].split(' '))))
-    except:
-        logger.error(f'Problem in combo parameter {args.combo}. combo paramater ignored')
+    
+    if args.combo           != None: 
         
-    if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',  args.test_players)
+        try:
+            settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo[0].split(' '))))
+        except:
+            logger.error(f'Problem in combo parameter {args.combo}. combo paramater ignored')
+        
+    if args.test_players    != None: settings.defaults.set('TEST_PLAYERS', args.test_players)
 
     if args.file            != None: settings.defaults.set('FILE', args.file)
 
-    if args.team            != None: settings.defaults.set('TEAM',          args.team)
-    # if args.colors          != None: 
-    #     settings.defaults.update_colors(args.colors)
-    #     print('BS WAS HERE')
+    if args.team            != None: settings.defaults.set('TEAM', args.team)
+       
+    if args.subplots        != None: settings.defaults.set('SUB_PLOTS', args.subplots)
     
-    if args.subplots        != None: settings.defaults.set('SUB_PLOTS',     args.subplots)
-    if args.date != None:
+    if args.date            != None:
         
         start = args.date[0]
         stop = start if len(args.date) == 1 else args.date[1]
@@ -140,135 +177,142 @@ def set_args(args):
 args, parser = get_args()
 
 settings.defaults = settings.default()
-if args.json != None: settings.defaults.update(args.json)
 
 cfn = settings.defaults.get('COLOR_DEFAULTS')
 settings.colors = settings.default(cfn)
 
-if args.colors != None: 
-    settings.defaults.update_colors(args.colors)
-    logger.debug('new stint color?' + settings.colors.get('STINT_COLOR'))
-
-    # settings.defaults.update(args.colors)
-
-
-
 start_logger(args)
 logger.info('wwmdd begins! ')
 
-import main_web
-import main_csv
-import main_db
-import llm_api.open_ai as gpt
-import llm_api.claude as claude
-import llm_api.gemini as gemini
+if args != None:
+
+    if args.json != None: 
+        settings.defaults.update(args.json)
+
+    if args.colors != None: 
+        logger.debug(f'Updating colors {args.colors}') 
+        settings.defaults.update_colors(args.colors)
 
 if __name__ == '__main__':
-        
-    argset = get_argset(args,parser)
-    
-    for _args in argset:
-        
-        args = _args[0]
-        logger.info(_args[1])
-        
-        set_args(args)
-        
-        if args.make != None:
-            stints = 'stints' in args.make
-            olaps = 'overlaps' in args.make
-            plot = 'plot'  in args.make
-            csv_save = 'csv' in args.make
-            raw_save = 'raw' in args.make
-            img  = 'img' in args.make
-            log  = 'log' in args.make
-            nolog = 'nolog' in args.make
-            
-            if nolog:
-                logger.warning('Logging disabled.')
-                logger.disable('')
 
-            if log:
-                logger.enable('')
-                logger.warning('Loggging enabled.')
+    if args != None:
             
-            if plot: settings.defaults.set('SHOW_PLOT', True)
-            
-            settings.defaults.set('SAVE_PLOT_IMAGE', img)
-            
-            # no plot
-            if not plot and stints or olaps:
-                settings.defaults.set('PLAY_TIME_CHECK_ONLY',True)
+        argset = get_argset(args,parser)
 
-            if olaps :
-                if args.team != None:
-                    oteam = '' if args.team == None else args.team 
-                    settings.defaults.set('SHOW_OVERLAP',oteam)
+        import main_web
+        import main_csv
+        import main_db
+        import llm_api.open_ai as gpt
+        import llm_api.claude as claude
+        import llm_api.gemini as gemini
+
+        for _args in argset:
             
-            if stints: 
-                settings.defaults.set('PLAY_TIME_CHECK_SHOW',True)
-        
-            do_web = 'web' in args.source
-            do_csv = 'csv' in args.source
-                        
-            if do_web: 
+            original_stuff = settings.defaults.stuff.copy()
+            original_colors = settings.colors.stuff.copy()
+           
+            args = _args[0]
+            logger.info((' ').join(_args[1]))
+            
+            if args == None: break
+            
+            set_args(args)
+            
+            if args.make != None:
+                stints = 'stints' in args.make
+                olaps = 'overlaps' in args.make
+                plot = 'plot'  in args.make
+                csv_save = 'csv' in args.make
+                raw_save = 'raw' in args.make
+                img  = 'img' in args.make
+                log  = 'log' in args.make
+                nolog = 'nolog' in args.make
                 
-                if args.date == None: print('-date required')
-                if args.team == None : print('-team required')
+                if nolog:
+                    logger.warning('Logging disabled.')
+                    logger.disable('')
 
-                if None in [args.team,args.date]: sys.exit()
+                if log:
+                    logger.enable('')
+                    logger.warning('Loggging enabled.')
+                
+                if plot: settings.defaults.set('SHOW_PLOT', True)
+                
+                settings.defaults.set('SAVE_PLOT_IMAGE', img)
+                
+                # no plot
+                if not plot and stints or olaps:
+                    settings.defaults.set('PLAY_TIME_CHECK_ONLY',True)
 
-                settings.defaults.set('SOURCE','WEB')       
-                settings.defaults.set('SAVE_RAW_GAME_AS_CSV',raw_save)
-                settings.defaults.set('SAVE_GAME_AS_CSV', True if raw_save else csv_save)
-                if args.file: 
-                     settings.defaults.set('WAS_SAVE_GAME_DIR','SAVE_GAME_DIR')
-                     settings.defaults.set('SAVE_GAME_DIR',args.file)
-
-                if args.colors          != None: 
+                if olaps :
+                    if args.team != None:
+                        oteam = '' if args.team == None else args.team 
+                        settings.defaults.set('SHOW_OVERLAP',oteam)
+                
+                if stints: 
+                    settings.defaults.set('PLAY_TIME_CHECK_SHOW',True)
+                
+                if args.colors          != None:
+                    logger.info(f'Color update via {args.colors}.')
                     settings.defaults.update_colors(args.colors)
-                    print('BS WAS HERE')
+        
+                do_web = 'web' in args.source
+                do_csv = 'csv' in args.source
+                            
+                if do_web: 
+                    if args.date == None: logger.error('-date required')
+                    if args.team == None : logger.error('-team required')
 
+                    if None in [args.team,args.date]: continue
+                    else:
+                        settings.defaults.set('SOURCE','WEB')       
+                        settings.defaults.set('SAVE_RAW_GAME_AS_CSV',raw_save)
+                        settings.defaults.set('SAVE_GAME_AS_CSV', True if raw_save else csv_save)
 
-                start = args.date[0]
-                try:   stop  = args.date[1]
-                except: stop = args.date[0]
-            
-                main_web.main(team=args.team, start=start, stop=stop)
-                
-                settings.defaults.set('SAVE_GAME_DIR','WAS_SAVE_GAME_DIR')
-                settings.defaults.update_colors(settings.defaults.get('COLOR_DEFAULTS'))
+                        if args.file: 
+                            settings.defaults.set('SAVE_GAME_DIR',args.file)
+                            settings.defaults.set('SAVE_PLOT_DIR',args.file)
 
-            elif do_csv:
+                        start = args.date[0]
+                        stop = start if len(args.date) == 1 else args.date[1]
+                        
+                        main_web.main(team=args.team, start=start, stop=stop)
+                    
+                elif do_csv:
 
-                if args.file == None : print('-file required')
-                if None in [args.file]: sys.exit()
+                    if args.file == None : log.error('-file required')
+                    if None in [args.file]: continue
+                    else:
 
-                settings.defaults.set('SOURCE','CSV')
-                main_csv.main(args.file)
+                        settings.defaults.set('SOURCE','CSV')
+                        main_csv.main(args.file)
 
-        else:
+            settings.defaults.stuff = original_stuff
+            settings.colors.stuff = original_colors
 
-            data_source = settings.defaults.get('SOURCE')
+    if len(sys.argv) == 1:
 
-            # get games and play by play from nba_api. get teams and dates from settings.json
-            if 'WEB:' in data_source: main_web.main()
+        logger.error('settings taken from defaults')    
+        data_source = settings.defaults.get('SOURCE')
 
-            # read play by play from file we or claude created.  file or directory name
-            elif 'FILE:' in data_source: main_csv.main(data_source.split(':')[1])
+        # get games and play by play from nba_api. get teams and dates from settings.json
+        if 'WEB:' in data_source: main_web.main()
 
-            # send play_by_play files to claude and have him make one
-            elif 'CLAUDE:' in data_source: claude.main(data_source.split(':')[1])
+        # read play by play from file we or claude created.  file or directory name
+        elif 'FILE:' in data_source: main_csv.main(data_source.split(':')[1])
 
-            elif 'GEMINI:' in data_source: gemini.main(data_source.split(':')[1])
+        # send play_by_play files to claude and have him make one
+        elif 'CLAUDE:' in data_source: claude.main(data_source.split(':')[1])
 
-            elif 'OPEN_AI:' in data_source: gpt.main(data_source.split(':')[1])
+        elif 'GEMINI:' in data_source: gemini.main(data_source.split(':')[1])
 
-            elif 'TOKENS:' in data_source: gemini.do_tokens(data_source.split(':')[1])
+        elif 'OPEN_AI:' in data_source: gpt.main(data_source.split(':')[1])
 
-            elif 'DB:' in data_source: main_db.main()
-            # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
+        elif 'TOKENS:' in data_source: gemini.do_tokens(data_source.split(':')[1])
 
-            else: log.error('NO SOURCE specified in .wwmdd/setttings.json.')
+        elif 'DB:' in data_source: main_db.main()
+        # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
+
+        else: logger.error('NO SOURCE specified in .wwmdd/setttings.json.')
             
     logger.info('wwmdd ends.')

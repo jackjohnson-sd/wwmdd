@@ -20,17 +20,18 @@
             "console": "integratedTerminal",
             "args": [
                 "-bs", "tests/world_tour/wt_args.txt",
-                "-log", "-colors","tests/world_tour/wt_color_white.json"
+                "-log", "-colors", "tests/world_tour/wt_color_white.json"
             ]
         },
         {
-            "name": "Python CAUSE ERROR",
+            "name": "Python bads",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-s","web","-t","OKC"
+                "-bs", "tests/world_tour/wt_args_bads.txt",
+                "-log", 
             ]
         }
     ]

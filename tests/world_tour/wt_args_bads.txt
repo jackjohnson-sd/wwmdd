@@ -1,0 +1,13 @@
+## these currently produce an Error 
+-s web -t OKC -d 2023-11-06 -m plot csv -p stints -w 5 -file tests/world_tour/test_data
+-s web -t OKC -d 2024-04-03 -m plot csv -p stints -w 5 -file tests/world_tour/test_data
+-s web -t OKC -d 2024-02-04 -m plot csv -p stints -w 5 -file tests/world_tour/test_data
+-s web -t OKC -d 2024-04-21 -m plot csv -p stints -w 5 -file tests/world_tour/test_data
+
+## these are the CSV from our ERROR games 
+-s csv -f tests/world_tour/test_data/OKCvATL20231106.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/OKCvTOR20240204.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/OKCvNOP20240421.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/BOSvOKC20240403.csv -m plot -p stints -w 5 
+
+exiting here because we have and '##exit' in this line. stop here ingore remainder

@@ -67,10 +67,10 @@ def start_logger(args):
         log_rot = '1 hour'
         log_level = 'DEBUG'
         log_colorize = []
-        log_filename = '.wwmdd\logs\DISASTER.log'
+        log_filename = '.wwmdd/logs/DISASTER.log'
         
-    log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> <level>{level: <8}</level> <yellow>{file: >10} {line: <4}</yellow> {message}"
-    log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> <level>{level: <8}</level> <yellow>{file: >10} {line: <4}</yellow> {message}"
+    log_format = "<green>{time:YY-MM-DD HH:mm:ss}</green> <level>{level: <8}</level> <magenta>{file: >10} {line: <4}</magenta> {message}"
+    log_format_error = "<red>{time:YYYY-MM-DD HH:mm:ss}</red> <level>{level: <8}</level> <magenta>{file: >10} {line: <4}</magenta> {message}"
 
     logger.add(log_filename,
                format=log_format,
@@ -142,7 +142,7 @@ def get_argset(args, parser):
 def set_args(args):
     # things we don't tell about
     # settings.defaults.set('LOG', args.log)
-    if args.log:   logger.enable('')
+    if args.log: logger.enable('')
     if args.nolog: logger.disable('')
     
     if args.DBG             != None: settings.defaults.set('DBG',       args.DBG)
@@ -150,19 +150,23 @@ def set_args(args):
     if args.console         != None: settings.defaults.set('CONSOLE',   args.console)
     if args.wait            != None: settings.defaults.set('SHOW_PAUSE',  int(args.wait[0]))
     if args.it              != None: settings.defaults.set('SAVE_PLOT_TYPE', args.it[0])
-    try :
-        if args.combo != None: settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo[0].split(' '))))
-    except:
-        logger.error(f'Problem in combo parameter {args.combo}. combo paramater ignored')
+    
+    if args.combo           != None: 
         
-    if args.test_players    != None: settings.defaults.set('TEST_PLAYERS',  args.test_players)
+        try:
+            settings.defaults.set('OVERLAP_GROUP', list(map(lambda x:int(x),args.combo[0].split(' '))))
+        except:
+            logger.error(f'Problem in combo parameter {args.combo}. combo paramater ignored')
+        
+    if args.test_players    != None: settings.defaults.set('TEST_PLAYERS', args.test_players)
 
     if args.file            != None: settings.defaults.set('FILE', args.file)
 
-    if args.team            != None: settings.defaults.set('TEAM',          args.team)
+    if args.team            != None: settings.defaults.set('TEAM', args.team)
        
-    if args.subplots        != None: settings.defaults.set('SUB_PLOTS',     args.subplots)
-    if args.date != None:
+    if args.subplots        != None: settings.defaults.set('SUB_PLOTS', args.subplots)
+    
+    if args.date            != None:
         
         start = args.date[0]
         stop = start if len(args.date) == 1 else args.date[1]
@@ -177,17 +181,17 @@ settings.defaults = settings.default()
 cfn = settings.defaults.get('COLOR_DEFAULTS')
 settings.colors = settings.default(cfn)
 
+start_logger(args)
+logger.info('wwmdd begins! ')
+
 if args != None:
 
-    if args.json != None: settings.defaults.update(args.json)
+    if args.json != None: 
+        settings.defaults.update(args.json)
 
     if args.colors != None: 
         logger.debug(f'Updating colors {args.colors}') 
         settings.defaults.update_colors(args.colors)
-
-start_logger(args)
-logger.info('wwmdd begins! ')
-
 
 if __name__ == '__main__':
 
@@ -204,9 +208,9 @@ if __name__ == '__main__':
 
         for _args in argset:
             
-            original_settings_stuff = settings.default.stuff 
-            original_settings_colors = settings.colors.stuff
-            
+            original_stuff = settings.defaults.stuff.copy()
+            original_colors = settings.colors.stuff.copy()
+           
             args = _args[0]
             logger.info((' ').join(_args[1]))
             
@@ -249,6 +253,7 @@ if __name__ == '__main__':
                     settings.defaults.set('PLAY_TIME_CHECK_SHOW',True)
                 
                 if args.colors          != None:
+                    logger.info(f'Color update via {args.colors}.')
                     settings.defaults.update_colors(args.colors)
         
                 do_web = 'web' in args.source
@@ -281,9 +286,9 @@ if __name__ == '__main__':
 
                         settings.defaults.set('SOURCE','CSV')
                         main_csv.main(args.file)
-                    
-                settings.default.stuff = original_settings_stuff
-                settings.colors.stuff = original_settings_colors
+
+            settings.defaults.stuff = original_stuff
+            settings.colors.stuff = original_colors
 
     if len(sys.argv) == 1:
 

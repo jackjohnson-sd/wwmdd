@@ -3,6 +3,10 @@ TODO -- bring back loggging, use loguru
 
 Please Read me
 
+July 16 -- fixed issue with runnong slow, hanging we saw with Bruce
+           fixed issues with .csv having 0 vs 0-0 as score
+           SUB event now 'Starts/Stops playing'. vs begin/end etc
+           data in world_tour placed in test_data, test_data added to .gitignore 
 July 16 -- log now logs to file and console
 July 14 -- log is back,stored in .wwmdd\logs, 
            -log,-nolog on cmdline else from settings.json

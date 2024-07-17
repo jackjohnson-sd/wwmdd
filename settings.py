@@ -20,7 +20,7 @@ class default :
                 # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff = \
                 {
-                "LOG"             : False
+                 "LOG"             : False
                 , "LOG_ROTATION"    : "1 hour"
                 , "LOG_RETENTION"   : "1 week"
                 , "LOG_LEVEL"       : "DEBUG"
@@ -90,7 +90,7 @@ class default :
                 newstuff = json.load(f)
                 colors.stuff = {**colors.stuff,**newstuff}
         except:
-            print(f'Failed to load {fn} as colors json file.')
+            logger.error(f'Failed to load {fn} as colors json file.')
             
     def update(self,fn):
         try:    
@@ -98,13 +98,13 @@ class default :
                 newstuff = json.load(f)
                 self.stuff = {**self.stuff,**newstuff}
         except:
-            print(f'Failed to load {fn} as json settings file.')
+            logger.error(f'Failed to load {fn} as json settings file.')
    
     def get(self, _name):
         try:
             return self.stuff[_name]
         except:
-            logger.error('INVALID settings key {_name')
+            logger.error('INVALID settings key')
             return None
         
     def set(self,_name, _value):

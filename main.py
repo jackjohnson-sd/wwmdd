@@ -312,7 +312,11 @@ if __name__ == '__main__':
 
         elif 'DB:' in data_source: main_db.main()
         # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
-
+        
+        elif 'TESTPLOTSCALE:' in data_source: 
+            import main_TestPlotScale
+            main_TestPlotScale.main()
+        
         else: logger.error('NO SOURCE specified in .wwmdd/setttings.json.')
             
     logger.info('wwmdd ends.')

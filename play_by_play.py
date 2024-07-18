@@ -345,9 +345,9 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
 
         game_data.start_time = start_time  
 
-        if defaults.get('SHOW_OVERLAP') == team_abbreviation:
+        # if defaults.get('SHOW_OVERLAP') == team_abbreviation:
         
-            overlap_dump(overlap_combos(stints_by_player), game_data, team_abbreviation)
+        #     overlap_dump(overlap_combos(stints_by_player), game_data, team_abbreviation)
             
         return [stints_by_player, dict(boxSc.getBoxScore())]
 
@@ -355,18 +355,19 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
 
 def box_score_dump(box,box2,game_data):
     
+    
     rows, columns, data = box.get_bs_data()
 
-    s = f'player,team,{','.join(columns)}\n'  
+    s = f'date,player,team,{','.join(columns)}\n'  
     lines = [s]         
     
     for i,d in enumerate(data):
-        a = f'{rows[i]},{box._team_name},{','.join(d)}\n'
+        a = f'{game_data.game_date},{rows[i]},{box._team_name},{','.join(d)}\n'
         lines.extend(a)
 
     rows, columns, data = box2.get_bs_data()
     for i,d in enumerate(data):
-        a = f'{rows[i]},{box2._team_name},{','.join(d)}\n'
+        a = f'{str(game_data.game_date)},{rows[i]},{box2._team_name},{','.join(d)}\n'
         lines.extend(a)
 
     t = game_data.matchup_home.split(' ')
@@ -374,7 +375,8 @@ def box_score_dump(box,box2,game_data):
     import os
     cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
         
-    fn = f'BOX_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
+    game_date = f'{game_data.game_date.replace('-','')}'
+    fn = f'BOX_{t[0]}v{t[2]}{game_date}.csv'
         
     fn = os.path.join(cwd, fn) 
     

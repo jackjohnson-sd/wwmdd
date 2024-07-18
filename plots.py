@@ -8,7 +8,7 @@ from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
 from settings import defaults 
-from play_by_play import dump_pbp, box_score_dump
+from play_by_play import dump_pbp, box_score_dump,overlap_combos,overlap_dump
 from utils import _ms,sec_to_period_time2,shorten_player_name,save_files
 
 
@@ -892,35 +892,8 @@ def plot_layout(title):
 
     return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def xxx(stints,bx):
-    def ms(sec):
-        m = int(sec / 60)
-        s = int(sec % 60)
-        return f'{m:02d}:{s:02d}'
-    
-    def stint_dump(stints,player):
-        s = ''
-        if player in stints.keys():
-                
-            stintw = stints[player]
-            s = ''
-            for stint in stintw:
-                tmp = f'{player},{bx._team_name},{sec_to_period_time2(stint[1]).replace(' ',':')},{sec_to_period_time2(stint[2]).replace(' ',':')},{ms(int(stint[0]))}'
-                s += tmp
-                s += '\n'
-            # print(s)    
-        else:
-            logger.error(f'Stints to csv error. {player} has no stints.')
-            
-        return s.strip()
-
-    return '\n'.join(list(map(lambda x:f'{stint_dump(stints,x[0])}',bx.get_names_items('secs'))))
-
-
 def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
    
-    if defaults.get('MAKE_BOX'):
-         box_score_dump(bx1,bx2,game_data)
          
     # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
     # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
@@ -935,18 +908,69 @@ def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
         logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
         ret_value = False
 
-    PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
+    return ret_value
+        
+def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
+    def xxx(stints,bx,labels):
     
-    if PLAY_TIME_CHECK_SHOW == 'OFF': return ret_value
+        def ms(sec):
+            m = int(sec / 60)
+            s = int(sec % 60)
+            return f'{m:02d}:{s:02d}'
+        
+        def get_oinks(player,stint,box):
+            start = stint[1]
+            stop  = stint[2]
+            
+            oinks = box._boxScore[player]['OINK']
+            # print(start,stop,oinks)
+            def fo(start,stop,oink):
+                if oink[2] != None:
+                    if oink[2] >= start:
+                        if oink[2] <= stop:
+                            return oink
+                return None
+            
+            our_oinks = list(map(lambda x:fo(start,stop,x),oinks))
+            while None in our_oinks: our_oinks.remove(None)
+            
+            oinks_sum = {}
+            for oink in our_oinks:
+                if oink[0] not in oinks_sum.keys():
+                    oinks_sum[oink[0]] = 0
+                oinks_sum[oink[0]] += int(oink[1])
+                    
+            return oinks_sum   
+        
+        def stint_dump(stints,player,box):
+            s = ''
+            if player in stints[0]:
+                    
+                stintw = stints[0][player]
+                s = ''
+                for stint in stintw:
+                    bx._boxScore[player]['OINK']
+                    tmp = f'{player},{bx._team_name},{sec_to_period_time2(stint[1]).replace(' ',':')},{sec_to_period_time2(stint[2]).replace(' ',':')},{ms(int(stint[0]))}'
+                    oinks = get_oinks(player,stint,box)
+                    oinks_str = ''
+                    for o in labels:
+                        v = oinks[o] if o in oinks.keys() else 0
+                        oinks_str += ',' + str(v)
+                    s += tmp + oinks_str
+                    s += '\n'
+            else:
+                logger.error(f'Stints to csv error. {player} has no stints.')
+            
+            return s.strip()
 
-    if PLAY_TIME_CHECK_SHOW == 'FAIL_ONLY': 
-        if ret_value : return ret_value
+        return '\n'.join(list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs'))))
 
-    # create a csv file with each stint by player
-    
-    L1 = 'player,player_team,start,end,duration\n'
-    a = xxx(stints1,bx1)
-    b = xxx(stints2,bx2)
+    L2a = bx1._bsItemsA 
+    L2b = bx1._bsItemsB
+    L1 = 'player,player_team,start,end,duration,'
+    L2 = L2a + L2b 
+    a = xxx(stints1,bx1,L2)
+    b = xxx(stints2,bx2,L2)
     
     t = game_data.matchup_home.split(' ')
 
@@ -962,49 +986,10 @@ def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
     logger.info(f'Saving {os.path.basename(fn)}')
     
     fl_s = open(fn,"w")
-    fl_s.write(L1 + a + '\n'+ b)
+    fl_s.write(L1 + (',').join(L2)+ '\n' + a + '\n' + b)
     fl_s.close()
 
     return True
-
-
-    print()
-    print('STINT REPORT')
-    print()
-
-    def ms(sec):
-        m = int(sec / 60)
-        s = int(sec % 60)
-        return f'{m:02d}:{s:02d}'
-    
-    def stint_dump(stints,player):
-        
-        s = '0,0,0'
-        if player in stints.keys():
-            if player in TEST_PLAYERS or len(TEST_PLAYERS) == 0:
-                
-                stintw = stints[player]
-                s = ''
-                cnt = 0
-                for stint in stintw:
-                    tmp = f'{sec_to_period_time2(stint[1]).replace(' ',':')}-{sec_to_period_time2(stint[2]).replace(' ',':')} {ms(int(stint[0]))}, '
-                    s += tmp
-                    cnt += 1
-                    if cnt > 2:
-                        s += '\n                                           '
-                        cnt = 0
-        return s.strip()
-        
-    print(bx1.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints1,x[0])}',bx1.get_names_items('secs')))))
-    print()
-
-    print(bx2.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints2,x[0])}',bx2.get_names_items('secs')))))
-    print()
-    print()
-
-    return ret_value
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
@@ -1042,10 +1027,10 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
     
-    play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
+    do_stint = play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
-    if not defaults.get('PLAY_TIME_CHECK_ONLY'):
-
+    if not defaults.get('SHOW_PLOT'): logger.debug('Plot display disabled.')
+    else:
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
@@ -1109,26 +1094,35 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        if not defaults.get('SHOW_PLOT'):  print('FYI, plot display disabled.')   
-        else: 
-            n = defaults.get('SHOW_PAUSE')
-            if n == -1: plt.show(block=True)
-            else: plt.pause(n) 
-        
+        n = defaults.get('SHOW_PAUSE')
+        if n == -1: plt.show(block=True)
+        else: plt.pause(n) 
+           
         if defaults.get('SAVE_PLOT_IMAGE'):
-            
             img_type = defaults.get('SAVE_PLOT_TYPE')
             img_dpi  = defaults.get('SAVE_PLOT_DPI')
 
             cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
             t = game_data.matchup_home.split(' ')
             fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.{img_type}'
-          
+            
             if not(os.path.exists(cwd)): os.mkdir(cwd)
-    
+
             fn = os.path.join(cwd, fn) 
             plt.draw()
             logger.info(f'saving image file {os.path.basename(fn)}')
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')
+
+    if defaults.get('MAKE_BOX'): 
+        box_score_dump(boxscore1,boxscore2,game_data)
+            
+    if defaults.get('SHOW_OVERLAP'): #team_abbreviation:
+        overlap_dump(overlap_combos(our_stints), game_data, boxscore1)
+        overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2)
+
+    if defaults.get('SAVE_STINTS_AS_CVS'):
+        stints_as_csv(boxscore1,boxscore2,our_stints,opponent_stints ,game_data)
+
+""  

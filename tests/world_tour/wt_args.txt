@@ -1,5 +1,4 @@
--s web -t OKC -d 2023-01-30 -m plot csv stints overlaps box -p stints -w 5 -file tests/world_tour/test_data
-
+-s web -t OKC -d 2023-01-30 -m plot csv stints overlaps img box -p stints boxscore -w 5 -file tests/world_tour/test_data
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 

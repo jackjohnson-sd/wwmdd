@@ -18,6 +18,7 @@ class box_score:
     _start_time = 'UNKNOWN'
     _max_by_items = {}
     
+    
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
 
@@ -44,7 +45,8 @@ class box_score:
     def add_player(self, player):
 
         if player not in self._boxScore.keys():
-            self._boxScore[player] = {}
+            self._boxScore[player] = {'OINK':0}
+            
         for key in self._bsItems:
             self._boxScore[player][key] = 0
     
@@ -126,7 +128,7 @@ class box_score:
 
     def add_player(self, _player):
         if _player not in self._boxScore.keys():
-            self._boxScore[_player] = {}
+            self._boxScore[_player] = {'OINK' : []}
             for key in self._bsItems:
                 self._boxScore[_player][key] = 0
 
@@ -154,21 +156,21 @@ class box_score:
         return list(map(lambda x: [x,self._boxScore[x][item]], ourPlayers))
 
     def get_item_colwidth(self, item):
-        # return max([len(item)]+ list(map(lambda x: len(str(self._boxScore[x][item])), list(self._boxScore.keys()))))
-        # return max([item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys()))))
         return [item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys())))
         
     def get_colwidths(self):
         return list(map(lambda x: self.get_item_colwidth(x),self._bsItemsA))    
         
-    def update(self, _player, _item, val):
+    def XXupdate(self, _player, _item, val):
         if _player != None:
             if _player in self.get_players():
-                # if _item in self._bsItems : 
-                #     val = 16
-                #     self._boxScore[_player][_item] = 0
-                    
                 self._boxScore[_player][_item] += val
+
+    def update(self,_player,_item,val, when=None):
+        if _player != None:
+            if _player in self.get_players():
+                self._boxScore[_player][_item] += val
+                self._boxScore[_player]['OINK'].extend([[_item,val,when]])
 
     def set_item(self, _player, _item, val):
         if _player != None:
@@ -228,27 +230,27 @@ class box_score:
                 case 1:  # make
                     pts = 3 if is3 else 2
                     mk = '3make' if is3 else 'make'
-                    self.update(p1, mk, 1)
-                    self.update(p1, 'PTS', pts)
-                    self.update(p2, 'AST', 1)
+                    self.update(p1, mk, 1,      when=_evnt.sec)
+                    self.update(p1, 'PTS', pts, when=_evnt.sec)
+                    self.update(p2, 'AST', 1,   when=_evnt.sec)
 
                 case 2:  # miss
                     mk = '3miss' if is3 else 'miss'
-                    self.update(p1, mk, 1)
-                    self.update(p3, 'BLK', 1)
+                    self.update(p1, mk, 1, when=_evnt.sec)
+                    self.update(p3, 'BLK', 1, when=_evnt.sec)
 
                 case 3:  # free throw
                     its_good = 'MISS' not in event_description
-                    self.update(p1, 'FTmake' if its_good else 'FTmiss', 1)
-                    if its_good: self.update(p1, 'PTS', 1)
+                    self.update(p1, 'FTmake' if its_good else 'FTmiss', 1, when=_evnt.sec)
+                    if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
-                case 4:  self.update(p1, 'REB', 1)
+                case 4:  self.update(p1, 'REB', 1, when=_evnt.sec)
 
                 case 5:  # steal
-                    self.update(p1, 'TO', 1)
-                    self.update(p2, 'STL', 1)
+                    self.update(p1, 'TO', 1, when=_evnt.sec)
+                    self.update(p2, 'STL', 1, when=_evnt.sec)
 
-                case 6:  self.update(p1, 'PF', 1)
+                case 6:  self.update(p1, 'PF', 1, when=_evnt.sec)
   
                 # case 8: # substitution
 

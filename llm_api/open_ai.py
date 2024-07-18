@@ -2,9 +2,9 @@ from openai import OpenAI
  
 import os
 
-client = OpenAI()
 
 def main(files):
+    client = OpenAI()
     stream = client.chat.completions.create(
         model="gpt-4o-2024-05-13",
         messages=[{"role": "user", "content": "What day is today?"}],

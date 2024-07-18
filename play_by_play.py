@@ -347,11 +347,44 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
 
         if defaults.get('SHOW_OVERLAP') == team_abbreviation:
         
-            overlap_dump(overlap_combos(stints_by_player),team_abbreviation)
-
+            overlap_dump(overlap_combos(stints_by_player), game_data, team_abbreviation)
+            
         return [stints_by_player, dict(boxSc.getBoxScore())]
 
     return [{},{}], start_time
+
+def box_score_dump(box,box2,game_data):
+    
+    rows, columns, data = box.get_bs_data()
+
+    s = f'player,team,{','.join(columns)}\n'  
+    lines = [s]         
+    
+    for i,d in enumerate(data):
+        a = f'{rows[i]},{box._team_name},{','.join(d)}\n'
+        lines.extend(a)
+
+    rows, columns, data = box2.get_bs_data()
+    for i,d in enumerate(data):
+        a = f'{rows[i]},{box2._team_name},{','.join(d)}\n'
+        lines.extend(a)
+
+    t = game_data.matchup_home.split(' ')
+
+    import os
+    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+        
+    fn = f'BOX_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
+        
+    fn = os.path.join(cwd, fn) 
+    
+    if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    logger.info(f'Saving {os.path.basename(fn)}')
+    
+    fl = open(fn,"w")
+    fl.writelines(lines)
+    fl.close()
 
 def stint_sort_key(stnt): return stnt[1] if stnt[4] == 'I' else stnt[2]
 

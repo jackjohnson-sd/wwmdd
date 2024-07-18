@@ -258,7 +258,7 @@ class box_score:
     def get_bs_data(self, players=[], all=False):
 
         itemlist = self._bsItemsA if not all else self._bsItems
-        rows = players if players != [] else list(self, self._boxScore.keys())
+        rows = players if players != [] else list(self._boxScore.keys())
         columns = itemlist
         data = []
         for key in rows:

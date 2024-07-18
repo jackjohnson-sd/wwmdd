@@ -6,6 +6,7 @@
     , "LOG_COLORIZE"    : ["sys.stdout"]
     , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
  
+    , "MAKE_BOX"    : false
     , "TRIM"        : false       
     , "CONSOLE"     : true
 

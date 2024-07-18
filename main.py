@@ -19,7 +19,7 @@ def get_args():
 
     parser.add_argument('-make','-m', nargs='+', 
                         metavar='stuff',
-                        choices = ['plot','csv','raw','img','stints', 'overlaps','log','nolog'],   
+                        choices = ['plot','csv','raw','img','stints', 'overlaps','log','nolog','box'],   
                         help='What to do, -make plot csv')
     parser.add_argument('-source','-s',
                         choices = ['web','csv'],          
@@ -219,14 +219,16 @@ if __name__ == '__main__':
             set_args(args)
             
             if args.make != None:
-                stints = 'stints' in args.make
-                olaps = 'overlaps' in args.make
-                plot = 'plot'  in args.make
-                csv_save = 'csv' in args.make
-                raw_save = 'raw' in args.make
-                img  = 'img' in args.make
-                log  = 'log' in args.make
-                nolog = 'nolog' in args.make
+                
+                stints = 'stints'   in args.make
+                olaps = 'overlaps'  in args.make
+                plot = 'plot'       in args.make
+                csv_save = 'csv'    in args.make
+                raw_save = 'raw'    in args.make
+                img  = 'img'        in args.make
+                log  = 'log'        in args.make
+                nolog = 'nolog'     in args.make
+                box   = 'box'       in args.make
                 
                 if nolog:
                     logger.warning('Logging disabled.')
@@ -237,6 +239,8 @@ if __name__ == '__main__':
                     logger.warning('Loggging enabled.')
                 
                 if plot: settings.defaults.set('SHOW_PLOT', True)
+                
+                if box: settings.defaults.set('MAKE_BOX', True)
                 
                 settings.defaults.set('SAVE_PLOT_IMAGE', img)
                 
@@ -260,10 +264,12 @@ if __name__ == '__main__':
                 do_csv = 'csv' in args.source
                             
                 if do_web: 
+                    
                     if args.date == None: logger.error('-date required')
                     if args.team == None : logger.error('-team required')
 
                     if None in [args.team,args.date]: continue
+                    
                     else:
                         settings.defaults.set('SOURCE','WEB')       
                         settings.defaults.set('SAVE_RAW_GAME_AS_CSV',raw_save)
@@ -312,7 +318,11 @@ if __name__ == '__main__':
 
         elif 'DB:' in data_source: main_db.main()
         # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
-
+        
+        elif 'TESTPLOTSCALE:' in data_source: 
+            import main_TestPlotScale
+            main_TestPlotScale.main()
+        
         else: logger.error('NO SOURCE specified in .wwmdd/setttings.json.')
             
     logger.info('wwmdd ends.')

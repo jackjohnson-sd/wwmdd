@@ -2,6 +2,8 @@ import itertools
 from utils import ms, sec_to_period_time,sec_to_period_time2,intersection
 
 from settings import defaults
+from loguru import logger
+
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')  
 
 def overlap(stintA, stintB):
@@ -84,68 +86,41 @@ def overlap_combos(game_stints_by_player):
                 
     return game_stints_by_combo
 
-def overlap_dump(game_stints_by_combo, team_abbreviation):
+def overlap_dump(game_stints_by_combo, game_data, team_abbreviation):
         
-        def fgg(stints):
-            return sum(list(map(lambda x:x[0],stints)))
-            
-        ol_pt = list(map(lambda x:[x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],game_stints_by_combo.keys())) 
-        ol_pts = sorted(ol_pt, key=lambda x: x[1])   
+    def fgg(stints):
+        return sum(list(map(lambda x:x[0],stints)))
+        
+    ol_pt = list(map(lambda x:[x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],game_stints_by_combo.keys())) 
+    ol_pts = sorted(ol_pt, key=lambda x: x[1])   
 
-
-        print(f'{team_abbreviation} OVERLAP')
-        ol_pts.reverse()
-        for x in ol_pts[0:25]:
-            
-                
-            st = (', ').join(list(map(lambda x:stint_dump(x),x[2])))
-            nP = f'({1 + x[0].count('_')})' 
-            dur = f'{ms(x[1])}' 
-            combo = f'{x[0]}'
-            
-            # print(f'{nP} {dur} {combo} {st} ')
-            print(f'{nP} {dur} {combo}\n          {st}')
+    ol_pts.reverse()
+    ols = ['player_group,player_group_team,start,end,duration\n']
+    for x in ol_pts[0:25]:
+        for stint in x[2]:
+            s = f'{x[0]},{team_abbreviation},{stint_dump(stint)}\n'
+            ols.extend([s])
     
-def overlap_file_save(game_stints_by_combo,team_abbreviation,file_name):
-        
-        def fgg(stints): return sum(list(map(lambda x:x[0],stints)))
-            
-        ol_pt = list(map(lambda x:[x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],game_stints_by_combo.keys())) 
-        ol_pts = sorted(ol_pt, key=lambda x: x[1])   
+    t = game_data.matchup_home.split(' ')
 
-        the_goods = []
-        ol_pts.reverse()
-        for x in ol_pts[0:25]:
-            st = (', ').join(list(map(lambda x:stint_dump(x),x[2])))
-            nP = f'({1 + x[0].count('_')})' 
-            dur = f'{ms(x[1])}' 
-            combo = f'{x[0]}'
-            the_goods.extend([f'{combo},{st}'])
-
-        f = '\n'.join(the_goods)
-        
-        import os
-        cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
-        fn = ''
-        # f'OVR_LPS_{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
-        fn = os.path.join(cwd, fn) 
-        
-        
-        t = [1,1]
+    import os
+    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+    fn = f'OVERLAPS_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
+    fn = os.path.join(cwd, fn) 
+    if not(os.path.exists(cwd)): os.mkdir(cwd)   
     
-        if not(os.path.exists(cwd)): os.mkdir(cwd)   
-        
-        fl = open(fn,"w")
-        
-        fl.write(f)
-        fl.close()
-
+    logger.info(f'Saving {os.path.basename(fn)}')
+    
+    fl_s = open(fn,"w")
+    fl_s.writelines(ols)
+    fl_s.close()
+    
 
 def stint_dump(stint):
     start_time = f'{sec_to_period_time2(stint[1]).replace(' ',':')}'
     end_time = f'{sec_to_period_time2(stint[2]).replace(' ',':')}'
     duration = f'{ms(int(stint[0]))}'
-    s = f'[{duration} {start_time},{end_time}]'
+    s = f'{start_time},{end_time},{duration}'
     s.strip()
     return s
         

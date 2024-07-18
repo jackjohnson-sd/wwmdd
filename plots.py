@@ -8,8 +8,8 @@ from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
 from settings import defaults 
-from play_by_play import dump_pbp
-from utils import _ms,sec_to_period_time2,shorten_player_name
+from play_by_play import dump_pbp, box_score_dump
+from utils import _ms,sec_to_period_time2,shorten_player_name,save_files
 
 
 from loguru import logger
@@ -892,7 +892,36 @@ def plot_layout(title):
 
     return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def play_time_check(title,bx1,bx2,stints1,stints2):
+def xxx(stints,bx):
+    def ms(sec):
+        m = int(sec / 60)
+        s = int(sec % 60)
+        return f'{m:02d}:{s:02d}'
+    
+    def stint_dump(stints,player):
+        s = ''
+        if player in stints.keys():
+                
+            stintw = stints[player]
+            s = ''
+            for stint in stintw:
+                tmp = f'{player},{bx._team_name},{sec_to_period_time2(stint[1]).replace(' ',':')},{sec_to_period_time2(stint[2]).replace(' ',':')},{ms(int(stint[0]))}'
+                s += tmp
+                s += '\n'
+            # print(s)    
+        else:
+            logger.error(f'Stints to csv error. {player} has no stints.')
+            
+        return s.strip()
+
+    return '\n'.join(list(map(lambda x:f'{stint_dump(stints,x[0])}',bx.get_names_items('secs'))))
+
+
+def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
+   
+    if defaults.get('MAKE_BOX'):
+         box_score_dump(bx1,bx2,game_data)
+         
     # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
     # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
     m1 = int(bx1.get_team_secs_played())
@@ -907,10 +936,37 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
         ret_value = False
 
     PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
+    
     if PLAY_TIME_CHECK_SHOW == 'OFF': return ret_value
 
     if PLAY_TIME_CHECK_SHOW == 'FAIL_ONLY': 
         if ret_value : return ret_value
+
+    # create a csv file with each stint by player
+    
+    L1 = 'player,player_team,start,end,duration\n'
+    a = xxx(stints1,bx1)
+    b = xxx(stints2,bx2)
+    
+    t = game_data.matchup_home.split(' ')
+
+    import os
+    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+    
+    fn = f'STINTS_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
+    
+    fn = os.path.join(cwd, fn) 
+    
+    if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    logger.info(f'Saving {os.path.basename(fn)}')
+    
+    fl_s = open(fn,"w")
+    fl_s.write(L1 + a + '\n'+ b)
+    fl_s.close()
+
+    return True
+
 
     print()
     print('STINT REPORT')
@@ -986,7 +1042,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
     
-    play_time_check(title,boxscore1,boxscore2,our_stints[0],opponent_stints[0])
+    play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
     if not defaults.get('PLAY_TIME_CHECK_ONLY'):
 

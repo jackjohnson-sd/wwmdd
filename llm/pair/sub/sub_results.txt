@@ -1,0 +1,262 @@
+Attempt 4:
+    ChatGPT:
+        - passes: Q 1, 2, 3a - 3e, 4a - 4e, 5a - 5e, 6a - 6b, 8a, 8b, 9a - 10c
+        - initially fails: 7a, 7b, 8c
+        - cases:
+            Q7a:  How long did Giddey play in the second half of period 2?
+
+                Response: 
+                Josh Giddey did not play in the second half of period 2
+
+                Follow-up:
+                What are the game_times of the start and end of the second half of period 2?
+                What are the game_times of the start and end of Giddey's stints in period 2?
+                How long did Giddey play in the second half of period 2?
+
+                Response:
+                Given the corrected game_times for the start and end of the second half of period 2, and the game_times of Josh Giddey's stints in period 2, we can determine how long Giddey played in the second half of period 2 by checking the overlap between his stints and the second half of period 2.
+
+                Second half of period 2: 1080 seconds to 1440 seconds
+                Giddey's stints in period 2:
+                First stint: 720 seconds to 997 seconds
+                Second stint: 1391 seconds to 1440 seconds
+                We see that the first stint does not overlap with the second half of period 2. The second stint overlaps as follows:
+
+                Second stint: 1391 seconds to 1440 seconds
+                The overlap duration is:
+
+                1440−1391=49 seconds
+
+                Convert the duration to Minutes
+                format:
+
+                49 seconds=0 minutes and 49 seconds
+
+                Therefore, Josh Giddey played for 0 minutes and 49 seconds in the second half of period 2.
+
+            Q7b: How long did Giddey play from time 11:57 to 9:56 in period 4?
+
+                Response:
+                Josh Giddey played for 1 minute and 1 second from 11:57 to 9:56 in period 4.
+
+                Follow-up:
+                game_time = (period*720) - (MM*60) - SS
+                This is the conversion from period, pctimestring (period, MM:SS) to game_time. Recalculate.
+
+                Response:
+                Josh Giddey played for 0 minutes and 8 seconds from 11:57 to 9:56 in period 4.
+
+            Q8c: How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+
+            Response:
+            Since Shai Gilgeous-Alexander did not play in period 3, the overlap duration is 0 seconds.
+
+            Follow-up:
+            Did you only look for SUB events in period 3 when figuring out Shai Gilgeous-Alexander's stints?
+
+            Response:
+            You are correct. I should look at all events, not just SUB events, to determine if Shai Gilgeous-Alexander played in period 3.
+
+            Josh Giddey and Shai Gilgeous-Alexander overlapped for 6 minutes and 23 seconds in period 3.
+            
+
+    Gemini:
+        - passes: Q 1, 2
+        - fails: Q3 (stops here, kept reporting time in-between stints as more of Giddey's stints)
+
+    Claude:
+        - passes: Q 1, 2
+        - fails: Q3a,3b,3c
+
+Attempt 3:
+
+    ChatGPT:    
+    - passes Q1 - 8a, 8d-e, 9a-10c
+    - initially fails Q8b,c
+
+        Q8b,c:
+        How many minutes did Giddey and Gilgeous-Alexander overlap in period 2?
+        They overlapped for 7 minutes and 12 seconds.
+
+        How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+        They did not overlap in period 3.
+
+        Follow-up:
+        In period 3, what are relevant stints for overlap calculation?
+
+        Response:
+        Giddey's third stint: game_time 1391 to 1823
+        Gilgeous-Alexander's second stint: game_time 1138 to 2276
+        The overlap was calculated in period 2, and since it extends from period 2 into period 3, the relevant overlap has already been included. The game_time 1823 marks the end of Giddey's third stint. Thus, there is no additional overlap specific to period 3. Therefore, the overlap in period 3 is 0 minutes and 0 seconds.
+
+        Follow-up:
+        Why did you not seperate the overlap by end of period and start of period?
+
+        Response:
+        Period 2:
+            Josh Giddey's Stints:
+            Stint 2: From 12:00 to 7:23 in period 2 (converted to game_time: 720 to 997)
+            Stint 3: From 0:49 in period 2 to 5:37 in period 3 (converted to game_time: 1391 to 1823)
+            
+            Shai Gilgeous-Alexander's Stints:
+            Stint 2: From 5:02 in period 2 to 10:04 in period 4 (converted to game_time: 1138 to 2276)
+            
+            For period 2, the relevant stints are:
+            Giddey's second stint: game_time 720 to 997
+            Giddey's third stint: game_time 1391 to 1440 (end of period 2)
+            Gilgeous-Alexander's second stint: game_time 1138 to 1440 (end of period 2)
+            
+            The overlap calculation for period 2:
+                Giddey's second stint (720 to 997) and Gilgeous-Alexander's second stint (1138 to 1440):
+                No overlap, as Giddey's stint ends before Gilgeous-Alexander's stint starts.
+        
+                Giddey's third stint (1391 to 1440) and Gilgeous-Alexander's second stint (1138 to 1440):
+
+                Overlap from 1391 to 1440: 
+                1440 − 1391 = 49 seconds
+
+                Converted to minutes and seconds: 
+                49 ÷ 60 = 0 minutes and 49 mod 60 = 49 seconds
+
+                Overlap duration: 0 minutes and 49 seconds
+
+        Period 3:
+        Josh Giddey's Stints:
+        Stint 3: From 0:00 in period 3 to 5:37 in period 3 (converted to game_time: 1440 to 1823)
+        
+        Shai Gilgeous-Alexander's Stints:
+        Stint 2: From 0:00 in period 3 to 10:04 in period 4 (converted to game_time: 1440 to 2276)
+        
+        For period 3, the relevant stints are:
+        Giddey's third stint: game_time 1440 to 1823
+        Gilgeous-Alexander's second stint: game_time 1440 to 2160 (end of period 3)
+        
+        The overlap calculation for period 3:
+        Giddey's third stint (1440 to 1823) and Gilgeous-Alexander's second stint (1440 to 2160):
+
+        Overlap from 1440 to 1823:
+        1823 − 1440 = 383 seconds
+
+        Converted to minutes and seconds: 
+        383 ÷ 60 = 6 minutes and 383 mod 60 = 23 seconds
+
+        Overlap duration: 6 minutes and 23 seconds
+
+        Recalculated Results:
+        Period 1: 7 minutes and 29 seconds
+        Period 2: 0 minutes and 49 seconds
+        Period 3: 6 minutes and 23 seconds
+        Period 4: 5 minutes and 33 seconds
+        Total overlap: 20 minutes and 14 seconds (as previously calculated, but now more clearly separated by period).
+
+
+    Gemini:
+    - passes Q1 - 2
+    - initially fails Q3 - 7b
+        - reports duplicate enter and end playing events
+        - but correct results when un-duplicated
+
+    - fails Q8 - 10c
+        - doesn't realize foul events occured in stints, stints overlap
+
+Attempt 2:
+    Gemini:
+    - Issues with recalling prompt rules for basic questions (teams, players, summing stints)
+        -fails Q1,2, 3e, 4e
+    -Issues with stint overlap 
+        - fails Q8a-e
+
+    - Issues with foul in stint (time understanding)
+        - fails Q9b
+
+    
+        Follow-up Q1,2:
+            8. The eighth column is named ‘player1_name’.
+            Its value is the name of a player involved in the event.
+
+            9. The ninth column is named ‘player1_team_abbreviation’.
+            Its value is the name of the team of the ‘player1_name’ player. 
+
+            10. The tenth column is named ‘player2_name’.
+            Its value is the name of a player involved in the event. 
+
+            11. The eleventh column is named ‘player2_team_abbreviation’. 
+            Its value is the name of the team of the ‘player2_name’ player. 
+            
+
+        Follow-up Q3e:
+            A player's total playing time in a game is equal to the sum of all his stints. 
+
+        Follow-up Q4e:
+            Output:
+            Kenrich Williams played a total of 48 minutes in this game.
+
+            Follow-up:
+            A player's total playing time in a game is equal to the sum of all his stints.
+
+            Response:
+            Kenrich Williams played a total of 48 minutes in this game.
+
+                Follow-up:
+                explain your logic and steps in your calculations
+
+            Follow-up:
+                add these times: 1st stint: 7:29
+                2nd stint: 4:42
+                3rd stint: 10:29
+                4th stint: 0:25
+                5th stint: 10:04
+
+            Response:
+            The total playing time for Kenrich Williams, calculated by adding the durations of all his stints, is 33:09 (minutes:seconds).
+        
+        Follow-up Q5e:
+        Response:
+        Shai Gilgeous-Alexander played a total of 48 minutes in this game.
+
+        Follow-up:
+        whats the sum of 1st Stint: 12:00
+        2nd Stint: 18:58
+        3rd Stint: 5:33?
+
+        Response:
+        We can add the durations of each stint to find the total playing time. We will convert each stint duration to seconds, sum them, and then convert the total seconds back to minutes and seconds.
+
+        The total playing time is 36:31 (minutes:seconds).
+
+        Follow-up 9b:
+        Josh Giddey committed 0 fouls during his second stint.
+
+            Follow-up:
+            how many fouls did josh giddey commit in period 2?
+
+            Response:
+            Josh Giddey committed 1 foul in period 2.
+
+            Follow-up:
+            when did he commit the foul?
+
+            Response:
+            Josh Giddey committed the foul in period 2 at 9:08.
+
+            Follow-up:
+            when was giddey's second stint?
+
+            Response:
+            Giddey's second stint was Period 2: 12:00 - 7:23
+
+            Follow-up:
+            During Giddey's second stint, how many fouls did he commit?
+
+            Response:
+            The foul committed by Josh Giddey at 9:08 in period 2 does not fall within his second stint. 
+            His second stint ended earlier, when he was substituted out at 7:23 in period 2.
+
+
+        ChatGPT:
+        -passes Q1-7, 8a, 9a - 9d
+        -fails 8b - 8d
+
+        - would not answer Q5,6,7,9  but provides executable code w/ accurate output
+
+

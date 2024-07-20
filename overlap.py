@@ -1,12 +1,15 @@
 import itertools
-from utils import ms, sec_to_period_time,sec_to_period_time2,intersection
+from loguru import logger
 
 from settings import defaults
-from loguru import logger
+from utils import ms, sec_to_period_time, save_file
+# sec_to_period_time2,intersection,save_file
+
+from box_score import PM
 
 TEST_PLAYERS  = defaults.get('TEST_PLAYERS')  
 
-def get_oinks(player,stint,box):
+def get_oinks(player,stint,box,home_scores, away_scores):
     
     start = stint[1]
     stop  = stint[2]
@@ -28,7 +31,27 @@ def get_oinks(player,stint,box):
         if oink[0] not in oinks_sum.keys():
             oinks_sum[oink[0]] = 0
         oinks_sum[oink[0]] += int(oink[1])
+        
+        try:
+            if stop >= len(home_scores) : 
+                stop = -1
             
+            #if box._home_team  == box._team_name:
+            deltah = home_scores[stop] - home_scores[start]
+            deltaa = away_scores[stop] - away_scores[start]
+
+            # print(deltaa,deltah,stop,start,away_scores[stop],away_scores[start],home_scores[stop],home_scores[start])
+        except:
+            logger.error(f'T.PTS/O.PTS issus {stop} {start} {len(home_scores)}')
+
+        tnk = [deltah,deltaa] 
+        if box._team_name != box._home_team:
+            tnk.reverse()
+                
+        oinks_sum['T.PTS'] = tnk[0]
+        oinks_sum['O.PTS'] = tnk[1]
+        oinks_sum[PM] = tnk[0] - tnk[1]
+         
     return oinks_sum   
 
 def overlap(stintA, stintB):
@@ -110,33 +133,47 @@ def overlap_combos(game_stints_by_player):
                 
     return game_stints_by_combo
 
-def overlap_dump(game_stints_by_combo, game_data, box):
+def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores):
+    
+    team_name = box._team_name   
+    L1, L2 = box.stint_columns()
 
-    team = box._team_name   
+    # L2a = box._bsItemsA.copy() 
+    # L2a.remove(PM)
+    # L2b = box._bsItemsB
+    
+    # L1 = 'PLAYER1,PLAYER2,PLAYER3,PLAYER4,PLAYER5,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
+    # L2 = ['T.PTS','O.PTS',PM] + L2a + L2b 
+    # for n in ['MIN','3PT','FG','FT','secs']: 
+    #     L2.remove(n)
 
-    L2a = box._bsItemsA 
-    L2b = box._bsItemsB
-    L2 = L2a + L2b
-    for n in ['MIN','3PT','FG','FT','secs']: 
-        L2.remove(n)
-       
     def fgg(stints):
         return sum(list(map(lambda x:x[0],stints)))
         
-    ol_pt = list(map(lambda x:[x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],game_stints_by_combo.keys())) 
+    ol_pt = list(map( lambda x:
+                    [x,fgg(game_stints_by_combo[x]),game_stints_by_combo[x]],
+                    game_stints_by_combo.keys()))
+     
     ol_pts = sorted(ol_pt, key=lambda x: x[1])   
-
     ol_pts.reverse()
-    ols = ['player_group,player_group_team,start,end,duration,' + (',').join(L2) + '\n'] 
+    
+    ols = [L1.replace('PLAYER','PLAYER1,PLAYER2,PLAYER3,PLAYER4,PLAYER5') + '\n']   
+   
     for x in ol_pts[0:25]:
+            
+        plrs = x[0].split('_')
+        while len(plrs) < 5: plrs.extend(['']) 
+        plrs = (',').join(plrs)
+        
         for stint in x[2]:
-            s = f'{x[0]},{team},{stint_dump(stint)}'
+            
+            s = f'{plrs},{team_name},{stint_dump(stint)}'
             
             players = x[0].split('_') 
             oinkss = []
             oink_sum = {}
             for player in players:
-                oinks = get_oinks(player,stint,box)
+                oinks = get_oinks(player,stint,box,home_scores,away_scores)
                 oinkss.extend([oinks])
                 
             for oink in oinkss:
@@ -154,23 +191,12 @@ def overlap_dump(game_stints_by_combo, game_data, box):
 
             ols.extend([s])
     
-    t = game_data.matchup_home.split(' ')
-
-    import os
-    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
-    fn = f'OVERLAPS_{team}_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
-    fn = os.path.join(cwd, fn) 
-    if not(os.path.exists(cwd)): os.mkdir(cwd)   
-    
-    logger.info(f'Saving {os.path.basename(fn)}')
-    
-    fl_s = open(fn,"w")
-    fl_s.writelines(ols)
-    fl_s.close()
-    
+    fn_pre = f'OVERLAPS_{team_name}_'
+    save_file(fn_pre, game_data, 'SAVE_GAME_DIR', ols)
+       
 def stint_dump(stint):
-    start_time = f'{sec_to_period_time2(stint[1]).replace(' ',':')}'
-    end_time = f'{sec_to_period_time2(stint[2]).replace(' ',':')}'
+    start_time = f'{sec_to_period_time(stint[1]).replace(' ',',')}'
+    end_time = f'{sec_to_period_time(stint[2]).replace(' ',',')}'
     duration = f'{ms(int(stint[0]))}'
     s = f'{start_time},{end_time},{duration}'
     s.strip()

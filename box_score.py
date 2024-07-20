@@ -10,7 +10,7 @@ class box_score:
         'REB','BLK','AST','STL',
         'TO','PF', PM,
     ]
-    _bsItemsB = ['3miss', '3make', 'make', 'miss', 'FTmiss', 'FTmake', 'secs', 'ORS']
+    _bsItemsB = ['3P.MISS', '3P.MAKE', 'FG.MAKE', 'FG.MISS', 'FT.MISS', 'FT.MAKE', 'secs', 'ORS']
     _bsItems = _bsItemsA + _bsItemsB
     _boxScore = None
     _team_name = None
@@ -24,6 +24,17 @@ class box_score:
 
     def set_team_name(self, team):
         self._team_name = team
+
+    def stint_columns(self):
+        L2a = self._bsItemsA 
+        if PM in L2a: L2a.remove(PM)
+        L2b = self._bsItemsB
+        
+        L1 = 'PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
+        L2 = ['T.PTS','O.PTS',PM] + L2a + L2b 
+        for n in ['MIN','3PT','FG','FT','secs']: 
+            L2.remove(n)
+        return L1 + (',').join(L2), L2
 
     def get_team_secs_played(self): 
         return self.get_item(self._team_name, "secs")
@@ -52,10 +63,10 @@ class box_score:
     
     def shooting_percentages(self, player):
         d = self._boxScore[player]
-        tFGMakes = d['make'] + d['3make']
-        tFGMisses = d['miss'] + d['3miss']
+        tFGMakes = d['FG.MAKE'] + d['3P.MAKE']
+        tFGMisses = d['FG.MISS'] + d['3P.MISS']
         tFGShots = tFGMisses + tFGMakes
-        t3Shots = d['3miss'] + d['3make']
+        t3Shots = d['3P.MISS'] + d['3P.MAKE']
         fgp = (
             '--' if tFGShots == 0
             else str(int(float(tFGMakes) / float(tFGShots) * 100))
@@ -63,21 +74,21 @@ class box_score:
 
         f3p = (
             '--' if t3Shots == 0
-            else str(int(float(d['3make']) / float(t3Shots) * 100))
+            else str(int(float(d['3P.MAKE']) / float(t3Shots) * 100))
         )
 
-        FTma = d['FTmake']
-        FTmi = d['FTmiss']
+        FTma = d['FT.MAKE']
+        FTmi = d['FT.MISS']
         if FTma + FTmi == 0: ftp = '--'
         else: ftp  = (
                 str(int(
-                float(d['FTmake']) / float(d['FTmake'] + d['FTmiss'])* 100))
+                float(d['FT.MAKE']) / float(d['FT.MAKE'] + d['FT.MISS'])* 100))
             )
         return [f3p,fgp, ftp]
 
     def ts_percentage(self, player):
         # TS% =  PTS/(2 * (FGA /(.044 X FTA)))
-        src = ['PTS','make','miss','FTmake','FTmiss']
+        src = ['PTS','FG.MAKE','FG.MISS','FT.MAKE','FT.MISS']
         b = list(map(lambda x:self._boxScore[player][x] ,src))
         ftA = int(b[3]) + int(b[4])
         fgA = int(b[1]) + int(b[2])
@@ -90,15 +101,15 @@ class box_score:
     def clean(self):
         for key in self._boxScore:
             d = self._boxScore[key]
-            tFGMakes = d['make'] + d['3make']
-            tFGMisses = d['miss'] + d['3miss']
+            tFGMakes = d['FG.MAKE'] + d['3P.MAKE']
+            tFGMisses = d['FG.MISS'] + d['3P.MISS']
             tFGShots = tFGMisses + tFGMakes
-            t3Shots = d['3miss'] + d['3make']
+            t3Shots = d['3P.MISS'] + d['3P.MAKE']
             
             d['REB'] = f'{d['ORS']}-{d['REB']}'
             d['FG'] = f'{tFGMakes}-{tFGShots}'
-            d['3PT'] = f'{d['3make']}-{t3Shots}'
-            d['FT'] = f'{d['FTmake']}-{d['FTmake'] + d['FTmiss']}'
+            d['3PT'] = f'{d['3P.MAKE']}-{t3Shots}'
+            d['FT'] = f'{d['FT.MAKE']}-{d['FT.MAKE'] + d['FT.MISS']}'
 
             if key != self._team_name:
                 d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
@@ -186,9 +197,9 @@ class box_score:
 
     def stuff_bs(self, _evnts, players):
         """player1      player2    player3
-        events  1 = make         shooter      assist
-                2 = miss         shooter                 block
-                3 = Free throw   shooter      score = NULL if miss else changed score
+        events  1 = FG.MAKE         shooter      assist
+                2 = FG.MISS         shooter                 block
+                3 = Free throw   shooter      score = NULL if FG.MISS else changed score
                 4 = rebound
                 5 = steal        turn over    stealer
                 6 = foul         fouled       fouler
@@ -227,21 +238,21 @@ class box_score:
                         s = _evnt.neutraldescription
                         self._start_time = s[s.find("(")+1:s.find(")")]
                                     
-                case 1:  # make
+                case 1:  # FG.MAKE
                     pts = 3 if is3 else 2
-                    mk = '3make' if is3 else 'make'
+                    mk = '3P.MAKE' if is3 else 'FG.MAKE'
                     self.update(p1, mk, 1,      when=_evnt.sec)
                     self.update(p1, 'PTS', pts, when=_evnt.sec)
                     self.update(p2, 'AST', 1,   when=_evnt.sec)
 
-                case 2:  # miss
-                    mk = '3miss' if is3 else 'miss'
+                case 2:  # FG.MISS
+                    mk = '3P.MISS' if is3 else 'FG.MISS'
                     self.update(p1, mk, 1, when=_evnt.sec)
                     self.update(p3, 'BLK', 1, when=_evnt.sec)
 
                 case 3:  # free throw
                     its_good = 'MISS' not in event_description
-                    self.update(p1, 'FTmake' if its_good else 'FTmiss', 1, when=_evnt.sec)
+                    self.update(p1, 'FT.MAKE' if its_good else 'FT.MISS', 1, when=_evnt.sec)
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
                 case 4:  self.update(p1, 'REB', 1, when=_evnt.sec)

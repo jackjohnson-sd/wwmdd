@@ -9,7 +9,7 @@ from event_prep import event_to_size_color_shape, get_event_map
 
 from settings import defaults 
 from play_by_play import dump_pbp, box_score_dump,overlap_combos,overlap_dump
-from utils import _ms,sec_to_period_time2,shorten_player_name,save_files
+from utils import _ms,sec_to_period_time,shorten_player_name,save_file
 
 
 from loguru import logger
@@ -29,10 +29,6 @@ def do_plot(theplot):
     if 'all' in SUB_PLOTS: return True
     if theplot in SUB_PLOTS: return True
     return False
-
-# if not do_plot('tools'):
-#     matplotlib.rcParams['toolbar'] = 'None' 
-
 
 def stack_markers(yy_, sec_, color_):
     
@@ -910,7 +906,8 @@ def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
 
     return ret_value
         
-def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
+def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_scores):
+    
     def xxx(stints,bx,labels):
     
         def ms(sec):
@@ -919,19 +916,21 @@ def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
             return f'{m:02d}:{s:02d}'
         
         def get_oinks(player,stint,box):
+            
             start = stint[1]
             stop  = stint[2]
             
             oinks = box._boxScore[player]['OINK']
-            # print(start,stop,oinks)
+        
             def fo(start,stop,oink):
                 if oink[2] != None:
                     if oink[2] >= start:
                         if oink[2] <= stop:
                             return oink
                 return None
-            
+        
             our_oinks = list(map(lambda x:fo(start,stop,x),oinks))
+        
             while None in our_oinks: our_oinks.remove(None)
             
             oinks_sum = {}
@@ -939,7 +938,28 @@ def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
                 if oink[0] not in oinks_sum.keys():
                     oinks_sum[oink[0]] = 0
                 oinks_sum[oink[0]] += int(oink[1])
-                    
+                
+                
+            try:
+                if stop >= len(home_scores) : 
+                    stop = -1
+                
+                #if box._home_team  == box._team_name:
+                deltah = home_scores[stop] - home_scores[start]
+                deltaa = away_scores[stop] - away_scores[start]
+
+                # print(deltaa,deltah,stop,start,away_scores[stop],away_scores[start],home_scores[stop],home_scores[start])
+            except:
+                logger.error(f'T.PTS/O.PTS issus {stop} {start} {len(home_scores)}')
+
+            tnk = [deltah,deltaa] 
+            if box._team_name != box._home_team:
+                tnk.reverse()
+                
+            oinks_sum['T.PTS'] = tnk[0]
+            oinks_sum['O.PTS'] = tnk[1]
+            oinks_sum[PM] = tnk[0] - tnk[1]
+            
             return oinks_sum   
         
         def stint_dump(stints,player,box):
@@ -950,7 +970,7 @@ def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
                 s = ''
                 for stint in stintw:
                     bx._boxScore[player]['OINK']
-                    tmp = f'{player},{bx._team_name},{sec_to_period_time2(stint[1]).replace(' ',':')},{sec_to_period_time2(stint[2]).replace(' ',':')},{ms(int(stint[0]))}'
+                    tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2]).replace(' ',',')},{ms(int(stint[0]))}'
                     oinks = get_oinks(player,stint,box)
                     oinks_str = ''
                     for o in labels:
@@ -959,36 +979,20 @@ def stints_as_csv(bx1,bx2,stints1,stints2,game_data):
                     s += tmp + oinks_str
                     s += '\n'
             else:
-                logger.error(f'Stints to csv error. {player} has no stints.')
+                logger.error(f'stints to csv error. {player} has no stints.')
             
             return s.strip()
 
         return '\n'.join(list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs'))))
 
-    L2a = bx1._bsItemsA 
-    L2b = bx1._bsItemsB
-    L1 = 'player,player_team,start,end,duration,'
-    L2 = L2a + L2b 
+    L1, L2 = bx1.stint_columns()
+
     a = xxx(stints1,bx1,L2)
     b = xxx(stints2,bx2,L2)
-    
-    t = game_data.matchup_home.split(' ')
 
-    import os
-    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+    data = L1 + '\n' + a + '\n' + b
+    save_file('STINTS_', game_data, 'SAVE_GAME_DIR', data)
     
-    fn = f'STINTS_{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
-    
-    fn = os.path.join(cwd, fn) 
-    
-    if not(os.path.exists(cwd)): os.mkdir(cwd)   
-    
-    logger.info(f'Saving {os.path.basename(fn)}')
-    
-    fl_s = open(fn,"w")
-    fl_s.write(L1 + (',').join(L2)+ '\n' + a + '\n' + b)
-    fl_s.close()
-
     return True
 
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
@@ -1099,6 +1103,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         else: plt.pause(n) 
            
         if defaults.get('SAVE_PLOT_IMAGE'):
+            
             img_type = defaults.get('SAVE_PLOT_TYPE')
             img_dpi  = defaults.get('SAVE_PLOT_DPI')
 
@@ -1118,11 +1123,17 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     if defaults.get('MAKE_BOX'): 
         box_score_dump(boxscore1,boxscore2,game_data)
             
-    if defaults.get('SHOW_OVERLAP'): #team_abbreviation:
-        overlap_dump(overlap_combos(our_stints), game_data, boxscore1)
-        overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2)
+    if defaults.get('SHOW_OVERLAP'): 
+        overlap_dump(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
+        overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
 
     if defaults.get('SAVE_STINTS_AS_CVS'):
-        stints_as_csv(boxscore1,boxscore2,our_stints,opponent_stints ,game_data)
+        stints_as_csv(boxscore1,
+                      boxscore2,
+                      our_stints,
+                      opponent_stints,
+                      game_data,
+                      home_scores,
+                      away_scores)
 
 ""  

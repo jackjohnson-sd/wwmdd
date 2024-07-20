@@ -2,7 +2,7 @@ import re
 import os
 
 from loguru import logger
-
+from settings import defaults
 
 def period(sec) : return int(sec / 720) + 1
 
@@ -123,3 +123,21 @@ def save_files(who,directory,the_files):
     else:
         logger.debug(f'\n\n!!! {who} created no files.')
                 
+def save_file(who, game_data, where, data):
+    t = game_data.matchup_home.split(' ')
+
+    import os
+    cwd = os.getcwd() + '/' + defaults.get(where)
+    
+    fn = f'{who}{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.csv'
+    
+    fn = os.path.join(cwd, fn) 
+    
+    if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    logger.info(f'saving {os.path.basename(fn)}')
+    
+    fl_s = open(fn,"w")
+    if type(data) == type([]): fl_s.writelines(data)
+    else: fl_s.write(data)
+    fl_s.close()

@@ -1,14 +1,15 @@
 import pandas as pd
-
-from box_score import box_score
-from settings import defaults
-
-from utils import save_files
-from overlap import overlap_combos,overlap_dump
-from utils import pms,sec_to_period_time,period_time_to_sec,intersection
- 
 from loguru import logger
 
+from settings import defaults
+
+from utils import pms,sec_to_period_time,period_time_to_sec,save_file
+from utils import save_files
+
+from box_score import box_score
+
+from overlap import overlap_combos,overlap_dump
+ 
 TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
 
 def getInsNOutsByPlayer(playbyplay, player_group):
@@ -369,25 +370,9 @@ def box_score_dump(box,box2,game_data):
     for i,d in enumerate(data):
         a = f'{str(game_data.game_date)},{rows[i]},{box2._team_name},{','.join(d)}\n'
         lines.extend(a)
-
-    t = game_data.matchup_home.split(' ')
-
-    import os
-    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
         
-    game_date = f'{game_data.game_date.replace('-','')}'
-    fn = f'BOX_{t[0]}v{t[2]}{game_date}.csv'
-        
-    fn = os.path.join(cwd, fn) 
+    save_file('BOX_',game_data,'SAVE_GAME_DIR',lines)
     
-    if not(os.path.exists(cwd)): os.mkdir(cwd)   
-    
-    logger.info(f'Saving {os.path.basename(fn)}')
-    
-    fl = open(fn,"w")
-    fl.writelines(lines)
-    fl.close()
-
 def stint_sort_key(stnt): return stnt[1] if stnt[4] == 'I' else stnt[2]
 
 def save_starts(starts):
@@ -606,24 +591,28 @@ def dump_pbp(game, game_stints, do_raw = False):
     
     play_by_play = pd.DataFrame(data = sub_events, columns = new_cols)  
             
-    t = game.matchup_home.split(' ')
-
-    import os
-    cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
-    
-    fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
-    if save_as_raw : fn = f'RAW-{fn}'
-    
-    fn = os.path.join(cwd, fn) 
-    
-    if not(os.path.exists(cwd)): os.mkdir(cwd)   
-    
-    logger.info(f'Saving {os.path.basename(fn)}')
-    
-    fl = open(fn,"w")
     f = play_by_play.to_csv()
-    fl.write(f)
-    fl.close()
+    fpre = 'RAW_' if save_as_raw else ''
+    save_file(fpre, game, 'SAVE_GAME_DIR', f)
+    
+    # t = game.matchup_home.split(' ')
+
+    # import os
+    # cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
+    
+    # fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
+    # if save_as_raw : fn = f'RAW-{fn}'
+    
+    # fn = os.path.join(cwd, fn) 
+    
+    # if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    # logger.info(f'Saving {os.path.basename(fn)}')
+    
+    # fl = open(fn,"w")
+    # f = play_by_play.to_csv()
+    # fl.write(f)
+    # fl.close()
                                                                                                             
 def event_sort_keys(x):
         

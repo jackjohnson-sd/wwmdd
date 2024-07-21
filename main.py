@@ -187,25 +187,29 @@ def get_argset(args, parser):
 
 
 def set_args(args):
-    # things we don't tell about
-    # settings.defaults.set('LOG', args.log)
-    if args.log:
-        logger.enable("")
-    if args.nolog:
-        logger.disable("")
+    
+    if args.log:    logger.enable("")
+    if args.nolog:  logger.disable("")
 
-    if args.DBG != None:
-        settings.defaults.set("DBG", args.DBG)
-    if args.trim != None:
-        settings.defaults.set("TRIM", args.trim)
-    if args.console != None:
-        settings.defaults.set("CONSOLE", args.console)
-    if args.wait != None:
-        settings.defaults.set("SHOW_PAUSE", int(args.wait[0]))
-    if args.it != None:
-        settings.defaults.set("SAVE_PLOT_TYPE", args.it[0])
+    if args.json            != None:
+        logger.debug(f"updating settings {args.json}")
+        settings.defaults.update(args.json)
 
-    if args.combo != None:
+    if args.colors          != None:
+        logger.debug(f"updating colors {args.colors}")
+        settings.defaults.update_colors(args.colors)
+        
+    if args.DBG             != None:    settings.defaults.set("DBG", args.DBG)
+    if args.trim            != None:    settings.defaults.set("TRIM", args.trim)
+    if args.console         != None:    settings.defaults.set("CONSOLE", args.console)
+    if args.wait            != None:    settings.defaults.set("SHOW_PAUSE", int(args.wait[0]))
+    if args.it              != None:    settings.defaults.set("SAVE_PLOT_TYPE", args.it[0])
+    if args.test_players    != None:    settings.defaults.set("TEST_PLAYERS", args.test_players)
+    if args.file            != None:    settings.defaults.set("FILE", args.file)
+    if args.team            != None:    settings.defaults.set("TEAM", args.team)
+    if args.subplots        != None:    settings.defaults.set("SUB_PLOTS", args.subplots)
+
+    if args.combo           != None:
 
         try:
             settings.defaults.set(
@@ -216,19 +220,7 @@ def set_args(args):
                 f"Problem in combo parameter {args.combo}. combo paramater ignored"
             )
 
-    if args.test_players != None:
-        settings.defaults.set("TEST_PLAYERS", args.test_players)
-
-    if args.file != None:
-        settings.defaults.set("FILE", args.file)
-
-    if args.team != None:
-        settings.defaults.set("TEAM", args.team)
-
-    if args.subplots != None:
-        settings.defaults.set("SUB_PLOTS", args.subplots)
-
-    if args.date != None:
+    if args.date            != None:
 
         start = args.date[0]
         stop = start if len(args.date) == 1 else args.date[1]
@@ -250,6 +242,7 @@ logger.info("wwmdd begins! ")
 if args != None:
 
     if args.json != None:
+        logger.debug(f"updating settings {args.colors}")
         settings.defaults.update(args.json)
 
     if args.colors != None:

@@ -7,8 +7,6 @@ from utils import pms,sec_to_period_time,period_time_to_sec,save_file
 from utils import save_files
 
 from box_score import box_score
-
-from overlap import overlap_combos,overlap_dump
  
 TEST_PLAYERS            = defaults.get('TEST_PLAYERS')   
 
@@ -592,28 +590,10 @@ def dump_pbp(game, game_stints, do_raw = False):
     play_by_play = pd.DataFrame(data = sub_events, columns = new_cols)  
             
     f = play_by_play.to_csv()
+    
     fpre = 'RAW_' if save_as_raw else ''
     save_file(fpre, game, 'SAVE_GAME_DIR', f)
-    
-    # t = game.matchup_home.split(' ')
-
-    # import os
-    # cwd = os.getcwd() + '/' + defaults.get('SAVE_GAME_DIR')
-    
-    # fn = f'{t[0]}v{t[2]}{game.game_date.replace('-','')}.csv'
-    # if save_as_raw : fn = f'RAW-{fn}'
-    
-    # fn = os.path.join(cwd, fn) 
-    
-    # if not(os.path.exists(cwd)): os.mkdir(cwd)   
-    
-    # logger.info(f'Saving {os.path.basename(fn)}')
-    
-    # fl = open(fn,"w")
-    # f = play_by_play.to_csv()
-    # fl.write(f)
-    # fl.close()
-                                                                                                            
+                                                                                                                
 def event_sort_keys(x):
         
         """            
@@ -668,4 +648,3 @@ def event_sort_keys(x):
         outs_first = event_type == 'SUB' and x[6] != ''
         # print(period_x,x[0:3],(game_second, so2, outs_first))
         return ((game_second, so, outs_first))
-

@@ -1,8 +1,8 @@
-TODO -- bring back loggging, use loguru
 
 
 Please Read me
 
+July 19 -- continued work on STINT,OVERLAY,BOX,PBP in CSV format
 July 17 -- added BOX,STINT,OVERLAY as CSV file output
 July 16 -- fixed issue with runnong slow, hanging we saw with Bruce
            fixed issues with .csv having 0 vs 0-0 as score

@@ -10,30 +10,38 @@ class box_score:
         'REB','BLK','AST','STL',
         'TO','PF', PM,
     ]
-    _bsItemsB = ['3P.MISS', '3P.MAKE', 'FG.MAKE', 'FG.MISS', 'FT.MISS', 'FT.MAKE', 'secs', 'ORS']
+    
+    _bsItemsB = ['3P.MI', '3P.MA', 'FG.MI', 'FG.MA', 'FT.MI', 'FT.MA', 'secs', 'ORS']
+    
     _bsItems = _bsItemsA + _bsItemsB
+    
     _boxScore = None
     _team_name = None
+
     _home_team = None
     _start_time = 'UNKNOWN'
+
     _max_by_items = {}
-    
-    
+        
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
 
     def set_team_name(self, team):
         self._team_name = team
 
+    def is_home_team(self): self._team_name == self._home_team
+    
     def stint_columns(self):
+        
         L2a = self._bsItemsA 
         if PM in L2a: L2a.remove(PM)
         L2b = self._bsItemsB
         
         L1 = 'PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
-        L2 = ['T.PTS','O.PTS',PM] + L2a + L2b 
-        for n in ['MIN','3PT','FG','FT','secs']: 
-            L2.remove(n)
+        L2 = ['OFF','DEF',PM] + L2a + L2b 
+        
+        for n in ['MIN','3PT','FG','FT','secs']:  L2.remove(n)
+        
         return L1 + (',').join(L2), L2
 
     def get_team_secs_played(self): 
@@ -42,16 +50,13 @@ class box_score:
     def get_team_minutes_desc(self):
         return f'{self._team_name} {int(self.get_team_secs_played())}'
 
-    def set_home_team_name(self, team):
-        self._home_team = team
+    def set_home_team_name(self, team): self._home_team = team
 
     def is_flipper(self): return self._team_name != self._home_team
     
-    def getBoxScore(self):
-        return self._boxScore
+    def getBoxScore(self): return self._boxScore
 
-    def setBoxScore(self, bs):
-        self._boxScore = bs
+    def setBoxScore(self, bs): self._boxScore = bs
 
     def add_player(self, player):
 
@@ -63,10 +68,10 @@ class box_score:
     
     def shooting_percentages(self, player):
         d = self._boxScore[player]
-        tFGMakes = d['FG.MAKE'] + d['3P.MAKE']
-        tFGMisses = d['FG.MISS'] + d['3P.MISS']
+        tFGMakes = d['FG.MA'] + d['3P.MA']
+        tFGMisses = d['FG.MI'] + d['3P.MI']
         tFGShots = tFGMisses + tFGMakes
-        t3Shots = d['3P.MISS'] + d['3P.MAKE']
+        t3Shots = d['3P.MI'] + d['3P.MA']
         fgp = (
             '--' if tFGShots == 0
             else str(int(float(tFGMakes) / float(tFGShots) * 100))
@@ -74,55 +79,50 @@ class box_score:
 
         f3p = (
             '--' if t3Shots == 0
-            else str(int(float(d['3P.MAKE']) / float(t3Shots) * 100))
+            else str(int(float(d['3P.MA']) / float(t3Shots) * 100))
         )
 
-        FTma = d['FT.MAKE']
-        FTmi = d['FT.MISS']
+        FTma = d['FT.MA']
+        FTmi = d['FT.MI']
         if FTma + FTmi == 0: ftp = '--'
         else: ftp  = (
                 str(int(
-                float(d['FT.MAKE']) / float(d['FT.MAKE'] + d['FT.MISS'])* 100))
+                float(d['FT.MA']) / float(d['FT.MA'] + d['FT.MI'])* 100))
             )
         return [f3p,fgp, ftp]
 
     def ts_percentage(self, player):
         # TS% =  PTS/(2 * (FGA /(.044 X FTA)))
-        src = ['PTS','FG.MAKE','FG.MISS','FT.MAKE','FT.MISS']
+        src = ['PTS','FG.MA','FG.MI','FT.MA','FT.MI']
         b = list(map(lambda x:self._boxScore[player][x] ,src))
         ftA = int(b[3]) + int(b[4])
         fgA = int(b[1]) + int(b[2])
         pts = int(b[0])
         try : ts = int((pts * 100) / (2*(fgA/(0.044 * ftA))))
         except: ts = 'ERR'
-        # print(pts,b[1],b[2],b[3],b[4],ftA,fgA,pts,ts)
         return str(ts)
     
     def clean(self):
         for key in self._boxScore:
+            
             d = self._boxScore[key]
-            tFGMakes = d['FG.MAKE'] + d['3P.MAKE']
-            tFGMisses = d['FG.MISS'] + d['3P.MISS']
+
+            tFGMakes = d['FG.MA'] + d['3P.MA']
+            tFGMisses = d['FG.MI'] + d['3P.MI']
             tFGShots = tFGMisses + tFGMakes
-            t3Shots = d['3P.MISS'] + d['3P.MAKE']
+            
+            t3Shots = d['3P.MI'] + d['3P.MA']
             
             d['REB'] = f'{d['ORS']}-{d['REB']}'
             d['FG'] = f'{tFGMakes}-{tFGShots}'
-            d['3PT'] = f'{d['3P.MAKE']}-{t3Shots}'
-            d['FT'] = f'{d['FT.MAKE']}-{d['FT.MAKE'] + d['FT.MISS']}'
+            d['3PT'] = f'{d['3P.MA']}-{t3Shots}'
+            d['FT'] = f'{d['FT.MA']}-{d['FT.MA'] + d['FT.MI']}'
 
             if key != self._team_name:
                 d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
             else:
                 d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:4]
                 d[PM] = int(d[PM] / 5)
-
-            # d['MIN'] = '99'
-            # d[PM] = '30'
-            # d['FG'] = '99-99'
-            # d['3PT'] = '99-99'
-            # d['FT'] = '99-99'
-            # d['REB'] = '99-99'
 
     def dump(self, _players=[]):
         print('                    ', end='')
@@ -147,8 +147,7 @@ class box_score:
         for p in _players:
             self.add_player(p)
 
-    def get_players(self):
-        return list(self._boxScore.keys())
+    def get_players(self): return list(self._boxScore.keys())
 
     def get_item(self, _player, _item):
         if _player != None:
@@ -186,27 +185,12 @@ class box_score:
     def set_item(self, _player, _item, val):
         if _player != None:
             if _player in self.get_players():
-                # if _item in self._bsItems : 
-                #     val = 33
-                #     self._boxScore[_player][_item] = 0
-                    
                 self._boxScore[_player][_item] = val
 
-    def sum_item(self, item):
-        return sum(self.get_items(item))
+    def sum_item(self, item): return sum(self.get_items(item))
 
     def stuff_bs(self, _evnts, players):
-        """player1      player2    player3
-        events  1 = FG.MAKE         shooter      assist
-                2 = FG.MISS         shooter                 block
-                3 = Free throw   shooter      score = NULL if FG.MISS else changed score
-                4 = rebound
-                5 = steal        turn over    stealer
-                6 = foul         fouled       fouler
-                8 = SUB          OUT          IN
-                10  jump ball    jumper1      jumper2    who got the ball
-        """
-
+        
         self.add_players(players)
 
         prev = None
@@ -229,6 +213,7 @@ class box_score:
 
             prev = _evnt
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
+            
             is3 = '3PT' in event_description
             
             match _evnt.eventmsgtype:
@@ -238,21 +223,21 @@ class box_score:
                         s = _evnt.neutraldescription
                         self._start_time = s[s.find("(")+1:s.find(")")]
                                     
-                case 1:  # FG.MAKE
+                case 1:  # FG.MA
                     pts = 3 if is3 else 2
-                    mk = '3P.MAKE' if is3 else 'FG.MAKE'
+                    mk = '3P.MA' if is3 else 'FG.MA'
                     self.update(p1, mk, 1,      when=_evnt.sec)
                     self.update(p1, 'PTS', pts, when=_evnt.sec)
                     self.update(p2, 'AST', 1,   when=_evnt.sec)
 
-                case 2:  # FG.MISS
-                    mk = '3P.MISS' if is3 else 'FG.MISS'
+                case 2:  # FG.MI
+                    mk = '3P.MI' if is3 else 'FG.MI'
                     self.update(p1, mk, 1, when=_evnt.sec)
                     self.update(p3, 'BLK', 1, when=_evnt.sec)
 
                 case 3:  # free throw
                     its_good = 'MISS' not in event_description
-                    self.update(p1, 'FT.MAKE' if its_good else 'FT.MISS', 1, when=_evnt.sec)
+                    self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when=_evnt.sec)
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
                 case 4:  self.update(p1, 'REB', 1, when=_evnt.sec)

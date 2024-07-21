@@ -164,25 +164,25 @@ Answer:
 0:08
 
 Question:
-How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 1? 
+How many minutes did Giddey and Gilgeous-Alexander overlap in period 1? 
 
 Answer:
 7:29
 
 Question:
-How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 2?
+How many minutes did Giddey and Gilgeous-Alexander overlap in period 2?
 
 Answer:
 0:49
 
 Question:
-How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
+How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
 
 Answer:
 6:23
 
 Question:
-How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
+How many minutes did Giddey and Gilgeous-Alexander overlap in period 4?
 
 Answer:
 5:33
@@ -192,3 +192,49 @@ How many minutes were Giddey and Gilgeous-Alexander in the game at the same time
 
 Answer:
 20:14
+
+Question:
+During Giddey's first stint, how many fouls did he commit?
+
+Answer:
+0
+
+Question:
+During Giddey's second stint, how many fouls did he commit?
+
+Answer:
+1
+
+Question:
+During Giddey's third stint, how many fouls did he commit?
+
+Answer:
+0
+
+
+Question:
+During Giddey's fourth stint, how many fouls did he commit?
+
+Answer:
+1
+
+Question:
+During Gilgeous-Alexander's first stint, how many fouls did he commit?
+
+Answer:
+0
+
+
+Question:
+During Gilgeous-Alexander's second stint, how many fouls did he commit?
+
+Answer:
+1
+
+Question:
+During Gilgeous-Alexander's third stint, how many fouls did he commit?
+
+Answer:
+2
+
+

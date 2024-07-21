@@ -203,6 +203,7 @@ Questions:
 
     8. What players fouled out of the game? 
 
+
     New Qs?
         9. What players exited the game after committing a foul?
         - requires SUB & FOUL knowledge in prompt...

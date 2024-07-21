@@ -1,5 +1,5 @@
--s web -t OKC -d 2023-01-30 -m plot csv -p stints -w 5 -file tests/world_tour/test_data
-
+-s web -t OKC -d 2023-01-30 -m plot csv stints overlaps img -p all  -json tests/world_tour/wt_combos.json -file tests/world_tour/test_data
+exiting here because we have and '##exit' in this line. stop here ingore remainder
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
@@ -20,5 +20,3 @@
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore -w 5
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore periodscores -w 5 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p periodscores -w 5 
-
-exiting here because we have and '##exit' in this line. stop here ingore remainder

@@ -1,8 +1,9 @@
-TODO -- bring back loggging, use loguru
 
 
 Please Read me
 
+July 19 -- continued work on STINT,OVERLAY,BOX,PBP in CSV format
+July 17 -- added BOX,STINT,OVERLAY as CSV file output
 July 16 -- fixed issue with runnong slow, hanging we saw with Bruce
            fixed issues with .csv having 0 vs 0-0 as score
            SUB event now 'Starts/Stops playing'. vs begin/end etc
@@ -48,9 +49,9 @@ args
 
 -f,-file [file or dirctory] ==> file or directory used for 'csv' source
 
--m,-make [plot,csv,raw,img,stint,overlap] ==> one or more things to make: 
+-m,-make [plot,csv,raw,img,stint,overlap,box] ==> one or more things to make: 
     plot, csv - enhneced play by play, raw - unchanged play by play, stints by player, overlap by players
-    img - png,jpg formatted image of plot
+    img - png,jpg formatted image of plot, box score by player 
 
 -p, -subplot [all,tools,stints,events,score,margin,periodscores,boxscore,legend] ==>
     one or more of things to place on plots

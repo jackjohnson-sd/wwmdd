@@ -104,7 +104,7 @@ class default :
         try:
             return self.stuff[_name]
         except:
-            logger.error('INVALID settings key')
+            logger.error(f'INVALID settings key {_name}')
             return None
         
     def set(self,_name, _value):

@@ -2,19 +2,19 @@ import os
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+
+from loguru import logger
+from settings import defaults 
+
+import settings
+from utils import shorten_player_name
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
-from settings import defaults 
-from play_by_play import dump_pbp
-from utils import _ms,sec_to_period_time2,shorten_player_name
-
-
-from loguru import logger
-
-import settings
+from play_by_play import dump_pbp, box_score_dump
+from overlap import overlap_combos,overlap_dump,stints_as_csv
 
 color_defaults = None
 
@@ -29,10 +29,6 @@ def do_plot(theplot):
     if 'all' in SUB_PLOTS: return True
     if theplot in SUB_PLOTS: return True
     return False
-
-# if not do_plot('tools'):
-#     matplotlib.rcParams['toolbar'] = 'None' 
-
 
 def stack_markers(yy_, sec_, color_):
     
@@ -892,7 +888,9 @@ def plot_layout(title):
 
     return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def play_time_check(title,bx1,bx2,stints1,stints2):
+def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
+   
+         
     # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
     # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
     m1 = int(bx1.get_team_secs_played())
@@ -906,50 +904,8 @@ def play_time_check(title,bx1,bx2,stints1,stints2):
         logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
         ret_value = False
 
-    PLAY_TIME_CHECK_SHOW = defaults.get('PLAY_TIME_CHECK_SHOW')     
-    if PLAY_TIME_CHECK_SHOW == 'OFF': return ret_value
-
-    if PLAY_TIME_CHECK_SHOW == 'FAIL_ONLY': 
-        if ret_value : return ret_value
-
-    print()
-    print('STINT REPORT')
-    print()
-
-    def ms(sec):
-        m = int(sec / 60)
-        s = int(sec % 60)
-        return f'{m:02d}:{s:02d}'
-    
-    def stint_dump(stints,player):
-        
-        s = '0,0,0'
-        if player in stints.keys():
-            if player in TEST_PLAYERS or len(TEST_PLAYERS) == 0:
-                
-                stintw = stints[player]
-                s = ''
-                cnt = 0
-                for stint in stintw:
-                    tmp = f'{sec_to_period_time2(stint[1]).replace(' ',':')}-{sec_to_period_time2(stint[2]).replace(' ',':')} {ms(int(stint[0]))}, '
-                    s += tmp
-                    cnt += 1
-                    if cnt > 2:
-                        s += '\n                                           '
-                        cnt = 0
-        return s.strip()
-        
-    print(bx1.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints1,x[0])}',bx1.get_names_items('secs')))))
-    print()
-
-    print(bx2.get_team_minutes_desc())
-    print('\n'.join(list(map(lambda x:f'{x[0]:25} PT {ms(x[1])}, STINTS {stint_dump(stints2,x[0])}',bx2.get_names_items('secs')))))
-    print()
-    print()
-
     return ret_value
-
+        
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     global color_defaults 
@@ -986,10 +942,10 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
     
-    play_time_check(title,boxscore1,boxscore2,our_stints[0],opponent_stints[0])
+    do_stint = play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
-    if not defaults.get('PLAY_TIME_CHECK_ONLY'):
-
+    if not defaults.get('SHOW_PLOT'): logger.debug('Plot display disabled.')
+    else:
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
@@ -1053,12 +1009,10 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        if not defaults.get('SHOW_PLOT'):  print('FYI, plot display disabled.')   
-        else: 
-            n = defaults.get('SHOW_PAUSE')
-            if n == -1: plt.show(block=True)
-            else: plt.pause(n) 
-        
+        n = defaults.get('SHOW_PAUSE')
+        if n == -1: plt.show(block=True)
+        else: plt.pause(n) 
+           
         if defaults.get('SAVE_PLOT_IMAGE'):
             
             img_type = defaults.get('SAVE_PLOT_TYPE')
@@ -1067,12 +1021,29 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
             t = game_data.matchup_home.split(' ')
             fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.{img_type}'
-          
+            
             if not(os.path.exists(cwd)): os.mkdir(cwd)
-    
+
             fn = os.path.join(cwd, fn) 
             plt.draw()
             logger.info(f'saving image file {os.path.basename(fn)}')
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')
+
+    if defaults.get('MAKE_BOX'): 
+        box_score_dump(boxscore1,boxscore2,game_data)
+            
+    if defaults.get('SHOW_OVERLAP'): 
+        overlap_dump(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
+        overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
+
+    if defaults.get('SAVE_STINTS_AS_CVS'):
+        stints_as_csv(boxscore1,
+                      boxscore2,
+                      our_stints,
+                      opponent_stints,
+                      game_data,
+                      home_scores,
+                      away_scores)
+

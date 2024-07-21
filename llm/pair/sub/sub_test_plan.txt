@@ -1,7 +1,47 @@
 NAME: SUB Test Plan (Pair)
 
 Current Status Summary:
-    pre-7/10: 
+    Attempt 4:
+        (edits to prompt - cohesion, consistency)
+        ChatGPT:
+        - passes Q1 - 10c
+
+        Gemini: 
+        - issues with including non-stints (forgetting stint definitions?)
+        - passes: Q1, 2
+        - fails: Q3 (stopped here)
+
+        Claude
+        -passes: Q 1, 2
+        -fails: Q3a,3b,3c
+
+
+    Attempt 3:
+        (with stint case and stint calc. in game_time)
+        ChatGPT:
+        - passes Q1 - 10c
+
+        Gemini: 
+        - passes Q1 - 2
+        - partial pass Q3-7
+        - fails Q8a - 10c
+
+    Attempt 2: 
+        (Q9 - , + Prompt 2)
+        - GPT:
+            - passes Q9a - 9d
+            - fails Q8b - e
+            - system issues, only code provided for many responses
+
+        -Gemini:
+            -passes 9a
+            - fails Q9b
+            - fails Q8a - 8e
+            - fails Q1,2
+            - issues with understanding time, recalling information in chat, and summing stints 
+    
+    Attempt 1:
+         (Q1 - 8): 
         - LLMs fail player overlap questions (Q8)
         - LLMs inconsistent w/ (Q6,7) 
         - LLMs pass Q1-5 
@@ -9,11 +49,10 @@ Current Status Summary:
     
 Data sets used:
     OKCvGSW20230130.csv  (in llm_evaluation/sub_evals) (GET LATEST)
-    giddey_subs.csv
-    curry_subs.csv
+    
 
 Test Model: 
-    Gemini 1.5 Pro, ChatGPT 4o 
+    Gemini 1.5 Pro, ChatGPT 4o, Claude 3.5 Sonnet
 
 Prompt 1:
     <preamble_to_prompt>
@@ -42,9 +81,8 @@ Prompt 1:
         The following rows use sequentially numbered values. 
 
         .2. The second column is named ‘eventmsgtype’. 
-        Its value identifies events that occur during the game.
-        Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS, 3POINTMISS, 
-        REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
+        Its value is an event that occurs during the game.
+        Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS,3POINTMISS, REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
 
         .3. The third column is named ‘period’. 
         Its value is a number that identifies the period the event occurs. 
@@ -52,7 +90,7 @@ Prompt 1:
         Period values range from 1 - 4 and increase as the game progresses.
 
         .4. The fourth column is named ‘pctimestring’.
-        Its value is the time remaining in the period.
+        Its value is the time remaining in the period when the event occurs..
         It is formatted as minutes and seconds seperated by a colon.
         Its value descends in seconds as the game progresses.
         Its value is '12:00' at the start of each period. 
@@ -67,15 +105,13 @@ Prompt 1:
 
         .6. The sixth column is named ‘score’.
         Its value is the two teams’ scores at the time of the event. 
-        The initial score value is ‘0’.
-        This means neither team has scored yet. 
-        Once a team scores, the score value is formatted as ‘x - y’. 
-        ‘x’ is a positive integer value that represents the away team’s score.
-        ‘y’ is a positive integer value that represents the home team’s score.
+        The initial score value is ‘0 - 0’.
+        ‘x’ is a number that represents the away team’s score.
+        ‘y’ is a number that represents the home team’s score.
 
         .7. The seventh column is named ‘scoremargin’.
         Its value is the difference between the teams’ scores. 
-        The value equals 'y' minus 'x'.
+        Its value equals 'y' minus 'x'.
 
         .8. The eighth column is named ‘player1_name’.
         Its value is the name of a player involved in the event.
@@ -99,7 +135,7 @@ Prompt 1:
     <game_time_information>
         Game_time refers to the time an event occurs in a basketball play-by-play.
         
-        Game_time uses the period and pctimestring values to determine when an event occurs in a game. 
+        Game_time uses the 'period' and 'pctimestring' values to determine when an event occurs in a game. 
         
         Game_time values are expressed in seconds. 
 
@@ -130,10 +166,10 @@ Prompt 1:
         - ‘SUB’ in the ‘eventmsgtype’ column identifies this row as a SUB event row. 
 
         - In a SUB event row, the ‘player2_name’ column player starts playing.
-        This players playing time started at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
+        This player starts playing at the game_time calculated using the values in the 'period' and ‘pctimestring’ columns of that row. 
 
         - In a SUB event row, the ‘player1_name’ column player ends playing.
-        This players playing time ended at the game_time calculated using the values listed in the 'period' and ‘pctimestring’ columns of that row. 
+        This player ends playing at the game_time calculated using the values in the 'period' and ‘pctimestring’ columns of that row. 
     </SUB_event_information>
 
     <SUB_event_example>
@@ -142,62 +178,103 @@ Prompt 1:
         88,SUB,1,3:31,SUB: Burks Exits,22 - 15,-7,Alec Burks,DET,,,,
         89,SUB,2,9:15,SUB: Livers Enters,22 - 15,-7,,,Isaiah Livers,NYC,,
             
-        In event row 88, Alec Burks playing for DET ends his playing time with 3 minutes and 31 seconds remaining in period 1.
+        In event row 88, Alec Burks (playing for DET) ends playing with 3 minutes and 31 seconds remaining in period 1.
 
         This is because: 
-            - ‘SUB’ is listed in the ‘eventmsgtype’ column
-            - ‘Alec Burks’ is named in the ‘player1_name’ column
-            - ‘1’ is listed in the ‘period’ column 
-            - ‘3:31’ is listed in the ‘pctimestring’ column. 
-            - 'DET' is the team 'Alec Burks' plays for because ‘DET’ is listed in the ‘player1_team_abbreviation’ column. 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player1_name’ column value is ‘Alec Burks’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘3:31’
+        - the ‘player1_team_abbreviation’ column value is 'DET'
 
-        In event row 89, Isaiah Livers playing for NYC starts his playing time with 9 minutes and 15 seconds remaining in period 2.
+        In event row 89, Isaiah Livers (playing for NYC) starts playing with 9 minutes and 15 seconds remaining in period 2.
         
         This is because: 
-        - ‘SUB’ is listed in the ‘eventmsgtype’ column
-        - ‘Isaiah Livers’ is named in the ‘player2_name’ column
-        - ‘2’ is listed in the ‘period’ column
-        - ‘9:15’ is listed in the ‘pctimestring’ column. 
-        - 'NYC' is the team ‘Isaiah Livers’ plays for because ‘NYC’ is listed in the ‘player2_team_abbreviation’ column. 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player2_name’ column value is ‘Isaiah Livers’
+        - the ‘period’ column value is '2'
+        - the ‘pctimestring’ column value is ‘9:15’
+        - the ‘player2_team_abbreviation’ column value is 'NYC'
     </SUB_event_example>
                                    
     <stint_information>
-        - A stint begin is the game_time a player starts playing.
-        - A stint end is the game_time a player stops playing. 
-        - A stint duration is the difference between the stint end game_time and the stint begin game_time. 
-        - When a stint begins in one period and ends in a later period, calculate the stint duration as the difference between the game_time for the stint end and the game_time for the stint begin.
+        - A stint refers to the time a player is playing (substituted in the game).
+        - Stint start time is the time a player starts playing.
+        - Stint end time is the time a player ends playing. 
+        - A stint duration is the stint end time minus the stint start time. 
         - A player can play in multiple stints per period and game. 
-        - A stint is expressed as stint begin, stint end, stint duration.  
+        - A stint is expressed as stint start, stint end, stint duration.  
     </stint_information>
 
+    <stint_duration_cases>   
+        Scenario:
+        A player starts playing in period x.
+
+        Case 0: A player ends playing in period x
+            If: The player’s next SUB event is in the same period that he enters (period x).
+            
+            Then: 
+            - His stint ends in period x
+
+        Case 1: A player ends playing in period x + 1
+            If: The player's next SUB event is in the following period (period x + 1)
+
+            Then: 
+            - He plays to the end of period x. 
+            - He continues playing from the start of the following period (period x + 1). 
+            - His stint ends in period x + 1
+
+        Case 2: A player ends playing in period x + 2
+            If: The player's next SUB event is in the second following period (period x + 1)
+
+            Then: 
+            - He plays to the end of period x.
+            - He plays all of the following period (period x + 1).
+            - He continues playing from the start of the next period (period x + 2).
+            - His stint ends in period x + 2
+    </stint_duration_cases>
+
     <stint_calculation_example>
-        Example SUB events in CSV format:
-        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
-        204,SUB,2,6:02,SUB: Bogdanovic Enters,50 - 34,-16,,,Bojan Bogdanovic,DET,,
-        252,SUB,2,1:12,SUB: Bogdanovic Exits,62 - 48,-14,Bojan Bogdanovic,DET,,,,
+        SUB events in CSV format:
+        224,SUB,2,6:02,SUB: Bogdanovic Enters,50 - 34,-16,,,Bojan Bogdanovic,ATL,,
+        451,SUB,4,9:04,SUB: Bogdanovic Exits,100 - 91,-9,Bojan Bogdanovic,ATL,,,,
 
+        In event row 224, Bojan Bogdanovic starts playing. 
+        This is because:
+        - The ‘eventmsgtype’ column value is ‘SUB’
+        - The ‘player2_name’ column value is ‘Bojan Bogdanovic’ 
 
-        In event row 204, Bojan Bogdanovic starts a stint at 2, 6:02.
-        
-        This is because: 
-        - ‘SUB’ is listed in the ‘eventmsgtype’ column
-        - ‘Bojan Bogdanovic’ is named in the ‘player2_name’ column
-        - ‘2’ is listed in the ‘period’ column
-        - ‘6:02’ is listed in the ‘pctimestring’ column. 
-        - DET is the team Bojan Bogdanovic plays for because DET is listed in the ‘player2_team_abbreviation’ column. 
+        His stint start time is 1078 seconds (in game_time format).
+        This is because:
+        - The ‘period’ column value is ‘2’
+        - The ‘pctimestring’ column value is ‘6:02’
+        - Period, pctimestring to game_time:
+            Each period is 12 minutes * 60 seconds/minute = 720 seconds long.
+            Period 1 ends at 720 seconds.
+            The start of Period 2 is at 720 seconds.
+            6:02 remaining in Period 2 means (12 minutes - 6 minutes) * 60 seconds/minute - 2 seconds = 358 seconds have elapsed in Period 2.
+            Therefore, the total game time at the start of the stint is 720 seconds (Period 1) + 358 seconds (Period 2) = 1078 seconds.
 
-        In event row 252, Bojan Bogdanovic ends a stint at 2, 1:12.
-        
-        This is because: 
-        - ‘SUB’ is listed in the ‘eventmsgtype’ column
-        - ‘Bojan Bogdanovic’ is named in the ‘player1_name’ column
-        - ‘2’ is listed in the ‘period’ column
-        - ‘1:12’ is listed in the ‘pctimestring’ column. 
-        - DET is the team Bojan Bogdanovic plays for because DET is listed in the ‘player1_team_abbreviation’ column. 
+        In event row 451, Bojan Bogdanovic ends playing. 
+        This is because:
+        - The ‘eventmsgtype’ column value is ‘SUB’
+        - The ‘player1_name’ column value is ‘Bojan Bogdanovic’ 
 
-        We know Bogdanovic’s duaration for this stint is 4:50.
-        This is because his stint start time is 2,6:02 and his stint end time is 2,1:12.
-        The stint duration is the end time minus the start time, or 4:50. 
+        His stint end time is 2336 seconds (in game_time format).
+        This is because:
+        - The ‘period’ column value is ‘4’
+        - The ‘pctimestring’ column value is ‘9:04’
+        - Period, pctimestring to game_time:
+            Period 3 ends at 720 seconds * 3 periods = 2160 seconds.
+            The start of Period 4 is at 2160 seconds.
+            9:04 remaining in Period 4 means (12 minutes - 9 minutes) * 60 seconds/minute - 4 seconds = 176 seconds have elapsed in Period 4.
+            Therefore, the total game time at the end of the stint is 2160 seconds (Periods 1-3) + 176 seconds (Period 4) = 2336 seconds.
+
+        His stint duration is his stint end time minus his stint start time. 
+
+        2336 (Stint end time) – 1078 (Stint start time) = 1258 seconds 
+
+        His stint duration is 1258 seconds.
     </stint_calculation_example>
 
     <overlap_information>
@@ -226,8 +303,50 @@ Prompt 1:
         - Their overlap would be 11 minutes.
     </overlap_examples>
 
+    <FOUL_event_information>
+        - ‘FOUL’ in the ‘eventmsgtype’ column identifies this row as a FOUL event row.
+
+        - In a FOUL event row, the ‘player1_name’ column player commits the foul.
+        player1_name is credited with committing the foul. 
+
+        - In a FOUL event row, the player named in the ‘player2_name’ column is the victim of player1_name's foul.
+        player2_name is not credited with committing the foul.  
+    </FOUL_event_information>
+
+    <FOUL_event_example>
+        Here is an example of FOUL events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+ 
+        In event row 18, Dereck Lively II (playing for DAL) committed the foul with 8 minutes and 49 seconds remaining in the first period.
+                
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player1_name’ column value is ‘Dereck Lively II’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player1_team_abbreviation’ column value is 'DAL'
+
+        player1_name is credited with the foul, which counts towards his and player1_team_abbreviation's foul counts.
+                
+        In event row 18, Clint Capela (playing for ATL) is the victim of player1_name's foul with 8 minutes and 49 seconds remaining in the first period.
+            
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player2_name’ column value is ‘Clint Capela’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player2_team_abbreviation’ column value is 'ATL'
+    </FOUL_event_example>
+
 Prompt 2:
-   
+    Created via ChatGPT:
+    Calculate the overlap in playing time between two players in a specified period. 
+    Examine all SUB events for each player. 
+    If a player does not have SUB events in the specified period, check their last SUB event before the period. 
+    If the last SUB event indicates the player started playing and no subsequent SUB event indicates they stopped, assume the player continued playing through the period.
+    
+ 
 
 Test Questions:
     Here is an NBA game in CSV format. 
@@ -248,8 +367,6 @@ Test Questions:
         4c. At what times did Williams end playing?
         4d. How long (in Minutes:Seconds) were Williams's stints? 
         4e. How many minutes did Williams play in the game?
-        4f. At what times and for how long did Williams play?
-
 
     5a. How many times did Shai Gilgeous-Alexander start playing?
         5b. At what times did Gilgeous-Alexander start playing?
@@ -264,11 +381,27 @@ Test Questions:
         7b. How long did Giddey play from time 11:57 to 9:56 in period 4?
 
       
-    8a. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 1? 
-        8b. How many minutes did Giddey and Gilgeous-Alexander play simultaneously in period 2? 
-        8c. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 3?
-        8d. How many minutes were Giddey and Gilgeous-Alexander on the court simultaneously in period 4?
-        8e. How many minutes were Giddey and Gilgeous-Alexander in the game at the same time?
+    8a. How many minutes did Giddey and Gilgeous-Alexander overlap in period 1? 
+        8b. How many minutes did Giddey and Gilgeous-Alexander overlap in period 2? 
+        8c. How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+        8d. How many minutes did Giddey and Gilgeous-Alexander overlap in period 4?
+        8e. How many minutes did Giddey and Gilgeous-Alexander overlap in the game?
+
+    Attempt 2:
+
+    9a. During Giddey's first stint, how many fouls did he commit?
+        9b. During Giddey's second stint, how many fouls did he commit?
+        9c. During Giddey's third stint, how many fouls did he commit?
+        9d. During Giddey's fourth stint, how many fouls did he commit?
+
+     10a. During Gilgeous-Alexander's first stint, how many fouls did he commit?
+        10b. During Gilgeous-Alexander's second stint, how many fouls did he commit?
+        10c. During Gilgeous-Alexander's third stint, how many fouls did he commit?
+        
+
+
+
+   
 
 
 
@@ -380,70 +513,11 @@ Answers:
 
                 Sum: 7:29 + :49 + 6:23 + 5:33 = 20:14
 
+    9a. 0
+        9b. 1
+        9c. 0
+        9d. 1
 
-
-
-
-
-    (2) 29:01 Kenrich Williams_Josh Giddey
-          [07:29 1:12:00,1:04:31], 
-          [04:16 2:12:00,2:07:44], 
-          [07:12 2:00:49,3:05:37], 
-          [10:04 4:10:04,5:12:00]
-
-Kenrich Williams          PT 33:09, 
-STINTS 
-1:12:00-1:04:31 07:29, 
-1:00:26-2:07:44 04:42, 
-2:02:55-3:04:26 10:29, 
-3:00:25-4:12:00 00:25, 
-4:10:04-5:12:00 10:04,
-
-Josh Giddey               PT 29:22, 
-STINTS 
-1:12:00-1:04:31 07:29, 
-2:12:00-2:07:23 04:37, 
-2:00:49-3:05:37 07:12, 
-4:10:04-5:12:00 10:04,
-
-
-
-
-Let's correct the calculations for Josh Giddey's stints by ensuring accurate conversion of the period and pctimestring to game_time.
-
-Calculation
-Stint 1:
-
-Begin: Period 1, 12:00 = 0 seconds
-End: Period 1, 4:31 = (12 - 4:31) = 7 minutes and 29 seconds into the period
-Game Time End: 
-12×60−(4×60+31)=720−271=449
-12×60−(4×60+31)=720−271=449 seconds
-Duration: 449 - 0 = 449 seconds
-Stint 2:
-
-Begin: Period 2, 12:00 = 720 seconds
-End: Period 2, 7:23 = (12 - 7:23) = 4 minutes and 37 seconds into the period
-Game Time End: 
-12 ×60+(12×60−(7×60+23))=720+720−443=1440−443=997
-12×60+(12×60−(7×60+23))=720+720−443=1440−443=997 seconds
-Duration: 997 - 720 = 277 seconds
-Stint 3:
-
-Begin: Period 2, 0:49 = 720 + (12:00 - 0:49) = 720 + 671 = 1391 seconds
-End: Period 3, 5:37 = (24 - 5:37) = 17 minutes and 23 seconds into the game
-Game Time End: 
-24×60−(5×60+37)=1440+337=1777
-24×60−(5×60+37)=1440+337=1777 seconds
-Duration: 1777 - 1391 = 386 seconds
-Stint 4:
-
-Begin: Period 4, 10:04 = 2160 + (12:00 - 10:04) = 2160 + 116 = 2276 seconds
-End: Period 4, 0:00 = 2880 seconds
-Duration: 2880 - 2276 = 604 seconds
-Expressed as game times:
-
-Stint 1: Begin: 0 seconds, End: 449 seconds, Duration: 449 seconds
-Stint 2: Begin: 720 seconds, End: 997 seconds, Duration: 277 seconds
-Stint 3: Begin: 1391 seconds, End: 1777 seconds, Duration: 386 seconds
-Stint 4: Begin: 2276 seconds, End: 2880 seconds, Duration: 604 seconds
+    10a. 0
+        10b 1
+        10c. 2

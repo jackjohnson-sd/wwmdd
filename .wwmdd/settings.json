@@ -6,6 +6,7 @@
     , "LOG_COLORIZE"    : ["sys.stdout"]
     , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
  
+    , "MAKE_BOX"    : false
     , "TRIM"        : false       
     , "CONSOLE"     : true
 
@@ -30,13 +31,9 @@
 
     , "SAVE_SUBS_FILE"        : false
 
-    , "PLAY_TIME_CHECK_ONLY"  : false
-    , "PLAY_TIME_CHECK_SHOW"  : "OFF"
-
-    , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
-
-    , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
-    , "SHOW_OVERLAP"          : "NONE"
+    , "SAVE_STINTS_AS_CVS"  : false
+    
+    , "SHOW_OVERLAP"          : false
     , "OVERLAP_GROUP"         : [2]
  
     , "SAVE_GAME_DIR"         : "llm/llm_training_data/csv"

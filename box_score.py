@@ -1,6 +1,8 @@
 from datetime import timedelta
 import re
 
+from loguru import logger
+
 PM = '\xB1'
 
 class box_score:
@@ -23,6 +25,8 @@ class box_score:
 
     _max_by_items = {}
         
+    _Off_reb_cnt = {}
+    
     def __init__(self, existing_bs):
         self._boxScore = existing_bs
 
@@ -171,11 +175,6 @@ class box_score:
     def get_colwidths(self):
         return list(map(lambda x: self.get_item_colwidth(x),self._bsItemsA))    
         
-    def XXupdate(self, _player, _item, val):
-        if _player != None:
-            if _player in self.get_players():
-                self._boxScore[_player][_item] += val
-
     def update(self,_player,_item,val, when=None):
         if _player != None:
             if _player in self.get_players():
@@ -240,7 +239,22 @@ class box_score:
                     self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when=_evnt.sec)
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
-                case 4:  self.update(p1, 'REB', 1, when=_evnt.sec)
+                case 4:
+                    if 'Off' in event_description:
+                        try:  
+                            or_count = re.search('Off:(.*) Def:', event_description).group(1)
+                            if int(or_count) != 0:
+                                if p1 not in self._Off_reb_cnt.keys():
+                                    self._Off_reb_cnt[p1] = 0
+                                if or_count != self._Off_reb_cnt[p1]:
+                                    self.update(p1, 'ORS', 1, when=_evnt.sec)
+                        except:
+                            # team rebounds have no player 
+                            or_count = 0
+                            # logger.error(f'Off Rebound description {event_description}')
+                        
+
+                        self.update(p1, 'REB', 1, when=_evnt.sec)
 
                 case 5:  # steal
                     self.update(p1, 'TO', 1, when=_evnt.sec)

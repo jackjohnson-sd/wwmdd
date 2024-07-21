@@ -2,18 +2,19 @@ import os
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+
 from loguru import logger
+from settings import defaults 
 
 import settings
-from utils import _ms,sec_to_period_time,shorten_player_name,save_file
+from utils import shorten_player_name
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
-from settings import defaults 
 from play_by_play import dump_pbp, box_score_dump
-from overlap import overlap_combos,overlap_dump
+from overlap import overlap_combos,overlap_dump,stints_as_csv
 
 color_defaults = None
 
@@ -905,111 +906,6 @@ def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
 
     return ret_value
         
-def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_scores):
-    
-    def xxx(stints,bx,labels):
-    
-        def ms(sec):
-            m = int(sec / 60)
-            s = int(sec % 60)
-            return f'{m:02d}:{s:02d}'
-        
-        def get_oinks(player,stint,box):
-            
-            start = stint[1]
-            stop  = stint[2]
-            
-            oinks = box._boxScore[player]['OINK']
-        
-            def fo(start,stop,oink):
-                if oink[2] != None:
-                    if oink[2] >= start:
-                        if oink[2] <= stop:
-                            return oink
-                return None
-        
-            our_oinks = list(map(lambda x:fo(start,stop,x),oinks))
-        
-            while None in our_oinks: our_oinks.remove(None)
-            
-            oinks_sum = {}
-            for oink in our_oinks:
-                if oink[0] not in oinks_sum.keys():
-                    oinks_sum[oink[0]] = 0
-                oinks_sum[oink[0]] += int(oink[1])
-                    
-            try:
-                if stop >= len(home_scores) : 
-                    stop = -1
-                
-                #if box._home_team  == box._team_name:
-                deltah = home_scores[stop] - home_scores[start]
-                deltaa = away_scores[stop] - away_scores[start]
-
-            except:
-                logger.error(f'T.PTS/O.PTS issus {stop} {start} {len(home_scores)}')
-
-            tnk = [deltah,deltaa] 
-            if box._team_name != box._home_team:
-                tnk.reverse()
-                
-            oinks_sum['OFF'] = tnk[0]
-            oinks_sum['DEF'] = tnk[1]
-            oinks_sum[PM] = tnk[0] - tnk[1]
-            
-            secs = stint[0]
-            oinks_sum[PM] = int(oinks_sum[PM] * 12 * 60 /secs)
-  
-            return oinks_sum   
-        
-        def stint_dump(stints,player,box):
-            s = ''
-            if player in stints[0]:
-                    
-                stintw = stints[0][player]
-                s = ''
-                for stint in stintw:
-                    
-                    oinks = get_oinks(player,stint,box)
-                    oinks_str = ''
-                    for o in labels:
-                        v = oinks[o] if o in oinks.keys() else 0
-                        oinks_str += ',' + str(v)
-                        
-                    tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2]).replace(' ',',')},{ms(int(stint[0]))}'
-                    
-                    s += tmp + oinks_str + '\n'
-            else:
-                logger.error(f'stints to csv error. {player} has no stints.')
-            
-            return s.strip()
-
-        tmp = list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs')))
-        
-        return '\n'.join(tmp)
-        # list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs'))))
-
-    L1, L2 = bx1.stint_columns()
-    
-    m = 1 if bx1.is_home_team() else -1
-    kk = L1.split(',').index(PM)
-    def jj(s,kk,m):
-        
-        try: return int(s.split(',')[kk]) * m
-        except: return 0 
-    
-    a = xxx(stints1,bx1,L2)
-    aa = sorted(a.split('\n'), key=lambda x: jj(x,kk,m))
- 
-    b = xxx(stints2,bx2,L2)
-    bb = sorted(b.split('\n'), key=lambda x: jj(x,kk,m))
-
-    data = L1 + '\n' + '\n'.join(aa) + '\n\n\n' + '\n'.join(bb)
-    
-    save_file('STINTS_', game_data, 'SAVE_GAME_DIR', data)
-    
-    return True
-
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     global color_defaults 
@@ -1151,4 +1047,3 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
                       home_scores,
                       away_scores)
 
-""  

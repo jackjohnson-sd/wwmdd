@@ -1,3 +1,381 @@
+Consistency Plan Results:
+- fails parts of Q8 series consistently
+- fails parts of Q11 series consistently 
+- 6pm (att8) best time performance, 11am (att9) poor time performance (PDT)
+
+- forgets to apply information from prompt in its analysis, especially as chat progresses
+- ex: forgot player plays from 'player start' to 'player end' in Q11b
+
+- results improve when I prompt LLM to 'refer to certain section in prompt 1' after failure
+- results improve when I breakdown more complex questions by asking its components, then the main question
+
+
+Attempt 10:
+ Plan: 4th Round of Consistency Plan
+    Time: 7/22 @9:40pm 
+
+    - passes Q1 - 6a, Q8b, Q9a-d, Q10a-c
+    - fails Q6b (then passes), Q7a (then passes), Q7b, Q8a, Q8c, Q8d, Q8e, Q11a, Q11b
+    - prompting GPT to refer to key info in Prompt 1 and game file improved results
+
+    Q6b:
+        Working Prompt: refer to stint_information and stint_duration_cases in prompt1.txt and retry
+
+    Q7a:
+        look at his start and end playing times and retry
+
+
+Attempt 9:
+ Plan: 3rd Round of Consistency Plan
+    Time: 7/22 @10:44am 
+    -responses drop in speed, completness by Q8 series (Q8d below)
+    
+    - passes: 
+    - fails: Q3d, Q3e, Q6b, Q8b, Q8c, Q8d, Q8e, Q9a, Q9b, Q9c, Q9d, Q10a, Q10b, Q10c, Q11a, Q11b
+
+    Q3d: How long (in Minutes:Seconds) were Giddey's stints?
+
+        GPT: 
+        Josh Giddey's stints and their durations were as follows:
+
+        Start Period: 1, Start Time: 12:00, End Period: 1, End Time: 4:31, Duration: 7:29
+        Start Period: 2, Start Time: 12:00, End Period: 2, End Time: 7:23, Duration: 4:37
+        Start Period: 2, Start Time: 0:49, End Period: 3, End Time: 5:37, Duration: 16:48
+        Start Period: 4, Start Time: 10:04, End Period: 4, End Time: 0:00, Duration: 10:04 ​​
+
+        ME: Explain your calculations for his 3rd stint
+
+        GPT:   (error in end time game_time calc)
+
+        ME:
+        Game_time = 720*(period) – 60*(MM) - SS
+        Period = value in ‘period ‘ column
+        MM = minute value in ‘pctimestring’ column
+        SS = second value in ‘pctimestring’ column. re-try. 
+
+        GPT: (correct)
+        Josh Giddey's third stint lasted 7 minutes and 12 seconds.
+
+    Q3e: How many minutes did Giddey play in the game?
+
+        GPT: Josh Giddey played a total of 40 minutes and 33 seconds in the game.
+
+        ME: A player's total playing time is the sum of the player's stint times. Re-try
+
+        GPT: Total duration=21 minutes and 14 seconds
+
+        ME: stint 4 is incorrect. Game_time = 720*(period) – 60*(MM) - SS
+            Period = value in ‘period ‘ column
+            MM = minute value in ‘pctimestring’ column
+            SS = second value in ‘pctimestring’ column. re-try. 
+
+        GPT: Upon recalculating, the total playing time for Josh Giddey in the game is **29 minutes and 22 seconds**.
+
+    Q6b: How long did Gilgeous-Alexander play in the second half of period 2?
+
+        GPT: Shai Gilgeous-Alexander did not play in the second half of period 2.
+
+        ME: When did Shai Gilgeous-Alexander start and end playing in period 2?
+
+        ChatGPT: 
+        Shai Gilgeous-Alexander started playing in period 2 with 5:02 remaining. There is no record of him ending his play in period 2 based on the provided data.
+
+        Given this, it implies that he continued playing into the next period without a substitution event indicating the end of his stint in period 2.
+
+        ME: How long did Gilgeous-Alexander play in the second half of period 2?
+
+        GPT: 
+        Duration=302 seconds=5 minutes and 2 seconds
+        Correction
+        Upon reviewing the calculations, the duration should actually reflect the total time from 6:00 to 0:00, regardless of Shai's start time.
+
+        Therefore, the duration he played in the second half of period 2 (from 6:00 to 0:00) should be:
+        6 minutes
+        This aligns with the initial calculations that Shai played for the entire second half of period 2.
+
+        ME: Why do you think it should be 6 minutes regardless of shai's time?
+
+        GPT: 
+        You are correct; the playing time should be calculated based on Shai Gilgeous-Alexander's actual start time within the second half of period 2. My previous explanation was incorrect. Let’s re-calculate accurately based on his start time within the second half.
+        Shai Gilgeous-Alexander played 5 minutes and 2 seconds in the second half of period 2.
+
+
+    Q8b: How many minutes did Giddey and Gilgeous-Alexander overlap in period 2?
+
+    GPT: It appears there is no recorded overlap between Josh Giddey and Shai Gilgeous-Alexander in period 2 based on the given data.
+
+    ME: retry
+
+    GPT:
+    Josh Giddey and Shai Gilgeous-Alexander overlapped for 0 minutes and 49 seconds in period 2. ​
+
+    Q8d:
+
+    GPT:
+    ### Convert to Minutes and Seconds:
+    \[ \text{Minutes} = \left\lfloor \frac{432}{60} \right\rfloor = 7 \)
+    \[ \text{Seconds} = 432 \mod 60 = 12 \)
+    ### Final Result:
+    Josh Giddey and Shai Gilgeous-Alexander overlapped for **7 minutes and 12 seconds** in period 3.
+    This calculation considers the stints that extend across multiple periods as referenced from the prompt1 guidelines. If you have further questions or need more details, feel free to ask! &#8203;:citation[oaicite:0]{index=0}&#8203;
+
+
+Attempt 8:
+    Plan: 2nd Round of Consistency Plan (restarted chat)
+    Time: 7/21 @6:10pm 
+    - fails: Q8b, Q8c, Q11b
+
+    Q8b:
+    GPT: 
+    In period 2, Josh Giddey and Shai Gilgeous-Alexander started their overlap at:
+
+    - Period 2, 1:49
+
+    They ended their overlap at:
+
+    - Period 3, 6:37
+
+    This indicates a continuous overlap spanning from the end of period 2 into the beginning of period 3.
+
+
+    Q11b:
+    GPT: Shai Gilgeous-Alexander committed 2 fouls while playing with Josh Giddey.
+
+    Me: incorrect. How many fouls did SGA commit while overlapping with Giddey?
+
+    GPT: Shai Gilgeous-Alexander committed 3 fouls while overlapping with Josh Giddey.
+
+Attempt 8.0:
+    Plan: 2nd Round 
+    - Time: 7/20 @ 3:30pm
+    - passes Q1 - 5e
+    - limit hit, chat ended
+
+
+Attempt 7:
+    Plan: 3 rounds of asking GPT Question Set (first round) 
+        - Testing for consistency, when failures occur, type of failures
+        - Time: 7/20 @ 2:28pm
+            1. Load prompt1,
+            2. Load game, Q1
+            3. Load Q2, Q3a,.. in separate prompts
+
+    
+    - fails Q8b, Q8c, Q8e, Q11b
+    - corrects when re-prompted w/ key info, and/or asked sub-questions on its answer components to find area of failure
+    - passes other Questions
+
+    Follow-up:
+    What times did Giddey and Gilgeous-Alexander start playing and end playing in period 2?
+
+
+
+Attempt 6:
+    1. fails Q8c
+    Q8c:
+    How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+
+    Response:
+    The analysis indicates that Giddey and Gilgeous-Alexander did not have any overlapping minutes in period 3. If you have further questions or need additional analysis, please let me know! ​
+
+    Follow-up:
+    Refer to information about SUB events and stints in prompt1.txt. 
+    Now, How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+
+    Response:
+    The re-evaluation confirms that Giddey and Gilgeous-Alexander did not have any overlapping minutes in period 3, even after considering all SUB events throughout the game. 
+    If you have any further questions or need additional analysis, feel free to ask!
+
+    Follow-up:
+    Here is information about a player's stint. Case 2: A player ends playing in period x + 2
+    If: The player's next SUB event is in the second following period (period x + 1)
+
+    Then: 
+    - He plays to the end of period x.
+    - He plays all of the following period (period x + 1).
+    - He continues playing from the start of the next period (period x + 2).
+    - His stint ends in period x + 2
+    Now, How many minutes did Giddey and Gilgeous-Alexander overlap in period 3?
+
+    Response:
+    After applying the extended stints logic, which accounts for players potentially playing across multiple periods without immediate substitution, it still confirms that Giddey and Gilgeous-Alexander did not have any overlapping minutes in period 3.
+
+    If you have further questions or need additional analysis, please let me know!
+
+    Follow-up:
+    Look at all of the start and end playing events of Giddey and Gilgeous-Alexander. 
+    When did each of them play in period 3? 
+
+    Response:
+    The analysis indicates that there are no stints for Giddey and Gilgeous-Alexander during period 3 according to the extracted SUB events. This means neither Giddey nor Gilgeous-Alexander played in period 3 based on the available substitution data.
+
+Attempt 5: 
+    1. passes Q8c
+    2. passes Q8a
+    3. passes Q8b
+    4. passes Q8d
+    5. passes Q8e
+    6. passes Q9a
+    7. passes Q10b
+    8. passes Q11a
+
+    9. fails Q11b
+
+
+    Q11b:
+    How many fouls did SGA commit while playing with Giddey?
+
+    Response:
+    Shai Gilgeous-Alexander committed 2 fouls while playing with Josh Giddey.
+
+    Follow-up:
+    What are the times that SGA committed these fouls?
+
+    Response:
+    Shai Gilgeous-Alexander committed the following fouls while playing with Josh Giddey:
+
+    1. Period 4, at 0:17 - "Gilgeous-Alexander P.FOUL (P2.PN) (N.Buchert)"
+    2. Period 4, at 0:12 - "Gilgeous-Alexander P.FOUL (P3.PN) (N.Buchert)"
+
+    Follow-up:
+    Did SGA commit any other fouls this game?
+
+    Response:
+    Shai Gilgeous-Alexander committed one additional foul in the game:
+
+    - Period 3, at 11:45 - "Gilgeous-Alexander Offensive Charge Foul (P1)"
+
+    Follow-up:
+    Did Giddey play in period 3? If so, when?
+
+    Response:
+    Josh Giddey played in period 3 until 5:37 remaining in the period. His stint ended at that time.
+
+    Follow-up:
+    How many fouls did SGA commit while playing with Giddey?
+
+    Response:
+    Shai Gilgeous-Alexander committed 2 fouls while playing with Josh Giddey. The times and descriptions of these fouls are:
+
+    1. Period 4, at 0:17 - "Gilgeous-Alexander P.FOUL (P2.PN) (N.Buchert)"
+    2. Period 4, at 0:12 - "Gilgeous-Alexander P.FOUL (P3.PN) (N.Buchert)"
+
+    Follow-up:
+    Is the time of period 3, 11:45 before or after the time of period 3, 5:37
+
+    Response:
+    To determine whether the time of period 3, 11:45 is before or after the time of period 3, 5:37, let's convert these times into game times in seconds:
+
+    - Period 3, 11:45 means 15 seconds have elapsed in the period (12:00 - 11:45).
+    - Period 3, 5:37 means 383 seconds have elapsed in the period (12:00 - 5:37).
+
+    Therefore, we have:
+
+    - Period 3, 11:45 = (2 periods * 720 seconds) + 15 seconds = 1440 + 15 = 1455 seconds
+    - Period 3, 5:37 = (2 periods * 720 seconds) + 383 seconds = 1440 + 383 = 1823 seconds
+
+    Thus, 11:45 is before 5:37 in period 3.
+
+    Follow-up:
+    When SGA committed a foul in period 3 at 11:45, was Giddey playing?
+
+    Response:
+    When Shai Gilgeous-Alexander committed a foul in period 3 at 11:45 (game time 1455 seconds), Josh Giddey was not playing.
+
+    Follow-up:
+    When did Josh Giddey start and end playing in period 3?
+
+    Response:
+    Josh Giddey's stint in period 3 was as follows:
+
+    - He started playing at the beginning of the period, but there is no explicit "starts playing" event at the start of period 3. Based on his prior sub events, we consider that he started playing from the beginning of period 3.
+    - He stopped playing at 5:37 remaining in the period (game time 1823 seconds).
+
+    Thus, his stint in period 3 was from the start of the period until 5:37 remaining in the period.
+
+    Follow-up:
+    Did SGA commit a foul during this stint of Giddey?
+
+    Response:
+    To check if Shai Gilgeous-Alexander committed a foul during Josh Giddey's stint in period 3, we need to verify if the foul committed by SGA at 11:45 in period 3 falls within the time range that Giddey was playing.
+
+    From the previous calculations:
+
+    - Giddey's stint in period 3 was from the start of the period (game time 1440 seconds) until 5:37 remaining (game time 1823 seconds).
+    - SGA committed a foul at 11:45 in period 3 (game time 1455 seconds).
+
+    Since 1455 seconds falls within the range of 1440 to 1823 seconds, SGA did commit a foul during Giddey's stint in period 3.
+
+    Follow-up:
+    Why did you previously answer that SGA did not commit a foul during Giddey's stint in period 3?
+
+    Response:
+    My previous assessment was incorrect due to a misunderstanding of the timeframe. Upon re-evaluation:
+
+    - Josh Giddey played in period 3 from the beginning of the period (game time 1440 seconds) until 5:37 remaining in the period (game time 1823 seconds).
+    - Shai Gilgeous-Alexander committed a foul at 11:45 in period 3 (game time 1455 seconds).
+
+    Since 1455 seconds is within the range of 1440 to 1823 seconds, it confirms that Shai Gilgeous-Alexander did commit a foul during Josh Giddey's stint in period 3. 
+    Thank you for pointing out the discrepancy.
+
+    Follow-up:
+    What was your misunderstanding of the timeframe? 
+    Describe it and what information I provided led you to hold this misunderstanding.
+
+    Response:
+    The misunderstanding arose from an incorrect interpretation of the timeframe and the events associated with Josh Giddey's playing stints. Here's a breakdown of the situation:
+
+    1. **Initial Evaluation**:
+        - I initially calculated that Shai Gilgeous-Alexander committed a foul at 11:45 in period 3, which translates to game time 1455 seconds.
+        - I also calculated that Josh Giddey stopped playing at 5:37 remaining in period 3, which translates to game time 1823 seconds.
+        - I mistakenly checked whether Josh Giddey was playing at game time 1455 seconds without considering the full range of his playing time in period 3.
+
+    2. **Misinterpretation**:
+        - I incorrectly assumed that Josh Giddey did not play at game time 1455 seconds, possibly due to a focus on his specific SUB events rather than the continuous stint.
+
+    3. **Correction**:
+        - Upon re-evaluation with the correct timeframe in mind (from the start of period 3 to 5:37 remaining), it became clear that game time 1455 seconds falls within the period Josh Giddey was playing.
+
+    4. **Key Information Provided**:
+        - You provided the period and time string for both players' SUB events and fouls, specifically asking if Giddey was playing when SGA committed the foul at 11:45 in period 3.
+        - The key information was the exact times Giddey started and stopped playing in period 3, and the specific time SGA committed the foul.
+
+    In summary, the misunderstanding was due to a mistake in evaluating whether 1455 seconds (SGA's foul time) fell within the playing stint of Giddey (1440 to 1823 seconds). The correct interpretation confirmed that SGA did indeed commit a foul during Giddey's stint in period 3.
+
+    Follow-up:
+    How many fouls did SGA commit while playing with Giddey?
+
+    Response:
+    Shai Gilgeous-Alexander committed 2 fouls while playing with Josh Giddey. The times and descriptions of these fouls are:
+
+    1. Period 4, at 0:17 - "Gilgeous-Alexander P.FOUL (P2.PN) (N.Buchert)"
+    2. Period 4, at 0:12 - "Gilgeous-Alexander P.FOUL (P3.PN) (N.Buchert)"
+
+    This confirms that both fouls were committed during the overlapping playing time in period 4.
+
+    Follow-up:
+    What about SGA's other foul?
+
+    Response:
+    I overlooked one important detail: Shai Gilgeous-Alexander committed a foul in period 3 at 11:45, which falls within the timeframe Josh Giddey was playing. This means I need to reevaluate the fouls committed by SGA while he and Giddey were both on the court. Here is the complete evaluation:
+
+    1. Period 3, 11:45 (game time 1455 seconds): "Gilgeous-Alexander Offensive Charge Foul (P1)"
+    2. Period 4, 0:17 (game time 2863 seconds): "Gilgeous-Alexander P.FOUL (P2.PN) (N.Buchert)"
+    3. Period 4, 0:12 (game time 2868 seconds): "Gilgeous-Alexander P.FOUL (P3.PN) (N.Buchert)"
+
+    Let's determine if SGA's foul in period 3 at 11:45 occurred while he was playing with Giddey:
+
+    - Giddey's stint in period 3 was from the start of the period (game time 1440 seconds) to 5:37 remaining (game time 1823 seconds).
+
+    Since 1455 seconds is within this range, SGA's foul at 11:45 in period 3 was also committed while Giddey was on the court. 
+
+    Thus, SGA committed a total of 3 fouls while playing with Giddey:
+
+    1. Period 3, at 11:45 - "Gilgeous-Alexander Offensive Charge Foul (P1)"
+    2. Period 4, at 0:17 - "Gilgeous-Alexander P.FOUL (P2.PN) (N.Buchert)"
+    3. Period 4, at 0:12 - "Gilgeous-Alexander P.FOUL (P3.PN) (N.Buchert)"
+
+
 Attempt 4:
     ChatGPT:
         - passes: Q 1, 2, 3a - 3e, 4a - 4e, 5a - 5e, 6a - 6b, 8a, 8b, 9a - 10c

@@ -2,7 +2,7 @@ import itertools
 from loguru import logger
 
 from settings import defaults
-from utils import ms, sec_to_period_time, save_file,period_time_to_sec
+from utils import ms, sec_to_period_time, save_file
 # sec_to_period_time2,intersection,save_file
 
 from box_score import PM
@@ -162,7 +162,7 @@ def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores)
         
         for stint in x[2]:
             
-            s = f'{plrs},{team_name},{stint_dump(stint)}'
+            s = f'{plrs},{team_name},{stint_to_str(stint)}'
             
             players = x[0].split('_') 
             oinkss = []
@@ -191,33 +191,22 @@ def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores)
             
     fn_pre = f'OVERLAPS_{team_name}_'
     
-    kk = ols[0].split(',').index(PM)
+    pm_index = ols[0].split(',').index(PM)
 
     m = 1 if box.is_home_team() else -1
          
-    def jj(s,kk,m): return int(s.split(',')[kk]) * m
+    def jj(s,pm_index,m): return int(s.split(',')[pm_index]) * m
     
-    zz = sorted(ols[1:], key=lambda x: jj(x,kk,m))
+    zz = sorted(ols[1:], key=lambda x: jj(x,pm_index,m))
     save_file(fn_pre, game_data, 'SAVE_GAME_DIR', [ols[0]] + zz)
 
-def stint_dump(stint):
+def stint_to_str(stint):
     start_time = f'{sec_to_period_time(stint[1]).replace(' ',',')}'
     end_time = f'{sec_to_period_time(stint[2]).replace(' ',',')}'
     duration = f'{ms(int(stint[0]))}'
     s = f'{start_time},{end_time},{duration}'
     s.strip()
     return s
-
-def overlap_stints_show(header, stintsA, trailer):
-    
-    def ms(sec):
-        m = int(sec / 60)
-        s = int(sec % 60)
-        return f'{m:02d}:{s:02d}'
-
-    secs = sum(list(map(lambda x:x[0],stintsA)))
-    print(header)
-    print('\n'.join(list(map(lambda x:f'{stint_dump(x)}',stintsA))), ms(secs))
 
 def get_overlap_stints(pa_name,pb_name, game_stints_by_player):
 
@@ -236,23 +225,17 @@ def _overlap_stints(pa_stints, pb_stints):
                     ovelap_stints_by_player.extend([[ol, os, os+ol,stintsa[3]]])
     return ovelap_stints_by_player
 
-
 def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_scores):
     
-    def xxx(stints,bx,labels):
-    
-        def ms(sec):
-            m = int(sec / 60)
-            s = int(sec % 60)
-            return f'{m:02d}:{s:02d}'
-        
-        def get_oinks(player,stint,box):
+    def stints_for_team(stints, bx, labels):
+            
+        def oinks_for_player_stint(player, stint, box):
             
             start = stint[1]
             stop  = stint[2]
             
             oinks = box._boxScore[player]['OINK']
-        
+            # print(player,'\n',oinks,'\n')
             def fo(start,stop,oink):
                 if oink[2] != None:
                     if oink[2] >= start:
@@ -271,30 +254,33 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                 oinks_sum[oink[0]] += int(oink[1])
                     
             try:
-                if stop >= len(home_scores) : 
-                    stop = -1
+                if stop >= len(home_scores) : stop = -1
+                if start >= len(away_scores) : start = -1
                 
                 #if box._home_team  == box._team_name:
                 deltah = home_scores[stop] - home_scores[start]
                 deltaa = away_scores[stop] - away_scores[start]
 
-            except:
+            except Exception as e:
+                logger.error(f'OFF/DEF issues {e}')
+
                 logger.error(f'OFF/DEF issues {stop} {start} {len(home_scores)}')
 
             tnk = [deltah,deltaa] 
-            if box._team_name != box._home_team:
-                tnk.reverse()
+            
+            if box._team_name != box._home_team: tnk.reverse()
                 
             oinks_sum['OFF'] = tnk[0]
             oinks_sum['DEF'] = tnk[1]
             oinks_sum[PM] = tnk[0] - tnk[1]
             
             secs = stint[0]
-            oinks_sum[PM] = int(oinks_sum[PM] * 12 * 60 /secs)
+            if secs != 0:
+                oinks_sum[PM] = int(oinks_sum[PM] * 12 * 60 /secs)
   
             return oinks_sum   
         
-        def stint_dump(stints,player,box):
+        def stints_str_array(stints,player,box):
             s = ''
             if player in stints[0]:
                     
@@ -302,7 +288,8 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                 s = ''
                 for stint in stintw:
                     
-                    oinks = get_oinks(player,stint,box)
+                    oinks = oinks_for_player_stint(player,stint,box)
+                        
                     oinks_str = ''
                     for o in labels:
                         v = oinks[o] if o in oinks.keys() else 0
@@ -316,29 +303,34 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
             
             return s.strip()
 
-        tmp = list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs')))
+        players = bx.get_players()
+        players.remove(bx._team_name)
         
-        return '\n'.join(tmp)
-        # list(map(lambda x:f'{stint_dump(stints,x[0],bx)}',bx.get_names_items('secs'))))
+        tmp__ = list(map(lambda x:f'{stints_str_array(stints,x,bx)}',players))
+        
+        return '\n'.join(tmp__)
 
+    # L1 = column names, L2 = 
     L1, L2 = bx1.stint_columns()
     
     # plus/minus is positive for home negative for away team
     m = 1 if bx1.is_home_team() else -1
     pm_index = L1.split(',').index(PM)
     
-    def jj(s,pm_index,m):    
+    def pm_sort_index(s,pm_index,m):    
         try: return int(s.split(',')[pm_index]) * m
         except: return 0 
     
-    a = xxx(stints1,bx1,L2)
-    aa = sorted(a.split('\n'), key=lambda x: jj(x,pm_index,m))
- 
-    b = xxx(stints2,bx2,L2)
-    bb = sorted(b.split('\n'), key=lambda x: jj(x,pm_index,m))
+    a = stints_for_team(stints1, bx1, L2)
+    print('AOK')
+    b = stints_for_team(stints2, bx2, L2)
 
-    data = L1 + '\n' + '\n'.join(aa) + '\n\n\n' + '\n'.join(bb)
-    
+    aa = sorted(a.split('\n'), key=lambda x: pm_sort_index(x, pm_index, m))
+    bb = sorted(b.split('\n'), key=lambda x: pm_sort_index(x, pm_index, m))
+
+    data = L1 + '\n' + a + '\n\n\n' + b
+    # data = L1 + '\n' + '\n'.join(aa) + '\n\n\n' + '\n'.join(bb)
+     
     save_file('STINTS_', game_data, 'SAVE_GAME_DIR', data)
     
     return True

@@ -1,4 +1,5 @@
 import os
+
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
@@ -7,20 +8,17 @@ from loguru import logger
 from settings import defaults 
 
 import settings
-from utils import shorten_player_name
+from utils import shorten_player_name,fn_root
           
 from box_score import box_score,PM
 from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
-from play_by_play import dump_pbp, box_score_dump
+from play_by_play import dump_pbp, save_box_score
 from overlap import overlap_combos,overlap_dump,stints_as_csv
 
-color_defaults = None
-
-event_map = None
-
 TEST_PLAYERS      = defaults.get('TEST_PLAYERS')   
+DBG               = defaults.get('DBG')      
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
@@ -758,10 +756,10 @@ def plot_event_legend(ax,xstart,ystart):
             # fontweight = MRK_FONTWEIGHT
             )
         
-def plot_prep(_stints, game_data, scoreMargins, team = None, opponent = False, home_team = None):
+def plot_prep(_stintsNbox, game_data, scoreMargins, team = None, opponent = False, home_team = None):
 
-    our_stints_by_player = _stints[0]
-    boxscore = box_score(_stints[1])
+    our_stints_by_player = _stintsNbox[0]
+    boxscore = box_score(_stintsNbox[1])
 
     if opponent:
         teams = set(game_data.play_by_play.player1_team_abbreviation.dropna().to_list()[0:50])
@@ -889,8 +887,7 @@ def plot_layout(title):
     return figure, axd, E1,TL,TR,MD,E2,BL,BR,E3
 
 def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
-   
-         
+           
     # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
     # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
     m1 = int(bx1.get_team_secs_played())
@@ -918,16 +915,6 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     if not do_plot('tools'):
         matplotlib.rcParams['toolbar'] = 'None' 
 
-    if defaults.get('SAVE_RAW_GAME_AS_CSV'):
-        def Merge(dict1, dict2): return {**dict1, **dict2}
-        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
-        dump_pbp(game_data, merged_game_stints, do_raw=True)
-
-    if defaults.get('SAVE_GAME_AS_CSV'):
-        def Merge(dict1, dict2): return {**dict1, **dict2}
-        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
-        dump_pbp(game_data, merged_game_stints)
-
     # top team = winner, bot_team = loser
     # home_team affects plus/minus and score 
     # VERIFY  home ahead is positive in plus/minus if ahead,  
@@ -942,10 +929,11 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     boxscore2, playTimesbyPlayer2, events_by_player2 = \
     plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
     
-    do_stint = play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
+    play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
     if not defaults.get('SHOW_PLOT'): logger.debug('Plot display disabled.')
     else:
+        
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
 
@@ -1010,40 +998,52 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         )
 
         n = defaults.get('SHOW_PAUSE')
-        if n == -1: plt.show(block=True)
-        else: plt.pause(n) 
-           
+        if n == -1: 
+            plt.show(block=True)
+        else: 
+            plt.pause(abs(n)) 
+        
+
         if defaults.get('SAVE_PLOT_IMAGE'):
             
             img_type = defaults.get('SAVE_PLOT_TYPE')
             img_dpi  = defaults.get('SAVE_PLOT_DPI')
 
-            cwd = os.getcwd() + '/' + defaults.get('SAVE_PLOT_DIR')
-            t = game_data.matchup_home.split(' ')
-            fn = f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}.{img_type}'
+            cwd = os.path.join(os.getcwd(), defaults.get('SAVE_PLOT_DIR'))
+
+            dstr = 'DBG_' if DBG else '' 
+                   
+            fn = f'{dstr}{fn_root(game_data)}.{img_type}'
             
             if not(os.path.exists(cwd)): os.mkdir(cwd)
 
             fn = os.path.join(cwd, fn) 
-            plt.draw()
             logger.info(f'saving image file {os.path.basename(fn)}')
+            
+            plt.draw()
             figure.savefig(fn, dpi=img_dpi)
             
         plt.close('all')
 
     if defaults.get('MAKE_BOX'): 
-        box_score_dump(boxscore1,boxscore2,game_data)
+        save_box_score(boxscore1,boxscore2,game_data)
             
     if defaults.get('SHOW_OVERLAP'): 
         overlap_dump(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
         overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
 
     if defaults.get('SAVE_STINTS_AS_CVS'):
-        stints_as_csv(boxscore1,
-                      boxscore2,
-                      our_stints,
-                      opponent_stints,
+        stints_as_csv(boxscore1, boxscore2,
+                      our_stints, opponent_stints,
                       game_data,
-                      home_scores,
-                      away_scores)
+                      home_scores, away_scores)
 
+    if defaults.get('SAVE_RAW_GAME_AS_CSV'):
+        def Merge(dict1, dict2): return {**dict1, **dict2}
+        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+        dump_pbp(game_data, merged_game_stints, do_raw=True)
+
+    if defaults.get('SAVE_GAME_AS_CSV'):
+        def Merge(dict1, dict2): return {**dict1, **dict2}
+        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+        dump_pbp(game_data, merged_game_stints)

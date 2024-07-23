@@ -21,6 +21,7 @@ def main(file_dir_name):
       for filename in files:
         
         name = os.path.basename(filename)
+        
         if '##' in filename:
             print('COMMENT:',filename) 
             continue
@@ -29,13 +30,18 @@ def main(file_dir_name):
             print(f'Non csv file {name}. Skipped')
             continue
         
+        if 'STINTS_' in filename: continue
+        if 'OVERLAP' in filename: continue       
+        
         if not (os.path.isfile(filename)):
             print(f'Problem with file named {name}. Skipped.')
             continue
         
         df = pd.read_csv(filename, keep_default_na=False)
-        df.iloc[::-1] # reverse dataframe
-
+        if df.shape[1] != 13:
+            continue
+            
+    
         try:
             n = os.path.basename(filename)[-12:-4]
             if len(n) == 8:

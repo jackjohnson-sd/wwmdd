@@ -2,20 +2,26 @@ from datetime import timedelta
 import re
 
 from loguru import logger
-
+from utils import pms
 PM = '\xB1'
 
 class box_score:
 
-    _bsItemsA = [
+    _shown_items = [
         'PTS','MIN','FG','3PT','FT',
         'REB','BLK','AST','STL',
         'TO','PF', PM,
     ]
     
-    _bsItemsB = ['3P.MI', '3P.MA', 'FG.MI', 'FG.MA', 'FT.MI', 'FT.MA', 'secs', 'ORS']
+    _not_shown_items = [
+        '3P.MI', '3P.MA', 
+        'FG.MI', 'FG.MA', 
+        'FT.MI', 'FT.MA',
+        'SUB.IN', 'SUB.OUT', 'EOQ',
+        'secs', 'ORS','TF'
+    ]
     
-    _bsItems = _bsItemsA + _bsItemsB
+    _bsItems = _shown_items + _not_shown_items
     
     _boxScore = None
     _team_name = None
@@ -37,9 +43,9 @@ class box_score:
     
     def stint_columns(self):
         
-        L2a = self._bsItemsA 
+        L2a = self._shown_items 
         if PM in L2a: L2a.remove(PM)
-        L2b = self._bsItemsB
+        L2b = self._not_shown_items
         
         L1 = 'PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
         L2 = ['OFF','DEF',PM] + L2a + L2b 
@@ -173,7 +179,7 @@ class box_score:
         return [item]+ list(map(lambda x: str(self._boxScore[x][item]), list(self._boxScore.keys())))
         
     def get_colwidths(self):
-        return list(map(lambda x: self.get_item_colwidth(x),self._bsItemsA))    
+        return list(map(lambda x: self.get_item_colwidth(x),self._shown_items))    
         
     def update(self,_player,_item,val, when=None):
         if _player != None:
@@ -188,6 +194,10 @@ class box_score:
 
     def sum_item(self, item): return sum(self.get_items(item))
 
+    def EOP_update(self,when):
+        for p in self.get_players():
+            self.update(p,'EOQ',1,when)
+ 
     def stuff_bs(self, _evnts, players):
         
         self.add_players(players)
@@ -217,6 +227,8 @@ class box_score:
             
             match _evnt.eventmsgtype:
 
+                case 13: self.EOP_update(_evnt.sec)
+                
                 case 12:
                     if _evnt.period == 1:
                         s = _evnt.neutraldescription
@@ -239,6 +251,10 @@ class box_score:
                     self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when=_evnt.sec)
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
+                case 8:
+                    self.update(p1, 'SUB.OUT', 1, when=_evnt.sec)
+                    self.update(p2, 'SUB.IN', 1, when=_evnt.sec)
+                    
                 case 4:
                     if 'Off' in event_description:
                         try:  
@@ -260,16 +276,25 @@ class box_score:
                     self.update(p1, 'TO', 1, when=_evnt.sec)
                     self.update(p2, 'STL', 1, when=_evnt.sec)
 
-                case 6:  self.update(p1, 'PF', 1, when=_evnt.sec)
-  
-                # case 8: # substitution
-
+                case 6:  
+                
+                    ttm = ''
+                    try: 
+                        ttm += str(_evnt.neutraldescription) 
+                        ttm += str(_evnt.homedescription) 
+                        ttm += str(_evnt.visitordescription) 
+                    except : pass
+                    
+                    foul_type = 'TF' if 'T.FOUL' in ttm else 'PF'
+                    self.update(p1, foul_type, 1, when=_evnt.sec)
+                    # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
+                
     def add_plus_minus(self, player, start, end):
         self.update(player, PM, end - start)
 
     def get_bs_data(self, players=[], all=False):
 
-        itemlist = self._bsItemsA if not all else self._bsItems
+        itemlist = self._shown_items if not all else self._bsItems
         rows = players if players != [] else list(self._boxScore.keys())
         columns = itemlist
         data = []

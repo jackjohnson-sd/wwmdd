@@ -24,15 +24,12 @@
             ]
         },
         {
-            "name": "Python bads",
+            "name": "Python tests/bads_test",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/world_tour/wt_args_bads.txt",
-                "-log", 
-            ]
+            "args": [ "-bs", "tests/bads_test/get_all.txt"]
         }
     ]
 }

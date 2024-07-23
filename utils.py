@@ -2,6 +2,7 @@ import re
 import os
 
 from loguru import logger
+from settings import defaults
 
 
 def period(sec) : return int(sec / 720) + 1
@@ -47,12 +48,10 @@ def sec_to_period_time2(sec):
     
     return f'{p+1}:{remaining_minutes:02d}:{remaining_secs:02d}'
 
-def ms(_sec):  # p eriod m inute s econd
-    
-    m_into_q = int(_sec / 60)
-    s_into_m = int(_sec % 60)
-    s = f'{int(m_into_q):02d}:{int(s_into_m):02d}'
-    return s
+def ms(sec):
+    m = int(sec / 60)
+    s = int(sec % 60)
+    return f'{m:02d}:{s:02d}'
 
 def _ms(_sec) : return pms(_sec).replace(' ',',')[1:]
         
@@ -68,11 +67,6 @@ def pms(_sec):  # p eriod m inute s econd
         q -= 1
     s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
     return s
-
-def ms(sec):
-    m = int(sec / 60)
-    s = int(sec % 60)
-    return f'{m:02d}:{s:02d}'
 
 def intersection(lst1, lst2):
     lst3 = [value for value in lst1 if value in lst2]
@@ -103,6 +97,11 @@ def get_file_names(file_directory):
         files = [file_directory]
     return files
 
+
+def fn_root(game_data):
+    t = game_data.matchup_home.split(' ')
+    return f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}'
+
 def save_files(who,directory,the_files):
     
     """ for example
@@ -123,3 +122,24 @@ def save_files(who,directory,the_files):
     else:
         logger.debug(f'\n\n!!! {who} created no files.')
                 
+def save_file(who, game_data, where, data):
+    
+    DBG = defaults.get('DBG')
+
+    cwd = os.path.join(os.getcwd(), defaults.get(where))
+    
+    dstr = 'DBG_' if DBG else ''
+    fn = f'{dstr}{who}{fn_root(game_data)}.csv'
+    
+    fn = os.path.join(cwd, fn) 
+    
+    if not(os.path.exists(cwd)): os.mkdir(cwd)   
+    
+    logger.info(f'saving {os.path.basename(fn)}')
+    
+    fl_s = open(fn,"w")
+    
+    if type(data) == type([]): fl_s.writelines(data)
+    else: fl_s.write(data)
+    
+    fl_s.close()

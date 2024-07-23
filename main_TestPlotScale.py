@@ -24,6 +24,6 @@ def main():
 
     # Connect the resize event to the update function
     fig.canvas.mpl_connect('resize_event', update_text_size)
-
+    # print(texts)
     # Show the plot
     plt.show()

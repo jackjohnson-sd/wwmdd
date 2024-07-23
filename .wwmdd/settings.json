@@ -1,5 +1,7 @@
 {
-      "LOG"             : true
+      "DBG"             : false
+
+    , "LOG"             : true
     , "LOG_ROTATION"    : "1 hour"
     , "LOG_RETENTION"   : "1 week"
     , "LOG_LEVEL"       : "DEBUG"
@@ -9,8 +11,6 @@
     , "MAKE_BOX"    : false
     , "TRIM"        : false       
     , "CONSOLE"     : true
-
-    , "DBG"         : false
 
     , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
 

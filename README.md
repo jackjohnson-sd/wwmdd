@@ -1,8 +1,9 @@
-TODO -- bring back loggging, use loguru
 
 
 Please Read me
 
+July 20 -- a word about the stints and overlap data sets. see below ...
+July 19 -- continued work on STINT,OVERLAY,BOX,PBP in CSV format
 July 17 -- added BOX,STINT,OVERLAY as CSV file output
 July 16 -- fixed issue with runnong slow, hanging we saw with Bruce
            fixed issues with .csv having 0 vs 0-0 as score
@@ -27,6 +28,21 @@ July 7 -- squashed all prior git commits -- might have been stupid
 Jult 7 -- broke off wwmdd_colors.json from wwmdd.json
 July 6 -- added overlap.py
 July 5 -- some testing on OKC v BOS 2024-04-03?
+
+
+Stints and Overlaps
+
+OFF - is the number of points the 'TEAM' scored during the stint. 
+DEF - is the number of points the 'TEAM, allowed during the stint.
+±   -   is the difference in home - away scores from the start to end of the stint.
+        i.e. a positive ± means ... IDK
+        its normlized to 1 period. i.e. 1 point in 1 minutes is 1 12. 12 points 
+        in one minute is a 12. 
+
+PTS,REBS, etc. are all counts of what occured during the stint.
+
+Overlaps can have 2 to 5 players. They show up in PLAYER1 ... PLAYER5 columns.
+Overlaps are for the moment just between team members.
 
 **Or not.**
 # cmd line note∫

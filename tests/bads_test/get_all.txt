@@ -1,0 +1,5 @@
+#!#-s web -t OKC -d 2023-03-31 -m plot csv stints img -p all -f tests/bads_test/test_data 
+#!#-s csv -t OKC -m plot img -p all -f tests/bads_test/test_data -json tests/bads_test/debug_on.json
+
+-s web -t OKC -d 2023-01-30 -m plot csv stints img -p all -f tests/bads_test/test_data 
+-s csv -t OKC -m plot stint  -p all -f tests/bads_test/test_data -json tests/bads_test/debug_on.json

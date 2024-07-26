@@ -39,12 +39,10 @@
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "OKC", "-d", "2023-01-30",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "tools", "stints",
-                "-f", "tests/bads/test_data/web",
-                "-json", "tests/bads/web_save.json"
-
+                "-t", "OKC", "-d", "2024-04-03",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints",
             ]
+
         },
         {
             "name": "CSV_OLD_TEST",

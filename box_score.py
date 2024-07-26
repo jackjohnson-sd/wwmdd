@@ -203,22 +203,29 @@ class box_score:
         self.add_players(players)
 
         prev = None
+        eprev = None
+        
         for i, _evnt in _evnts.iterrows():
 
-            ours = 'Jalen Williams'
-            if _evnt.player1_name == ours or  _evnt.player2_name == ours:
+            # ours = 'Jalen Williams'
+            # if _evnt.player1_name == ours or  _evnt.player2_name == ours:
 
-                print('1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
-                pass
+            #     print('1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
+            #     pass
 
+            if type(_evnt) != type(None):
+                if _evnt.equals(eprev):
+                    logger.error(f'stuff DUP event {_evnt}')
+                        
+            eprev = _evnt
+             
             if type(prev) != type(None):
                 if prev.visitordescription == _evnt.visitordescription:
                     if prev.homedescription == _evnt.homedescription:
                         if prev.neutraldescription == _evnt.neutraldescription:
                             if prev.player1_name == _evnt.player1_name:
                                 if prev.player2_name == _evnt.player2_name:
-                                    print('duplicate event at ', _evnt.period,_evnt.pctimestring)
-                                    print('DUP 1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
+                                    logger.error(f'DUP 1 {_evnt.player1_name} 2 {_evnt.player2_name}  {_evnt.period},{_evnt.pctimestring},{_evnt.eventmsgtype}')
                                     continue
 
             p1 = _evnt.player1_name
@@ -260,11 +267,11 @@ class box_score:
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
                 case 8:
-                    ours = 'Jalen Williams'
-                    if _evnt.period == 3 and _evnt.pctimestring == '12:00':
-                        print(p1,p2,'JJ says stop')
-                    if p1 == ours : print('SUB.OUT',p1,_evnt.period,_evnt.pctimestring)
-                    if p2 == ours: print('SUB.IN',p2,_evnt.period,_evnt.pctimestring)
+                    # ours = 'Jalen Williams'
+                    # if _evnt.period == 3 and _evnt.pctimestring == '12:00':
+                    #     print(p1,p2,'JJ says stop')
+                    # if p1 == ours : print('SUB.OUT',p1,_evnt.period,_evnt.pctimestring)
+                    # if p2 == ours: print('SUB.IN',p2,_evnt.period,_evnt.pctimestring)
                     self.update(p1, 'SUB.OUT', 1, when=_evnt.sec)
                     self.update(p2, 'SUB.IN', 1, when=_evnt.sec)
                     

@@ -489,12 +489,11 @@ def clean_stints(game_stints):
                     # then kill the last
                     ins_and_outs[i][2] = ins_and_outs[i+1][2]
                     ins_and_outs[i][0] += ins_and_outs[i+1][0]
-                    print('cleaner killed',player,s1,s2)
+                    # print('cleaner killed',player,s1,s2)
                     kills.extend([i+1])
                 else:
-                    logger.error('NO MATCH ON STOP -> START', player)
-                    logger.error('x  ',ins_and_outs[i])
-                    logger.error('x+1',ins_and_outs[i+1])
+                    logger.error(f'{player} stop/start mis-match.  {i}  {s1}')
+                    logger.error(f'{player}                        {i+1}  {s2}')
                 
         if len(kills) > 0:        
             starts_not_killed = [v for i,v in enumerate(ins_and_outs) if i not in frozenset(kills)] 
@@ -831,7 +830,7 @@ def generatePBP(game_data, team_abbreviation, OPPONENT=False, needs_subs_fixed =
                         
                         stints_by_player[player].append([int(_duration) , int(_start), int(_stop), team_abbreviation])
                     else:
-                        logger.error('Error forming spans ',player,start_ts,stop_ts)  
+                        logger.error(f'stint mis-match {player}{start_ts}{stop_ts}')  
                 
                 boxSc.update(player,'secs',int(_total_secs)) 
 

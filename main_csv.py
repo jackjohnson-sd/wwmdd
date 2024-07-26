@@ -86,7 +86,14 @@ def main(file_dir_name):
         
         oink = []
         prev = None
+        rprev = None
         for i, r in df.iterrows():
+            if type(rprev) != type(None):
+                if r.equals(rprev):
+                    logger.error(f'{os.path.basename(filename)} DUP {r.period} {r.pctimestring} {r.neutraldescription}')
+                    continue
+                
+            rprev = r
             if r.eventmsgtype in event_map.keys():
                 id = event_map[r.eventmsgtype]
                 
@@ -104,8 +111,9 @@ def main(file_dir_name):
                     r.player3_name, r.player3_team_abbreviation,]
                     
                     if type(prev) != type(None):
+                        
                         if prev == a:
-                            print(os.path.basename(filename),'DUP', r.period, r.pctimestring,r.neutraldescription )
+                            logger.error(f'{os.path.basename(filename)} 2DUP {r.period} {r.pctimestring} {r.neutraldescription}')
                             continue
             
                     prev = a

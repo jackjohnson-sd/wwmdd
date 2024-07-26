@@ -1,0 +1,82 @@
+<preamble_to_prompt>
+    Here is information about basketball games. 
+
+    This information should be used in determining your answers to my upcoming questions. 
+
+    Hold off on providing any summaries and/or answers until I ask questions.
+</preamble_to_prompt>
+
+<stints_in_CSV_format_information>
+    A player's stint is his span of continuous gameplay. 
+    The basketball game is broken down by players' stints. 
+
+    Stints are in CSV format. 
+
+    CSV format, Comma Separated Values, uses commas as a delimiter between values.
+    The first row contains the column names separated by commas. 
+
+    The column names are as follows:
+    PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,OFF,DEF,±,PTS,REB,BLK,AST,STL,TO,PF,3P.MI,3P.MA,FG.MI,FG.MA,FT.MI,FT.MA,SUB.IN,SUB.OUT,EOQ,ORS,TF
+
+    The subsequent rows are called stint rows.
+    Each stint row describes a player's stint in the game.
+</stints_in_CSV_format_information>
+    
+<column_information>
+    1. **PLAYER**: Name of the player.
+    2. **TEAM**: Team of the player (OKC or GSW).
+    3. **PERIOD.START**: The period when the stint started.
+    4. **CLOCK.START**: The game clock time when the stint started.
+    5. **PERIOD.STOP**: The period when the stint stopped.
+    6. **CLOCK.STOP**: The game clock time when the stint stopped.
+    7. **PLAY.TIME**: Duration of the stint in minutes and seconds.
+    8. **OFF**: Offensive points scored during the stint.
+    9. **DEF**: Defensive points allowed during the stint.
+    10. **±**: Plus-minus statistic (difference between points scored and allowed while the player was on the court).
+    14. **ORS**: Offensive rebounds during the stint.
+    15. **TF**: Technical fouls during the stint.
+    16. **PTS**: Points scored during the stint.
+    17. **DREB**: Defensive rebounds during the stint.
+    18. **REB**: Total rebounds during the stint.
+    19. **AST**: Assists during the stint.
+    20. **TO**: Turnovers during the stint.
+    21. **STL**: Steals during the stint.
+    22. **BLK**: Blocks during the stint.
+    23. **PF**: Personal fouls during the stint.
+    24. **3P.MI**: Three-point shots missed during the stint.
+    25. **3P.MA**: Three-point shots made during the stint.
+    26. **FG.MI**: Field goals missed during the stint.
+    27. **FG.MA**: Field goals made during the stint.
+    28. **FT.MI**: Free throws missed during the stint.
+    29. **FT.MA**: Free throws made during the stint.
+</column_information>
+
+<game_time_information>
+    Game_time refers to the time an event occurs in a basketball game.
+    
+    Game_time uses the 'period' and 'pctimestring' values to determine when an event occurs in a game. 
+    
+    Game_time values are expressed in seconds. 
+
+    A game begins with a game_time of 0 seconds.
+    Game_time increases by 1 second as each second of the game is played. 
+    A game ends with a game_time of 2880 seconds.
+    
+    Each period begins with a game_time of ('period value' minus 1) multiplied by 720 seconds. 
+    Each period ends with a game_time of period begin game_time plus 720 seconds.
+
+    This python code converts time from game_time format to period, pctimestring format:
+        # Define the function pms
+        def pms(_sec):  # p eriod m inute s econd
+            
+            q        = int(_sec / 720) + 1
+            s_into_q = int(_sec % 720)
+            m_into_q = s_into_q / 60
+            s_into_m = int(s_into_q % 60)
+            if s_into_m == 0: s_into_m = 60
+            if m_into_q == 0 and s_into_m == 60:
+                m_into_q = 12
+                q -= 1
+            s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
+            return s
+</game_time_information>

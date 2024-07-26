@@ -237,4 +237,14 @@ During Gilgeous-Alexander's third stint, how many fouls did he commit?
 Answer:
 2
 
+Question:
+How many fouls did Giddey commit while playing with SGA?
 
+Answer:
+0
+
+Question:
+How many fouls did SGA commit while playing with Giddey?
+
+Answer:
+3

@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+-s web -t OKC -d 2023-01-30 -m plot csv stints overlaps img box -p stints boxscore -w 5 -file tests/world_tour/test_data
+exiting here because we have and '##exit' in this line. stop here ingore remainder
+
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 -colors tests/world_tour/wt_color_blue.json
+=======
 -s web -t OKC -d 2023-01-30 -m plot csv raw stints overlaps img box -p all  -w 2 -json tests/world_tour/wt_combos.json -file tests/world_tour/test_data
 exiting here because we have and '##exit' in this line. stops here ingores remainder
 #!# this is test of the emergency broadcast network
@@ -5,9 +14,24 @@ exiting here because we have and '##exit' in this line. stops here ingores remai
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 -colors tests/world_tour/wt_color_blue.json
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 -colors tests/world_tour/wt_color_blue.json
+>>>>>>> 526209da1b87d66f8fc4817d2e7e8c25bc9ccaa6
 
 #!# it really was a test of embedding a comment
 
+<<<<<<< HEAD
+## should be green stints
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 -colors .wwmdd/colors.json
+## should be white stints
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p margin -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p events legend -w 5
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints legend -w 5
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore -w 5
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore periodscores -w 5 
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p periodscores -w 5 
+=======
 #!# should be green stints
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 -colors .wwmdd/colors.json
 #!# should be white stints
@@ -20,3 +44,4 @@ exiting here because we have and '##exit' in this line. stops here ingores remai
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore -w 2
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints score margin legend events boxscore periodscores -w 2 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p periodscores -w 2
+>>>>>>> 526209da1b87d66f8fc4817d2e7e8c25bc9ccaa6

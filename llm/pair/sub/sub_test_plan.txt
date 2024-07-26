@@ -376,19 +376,19 @@ Test Questions:
 
     3a. How many times did Josh Giddey start playing?
         3b. At what times did Giddey start playing?
-        3c. At what times did Giddey end playing?
+        3c. At what times did Giddey stop playing?
         3d. How long (in Minutes:Seconds) were Giddey's stints? 
         3e. How many minutes did Giddey play in the game?
 
     4a. How many times did Kenrich Williams start playing?
         4b. At what times did Williams start playing?
-        4c. At what times did Williams end playing?
+        4c. At what times did Williams stop playing?
         4d. How long (in Minutes:Seconds) were Williams's stints? 
         4e. How many minutes did Williams play in the game?
 
     5a. How many times did Shai Gilgeous-Alexander start playing?
         5b. At what times did Gilgeous-Alexander start playing?
-        5c. At what times did Gilgeous-Alexander end playing?
+        5c. At what times did Gilgeous-Alexander stop playing?
         5d. How long (in Minutes:Seconds) were Gilgeous-Alexander's stints?
         5e. How many minutes did Gilgeous-Alexander play? 
 

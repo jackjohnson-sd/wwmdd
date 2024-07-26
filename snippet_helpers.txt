@@ -8,7 +8,9 @@ csv filter  ==>
 select * where a2 == 'SUB' && (a10 == 'CJ McCollum' || a8 == 'CJ McCollum')
 select * where a10 == 'Stephen Curry' || a8 == 'Stephen Curry'
 select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis'
-select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Kenrich Williams' || a8 == 'Kenrich Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Jalen Williams' || a8 == 'Jalen Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Andrew Wiggins' || a8 == 'Andrew Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 

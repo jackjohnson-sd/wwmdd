@@ -3,6 +3,7 @@ import pandas as pd
 from play_by_play import generatePBP
 from plots import plot3, defaults, quitGame
 
+from loguru import logger
 
 def main(file_dir_name):
 
@@ -15,7 +16,7 @@ def main(file_dir_name):
         files = [file_dir_name]
         
     if len(files) == 0:
-        print(f'NO files found ... {file_dir_name}')
+        logger.debug(f'NO files found ... {file_dir_name}')
         
     else:     
       for filename in files:
@@ -23,25 +24,24 @@ def main(file_dir_name):
         name = os.path.basename(filename)
         
         if '##' in filename:
-            print('COMMENT:',filename) 
+            logger.debug('COMMENT:',filename) 
             continue
         
         if '.csv' not in filename: 
-            print(f'Non csv file {name}. Skipped')
+            logger.warning(f'Non csv file {name}. Skipped')
             continue
         
         if 'STINTS_' in filename: continue
         if 'OVERLAP' in filename: continue       
         
         if not (os.path.isfile(filename)):
-            print(f'Problem with file named {name}. Skipped.')
+            logger.error(f'file {filename} fails isfile . Skipped.')
             continue
         
         df = pd.read_csv(filename, keep_default_na=False)
         if df.shape[1] != 13:
             continue
             
-    
         try:
             n = os.path.basename(filename)[-12:-4]
             if len(n) == 8:

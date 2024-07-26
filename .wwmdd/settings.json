@@ -1,66 +1,55 @@
 {
-      "DBG"             : false
+      "COLOR_DEFAULTS"  : ".wwmdd/colors.json"
 
     , "LOG"             : true
+    , "LOG_LEVEL"       : "DEBUG"
+    , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
     , "LOG_ROTATION"    : "1 hour"
     , "LOG_RETENTION"   : "1 week"
-    , "LOG_LEVEL"       : "DEBUG"
     , "LOG_COLORIZE"    : ["sys.stdout"]
-    , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
  
-    , "MAKE_BOX"    : false
-    , "TRIM"        : false       
-    , "CONSOLE"     : true
+    , "SAVE_PREFIX"     : ""
+    , "SAVE_GAME"       : false
+    , "SAVE_RAW"        : false
+    , "SAVE_STINTS"     : false
+    , "SAVE_OVERLAP"    : false
+    , "SAVE_BOX_SCORE"  : false
+    , "SAVE_IMAGE"      : false
+    , "SAVE_SUBS_FILE"  : false
 
-    , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
+    , "SAVE_DIR"        : "llm/llm_training_data"
 
-    , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
-    , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
+    , "SAVE_IMAGE_TYPE" : "png"
+    , "SAVE_IMAGE_DPI"  : 300
+
+    , "OVERLAP_GROUP"   : [2]
+
+    , "SHOW_PLOT"       : true
+    , "PLOT_WAIT"       : -1
+ 
+    , "PARTS"           : [ "stints", "score", "margin", "periodscores", "boxscore"]
+
+    , "DBG"             : false
+    , "TEST_PLAYERS"    : []
     
-    , "SHOW" : ["plot","csv","img"]
-    , "example_SHOW" : ["plot","csv","raw","img","stints", "overlaps","logs"]
-
-    , "SOURCES" : ["web","file","db"]
-    , "AI"      : ["GEMINI", "CLAUDE"]
-
-    , "TEST_PLAYERS"          :  []
-    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
-
-    , "SAVE_GAME_AS_CSV"      : false
-    , "SAVE_RAW_GAME_AS_CSV"  : false
-
-    , "SAVE_SUBS_FILE"        : false
-
-    , "SAVE_STINTS_AS_CVS"  : false
-    
-    , "SHOW_OVERLAP"          : false
-    , "OVERLAP_GROUP"         : [2]
+    , "TEAM"            : "OKC"
+    , "START_DAY"       : "2024-04-29" 
+    , "STOP_DAY"        : "2024-04-29"
+    , "SOURCE"          : "WEB:"
  
-    , "SAVE_GAME_DIR"         : "llm/llm_training_data/csv"
-   
-    , "SAVE_PLOT_IMAGE"  : false
-    , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
-    , "SAVE_PLOT_TYPE"    : "png"
-    , "SAVE_PLOT_DPI"     : 300
 
-    , "SHOW_PLOT"         : true
-    , "SHOW_PAUSE"        : -1
-
-    , "START_DAY"            : "2024-04-29" 
-    , "STOP_DAY"             : "2024-04-29"
-    , "TEAM"                 : "OKC"
- 
-    , "FILE"        : "llm/llm_training_data/csv"
-
-
-    , "tSOURCE"      : "TESTPLOTSCALE:"  
-    , "SOURCE"      : "WEB:"
+    , "tSOURCE"     : "TESTPARTSCALE:"  
     , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
     , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
- 
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"
     , "fSOURCE"     : "TOKENS:gemini_test"
     , "nSOURCE"     : "nba.sqlite"
 
+    , "example_PARTS"   : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
+    , "example_SHOW"    : ["plot","csv","raw","img","stints", "overlaps","logs"]
+    , "AI"              : ["GEMINI", "CLAUDE"]
+    , "TRIM"            : false       
+    , "CONSOLE"         : true
+    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
 }

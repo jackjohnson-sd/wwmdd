@@ -6,75 +6,6 @@ from loguru import logger
 
 # before anything else happens, likely too cheesy and won't servive long
 
-def get_args():
-
-    parser = argparse.ArgumentParser(
-        prog="wwmdd",
-        description="Mangles and displays BB game event data",
-        epilog="For example, './w.sh -s web -t OKC -d 2024-03-04 -make plot -p plot",
-    )
-
-    parser.add_argument("-log", action="store_true")
-    parser.add_argument("-nolog", action="store_true")
-
-    parser.add_argument(
-        "-make","-m",
-        nargs="+",
-        metavar = "stuff",
-        choices=[
-            "plot", 
-            "log",      "nolog",
-            "csv",      "raw",
-            "stints",   "overlaps",
-            "box",      "img",],
-            
-        help = "What to do?  ",
-    )
-    parser.add_argument(
-        "-source", "-s", choices=["web", "csv"], help="where to get the data"
-    )
-    parser.add_argument("-file", "-f", metavar='file',help="where to save or get file(s)")
-    parser.add_argument("-team","-t", metavar='team', help="team to use in game search")
-    parser.add_argument("-date","-d", metavar='date(s)', nargs="+", help="date or date range")
-    parser.add_argument("-subplots","-p",
-        nargs="+",
-        choices=[
-            "all",
-            "tools",
-            "stints",
-            "events",
-            "score",
-            "margin",
-            "periodscores",
-            "boxscore",
-            "legend",
-        ],
-        help="select one or more sub plots to display",
-    )
-    parser.add_argument(
-        "-json", help="specify app configuration. default is settings.json"
-    )
-    parser.add_argument("-colors", help="new plot colors file. default is colors.json")
-
-    # debug and other stuff we don't tell about
-    parser.add_argument("-with ", help=argparse.SUPPRESS)
-    parser.add_argument("-wait", "-w", nargs=1, help=argparse.SUPPRESS)
-    parser.add_argument("-combo", "-cb", nargs="+", help=argparse.SUPPRESS)
-    parser.add_argument("-trim", help=argparse.SUPPRESS)
-    parser.add_argument("-console", help=argparse.SUPPRESS)
-    parser.add_argument("-DBG", help=argparse.SUPPRESS)
-    parser.add_argument("-test_players", help=argparse.SUPPRESS)
-    parser.add_argument("-bs", nargs=1, help=argparse.SUPPRESS)
-    parser.add_argument("-it", nargs=1, choices=["pdf", "png", "jpg"], help=argparse.SUPPRESS)
-
-    try:
-        args = parser.parse_args()
-    except SystemExit:
-        logger.error("Argument parsing error")
-        return None, "Error"
-
-    return args, parser
-
 def start_logger(args):
 
     logger.remove()
@@ -123,10 +54,8 @@ def start_logger(args):
         if settings.defaults.get("LOG"):
             logger.enable("")
     else:
-        if args.log:
-            logger.enable("")
-        if args.nolog:
-            logger.disable("")
+        if args.log:    logger.enable("")
+        if args.nolog:  logger.disable("")
 
         if not args.log and not args.nolog:
             if settings.defaults.get("LOG"):
@@ -134,50 +63,112 @@ def start_logger(args):
             else:
                 logger.disable("")
 
-BS_EXIT_ = '##exit'
+BS_EXIT_ = '#!#exit'
 BS_COMMENT_ = '#!#'
 
+
+def get_args():
+
+    parser = argparse.ArgumentParser(
+        prog="wwmdd",
+        description="Mangles and displays BB game event data",
+        epilog="For example, './w.sh -s web -t OKC -d 2024-03-04 -make plot -p plot",
+    )
+
+    parser.add_argument("-log", action="store_true")
+    parser.add_argument("-nolog", action="store_true")
+
+    parser.add_argument(
+        "-make","-m",
+        nargs="+",
+        metavar = "stuff",
+        choices=[
+            "plot", 
+            "log",      "nolog",
+            "csv",      "raw",
+            "stints",   "overlaps",
+            "box",      "img",],
+            
+        help = "What to do?  ",
+    )
+    parser.add_argument("-source", "-s", choices=["web", "csv"], help="where to get the data")
+    parser.add_argument("-file", "-f", metavar='file',help="where to save or get file(s)")
+    parser.add_argument("-team","-t", metavar='team', help="team to use in game search")
+    parser.add_argument("-date","-d", metavar='date(s)', nargs="+", help="date or date range")
+    parser.add_argument("-subplots","-p",
+        nargs="+",
+        choices = [
+            "all",      "tools",
+            "stints",   "events",
+            "score",    "margin",
+            "periodscores",
+            "legend",   "boxscore", ],
+        help="select one or more sub plots to display",)
+    
+    parser.add_argument("-json", help="configuration update. default is settings.json")
+    parser.add_argument("-colors", help="plot colors update. default is colors.json")
+
+    # debug and other stuff we don't tell about
+    parser.add_argument("-with", help=argparse.SUPPRESS)
+    parser.add_argument("-wait", "-w", nargs=1, help=argparse.SUPPRESS)
+    parser.add_argument("-combo", "-cb", nargs="+", help=argparse.SUPPRESS)
+    parser.add_argument("-trim", help=argparse.SUPPRESS)
+    parser.add_argument("-console", help=argparse.SUPPRESS)
+    parser.add_argument("-DBG", help=argparse.SUPPRESS)
+    parser.add_argument("-test_players", help=argparse.SUPPRESS)
+    parser.add_argument("-bs", nargs=1, help=argparse.SUPPRESS)
+    parser.add_argument("-it", nargs=1, choices=["pdf", "png", "jpg"], help=argparse.SUPPRESS)
+
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        logger.error("Argument parsing error")
+        return None, "Error"
+
+    return args, parser
 
 def get_argset(args, parser):
     
     argset = []
     
-    if args.bs != None:
+    if args.bs == None:
+        # use command line auguments
+        argset = [[args, sys.argv[1:]]]
+
+    else:
         # use each line from this file as a cmmd line for the app
         try:
             # try and open the file and read it
             with open(args.bs[0]) as f:
                 lines = f.readlines()
 
-            for i,line in enumerate(lines):
-
-                if BS_EXIT_ in line:
-                    argset.extend([[None, line.strip()]])
-                    break
-
-                if BS_COMMENT_ in line:
-                    argset.extend([[None, line.strip()]])
-                    continue
-
-                line = line.replace("\n", "")
-                line = line.strip()
-                line = line.split(" ")
-                if "" in line:
-                    line.remove("")
-
-                if len(line) != 0:
-                    try:
-                        aargs = parser.parse_args(line)
-                        argset.extend([[aargs, line]])
-                    except SystemExit:
-                        logger.error(f"-bs {args.bs[0]} line {i+1} parsing error ")
-                        logger.error((" ").join(line))
-            
         except:
-            logger.error(f"ERROR -- Problem reading {args.bs[0]} file.")
-    else:
-        # use command line as auguments
-        argset = [[args, sys.argv[1:0]]]
+            logger.error(f"problem reading {args.bs[0]} file.")
+            
+        for i,line in enumerate(lines):
+
+            if BS_EXIT_ in line:
+                argset.extend([[None, line.strip()]])
+                break
+
+            if BS_COMMENT_ in line:
+                argset.extend([[None, line.strip()]])
+                continue
+
+            line = line.replace("\n", "")
+            line = line.strip()
+            line = line.split(" ")
+            if "" in line:
+                line.remove("")
+
+            if len(line) != 0:
+                try:
+                    aargs = parser.parse_args(line)
+                    argset.extend([[aargs, line]])
+                except SystemExit:
+                    logger.error(f"-bs {args.bs[0]} line {i+1} parsing error ")
+                    logger.error((" ").join(line))
+        
     return argset
 
 def set_args(args):
@@ -196,12 +187,12 @@ def set_args(args):
     if args.DBG             != None:    settings.defaults.set("DBG", args.DBG)
     if args.trim            != None:    settings.defaults.set("TRIM", args.trim)
     if args.console         != None:    settings.defaults.set("CONSOLE", args.console)
-    if args.wait            != None:    settings.defaults.set("SHOW_PAUSE", int(args.wait[0]))
-    if args.it              != None:    settings.defaults.set("SAVE_PLOT_TYPE", args.it[0])
+    if args.it              != None:    settings.defaults.set("SAVE_IMAGE_TYPE", args.it[0])
     if args.test_players    != None:    settings.defaults.set("TEST_PLAYERS", args.test_players)
-    if args.file            != None:    settings.defaults.set("FILE", args.file)
+    if args.wait            != None:    settings.defaults.set("PLOT_WAIT", int(args.wait[0]))
+    
     if args.team            != None:    settings.defaults.set("TEAM", args.team)
-    if args.subplots        != None:    settings.defaults.set("SUB_PLOTS", args.subplots)
+    if args.subplots        != None:    settings.defaults.set("PARTS", args.subplots)
 
     if args.combo           != None:
 
@@ -211,7 +202,7 @@ def set_args(args):
             )
         except:
             logger.error(
-                f"Problem in combo parameter {args.combo}. combo paramater ignored"
+                f"problem in combo parameter {args.combo}. combo paramater ignored"
             )
 
     if args.date            != None:
@@ -221,6 +212,9 @@ def set_args(args):
 
         settings.defaults.set("START_DAY", start)
         settings.defaults.set("STOP_DAY", stop)
+
+
+
 
 args, parser = get_args()
 
@@ -232,11 +226,6 @@ settings.colors = settings.default(cfn)
 start_logger(args)
 logger.info("wwmdd begins! ")
 
-if args != None:
-
-    if args.json != None:
-        logger.debug(f"updating settings {args.colors}")
-        settings.defaults.update(args.json)
 
 if __name__ == "__main__":
 
@@ -259,6 +248,7 @@ if __name__ == "__main__":
             args = _args[0]
 
             if args == None:
+                
                 if type(_args[1]) == type('a'):
                     
                     logger.info(_args[1])
@@ -275,15 +265,15 @@ if __name__ == "__main__":
                 
                 if args.make != None:
 
-                    stints = "stints" in args.make
-                    olaps = "overlaps" in args.make
-                    plot = "plot" in args.make
-                    csv_save = "csv" in args.make
-                    raw_save = "raw" in args.make
-                    img = "img" in args.make
-                    log = "log" in args.make
-                    nolog = "nolog" in args.make
-                    box = "box" in args.make
+                    stints      = "stints" in args.make
+                    olaps       = "overlaps" in args.make
+                    plot        = "plot" in args.make
+                    csv_save    = "csv" in args.make
+                    raw_save    = "raw" in args.make
+                    box         = "box" in args.make
+                    img         = "img" in args.make
+                    log         = "log" in args.make
+                    nolog       = "nolog" in args.make
 
                     if nolog:
                         logger.warning("Logging disabled.")
@@ -297,19 +287,20 @@ if __name__ == "__main__":
                         settings.defaults.set("SHOW_PLOT", True)
 
                     if box:
-                        settings.defaults.set("MAKE_BOX", True)
-
-                    settings.defaults.set("SAVE_PLOT_IMAGE", img)
+                        settings.defaults.set("SAVE_BOX_SCORE", True)
+                        
+                    if img:
+                        settings.defaults.set("SAVE_IMAGE", img)
 
                     # no plot
                     if not plot and stints or olaps:
                         settings.defaults.set("PLAY_TIME_CHECK_ONLY", True)
 
                     if olaps:
-                        settings.defaults.set("SHOW_OVERLAP", True)
+                        settings.defaults.set("SAVE_OVERLAP", True)
 
                     if stints:
-                        settings.defaults.set("SAVE_STINTS_AS_CVS", True)
+                        settings.defaults.set("SAVE_STINTS", True)
 
                     if args.colors != None:
                         settings.defaults.update_colors(args.colors)
@@ -319,47 +310,39 @@ if __name__ == "__main__":
 
                     if do_web:
 
-                        if args.date == None:
-                            logger.error("-date required")
-                        if args.team == None:
-                            logger.error("-team required")
+                        if args.date == None: logger.error("-date required")
+                        if args.team == None: logger.error("-team required")
 
-                        if None in [args.team, args.date]:
-                            continue
+                        if None in [args.team, args.date]: continue
 
-                        else:
-                            settings.defaults.set("SOURCE", "WEB")
-                            settings.defaults.set("SAVE_RAW_GAME_AS_CSV", raw_save)
-                            settings.defaults.set(
-                                "SAVE_GAME_AS_CSV", True if raw_save else csv_save
-                            )
+                        settings.defaults.set("SAVE_RAW", raw_save)
+                        settings.defaults.set("SAVE_GAME", csv_save)
 
-                            if args.file:
-                                settings.defaults.set("SAVE_GAME_DIR", args.file)
-                                settings.defaults.set("SAVE_PLOT_DIR", args.file)
+                        if args.file:
+                            settings.defaults.set("SAVE_DIR", args.file)
 
-                            start = args.date[0]
-                            stop = start if len(args.date) == 1 else args.date[1]
+                        start = args.date[0]
+                        stop = start if len(args.date) == 1 else args.date[1]
 
-                            main_web.main(team=args.team, start=start, stop=stop)
+                        settings.defaults.set("SOURCE", 'WEB')
+                        main_web.main(team=args.team, start=start, stop=stop)
 
                     elif do_csv:
 
-                        if args.file == None:
-                            log.error("-file required")
-                        if None in [args.file]:
-                            continue
-                        else:
+                        settings.defaults.set("SOURCE", 'CSV')
+                        if args.file == None: log.error("-file required")
+                        
+                        if None in [args.file]: continue
+                        
+                        main_csv.main(args.file)
 
-                            settings.defaults.set("SOURCE", "CSV")
-                            main_csv.main(args.file)
 
             settings.defaults.stuff = original_stuff
             settings.colors.stuff = original_colors
 
     if len(sys.argv) == 1:
 
-        logger.error("settings taken from defaults")
+        logger.info("no args - default settings")
         data_source = settings.defaults.get("SOURCE")
 
         # get games and play by play from nba_api. get teams and dates from settings.json
@@ -387,7 +370,7 @@ if __name__ == "__main__":
             main_db.main()
         # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
 
-        elif "TESTPLOTSCALE:" in data_source:
+        elif "TESTPARTSCALE:" in data_source:
             import main_TestPlotScale
 
             main_TestPlotScale.main()

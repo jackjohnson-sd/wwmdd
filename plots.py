@@ -17,15 +17,13 @@ from event_prep import event_to_size_color_shape, get_event_map
 from play_by_play import dump_pbp, save_box_score
 from overlap import overlap_combos,overlap_dump,stints_as_csv
 
-TEST_PLAYERS      = defaults.get('TEST_PLAYERS')   
-DBG               = defaults.get('DBG')      
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
 def do_plot(theplot):
-    SUB_PLOTS = defaults.get('SUB_PLOTS') 
-    if 'all' in SUB_PLOTS: return True
-    if theplot in SUB_PLOTS: return True
+    PARTS = defaults.get('PARTS') 
+    if 'all' in PARTS: return True
+    if theplot in PARTS: return True
     return False
 
 def stack_markers(yy_, sec_, color_):
@@ -997,23 +995,24 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             wspace=3, hspace=0.1, right=0.98, left=0.01, top=0.99, bottom=0.025
         )
 
-        n = defaults.get('SHOW_PAUSE')
+        n = defaults.get('PLOT_WAIT')
         if n == -1: 
             plt.show(block=True)
         else: 
             plt.pause(abs(n)) 
         
 
-        if defaults.get('SAVE_PLOT_IMAGE'):
+        if defaults.get('SAVE_IMAGE'):
             
-            img_type = defaults.get('SAVE_PLOT_TYPE')
-            img_dpi  = defaults.get('SAVE_PLOT_DPI')
+            img_type = defaults.get('SAVE_IMAGE_TYPE')
+            img_dpi  = defaults.get('SAVE_IMAGE_DPI')
 
-            cwd = os.path.join(os.getcwd(), defaults.get('SAVE_PLOT_DIR'))
-
-            dstr = 'DBG_' if DBG else '' 
-                   
-            fn = f'{dstr}{fn_root(game_data)}.{img_type}'
+            cwd = os.path.join(os.getcwd(), defaults.get('SAVE_DIR'))
+                  
+            dstr = 'DBG_' if defaults.get('DBG') else '' 
+            SAVE_PRE = defaults.get('SAVE_PREFIX')
+            
+            fn = f'{SAVE_PRE}{dstr}{fn_root(game_data)}.{img_type}'
             
             if not(os.path.exists(cwd)): os.mkdir(cwd)
 
@@ -1025,25 +1024,25 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             
         plt.close('all')
 
-    if defaults.get('MAKE_BOX'): 
+    if defaults.get('SAVE_BOX_SCORE'): 
         save_box_score(boxscore1,boxscore2,game_data)
             
-    if defaults.get('SHOW_OVERLAP'): 
+    if defaults.get('SAVE_OVERLAP'): 
         overlap_dump(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
         overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
 
-    if defaults.get('SAVE_STINTS_AS_CVS'):
+    if defaults.get('SAVE_STINTS'):
         stints_as_csv(boxscore1, boxscore2,
                       our_stints, opponent_stints,
                       game_data,
                       home_scores, away_scores)
 
-    if defaults.get('SAVE_RAW_GAME_AS_CSV'):
+    if defaults.get('SAVE_RAW'):
         def Merge(dict1, dict2): return {**dict1, **dict2}
         merged_game_stints = Merge(our_stints[0], opponent_stints[0])
         dump_pbp(game_data, merged_game_stints, do_raw=True)
 
-    if defaults.get('SAVE_GAME_AS_CSV'):
+    if defaults.get('SAVE_GAME'):
         def Merge(dict1, dict2): return {**dict1, **dict2}
         merged_game_stints = Merge(our_stints[0], opponent_stints[0])
         dump_pbp(game_data, merged_game_stints)

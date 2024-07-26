@@ -1,4 +1,5 @@
 import pandas as pd
+from loguru import logger
 
 from plots import plot3, defaults, quitGame
 from play_by_play import generatePBP, dump_pbp
@@ -80,7 +81,7 @@ def main(team=None,start=None,stop=None):
                 our_playerstints_and_boxscore, 
                 opp_playerstints_and_boxscore)    
         else:
-            print(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
+            logger.error(f'Bad news! No play_by_play data. {game_data.game_date} {game_data.matchup_away} ')
 
     return 
 

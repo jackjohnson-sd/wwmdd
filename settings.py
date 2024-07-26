@@ -8,6 +8,7 @@ class default :
     
     stuff = {}
 
+    
     def __init__(self,fn='.wwmdd/settings.json'):
         
         if fn == None: fn = '.wwmdd/settings.json'
@@ -20,69 +21,60 @@ class default :
                 # copy/paste contents of wwmmd.json here to update defaults
                 self.stuff = \
                 {
-                 "LOG"             : False
-                , "LOG_ROTATION"    : "1 hour"
-                , "LOG_RETENTION"   : "1 week"
-                , "LOG_LEVEL"       : "DEBUG"
+                    "COLOR_DEFAULTS"  : ".wwmdd/colors.json"
 
-                , "TRIM"        : False       
-                , "CONSOLE"     : True
-
-                , "DBG"         : False
-
-                , "COLOR_DEFAULTS"        : ".wwmdd/colors.json"
-
-                , "SUB_PLOTS"            : [       "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
-                , "example_SUB_PLOTS"    : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
+                    , "LOG"             : True
+                    , "LOG_LEVEL"       : "DEBUG"
+                    , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
+                    , "LOG_ROTATION"    : "1 hour"
+                    , "LOG_RETENTION"   : "1 week"
+                    , "LOG_COLORIZE"    : ["sys.stdout"]
                 
-                , "SHOW" : ["plot","csv","img"]
-                , "example_SHOW" : ["plot","csv","raw","img","stints", "overlaps","logs"]
+                    , "SAVE_PREFIX"     : ""
+                    , "SAVE_GAME"       : False
+                    , "SAVE_RAW"        : False
+                    , "SAVE_STINTS"     : False
+                    , "SAVE_OVERLAP"    : False
+                    , "SAVE_BOX_SCORE"  : False
+                    , "SAVE_IMAGE"      : False
+                    , "SAVE_SUBS_FILE"  : False
 
-                , "SOURCES" : ["web","file","db"]
-                , "AI"      : ["GEMINI", "CLAUDE"]
+                    , "SAVE_DIR"        : "llm/llm_training_data"
 
-                , "TEST_PLAYERS"          :  []
-                , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+                    , "SAVE_IMAGE_TYPE" : "png"
+                    , "SAVE_IMAGE_DPI"  : 300
 
-                , "SAVE_GAME_AS_CSV"      : False
-                , "SAVE_RAW_GAME_AS_CSV"  : False
+                    , "OVERLAP_GROUP"   : [2]
 
-                , "SAVE_SUBS_FILE"        : False
+                    , "SHOW_PLOT"       : True
+                    , "PLOT_WAIT"       : -1
+                
+                    , "PARTS"           : [ "stints", "score", "margin", "periodscores", "boxscore"]
 
-                , "PLAY_TIME_CHECK_ONLY"  : False
-                , "PLAY_TIME_CHECK_SHOW"  : "OFF"
+                    , "DBG"             : False
+                    , "TEST_PLAYERS"    : []
+                    
+                    , "TEAM"            : "OKC"
+                    , "START_DAY"       : "2024-04-29" 
+                    , "STOP_DAY"        : "2024-04-29"
+                    , "SOURCE"          : "WEB:"
+                
 
-                , "example_PLAY_TIME_CHECK_SHOW"  : "ON,OFF,FAIL_ONLY"
+                    , "tSOURCE"     : "TESTPARTSCALE:"  
+                    , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
+                    , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
+                    , "dSOURCE"     : "CLAUDE:claude_test"
+                    , "eSOURCE"     : "GEMINI:gemini_test"
+                    , "fSOURCE"     : "TOKENS:gemini_test"
+                    , "nSOURCE"     : "nba.sqlite"
 
-                , "EXAMPLE_SHOW_OVERLAP"  : "OKC"
-                , "SHOW_OVERLAP"          : "NONE"
-                , "OVERLAP_GROUP"         : [2]
-            
-                , "SAVE_GAME_DIR"     : "llm/llm_training_data/csv"
-            
-                , "SAVE_PLOT_IMAGE"  : False
-                , "SAVE_PLOT_DIR"     : "llm/llm_training_data/img"
-                , "SAVE_PLOT_TYPE"    : "png"
-                , "SAVE_PLOT_DPI"     : 300
-
-                , "SHOW_PLOT"         : True
-                , "SHOW_PAUSE"        : -1
-
-                , "START_DAY"            : "2024-04-29" 
-                , "STOP_DAY"             : "2024-04-29"
-                , "TEAM"                 : "OKC"
-            
-                , "FILE"        : "llm/llm_training_data/csv"
-
-                , "SOURCE"      : "WEB:"
-                , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
-                , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
-            
-                , "dSOURCE"     : "CLAUDE:claude_test"
-                , "eSOURCE"     : "GEMINI:gemini_test"
-                , "fSOURCE"     : "TOKENS:gemini_test"
-                , "nSOURCE"     : "nba.sqlite"
-        }   
+                    , "example_PARTS"   : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
+                    , "example_SHOW"    : ["plot","csv","raw","img","stints", "overlaps","logs"]
+                    , "AI"              : ["GEMINI", "CLAUDE"]
+                    , "TRIM"            : False       
+                    , "CONSOLE"         : True
+                    , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+}
 
     def update_colors(self,fn):
         try:    
@@ -93,7 +85,7 @@ class default :
             logger.error(f'Failed to load {fn} as colors json file.')
             
     def update(self,fn):
-        try:    
+        try:
             with open(fn, "r") as f:
                 newstuff = json.load(f)
                 self.stuff = {**self.stuff,**newstuff}

@@ -125,11 +125,12 @@ def save_files(who,directory,the_files):
 def save_file(who, game_data, where, data):
     
     DBG = defaults.get('DBG')
-
+    SAVE_PRE = defaults.get('SAVE_PREFIX')
+    
     cwd = os.path.join(os.getcwd(), defaults.get(where))
     
     dstr = 'DBG_' if DBG else ''
-    fn = f'{dstr}{who}{fn_root(game_data)}.csv'
+    fn = f'{SAVE_PRE}{dstr}{who}{fn_root(game_data)}.csv'
     
     fn = os.path.join(cwd, fn) 
     

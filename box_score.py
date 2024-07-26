@@ -205,12 +205,21 @@ class box_score:
         prev = None
         for i, _evnt in _evnts.iterrows():
 
+            ours = 'Jalen Williams'
+            if _evnt.player1_name == ours or  _evnt.player2_name == ours:
+
+                print('1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
+                pass
+
             if type(prev) != type(None):
                 if prev.visitordescription == _evnt.visitordescription:
                     if prev.homedescription == _evnt.homedescription:
                         if prev.neutraldescription == _evnt.neutraldescription:
-                            # print('duplicat event at ', _evnt.period,_evnt.pctimestring)
-                            continue
+                            if prev.player1_name == _evnt.player1_name:
+                                if prev.player2_name == _evnt.player2_name:
+                                    print('duplicate event at ', _evnt.period,_evnt.pctimestring)
+                                    print('DUP 1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
+                                    continue
 
             p1 = _evnt.player1_name
             p2 = _evnt.player2_name
@@ -224,7 +233,6 @@ class box_score:
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
             
             is3 = '3PT' in event_description
-            
             match _evnt.eventmsgtype:
 
                 case 13: self.EOP_update(_evnt.sec)
@@ -252,6 +260,11 @@ class box_score:
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
                 case 8:
+                    ours = 'Jalen Williams'
+                    if _evnt.period == 3 and _evnt.pctimestring == '12:00':
+                        print(p1,p2,'JJ says stop')
+                    if p1 == ours : print('SUB.OUT',p1,_evnt.period,_evnt.pctimestring)
+                    if p2 == ours: print('SUB.IN',p2,_evnt.period,_evnt.pctimestring)
                     self.update(p1, 'SUB.OUT', 1, when=_evnt.sec)
                     self.update(p2, 'SUB.IN', 1, when=_evnt.sec)
                     
@@ -297,6 +310,7 @@ class box_score:
         itemlist = self._shown_items if not all else self._bsItems
         rows = players if players != [] else list(self._boxScore.keys())
         columns = itemlist
+
         data = []
         for key in rows:
             data2 = []

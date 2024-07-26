@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python NO args",
+            "name": "NO ARGS",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
@@ -13,7 +13,7 @@
             "args": ""
         },
         {
-            "name": "Python WITH args",
+            "name": "WITH wt.args",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
@@ -24,12 +24,55 @@
             ]
         },
         {
-            "name": "Python tests/bads_test",
+            "name": "BADS",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args": [ "-bs", "tests/bads_test/get_all.txt"]
+            "args": [ "-bs", "tests/bads/bads.txt"]
+        },
+        {
+            "name": "WEB_TEST",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2023-01-30",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "tools", "stints",
+                "-f", "tests/bads/test_data/web",
+                "-json", "tests/bads/web_save.json"
+
+            ]
+        },
+        {
+            "name": "CSV_OLD_TEST",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/bads/test_data/web/_W_DBG_OKCvGSW20230130.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/bads/csv_save.json"
+            ]
+        },
+        {
+            "name": "CSV_NEW_TEST",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/bads/test_data/web/_W_OKCvGSW20230130.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/bads/csv_save.json"
+            ]
         }
     ]
 }

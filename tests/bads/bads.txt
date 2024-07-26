@@ -1,4 +1,16 @@
-#!#exit
+#!# Line 1
+-s csv -f tests/bads/test_data -m plot box -p boxscore stints -w 1 -f tests/bads/test_data
+#!#exit this is an exit
+-s web -t OKC -d 2023-01-30 -m plot csv -p stints -f tests/bads/test_data -w 2
+
+
+-s web -t OKC -d 2023-01-30 -m plot csv -p stints -w 2 -f tests/bads/test_data
+#!# Line 2
+-s csv -f tests/bads/test_data -m plot  -w 2
+-s web -t OKC -d 2023-01-30 -m plot  -p stints -w 2 
+#!# -json tests/bads/debug_on.json
+
+SHOW RESULTS OF SAVED DATA                               #!#
 -s web -t OKC -d 2024-04-03 -m plot overlaps -p stints -w 2 -file tests/bads_test/test_data
 -s web -t OKC -d 2024-02-04 -m plot -p all -w 2 -file tests/bads_test/test_data
 -s web -t OKC -d 2023-11-06 -m plot -p all -w 2 -file tests/bads_test/test_data

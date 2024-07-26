@@ -198,7 +198,7 @@ def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores)
     def jj(s,pm_index,m): return int(s.split(',')[pm_index]) * m
     
     zz = sorted(ols[1:], key=lambda x: jj(x,pm_index,m))
-    save_file(fn_pre, game_data, 'SAVE_GAME_DIR', [ols[0]] + zz)
+    save_file(fn_pre, game_data, 'SAVE_DIR', [ols[0]] + zz)
 
 def stint_to_str(stint):
     start_time = f'{sec_to_period_time(stint[1]).replace(' ',',')}'
@@ -263,7 +263,6 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
 
             except Exception as e:
                 logger.error(f'OFF/DEF issues {e}')
-
                 logger.error(f'OFF/DEF issues {stop} {start} {len(home_scores)}')
 
             tnk = [deltah,deltaa] 
@@ -299,7 +298,7 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                     
                     s += tmp + oinks_str + '\n'
             else:
-                logger.error(f'stints to csv error. {player} has no stints.')
+                logger.debug(f'stints save, {player} has no stints.')
             
             return s.strip()
 
@@ -307,13 +306,16 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
         players.remove(bx._team_name)
         
         tmp__ = list(map(lambda x:f'{stints_str_array(stints,x,bx)}',players))
+  
+        def dnn(x): return(x[0:15])
+        f = sorted(tmp__,key = lambda x: dnn(x))
         
-        return '\n'.join(tmp__)
+        return '\n'.join(f)
 
-    # L1 = column names, L2 = 
+    # L1 = column names, L2 = ??
     L1, L2 = bx1.stint_columns()
     
-    # plus/minus is positive for home negative for away team
+    # plus/minus is positiv for home negative for away team
     m = 1 if bx1.is_home_team() else -1
     pm_index = L1.split(',').index(PM)
     
@@ -322,7 +324,6 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
         except: return 0 
     
     a = stints_for_team(stints1, bx1, L2)
-    print('AOK')
     b = stints_for_team(stints2, bx2, L2)
 
     aa = sorted(a.split('\n'), key=lambda x: pm_sort_index(x, pm_index, m))
@@ -331,6 +332,6 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
     data = L1 + '\n' + a + '\n\n\n' + b
     # data = L1 + '\n' + '\n'.join(aa) + '\n\n\n' + '\n'.join(bb)
      
-    save_file('STINTS_', game_data, 'SAVE_GAME_DIR', data)
+    save_file('STINTS_', game_data, 'SAVE_DIR', data)
     
     return True

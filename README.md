@@ -2,6 +2,9 @@
 
 Please Read me
 
+July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK
+July-29  -- PBP decode failues CSV 02/04,04/21,12/14
+
 July 20 -- a word about the stints and overlap data sets. see below ...
 July 19 -- continued work on STINT,OVERLAY,BOX,PBP in CSV format
 July 17 -- added BOX,STINT,OVERLAY as CSV file output

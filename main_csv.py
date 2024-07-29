@@ -1,17 +1,20 @@
+import os
 import pandas as pd
-
-from play_by_play import generatePBP
-from plots import plot3, defaults, quitGame
-
 from loguru import logger
+
+from plots import plot3
+from play_by_play import generatePBP
+from utils import time_sorted
 
 def main(file_dir_name):
 
-    import os
-
     if os.path.isdir(file_dir_name):
-        cwd = os.path.join(os.getcwd(), file_dir_name)
-        files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
+        try:
+            cwd = os.path.join(os.getcwd(), file_dir_name)
+            files = time_sorted(cwd,file_dir_name)
+            # files = [os.path.join(cwd, f) for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
+        except:
+            logger.error('sorted file error')
     else:
         files = [file_dir_name]
         
@@ -20,7 +23,7 @@ def main(file_dir_name):
         
     else:     
       for filename in files:
-        
+        # print(filename)
         name = os.path.basename(filename)
         
         if '##' in filename:
@@ -67,7 +70,10 @@ def main(file_dir_name):
             'TURNOVER'			: [5,2], 
             'STEAL.TURNOVER'    : [5,1,2],
             'FOUL'				: [6,1], 
+            'VIOLATION'         : [7,1,2], 
             'SUB'		        : [8,1,2],  # id#, player[1,2,3] 
+            'JUMPBALL'          : [10,1,2,3],
+            'EJECTION'          : [11,1,2,3],
             'STARTOFPERIOD'		: [12,1,1], 
             'ENDOFPERIOD'       : [13,1,1],
             'TIMEOUT'			: [None], 
@@ -88,13 +94,18 @@ def main(file_dir_name):
         prev = None
         rprev = None
         for i, r in df.iterrows():
+            
             if type(rprev) != type(None):
                 if r.equals(rprev):
                     logger.error(f'{os.path.basename(filename)} DUP {r.period} {r.pctimestring} {r.neutraldescription}')
                     continue
                 
             rprev = r
-            if r.eventmsgtype in event_map.keys():
+            
+            if r.eventmsgtype not in event_map.keys():
+                logger.warning(f' unused event {r.eventmsgtype} {r.player1_name} {r.player3_name} {r.player3_name}')
+            else:
+                        
                 id = event_map[r.eventmsgtype]
                 
                 if id[0] != None:
@@ -138,11 +149,14 @@ def main(file_dir_name):
         away_scr= None
 
         for i,r in play_by_play.iterrows():
+            
             if r.score == '0' or r.score == '':
                 scr = ['0','0']
             else:
                 scr = r.score.split('-')
+                
             home_scr = int(scr[1])
+            
             if home_scr != 0 and home == None:  
                 home = r.player1_team_abbreviation 
                 
@@ -160,6 +174,7 @@ def main(file_dir_name):
         if away_scr == None: away_scr = '0'
          
         ha_scores = play_by_play.tail(1).score.tolist()[0].split('-')
+        
         if len(ha_scores) != 2:
             ha_scores = ['0','0']
             
@@ -193,7 +208,7 @@ def main(file_dir_name):
         pds_game_data = pd.Series(game_data)
         
         our_playerstints_and_boxscore      = generatePBP(pds_game_data, home)
-        opponent_playerstints_and_boxscore = generatePBP(pds_game_data, home, OPPONENT=True)
+        opponent_playerstints_and_boxscore = generatePBP(pds_game_data, home, get_opponent_data=True)
 
         plot3(home, pds_game_data,
             our_playerstints_and_boxscore,

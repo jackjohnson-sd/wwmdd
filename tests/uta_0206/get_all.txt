@@ -1,0 +1,2 @@
+-s web -t OKC -d 2024-02-06 -m plot -json tests/uta_0206/web.json 
+-s csv -m plot -json tests/uta_0206/csv.json

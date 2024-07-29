@@ -1,0 +1,2 @@
+-s web -t OKC -d 2023-04-03 -m plot csv stints img -p all -f tests/bos_0403/test_data 
+-s csv -m plot img -p all -f tests/bos_0403/test_data -json tests/bos_0403/debug_on.json

@@ -11,8 +11,13 @@ select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis'
 select * where a10 == 'Kenrich Williams' || a8 == 'Kenrich Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Jalen Williams' || a8 == 'Jalen Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Andrew Wiggins' || a8 == 'Andrew Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Chet Holmgren' || a8 == 'Chet Holmgren' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Collin Sexton' || a8 == 'Collin Sexton' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'P.J. Washington' || a8 == 'P.J. Washington' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'CJ McCollum' || a8 == 'CJ McCollum' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+
 
 
 """"""""""  command line args tutorial """""""""" taken from readme.md """""""""

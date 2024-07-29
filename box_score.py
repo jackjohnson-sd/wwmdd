@@ -3,6 +3,8 @@ import re
 
 from loguru import logger
 from utils import pms
+from utils import save_file
+
 PM = '\xB1'
 
 class box_score:
@@ -18,7 +20,7 @@ class box_score:
         'FG.MI', 'FG.MA', 
         'FT.MI', 'FT.MA',
         'SUB.IN', 'SUB.OUT', 'EOQ',
-        'secs', 'ORS','TF'
+        'secs', 'ORS','TF', 'JB', 'VO','EJ','FD'
     ]
     
     _bsItems = _shown_items + _not_shown_items
@@ -184,8 +186,13 @@ class box_score:
     def update(self,_player,_item,val, when=None):
         if _player != None:
             if _player in self.get_players():
+                try : 
+                    when = int(when)
+                except:
+                    when = 0
+                    
                 self._boxScore[_player][_item] += val
-                self._boxScore[_player]['OINK'].extend([[_item,val,when]])
+                self._boxScore[_player]['OINK'].extend([[_item,val,int(when)]])
 
     def set_item(self, _player, _item, val):
         if _player != None:
@@ -204,14 +211,8 @@ class box_score:
 
         prev = None
         eprev = None
-        
+                
         for i, _evnt in _evnts.iterrows():
-
-            # ours = 'Jalen Williams'
-            # if _evnt.player1_name == ours or  _evnt.player2_name == ours:
-
-            #     print('1',_evnt.player1_name,'2',_evnt.player2_name,_evnt.period,_evnt.pctimestring,_evnt.eventmsgtype,'JJ says stop')
-            #     pass
 
             if type(_evnt) != type(None):
                 if _evnt.equals(eprev):
@@ -219,15 +220,6 @@ class box_score:
                         
             eprev = _evnt
              
-            if type(prev) != type(None):
-                if prev.visitordescription == _evnt.visitordescription:
-                    if prev.homedescription == _evnt.homedescription:
-                        if prev.neutraldescription == _evnt.neutraldescription:
-                            if prev.player1_name == _evnt.player1_name:
-                                if prev.player2_name == _evnt.player2_name:
-                                    logger.error(f'DUP 1 {_evnt.player1_name} 2 {_evnt.player2_name}  {_evnt.period},{_evnt.pctimestring},{_evnt.eventmsgtype}')
-                                    continue
-
             p1 = _evnt.player1_name
             p2 = _evnt.player2_name
             p3 = _evnt.player3_name
@@ -236,10 +228,10 @@ class box_score:
             p2 = p2 if p2 != '' else None
             p3 = p3 if p3 != '' else None
 
-            prev = _evnt
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
             
             is3 = '3PT' in event_description
+            
             match _evnt.eventmsgtype:
 
                 case 13: self.EOP_update(_evnt.sec)
@@ -290,8 +282,8 @@ class box_score:
                             # logger.error(f'Off Rebound description {event_description}')
                         
 
-                        self.update(p1, 'REB', 1, when=_evnt.sec)
-
+                    self.update(p1, 'REB', 1, when=_evnt.sec)
+          
                 case 5:  # steal
                     self.update(p1, 'TO', 1, when=_evnt.sec)
                     self.update(p2, 'STL', 1, when=_evnt.sec)
@@ -307,6 +299,8 @@ class box_score:
                     
                     foul_type = 'TF' if 'T.FOUL' in ttm else 'PF'
                     self.update(p1, foul_type, 1, when=_evnt.sec)
+                    self.update(p2, 'FD', 1, when=_evnt.sec)
+
                     # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
                 
     def add_plus_minus(self, player, start, end):
@@ -378,3 +372,28 @@ class box_score:
                 
         # if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
         return str(self._max_by_items[item]) == str(value)
+
+def save_box_score(box1,box2,game_data):
+    
+    rows, columns, data = box1.get_bs_data(all=True)
+
+    s = f'date,player,team,{','.join(columns)}\n'  
+    lines = [s]         
+    
+    # don't include team name in sort
+    sorted_rows = sorted(rows[0:-1]) + [rows[-1]]
+    for player in sorted_rows:
+        i = rows.index(player)
+        d = data[i]
+        a = f'{game_data.game_date},{rows[i]},{box1._team_name},{','.join(d)}\n'
+        lines.extend(a)
+
+    rows, columns, data = box2.get_bs_data(all=True)
+    sorted_rows = sorted(rows[0:-1]) + [rows[-1]]
+    for player in sorted_rows:
+        i = rows.index(player)
+        d = data[i]
+        a = f'{game_data.game_date},{rows[i]},{box1._team_name},{','.join(d)}\n'
+        lines.extend(a)
+        
+    save_file('BOX_',game_data,'SAVE_DIR',lines)

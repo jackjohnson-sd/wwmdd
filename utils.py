@@ -5,6 +5,15 @@ from loguru import logger
 from settings import defaults
 
 
+import os
+
+def time_sorted(cwd,dirpath):
+    a = [s for s in os.listdir(dirpath)
+         if os.path.isfile(os.path.join(dirpath, s))]
+    a.sort(key=lambda s: os.path.getmtime(os.path.join(dirpath, s)))
+    a = list(map(lambda x:os.path.join(cwd,x),a))
+    return a
+
 def period(sec) : return int(sec / 720) + 1
 
 def period_time_to_sec(period,mmss): 

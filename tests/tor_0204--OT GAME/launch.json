@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NO ARGS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ""
+        },
+        {
+            "name": "BS_TOR_0204",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-bs", "tests/tor_0204/get_all.txt"
+            ]
+        },
+        {
+            "name": "WEB_TOR_0204",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2024-02-04",
+                "-json", "tests/tor_0204/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_TOR_0204",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/tor_0204/test_data/web/_W_OKCvTOR20240204.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/tor_0204/csv.json"
+            ]
+        }
+    ]
+}

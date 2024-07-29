@@ -31,7 +31,7 @@ def main():
         game_data.play_by_play = play_by_play  
         
         our_playerstints_and_boxscore      = generatePBP(game_data, _TEAM)
-        opponent_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT=True)
+        opponent_playerstints_and_boxscore = generatePBP(game_data, _TEAM, get_opponent_data=True)
 
         plot3(_TEAM, game_data,
             our_playerstints_and_boxscore,

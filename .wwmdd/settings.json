@@ -52,4 +52,6 @@
     , "TRIM"            : false       
     , "CONSOLE"         : true
     , "example_TEST_PLAYERS"  :  ["Josh Giddey"]
+    , "example_LOG_COLORIZE"    : ["sys.stdout"]
+
 }

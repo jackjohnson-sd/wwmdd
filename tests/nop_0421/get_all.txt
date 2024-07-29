@@ -1,0 +1,2 @@
+-s web -t OKC -d 2023-11-06 -m plot -json tests/nop_0421/web.json 
+-s csv -m plot -json tests/nop_0421/csv.json

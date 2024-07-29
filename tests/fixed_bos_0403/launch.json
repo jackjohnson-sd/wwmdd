@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NO ARGS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ""
+        },
+        {
+            "name": "WITH wt.args",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-bs", "tests/world_tour/wt_args.txt",
+                "-log", "-colors", "tests/world_tour/wt_color_white.json"
+            ]
+        },
+        {
+            "name": "BADS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [ "-bs", "tests/bads/bads.txt"]
+        },
+        {
+            "name": "WEB_0403",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2024-04-03",
+                "-json", "tests/bos_0403/web_save.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_0403",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/bos_0403/test_data/web/_W_BOSvOKC20240403.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/bos_0403/csv_save.json"
+            ]
+        }
+    ]
+}

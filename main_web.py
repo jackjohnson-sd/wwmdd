@@ -74,8 +74,8 @@ def main(team=None,start=None,stop=None):
         
         if game_data.play_by_play.shape[0] != 0:
             
-            our_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = False)
-            opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, OPPONENT = True)
+            our_playerstints_and_boxscore = generatePBP(game_data, _TEAM, get_opponent_data = False)
+            opp_playerstints_and_boxscore = generatePBP(game_data, _TEAM, get_opponent_data = True)
 
             plot3(_TEAM, game_data,
                 our_playerstints_and_boxscore, 

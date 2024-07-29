@@ -1,0 +1,19 @@
+{
+      "SAVE_DIR"      : "tests/bos_0403/test_data/web"
+    , "SAVE_PREFIX"   : "_W_"
+
+    , "SAVE_GAME"       : true
+    , "SAVE_RAW"        : true
+    , "SAVE_STINTS"     : true
+    , "SAVE_OVERLAP"    : false
+    , "SAVE_BOX_SCORE"  : true
+    , "SAVE_IMAGE"      : true
+
+    , "SAVE_SUBS_FILE"  : false
+
+    , "DBG"             : false
+
+
+    , "PLOT_WAIT"       : -1
+}
+

@@ -12,42 +12,41 @@
             "console": "integratedTerminal",
             "args": ""
         },
-
         {
-            "name": "BS_0421",
+            "name": "BS_NYK_0519",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/nok_0421/get_all.txt"
+                "-bs", "tests/nyk_0519/get_all.txt"
             ]
         },
         {
-            "name": "WEB_0421",
+            "name": "WEB_NYK_0519",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "OKC", "-d", "2024-04-21",
-                "-json", "tests/nok_0421/web.json",
+                "-t", "NYK", "-d", "2024-05-19",
+                "-json", "tests/nyk_0519/web.json",
                 "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
             ]
         },
         {
-            "name": "CSV_0421",
+            "name": "CSV_NYK_0519",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/nok_0421/test_data/web/_W_OKCvNOK20240421.csv",
+                "-f", "tests/nyk_0519/test_data/web/_W_NYKvIND20240519.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/nok_0421/csv.json"
+                "-json", "tests/nyk_0519/csv.json"
             ]
         }
     ]

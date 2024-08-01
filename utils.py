@@ -153,3 +153,14 @@ def save_file(who, game_data, where, data):
     else: fl_s.write(data)
     
     fl_s.close()
+
+def save_subs(sub_events,game):
+    if defaults.get('SAVE_SUBS_FILE'):
+        f = ',eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation\n,' + \
+            ('\n,').join(sub_events)  
+
+        ma = game.matchup_away.split(' @ ')
+        gd = game.game_date.split('-')
+        fn = f'SUBS_{ma[0]}v{ma[1]}{gd[0]}{gd[1]}{gd[2]}.csv'
+
+        save_files(fn,'_save_and_ignore',[[fn,f]])

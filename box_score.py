@@ -52,7 +52,7 @@ class box_score:
         L1 = 'PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
         L2 = ['OFF','DEF',PM] + L2a + L2b 
         
-        for n in ['MIN','3PT','FG','FT','secs']:  L2.remove(n)
+        for n in ['MIN','3PT','FG','FT','SUB.IN','SUB.OUT','ORS']:  L2.remove(n)
         
         return L1 + (',').join(L2), L2
 

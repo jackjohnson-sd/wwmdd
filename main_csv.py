@@ -36,6 +36,12 @@ def main(file_dir_name):
         
         if 'STINTS_' in filename: continue
         if 'OVERLAP' in filename: continue       
+        if 'BOX_' in filename: continue       
+        if 'RAW_' in filename: continue       
+        
+        if len(name) not in [19,22]:
+            logger.error(f'file name {len(name)} {name} wrong length. Skipped.')
+            continue
         
         if not (os.path.isfile(filename)):
             logger.error(f'file {filename} fails isfile . Skipped.')

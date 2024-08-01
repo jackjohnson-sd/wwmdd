@@ -44,7 +44,7 @@ def getInsNOutsByPlayer(box):
                 dsec = oink[2]
                 
                 try:
-                    period = int(dsec/720) + 1
+                    aperiod = int(dsec/720) + 1
                 except:
                     logger.error(f'period error {oink}')
                     
@@ -150,7 +150,7 @@ def getInsNOutsByPlayer(box):
                                 # player has a event, treat as enter at change
                                 # we're lost if already 5 guys in
                         
-                                _sub_events_by_player[player].append(['IN', (period-1) * 720,'First non SUB in' ])
+                                _sub_events_by_player[player].append(['IN', dsec  - dsec % 720,'First non SUB in' ])
                                 in_the_game = True
                                                                 
                             else:
@@ -172,31 +172,26 @@ def getInsNOutsByPlayer(box):
                                         # kicked out prior period break, .pop returns us to IN
                                         _sub_events_by_player[player].pop()
                                         in_the_game = True
+
                                     else:
                                         # out not from last period break
-                                        if last_event[1] % 720 == 0:
-                                            logger.warning(f'last event from 2 period ago {player} {oink}')
-                                            
-                                            # out not from any prior period break
-                                            # say IN now
-                                            # _sub_event_for_player.append(['IN', d.sec,'NON SUB while NOT in game']) 
-                                        # else:            
-                                            # out from more than one prior period ago
-                                            # Non SUB event not in game,
-                                            # set to in at start of cur
-                                            
-                                        # sub after rebound BOS 0403
-
+                                        # if last_event[1] % 720 == 0:
+                                        #     logger.warning(f'last event from 2 period ago {player} {oink}')
+                                                                                        
                                         nosub = True
                                         anchor_oink = oinks[oi_][2]
+                                        
                                         while anchor_oink == oinks[oi_ + 1][2]:
+                                        
                                             if oinks[oi_ + 1][0] == 'SUB.IN':
                                                 _sub_events_by_player[player].append(['IN', dsec,f'NON SUB. SUB follows at {pms(dsec)})']) 
                                                 nosub = False
                                                 break
+                                            
                                             elif oinks[oi_ + 1][0] == 'SUB.OUT':
-                                                logger.warning(f'{player} trailing out {oinks[oi_ + 1]}')
+                                                logger.debug(f'{player} trailing out {oinks[oi_ + 1]}')
                                                 pass
+                                           
                                             oi_ += 1
                                             if oi_ > len(oinks): break
                                             
@@ -242,65 +237,23 @@ def make_seconds_home_away_scores(row):
     
 def stint_sort_key(stnt): return stnt[1] if stnt[4] == 'I' else stnt[2]
 
-def clean_stints(game_stints):
-        
-    for player in game_stints:
-        
-        stints = game_stints[player]
-        
-        starts = sorted(stints, key=lambda stint: stint[1]) 
-        starts = list(map(lambda x:x +['I'],starts))
-        
-        ends   = sorted(stints, key=lambda stint: stint[2]) 
-        ends   = list(map(lambda x:x +['O'],ends))
-        
-        ins_and_outs = starts + ends
-        
-        ins_and_outs = sorted(ins_and_outs, key=lambda stint: stint_sort_key(stint)) 
-        
-        kills = []
-        for i,(s1,s2) in enumerate(zip(ins_and_outs,ins_and_outs[1:])):
-            if s1[4] == s2[4]:  # 2 I's or O's in a row
-                if s1[2] == s2[1]: # our end is next guys start
-                    # set end on the first to end of the seconds
-                    # then kill the last
-                    ins_and_outs[i][2] = ins_and_outs[i+1][2]
-                    ins_and_outs[i][0] += ins_and_outs[i+1][0]
-                    # print('cleaner killed',player,s1,s2)
-                    kills.extend([i+1])
-                else:
-                    logger.error(f'{player} stop/start mis-match.  {i}  {s1}')
-                    logger.error(f'{player}                        {i+1}  {s2}')
-                
-        if len(kills) > 0:        
-            starts_not_killed = [v for i,v in enumerate(ins_and_outs) if i not in frozenset(kills)] 
-            game_stints[player] = starts_not_killed
-        else:
-            game_stints[player] = ins_and_outs
-
-def make_sub_events(game_stints):
+def xxx_make_sub_events(game_stints):
     
     sub_events = []
 
     for player in game_stints.keys():
         
         stints = game_stints[player]
+        p1_ln = player.split(' ')[1]
         
-        for this_in_out in stints:
-        
-            this_in_out += [player]
-            player_name = this_in_out[5]
-            team_name = this_in_out[3]
-        
-            p1_ln = player_name.split(' ')[1]
-            if this_in_out[4] == 'I':
-                x1 = sec_to_period_time(this_in_out[1]).replace(' ',',')
-                s1 = f'SUB,{x1},SUB: {p1_ln} Starts playing.,,,,,{player_name},{team_name},,'
-            else:
-                # x2 = sec_to_period_time(this_in_out[2]).replace(' ',',')
-                x2 = pms(this_in_out[2])
-                # home of the 5,12:00 problem
-                s1 = f'SUB,{x2},SUB: {p1_ln} Stops playing.,,,{player_name},{team_name},,,,'
+        for stint in stints:    
+               
+            x1 = sec_to_period_time(stint[1]).replace(' ',',')
+            s1 = f'SUB,{x1},SUB: {p1_ln} Starts playing.,,,,,{player},{stint[3]},,'
+            
+            # home of the 5,12:00 problem
+            x2 = pms(stint[2])
+            s1 = f'SUB,{x2},SUB: {p1_ln} Stops playing.,,,{player},{stint[3]},,,,'
   
             sub_events.extend([s1])
             
@@ -308,17 +261,51 @@ def make_sub_events(game_stints):
     
 def sub_events_from_stints(game, game_stints):
     
-    # game_stints has in/outs for all players
-    # go through each stints for player 
-    # reduce consecutive ins or outs to one by setting
-    # the end of the first to the end of the second
-    # then removing the second
+    # game_stints has duratio,start,stop for all players
     # return sorted list of SUB events 
-    
-    clean_stints(game_stints)
-    
-    sub_events = make_sub_events(game_stints)
+        
+    sub_events = []
+    for player,stints in game_stints.items():
+        
+        stints_count = len(stints)
+        if stints_count > 1:
+            kills = []    
+            try :    
             
+                for i in range(stints_count - 1,0,-1):
+                    s1 = stints[i-1]
+                    s2 = stints[i]
+                    s1_stop = s1[2]
+                    s2_start = s2[1]
+                    if s1_stop == s2_start:
+                        # extend s1 
+                        s1[2] = s2[2]  
+                        s1[0] += s2[0]        
+                        del stints[i]
+                        # logger.warning(f'{player} consolidating adjacent stints {i+1} ')
+            except:
+                logger.error(f'{player} stints bad news') 
+                       
+            for k in kills: 
+                del stints[k]
+        
+    for player in game_stints.keys():
+        
+        stints = game_stints[player]
+        p1_ln = player.split(' ')[1]
+        
+        for stint in stints:    
+               
+            x1 = sec_to_period_time(stint[1]).replace(' ',',')
+            s1 = f'SUB,{x1},SUB: {p1_ln} Starts playing.,,,,,{player},{stint[3]},,'
+            
+            # home of the 5,12:00 problem
+            x2 = pms(stint[2])
+            s2 = f'SUB,{x2},SUB: {p1_ln} Stops playing.,,,{player},{stint[3]},,,,'
+  
+            sub_events.extend([s1])
+            sub_events.extend([s2])
+                    
     def sub_event_to_sec(sub):
         s = sub.split(',')
         return period_time_to_sec(s[1],s[2])
@@ -542,55 +529,15 @@ def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
 
         # happens in csv read where we have a team rebound with no players
         if '' in playersInGame: playersInGame.remove('')
-        
-        # if get_opponent_data :
-        #     if team_abbreviation != game_data.team_abbreviation_home:
-        #         team_abbreviation = game_data.team_abbreviation_home
-        #     else:
-        #         team_abbreviation = game_data.team_abbreviation_away
-                        
+                                
         # stuff box score with events from play by play
-        boxSc = box_score({})
-        boxSc.stuff_bs(pbp, playersInGame)
+        box_ = box_score({})
+        box_.stuff_bs(pbp, playersInGame)
         
         # get player enter and exit times from box score
-        InsNOuts, start_time = getInsNOutsByPlayer(boxSc)  
+        InsNOuts, start_time = getInsNOutsByPlayer(box_)  
         
         game_data.start_time = start_time 
-         
-        """
-        InsNOutsOLD, start_timeOLD = getInsNOutsByPlayer22(pbp,playersInGame)  # collect timespans played by this player
-
-        for i,pname in enumerate(InsNOuts.keys()):
-
-            try:
-                new = InsNOuts[pname]
-                old = InsNOutsOLD[pname]
-            except:
-                continue
-            
-            if len(old) != len(new):
-                print(pname,f'old {len(old)}, new {len(new)} xxxxxxxx=====')
-                    
-                for k,new_in in enumerate(new):
-                    try :
-                        if old[k][0:2] != new_in[0:2]:
-                            print(pname,k)
-                            print(f'new              old')
-                            for kk,nnew_in in enumerate(new):
-                                print(f'{nnew_in[0]:5} {pms(nnew_in[1]):5}     {old[kk][0]:5} {pms(old[kk][1]):5} ')
-                        
-                            break
-                    except: pass
-        if DBG:
-            logger.warning('using old/DBG InsNOuts') 
-            InsNOuts = InsNOutsOLD
-
-        # if player == 'Jaylin Williams':
-        #     for oink in oinks:
-        #         print(f'{oink[0]:<7} {oink[2]:<10} {pms(oink[2])}')
-
-        """
         
     # updates boxscore 'secs' for game for player
         # by summing duration of all stints for player
@@ -626,9 +573,9 @@ def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
                     else:
                         logger.error(f'stint mis-match {player}{start_ts}{stop_ts}')  
                 
-                boxSc.update(player,'secs',int(_total_secs)) 
+                box_.update(player,'secs',int(_total_secs)) 
             
-        return [stints_by_player, dict(boxSc.getBoxScore())]
+        return [stints_by_player, dict(box_.getBoxScore())]
 
     return [{},{}], start_time
 

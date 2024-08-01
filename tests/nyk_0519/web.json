@@ -1,19 +1,20 @@
 {
-      "SAVE_DIR"      : "tests/nop_0421/test_data/web"
+      "SAVE_DIR"      : "tests/nyk_0519/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
     , "SAVE_RAW"        : true
     , "SAVE_STINTS"     : true
-    , "SAVE_OVERLAP"    : false
+    , "SAVE_OVERLAP"    : true
     , "SAVE_BOX_SCORE"  : true
     , "SAVE_IMAGE"      : true
 
     , "SAVE_SUBS_FILE"  : false
 
     , "DBG"             : false
+    , "OVERLAP_GROUP"   : [3,4]
 
 
-    , "PLOT_WAIT"       : 1  
+    , "PLOT_WAIT"       : -1
 }
 

@@ -1,4 +1,5 @@
 import os
+from time import sleep 
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -473,13 +474,13 @@ def plot_stints(axis, _y, play_times, flipper):
         
         for j, x in enumerate(starts):
             start = x
-            axis.scatter(start, _y, marker = 'o', color=STINT_COLOR_IN, s=8.0)
-            axis.scatter(start + widths[j],_y, marker = 'o', color=STINT_COLOR_OUT, s=8.0)
+            axis.scatter(start, _y, marker = 'o', color=STINT_COLOR_IN, s=8.0, zorder=20)
+            axis.scatter(start + widths[j],_y, marker = 'o', color=STINT_COLOR_OUT, s=8.0, zorder=20)
 
             sc = STINT_COLOR      
             if pms[j] > 2: sc = STINT_COLOR_PLUS if flipper else STINT_COLOR_MINUS
             elif pms[j] < -2: sc = STINT_COLOR_MINUS if flipper else STINT_COLOR_PLUS
-            l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc)
+            l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc, zorder=10)
             axis.add_line(l)                
 
 def plot_events(axis2, _y, events):
@@ -770,8 +771,7 @@ def plot_prep(_stintsNbox, game_data, scoreMargins, team = None, opponent = Fals
         except: 
             # when testing with only one team in the data 
             team = 'OKC'
-        
-
+    
     boxscore.set_team_name(team)
     boxscore.set_home_team_name(home_team)
 
@@ -794,9 +794,9 @@ def plot_prep(_stintsNbox, game_data, scoreMargins, team = None, opponent = Fals
     
     players = starters + ben
     
-    playTimesbyPlayer = {}
-    events_by_player = {}
-    current_oreb_count = {}    
+    playTimesbyPlayer   = {}
+    events_by_player    = {}
+    current_oreb_count  = {}    
 
     for player in players:
 
@@ -997,6 +997,8 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
         n = defaults.get('PLOT_WAIT')
         if n == -1: 
+            figure.canvas.flush_events()   # update the plot and take care of window events (like resizing etc.)
+    
             plt.show(block=True)
         else: 
             plt.pause(abs(n)) 

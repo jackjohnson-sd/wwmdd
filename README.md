@@ -1,5 +1,9 @@
 
-
+Kill Period 5 problem for nick
+OKC TOR 0204
+IND NYK 0519
+NKY CHA 1112
+NYK LAC 1106
 Please Read me
 
 July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK

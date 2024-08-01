@@ -1,4 +1,7 @@
 
+./w.sh -s web -t OKC  -d 2023-10-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
+
+
 """ make file exe
 % chmod 755 YourScriptName.sh
 ./YourScriptName.sh  to execuute in directory  ./ means execute in directory
@@ -17,6 +20,10 @@ select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 =
 select * where a10 == 'Collin Sexton' || a8 == 'Collin Sexton' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'P.J. Washington' || a8 == 'P.J. Washington' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'CJ McCollum' || a8 == 'CJ McCollum' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Aaron Wiggins' || a8 == 'Aaron Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Pascal Siakam' || a8 == 'Pascal Siakam' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Simone Fontecchio' || a8 == 'Simone Fontecchio' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 
 
@@ -88,3 +95,5 @@ examples
     ./w.ps1 -c test_colors.json -s csv -f llm/llm_training_data/OKCvGSW20230130.csv -m plot
     -> same as above with terrible colors (BES:IMO, not so bad.)
 
+./w.sh -s web -t OKC -d 2023-10-15 2024-05-30 -m plot csv raw stints overlaps -p all -w 1 
+./w.sh -s csv -f llm/llm_training/data -m plot stints -p all -w 1

@@ -50,8 +50,14 @@ def main(team=None,start=None,stop=None):
 
         games = nba.get_games_game_id(_team_id, _START_DAY, _STOP_DAY)
 
+        prev = None
         for i, game_data in games.iterrows():
-
+            if type(prev) != type(None):
+                if game_data.game_date == prev.game_date:
+                    logger.error(f'2 games for {_TEAM } on {game_data.game_date}')
+                    break 
+            prev = game_data
+                
             _opp = _get_opp_game(game_data, teams)
 
             opp_columns = _opp.keys()

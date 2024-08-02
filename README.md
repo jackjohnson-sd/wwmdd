@@ -1,11 +1,9 @@
 
 Kill Period 5 problem for nick
-OKC TOR 0204
-IND NYK 0519
-NKY CHA 1112
-NYK LAC 1106
-Please Read me
 
+
+Please Read me
+Aug-01   -- only errors for NYK,OKC 23-24 season is OKC 2OT 0204 game with TOR
 July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK
 July-29  -- PBP decode failues CSV 02/04,04/21,12/14
 

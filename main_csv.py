@@ -130,7 +130,7 @@ def main(file_dir_name):
                     if type(prev) != type(None):
                         
                         if prev == a:
-                            logger.error(f'{os.path.basename(filename)} 2DUP {r.period} {r.pctimestring} {r.neutraldescription}')
+                            logger.warning(f'{os.path.basename(filename)} 2DUP {r.period} {r.pctimestring} {r.neutraldescription}')
                             continue
             
                     prev = a

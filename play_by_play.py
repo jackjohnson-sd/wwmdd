@@ -197,8 +197,12 @@ def getInsNOutsByPlayer(box):
                                             
 
                                         if nosub:
-                                            
-                                            _sub_events_by_player[player].append(['IN', dsec - dsec % 720,f'NON SUB - NOT IN at {pms(dsec)})']) 
+                                            # no sub.in following
+                                            # prior was out same time as us
+                                            if last_event[1] == oink[2]: 
+                                                 pass
+                                            else:
+                                                 _sub_events_by_player[player].append(['IN', dsec - dsec % 720,f'NON SUB - NOT IN at {pms(dsec)})']) 
                                                 
                                         in_the_game = True                                    
                                 else:
@@ -237,28 +241,6 @@ def make_seconds_home_away_scores(row):
     
 def stint_sort_key(stnt): return stnt[1] if stnt[4] == 'I' else stnt[2]
 
-def xxx_make_sub_events(game_stints):
-    
-    sub_events = []
-
-    for player in game_stints.keys():
-        
-        stints = game_stints[player]
-        p1_ln = player.split(' ')[1]
-        
-        for stint in stints:    
-               
-            x1 = sec_to_period_time(stint[1]).replace(' ',',')
-            s1 = f'SUB,{x1},SUB: {p1_ln} Starts playing.,,,,,{player},{stint[3]},,'
-            
-            # home of the 5,12:00 problem
-            x2 = pms(stint[2])
-            s1 = f'SUB,{x2},SUB: {p1_ln} Stops playing.,,,{player},{stint[3]},,,,'
-  
-            sub_events.extend([s1])
-            
-    return  sub_events
-    
 def sub_events_from_stints(game, game_stints):
     
     # game_stints has duratio,start,stop for all players

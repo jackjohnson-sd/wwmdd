@@ -23,6 +23,7 @@ select * where a10 == 'CJ McCollum' || a8 == 'CJ McCollum' || a2 == 'STARTOFPERI
 select * where a10 == 'Aaron Wiggins' || a8 == 'Aaron Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Pascal Siakam' || a8 == 'Pascal Siakam' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Simone Fontecchio' || a8 == 'Simone Fontecchio' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Draymond Green' || a8 == 'Draymond Green' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 

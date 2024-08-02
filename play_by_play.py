@@ -58,6 +58,7 @@ def getInsNOutsByPlayer(box):
                 match oink[0]:
                     
                     case  'SUB.IN':
+                        
                         if not in_the_game:
                             _sub_events_by_player[player].append(['IN',oink[2],'SUB in.'])
                             in_the_game = True
@@ -73,8 +74,9 @@ def getInsNOutsByPlayer(box):
                                     # came in at period break for first time, did nothing 
                                     # and left before next period break
 
+                                # at period break? 
                                 if last_event[1] % 720 == 0:  
-                                    # at period break, extend our till now 
+                                    # extend last in until now 
                                     last_event[1] = dsec 
                                 else:
                                     _sub_events_by_player[player].append(['IN',  dsec - dsec % 720, 'Out'])
@@ -82,36 +84,11 @@ def getInsNOutsByPlayer(box):
                                     in_the_game = False
 
                             else:
+                                # got an out, my first event ever! go in at closest period start
+                                # and leave now
                                 _sub_events_by_player[player].append(['IN',  dsec - dsec % 720, 'Out'])
                                 _sub_events_by_player[player].append(['OUT', dsec,'OUT no IN'])
                                 in_the_game = False
-                            """        
-                            else:
-                            if last_event == None:
-                                pmss = sec_to_period_time(oink[2])
-                                _sub_events_by_player[player].append(['IN', (int(pmss[0]) - 1) * 720, 'Enter in'])
-                                _sub_events_by_player[player].append(['OUT', dsec,'Leave via SUB'])
-                                in_the_game = False
-                            else:
-                                is_out = last_event[0] == 'OUT'  
-                                is_period_change_time = last_event[1] == (period-1) * 720
-                                
-                                if is_out and is_period_change_time :
-                                    # set last out to now, so it extends over the period break
-                                    last_event[1] = dsec
-                                    last_event[2] = f'extend after period change, {sec_to_period_time(dsec)}'
-                                else:    
-                                    if is_out:
-                                        pmss = sec_to_period_time(dsec)
-                                        _sub_events_by_player[player].append(['IN', (int(pmss[0]) - 1) * 720, 'Enter in'])
-                                        
-                                    _sub_events_by_player[player].append(['OUT', dsec,'Leave via SUB'])
-                                    in_the_game = False
-                                            
-                                        # pass # for now
-                                        # if player in TEST_PLAYERS:
-                                        #     print(f'{player} {d.sec} Exit when NOT IN the game.')
-                            """
                         else:
                             # we are in the game and subbed out during period, everthing OK
                             _sub_events_by_player[player].append(['OUT', dsec,'SUB out'])                         
@@ -155,16 +132,6 @@ def getInsNOutsByPlayer(box):
                                                                 
                             else:
                                 
-                                """
-                                case 1 prior event out from kicked out at period break
-                                        (i.e. OCCURED at period break times)
-                                        delete the prior event, an out and set us to inTheGame at start 
-                                
-                                case 2 prior event not from kick out 
-                                        (i.e. did NOT OCCUR at period break times)
-                                        this is an error
-                                """
-
                                 if last_event[0] == 'OUT':
 
                                     # ouuted at last period break?

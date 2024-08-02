@@ -48,8 +48,8 @@ def main(file_dir_name):
             continue
         
         df = pd.read_csv(filename, keep_default_na=False)
-        if df.shape[1] != 13:
-            continue
+        
+        if df.shape[1] != 13: continue
             
         try:
             n = os.path.basename(filename)[-12:-4]
@@ -99,6 +99,7 @@ def main(file_dir_name):
         oink = []
         prev = None
         rprev = None
+        
         for i, r in df.iterrows():
             
             if type(rprev) != type(None):
@@ -129,8 +130,9 @@ def main(file_dir_name):
                     
                     if type(prev) != type(None):
                         
+                        # we miss duplicates that's aren't next to each other
                         if prev == a:
-                            logger.warning(f'{os.path.basename(filename)} 2DUP {r.period} {r.pctimestring} {r.neutraldescription}')
+                            logger.warning(f'duplicate record in {os.path.basename(filename)} at {r.period} {r.pctimestring} {r.neutraldescription}')
                             continue
             
                     prev = a

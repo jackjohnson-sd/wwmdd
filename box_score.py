@@ -213,7 +213,7 @@ class box_score:
         eprev = None
                 
         for i, _evnt in _evnts.iterrows():
-
+            
             if type(_evnt) != type(None):
                 if _evnt.equals(eprev):
                     logger.error(f'boxscore stuff dup event {_evnt.game_date}')

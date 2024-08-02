@@ -26,6 +26,30 @@
             ]
         },
         {
+            "name": "BRUCE",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "GSW", "-d", "2024-03-27",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "BRUCE_CSV",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "llm/llm_training_data/ORLvGSW20240327.csv",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
             "name": "WEB_NYK_1014",
             "type": "debugpy",
             "request": "launch",

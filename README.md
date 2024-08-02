@@ -3,6 +3,7 @@ Kill Period 5 problem for nick
 
 
 Please Read me
+Aug-02   -- added GSW web and CSV no failures 
 Aug-01   -- only errors for NYK,OKC 23-24 season is OKC 2OT 0204 game with TOR
 July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK
 July-29  -- PBP decode failues CSV 02/04,04/21,12/14

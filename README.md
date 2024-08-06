@@ -3,6 +3,9 @@ Kill Period 5 problem for nick
 
 
 Please Read me
+Aug-06   -- current 3 errors look the same,
+            OKC 0204 is Scottie Barnes entering at OT2, 3:45 (ish)
+            having NO events in OT1. NBA.com says he played the OT period
 Aug-06   -- OKC 0204,CHI 1211,1108, GSW,DAL,NYK None, 
             OT works in all data files!,
             ** NO OT ** events displayed on graph

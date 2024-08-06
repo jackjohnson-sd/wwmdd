@@ -3,6 +3,10 @@ Kill Period 5 problem for nick
 
 
 Please Read me
+Aug-06   -- OKC 0204,CHI 1211,1108, GSW,DAL,NYK None, 
+            OT works in all data files!,
+            ** NO OT ** events displayed on graph
+Aug-03   -- OKC 0204, NYK NONE, 1211,1108,  ALL OT Games
 Aug-02   -- added GSW web and CSV no failures 
 Aug-01   -- only errors for NYK,OKC 23-24 season is OKC 2OT 0204 game with TOR
 July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK

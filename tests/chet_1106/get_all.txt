@@ -1,2 +1,0 @@
--s web -t OKC -d 2023-11-06 -m plot -json tests/chet_1106/web.json 
--s csv -m plot -json tests/chet_1106/csv.json

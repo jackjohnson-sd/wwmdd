@@ -1,2 +1,0 @@
--s web -t OKC -d 2024-05-19 -m plot -json tests/nyk_0519/web.json 
--s csv -m plot -json tests/nyk_0519/csv.json

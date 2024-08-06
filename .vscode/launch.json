@@ -13,8 +13,185 @@
             "console": "integratedTerminal",
             "args":[]
         },
+  {
+            "name": "WEB_NOP_1101",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2023-11-01",
+                "-json", "tests/nop_1101/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_NOP_1101",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/nop_1101/test_data/web/_W_OKCvNOP20231101.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/nop_1101/csv.json"
+            ]
+        },
+        {
+            "name": "WEB_PHX_230402",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2023-04-02",
+                "-json", "tests/phx_230402/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_PHX_230402",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/phx_230402/test_data/web/_W_OKCvPHX20230402.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/phx_230402/csv.json"
+            ]
+        },
+        {
+            "name": "WEB_DAL_0507",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2024-05-07",
+                "-json", "tests/dal_0507/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_DAL_0507",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/dal_0507/test_data/web/_W_OKCvDAL20240507.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/dal_0507/csv.json"
+            ]
+        },
+        {
+            "name": "WEB_0321",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "CHI", "-d", "2024-03-21",
+                "-json", "tests/chi_0321/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_0321",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/chi_0321/test_data/web/_W_HOUvCHI20240321.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/chi_0321/csv.json"
+            ]
+        },
 
-        
+       {
+            "name": "WEB_0306",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "CHI", "-d", "2024-03-06",
+                "-json", "tests/chi_0306/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_0306",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/chi_0306/test_data/web/_W_UTAvCHI20240306.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/chi_0306/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_1108-OT",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "CHI", "-d", "2023-11-08",
+                "-json", "tests/chi_1108/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_1108",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/chi_1108/test_data/web/CHIvBKN20231108.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/chi_1108/csv.json"
+            ]
+        },
+
+        {
+            "name": "CHI 1101",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "CHI", "-d", "2023-11-01",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+
+
         {
             "name": "BS_NYK_1014",
             "type": "debugpy",

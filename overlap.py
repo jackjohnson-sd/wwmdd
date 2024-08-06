@@ -2,7 +2,7 @@ import itertools
 from loguru import logger
 
 from settings import defaults
-from utils import ms, sec_to_period_time, save_file
+from utils import ms, sec_to_period_time, save_file,pms
 # sec_to_period_time2,intersection,save_file
 
 from box_score import PM
@@ -201,8 +201,8 @@ def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores)
     save_file(fn_pre, game_data, 'SAVE_DIR', [ols[0]] + zz)
 
 def stint_to_str(stint):
-    start_time = f'{sec_to_period_time(stint[1]).replace(' ',',')}'
-    end_time = f'{sec_to_period_time(stint[2]).replace(' ',',')}'
+    start_time = f'{pms(stint[1]).replace(' ',',')}'
+    end_time = f'{pms(stint[2]).replace(' ',',')}'
     duration = f'{ms(int(stint[0]))}'
     s = f'{start_time},{end_time},{duration}'
     s.strip()

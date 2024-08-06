@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NO ARGS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ""
+        },
+        {
+            "name": "BS_DAL_0507",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-bs", "tests/dal_0507/get_all.txt"
+            ]
+        },
+        {
+            "name": "WEB_DAL_0507",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2024-05-07",
+                "-json", "tests/dal_0507/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_DAL_0507",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/dal_0507/test_data/web/_W_OKCvDAL20240507.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/dal_0507/csv.json"
+            ]
+        }
+    ]
+}

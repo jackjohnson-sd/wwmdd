@@ -1,4 +1,12 @@
 
+./w.sh -s web -t OKC  -d 2024-04-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
+./w.sh -s web -t OKC  -d 2023-10-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
+
+./w.sh -s web -t OKC -d 2023-10-15 2024-05-30 -m plot csv raw -p stints  -w 1 
+./w.sh -s csv -f llm/llm_training_data -m plot stints -p stints -w 1
+
+rm llm/llm_training_data/* 
+
 """ make file exe
 % chmod 755 YourScriptName.sh
 ./YourScriptName.sh  to execuute in directory  ./ means execute in directory
@@ -11,8 +19,26 @@ select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis'
 select * where a10 == 'Kenrich Williams' || a8 == 'Kenrich Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Jalen Williams' || a8 == 'Jalen Williams' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Andrew Wiggins' || a8 == 'Andrew Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Chet Holmgren' || a8 == 'Chet Holmgren' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 select * where a10 == 'Kristaps Porzingis' || a8 == 'Kristaps Porzingis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Collin Sexton' || a8 == 'Collin Sexton' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'P.J. Washington' || a8 == 'P.J. Washington' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'CJ McCollum' || a8 == 'CJ McCollum' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Aaron Wiggins' || a8 == 'Aaron Wiggins' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Pascal Siakam' || a8 == 'Pascal Siakam' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Simone Fontecchio' || a8 == 'Simone Fontecchio' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Draymond Green' || a8 == 'Draymond Green' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Torrey Craig' || a8 == 'Torrey Craig' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Jock Landale' || a8 == 'Jock Landale' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Josh Giddey' || a8 == 'Josh Giddey' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Terrence Ross' || a8 == 'Terrence Ross' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Jonas Valanciunas' || a8 == 'Jonas Valanciunas' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Scottie Barns' || a8 == 'Scottie Barns' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+
 
 
 """"""""""  command line args tutorial """""""""" taken from readme.md """""""""
@@ -82,4 +108,3 @@ examples
     sh w.sh -c test_colors.json -s csv -f OKCvGSW20230130.csv -m plot
     ./w.ps1 -c test_colors.json -s csv -f llm/llm_training_data/OKCvGSW20230130.csv -m plot
     -> same as above with terrible colors (BES:IMO, not so bad.)
-

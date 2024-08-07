@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/bads/test_data/web"
+      "SAVE_DIR"      : "tests/nop_1101/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
@@ -9,7 +9,7 @@
     , "SAVE_BOX_SCORE"  : true
     , "SAVE_IMAGE"      : true
 
-    , "SAVE_SUBS_FILE"  : true
+    , "SAVE_SUBS_FILE"  : false
 
     , "DBG"             : false
 

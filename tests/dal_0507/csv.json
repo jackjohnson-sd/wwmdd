@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/bads/test_data/csv"
+      "SAVE_DIR"      : "tests/dal_0507/test_data/csv"
     , "SAVE_PREFIX"   : "_C_"
 
     , "SAVE_GAME"       : false
@@ -7,7 +7,7 @@
     , "SAVE_STINTS"     : true
     , "SAVE_OVERLAP"    : false
     , "SAVE_BOX_SCORE"  : true
-    , "SAVE_IMAGE"      : true
+    , "SAVE_IMAGE"      : false
 
     , "SAVE_SUBS_FILE"  : false
 

@@ -330,7 +330,7 @@ if __name__ == "__main__":
                     elif do_csv:
 
                         settings.defaults.set("SOURCE", 'CSV')
-                        if args.file == None: log.error("-file required")
+                        if args.file == None: logger.error("-file required")
                         
                         if None in [args.file]: continue
                         

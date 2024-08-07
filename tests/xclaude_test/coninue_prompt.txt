@@ -1,0 +1,3 @@
+This looks good.  
+Only provide the play by play, no summary.
+Coninue the hypothetical_play_by_play until the end of the game

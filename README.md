@@ -3,6 +3,14 @@ Kill Period 5 problem for nick
 
 Please Read
 
+Aug 09   -- 10 errors from 1200 games. most seem OT exit issues
+            see .wwmdd/errors.txt
+            stoped getting files twice for ALL type requests 
+            implemented OKCvGSW type teams -> OKC and GSW play in the game
+            summer league does not work.
+            grep and line count examples in snippet_helpers.txt
+            and months.sh
+
 Aug 08   -- ALL as team selector, 3 52/53 errors in 1015 - 1231
 Aug-07   -- LAL 0229, BOS 0110, MIA 0223, 
             POR 0302 0129            

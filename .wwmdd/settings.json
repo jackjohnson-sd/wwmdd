@@ -32,7 +32,7 @@
     , "DBG"             : false
     , "TEST_PLAYERS"    : []
     
-    , "TEAM"            : "OKC"
+    , "TEAM"            : ["OKC"]
     , "START_DAY"       : "2024-04-29" 
     , "STOP_DAY"        : "2024-04-29"
     , "SOURCE"          : "WEB:"

@@ -45,7 +45,7 @@ def main(team=None, start=None, stop=None):
     if start != None: defaults.set('START_DAY',start)
     if stop != None: defaults.set('STOP_DAY',stop)
         
-    _TEAMS       = defaults.get('TEAM')      # OKC
+    _TEAMS      = defaults.get('TEAM')      # OKC
     _START_DAY  = defaults.get('START_DAY') # 2023-01-01
     _STOP_DAY   = defaults.get('STOP_DAY')  # 2023-04-20
 
@@ -59,6 +59,17 @@ def main(team=None, start=None, stop=None):
     games_weve_did = {}
 
     for team in _TEAMS:
+
+        opp_team = None
+        
+        if 'v' in team:
+            opp_team = team.split('v')
+            team = opp_team[0]
+            opp_team = opp_team[1]
+            
+            if opp_team not in NBA_TEAMS:
+                logger.error(f'no opposing team named {team}')
+                continue
 
         if team not in NBA_TEAMS:
             
@@ -78,24 +89,35 @@ def main(team=None, start=None, stop=None):
             prev = None
             for i, game_data in games.iterrows():
                 
-                ts = game_data.matchup.split(' ')
-                ts.sort()
+                # make a key as T1.T2.DATE TI.T2 alpha sorted
+                # so we don't do this twice
+                # team names are sorted so WAS ends up having 0
+                # the sorting is so we can tell how far we've progressed
+                # the key it self keeps uf from getting the game twice when w're doing groups
                 
-                try: ts.remove('vs.') 
+                if opp_team != None:
+                    if opp_team not in game_data.matchup:
+                        continue  
+                
+                ttd = game_data.matchup.split(' ')
+                ttd.sort()
+                
+                try: ttd.remove('vs.') 
                 except: pass
                 
-                try: ts.remove('@') 
+                try: ttd.remove('@')
                 except: pass
                 
-                ts.extend([game_data.game_date])
-                ts = '.'.join(ts)
+                ttd.extend([game_data.game_date])
+                ttd = '.'.join(ttd)
                 
-                if ts in games_weve_did.keys(): 
-                     continue
+                if ttd in games_weve_did.keys(): 
+                    continue
                 
-                games_weve_did[ts] = True
+                games_weve_did[ttd] = True
                 
                 if type(prev) != type(None):
+                    
                     if game_data.game_date == prev.game_date:
                         logger.error(f'2 games for {team } on {game_data.game_date}')
                         continue

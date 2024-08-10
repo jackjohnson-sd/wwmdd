@@ -1,0 +1,18 @@
+{
+      "SAVE_DIR"      : "tests/chi_1211/test_data/csv"
+    , "SAVE_PREFIX"   : "_C_"
+
+    , "SAVE_GAME"       : false
+    , "SAVE_RAW"        : false
+    , "SAVE_STINTS"     : true
+    , "SAVE_OVERLAP"    : false
+    , "SAVE_BOX_SCORE"  : true
+    , "SAVE_IMAGE"      : false
+
+    , "SAVE_SUBS_FILE"  : false
+
+    , "DBG"             : false
+    , "TEST_PLAYERS"    : ""
+
+    , "PLOT_WAIT"       : -1
+}

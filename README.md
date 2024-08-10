@@ -1,9 +1,12 @@
 
 Kill Period 5 problem for nick
 
+Please Read
 
-Please Read me
-Aug-06   -- current 3 errors look the same,
+Aug 08   -- ALL as team selector, 3 52/53 errors in 1015 - 1231
+Aug-07   -- LAL 0229, BOS 0110, MIA 0223, 
+            POR 0302 0129            
+            3 errors look the same,
             OKC 0204 is Scottie Barnes entering at OT2, 3:45 (ish)
             having NO events in OT1. NBA.com says he played the OT period
 Aug-06   -- OKC 0204,CHI 1211,1108, GSW,DAL,NYK None, 

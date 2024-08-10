@@ -1,11 +1,15 @@
 
+grep -r 'ERROR' ./  
+rm llm/llm_training_data/* 
+
+./w.sh -s web -t OKC  -d 2024-04-13 -m plot csv box stints overlaps  -p stints periodscores    
+
 ./w.sh -s web -t OKC  -d 2024-04-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
-./w.sh -s web -t OKC  -d 2023-10-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
+./w.sh -s web -t ALL  -d 2023-10-15 2024-05-30 -m plot csv box stints overlaps  -p stints periodscores  -w1          
 
 ./w.sh -s web -t OKC -d 2023-10-15 2024-05-30 -m plot csv raw -p stints  -w 1 
 ./w.sh -s csv -f llm/llm_training_data -m plot stints -p stints -w 1
 
-rm llm/llm_training_data/* 
 
 """ make file exe
 % chmod 755 YourScriptName.sh
@@ -34,10 +38,14 @@ select * where a10 == 'Jock Landale' || a8 == 'Jock Landale' || a2 == 'STARTOFPE
 select * where a10 == 'Josh Giddey' || a8 == 'Josh Giddey' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Terrence Ross' || a8 == 'Terrence Ross' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a10 == 'Jonas Valanciunas' || a8 == 'Jonas Valanciunas' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a10 == 'Scottie Barns' || a8 == 'Scottie Barns' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Scottie Barnes' || a8 == 'Scottie Barnes' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a10 == 'Chris Duarte' || a8 == 'Chris Duarte' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'David Roddy' || a10 == 'David Roddy' || a8 == 'David Roddy' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Grayson Allen' || a10 == 'Grayson Allen' || a8 == 'Grayson Allen' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Andre Jackson Jr.' || a10 == 'Andre Jackson Jr.' || a8 == 'Andre Jackson Jr.' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'MarJon Beauchamp' || a10 == 'MarJon Beauchamp' || a8 == 'MarJon Beauchamp' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Aaron Gordon' || a10 == 'Aaron Gordon' || a8 == 'Aaron Gordon' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 
 

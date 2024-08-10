@@ -57,7 +57,7 @@ class box_score:
         return L1 + (',').join(L2), L2
 
     def get_team_secs_played(self): 
-        return self.get_item(self._team_name, "secs")
+        return self.get_item(self._team_name, 'secs')
         
     def get_team_minutes_desc(self):
         return f'{self._team_name} {int(self.get_team_secs_played())}'
@@ -240,7 +240,12 @@ class box_score:
                     if _evnt.period == 1:
                         s = _evnt.neutraldescription
                         self._start_time = s[s.find("(")+1:s.find(")")]
-                                    
+                
+                case 10: # JUMP BALL
+                    self.update(p1, 'JB', i, when=_evnt.sec)
+                    self.update(p2, 'JB', 1, when=_evnt.sec)
+                    self.update(p3, 'JB', 1, when=_evnt.sec)
+    
                 case 1:  # FG.MA
                     pts = 3 if is3 else 2
                     mk = '3P.MA' if is3 else 'FG.MA'

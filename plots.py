@@ -433,7 +433,9 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
             start += int(column_widthsnew[idx])
 
-    ROW_START = 2880 + 50
+    total_secs = int (box_score.get_team_secs_played()/5)
+    
+    ROW_START = total_secs + 50
 
     doRows = do_plot('boxscore') 
     
@@ -524,8 +526,10 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
     GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
 
+    total_secs = int (bx_score.get_team_secs_played()/5)
+
     x_ticks = [0, 12 * 60, 24 * 60, 36 * 60, 48 * 60]
-    ax.set_xlim(-50, (48 * 60) + 50)
+    ax.set_xlim(-50, total_secs + 50)
     ax.set_xticks(x_ticks, ['', '', '', '', ''])
     ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor = True)
 
@@ -886,17 +890,17 @@ def plot_layout(title):
 
 def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
            
-    # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
-    # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
     m1 = int(bx1.get_team_secs_played())
     m2 = int(bx2.get_team_secs_played())
+    f'{m1/300:.2f}'
+    f'{m2/300:.2f}'
     
     if m1 == m2: 
-        logger.info(f'{title[1]} {title[0]} {m1} OK')
+        logger.info(f'{title[1]} {title[0]} {m1}                      {m1/300:.2f} OK')
         ret_value = True
 
     else:
-        logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
+        logger.error(f'{title[1]} {title[0]} {m1}/{m2}          {m1/300:.2f}/{m2/300:.2f} NOK')
         ret_value = False
 
     return ret_value
@@ -915,8 +919,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     # top team = winner, bot_team = loser
     # home_team affects plus/minus and score 
-    # VERIFY  home ahead is positive in plus/minus if ahead,  
-  
+   
     title, debug_title, game_info = get_title_and_friends(game_data)
 
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
@@ -929,8 +932,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
-    if not defaults.get('SHOW_PLOT'): logger.debug('Plot display disabled.')
-    else:
+    if defaults.get('SHOW_PLOT'): 
         
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)

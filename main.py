@@ -93,7 +93,7 @@ def get_args():
     )
     parser.add_argument("-source", "-s", choices=["web", "csv"], help="where to get the data")
     parser.add_argument("-file", "-f", metavar='file',help="where to save or get file(s)")
-    parser.add_argument("-team","-t", metavar='team', help="team to use in game search")
+    parser.add_argument("-team","-t", nargs="+", metavar='team', help="team to use in game search")
     parser.add_argument("-date","-d", metavar='date(s)', nargs="+", help="date or date range")
     parser.add_argument("-subplots","-p",
         nargs="+",
@@ -335,7 +335,6 @@ if __name__ == "__main__":
                         if None in [args.file]: continue
                         
                         main_csv.main(args.file)
-
 
             settings.defaults.stuff = original_stuff
             settings.colors.stuff = original_colors

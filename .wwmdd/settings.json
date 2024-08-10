@@ -24,7 +24,7 @@
 
     , "OVERLAP_GROUP"   : [2]
 
-    , "SHOW_PLOT"       : true
+    , "SHOW_PLOT"       : false
     , "PLOT_WAIT"       : -1
  
     , "PARTS"           : [ "stints", "score", "margin", "periodscores", "boxscore"]

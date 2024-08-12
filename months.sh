@@ -1,5 +1,6 @@
 rm -f llm/llm_training_data/* 
 rm -f .wwmdd/logs/* 
+rm -f .wwmdd/.csvs/* 
 
 ./w.sh -s web -t ALL -d 2023-10-15 2023-10-31 -m raw stints box
 ./w.sh -s web -t ALL -d 2023-11-01 2023-11-30 -m raw stints box

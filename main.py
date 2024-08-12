@@ -218,10 +218,11 @@ def set_args(args):
 
 args, parser = get_args()
 
+# I apologize for the complexity of this
 settings.defaults = settings.default()
 
 cfn = settings.defaults.get("COLOR_DEFAULTS")
-settings.colors = settings.default(cfn)
+settings.colors = settings.default(cfn,cfd=True)
 
 start_logger(args)
 logger.info("wwmdd begins! ")

@@ -404,7 +404,7 @@ def save_box_score(box1,box2,game_data):
     for player in sorted_rows:
         i = rows.index(player)
         d = data[i]
-        a = f'{game_data.game_date},{rows[i]},{box1._team_name},{','.join(d)}\n'
+        a = f'{game_data.game_date},{rows[i]},{box2._team_name},{','.join(d)}\n'
         lines.extend(a)
         
     save_file('BOX_',game_data,'SAVE_DIR',lines)

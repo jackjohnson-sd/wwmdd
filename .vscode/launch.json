@@ -11,7 +11,23 @@
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args":[]
+            "args":[
+                "-s", "web", 
+                "-t", "ALL", 
+                "-d", "2023-12-01", "2024-05-30", 
+                "-m", "raw"
+            ]
+        },
+
+        {
+            "name": "WT_BS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-bs", "tests/world_tour/wt_args.txt"
+            ]
         },
 
 
@@ -25,7 +41,7 @@
                 "-s", "web",
                 "-t", "MIL", "-d", "2023-12-11",
                 "-json", "tests/chi_1211/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "all"
             ]
         },
         {
@@ -52,7 +68,7 @@
                 "-s", "web",
                 "-t", "IND", "-d", "2024-04-26",
                 "-json", "tests/ind_0426/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+                "-m", "plot", "-p", "stints", "periodscores"
             ]
         },
         {

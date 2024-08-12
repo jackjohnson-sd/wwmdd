@@ -1,6 +1,10 @@
 
-grep -r 'ERROR' ./  
+grep -r 'ERROR' .wwmdd/logs
 rm llm/llm_training_data/* 
+rm .wwmdd/.csvs/*
+rm .wwmdd/logs/*
+file count in direcory
+ls -1 .wwmdd/.csvs | wc -l
 
 ./w.sh -s web -t OKC  -d 2024-04-13 -m plot csv box stints overlaps  -p stints periodscores    
 

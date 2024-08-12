@@ -80,7 +80,8 @@ def or_dr(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
     return _style, _color, _size
 
 def get_event_map(): 
-        color_defaults = settings.default(settings.defaults.get('COLOR_DEFAULTS'))
+        
+        color_defaults = settings.colors
  
         STINT_CO_IN     = color_defaults.get('STINT_COLOR_IN')   
         STINT_CO_OUT    = color_defaults.get('STINT_COLOR_OUT')   

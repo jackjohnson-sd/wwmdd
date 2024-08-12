@@ -3,9 +3,15 @@ Kill Period 5 problem for nick
 
 Please Read
 
+AUG 11   -- app died if no colors.json file. fixed using default in settings.py code
+AUG 10   -- fixed team name wrong in box.csv
+            finished? OT labels on periods, plot OT suport OK till furhter notice
+            not finished - ** need to show OT scores in quarter scores plot
+
 Aug 09   -- 10 errors from 1200 23-24 season games. most seem OT exit issues
             see .wwmdd/errors.txt
-            stoped getting files twice for ALL type requests 
+            stoped getting files twice when more than one team requested. 
+            if you request OKC and GSW games only fetch OKC v GSW once since its the same game
             implemented OKCvGSW type teams -> OKC and GSW play in the game
             summer league does not work.
             grep and line count examples in snippet_helpers.txt

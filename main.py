@@ -91,9 +91,9 @@ def get_args():
             
         help = "What to do?  ",
     )
-    parser.add_argument("-source", "-s", choices=["web", "csv"], help="where to get the data")
+    parser.add_argument("-source", "-s", default='web',choices=["web", "csv"], help="where to get the data")
     parser.add_argument("-file", "-f", metavar='file',help="where to save or get file(s)")
-    parser.add_argument("-team","-t", metavar='team', help="team to use in game search")
+    parser.add_argument("-team","-t", nargs="+", metavar='team', help="team to use in game search")
     parser.add_argument("-date","-d", metavar='date(s)', nargs="+", help="date or date range")
     parser.add_argument("-subplots","-p",
         nargs="+",
@@ -218,10 +218,11 @@ def set_args(args):
 
 args, parser = get_args()
 
+# I apologize for the complexity of this
 settings.defaults = settings.default()
 
 cfn = settings.defaults.get("COLOR_DEFAULTS")
-settings.colors = settings.default(cfn)
+settings.colors = settings.default(cfn,cfd=True)
 
 start_logger(args)
 logger.info("wwmdd begins! ")
@@ -306,14 +307,21 @@ if __name__ == "__main__":
                         settings.defaults.update_colors(args.colors)
 
                     do_web = "web" in args.source
+                
                     do_csv = "csv" in args.source
+
+                    if not do_csv:
+                        do_web = True
 
                     if do_web:
 
                         if args.date == None: logger.error("-date required")
-                        if args.team == None: logger.error("-team required")
+                        
+                        if args.team == None: 
+                            settings.defaults.set("SAVE_GAME", args.team)
+                            #  logger.error("-team required")
 
-                        if None in [args.team, args.date]: continue
+                        if None in [ args.date]: continue
 
                         settings.defaults.set("SAVE_RAW", raw_save)
                         settings.defaults.set("SAVE_GAME", csv_save)
@@ -335,7 +343,6 @@ if __name__ == "__main__":
                         if None in [args.file]: continue
                         
                         main_csv.main(args.file)
-
 
             settings.defaults.stuff = original_stuff
             settings.colors.stuff = original_colors

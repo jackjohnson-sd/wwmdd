@@ -1,7 +1,180 @@
 Status Summary:
 Files used:
 For creator: llm/pair/sub/OKCvGSW20230130.csv
+                creator_prompt.txt
 For critic: llm/pair/sub/STINTS_OKCvGSW20230130.csv
+                critic_prompt.txt
+
+Attempt 9:
+Test Information:
+    Temperature: 0
+    ChatGPT 4o via Chat Playground
+    Time: 8am (PT), Date: 8/7/2024
+    
+-creator fails Q3b (includes all of Giddey's starts, but adds a Shai start...)
+
+Attempt 8:
+Test Information:
+    Temperature: 0
+    ChatGPT 4 Turbo via Chat Playground
+    Time: 5:30pm (PT), Date: 8/6/2024
+    - creator fails Q2 (some players listed in both teams)
+
+        GPT:
+        Note: Some players might be listed under both teams due to an error in the provided data, such as Kevon Looney and Donte DiVincenzo being listed for both OKC and GSW. 
+        This is likely a mistake in the data entry.
+        
+        ME: 
+        Double check your answers if you think there is an error.
+
+        GPT:
+        (correct answer)
+        This list corrects the previous error of including players under both teams. Each player is now correctly assigned to their respective team.
+
+    - creator fails Q3b
+
+        GPT:
+        Josh Giddey started playing at the following times during the game:
+
+        1. Period 1, 12:00
+        2. Period 2, 12:00
+        3. Period 4, 10:04
+        4. Period 4, 5:33
+
+        ME:
+        Refer to SUB information in system message and retry.
+
+        GPT:
+        (same answer as before)
+
+        ME:
+        Ensure 'Josh Giddey' is the value in 'player2_name' column of the 'SUB' event rows.
+
+        GPT:
+        Upon rechecking the data for accuracy, Josh Giddey started playing at the following times during the game:
+
+        1. Period 1, 12:00
+        2. Period 2, 12:00
+        3. Period 4, 10:04
+
+        ME: 
+        Are there any other SUB' event rows with 'Josh Giddey' is listed in the 'player2_name' column?
+
+        GPT:
+        Upon further review of the data, there are no additional 'SUB' event rows where "Josh Giddey" is listed in the 'player2_name' column beyond the ones previously mentioned. Therefore, the instances where Josh Giddey started playing are correctly identified as:
+
+        1. Period 1, 12:00
+        2. Period 2, 12:00
+        3. Period 4, 10:04
+
+Attempt 7:
+Test Information:
+    Time: 5pm (PT), Date: 8/6/2024, Temperature: 0.5
+    ChatGPT 4 Turbo via Chat Playground
+    - creator fails Q2 (adds Lamb to OKC)
+
+Attempt 6:
+Test Information:
+    Temperature: 1.0
+    ChatGPT 4 Turbo via Chat Playground
+    Time: 5pm (PT), Date: 8/6/2024, 
+
+    - creator fails Q2 (adds players mentioned in SUB, FOUL examples in system prompt)
+
+Attempt 5:
+ Test Information:
+    Temperature: 0.5
+    ChatGPT 4o via Chat Playground
+    Time: 4pm (PT), Date: 8/6/2024, 
+
+    - Creator fails Q3b
+
+        Response for Q3b:
+            Josh Giddey started playing 5 times during the game. Here are the relevant SUB event rows for Josh Giddey:
+
+            1. Event 124: Period 2, 12:00
+            2. Event 213: Period 2, 5:02          (this is SGA start event)
+            3. Event 255: Period 2, 0:49
+            4. Event 436: Period 4, 10:04
+            5. Event 480: Period 4, 5:33          (this is also SGA start event)
+
+        Follow-up: double check your response
+
+        GPT:
+            Here are the event rows from the CSV file where Josh Giddey started playing:
+
+            1. Event 3: 
+            ```
+            3,SUB,1,12:00,SUB: Giddey Starts playing.,0 - 0,0,,,Josh Giddey,OKC,,
+            ```
+
+            2. Event 124: 
+            ```
+            124,SUB,2,12:00,SUB: Giddey Starts playing.,38 - 20,-18,,,Josh Giddey,OKC,,
+            ```
+
+            3. Event 213: 
+            ```
+            213,SUB,2,5:02,SUB: Giddey Starts playing.,50 - 34,-16,,,Josh Giddey,OKC,,
+            ```
+
+            4. Event 255: 
+            ```
+            255,SUB,2,0:49,SUB: Giddey Starts playing.,60 - 45,-15,,,Josh Giddey,OKC,,
+            ```
+
+            5. Event 436: 
+            ```
+            436,SUB,4,10:04,SUB: Giddey Starts playing.,98 - 91,-7,,,Josh Giddey,OKC,,
+            ```
+
+            6. Event 480: 
+            ```
+            480,SUB,4,5:33,SUB: Giddey Starts playing.,107 - 103,-4,,,Josh Giddey,OKC,,
+            ```
+
+        Follow-up: Are any of these events actually Shai's events?
+
+        GPT:
+        Upon reviewing, Event 213 is actually for Shai Gilgeous-Alexander starting to play, not Josh Giddey.
+        Josh Giddey started playing 5 times during the game.
+
+        (still wrong...)
+
+
+Attempt 4:
+ Test Information:
+    Temperature: 1.0
+    ChatGPT 4o via Chat Playground
+    Time: 2pm (PT), Date: 8/5/2024
+
+    - Creator fails Q3b, then passes when asked to explain itself
+
+Attempt 3:
+ Test Information:
+    Time: 7:00am (PT), Date: 8/2/2024
+
+    For creator: Q1 - 8 in sub_test_plan.txt
+    For critic: Q1 - 8 modified in format of critic_template.txt 
+
+    Results:
+    -creator fails Q6a, 7a, 7b, 8a, 8b, 8c, 8d, 8e
+
+    -critic:
+        - corrects Q6a, 
+        - fails Q6b, Q7a,7b, 8a (the LIMIT HIT)
+            - either agrees with incorrect creator answer, or hallucinates a 'corrected' answer for creator
+            - end of game period, time:
+
+                period 5, 12
+                Q3c:
+                    The times when Josh Giddey ended playing are:
+
+                    Period 1, 4:31
+                    Period 2, 7:23
+                    Period 3, 5:37
+                    Period 5, 12:00 (end of the period)
+
 
 Attempt 2:
  Test Information:
@@ -18,7 +191,7 @@ Attempt 2:
 
     - critic fails Q3a still believes '1' in 'SUB.IN' is source of start playing (already removed)
     - critic uses period 5, pctimestring 12:00 as end of game
-    - critic supports creator's answers for Q8b, 8c
+    - critic supports creator's answers for Q8b, 8c (semi-fail)
    
 
 Attempt 1:

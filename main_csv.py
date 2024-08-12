@@ -36,14 +36,20 @@ def main(file_dir_name):
         
         if 'STINTS_' in filename: continue
         if 'OVERLAP' in filename: continue       
+        if 'BOX_' in filename: continue       
+        if 'RAW_' in filename: continue       
+        
+        if len(name) not in [19,22]:
+            logger.error(f'file name {len(name)} {name} wrong length. Skipped.')
+            continue
         
         if not (os.path.isfile(filename)):
             logger.error(f'file {filename} fails isfile . Skipped.')
             continue
         
         df = pd.read_csv(filename, keep_default_na=False)
-        if df.shape[1] != 13:
-            continue
+        
+        if df.shape[1] != 13: continue
             
         try:
             n = os.path.basename(filename)[-12:-4]
@@ -93,6 +99,7 @@ def main(file_dir_name):
         oink = []
         prev = None
         rprev = None
+        
         for i, r in df.iterrows():
             
             if type(rprev) != type(None):
@@ -123,8 +130,9 @@ def main(file_dir_name):
                     
                     if type(prev) != type(None):
                         
+                        # we miss duplicates that's aren't next to each other
                         if prev == a:
-                            logger.error(f'{os.path.basename(filename)} 2DUP {r.period} {r.pctimestring} {r.neutraldescription}')
+                            logger.warning(f'duplicate record in {os.path.basename(filename)} at {r.period} {r.pctimestring} {r.neutraldescription}')
                             continue
             
                     prev = a

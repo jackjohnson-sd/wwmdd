@@ -1,7 +1,36 @@
 
+Kill Period 5 problem for nick
 
-Please Read me
+Please Read
 
+AUG 11   -- app died if no colors.json file. fixed using default in settings.py code
+AUG 10   -- fixed team name wrong in box.csv
+            finished? OT labels on periods, plot OT suport OK till furhter notice
+            not finished - ** need to show OT scores in quarter scores plot
+
+Aug 09   -- 10 errors from 1200 23-24 season games. most seem OT exit issues
+            see .wwmdd/errors.txt
+            stoped getting files twice when more than one team requested. 
+            if you request OKC and GSW games only fetch OKC v GSW once since its the same game
+            implemented OKCvGSW type teams -> OKC and GSW play in the game
+            summer league does not work.
+            grep and line count examples in snippet_helpers.txt
+            and months.sh
+            implemnted most of OT graph, need OT1 ... N labels
+            multiple try/except blocks for nba api for time outs mostly
+
+Aug 08   -- ALL as team selector, 3 52/53 errors in 1015 - 1231
+Aug-07   -- LAL 0229, BOS 0110, MIA 0223, 
+            POR 0302 0129            
+            3 errors look the same,
+            OKC 0204 is Scottie Barnes entering at OT2, 3:45 (ish)
+            having NO events in OT1. NBA.com says he played the OT period
+Aug-06   -- OKC 0204,CHI 1211,1108, GSW,DAL,NYK None, 
+            OT works in all data files!,
+            ** NO OT ** events displayed on graph
+Aug-03   -- OKC 0204, NYK NONE, 1211,1108,  ALL OT Games
+Aug-02   -- added GSW web and CSV no failures 
+Aug-01   -- only errors for NYK,OKC 23-24 season is OKC 2OT 0204 game with TOR
 July-29  -- PBP decode failues WEB 02/04  21600 20880 NOK
 July-29  -- PBP decode failues CSV 02/04,04/21,12/14
 

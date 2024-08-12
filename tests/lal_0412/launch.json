@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "NO ARGS",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": ""
+        },
+        {
+            "name": "BS_LAL_0412",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-bs", "tests/lal_0412/get_all.txt"
+            ]
+        },
+        {
+            "name": "WEB_LAL_0412",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "OKC", "-d", "2024-04-12",
+                "-json", "tests/lal_0412/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_LAL_0412",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/lal_0412/test_data/web/_W_MEMvLAL20240412.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/lal_0412/csv.json"
+            ]
+        }
+    ]
+}

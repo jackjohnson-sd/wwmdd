@@ -52,12 +52,12 @@ class box_score:
         L1 = 'PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,'
         L2 = ['OFF','DEF',PM] + L2a + L2b 
         
-        for n in ['MIN','3PT','FG','FT','secs']:  L2.remove(n)
+        for n in ['MIN','3PT','FG','FT','SUB.IN','SUB.OUT','ORS']:  L2.remove(n)
         
         return L1 + (',').join(L2), L2
 
     def get_team_secs_played(self): 
-        return self.get_item(self._team_name, "secs")
+        return self.get_item(self._team_name, 'secs')
         
     def get_team_minutes_desc(self):
         return f'{self._team_name} {int(self.get_team_secs_played())}'
@@ -209,16 +209,15 @@ class box_score:
         
         self.add_players(players)
 
-        prev = None
-        eprev = None
+        prev_event = None
                 
         for i, _evnt in _evnts.iterrows():
 
             if type(_evnt) != type(None):
-                if _evnt.equals(eprev):
-                    logger.error(f'stuff DUP event {_evnt}')
+                if _evnt.equals(prev_event):
+                    logger.warning(f'boxscore event loading found a duplicate line {i}, {_evnt.period} {_evnt.pctimestring}')
                         
-            eprev = _evnt
+            prev_event = _evnt
              
             p1 = _evnt.player1_name
             p2 = _evnt.player2_name
@@ -234,13 +233,19 @@ class box_score:
             
             match _evnt.eventmsgtype:
 
-                case 13: self.EOP_update(_evnt.sec)
+                case 13: # END of period 
+                    self.EOP_update(_evnt.sec)
                 
-                case 12:
+                case 12: # START of period
                     if _evnt.period == 1:
                         s = _evnt.neutraldescription
                         self._start_time = s[s.find("(")+1:s.find(")")]
-                                    
+                
+                case 10: # JUMP BALL
+                    self.update(p1, 'JB', i, when=_evnt.sec)
+                    self.update(p2, 'JB', 1, when=_evnt.sec)
+                    self.update(p3, 'JB', 1, when=_evnt.sec)
+    
                 case 1:  # FG.MA
                     pts = 3 if is3 else 2
                     mk = '3P.MA' if is3 else 'FG.MA'
@@ -258,37 +263,41 @@ class box_score:
                     self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when=_evnt.sec)
                     if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
 
-                case 8:
-                    # ours = 'Jalen Williams'
-                    # if _evnt.period == 3 and _evnt.pctimestring == '12:00':
-                    #     print(p1,p2,'JJ says stop')
-                    # if p1 == ours : print('SUB.OUT',p1,_evnt.period,_evnt.pctimestring)
-                    # if p2 == ours: print('SUB.IN',p2,_evnt.period,_evnt.pctimestring)
+                case 8:  # SUB
                     self.update(p1, 'SUB.OUT', 1, when=_evnt.sec)
                     self.update(p2, 'SUB.IN', 1, when=_evnt.sec)
                     
-                case 4:
+                case 4: # REB
+                    self.update(p1, 'REB', 1, when=_evnt.sec)
+                    
                     if 'Off' in event_description:
-                        try:  
+                        
+                        try: 
+                            # search description for offensive rebound count change
+                            # copy past from stackoverflow, i know nothing
                             or_count = re.search('Off:(.*) Def:', event_description).group(1)
+                            
                             if int(or_count) != 0:
+                                
                                 if p1 not in self._Off_reb_cnt.keys():
                                     self._Off_reb_cnt[p1] = 0
+
+                                # if there been a change
                                 if or_count != self._Off_reb_cnt[p1]:
                                     self.update(p1, 'ORS', 1, when=_evnt.sec)
+
+                                self._Off_reb_cnt[p1] = or_count
+                                    
                         except:
                             # team rebounds have no player 
                             or_count = 0
                             # logger.error(f'Off Rebound description {event_description}')
-                        
-
-                    self.update(p1, 'REB', 1, when=_evnt.sec)
-          
-                case 5:  # steal
+                             
+                case 5:  # steal/turnover
                     self.update(p1, 'TO', 1, when=_evnt.sec)
                     self.update(p2, 'STL', 1, when=_evnt.sec)
 
-                case 6:  
+                case 6:  # foul
                 
                     ttm = ''
                     try: 
@@ -297,8 +306,10 @@ class box_score:
                         ttm += str(_evnt.visitordescription) 
                     except : pass
                     
-                    foul_type = 'TF' if 'T.FOUL' in ttm else 'PF'
-                    self.update(p1, foul_type, 1, when=_evnt.sec)
+                    foul_type1 = 'TF' if 'T.FOUL' in ttm else 'PF'
+                    foul_type2 = 'TF' if 'Technical' in ttm else foul_type1
+                    
+                    self.update(p1, foul_type2, 1, when=_evnt.sec)
                     self.update(p2, 'FD', 1, when=_evnt.sec)
 
                     # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
@@ -393,7 +404,7 @@ def save_box_score(box1,box2,game_data):
     for player in sorted_rows:
         i = rows.index(player)
         d = data[i]
-        a = f'{game_data.game_date},{rows[i]},{box1._team_name},{','.join(d)}\n'
+        a = f'{game_data.game_date},{rows[i]},{box2._team_name},{','.join(d)}\n'
         lines.extend(a)
         
     save_file('BOX_',game_data,'SAVE_DIR',lines)

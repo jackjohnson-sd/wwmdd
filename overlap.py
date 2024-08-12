@@ -2,7 +2,7 @@ import itertools
 from loguru import logger
 
 from settings import defaults
-from utils import ms, sec_to_period_time, save_file
+from utils import ms, sec_to_period_time, save_file,pms
 # sec_to_period_time2,intersection,save_file
 
 from box_score import PM
@@ -201,8 +201,8 @@ def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores)
     save_file(fn_pre, game_data, 'SAVE_DIR', [ols[0]] + zz)
 
 def stint_to_str(stint):
-    start_time = f'{sec_to_period_time(stint[1]).replace(' ',',')}'
-    end_time = f'{sec_to_period_time(stint[2]).replace(' ',',')}'
+    start_time = f'{pms(stint[1]).replace(' ',',')}'
+    end_time = f'{pms(stint[2]).replace(' ',',')}'
     duration = f'{ms(int(stint[0]))}'
     s = f'{start_time},{end_time},{duration}'
     s.strip()
@@ -297,8 +297,8 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                     tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2]).replace(' ',',')},{ms(int(stint[0]))}'
                     
                     s += tmp + oinks_str + '\n'
-            else:
-                logger.debug(f'stints save, {player} has no stints.')
+            # else:
+            #     logger.debug(f'stints save, {player} has no stints.')
             
             return s.strip()
 

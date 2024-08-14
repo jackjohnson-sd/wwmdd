@@ -169,4 +169,5 @@ wwmdd.command
 Archive
 wwmdd.json
 test_data/
+.csvs/
 

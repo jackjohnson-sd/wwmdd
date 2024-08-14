@@ -1,7 +1,9 @@
--s web -f -t OKC -d 2023-01-30 -m plot -p stints -w 2
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints periodscores -w 1
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints periodscores -w 1 -colors tests/world_tour/wt_color_white.json
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints periodscores -w 1 -colors tests/world_tour/wt_color_blue.json
+-s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints periodscores -w 1 
 #!#exit 
--s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 -colors .wwmdd/colors.json
--s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints -w 2 
+-s web -t OKC -d 2023-01-30 -m plot -p stints -w 2
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p margin -w 2 
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p events legend -w 2
 -s csv -f tests/world_tour/test_data/OKCvGSW20230130.csv -m plot -p stints legend -w 2

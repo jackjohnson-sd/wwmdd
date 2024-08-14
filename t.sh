@@ -1,11 +1,17 @@
-./w.sh -s web -t OKC -d 2023-01-30 -m plot csv stints box img -p stints  -f tests/bads/test_data/web -w 2 -json tests/bads/web_save.json
-./w.sh -s csv -f tests/bads/test_data/web/_W_DBG_OKCvGSW20230130.csv -m plot stints box img -p boxscore stints -w 1 -json tests/bads/csv_save.json
-exit
-
-
-
-
-./w.sh -s web -t OKC -d 2023-01-30 -m plot stints csv box img -p stints -f tests/bads/test_data -json tests/bads/debug_on.json -w 2
-./w.sh -s csv -f tests/bads/test_data/web/DBG_OKCvGSW20230130.csv -m plot box -p stints -w 2
-exit
-./w.sh -s web -t OKC -d 2023-01-30 -m plot stints csv box img -p boxscore stints -f tests/bads/test_data -w 10
+./w.sh -s web -t IND -d 2024-04-26 -m raw stints
+echo  " works ./w.sh -s web -t DEN -d 2024-03-05 -m raw stints"
+./w.sh -s web -t MEM -d 2024-03-02 -m raw stints
+./w.sh -s web -t LAL -d 2024-02-29 -m raw stints
+./w.sh -s web -t BOS -d 2024-01-10 -m raw stints
+echo " workd ./w.sh -s web -t MIL -d 2023-12-11 -m raw stints"
+./w.sh -s web -t CHI -d 2023-11-08 -m raw stints
+./w.sh -s web -t MEM -d 2024-04-12 -m raw stints
+./w.sh -s web -t NOP -d 2024-02-23 -m raw stints
+./w.sh -s web -t POR -d 2024-01-29 -m raw stints
+./w.sh -s web -t WAS -d 2024-01-22 -m raw stints
+./w.sh -s web -t MEM -d 2024-03-02 -m raw stints
+./w.sh -s web -t LAL -d 2024-02-29 -m raw stints
+./w.sh -s web -t MEM -d 2024-03-02 -m raw stints
+./w.sh -s web -t BOS -d 2024-01-10 -m raw stints
+./w.sh -s web -t MIL -d 2023-12-11 -m raw stints
+./w.sh -s web -t CHI -d 2023-11-08 -m raw stints

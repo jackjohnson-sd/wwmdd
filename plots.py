@@ -9,7 +9,9 @@ from loguru import logger
 from settings import defaults 
 
 import settings
-from utils import shorten_player_name,fn_root
+from utils import shorten_player_name,fn_root,make_cache_fn
+
+from utils import period_from_sec
           
 from box_score import box_score,PM,save_box_score
 from nba_colors import get_color, dimmer, brighter
@@ -18,6 +20,9 @@ from event_prep import event_to_size_color_shape, get_event_map
 from play_by_play import dump_pbp
 from overlap import overlap_combos,overlap_dump,stints_as_csv
 
+
+color_defaults = None 
+event_map = None
 
 def quitGame(): return input("Enter Q to quit or any other key to continue: ") == 'Q'
 
@@ -279,23 +284,30 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     home_team = game_info['H']
     away_team = game_info['A']
         
-    quarter_end  =  [12*60, 24*60,36*60,48*60]
-    quarter_start = [0,     12*60,24*60,36*60]
+    quarter_start = []
 
+    s = 0
+    while s <= max(len(home_scores),len(away_scores)):
+        play_time_length = 720 if s < 2880 else 300
+        quarter_start += [s]
+        s += play_time_length
+    
+    quarter_end = quarter_start[1:] 
+    
     lxoffset = 2
     lx0 = x + lxoffset + 1
     lx1 = lx0 + lxoffset 
     lx2 = lx1 + lxoffset
     lx3 = lx2 + lxoffset
-    lx4 = lx3 + lxoffset + 1
-    lx5 = lx4 + lxoffset
+    lx4 = lx3 + lxoffset
+    lx5 = lx4 + lxoffset 
     lx6 = lx5 + lxoffset  
     
     ly0 = y - 22
     
     location = [
-        [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0], [lx4,ly0], [lx5,ly0], [lx6,ly0]],
-        [[x, y], [lx0,  y],[lx1,  y],[lx2, y], [lx3,  y], [lx4,  y], [lx5,  y], [lx6,  y]]
+        [[x,ly0],[lx0,ly0],[lx1,ly0],[lx2,ly0],[lx3,ly0],[lx4,ly0],[lx5,ly0],[lx6,ly0]],
+        [[x, y], [lx0,  y],[lx1,  y],[lx2, y], [lx3,  y],[lx4,  y],[lx5,  y],[lx6,  y]]
         ]
 
     def qs_text(x,y,text, _color):
@@ -315,15 +327,17 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
     bot_data = away_scores if bot_team == away_team else home_scores
     
     qs_text(x, ly0, top_team, top_co)
-    qs_text(location[0][5][0], ly0, str(top_data[-1]), top_co)
-
     qs_text(x, y, bot_team, bot_co)
-    qs_text(location[1][5][0], y, str(bot_data[-1]), bot_co)
+    
+    n = len(quarter_end) + 1
+    qs_text(1 + location[0][n][0], ly0, str(top_data[-1]), top_co)
+    qs_text(1 + location[1][n][0],   y, str(bot_data[-1]), bot_co)
 
     for i,v in enumerate(quarter_end):
+
         home_q_end_score = home_scores[v-1]
         home_in_q_score = home_q_end_score - home_scores[quarter_start[i]]
- 
+    
         away_q_end_score = away_scores[v-1]
         away_in_q_score = away_q_end_score - away_scores[quarter_start[i]]
         
@@ -333,8 +347,8 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
         top_data = home_in_q_score if top_team == home_team else away_in_q_score
         bot_data = away_in_q_score if bot_team == away_team else home_in_q_score
 
-        qs_text(lh[0], lh[1], top_data, top_co) 
-        qs_text(la[0], la[1], bot_data, bot_co)
+        qs_text(lh[0], lh[1], f'{top_data:02}', top_co) 
+        qs_text(la[0], la[1], f'{bot_data:02}', bot_co)
 
     # shooting percentage stuff
     # bs0 = (' ').join(bs_sum[0])
@@ -433,7 +447,9 @@ def plot_box_score(axis, box_score, players, bx_col_data):
 
             start += int(column_widthsnew[idx])
 
-    ROW_START = 2880 + 50
+    total_secs = int (box_score.get_team_secs_played()/5)
+    
+    ROW_START = total_secs + 50
 
     doRows = do_plot('boxscore') 
     
@@ -524,21 +540,46 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
     TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
     GRID_LINEWIDTH    = color_defaults.get('GRID_linewidth')
 
-    x_ticks = [0, 12 * 60, 24 * 60, 36 * 60, 48 * 60]
-    ax.set_xlim(-50, (48 * 60) + 50)
-    ax.set_xticks(x_ticks, ['', '', '', '', ''])
-    ax.set_xticks([6 * 60, 18 * 60, 30 * 60, 42 * 60], minor = True)
+    total_secs = int (bx_score.get_team_secs_played()/5)
 
+    x_ticks_major = []
+    x_ticks_major_labels = []
+    
+    x_ticks_minor = []
+    x_ticks_minor_labels = []
+
+    s = 0
+    while s <= total_secs:
+        
+        x_ticks_major_label = '' 
+        
+        if s < 2880:
+            play_time_length = 720
+            x_ticks_minor_label = f'P{period_from_sec(s)}' 
+        else: 
+            play_time_length = 300
+            x_ticks_minor_label = f'O{period_from_sec(s) - 4}'
+
+        if x_labels != 'TOP': x_ticks_minor_label = ''
+            
+        x_ticks_major_labels += [x_ticks_major_label]
+        x_ticks_minor_labels += [x_ticks_minor_label]
+        x_ticks_major += [s]
+        x_ticks_minor += [s + int(play_time_length/2)]
+
+        s += play_time_length
+        
+    ax.set_xlim(-50, total_secs + 50)
+    ax.set_xticks(x_ticks_major, x_ticks_major_labels)
+    
     ax.xaxis.tick_top()  
-    tls = ['Q1', 'Q2', 'Q3', 'Q4'] if x_labels == 'TOP' else ['', '', '', '']
-    ax.set_xticklabels(tls, minor = True, color=TABLE_COLOR)
-
+    ax.set_xticks(x_ticks_minor[0:-1], minor = True)
+    ax.set_xticklabels(x_ticks_minor_labels[0:-1], minor = True, color=TABLE_COLOR)
+    
     ax.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
     ax.tick_params(axis='x', which='minor', labelsize=9, pad=-20, length = 0)
-    
     ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
-    # ax.grid(True, axis='x', color=GRID_C, linestyle='-', linewidth=GRID_LINEWIDTH, zorder= Z_GRID)
-   
+    
     _players = list(playTimesbyPlayer.keys())
     _player_cnt = len(_players)
     
@@ -548,7 +589,7 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
 
     GRID_C            = color_defaults.get('GRID_COLOR')
 
-    for x in x_ticks:
+    for x in x_ticks_major:
         l1 = Line2D([x,x], [first_ytick-15,last_ytick-20], lw=GRID_LINEWIDTH, color=GRID_C, label='' )
         ax.add_line(l1)
     
@@ -886,17 +927,17 @@ def plot_layout(title):
 
 def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
            
-    # OKC @ BOS 04/03/2024 9:33 PM EST 15090 14400 NOK
-    # NOP @ OKC 04/21/2024 11:22 PM EST 14400 15088 NOK
     m1 = int(bx1.get_team_secs_played())
     m2 = int(bx2.get_team_secs_played())
+    f'{m1/300:.2f}'
+    f'{m2/300:.2f}'
     
     if m1 == m2: 
-        logger.info(f'{title[1]} {title[0]} {m1} OK')
+        logger.info(f'{title[1]} {title[0]} {m1}                      {m1/300:.2f} OK')
         ret_value = True
 
     else:
-        logger.error(f'{title[1]} {title[0]} {m1} {m2} NOK')
+        logger.error(f'{title[1]} {title[0]} {m1}/{m2}          {m1/300:.2f}/{m2/300:.2f} NOK')
         ret_value = False
 
     return ret_value
@@ -904,9 +945,11 @@ def play_time_check(title,bx1,bx2,stints1,stints2,game_data):
 def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     global color_defaults 
+    
     color_defaults = settings.colors
     
     global event_map
+    
     event_map = get_event_map()
 
     matplotlib.rcParams.update(matplotlib.rcParamsDefault)
@@ -915,8 +958,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
 
     # top team = winner, bot_team = loser
     # home_team affects plus/minus and score 
-    # VERIFY  home ahead is positive in plus/minus if ahead,  
-  
+   
     title, debug_title, game_info = get_title_and_friends(game_data)
 
     scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
@@ -929,8 +971,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
     
     play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0],game_data)
     
-    if not defaults.get('SHOW_PLOT'): logger.debug('Plot display disabled.')
-    else:
+    if defaults.get('SHOW_PLOT'): 
         
         plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
         figure,axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
@@ -1039,12 +1080,30 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
                       game_data,
                       home_scores, away_scores)
 
-    if defaults.get('SAVE_RAW'):
+    if defaults.get('SOURCE') == 'WEB':
+        
         def Merge(dict1, dict2): return {**dict1, **dict2}
         merged_game_stints = Merge(our_stints[0], opponent_stints[0])
-        dump_pbp(game_data, merged_game_stints, save_as_raw=True)
 
-    if defaults.get('SAVE_GAME'):
-        def Merge(dict1, dict2): return {**dict1, **dict2}
-        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
-        dump_pbp(game_data, merged_game_stints)
+        if defaults.get('SAVE_RAW'):
+            dump_pbp(game_data, merged_game_stints, save_as_raw=True)
+
+        if defaults.get('SAVE_GAME'):
+            dump_pbp(game_data, merged_game_stints)
+
+        if True:
+
+            fn, cwd, isfile = make_cache_fn(game_data)
+
+            if not isfile:
+                defaults.push()   
+               
+                defaults.set('SAVE_DIR','.wwmdd/.csvs')
+                defaults.set('DBG','')
+                defaults.set('SAVE_PREFIX','')
+                
+                dump_pbp(game_data, merged_game_stints)
+                logger.info(f'cache update {os.path.basename(fn)}')
+                
+                defaults.pop()
+                

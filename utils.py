@@ -24,7 +24,6 @@ def period_start_sec(sec) :
 def time_into_period_from_sec(sec) :
     return sec - period_start_sec(sec)
     
-
 def ms(sec):
     m = int(sec / 60)
     s = int(sec % 60)
@@ -60,17 +59,25 @@ def pms_as_sec(pms_str):
     
 def pms(_sec, delim1=',', delim2=':'):  # p eriod m inute s econd
     # return "1,5:31", 1,12:00, 1,11:59, 1,0:01, 2,12:
+    
     if _sec < 2880:
+        max_min = 12
         q_        = int(_sec / 720) 
         s_into_q  = 720 - int(_sec % 720)
         
     else:
+        max_min = 5
         _sec -= 2880
         q_        = int(_sec / 300) + 4 
         s_into_q  = 300 - int(_sec % 300)
         
     m_        = int(s_into_q / 60)
     s_        = int(s_into_q % 60)
+    
+    # if s_ == 0 and m_ == max_min:
+    #     m_ = 0
+    #     q_ -= 1
+        
     s = f'{q_ + 1}{delim1}{int(m_)}{delim2}{int(s_):02d}'
     return s
 
@@ -157,8 +164,17 @@ def get_file_names(file_directory):
     return files
 
 def fn_root(game_data):
-    t = game_data.matchup_home.split(' ')
-    return f'{t[0]}v{t[2]}{game_data.game_date.replace('-','')}'
+    keys = game_data.keys().tolist()
+    if 'matchup_home' in keys:
+        t = game_data.matchup_home.split(' ')
+    else:
+        t = game_data.matchup.split(' ')
+
+    for x in ['@','vs.']: 
+        while x in t: 
+            t.remove(x)
+    t.sort()        
+    return f'{t[0]}v{t[1]}{game_data.game_date.replace('-','')}'
 
 def save_files(who,directory,the_files):
     
@@ -179,8 +195,16 @@ def save_files(who,directory,the_files):
         logger.info(f'\n\n{who} is done.  Look here: {fn}\n')
     else:
         logger.debug(f'\n\n!!! {who} created no files.')
-                
-def save_file(who, game_data, where, data):
+            
+
+def make_cache_fn(game_data):
+    
+    cwd = os.path.join(os.getcwd(), '.wwmdd/.csvs')
+    fn = f'{fn_root(game_data)}.csv'
+    fn = os.path.join(cwd, fn) 
+    return fn, cwd, os.path.isfile(fn)
+    
+def make_file_name(who, game_data, where):
     
     DBG = defaults.get('DBG')
     SAVE_PRE = defaults.get('SAVE_PREFIX')
@@ -189,10 +213,15 @@ def save_file(who, game_data, where, data):
     
     dstr = 'DBG_' if DBG else ''
     fn = f'{SAVE_PRE}{dstr}{who}{fn_root(game_data)}.csv'
-    
     fn = os.path.join(cwd, fn) 
+    return fn,cwd,os.path.isfile(fn)
     
-    if not(os.path.exists(cwd)): os.mkdir(cwd)   
+
+def save_file(who, game_data, where, data):
+    
+    fn, cwd, exists = make_file_name(who, game_data, where)
+        
+    if not os.path.exists(cwd): os.mkdir(cwd)   
     
     logger.info(f'saving {os.path.basename(fn)}')
     

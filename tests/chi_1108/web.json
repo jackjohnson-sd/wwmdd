@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/tor_0204/test_data/web"
+      "SAVE_DIR"      : "tests/chi_1108/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
@@ -13,7 +13,7 @@
 
     , "DBG"             : false
 
-    , "SHOW_PLOT"       : true
-    , "PLOT_WAIT"       : -1
+
+    , "PLOT_WAIT"       : -1  
 }
 

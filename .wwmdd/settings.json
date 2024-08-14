@@ -24,7 +24,7 @@
 
     , "OVERLAP_GROUP"   : [2]
 
-    , "SHOW_PLOT"       : true
+    , "SHOW_PLOT"       : false
     , "PLOT_WAIT"       : -1
  
     , "PARTS"           : [ "stints", "score", "margin", "periodscores", "boxscore"]
@@ -32,7 +32,7 @@
     , "DBG"             : false
     , "TEST_PLAYERS"    : []
     
-    , "TEAM"            : "OKC"
+    , "TEAM"            : ["OKC"]
     , "START_DAY"       : "2024-04-29" 
     , "STOP_DAY"        : "2024-04-29"
     , "SOURCE"          : "WEB:"

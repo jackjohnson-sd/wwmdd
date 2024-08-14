@@ -6,7 +6,7 @@ from settings import defaults
 from utils import pms,period_time_to_sec
 
 from utils import period_from_sec,period_start_sec,time_into_period_from_sec,sec_at_start_of_period
-
+from utils import period_start_sec
 from utils import save_file,save_files
 
 
@@ -43,9 +43,12 @@ def get_sub_io_events_by_player(box):
             
             oinks = box._boxScore[player]['OINK']
 
+            max_desc = 0
+            
             for oi_,oink in enumerate(oinks):
 
                 dsec = oink[2]
+                max_desc = max(dsec,max_desc)
 
                 if len(_sub_events_by_player[player]) > 0:
                 
@@ -62,21 +65,11 @@ def get_sub_io_events_by_player(box):
                     case  'SUB.IN':
                         
                         if not in_the_game:
-                            _sub_events_by_player[player].append(r_(
-                                ['IN',oink[2],'SUB in.']))
                             
-                        # else:
-                            # if last_event != None:
-                                
-                            #     if oinks[oi_ - 1][2] == oink[2]:
-                            #         # prior oink same time as ours 
-                            #         if last_event[1] - last_event[1] % _per_length:
-                            #             # last sub event happend at period event
-                            #             last_event[oi_][1] == oink[2]
-                            #             # we exited a period break
-                                        
-                            # logger.error(f'SUB IN while in {pms(oink[1])}')
-                                    
+                            _sub_events_by_player[player].append(r_(
+                                ['IN',oink[2],
+                                 'out of game SUB in']))
+                                                                
                     case  'SUB.OUT':
                         
                         if not in_the_game:
@@ -88,12 +81,24 @@ def get_sub_io_events_by_player(box):
                                     # came in at period break for first time, did nothing 
                                     # and left before next period break
 
-                                # at period break? 
+                                # last event was a PCO  
                                 if time_into_period_from_sec(int(last_event[1])) == 0:  
-                                    # extend last in until now 
-                                    last_event[1] = dsec 
-                                else:
+                                     
+                                    #if PCO from this period 
+                                    if period_start_sec(dsec) == period_start_sec(last_event[1]):
+                                        # extend PCO until now
+                                        last_event[1] = dsec 
+                                    else:
+                                        # PCO not this SOP, IN at SOP, OUT NOW
+                                        _sub_events_by_player[player].append(r_(
+                                            ['IN', period_start_sec(dsec), 
+                                            'make in, OUT already out, last out not period change']))
 
+                                        _sub_events_by_player[player].append(r_(
+                                            ['OUT', dsec,
+                                            'OUT with made up IN at period start']))
+                                else:
+                                    # last out was not PCO, IN at SOP, OUT NOW
                                     _sub_events_by_player[player].append(r_(
                                         ['IN', period_start_sec(dsec), 
                                          'make in, OUT already out, last out not period change']))
@@ -122,16 +127,21 @@ def get_sub_io_events_by_player(box):
 
                     case   'EOQ' :
                                 
-                        if last_event != None:                                    
-                            if last_event[0] == 'IN':
-
-                                _sub_events_by_player[player].append(r_(
-                                    ['OUT', period_start_sec(dsec), 
-                                     'period change out']))
-                                    
+                        if last_event != None:    
+                                                            
+                            if in_the_game:
+                                # no PCO at end of game and OTs
+                                # if period_from_sec(dsec) < 5:
+                                    _sub_events_by_player[player].append(r_(
+                                        ['OUT', period_start_sec(dsec), 
+                                         'period change out']))
+                                # else:
+                                #     logger.error(f'no PCO {pms(dsec)} {player}')    
+                                
                     case _: 
 
                         if time_into_period_from_sec(dsec) == 0:
+                            if oink[0] != 'JB ':
                                 # this happens when an event occuus with < 1 sec on the clock
                                 # don't do anything about in or out
                                 # print(player,d.sec,d.period,d.pctimestring)
@@ -150,9 +160,12 @@ def get_sub_io_events_by_player(box):
                                 # player has a event, treat as enter at change
                                 # we're lost if already 5 guys in
                         
+                                # skip if next oink same time as this    
+                                if oinks[oi_ +  1][2] ==  oink[2]: continue  
+
                                 _sub_events_by_player[player].append(r_(
                                     ['IN', period_start_sec(dsec),
-                                     'First non SUB in' ]))
+                                     'first event non SUB' ]))
 
                             else:
                                 
@@ -169,9 +182,21 @@ def get_sub_io_events_by_player(box):
                                                 _sub_events_by_player[player].pop()
                                         else:
                                             # kicked out multiple period ago
-                                            _sub_events_by_player[player].append(r_(
-                                                ['IN', period_start_sec(dsec),
-                                                'non SUB first IN' ]))
+                                            # if overtime start at end regululatio
+                                            
+                                            if period_from_sec(dsec) <= 4:
+                                                # logger.critical(f'{pms(dsec)} NOT OT non sub enter') 
+
+                                                _sub_events_by_player[player].append(r_(
+                                                    ['IN', period_start_sec(dsec),
+                                                    'non SUB ' ]))
+                                            else:
+                                                logger.critical(f'{pms(dsec)} OT non sub enter') 
+
+                                                enter_at = 2880     
+                                                _sub_events_by_player[player].append(r_(
+                                                 ['IN', enter_at, 'non SUB OT ' ]))
+                                            
                                     else:
                                                                                         
                                         nosub = True
@@ -197,8 +222,8 @@ def get_sub_io_events_by_player(box):
                                             
                                         if nosub:
                                             
-                                            # no sub.in following
-                                            # prior was out same time as us
+                                            # no SUB.IN following
+                                            # prior was out same time as us wait till then
                                             if last_event[1] == oink[2]: pass
                                             else:
 
@@ -212,20 +237,17 @@ def get_sub_io_events_by_player(box):
                                     logger.error('ERROR X',player)
                                     pass    
 
-
+            
             if len(_sub_events_by_player[player]) > 0:
                             
                 last_event = _sub_events_by_player[player][-1]
                 if last_event[0] == 'IN':
-                    
-                    logger.error('Ended without an out!')
-                    
-                    last_period = period_from_sec(last_event[1])
-                    
+                                                     
                     _sub_events_by_player[player].append(r_(
-                        ['OUT', 
-                         sec_at_start_of_period(last_period + 1),
+                        ['OUT', dsec,
                          'EndOfGame All IN go out']))
+                # else:
+                #     logger.error(f'{player} out {pms(last_event[1])}')
                         
     return _sub_events_by_player
     
@@ -270,7 +292,7 @@ def sub_events_from_stints(game, game_stints):
                         s1[2] = s2[2]  
                         s1[0] += s2[0]        
                         del stints[i]
-                        logger.warning(f'{player} consolidating adjacent stints {i+1} ')
+                        logger.trace(f'{player} consolidating adjacent stints {i+1} ')
             except:
                 logger.error(f'{player} stints bad news') 
                            

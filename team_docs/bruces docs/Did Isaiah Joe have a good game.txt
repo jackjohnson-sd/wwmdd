@@ -1,0 +1,24 @@
+Did Isaiah Joe have a good game?
+
+How to decide:
+
+Compare Isaiah Joe's points/min to previous (10) games; (done)
+Compare Isaiah Joe's points/min to Paul George during previous (10) games; (small)
+Compare Isaiah Joe's points/min to average of 5 good bench players during previous (10) games; (medium)  
+Compare Isaiah Joe's 'good things happen when in the game' score to average of 5 good bench players during previous (10) games; (large) 
+
+note: (done, small, medium, large) refers to effort needed
+process:
+	isolate Isaiah Joe's pts for previous 10 games;
+	isolate player or players pts to compare previous 10 games;
+	if players, calculate and store average normalized pts;
+	when IJ's pts/min number is greater than 2 standard deviations (+) from compare group, call it good.
+
+tasks:
+	grep box score csv files to isolate players (small)
+	add Isaiah Joe and comp players to ijcomp csv file (small)
+	calculate and append normalized compare value to csv file (small)
+	graph and mark 'good games' (?, depending on tools)
+ 
+		
+	

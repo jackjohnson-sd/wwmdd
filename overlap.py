@@ -294,7 +294,7 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                         v = oinks[o] if o in oinks.keys() else 0
                         oinks_str += ',' + str(v)
                         
-                    tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2]).replace(' ',',')},{ms(int(stint[0]))}'
+                    tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2],for_end=True).replace(' ',',')},{ms(int(stint[0]))}'
                     
                     s += tmp + oinks_str + '\n'
             # else:

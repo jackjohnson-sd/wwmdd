@@ -5,48 +5,40 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "NO ARGS",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": ""
-        },
-        {
-            "name": "BS_LAL_0412",
+            "name": "BS_ATL_0110",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/lal_0412/get_all.txt"
+                "-bs", "tests/atl_0110/get_all.txt"
             ]
         },
         {
-            "name": "WEB_LAL_0412",
+            "name": "WEB_ATL_0110",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "OKC", "-d", "2024-04-12",
-                "-json", "tests/lal_0412/web.json",
+                "-t", "ATL", "-d", "2024-01-10",
+                "-json", "tests/atl_0110/web.json",
                 "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
             ]
         },
         {
-            "name": "CSV_LAL_0412",
+            "name": "CSV_ATL_0110",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/lal_0412/test_data/web/_W_MEMvLAL20240412.csv",
+                "-f", "tests/atl_0110/test_data/web/_W_MEMvATL20240110.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/lal_0412/csv.json"
+                "-json", "tests/atl_0110/csv.json"
             ]
         }
     ]

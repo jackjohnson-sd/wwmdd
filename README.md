@@ -3,6 +3,8 @@ Kill Period 5 problem for nick
 
 Please Read
 
+AUG 16   -- 4 errors left for 23/24 season.  All errors the same type. see bads.sh for details
+            add PLR type csv file output. Its events by player for the game. 
 AUG 11   -- app died if no colors.json file. fixed using default in settings.py code
 AUG 10   -- fixed team name wrong in box.csv
             finished? OT labels on periods, plot OT suport OK till furhter notice

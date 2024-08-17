@@ -1,4 +1,9 @@
 
+https://statsdmz.nba.com/pdfs/20240412/20240412_LALMEM_book.pdf 
+https://statsdmz.nba.com/pdfs/20240305/20240305_PHXDEN_book.pdf 
+
+
+
 grep -r 'ERROR' .wwmdd/logs
 rm llm/llm_training_data/* 
 rm .wwmdd/.csvs/*
@@ -49,8 +54,19 @@ select * where a12 == 'Grayson Allen' || a10 == 'Grayson Allen' || a8 == 'Grayso
 select * where a12 == 'Andre Jackson Jr.' || a10 == 'Andre Jackson Jr.' || a8 == 'Andre Jackson Jr.' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a12 == 'MarJon Beauchamp' || a10 == 'MarJon Beauchamp' || a8 == 'MarJon Beauchamp' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a12 == 'Aaron Gordon' || a10 == 'Aaron Gordon' || a8 == 'Aaron Gordon' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Cameron Payne' || a10 == 'Cameron Payne' || a8 == 'Cameron Payne' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Malik Beasley' || a10 == 'Malik Beasley' || a8 == 'Malik Beasley' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Bobby Portis' || a10 == 'Bobby Portis' || a8 == 'Bobby Portis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'select * where a12 == 'Bobby Portis' || a10 == 'Bobby Portis' || a8 == 'Bobby Portis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'select * where a12 == 'Bobby Portis' || a10 == 'Bobby Portis' || a8 == 'Bobby Portis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'select * where a12 == 'Bobby Portis' || a10 == 'Bobby Portis' || a8 == 'Bobby Portis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'select * where a12 == 'Bobby Portis' || a10 == 'Bobby Portis' || a8 == 'Bobby Portis' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Derrick White' || a10 == 'Derrick White' || a8 == 'Derrick White' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'D'Angelo Russell' || a10 == 'D'Angelo Russell' || a8 == 'D'Angelo Russell' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Aaron Gordon' || a10 == 'Aaron Gordon' || a8 == 'Aaron Gordon' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Toumani Camara' || a10 == 'Toumani Camara' || a8 == 'Toumani Camara' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Jordan Poole' || a10 == 'Jordan Poole' || a8 == 'Jordan Poole' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Marcus Morris Sr.' || a10 == 'Marcus Morris Sr.' || a8 == 'Marcus Morris Sr.' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
+select * where a12 == 'Brook Lopez' || a10 == 'Brook Lopez' || a8 == 'Brook Lopez' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 
 """"""""""  command line args tutorial """""""""" taken from readme.md """""""""

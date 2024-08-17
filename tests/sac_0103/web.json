@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/ind_0426/test_data/web"
+      "SAVE_DIR"      : "tests/sac_0103/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
@@ -12,8 +12,8 @@
     , "SAVE_SUBS_FILE"  : false
 
     , "DBG"             : false
-    , "TEST_PLAYERS"    :["Bobby Portis"]
 
+    ,"TEST_PLAYERS"     : ["Trey Lyles"]
     , "PLOT_WAIT"       : -1
 }
 

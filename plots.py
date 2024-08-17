@@ -291,15 +291,16 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
         play_time_length = 720 if s < 2880 else 300
         quarter_start += [s]
         s += play_time_length
-    
+    x -= len(quarter_start) - 4 
     quarter_end = quarter_start[1:] 
     
+
     lxoffset = 2
     lx0 = x + lxoffset + 1
     lx1 = lx0 + lxoffset 
     lx2 = lx1 + lxoffset
-    lx3 = lx2 + lxoffset
-    lx4 = lx3 + lxoffset
+    lx3 = lx2 + lxoffset 
+    lx4 = lx3 + lxoffset + 1
     lx5 = lx4 + lxoffset 
     lx6 = lx5 + lxoffset  
     
@@ -310,7 +311,7 @@ def plot_quarter_score(home_scores, away_scores, axis, x,y, game_info):
         [[x, y], [lx0,  y],[lx1,  y],[lx2, y], [lx3,  y],[lx4,  y],[lx5,  y],[lx6,  y]]
         ]
 
-    def qs_text(x,y,text, _color):
+    def qs_text(x,y,text, _color): 
         axis.text(x, y, s = text,
             color = _color, 
             size = 24 / MRK_FONTSCALE, 
@@ -645,7 +646,7 @@ def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info)
     plot_quarter_score(home_scores, away_scores, _ax_, c2xstart + 2, c2ystart + 50, game_info)
 
     if do_plot('legend'):
-        plot_event_legend(_ax_,20,50)
+        plot_event_legend(_ax_,15,55)
 
 def plot_event_legend(ax,xstart,ystart):
     
@@ -1091,7 +1092,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
         if defaults.get('SAVE_GAME'):
             dump_pbp(game_data, merged_game_stints)
 
-        if True:
+        if True and False:
 
             fn, cwd, isfile = make_cache_fn(game_data)
 

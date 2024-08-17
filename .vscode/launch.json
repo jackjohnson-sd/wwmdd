@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
 
-        {
-            "name": "NO ARGS",
+       {
+            "name": "WAS NO ARGS",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
@@ -18,15 +18,59 @@
                 "-m", "raw"
             ]
         },
-
         {
-            "name": "WT_BS",
+            "name": "WEB_SAC_0103",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/world_tour/wt_args.txt"
+                "-s", "web",
+                "-t", "SAC", "-d", "2024-01-03",
+                "-json", "tests/sac_0103/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events"
+            ]
+        },
+        {
+            "name": "CSV_SAC_0103",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/sac_0103/test_data/web/_W_ORLvSAC20240103.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/sac_0103/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_ATL_0110",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "ATL", "-d", "2024-01-10",
+                "-json", "tests/atl_0110/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "CSV_ATL_0110",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/atl_0110/test_data/web/_W_ATLvPHI20240110.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/atl_0110/csv.json"
             ]
         },
 
@@ -39,9 +83,9 @@
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "MIL", "-d", "2023-12-11",
+                "-t", "CHI", "-d", "2023-12-11",
                 "-json", "tests/chi_1211/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "all"
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores","boxscore"
             ]
         },
         {
@@ -52,12 +96,12 @@
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/chi_1211/test_data/web/_W_MILvCHI20231211.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
+                "-f", "tests/chi_1211/test_data/web/_W_CHIvMIL20231211.csv",
+                "-m", "plot", "-p", "stints", "boxscore",
                 "-json", "tests/chi_1211/csv.json"
             ]
         },
+
         {
             "name": "WEB_IND_0426",
             "type": "debugpy",
@@ -68,7 +112,7 @@
                 "-s", "web",
                 "-t", "IND", "-d", "2024-04-26",
                 "-json", "tests/ind_0426/web.json",
-                "-m", "plot", "-p", "stints", "periodscores"
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "all"
             ]
         },
         {
@@ -79,14 +123,15 @@
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/ind_0426/test_data/web/_W_INDvLAL20240426.csv",
+                "-f", "tests/ind_0426/test_data/web/_W_INDvMIL20240426.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
                 "-json", "tests/ind_0426/csv.json"
             ]
         },
+
         {
-            "name": "WEB_CHI_1108",
+            "name": "WEB_PHX_1108",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
@@ -94,531 +139,223 @@
             "args": [
                 "-s", "web",
                 "-t", "CHI", "-d", "2023-11-08",
-                "-json", "tests/chi_1108/web.json",
+                "-json", "tests/phx_1108/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores"
+            ]
+        },
+        {
+            "name": "CSV_PHX_1108",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/phx_1108/test_data/web/_W_CHIvPHX20231108.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/phx_1108/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_MIN_1110",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "MIN", "-d", "2024-01-10",
+                "-json", "tests/MIN_0110/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores"
+            ]
+        },
+        {
+            "name": "CSV_MIN_0110",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/MIN_0110/test_data/web/_W_BOSvMIN20240110.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/MIN_0110/csv.json"
+            ]
+        },
+
+
+        {
+            "name": "WEB_PHI_0129",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "PHI", "-d", "2024-01-29",
+                "-json", "tests/phi_0129/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores"
+            ]
+        },
+        {
+            "name": "CSV_PHI_0129",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/phi_0129/test_data/web/_W_PHIvPOR20240129.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/phi_0129/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_SAS_0120",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "SAS", "-d", "2024-01-20",
+                "-json", "tests/sas_0120/web.json",
                 "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","periodscores"
             ]
         },
         {
-            "name": "CSV_CHI_1108",
+            "name": "CSV_SAS_0120",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/chi_1108/test_data/web/CHIvBKN20231108.csv",
+                "-f", "tests/sas_0120/test_data/web/_W_SASvWAS20240120.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/chi_1108/csv.json"
+                "-json", "tests/sas_0120/csv.json"
             ]
         },
 
 
-
         {
-            "name": "WEB_POR_1105",
+            "name": "WEB_0223_MIA",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "POR", "-d", "2023-11-05",
-                "-json", "tests/por_1105/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+                "-t", "MIA", "-d", "2024-02-23",
+                "-json", "tests/mia_0223/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","periodscores"
             ]
         },
         {
-            "name": "CSV_POR_1105",
+            "name": "CSV_MIA_0223",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/por_1105/test_data/web/_W_PORvMEM20231105.csv",
+                "-f", "tests/mia_0223/test_data/web/_W_MIAvNOP20240223.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/por_1105/csv.json"
+                "-json", "tests/mia_0223/csv.json"
             ]
         },
 
+
         {
-            "name": "WEB_POR_1108",
+            "name": "WEB_LAL_0412",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "POR", "-d", "2023-11-08",
-                "-json", "tests/por_1108/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+                "-t", "LAL", "-d", "2024-04-12",
+                "-json", "tests/lal_0412/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","periodscores"
             ]
         },
         {
-            "name": "CSV_POR_1108",
+            "name": "CSV_LAL_0412",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/por_1108/test_data/web/_W_SACvPOR20231108.csv",
+                "-f", "tests/lal_0412/test_data/web/_W_LALvMEM20240412.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/por_1108/csv.json"
+                "-json", "tests/lal_0412/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_POR_0302",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "POR", "-d", "2024-03-02",
+                "-json", "tests/por_0302/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints", "events", "periodscores"
+            ]
+        },
+        {
+            "name": "CSV_POR_0302",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/por_0302/test_data/web/_W_MEMvPOR20240302.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/por_0302/csv.json"
+            ]
+        },
+
+        {
+            "name": "WEB_PHX_0305",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "PHX", "-d", "2024-03-05",
+                "-json", "tests/phx_0305/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","periodscores","events"
+            ]
+        },
+        {
+            "name": "CSV_PHX_0305",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/phx_0305/test_data/web/_W_DENvPHX20240305.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/phx_0305/csv.json"
             ]
         }
-
-        ,
-        {
-            "name": "WEB_NOP_1101",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2023-11-01",
-                "-json", "tests/nop_1101/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_NOP_1101",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/nop_1101/test_data/web/_W_OKCvNOP20231101.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/nop_1101/csv.json"
-            ]
-        },
-        {
-            "name": "WEB_PHX_230402",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2023-04-02",
-                "-json", "tests/phx_230402/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_PHX_230402",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/phx_230402/test_data/web/_W_OKCvPHX20230402.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/phx_230402/csv.json"
-            ]
-        },
-        {
-            "name": "WEB_DAL_0507",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2024-05-07",
-                "-json", "tests/dal_0507/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_DAL_0507",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/dal_0507/test_data/web/_W_OKCvDAL20240507.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/dal_0507/csv.json"
-            ]
-        },
-        {
-            "name": "WEB_0321",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "CHI", "-d", "2024-03-21",
-                "-json", "tests/chi_0321/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_0321",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/chi_0321/test_data/web/_W_HOUvCHI20240321.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/chi_0321/csv.json"
-            ]
-        },
-
-       {
-            "name": "WEB_0306",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "CHI", "-d", "2024-03-06",
-                "-json", "tests/chi_0306/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_0306",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/chi_0306/test_data/web/_W_UTAvCHI20240306.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/chi_0306/csv.json"
-            ]
-        },
-
-        {
-            "name": "CHI 1101",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "CHI", "-d", "2023-11-01",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-
-
-        {
-            "name": "BS_NYK_1014",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/nyk_1014/get_all.txt"
-            ]
-        },
-        {
-            "name": "BRUCE",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "GSW", "-d", "2024-03-27",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "BRUCE_CSV",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "llm/llm_training_data/ORLvGSW20240327.csv",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "WEB_NYK_1014",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "NYK", "-d", "2023-10-14",
-                "-json", "tests/nyk_1014/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_NYK_1014",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/nyk_1014/test_data/web/_W_NYKvIND20241014.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/nyk_1014/csv.json"
-            ]
-        },
-        {
-            "name": "WEB_TOR_0204",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2024-02-04",
-                "-json", "tests/tor_0204/web.json",
-                "-m", "csv", "img", "stints","box","raw" , "-p", "stints","boxscore"
-            ]
-        },
-        {
-            "name": "CSV_TOR_0204",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/tor_0204/test_data/web/_W_OKCvTOR20240204.csv",
-                "-m", "plot", "csv",
-                "-p", "stints", "boxscore",
-                "-json", "tests/tor_0204/csv.json"
-            ]
-        },
-
-        {
-            "name": "WEB_NYK_0519",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "NYK", "-d", "2024-05-19",
-                "-json", "tests/nyk_0519/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_NYK_0519",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/nyk_0519/test_data/web/_W_NYKvIND20240519.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/nyk_0519/csv.json"
-            ]
-        },
-
-        {
-            "name": "ALL CSVs",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args":[ 
-                "-s", "csv",
-                "-f", "llm/llm_training_data",
-                "-m", "plot", "-w","1"]
-        },
-        {
-            "name": "OKC 23-24 ALL",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args":[ 
-                "-s", "web",
-                "-t","OKC",
-                "-d", "2023-10-14", "2024-05-31",
-                "-m", "plot", "csv",  
-                "-w", "1"]
-        },
-
-
-        {
-            "name": "UTA_0206_BS",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/uta_0206/get_all.txt"
-            ]
-        },
-        {
-            "name": "WEB_UTA_0206",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2024-02-06",
-                "-json", "tests/uta_0206/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_UTA_0206",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/uta_0206/test_data/web/_W_UTAvOKC20240206.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/uta_0206/csv.json"
-            ]
-        },
-
-
-        {
-            "name": "DAL_0518_BS",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/dal_0518/get_all.txt"
-            ]
-        },
-        {
-            "name": "WEB_DAL_0518",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2024-05-18",
-                "-json", "tests/dal_0518/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_DAL_0518",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/dal_0518/test_data/web/_W_DALvOKC20240518.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/dal_0518/csv.json"
-            ]
-        },
-
-        {
-            "name": " bs.args",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/chet_1106/get_all.txt"
-            ]
-        },
-        {
-            "name": "WEB_CHET_1106",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2023-11-06",
-                "-json", "tests/chet_1106/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_CHET_1106",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/chet_1106/test_data/web/_W_OKCvATL20231106.csv",
-                "-m", "plot", 
-                "-p", "stints", "boxscore",
-                "-json", "tests/chet_1106/csv.json"
-            ]
-        },
-
-        {
-            "name": "BS_NOP_0421",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-bs", "tests/nop_0421/get_all.txt"
-            ]
-        },
-        {
-            "name": "WEB_NOP_0421",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "web",
-                "-t", "OKC", "-d", "2024-04-21",
-                "-json", "tests/nop_0421/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
-            ]
-        },
-        {
-            "name": "CSV_NOP_0421",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal",
-            "args": [
-                "-s", "csv",
-                "-f", "tests/nop_0421/test_data/web/_W_OKCvNOP20240421.csv",
-                "-m", "plot", "-w", "1",
-                "-p", "stints", "boxscore",
-                "-json", "tests/nop_0421/csv.json"
-            ]
-        }
-
 
 
     ]

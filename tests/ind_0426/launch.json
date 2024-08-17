@@ -13,40 +13,40 @@
             "args": ""
         },
         {
-            "name": "BS_IND_0426",
+            "name": "BS_LAL_0412",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
-                "-bs", "tests/ind_0426/get_all.txt"
+                "-bs", "tests/lal_0412/get_all.txt"
             ]
         },
         {
-            "name": "WEB_IND_0426",
+            "name": "WEB_LAL_0412",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "web",
-                "-t", "OKC", "-d", "2024-04-26",
-                "-json", "tests/ind_0426/web.json",
+                "-t", "OKC", "-d", "2024-04-12",
+                "-json", "tests/lal_0412/web.json",
                 "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
             ]
         },
         {
-            "name": "CSV_IND_0426",
+            "name": "CSV_LAL_0412",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "args": [
                 "-s", "csv",
-                "-f", "tests/ind_0426/test_data/web/_W_INDvLAL20240426.csv",
+                "-f", "tests/lal_0412/test_data/web/_W_MEMvLAL20240412.csv",
                 "-m", "plot", 
                 "-p", "stints", "boxscore",
-                "-json", "tests/ind_0426/csv.json"
+                "-json", "tests/lal_0412/csv.json"
             ]
         }
     ]

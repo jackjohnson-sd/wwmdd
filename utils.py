@@ -57,7 +57,7 @@ def pms_as_sec(pms_str):
     pc = pms_str.split(',')
     return period_time_to_sec(pc[0],pc[1])
     
-def pms(_sec, delim1=',', delim2=':'):  # p eriod m inute s econd
+def pms(_sec, delim1=',', delim2=':', as_end=False):  # p eriod m inute s econd
     # return "1,5:31", 1,12:00, 1,11:59, 1,0:01, 2,12:
     
     if _sec < 2880:
@@ -74,14 +74,15 @@ def pms(_sec, delim1=',', delim2=':'):  # p eriod m inute s econd
     m_        = int(s_into_q / 60)
     s_        = int(s_into_q % 60)
     
-    # if s_ == 0 and m_ == max_min:
-    #     m_ = 0
-    #     q_ -= 1
-        
+    if as_end:
+        if s_ == 0 and m_ == max_min:
+            m_ = 0
+            q_ -= 1
+            
     s = f'{q_ + 1}{delim1}{int(m_)}{delim2}{int(s_):02d}'
     return s
 
-def sec_to_period_time(sec): return pms(sec,delim1=' ')
+def sec_to_period_time(sec, for_end=False): return pms(sec,delim1=' ',as_end=for_end)
     
 if False: 
     

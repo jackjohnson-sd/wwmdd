@@ -299,6 +299,10 @@ class box_score:
 
                 case 6:  # foul
                 
+                    if p1 == None or p2 == None: 
+                        # logger.debug(f'Only one player specifed foul {event_description}')
+                        continue
+                    
                     ttm = ''
                     try: 
                         ttm += str(_evnt.neutraldescription) 
@@ -306,11 +310,20 @@ class box_score:
                         ttm += str(_evnt.visitordescription) 
                     except : pass
                     
-                    foul_type1 = 'TF' if 'T.FOUL' in ttm else 'PF'
-                    foul_type2 = 'TF' if 'Technical' in ttm else foul_type1
-                    
-                    self.update(p1, foul_type2, 1, when=_evnt.sec)
-                    self.update(p2, 'FD', 1, when=_evnt.sec)
+                    tech_foul = False
+                    for a in ["TECHNICAL","T.FOUL","Technical","TECHNICAL"]:
+                        if a in ttm:
+                            tech_foul = True
+                            break
+                        
+                    if tech_foul:
+                               
+                        self.update(p1, 'TF', 1, when=_evnt.sec)
+                        self.update(p2, 'TF', 1, when=_evnt.sec)
+
+                    else:    
+                        self.update(p1, 'PF', 1, when=_evnt.sec)
+                        self.update(p2, 'FD', 1, when=_evnt.sec)
 
                     # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
                 

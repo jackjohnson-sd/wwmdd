@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/ind_0426/test_data/web"
+      "SAVE_DIR"      : "tests/phx_1108/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
@@ -12,7 +12,7 @@
     , "SAVE_SUBS_FILE"  : false
 
     , "DBG"             : false
-    , "TEST_PLAYERS"    :["Bobby Portis"]
+
 
     , "PLOT_WAIT"       : -1
 }

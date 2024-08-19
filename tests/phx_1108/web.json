@@ -13,7 +13,6 @@
 
     , "DBG"             : false
 
-
     , "PLOT_WAIT"       : -1
 }
 

@@ -1,0 +1,65 @@
+eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+
+
+PLAYER: Isaiah Hartenstein
+
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (1:14 PM EST),0 - 0,0,,,,,,
+1,JUMPBALL,1,12:00,Jump Ball Hartenstein vs. Vucevic: Tip to White,0 - 0,0,Isaiah Hartenstein,NYK,Nikola Vucevic,CHI,Coby White,CHI
+10,STEAL.TURNOVER,1,10:20,Hartenstein STEAL (1 STL)  White Bad Pass Turnover (P1.T2),2 - 4,2,Coby White,CHI,Isaiah Hartenstein,NYK,,
+14,REBOUND,1,9:31,Hartenstein REBOUND (Off:1 Def:0),4 - 4,TIE,Isaiah Hartenstein,NYK,,,,
+15,2POINT,1,9:31,Hartenstein Tip Layup Shot (2 PTS),4 - 6,2,Isaiah Hartenstein,NYK,,,,
+23,REBOUND,1,8:34,Hartenstein REBOUND (Off:2 Def:0),6 - 6,TIE,Isaiah Hartenstein,NYK,,,,
+24,3POINT.ASSIST,1,8:30,DiVincenzo 3PT Jump Shot (3 PTS) (Hartenstein 1 AST),6 - 9,3,Donte DiVincenzo,NYK,Isaiah Hartenstein,NYK,,
+38,SUB,1,6:15,SUB: Robinson FOR Hartenstein,11 - 18,7,Isaiah Hartenstein,NYK,Mitchell Robinson,NYK,,
+91,ENDOFPERIOD,1,0:00,End of 1st Period (1:38 PM EST),28 - 29,1,,,,,,
+92,STARTOFPERIOD,2,12:00,Start of 2nd Period (1:41 PM EST),28 - 29,1,,,,,,
+134,SUB,2,7:46,SUB: Hartenstein FOR Hart,34 - 34,TIE,Josh Hart,NYK,Isaiah Hartenstein,NYK,,
+141,FOUL,2,6:19,Hartenstein S.FOUL (P1.T2) (Z.Zarba),39 - 37,-2,Isaiah Hartenstein,NYK,Nikola Vucevic,CHI,,
+149,2POINT.ASSIST,2,6:06,Brunson 9' Driving Floating Jump Shot (12 PTS) (Hartenstein 2 AST),41 - 39,-2,Jalen Brunson,NYK,Isaiah Hartenstein,NYK,,
+152,FOUL,2,5:38,Carter P.FOUL (P2.PN) (Z.Zarba),41 - 39,-2,Jevon Carter,CHI,Isaiah Hartenstein,NYK,,
+153,FTMAKE,2,5:38,Hartenstein Free Throw 1 of 2 (3 PTS),41 - 40,-1,Isaiah Hartenstein,NYK,,,,
+154,FTMISS,2,5:38,MISS Hartenstein Free Throw 2 of 2,41 - 40,-1,Isaiah Hartenstein,NYK,,,,
+159,REBOUND,2,5:11,Hartenstein REBOUND (Off:2 Def:1),41 - 40,-1,Isaiah Hartenstein,NYK,,,,
+177,STEAL.TURNOVER,2,3:40,Hartenstein STEAL (2 STL)  DeRozan Bad Pass Turnover (P1.T8),41 - 43,2,DeMar DeRozan,CHI,Isaiah Hartenstein,NYK,,
+180,REBOUND,2,3:10,Hartenstein REBOUND (Off:2 Def:2),41 - 45,4,Isaiah Hartenstein,NYK,,,,
+190,FOUL,2,1:29,Caruso S.FOUL (P1.PN) (M.Myers),45 - 47,2,Alex Caruso,CHI,Isaiah Hartenstein,NYK,,
+191,FTMISS,2,1:29,MISS Hartenstein Free Throw 1 of 2,45 - 47,2,Isaiah Hartenstein,NYK,,,,
+193,FTMAKE,2,1:29,Hartenstein Free Throw 2 of 2 (4 PTS),45 - 48,3,Isaiah Hartenstein,NYK,,,,
+200,REBOUND,2,0:30,Hartenstein REBOUND (Off:3 Def:2),47 - 48,1,Isaiah Hartenstein,NYK,,,,
+201,2POINT,2,0:30,Hartenstein Tip Dunk Shot (6 PTS),47 - 50,3,Isaiah Hartenstein,NYK,,,,
+205,SUB,2,0:07,SUB: Achiuwa FOR Hartenstein,47 - 50,3,Isaiah Hartenstein,NYK,Precious Achiuwa,NYK,,
+212,ENDOFPERIOD,2,0:00,End of 2nd Period (2:08 PM EST),47 - 50,3,,,,,,
+213,STARTOFPERIOD,3,12:00,Start of 3rd Period (2:24 PM EST),47 - 50,3,,,,,,
+216,2POINT.ASSIST,3,11:01,Hartenstein 1' Reverse Layup (8 PTS) (Anunoby 3 AST),49 - 54,5,Isaiah Hartenstein,NYK,OG Anunoby,NYK,,
+218,REBOUND,3,10:46,Hartenstein REBOUND (Off:3 Def:3),49 - 54,5,Isaiah Hartenstein,NYK,,,,
+226,2POINT.ASSIST,3,9:02,Brunson 4' Driving Floating Jump Shot (18 PTS) (Hartenstein 3 AST),55 - 58,3,Jalen Brunson,NYK,Isaiah Hartenstein,NYK,,
+230,REBOUND,3,8:45,Hartenstein REBOUND (Off:3 Def:4),55 - 59,4,Isaiah Hartenstein,NYK,,,,
+243,REBOUND,3,6:55,Hartenstein REBOUND (Off:3 Def:5),62 - 64,2,Isaiah Hartenstein,NYK,,,,
+246,2POINTMISS.BLOCK,3,6:30,Hartenstein BLOCK (1 BLK)  MISS Vucevic 2' Dunk,62 - 64,2,Nikola Vucevic,CHI,,,Isaiah Hartenstein,NYK
+252,2POINT.ASSIST,3,5:47,Hart 1' Reverse Layup (8 PTS) (Hartenstein 4 AST),64 - 66,2,Josh Hart,NYK,Isaiah Hartenstein,NYK,,
+255,REBOUND,3,5:09,Hartenstein REBOUND (Off:4 Def:5),66 - 66,TIE,Isaiah Hartenstein,NYK,,,,
+256,STEAL,3,5:05,Hartenstein Out of Bounds - Bad Pass Turnover Turnover (P1.T12),66 - 66,TIE,Isaiah Hartenstein,NYK,,,,
+257,SUB,3,5:05,SUB: Achiuwa FOR Hartenstein,66 - 66,TIE,Isaiah Hartenstein,NYK,Precious Achiuwa,NYK,,
+318,ENDOFPERIOD,3,0:00,End of 3rd Period (2:52 PM EST),82 - 76,-6,,,,,,
+319,STARTOFPERIOD,4,12:00,Start of 4th Period (2:56 PM EST),82 - 76,-6,,,,,,
+
+
+330,SUB,4,10:36,SUB: Hartenstein FOR Achiuwa,84 - 78,-6,Precious Achiuwa,NYK,Isaiah Hartenstein,NYK,,
+332,2POINTMISS.BLOCK,4,10:30,Hartenstein BLOCK (2 BLK)  MISS Green 1' Cutting Dunk Shot,84 - 78,-6,Javonte Green,CHI,,,Isaiah Hartenstein,NYK
+336,STEAL.TURNOVER,4,9:50,Hartenstein Bad Pass Turnover (P2.T14)  DeRozan STEAL (2 STL),86 - 81,-5,Isaiah Hartenstein,NYK,DeMar DeRozan,CHI,,
+349,REBOUND,4,8:35,Hartenstein REBOUND (Off:4 Def:6),90 - 82,-8,Isaiah Hartenstein,NYK,,,,
+354,FOUL,4,8:03,Hartenstein S.FOUL (P2.T2) (M.Myers),92 - 85,-7,Isaiah Hartenstein,NYK,Dalen Terry,CHI,,
+356,REBOUND,4,8:02,Hartenstein REBOUND (Off:4 Def:7),92 - 85,-7,Isaiah Hartenstein,NYK,,,,
+361,REBOUND,4,6:53,Hartenstein REBOUND (Off:4 Def:8),94 - 90,-4,Isaiah Hartenstein,NYK,,,,
+372,FOUL,4,5:58,Green L.B.FOUL (P2.T3) (J.Orr),94 - 93,-1,Javonte Green,CHI,Isaiah Hartenstein,NYK,,
+
+378,REBOUND,4,5:39,Hartenstein REBOUND (Off:5 Def:8),94 - 93,-1,Isaiah Hartenstein,NYK,,,,
+383,2POINTMISS,4,4:21,MISS Hartenstein 1' Alley Oop Layup,98 - 96,-2,Isaiah Hartenstein,NYK,,,,
+
+419,ENDOFPERIOD,4,0:00,End of 4th Period (3:28 PM EST),109 - 109,TIE,,,,,,
+
+420,STARTOFPERIOD,5,5:00,Start of 1st OT (3:31 PM EST),109 - 109,TIE,,,,,,
+480,ENDOFPERIOD,5,0:00,End of 1st OT (3:49 PM EST),119 - 120,1,,,,,,
+
+

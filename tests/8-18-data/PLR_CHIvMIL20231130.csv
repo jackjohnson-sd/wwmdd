@@ -1,0 +1,57 @@
+eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+
+
+PLAYER: Khris Middleton
+
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:11 PM EST),0 - 0,0,,,,,,
+3,REBOUND,1,11:31,Middleton REBOUND (Off:0 Def:1),0 - 0,0,Khris Middleton,MIL,,,,
+4,2POINT,1,11:23,Middleton 6' Driving Floating Jump Shot (2 PTS),2 - 0,-2,Khris Middleton,MIL,,,,
+7,3POINT.ASSIST,1,10:57,Middleton 3PT Step Back Jump Shot (5 PTS) (Beasley 1 AST),5 - 0,-5,Khris Middleton,MIL,Malik Beasley,MIL,,
+12,FOUL,1,10:07,Middleton P.FOUL (P1.T1) (R.Mott),5 - 0,-5,Khris Middleton,MIL,Alex Caruso,CHI,,
+13,STEAL.TURNOVER,1,10:00,Caruso Lost Ball Turnover (P1.T1)  Middleton STEAL (1 STL),5 - 0,-5,Alex Caruso,CHI,Khris Middleton,MIL,,
+14,2POINT.ASSIST,1,9:55,G. Antetokounmpo Cutting Dunk Shot (2 PTS) (Middleton 1 AST),7 - 0,-7,Giannis Antetokounmpo,MIL,Khris Middleton,MIL,,
+26,2POINTMISS.BLOCK,1,8:34,Caruso BLOCK (1 BLK)  MISS Middleton 6' Driving Floating Jump Shot,9 - 2,-7,Khris Middleton,MIL,,,Alex Caruso,CHI
+35,3POINTMISS,1,7:50,MISS Middleton 26' 3PT Pullup Jump Shot,11 - 2,-9,Khris Middleton,MIL,,,,
+40,FOUL,1,7:13,White L.B.FOUL (P1.T2) (R.Mott),11 - 5,-6,Coby White,CHI,Khris Middleton,MIL,,
+46,3POINT.ASSIST,1,6:05,Beasley 3PT Jump Shot (5 PTS) (Middleton 2 AST),16 - 11,-5,Malik Beasley,MIL,Khris Middleton,MIL,,
+50,SUB,1,5:53,SUB: Portis FOR Middleton,16 - 14,-2,Khris Middleton,MIL,Bobby Portis,MIL,,
+105,ENDOFPERIOD,1,0:00,End of 1st Period (8:34 PM EST),24 - 26,2,,,,,,
+106,STARTOFPERIOD,2,12:00,Start of 2nd Period (8:37 PM EST),24 - 26,2,,,,,,
+109,3POINTMISS,2,11:04,MISS Middleton 25' 3PT Jump Shot,27 - 29,2,Khris Middleton,MIL,,,,
+127,FOUL,2,9:44,Phillips S.FOUL (P2.T2) (N.Sago),30 - 35,5,Julian Phillips,CHI,Khris Middleton,MIL,,
+128,FTMISS,2,9:44,MISS Middleton Free Throw 1 of 3,30 - 35,5,Khris Middleton,MIL,,,,
+130,FTMISS,2,9:44,MISS Middleton Free Throw 2 of 3,30 - 35,5,Khris Middleton,MIL,,,,
+133,FTMAKE,2,9:44,Middleton Free Throw 3 of 3 (6 PTS),31 - 35,4,Khris Middleton,MIL,,,,
+134,STEAL.TURNOVER,2,9:34,Williams Bad Pass Turnover (P1.T8)  Middleton STEAL (2 STL),31 - 35,4,Patrick Williams,CHI,Khris Middleton,MIL,,
+135,2POINT,2,9:30,Middleton 2' Running Layup (8 PTS),33 - 35,2,Khris Middleton,MIL,,,,
+153,FOUL,2,7:51,Middleton S.FOUL (P2.T4) (R.Mott),33 - 37,4,Khris Middleton,MIL,Andre Drummond,CHI,,
+159,FOUL,2,7:37,Phillips S.FOUL (P3.T3) (R.Mott),33 - 38,5,Julian Phillips,CHI,Khris Middleton,MIL,,
+160,FTMISS,2,7:37,MISS Middleton Free Throw 1 of 2,33 - 38,5,Khris Middleton,MIL,,,,
+164,FTMAKE,2,7:37,Middleton Free Throw 2 of 2 (9 PTS),34 - 38,4,Khris Middleton,MIL,,,,
+168,REBOUND,2,7:12,Middleton REBOUND (Off:0 Def:2),34 - 38,4,Khris Middleton,MIL,,,,
+184,SUB,2,5:50,SUB: G. Antetokounmpo FOR Middleton,34 - 40,6,Khris Middleton,MIL,Giannis Antetokounmpo,MIL,,
+238,ENDOFPERIOD,2,0:00,End of 2nd Period (9:05 PM EST),55 - 49,-6,,,,,,
+239,STARTOFPERIOD,3,12:00,Start of 3rd Period (9:21 PM EST),55 - 49,-6,,,,,,
+244,2POINTMISS,3,11:08,MISS Middleton 20' Fadeaway Jumper,55 - 51,-4,Khris Middleton,MIL,,,,
+248,REBOUND,3,10:56,Middleton REBOUND (Off:0 Def:3),55 - 51,-4,Khris Middleton,MIL,,,,
+265,3POINT.ASSIST,3,8:21,B. Lopez 27' 3PT Jump Shot (8 PTS) (Middleton 3 AST),63 - 61,-2,Brook Lopez,MIL,Khris Middleton,MIL,,
+273,2POINTMISS,3,7:20,MISS Middleton 14' Pullup Jump Shot,65 - 63,-2,Khris Middleton,MIL,,,,
+279,SUB,3,7:10,SUB: Portis FOR Middleton,65 - 63,-2,Khris Middleton,MIL,Bobby Portis,MIL,,
+344,ENDOFPERIOD,3,0:00,End of 3rd Period (9:51 PM EST),80 - 80,TIE,,,,,,
+345,STARTOFPERIOD,4,12:00,Start of 4th Period (9:53 PM EST),80 - 80,TIE,,,,,,
+349,STEAL.TURNOVER,4,11:17,Carter STEAL (3 STL)  Middleton Bad Pass Turnover (P1.T11),80 - 82,2,Khris Middleton,MIL,Jevon Carter,CHI,,
+363,FOUL,4,10:14,Middleton Offensive Charge Foul (P3) (B.Taylor),80 - 86,6,Khris Middleton,MIL,Alex Caruso,CHI,,
+364,STEAL,4,10:14,Middleton Offensive Foul Turnover (P2.T12),80 - 86,6,Khris Middleton,MIL,,,,
+373,3POINTMISS,4,9:18,MISS Middleton 3PT Jump Shot,80 - 88,8,Khris Middleton,MIL,,,,
+377,SUB,4,9:00,SUB: Beauchamp FOR Middleton,80 - 90,10,Khris Middleton,MIL,MarJon Beauchamp,MIL,,
+
+409,SUB,4,6:33,SUB: Middleton FOR Beauchamp,85 - 94,9,MarJon Beauchamp,MIL,Khris Middleton,MIL,,
+414,2POINTMISS,4,5:55,MISS Middleton 5' Turnaround Hook Shot,85 - 94,9,Khris Middleton,MIL,,,,
+429,STEAL.TURNOVER,4,4:03,Caruso STEAL (1 STL)  Middleton Lost Ball Turnover (P3.T15),90 - 96,6,Khris Middleton,MIL,Alex Caruso,CHI,,
+
+463,ENDOFPERIOD,4,0:00,End of 4th Period (10:29 PM EST),106 - 106,TIE,,,,,,
+
+464,STARTOFPERIOD,5,5:00,Start of 1st OT (10:32 PM EST),106 - 106,TIE,,,,,,
+512,ENDOFPERIOD,5,0:00,End of 1st OT (10:47 PM EST),113 - 120,7,,,,,,
+

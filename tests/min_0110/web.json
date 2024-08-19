@@ -13,7 +13,7 @@
 
     , "DBG"             : false
 
-
+    , "TEST_PLAYERS"    : ["Naz Reid"]
     , "PLOT_WAIT"       : -1
 }
 

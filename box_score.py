@@ -131,9 +131,9 @@ class box_score:
             d['FT'] = f'{d['FT.MA']}-{d['FT.MA'] + d['FT.MI']}'
 
             if key != self._team_name:
-                d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
+                d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:]
             else:
-                d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:4]
+                d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:]
                 d[PM] = int(d[PM] / 5)
 
     def dump(self, _players=[]):

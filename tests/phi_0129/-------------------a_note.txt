@@ -1,2 +1,0 @@
-we match the nba player minutes. our total is 50. 
-not sure what the problem is

@@ -3,8 +3,11 @@ Kill Period 5 problem for nick
 
 Please Read
 
+AUG 18   -- 4 errors resolve with added logoic to say OT players are not forced out
+            on at end of regulation.  This causes 6 different games to fail.  All 10 games have
+            issues of players playing with no events in OT. playing or not comes from NBA box score 
 AUG 16   -- 4 errors left for 23/24 season.  All errors the same type. see bads.sh for details
-            add PLR type csv file output. Its events by player for the game. 
+            added PLR type csv file output. Its events by player for the game. 
 AUG 11   -- app died if no colors.json file. fixed using default in settings.py code
 AUG 10   -- fixed team name wrong in box.csv
             finished? OT labels on periods, plot OT suport OK till furhter notice

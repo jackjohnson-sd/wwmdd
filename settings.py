@@ -3,7 +3,7 @@ from loguru import logger
 
 defaults = None
 colors = None
-
+ommisions = None
 class default :
     
     push_data = []

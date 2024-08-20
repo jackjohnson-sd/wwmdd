@@ -7,7 +7,7 @@ from utils import pms,period_time_to_sec
 
 from utils import period_from_sec,period_start_sec,time_into_period_from_sec,sec_at_start_of_period
 from utils import period_start_sec
-from utils import save_file,save_files
+from utils import save_file,save_files,fn_root
 
 
 from box_score import box_score
@@ -69,6 +69,7 @@ def get_sub_io_events_by_player(box):
                             _sub_events_by_player[player].append(r_(
                                 ['IN',dsec,
                                  'out of game SUB in']))
+                            
                         elif dsec > 2880:
                             # we have an in an we are already in
                             # terminate prior at the start of this period
@@ -104,8 +105,8 @@ def get_sub_io_events_by_player(box):
                                 
 
                             else:
-                                    # came in at period break for first time, did nothing 
-                                    # and left before next period break
+                                # came in at period break for first time, did nothing 
+                                # and left before next period break
 
                                 # last event was a PCO  
                                 if time_into_period_from_sec(int(last_event[1])) == 0:  

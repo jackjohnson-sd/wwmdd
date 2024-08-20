@@ -4,8 +4,9 @@ import nba_web_api as nba
 
 from plots import plot3, defaults
 from play_by_play import generatePBP
-from utils import make_cache_fn
+from utils import make_cache_fn,fn_root
 import main_csv
+from settings import ommisions
 
 def _get_opp_game(g, teams):
 
@@ -41,6 +42,38 @@ def _get_opp_game(g, teams):
         logger.error(f"opponent data retrieval {g.game_date} {g.matchup}")
         return None
 
+def insert_row(new_row,old_df):
+
+    from pandas import DataFrame, concat
+
+    test_cols = [ 'eventmsgtype','period', 'pctimestring',
+        'neutraldescription',
+        'score', 'scoremargin',
+        'player1_name', 'player1_team_abbreviation',
+        'player2_name', 'player2_team_abbreviation',
+        'player3_name', 'player3_team_abbreviation'
+    ]
+   
+    new_row = new_row.split(',')
+    
+    period = new_row[1]
+    pctime = new_row[2]
+    s = f'period == {period} & pctimestring == "{pctime}"'
+        
+    us = old_df.query(s) 
+    index = us.index.tolist()
+    values = us.values.tolist()
+    insert_point = index[-1]
+    new_insert = values[-1]
+    df_cols = us.columns.tolist()
+    for j,c in enumerate(df_cols):
+        if c in test_cols:
+            i = test_cols.index(c)
+            new_insert[j] = new_row[i]     
+        
+    line = DataFrame([new_insert], columns=df_cols)
+    df2 = concat([old_df.iloc[0:insert_point], line, old_df.iloc[insert_point:]]).reset_index(drop=True)
+    return df2
 
 def main(team=None, start=None, stop=None):
 
@@ -185,6 +218,10 @@ def main(team=None, start=None, stop=None):
 
                 if game_data.play_by_play.shape[0] != 0:
 
+                    ommisions_key = fn_root(game_data) 
+                    if ommisions_key in ommisions.keys():
+                        game_data.play_by_play = insert_row(ommisions[ommisions_key], game_data.play_by_play)
+                        logger.debug(f'ommisions applied to this game, {ommisions_key}')
                     our_playerstints_and_boxscore = generatePBP(
                         game_data, team, get_opponent_data=False
                     )

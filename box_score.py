@@ -226,13 +226,16 @@ class box_score:
             p1 = p1 if p1 != '' else None
             p2 = p2 if p2 != '' else None
             p3 = p3 if p3 != '' else None
-
+            
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
             
             is3 = '3PT' in event_description
             
             match _evnt.eventmsgtype:
 
+                case '88':
+                    self.update(p2, 'JB', 1, when=_evnt.sec)
+                    
                 case 13: # END of period 
                     self.EOP_update(_evnt.sec)
                 

@@ -214,8 +214,6 @@ def set_args(args):
         settings.defaults.set("STOP_DAY", stop)
 
 
-
-
 args, parser = get_args()
 
 # I apologize for the complexity of this
@@ -224,6 +222,10 @@ settings.defaults = settings.default()
 cfn = settings.defaults.get("COLOR_DEFAULTS")
 settings.colors = settings.default(cfn,cfd=True)
 
+import json
+with open('.wwmdd/patch.json', "r") as f:
+    settings.ommisions = json.load(f)
+  
 start_logger(args)
 logger.info("wwmdd begins! ")
 

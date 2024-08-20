@@ -1,29 +1,35 @@
-# Plot some data
-
 import matplotlib.pyplot as plt
+import numpy as np
+
+class TextResizer:
+    def __init__(self, texts, fig=None, minimal=4):
+        if not fig:
+            fig = plt.gcf()
+        self.fig = fig
+        self.texts = texts
+        self.fontsizes = [t.get_fontsize() for t in self.texts]
+        _, self.windowheight = fig.get_size_inches() * fig.dpi
+        self.minimal = minimal
+
+    def __call__(self, event=None):
+        scale = event.height / self.windowheight
+        for i in range(len(self.texts)):
+            newsize = max(int(self.fontsizes[i] * scale), self.minimal)
+            self.texts[i].set_fontsize(newsize)
 
 def main():
-    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots()
+    texts = [
+        ax.text(0.2, 0.2, 'Text2', fontsize=9),
+        ax.text(0.3, 0.3, 'Text3', fontsize=7),
+        ax.text(0.4, 0.4, 'Text4', fontsize=6),
+        ax.text(0.5, 0.5, 'Text5', fontsize=5),
+        ax.text(0.6, 0.6, 'Text6', fontsize=6),
+        ax.text(0.7, 0.7, 'Text7', fontsize=7),
+        ax.text(0.8, 0.8, 'Text8', fontsize=9)
+        ]
 
-    # Create a figure and multiple subplots 
-    # the plot created by following statement creates 3 rows of 3, 10 X 10 squares (until resized)
-    fig, axs = plt.subplots(3, 3, figsize=(10, 10))
+    resizer = TextResizer(texts)
+    cid = fig.canvas.mpl_connect('resize_event', resizer)
 
-    # Add text to each subplot
-    texts = []
-    for i, ax in enumerate(axs.flat):
-        text = ax.text(0.5, 0.5, f'Subplot {i+1}', transform=ax.transAxes, fontsize=12, ha='center')
-        texts.append(text)
-
-    # Function to update text size based on figure size
-    def update_text_size(event):
-        for text in texts:
-            new_fontsize = fig.get_size_inches()[0] * 1.5  # Adjust the factor as needed
-            text.set_fontsize(new_fontsize)
-        fig.canvas.draw_idle()
-
-    # Connect the resize event to the update function
-    fig.canvas.mpl_connect('resize_event', update_text_size)
-    # print(texts)
-    # Show the plot
     plt.show()

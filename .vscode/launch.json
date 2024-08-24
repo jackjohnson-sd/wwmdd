@@ -31,7 +31,9 @@
                 "-s", "web",
                 "-t", "CHI", "-d", "2023-12-11",
                 "-json", "tests/chi_1211/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores","boxscore"
+                "-m", "plot", "csv", "img", "stints","box","raw" , 
+                "-p", "stints","events","periodscores","boxscore",
+                "-w", "1"
             ]
         },
         {
@@ -43,7 +45,7 @@
             "args": [
                 "-s", "csv",
                 "-f", "tests/chi_1211/test_data/web/_W_CHIvMIL20231211.csv",
-                "-m", "plot", "-p", "stints", "boxscore",
+                "-m", "plot", "-p", "stints", "boxscore","-w","1",
                 "-json", "tests/chi_1211/csv.json"
             ]
         },
@@ -59,7 +61,7 @@
                 "-s", "web",
                 "-t", "CHI", "-d", "2023-11-08",
                 "-json", "tests/phx_1108/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores"
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "all"
             ]
         },
         {
@@ -87,7 +89,8 @@
                 "-s", "web",
                 "-t", "MIN", "-d", "2024-01-10",
                 "-json", "tests/MIN_0110/web.json",
-                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints","events","periodscores","boxscore"
+                "-m", "plot", "csv", "img", "stints","box","raw" , 
+                "-p", "stints","events","periodscores","boxscore"
             ]
         },
         {
@@ -100,7 +103,7 @@
                 "-s", "csv",
                 "-f", "tests/MIN_0110/test_data/web/_W_BOSvMIN20240110.csv",
                 "-m", "plot", 
-                "-p", "stints", "boxscore",
+                "-p", "stints","events","periodscores","boxscore",
                 "-json", "tests/MIN_0110/csv.json"
             ]
         },

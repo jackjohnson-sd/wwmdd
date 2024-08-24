@@ -1,13 +1,25 @@
-
-Kill Period 5 problem for nick
-
 Please Read
 
-AUG 18   -- 4 errors resolve with added logoic to say OT players are not forced out
+AUG 24   -- added key pressed events: 1 - regular size, 5 - make full screen ish, b - toggle boxscore
+            e - toggle events, m - toggle margin s - toggle score, p -- toggle periodscors
+            Added benifit of restructure to make this almost fast enough. App data flow looks better
+            and is nearly explainable
+
+AUG 19   -- Kill Period 5 problem for nick.  pms is the base formatter
+            for time strings, added start flag to return play clock strings of 0:00 at end and 
+            12:00 or 5:00 at start of periods/OTs
+
+AUG 19   -- created support for a patch.json file that inserts an event into a game.
+            this fixes the 4 outstanding games with no other damage.
+            0 errors, 10/15/23 to 6/30/24 -- 1280 4.P, 54 1.OT, 8 2.OT games (a bit ish on the #'s)
+
+AUG 18   -- 4 errors resolve with logic to say OT players are not forced out
             on at end of regulation.  This causes 6 different games to fail.  All 10 games have
-            issues of players playing with no events in OT. playing or not comes from NBA box score 
+            players playing with no events in OT. playing or not comes from NBA.com box score 
+
 AUG 16   -- 4 errors left for 23/24 season.  All errors the same type. see bads.sh for details
             added PLR type csv file output. Its events by player for the game. 
+
 AUG 11   -- app died if no colors.json file. fixed using default in settings.py code
 AUG 10   -- fixed team name wrong in box.csv
             finished? OT labels on periods, plot OT suport OK till furhter notice

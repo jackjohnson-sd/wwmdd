@@ -37,35 +37,45 @@ def is3(eventRecord):
     hom = eventRecord.visitordescription
     return (str(vis) + str(hom)).find('3PT') != -1
 
-def em_mi(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
+def em_mi(_style, _color, _size, eventRecord, current_oreb_count):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_fg(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
+def em_fg(_style, _color, _size, eventRecord, current_oreb_count):
     # helper to make 3PT makes a bigger shape on plots
     if _style == mrk['2'] and is3(eventRecord):
         _style = mrk['3']
     return _style, _color, _size    
 
-def em_ft(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
+def em_ft(_style, _color, _size, eventRecord, current_oreb_count):
     # differentiate made vs missed free throw by color
     if type(eventRecord.score) != type('a'): 
         _color= settings.colors.get('BAD_EVENT_COLOR')
         
     return _style, _color, _size
 
-def em_st(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
+def em_st(_style, _color, _size, eventRecord, current_oreb_count):
     return _style, _color, _size
         
-def or_dr(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
+def or_dr(_style, _color, _size, eventRecord, current_oreb_count):
     
     try:
         s = str(eventRecord.visitordescription) 
         s2 = str(eventRecord.homedescription)
         if s != s2: s += s2
-        or_count = re.search('Off:(.*) Def:', s).group(1)
+        
+        or_count = 0
+        try:
+            n = s.find('Off:')
+            if n != -1:
+                n += len('Off:')
+                m = n + s[n:].find(' ')
+                or_count = int(s[n:m])                
+        except: 
+            or_count = 0
+
         is_or = False
         _player1 = eventRecord.player1_name
         if _player1 not in current_oreb_count.keys():
@@ -81,27 +91,26 @@ def or_dr(_style, _color, _size, eventRecord, current_oreb_count, scoreMargins):
 
 def get_event_map(): 
         
-        color_defaults = settings.colors
- 
-        STINT_CO_IN     = color_defaults.get('STINT_COLOR_IN')   
-        STINT_CO_OUT    = color_defaults.get('STINT_COLOR_OUT')   
-        BAD_EVNT        = color_defaults.get('BAD_EVENT_COLOR')    
-        GOOD_EVNT       = color_defaults.get('GOOD_EVENT_COLOR') 
+    color_defaults = settings.colors
+    STINT_CO_IN     = color_defaults.get('STINT_COLOR_IN')   
+    STINT_CO_OUT    = color_defaults.get('STINT_COLOR_OUT')   
+    BAD_EVNT        = color_defaults.get('BAD_EVENT_COLOR')    
+    GOOD_EVNT       = color_defaults.get('GOOD_EVENT_COLOR') 
 
-        return {
-                1: [ GOOD_EVNT, 18.0, mrk['2'],'FG',    GOOD_EVNT, 18.0, mrk['A'],'AST',  [1, 2], em_fg,],  # make, assist
-                2: [  BAD_EVNT, 18.0, mrk['2'],'MISS',  GOOD_EVNT, 18.0, mrk['B'],'BLK',  [1, 3], em_mi,],  # miss, block
-                3: [ GOOD_EVNT, 18.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft,],  # free throw
-                4: [ GOOD_EVNT, 18.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr,],  # rebound
-                5: [ GOOD_EVNT, 18.0, mrk['S'],'STL',   BAD_EVNT,  18.0, mrk['T'],'TO',   [2, 1], None, ],  # steal, turnover
-                6: [ BAD_EVNT,  18.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None, ],  # foul, fouled
-                8: [ STINT_CO_IN,8.0,     'o','IN',     STINT_CO_OUT, 8.0,   'o','OUT',   [1, 2], None, ],  # substitution
-                20:[ GOOD_EVNT, 18.0, mrk['O'],'OREB',  GOOD_EVNT, 18.0, mrk['3'],'3PT',  [1],    None, ],  # for legend
-                }
+    return {
+            1: [ GOOD_EVNT, 18.0, mrk['2'],'FG',    GOOD_EVNT, 18.0, mrk['A'],'AST',  [1, 2], em_fg,],  # make, assist
+            2: [  BAD_EVNT, 18.0, mrk['2'],'MISS',  GOOD_EVNT, 18.0, mrk['B'],'BLK',  [1, 3], em_mi,],  # miss, block
+            3: [ GOOD_EVNT, 18.0, mrk['1'],'FT',    None, None, ',','',               [1],    em_ft,],  # free throw
+            4: [ GOOD_EVNT, 18.0, mrk['D'],'DREB',  None, None, ',','',               [1],    or_dr,],  # rebound
+            5: [ GOOD_EVNT, 18.0, mrk['S'],'STL',   BAD_EVNT,  18.0, mrk['T'],'TO',   [2, 1], None, ],  # steal, turnover
+            6: [ BAD_EVNT,  18.0, mrk['F'],'PF',    None, None, 's','PF\'d',          [1, 2], None, ],  # foul, fouled
+            8: [ STINT_CO_IN,8.0,     'o','IN',     STINT_CO_OUT, 8.0,   'o','OUT',   [1, 2], None, ],  # substitution
+            20:[ GOOD_EVNT, 18.0, mrk['O'],'OREB',  GOOD_EVNT, 18.0, mrk['3'],'3PT',  [1],    None, ],  # for legend
+            }
 
 event_map = None
 
-def event_to_size_color_shape(player, eventRecord, current_oreb_count, scoreMargins):
+def event_to_size_color_shape(player, eventRecord, current_oreb_count):
 
     global event_map
     
@@ -124,7 +133,7 @@ def event_to_size_color_shape(player, eventRecord, current_oreb_count, scoreMarg
     if eventRecord.eventmsgtype in event_map.keys():
         # this is an event we want to report on
         action = event_map[eventRecord.eventmsgtype]
-
+        
         # 1 or 2 players can be attached to this event
         for i, xx in enumerate(action[8]):
             index = i * 4  # for the moment color and size per event, 
@@ -136,7 +145,7 @@ def event_to_size_color_shape(player, eventRecord, current_oreb_count, scoreMarg
                 if _co != None:
                     # if we need help figuring this out call helper
                     if action[9] != None: 
-                        _st,_co, _si = action[9](_st, _co, _si, eventRecord, current_oreb_count,scoreMargins)
+                        _st, _co, _si = action[9](_st, _co, _si, eventRecord, current_oreb_count)
             
                     # first person return in xxx1 all others xxx2
                 
@@ -148,6 +157,6 @@ def event_to_size_color_shape(player, eventRecord, current_oreb_count, scoreMarg
                         _color2 = _co
                         _size2  = _si
                         _style2 = _st
-
+        
     # return c/si/st for both possible players
     return _color1, _size1, _style1, _color2, _size2, _style2,

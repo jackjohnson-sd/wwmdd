@@ -164,6 +164,26 @@ def get_file_names(file_directory):
         files = [file_directory]
     return files
 
+def ttd(game_data):
+     
+    # ttd = tEAM tEAM dATE = GSWOKC20240103
+    
+    # get teams abreviation for playing
+    _ttd = game_data.matchup.split(" ")
+    
+    # in alphabetical order
+    _ttd.sort()
+
+    #only team abbriviations
+    for x in ['@','vs.']:
+        while x in _ttd:
+            _ttd.remove(x)
+    
+    _ttd.extend([game_data.game_date])
+    _ttd = "".join(_ttd)
+    
+    return _ttd 
+   
 def fn_root(game_data):
     keys = game_data.keys().tolist()
     if 'matchup_home' in keys:

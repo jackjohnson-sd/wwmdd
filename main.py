@@ -40,7 +40,7 @@ def start_logger(args):
 
     logger.add(
         sys.stdout,
-        format=log_format,
+        # format=log_format,
         level=log_level,
         colorize="sys.stdout" in log_colorize,
         backtrace=True,
@@ -224,7 +224,7 @@ settings.colors = settings.default(cfn,cfd=True)
 
 import json
 with open('.wwmdd/patch.json', "r") as f:
-    settings.ommisions = json.load(f)
+    settings.patches = json.load(f)
   
 start_logger(args)
 logger.info("wwmdd begins! ")
@@ -261,7 +261,8 @@ if __name__ == "__main__":
                     
                 else:
                     logger.error('argument error not a string.')
-            else:    
+            else:  
+                  
                 set_args(args)
 
                 logger.info((" ").join(_args[1]))

@@ -410,6 +410,8 @@ pbp_event_map = {
     11: [['EJECTION', ''],    [1]   ,],  # 
     12: [['STARTOFPERIOD', ''],[1]  ,],  # START of period
     13: [['ENDOFPERIOD', ''], [1]   ,],  # END of period
+    88: [['PATCH', ''],       [1]   ,],  # 
+    18: [['REPLAY', ''],      [1]   ,],  # 
 }
 
 def event_sort_keys(x):
@@ -448,89 +450,79 @@ def event_sort_keys(x):
      
 def dump_pbp(game, game_stints, save_as_raw = False):
     
-    period_end_score = {}    
     event_keys = list(pbp_event_map.keys())
- 
-    sub_events = [] if save_as_raw else sub_events_from_stints(game, game_stints)
-    
-    lastScore = '0 - 0'
-    lastScoreMargin = 0
+        
+    sub_events = []
     
     for i,p in game.play_by_play.iterrows():
         
         event = p.eventmsgtype 
-        if event in event_keys:
             
-            desc = f'{p.homedescription} {p.neutraldescription} {p.visitordescription}'
-            desc = desc.replace('None','').strip()
-            
-            if p.score == None:
-                p.score = lastScore
-                p.scoremargin = lastScoreMargin
-            else:
-                lastScore = p.score
-                lastScoreMargin = p.scoremargin
-                
+        desc = f'{p.homedescription} {p.neutraldescription} {p.visitordescription}'
+        desc = desc.replace('None','').strip()
+                        
+        try:
             emap  = pbp_event_map[event]
             event_name = emap[0][0]
-                        
-            # point.assist
-            if event == 1:              
-                if p.player2_name != None: event_name = '.'.join(emap[0])
-                s = '3' if '3PT' in desc else '2'
-                event_name = s + event_name
+        except:
             
-            # miss.block        
-            elif event == 2:
-                if p.player3_name != None: event_name = '.'.join(emap[0])
-                e = '3POINT' if '3PT' in desc else '2POINT'
-                event_name = e + event_name
-
-            # free throw        
-            elif event == 3: event_name = 'FTMISS' if 'MISS' in desc else 'FTMAKE'
-
-            # steal.turnover    
-            elif event == 5: 
-                if p.player2_name != None: event_name = '.'.join(emap[0])
+            if event == 18: emap = [['18']]
+            elif event == 88: emap = [['88']]
                 
-            elif event == 13:
-                pl = '12:00' if p.period < 5 else '5:00'
-                tk = f'{p.period+1}:{pl}'
-                period_end_score[tk] = [p.score, p.scoremargin]
+            else:    
+                logger.error(f'invalid event type {event}, file save aborted')   
+                return     
+            
+        # point.assist
+        if event == 1:              
+            if p.player2_name != None: event_name = '.'.join(emap[0])
+            s = '3' if '3PT' in desc else '2'
+            event_name = s + event_name
+        
+        # miss.block        
+        elif event == 2:
+            if p.player3_name != None: event_name = '.'.join(emap[0])
+            e = '3POINT' if '3PT' in desc else '2POINT'
+            event_name = e + event_name
 
-            match = event != 8 or save_as_raw
+        # free throw        
+        elif event == 3: event_name = 'FTMISS' if 'MISS' in desc else 'FTMAKE'
+
+        # steal.turnover    
+        elif event == 5: 
+            if p.player2_name != None: event_name = '.'.join(emap[0])
             
-            if match:
-                a = [
-                    event_name,
-                    p.period, p.pctimestring,
-                    desc,
-                    p.score, p.scoremargin,
-                    p.player1_name, p.player1_team_abbreviation,
-                    p.player2_name, p.player2_team_abbreviation,
-                    p.player3_name, p.player3_team_abbreviation
-                    ]
-                
-                sub_events.extend([a])
+        match = event != 8 or save_as_raw
+        
+        if match:
+            a = [
+                event_name,
+                p.period, p.pctimestring,
+                desc,
+                p.score, p.scoremargin,
+                p.player1_name, p.player1_team_abbreviation,
+                p.player2_name, p.player2_team_abbreviation,
+                p.player3_name, p.player3_team_abbreviation
+                ]
             
+            sub_events.extend([a])
+ 
     if not save_as_raw:
-        sub_events = sorted(sub_events,key = lambda x:event_sort_keys(x))
+        sub_events.extend(sub_events_from_stints(game, game_stints))
+        sub_events = sorted(sub_events, key = lambda x:event_sort_keys(x))
     
     # find our sub events that do not have score, margin set
-    for i in range(0,len(sub_events)):
-                
-        # if we find an event in need
-        if sub_events[i][4] == '':
-            j = i
-            # go up stream until we have a score
-            while sub_events[j][4] == '': 
-                if j == 0: break
-                j -= 1
-
-            # if we're at the begining it must be 0    
-            sub_events[i][4] = '0 - 0' if j == 0 else sub_events[j][4]
-            sub_events[i][5] = 0 if j == 0 else sub_events[j][5]
+    valid_score_index = 0
+    sub_events[0][4:6] = ['0 - 0',0]
     
+    for i,sub_event in enumerate(sub_events):
+
+        if sub_event[4] == None or sub_event[4] == '':
+            sub_events[i][4:6] = sub_events[valid_score_index][4:6] 
+        else:
+            valid_score_index = i
+                    
+   
     new_cols = [ 'eventmsgtype','period', 'pctimestring',
         'neutraldescription',
         'score', 'scoremargin',
@@ -554,11 +546,10 @@ def dump_pbp(game, game_stints, save_as_raw = False):
             events_by_player += '\nPLAYER: ' + player + '\n\n' + s + '\n\n' 
 
         save_file('PLR_', game, 'SAVE_DIR', events_by_player)
-       
-             
+                    
     fpre = 'RAW_' if save_as_raw else ''
     save_file(fpre, game, 'SAVE_DIR', play_by_play.to_csv())
-                                                                                                                
+
 def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
 
     TEST_PLAYERS            = defaults.get('TEST_PLAYERS')
@@ -594,7 +585,7 @@ def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
                                 
         # fill box score with events from play by play
         box_ = box_score({})
-        
+
         box_._team_name = team_abbreviation
         box_.stuff_bs(pbp, playersInGame)
         

@@ -1,12 +1,6 @@
 
-https://statsdmz.nba.com/pdfs/20240412/20240412_LALMEM_book.pdf 
-https://statsdmz.nba.com/pdfs/20240305/20240305_PHXDEN_book.pdf 
+COMMAND-K, COMMAND-0  -- folds all
 
-https://statsdmz.nba.com/pdfs/20231108/20231108_PHXCHI_book.pdf 
-
-https://statsdmz.nba.com/pdfs/20240327/20240327_BKNWAS_book.pdf
-https://statsdmz.nba.com/pdfs/20231106/20231106_BOSMIN_book.pdf
-https://statsdmz.nba.com/pdfs/20231130/20231130_MILCHI_book.pdf
 https://statsdmz.nba.com/pdfs/20240414/20240414_CHINYK_book.pdf
 https://statsdmz.nba.com/pdfs/20231118/20231118_OKCGSW_book.pdf
 https://statsdmz.nba.com/pdfs/20231108/20231108_PORSAC_book.pdf
@@ -18,6 +12,7 @@ rm .wwmdd/logs/*
 file count in direcory
 ls -1 llm/llm_training_data | wc -l
 ls -1 .wwmdd/.csvs | wc -l
+
 
 ./w.sh -s web -t OKC  -d 2024-04-13 -m plot csv box stints overlaps  -p stints periodscores    
 

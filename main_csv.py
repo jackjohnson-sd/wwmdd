@@ -85,6 +85,8 @@ def main(file_dir_name):
             'TIMEOUT'			: [None], 
             'END_GAME'			: [None], 
             'TIP'				: [None], 
+            'REPLAY'	        : [None],
+            'PATCH'             : [None],
             }
         
         new_cols = [
@@ -137,9 +139,6 @@ def main(file_dir_name):
             
                     prev = a
                     oink.extend([a])
-                    # if r.player1_name == 'Mike Muscala':
-                    #     if id[0] in [1,3]:
-                    #         print(r.player1_name,id,r.eventmsgtype,r.score)
             
         play_by_play = pd.DataFrame(
                     data    = oink,           # values

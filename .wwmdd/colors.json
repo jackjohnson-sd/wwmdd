@@ -20,6 +20,7 @@
     , "MARKER_WIDTH"           : 28
     , "MARKER_FONTSCALE"       : 2.85
     , "MARKER_FONTWEIGHT"      : "demi"
+
     , "GRID_linewidth"         : 0.5
 
     , "BOX_COL_COLOR"         : "sienna"

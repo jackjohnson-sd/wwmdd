@@ -10,9 +10,9 @@ PM = '\xB1'
 class box_score:
 
     _shown_items = [
-        'PTS','MIN','FG','3PT','FT',
+        'MIN',PM,'PTS','FG','3PT','FT',
         'REB','BLK','AST','STL',
-        'TO','PF', PM,
+        'TO','PF', 
     ]
     
     _not_shown_items = [
@@ -26,9 +26,10 @@ class box_score:
     _bsItems = _shown_items + _not_shown_items
     
     _boxScore = None
+    
     _team_name = None
-
     _home_team = None
+    
     _start_time = 'UNKNOWN'
 
     _max_by_items = {}
@@ -131,9 +132,9 @@ class box_score:
             d['FT'] = f'{d['FT.MA']}-{d['FT.MA'] + d['FT.MI']}'
 
             if key != self._team_name:
-                d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:4]
+                d['MIN'] = str(timedelta(seconds=int(d['secs'])))[2:]
             else:
-                d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:4]
+                d['MIN'] = str(timedelta(seconds=d['secs'] / 5))[2:]
                 d[PM] = int(d[PM] / 5)
 
     def dump(self, _players=[]):
@@ -218,21 +219,23 @@ class box_score:
                     logger.warning(f'boxscore event loading found a duplicate line {i}, {_evnt.period} {_evnt.pctimestring}')
                         
             prev_event = _evnt
-             
-            p1 = _evnt.player1_name
-            p2 = _evnt.player2_name
-            p3 = _evnt.player3_name
-
+            p1 = _evnt.player1_name #if _evnt.player1_team_abbreviation == self._team_name else ''
+            p2 = _evnt.player2_name #if _evnt.player2_team_abbreviation == self._team_name else ''
+            p3 = _evnt.player3_name #if _evnt.player3_team_abbreviation == self._team_name else ''
+            
             p1 = p1 if p1 != '' else None
             p2 = p2 if p2 != '' else None
             p3 = p3 if p3 != '' else None
-
+            
             event_description = str(_evnt.visitordescription) + str(_evnt.homedescription)
             
             is3 = '3PT' in event_description
             
             match _evnt.eventmsgtype:
 
+                case 88: # patch
+                    self.update(p2, 'JB', 1, when=_evnt.sec)
+                    
                 case 13: # END of period 
                     self.EOP_update(_evnt.sec)
                 
@@ -275,9 +278,17 @@ class box_score:
                         try: 
                             # search description for offensive rebound count change
                             # copy past from stackoverflow, i know nothing
-                            or_count = re.search('Off:(.*) Def:', event_description).group(1)
-                            
-                            if int(or_count) != 0:
+                            or_count = 0
+                            try:
+                                n = event_description.find('Off:')
+                                if n != -1:
+                                    n += len('Off:')
+                                    m = n + event_description[n:].find(' ')
+                                    or_count = int(event_description[n:m])                
+                            except: 
+                                or_count = 0
+                                     
+                            if or_count != 0:
                                 
                                 if p1 not in self._Off_reb_cnt.keys():
                                     self._Off_reb_cnt[p1] = 0
@@ -299,6 +310,10 @@ class box_score:
 
                 case 6:  # foul
                 
+                    if p1 == None or p2 == None: 
+                        # logger.debug(f'Only one player specifed foul {event_description}')
+                        continue
+                    
                     ttm = ''
                     try: 
                         ttm += str(_evnt.neutraldescription) 
@@ -306,11 +321,20 @@ class box_score:
                         ttm += str(_evnt.visitordescription) 
                     except : pass
                     
-                    foul_type1 = 'TF' if 'T.FOUL' in ttm else 'PF'
-                    foul_type2 = 'TF' if 'Technical' in ttm else foul_type1
-                    
-                    self.update(p1, foul_type2, 1, when=_evnt.sec)
-                    self.update(p2, 'FD', 1, when=_evnt.sec)
+                    tech_foul = False
+                    for a in ["TECHNICAL","T.FOUL","Technical","TECHNICAL"]:
+                        if a in ttm:
+                            tech_foul = True
+                            break
+                        
+                    if tech_foul:
+                               
+                        self.update(p1, 'TF', 1, when=_evnt.sec)
+                        self.update(p2, 'TF', 1, when=_evnt.sec)
+
+                    else:    
+                        self.update(p1, 'PF', 1, when=_evnt.sec)
+                        self.update(p2, 'FD', 1, when=_evnt.sec)
 
                     # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
                 
@@ -383,6 +407,7 @@ class box_score:
                 
         # if item == 'PTS':print(str(self._max_by_items[item]) == str(value),who,item,value,self._max_by_items[item])
         return str(self._max_by_items[item]) == str(value)
+
 
 def save_box_score(box1,box2,game_data):
     

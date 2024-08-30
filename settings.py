@@ -3,15 +3,15 @@ from loguru import logger
 
 defaults = None
 colors = None
+patches = None
 
 class default :
     
     push_data = []
     stuff = {}
 
-    def __init__(self,fn='.wwmdd/settings.json',cfd=False):
+    def __init__(self, fn='.wwmdd/settings.json', cfd=False):
         
-        if fn == None: fn = '.wwmdd/settings.json'
         try:    
             with open(fn, "r") as f:
                 self.stuff = json.load(f)

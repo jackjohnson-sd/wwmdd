@@ -1,2 +1,2 @@
--s web -t OKC -d 2023-11-08 -m plot -json tests/chhi_1108/web.json 
--s csv -m plot -json tests/chi_1108/csv.json
+-s web -t OKC -d 2024-02-04 -m plot -json tests/tor_0204/web.json 
+-s csv -m plot -json tests/tor_0204/csv.json

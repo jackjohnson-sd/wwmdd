@@ -4,10 +4,12 @@
     , "LOG"             : true
     , "LOG_LEVEL"       : "DEBUG"
     , "LOG_FILE"        : ".wwmdd/logs/wwmdd.log"
-    , "LOG_ROTATION"    : "1 hour"
+    , "LOG_ROTATION"    : "1 day"
     , "LOG_RETENTION"   : "1 week"
     , "LOG_COLORIZE"    : ["sys.stdout"]
  
+    , "WEB_CACHE"       : false
+
     , "SAVE_PREFIX"     : ""
     , "SAVE_GAME"       : false
     , "SAVE_RAW"        : false

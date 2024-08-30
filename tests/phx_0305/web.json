@@ -1,5 +1,5 @@
 {
-      "SAVE_DIR"      : "tests/chi_1211/test_data/web"
+      "SAVE_DIR"      : "tests/phx_0305/test_data/web"
     , "SAVE_PREFIX"   : "_W_"
 
     , "SAVE_GAME"       : true
@@ -13,7 +13,7 @@
 
     , "DBG"             : false
 
-
+    , "TEST_PLAYERS"    : ["Aaron Gordon"]
     , "PLOT_WAIT"       : -1
 }
 

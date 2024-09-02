@@ -214,10 +214,7 @@ def main(file_dir_name):
 
         pds_game_data = pd.Series(game_data)
         
-        our_playerstints_and_boxscore      = generatePBP(pds_game_data, home)
-        opponent_playerstints_and_boxscore = generatePBP(pds_game_data, home, get_opponent_data=True)
-
         plot3(home, pds_game_data,
-            our_playerstints_and_boxscore,
-            opponent_playerstints_and_boxscore)
+            generatePBP(pds_game_data, home, get_opponent_data=False),
+            generatePBP(pds_game_data, home, get_opponent_data=True))
         

@@ -185,6 +185,9 @@ def ttd(game_data):
     return _ttd 
    
 def fn_root(game_data):
+    
+    if game_data == None: return ''
+    
     keys = game_data.keys().tolist()
     if 'matchup_home' in keys:
         t = game_data.matchup_home.split(' ')
@@ -240,9 +243,12 @@ def make_file_name(who, game_data, where):
 
 def save_file(who, game_data, where, data):
     
-    fn, cwd, exists = make_file_name(who, game_data, where)
-        
-    if not os.path.exists(cwd): os.mkdir(cwd)   
+    if game_data == None: 
+        fn = where
+        cwd = '' 
+    else:   
+        fn, cwd, exists = make_file_name(who, game_data, where)
+        if not os.path.exists(cwd): os.mkdir(cwd)   
     
     logger.info(f'saving {os.path.basename(fn)}')
     
@@ -270,3 +276,49 @@ def time_sorted(cwd,dirpath):
     a.sort(key=lambda s: os.path.getmtime(os.path.join(dirpath, s)))
     a = list(map(lambda x:os.path.join(cwd,x),a))
     return a
+
+
+def get_all_files(path):
+    """Gets all files in the given path."""
+
+    files = []
+    for dirpath, dirnames, filenames in os.walk(path):
+        for filename in filenames:
+            files.append(os.path.join(dirpath, filename))
+    return files
+
+def get_files_in_path(path):
+
+    files = []
+    for entry in os.listdir(path):
+        full_path = os.path.join(path, entry)
+        if os.path.isfile(full_path):
+            files.append(entry)
+    return files
+
+def filter_by_extension(directory, extension):
+    """Filters files in a directory by their extension.
+
+    Args:
+        directory: The directory to search.
+        extension: The file extension to filter by (e.g., ".txt").
+
+    Returns:
+        A list of files with the specified extension.
+    """
+
+    filtered_files = []
+    for file in os.listdir(directory):
+        if file.endswith(extension):
+            filtered_files.append(file)
+    return filtered_files
+
+def make_line_end_newline(r):
+    r = ("\n").join(r.split("\n")[1:])
+    if r[-1] != "\n":
+        r += "\n"
+    return r
+    
+def read_file(fn):
+    with open(fn, "r") as file:
+        return file.read()

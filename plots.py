@@ -13,14 +13,12 @@ from utils import shorten_player_name,fn_root,make_cache_fn
 
 from utils import period_from_sec
           
-from box_score import box_score,PM,save_box_score
+from box_score import box_score,PM,box_score_to_csv_file
 from nba_colors import get_color, dimmer, brighter
 from event_prep import event_to_size_color_shape, get_event_map
 
-from play_by_play import dump_pbp
-from overlap import overlap_combos,overlap_dump,stints_as_csv
-
-from event_prep import get_marker
+from play_by_play import pbp_as_csv_file
+from overlap import overlap_combos,overlap_to_csv_file,stints_as_csv
 
 color_defaults = None 
 event_map = None
@@ -57,9 +55,7 @@ def get_title_and_friends(game_data):
 
 def do_plot(theplot):
     PARTS = defaults.get('PARTS') 
-    if 'all' in PARTS: return True
-    if theplot in PARTS: return True
-    return False
+    return ('all' in PARTS) or (theplot in PARTS)
 
 def stack_markers(yy_, sec_, color_):
     
@@ -383,7 +379,6 @@ plot_size = 1
 key_value = 'q'
 figure = None
 
-
 def move_figure(f, x, y):
     backend = matplotlib.get_backend()
     if backend == 'TkAgg':
@@ -398,78 +393,63 @@ def move_figure(f, x, y):
 def key_events(event):
     
     global key_value
-    global plot_size
-
     global figure    
 
     key_value = event.key
     
-    if key_value in ['q','b','e','s','p','m']:
+    if key_value in ['q','b','e','s','p','m','l','1','5']:
         
         plt.close(figure)
-        
-    if key_value in ['1','5']:
-            
-        plt.close(figure)
-        if key_value == '5' : plot_size = 5
-        else: plot_size = 1
-            
+                    
     return
 
-def key_manager(key):
-    
-    if key == 'p':
-        PARTS = defaults.get('PARTS') 
-        if 'periodscores' in PARTS:
-            PARTS.remove('periodscores')
-        else:
-            PARTS.extend(['periodscores'])
+def key_manager():
 
-    if key == 's':
-        PARTS = defaults.get('PARTS') 
-        if 'score' in PARTS:
-            PARTS.remove('score')
-        else:
-            PARTS.extend(['score'])
+    global plot_size
+    global key_value
 
-    if key == 'm':
-        PARTS = defaults.get('PARTS') 
-        if 'margin' in PARTS:
-            PARTS.remove('margin')
-        else:
-            PARTS.extend(['margin'])
-        
-    if key == 'e':
-        
-        PARTS = defaults.get('PARTS') 
-        if 'events' in PARTS:
-            PARTS.remove('events')
-        else:
-            PARTS.extend(['events'])
+    PARTS = defaults.get('PARTS')
     
-    if key == 'b':
+    key_map = {
+    
+        'b'  : 'boxscore',
+        'e'  : 'events',
+        's'  : 'score',
+        'p'  : 'periodscores',
+        'm'  : 'margin',
+        'l'  : 'legend',
+    }
+
+    if key_value in key_map:
         
-        PARTS = defaults.get('PARTS') 
-        if 'boxscore' in PARTS:
-            PARTS.remove('boxscore')
-        else:
-            PARTS.extend(['boxscore'])
+        key_plot = key_map[key_value]
+        if key_plot in PARTS: PARTS.remove(key_plot)
+        else:                 PARTS.extend(key_plot)
+        
+    elif key_value in ['1','5']:
+        
+        plot_size = int(key_value)
+
+        if key_value == '5':    
             
-    if key == '5':   
-        
-        color_defaults.set('MARKER_2_STACK_OFFSET', 2.2) 
-        color_defaults.set('MARKER_3_STACK_OFFSET', 3.6)
-        color_defaults.set('MARKER_WIDTH',29)
-        color_defaults.set('MARKER_FONTSCALE',2.20)
-        color_defaults.set('MARKER_FONTWEIGHT','medium')
-        
-    elif key == '1':
-        
-        color_defaults.set('MARKER_2_STACK_OFFSET', 1.8) 
-        color_defaults.set('MARKER_3_STACK_OFFSET', 3.4)
-        color_defaults.set('MARKER_WIDTH',28)
-        color_defaults.set('MARKER_FONTSCALE', 2.85)
-        color_defaults.set('MARKER_FONTWEIGHT','demi')
+            color_defaults.set('MARKER_2_STACK_OFFSET', 2.2) 
+            color_defaults.set('MARKER_3_STACK_OFFSET', 3.6)
+            color_defaults.set('MARKER_WIDTH',29)
+            color_defaults.set('MARKER_FONTSCALE',2.20)
+            color_defaults.set('MARKER_FONTWEIGHT','medium')
+            
+        else:
+            
+            color_defaults.set('MARKER_2_STACK_OFFSET', 1.8) 
+            color_defaults.set('MARKER_3_STACK_OFFSET', 3.4)
+            color_defaults.set('MARKER_WIDTH',28)
+            color_defaults.set('MARKER_FONTSCALE', 2.85)
+            color_defaults.set('MARKER_FONTWEIGHT','demi')
+    
+    stop = key_value == 'q'
+    key_value = 'q'
+    
+    return stop
 
 def plot_layout(title):
     
@@ -512,16 +492,16 @@ def plot_layout(title):
     
     figure.canvas.manager.set_window_title(title)
     
-    if plot_size == 5:
-        mng = plt.get_current_fig_manager()
-        mng.full_screen_toggle()
+    # if plot_size == 5:
+    #     mng = plt.get_current_fig_manager()
+    #     mng.full_screen_toggle()
 
     return axd, E1,TL,TR,MD,E2,BL,BR,E3
 
-def plot_text(_ax_,x,y,text, _color,ha='left',scale=1.0):
+def plot_text(axis,x,y,text, _color, ha='left',scale=1.0):
     MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')
 
-    _ax_.text(x, y, s = text,
+    axis.text(x, y, s = text,
         color = _color, 
         size = scale * (24 / MRK_FONTSCALE), 
         va = 'center_baseline', 
@@ -660,10 +640,10 @@ def plot_box_score(axis, box_score, players, bx_col_data):
  
     if type(bx_col_data[0]) != type(1):
 
-        def make_column_widths_new(col_data, test_ax):
+        def make_column_widths_new(col_data, test_axis):
             
             def ln(x):
-                t = test_ax.text(0, 0, s = x, size = 23 / MRK_FONTSCALE,        
+                t = test_axis.text(0, 0, s = x, size = 23 / MRK_FONTSCALE,        
                                 va = 'center_baseline', 
                                 ha = 'center')
                 transf = axis.transData.inverted()
@@ -758,12 +738,13 @@ def plot_stints(axis, _y, play_times, flipper):
             l = matplotlib.lines.Line2D([start, start + widths[j]], [_y, _y], lw = 1.0, ls= '-', c=sc, zorder=10)
             axis.add_line(l)                
 
-def plot_events(axis2, _y, events):
+def plot_events(axis, _y, events):
 
-    MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')    
     
     if do_plot('events'):
         
+        MRK_FONTSCALE     = color_defaults.get('MARKER_FONTSCALE')  
+          
         sec__     = events[0::4]
         color__   = events[1::4]
         size__    = events[2::4] 
@@ -774,24 +755,24 @@ def plot_events(axis2, _y, events):
 
         for idx in range(0,len(sec__)):
             if type(marker__[idx]) != type([]):
-                axis2.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
+                axis.scatter(sec__[idx],y__[idx], marker = marker__[idx], color=color__[idx], s=size__[idx])
             else:
-                axis2.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
+                axis.text(sec__[idx],y__[idx], s = marker__[idx][0], color=color__[idx], 
                             size = size__[idx] / MRK_FONTSCALE, 
                             va = 'center_baseline', 
                             ha = 'center',
                             # fontweight = MRK_FONTWEIGHT
                             )
 
-def plot_score(_ax, home_scores, away_scores, game_info):
+def plot_score(axis, home_scores, away_scores, game_info):
     
-    _ax.yaxis.set_visible(False)
-    _ax.xaxis.set_visible(False)
+    axis.yaxis.set_visible(False)
+    axis.xaxis.set_visible(False)
 
     if not do_plot('score'):
          
         for s in ['top', 'right', 'bottom', 'left']:
-            _ax.spines[s].set_visible(False)
+            axis.spines[s].set_visible(False)
 
         return
     
@@ -806,19 +787,20 @@ def plot_score(_ax, home_scores, away_scores, game_info):
     
     m = int(math.ceil(m/10) * 10)
 
-    _ax.set_ylim(0, m)
+    axis.set_ylim(0, m)
   
-    _ax.scatter(range(0, len(home_scores)), home_scores, color=D1_color, s=.01)
-    _ax.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
+    axis.scatter(range(0, len(home_scores)), home_scores, color=D1_color, s=.01)
+    axis.scatter(range(0, len(away_scores)), away_scores, color=D2_color, s=.01)
     
-def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
+def plot_scoremargin(axis, _scoreMargins, _zorder, game_info ):
 
     if not do_plot('margin') :
-        _ax.yaxis.set_visible(False)
-        _ax.xaxis.set_visible(False)
+        
+        axis.yaxis.set_visible(False)
+        axis.xaxis.set_visible(False)
 
         for s in ['top', 'right', 'bottom', 'left']:
-            _ax.spines[s].set_visible(False)
+            axis.spines[s].set_visible(False)
             
         return
 
@@ -830,22 +812,22 @@ def plot_scoremargin(_ax, _scoreMargins, _zorder, game_info ):
     mi = abs(min(_scoreMargins))
     m = max(mx, mi) * 3
     m = int(math.ceil(m/10) * 10)
-    r = list(range(-m, m+10, 10))
 
-    _ax.set_ylim(-m, m)
-    _ax.yaxis.set_visible(False)
-    _ax.xaxis.set_visible(False)
+    axis.set_ylim(-m, m)
+    axis.yaxis.set_visible(False)
+    axis.xaxis.set_visible(False)
       
     _colors = list(map(lambda x: away_color if x < 0 else home_color, _scoreMargins))
 
-    _ax.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
+    axis.scatter(range(0, len(_scoreMargins)), _scoreMargins, color=_colors, s=.01, zorder=_zorder)
 
-def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,  
-                 x_labels = 'TOP',
-                 bx_score = None,
-                 bx_widths = None,
-                 score    = None,
-                 game_info = None):
+def play_by_play_chart(
+        axis, x_labels,
+        playTimesbyPlayer, events_by_player, bx_score,
+        scoreMargins,  
+        bx_widths = None,
+        score    = None,
+        game_info = None):
 
     Z_GRID = 0  # bottom
     Z_SCRM = 10  
@@ -885,18 +867,18 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
 
         s += play_time_length
         
-    ax.set_xlim(-50, total_secs + 50)
-    ax.set_xticks(x_ticks_major, x_ticks_major_labels)
+    axis.set_xlim(-50, total_secs + 50)
+    axis.set_xticks(x_ticks_major, x_ticks_major_labels)
     
-    ax.xaxis.tick_top()  
-    ax.set_xticks(x_ticks_minor[0:-1], minor = True)
-    ax.set_xticklabels(x_ticks_minor_labels[0:-1], minor = True, color=TABLE_COLOR)
+    axis.xaxis.tick_top()  
+    axis.set_xticks(x_ticks_minor[0:-1], minor = True)
+    axis.set_xticklabels(x_ticks_minor_labels[0:-1], minor = True, color=TABLE_COLOR)
     
-    ax.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
+    axis.tick_params(axis='x', which='major', labelsize=0, pad=0,   length = 0)
     
     lminorsize = 2.8/MARKER_FONTSCALE * 9
-    ax.tick_params(axis='x', which='minor', labelsize=lminorsize, pad=-20, length = 0) 
-    ax.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
+    axis.tick_params(axis='x', which='minor', labelsize=lminorsize, pad=-20, length = 0) 
+    axis.tick_params(axis='y', which='both', labelsize=0, length=0, direction='in')
     
     _players = list(playTimesbyPlayer.keys())
     _player_cnt = len(_players)
@@ -909,15 +891,15 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
 
     for x in x_ticks_major:
         l1 = Line2D([x,x], [first_ytick-15,last_ytick-20], lw=GRID_LINEWIDTH, color=GRID_C, label='' )
-        ax.add_line(l1)
+        axis.add_line(l1)
     
-    ax.set_ylim(first_ytick , last_ytick)
+    axis.set_ylim(first_ytick , last_ytick)
 
-    ax2 = ax.twinx()        
+    ax2 = axis.twinx()        
     ax2.set_ylim(first_ytick , last_ytick)
     ax2.yaxis.set_visible(False)
 
-    ax3 = ax.twinx()
+    ax3 = axis.twinx()
 
     for s in ['top', 'right', 'bottom', 'left']:
         ax3.spines[s].set_visible(False)
@@ -936,14 +918,16 @@ def play_by_play_chart(playTimesbyPlayer, ax, events_by_player, scoreMargins,
         play_times = playTimesbyPlayer[_player]
         _y = -5 + ((_player_cnt - i) * 10)
          
-        plot_stints(ax, _y, play_times, bx_score.is_flipper())
+        plot_stints(axis, _y, play_times, bx_score.is_flipper())
         plot_events(ax2, _y, events)
         
         col_widths = plot_box_score(ax2,bx_score,_players, bx_widths)
     
     return col_widths
 
-def plot_event_legend(ax,xstart,ystart):
+def plot_event_legend(axis,xstart,ystart):
+    
+    if not do_plot('legend'): return 
     
     STINT_COLOR       = color_defaults.get('STINT_COLOR')       
     STINT_COLOR_PLUS  = color_defaults.get('STINT_COLOR_PLUS')
@@ -954,9 +938,9 @@ def plot_event_legend(ax,xstart,ystart):
     def stint1_marker(x_, y_, color, txt):
          
         l1 = Line2D([x_ - 1 , x_ + 1], [y_,y_], lw=2, color=color , label='' )
-        ax.add_line(l1)
+        axis.add_line(l1)
 
-        ax.text(x_ + 2, y_, s = txt, 
+        axis.text(x_ + 2, y_, s = txt, 
             color=color, 
             size= 22 / MRK_FONTSCALE, 
             va = 'center', 
@@ -975,11 +959,11 @@ def plot_event_legend(ax,xstart,ystart):
         l1 = Line2D([al1x,al2x], [y_,y_], lw=2, color=STINT_COLOR_MINUS , label='' )
         l2 = Line2D([al2x,al3x], [y_,y_], lw=2, color=STINT_COLOR, label='' )
         l3 = Line2D([al3x,al4x], [y_,y_], lw=2, color=STINT_COLOR_PLUS , label='' )
-        ax.add_line(l1)
-        ax.add_line(l2)
-        ax.add_line(l3)
+        axis.add_line(l1)
+        axis.add_line(l2)
+        axis.add_line(l3)
 
-        ax.text(al4x + 1,y_, s = 'STINT', 
+        axis.text(al4x + 1,y_, s = 'STINT', 
             color = BOX_COL_COLOR, 
             size = 22 / MRK_FONTSCALE, 
             va = 'center', 
@@ -989,7 +973,7 @@ def plot_event_legend(ax,xstart,ystart):
             )
 
     for s in ['top', 'right', 'bottom', 'left']:
-        ax.spines[s].set_visible(False)
+        axis.spines[s].set_visible(False)
     
     xoff = 7
     x1 = xstart
@@ -1072,7 +1056,7 @@ def plot_event_legend(ax,xstart,ystart):
         y = k[3]
         if type(e[2 + offset]) == type([]):
             marker_ = e[2 + offset][0]
-            ax.text(x-2,y, s = marker_, color=e[offset], 
+            axis.text(x-2,y, s = marker_, color=e[offset], 
                 size= 20 / MRK_FONTSCALE, 
                 va = 'center', 
                 ha = 'left',
@@ -1081,9 +1065,9 @@ def plot_event_legend(ax,xstart,ystart):
             
         else: 
             marker_ = e[2 + offset]
-            ax.scatter(x-1.5,y-2, marker = marker_, color=e[offset], s= 26 / MRK_FONTSCALE)
+            axis.scatter(x-1.5,y-2, marker = marker_, color=e[offset], s= 26 / MRK_FONTSCALE)
 
-        ax.text(x,y, s = label, 
+        axis.text(x,y, s = label, 
             color=BOX_COL_COLOR, 
             size= 22 / MRK_FONTSCALE, 
             va = 'center', 
@@ -1092,30 +1076,70 @@ def plot_event_legend(ax,xstart,ystart):
             # fontweight = MRK_FONTWEIGHT
             )
 
-def plot_title_legend_Qs(_ax_, x, y, title, home_scores, away_scores, game_info):
+def plot_title_block_period_scores(axis, x, y, title, home_scores, away_scores, game_info):
     
-    _ax_.set_xlim(0, 100)
-    _ax_.set_ylim(100, 0)
+    axis.set_xlim(0, 100)
+    axis.set_ylim(100, 0)
      
-    _ax_.tick_params(axis='both', which='major', labelsize=0, pad=0,   length = 0)
+    axis.tick_params(axis='both', which='major', labelsize=0, pad=0,   length = 0)
  
-    _ax_.yaxis.set_visible(False)
-    _ax_.xaxis.set_visible(False)
+    axis.yaxis.set_visible(False)
+    axis.xaxis.set_visible(False)
   
     c2xstart = x
     c2ystart = y
     
     TABLE_COLOR       = color_defaults.get('TABLE_COLOR')
 
-    plot_text(_ax_, c2xstart,     c2ystart,     title[0], TABLE_COLOR, scale=1.1)
-    plot_text(_ax_, c2xstart + 4, c2ystart -22, title[1], TABLE_COLOR, scale=1.1)
+    plot_text(axis, c2xstart,     c2ystart,     title[0], TABLE_COLOR, scale=1.1)
+    plot_text(axis, c2xstart + 4, c2ystart -22, title[1], TABLE_COLOR, scale=1.1)
     
-    plot_quarter_score(home_scores, away_scores, _ax_, c2xstart + 2, c2ystart + 50, game_info)
+    plot_quarter_score(home_scores, away_scores, axis, c2xstart + 2, c2ystart + 50, game_info)
 
-    if do_plot('legend'):
-        plot_event_legend(_ax_,15,55)
+def save_plot_data_as_csv(game_data, boxscore1,boxscore2,our_stints,opponent_stints, home_scores,away_scores):
+      
+    if defaults.get('SAVE_BOX_SCORE'): 
+        box_score_to_csv_file(boxscore1, boxscore2, game_data)
+            
+    if defaults.get('SAVE_OVERLAP'): 
+        overlap_to_csv_file(overlap_combos(our_stints), game_data, boxscore1, home_scores, away_scores)
+        overlap_to_csv_file(overlap_combos(opponent_stints), game_data, boxscore2, home_scores, away_scores)
+
+    if defaults.get('SAVE_STINTS'):
+        stints_as_csv(boxscore1, boxscore2,
+                      our_stints, opponent_stints,
+                      game_data,
+                      home_scores, away_scores)
+
+    if defaults.get('SOURCE') == 'WEB':
         
-def plot3(TEAM1, game_data, our_stints, opponent_stints):
+        def Merge(dict1, dict2): return {**dict1, **dict2}
+        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+
+        if defaults.get('SAVE_RAW'):
+            pbp_as_csv_file(game_data, merged_game_stints, save_as_raw=True)
+
+        if defaults.get('SAVE_GAME'):
+            pbp_as_csv_file(game_data, merged_game_stints)
+     
+        if defaults.get('WEB_CACHE'):
+
+            fn, cwd, isfile = make_cache_fn(game_data)
+
+            if not isfile:
+                defaults.push()   
+               
+                defaults.set('SAVE_DIR','.wwmdd/.csvs')
+                defaults.set('DBG','')
+                defaults.set('SAVE_PREFIX','')
+                
+                pbp_as_csv_file(game_data, merged_game_stints)
+                logger.info(f'cache update {os.path.basename(fn)}')
+                
+                defaults.pop()
+
+            
+def plot3(TEAM1, game_data, stints1, stints2):
     
     global key_value
     global figure
@@ -1136,30 +1160,35 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
    
     title, debug_title, game_info = get_title_and_friends(game_data)
 
-    scoreMargins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
+    score_margins, home_scores, away_scores = make_scoremargin(game_data.play_by_play)
                 
     boxscore1, \
     play_times_by_player1 = \
-    plot_prep(our_stints, game_data, scoreMargins, team=TEAM1, home_team=game_info['H'])
+    plot_prep(stints1, game_data, score_margins, team=TEAM1, home_team=game_info['H'])
 
     boxscore2, \
     play_times_by_player2 = \
-    plot_prep(opponent_stints, game_data, scoreMargins, team=TEAM1, opponent=True, home_team=game_info['H'])
+    plot_prep(stints2, game_data, score_margins, team=TEAM1, opponent=True, home_team=game_info['H'])
 
     events_by_player1 = get_events_by_playerB(boxscore1)    
     events_by_player2 = get_events_by_playerB(boxscore2)    
    
-    boxscore1.summary()
+    boxscore1.summary()  # 3 for 4 on 3 pointers type of thing
     boxscore2.summary()
-    
-    box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
-
-    play_time_check(title, boxscore1, boxscore2, our_stints[0], opponent_stints[0], game_data)
-    
-    plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
+      
+    save_plot_data_as_csv(game_data, 
+                          boxscore1, boxscore2,
+                          stints1, stints2, 
+                          home_scores, away_scores)
     
     if defaults.get('SHOW_PLOT'):
         
+        box_scores_data_by_col = list(map(lambda x:x[0]+x[1],zip(boxscore1.get_colwidths(),boxscore2.get_colwidths())))
+
+        play_time_check(title, boxscore1, boxscore2, stints1[0], stints2[0], game_data)
+        
+        plt.style.use(color_defaults.get('PLOT_COLOR_STYLE'))
+    
         while True:
             
             axd,E1,TL,TR,MD,E2,BL,BR,E3 = plot_layout(debug_title)
@@ -1169,33 +1198,37 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             # winning team goes on top 
             # TEAM1 is group1 data, opponennt is group2 data
             
-            if game_info['T'] == TEAM1:
-                _ad1_ = axd[TL]
-                _ad2_ = axd[BL]
-                _ad1_label = 'TOP'
-                _ad2_label = None
-            else :
-                _ad1_ = axd[BL]
-                _ad2_ = axd[TL]
-                _ad1_label = None
-                _ad2_label = 'TOP'
-            
-            colwidths = play_by_play_chart(play_times_by_player1, _ad1_, events_by_player1, scoreMargins, 
-                    x_labels =_ad1_label,
-                    bx_score = boxscore1,
-                    bx_widths = box_scores_data_by_col,
-                    score = [home_scores, away_scores],
-                    game_info = game_info)
-            
-            play_by_play_chart(play_times_by_player2, _ad2_, events_by_player2, scoreMargins, 
-                        x_labels =_ad2_label,
-                        bx_score = boxscore2,
-                        bx_widths = colwidths,
-                        score = [home_scores, away_scores],
-                        game_info = game_info)
+            ax_data = [ 
+                axd[TL], axd[BL],   # axis us/opponent  
+                'TOP',   None       # axis label us/opponent  no Q labels on bottom plot
+            ]
 
-            plot_title_legend_Qs(axd[E2],70,52, title, home_scores, away_scores, game_info)
+            if game_info['T'] != TEAM1:
+                # swap if we're not on top
+                ax_data[0:2] = ax_data[0:2][::-1]
+                ax_data[2:] = ax_data[2:][::-1]
+
+                        
+            colwidths = play_by_play_chart(
+                ax_data[0], ax_data[2],
+                play_times_by_player1, events_by_player1, boxscore1,
+                score_margins, 
+                box_scores_data_by_col,
+                [home_scores, away_scores],
+                game_info)
+
+            play_by_play_chart(
+                ax_data[1], ax_data[3],
+                play_times_by_player2, events_by_player2, boxscore2,
+                score_margins, 
+                colwidths,
+                [home_scores, away_scores],
+                game_info)
             
+            plot_title_block_period_scores(axd[E2],70,52, title, home_scores, away_scores, game_info)
+            
+            plot_event_legend(axd[E2], 15, 55)
+
             for r in [TL, TR, BL, BR, E1, E2, E3, MD]:
                 if r != None:
                     for s in ['top', 'right', 'bottom', 'left']:
@@ -1222,11 +1255,7 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             else: 
                 plt.pause(abs(n)) 
 
-            if key_value == 'q': break
-
-            key_manager(key_value)  
-                
-            key_value = 'q'   
+            if key_manager(): break   
                          
             plt.close(figure)
             
@@ -1255,43 +1284,43 @@ def plot3(TEAM1, game_data, our_stints, opponent_stints):
             plt.close('all')
                          
             
-    if defaults.get('SAVE_BOX_SCORE'): 
-        save_box_score(boxscore1,boxscore2,game_data)
+    # if defaults.get('SAVE_BOX_SCORE'): 
+    #     box_score_to_csv_file(boxscore1,boxscore2,game_data)
             
-    if defaults.get('SAVE_OVERLAP'): 
-        overlap_dump(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
-        overlap_dump(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
+    # if defaults.get('SAVE_OVERLAP'): 
+    #     overlap_to_csv_file(overlap_combos(our_stints), game_data, boxscore1,home_scores,away_scores)
+    #     overlap_to_csv_file(overlap_combos(opponent_stints), game_data, boxscore2,home_scores,away_scores)
 
-    if defaults.get('SAVE_STINTS'):
-        stints_as_csv(boxscore1, boxscore2,
-                      our_stints, opponent_stints,
-                      game_data,
-                      home_scores, away_scores)
+    # if defaults.get('SAVE_STINTS'):
+    #     stints_as_csv(boxscore1, boxscore2,
+    #                   our_stints, opponent_stints,
+    #                   game_data,
+    #                   home_scores, away_scores)
 
-    if defaults.get('SOURCE') == 'WEB':
+    # if defaults.get('SOURCE') == 'WEB':
         
-        def Merge(dict1, dict2): return {**dict1, **dict2}
-        merged_game_stints = Merge(our_stints[0], opponent_stints[0])
+    #     def Merge(dict1, dict2): return {**dict1, **dict2}
+    #     merged_game_stints = Merge(our_stints[0], opponent_stints[0])
 
-        if defaults.get('SAVE_RAW'):
-            dump_pbp(game_data, merged_game_stints, save_as_raw=True)
+    #     if defaults.get('SAVE_RAW'):
+    #         pbp_as_csv_file(game_data, merged_game_stints, save_as_raw=True)
 
-        if defaults.get('SAVE_GAME'):
-            dump_pbp(game_data, merged_game_stints)
+    #     if defaults.get('SAVE_GAME'):
+    #         pbp_as_csv_file(game_data, merged_game_stints)
      
-        if defaults.get('WEB_CACHE'):
+    #     if defaults.get('WEB_CACHE'):
 
-            fn, cwd, isfile = make_cache_fn(game_data)
+    #         fn, cwd, isfile = make_cache_fn(game_data)
 
-            if not isfile:
-                defaults.push()   
+    #         if not isfile:
+    #             defaults.push()   
                
-                defaults.set('SAVE_DIR','.wwmdd/.csvs')
-                defaults.set('DBG','')
-                defaults.set('SAVE_PREFIX','')
+    #             defaults.set('SAVE_DIR','.wwmdd/.csvs')
+    #             defaults.set('DBG','')
+    #             defaults.set('SAVE_PREFIX','')
                 
-                dump_pbp(game_data, merged_game_stints)
-                logger.info(f'cache update {os.path.basename(fn)}')
+    #             pbp_as_csv_file(game_data, merged_game_stints)
+    #             logger.info(f'cache update {os.path.basename(fn)}')
                 
-                defaults.pop()
+    #             defaults.pop()
                 

@@ -1,0 +1,40 @@
+Here's an improved version of the prompt, along with an explanation of the improvements:
+
+**Improved Prompt:**
+
+Create a fictional yet realistic play-by-play, in CSV format, for the first period of a game between the **[Team Name (e.g., Miami Heat)]** and the **Atlanta Hawks**. Include the following details for each event:
+
+* **eventmsgtype:**  The type of event, such as "SUB" for substitution, "FOUL" for foul, "3POINT" for a 3-pointer, "REBOUND", "STEAL", "TIMEOUT", etc.
+* **period:** The period number (1, 2, 3, 4).
+* **pctimestring:** Time remaining on the game clock (e.g., "11:45" for 11 minutes and 45 seconds remaining).
+* **neutraldescription:** A brief description of the event, including the player's name, team, and what happened (e.g., "SUB:  Hunter Starts playing").
+* **score:** The current score (e.g., "12 - 10").
+* **scoremargin:** The difference in the score (e.g., "2").
+* **player1_name:** The player involved in the event (can be empty if not relevant).
+* **player1_team_abbreviation:** The team the player is on (e.g., "MIA").
+* **player2_name:**  A second player involved (e.g., the recipient of a pass).
+* **player2_team_abbreviation:** The team of the second player.
+* **player3_name:** A third player involved (e.g., the player who committed a foul).
+* **player3_team_abbreviation:** The team of the third player.
+
+
+**Thinking:**
+
+Here's why these changes create a more realistic play-by-play:
+
+* **Specific Team Name:** Using a placeholder like "[Team Name (e.g., Miami Heat)]" allows the AI to generate a play-by-play that aligns with the specific roster and playing style of a particular team.
+* **More Detailed Event Descriptions:**  The improved prompt encourages more detailed descriptions in the "neutraldescription" column, making the play-by-play more comprehensive and informative. 
+* **Consistent Column Structure:** This ensures the data is organized in a structured and logical way, which is crucial for analysis and for the AI to understand the context of each event.
+* **Including Relevant Players:** Specifying multiple players involved in events (player1, player2, player3) allows for more realistic scenarios where multiple players are involved, such as assists, fouls, and turnovers.
+* **Clarifying Player Credit:**  Specifying who commits fouls and steals ensures that the play-by-play accurately reflects the actions of players during the game.
+
+**Example of How the Improved Prompt Could be Used:**
+
+```
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+...
+15,FOUL,1,10:35,Adebayo P.FOUL (P1.T1) (B.Taylor),3 - 2,-1,Bam Adebayo,MIA,Jusuf Nurkic,PHX,,
+...
+```
+
+By providing this more detailed prompt, the AI will be able to generate a more realistic and engaging play-by-play, as it will have a better understanding of the context of the game and the actions of the players. 

@@ -1,10 +1,11 @@
 import sys
+from loguru import logger
 import argparse
+import json
 
 import settings
-from loguru import logger
 
-# before anything else happens, likely too cheesy and won't servive long
+
 
 def start_logger(args):
 
@@ -40,7 +41,7 @@ def start_logger(args):
 
     logger.add(
         sys.stdout,
-        # format=log_format,
+        format=log_format,
         level=log_level,
         colorize="sys.stdout" in log_colorize,
         backtrace=True,
@@ -62,10 +63,6 @@ def start_logger(args):
                 logger.enable("")
             else:
                 logger.disable("")
-
-BS_EXIT_ = '#!#exit'
-BS_COMMENT_ = '#!#'
-
 
 def get_args():
 
@@ -126,6 +123,10 @@ def get_args():
         return None, "Error"
 
     return args, parser
+
+
+BS_EXIT_ = '#!#exit'
+BS_COMMENT_ = '#!#'
 
 def get_argset(args, parser):
     
@@ -213,24 +214,22 @@ def set_args(args):
         settings.defaults.set("START_DAY", start)
         settings.defaults.set("STOP_DAY", stop)
 
-
 args, parser = get_args()
 
 # I apologize for the complexity of this
 settings.defaults = settings.default()
 
-cfn = settings.defaults.get("COLOR_DEFAULTS")
+cfn = settings.defaults.get('COLOR_DEFAULTS')
 settings.colors = settings.default(cfn,cfd=True)
 
-import json
-with open('.wwmdd/patch.json', "r") as f:
+with open('.wwmdd/patch.json', 'r') as f:
     settings.patches = json.load(f)
   
 start_logger(args)
-logger.info("wwmdd begins! ")
+logger.info('wwmdd begins!')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     if args != None:
 
@@ -260,7 +259,7 @@ if __name__ == "__main__":
                     if BS_COMMENT_ in _args: continue
                     
                 else:
-                    logger.error('argument error not a string.')
+                    logger.error('argument error not a string')
             else:  
                   
                 set_args(args)
@@ -352,7 +351,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) == 1:
 
-        logger.info("no args - default settings")
+        logger.info("no args - using settings.json")
         data_source = settings.defaults.get("SOURCE")
 
         # get games and play by play from nba_api. get teams and dates from settings.json
@@ -368,7 +367,7 @@ if __name__ == "__main__":
             claude.main(data_source.split(":")[1])
 
         elif "GEMINI:" in data_source:
-            gemini.main(data_source.split(":")[1])
+            gemini.main(data_source.split(":")[1:])
 
         elif "OPEN_AI:" in data_source:
             gpt.main(data_source.split(":")[1])
@@ -380,12 +379,7 @@ if __name__ == "__main__":
             main_db.main()
         # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
 
-        elif "TESTPARTSCALE:" in data_source:
-            import main_TestPlotScale
-
-            main_TestPlotScale.main()
-
         else:
             logger.error("NO SOURCE specified in .wwmdd/setttings.json.")
 
-    logger.info("wwmdd ends.")
+    logger.info('wwmdd ends.')

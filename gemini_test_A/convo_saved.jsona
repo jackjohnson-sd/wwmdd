@@ -1,0 +1,220 @@
+{
+    "TEAM1" : "MIA",
+    "TEAM2" : "ATL",
+
+    "creator_config": {
+        "name"  :"creator",
+        "area_expert" : "play by play",
+        "model" :"models/gemini-1.5-flash-001",
+        "cached_dir" :"creator_cache", 
+        "ttl"   : 15,
+        "system_prompt" : [
+            "You are assisting the worlds most renowned sports announcer.",
+            "Your job is to create play by play files by observing the game",
+            "and listening to your broadcast announcer."
+            ]
+    },
+
+    "critic_config" : {
+        "name"  : "sub_critic",
+        "area_expert" : "SUB events",
+        "model" : "models/gemini-1.5-flash-001",
+        "cached_dir" : "sub_critic_cache", 
+        "ttl"   : 15,
+        "system_prompt" : [
+            "You are a senior basketball analyst. Your job is to answer questions about about",
+            " when players play given the play by play data provided. " 
+            ]
+    },
+
+
+    "critic_foul_config" : {
+        "name"  : "foul_critic",
+        "area_expert" : "FOUL events",
+        "model" : "models/gemini-1.5-flash-001",
+        "cached_dir" : "FOUL_critic_cache", 
+        "ttl"   : 15,
+        "system_prompt" : [
+            "You are a senior basketball analyst. Your job is to answer questions about about",
+            " when players play given the play by play data provided. " 
+            ]
+    },
+
+    "prompt_improver_config" : {
+        "name"  : "prompt_improver",
+        "area_expert" : "FOUL events",
+        "model" : "models/gemini-1.5-flash-001",
+        "cached_dir" : "FOUL_critic_cache", 
+        "ttl"   : 15,
+        "system_prompt" : [
+            "You are a senior techology analyst. Your job is to review the iniital ",
+            " prompt and make then work better with caced data sets. " 
+            ]
+    },
+
+   "call_and_response": 
+    [   
+        [   "$$CREATOR:$$R0_0",
+            "This is a prompt:",
+            "Create a fictional yet realistic play by play, in csv format, ",
+            "for the first period of a game between TEAM1 and TEAM2. " ,
+            "Use only players from those teams. ",
+            "end of prompt ",
+            " Give me an improved version of this prompt", 
+            " that would create a more realistic play by play.",
+            " explain your thinking andgive me an improved version of this prompt.",
+            "# Just the prompt, no explanation needed."      
+        ],
+
+        [   "$$SAVE:$$R0_0:R0_PROMPT" ],
+       
+        [   "$$CREATOR:$$R0",
+            "Create a fictional yet realistic play by play, in csv format, ",
+            "for the first period of a game between TEAM1 and TEAM2. " ,
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. "      
+        ],
+            
+        
+        [   "$$READ:$$R0:Q1_PBP" ],
+        
+        [   "$$CRITIC:$$R1",
+            "Here is a play by play, in csv format for the first period of the game between TEAM1 and TEAM2. \n",
+            "$$R0",
+            "Does this have a resonable number of SUB events for the 1st period based on the stint data you have? ",
+            "# I need a yes or no answer. ",
+            "I need a rating of 1 to 10. Make the first line of your response 'The rating is X of 10' where x is your rating. ",
+            " follow with what could have been done better. Thanks"
+        ],   
+            
+        [   "$$IFNOT:$$R1:_RATED_GT_:4:5",
+            "$$CREATOR:$$R0",
+            "You do not have a realistic number of SUB events the last fictional play_by_play you created. ",
+            "Create a fictional yet realistic play by play, in csv format for the first period of a game between TEAM1 and TEAM2. ", 
+            "Use only player from those teams.",
+            "$$GOTO|$$CRITIC:$$R1"
+        ],
+
+        [   "$$IFNOT:$$R1:_YES_:5",
+            "$$CREATOR:$$R0",
+            "You do not have a realistic number of SUB events the last fictional play_by_play you created. ",
+            "Create a fictional yet realistic play by play, in csv format for the first period of a game between TEAM1 and TEAM2. ", 
+            "Use only player from those teams.",
+            "$$GOTO|$$CRITIC:$$R1"
+        ],
+
+
+        [   "$$CREATOR:$$R2",
+
+            "$$R0",
+            "# we are asking for the 2nd period and providing the first",
+            "This is a fictional yet realistic play by play, in csv format, ",
+            "for the first period of a game between TEAM1 and TEAM2. " ,
+            "based on this period, create a fictional buy realistic second period for this game. ",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. "      
+        ],
+
+        [   "$$CRITIC:$$R3",
+            "Here is a play by play, in csv format for the second period of the game between TEAM1 and TEAM2. ",
+            "$$R2",
+            "Does this have a resonable number of SUB events for the 2nd period based on the stint data you have? ",
+            "I need a yes or no answer. "
+        ],   
+
+        [   "$$IFNOT:$$R3:_YES_:5",
+            "$$CREATOR:$$R2",
+            "This is a fictional yet realistic play by play, in csv format, ",
+            "for the first period of a game between TEAM1 and TEAM2. " ,
+            "$$R0",
+            "based on this period, create a fictional but realistic, second period for this game.",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. ",      
+            "Your pior attempt did not have a realistic number of SUB events the fictional play_by_play you created. ",
+            "try harder",
+            "$$GOTO|$$CRITIC:$$R3"
+        ],
+
+
+        [   "$$CREATOR:$$R4",
+            "# we are asking for the 3rd period and providing the first and second periods",
+            "\nFirst period play by play",
+            "$$R0",
+            "\nSecond period data",
+            "$$R2",
+            "These are fictional yet realistic play by plays, in csv format, ",
+            "for the first and second period of a game between TEAM1 and TEAM2. " ,
+            "based on these periods, create a fictional buy realistic third period for this game.",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. "      
+        ],
+
+        [   "$$CRITIC:$$R5",
+            "Here is a play by play, in csv format for the 3rd period of the game between TEAM1 and TEAM2. ",
+            "$$R4",
+            "Does this have a resonable number of SUB events for the third period based on the stint data you have? ",
+            "I need a yes or no answer. "
+        ],   
+
+        [   "$$IFNOT:$$R5:_YES_:5",
+            "$$CREATOR:$$R4",
+            "These are fictional yet realistic play by plays, in csv format, ",
+            "for the first and second period of a game between TEAM1 and TEAM2. " ,
+            "\nFirst period play by play",
+            "$$R0",
+            "\nSecond period play by play",
+            "$$R2",
+
+            "You did not have a realistic number of SUB events the third period you last play_by_play you created. ",
+            "create a fictional but more realistic, third period for this game.",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. ",    
+            "$$GOTO|$$CRITIC:$$R5"
+        ],
+
+        [   "$$CREATOR:$$R6",
+
+            " period 1 play by play",
+            "$$R0",
+            " period 2 play by play",
+            "$$R2",
+            " period 3 play by play",
+            "$$R4",
+
+            "These are fictional yet realistic play by plays, in csv format, ",
+            "for the first, second and third period of a game between TEAM1 and TEAM2. " ,
+            "based on these periods, create a fictional buy realistic fourth period for this game.",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. "      
+        ],
+
+        [   "$$CRITIC:$$R7",
+            "Here is a play by play, in csv format for the fourth period of the game between TEAM1 and TEAM2. ",
+            "$$R6",
+            "Does this have a resonable number of SUB events for the third period based on the stint data you have? ",
+            "I need a yes or no answer. "
+        ],   
+
+        [   "$$IFNOT:$$R7:_YES_:5",
+            "$$CREATOR:$$R6",
+            " period 1 play by play",
+            "$$R0",
+            " period 2 play by play",
+            "$$R2",
+            " period 3 play by play",
+            "$$R4",
+
+            "These are fictional yet realistic play by plays, in csv format, ",
+            "for the first, second and third periods of a game between TEAM1 and TEAM2. " ,
+            "based on these periods, create a fictional but realistic, fourth period for this game.",
+            "Use only players from those teams. ",
+            "Just provide the play by play. No summary or discussion. " ,     
+            "You did not have a realistic number of SUB events the fourth period play by play you created. ",
+            "try harder.",
+            "$$GOTO|$$CRITIC:$$R7"
+        ], 
+
+        [   "$$SAVE:$$R0,$$R2,$$R4,$$R6:Q1-4" ]
+
+     ]
+}

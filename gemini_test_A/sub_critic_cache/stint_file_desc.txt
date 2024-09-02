@@ -1,0 +1,123 @@
+
+</example of CSV formatted stint data>
+date,PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,OFF,DEF,±,PTS,REB,BLK,AST,STL,TO,PF,3P.MI,3P.MA,FG.MI,FG.MA,FT.MI,FT.MA,EOQ,secs,TF,JB,VO,EJ,FD
+2024-01-10,Anthony Edwards,MIN,1,12:00,1,0:00,12:00,27,32,-5,4,1,0,0,0,0,0,0,0,2,2,0,0,1,2743,0,0,0,0,1
+2024-01-10,Anthony Edwards,MIN,2,8:29,3,0:00,20:29,51,36,8,20,4,0,1,0,2,1,0,2,6,6,0,2,2,0,0,0,0,0,1
+2024-01-10,Anthony Edwards,MIN,4,8:14,5,0:00,13:14,29,40,-9,5,1,0,2,0,3,0,3,1,3,0,0,2,2,0,0,1,0,0,1
+2024-01-10,Jaden McDaniels,MIN,1,12:00,1,4:15,07:45,16,18,-3,2,1,0,0,0,1,1,1,0,2,1,0,0,0,1448,0,0,0,0,0
+2024-01-10,Jaden McDaniels,MIN,2,12:00,2,5:36,06:24,13,13,0,0,0,0,1,0,0,2,2,0,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Jaden McDaniels,MIN,3,12:00,3,9:19,02:41,7,8,-4,3,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Jaden McDaniels,MIN,4,12:00,4,9:18,02:42,6,6,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Jaden McDaniels,MIN,4,4:09,4,0:25,03:44,5,16,-35,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+2024-01-10,Jaden McDaniels,MIN,4,0:08,5,4:16,00:52,3,1,27,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Naz Reid,MIN,1,7:35,2,8:29,11:06,30,32,-2,9,6,0,1,0,1,1,1,1,2,3,0,0,1,0,0,0,0,0,1
+2024-01-10,Naz Reid,MIN,2,5:36,2,0:00,05:36,13,9,8,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Naz Reid,MIN,3,7:25,4,3:22,16:03,39,32,5,10,3,1,2,0,0,1,2,2,2,1,0,2,1,0,0,0,0,0,1
+2024-01-10,Naz Reid,MIN,4,0:25,4,0:00,00:25,2,0,57,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+2024-01-10,Naz Reid,MIN,5,4:16,5,0:00,04:16,6,15,-25,0,0,1,0,0,0,2,1,0,0,0,0,0,1,0,0,0,0,0,0
+
+2024-01-10,Troy Brown Jr.,MIN,1,4:15,2,8:29,07:46,18,25,-10,2,1,0,1,0,0,0,2,0,0,1,0,0,1,0,0,0,0,0,0
+
+2024-01-10,Al Horford,BOS,1,12:00,1,4:15,07:45,18,16,3,3,2,0,2,0,0,0,0,1,1,0,0,0,0,2296,0,1,0,0,1
+2024-01-10,Al Horford,BOS,2,8:29,3,3:12,17:17,34,45,-7,3,4,0,2,0,1,3,3,1,0,0,0,0,1,0,0,149,0,0,0
+2024-01-10,Al Horford,BOS,4,8:14,5,0:00,13:14,40,29,9,3,2,0,1,0,0,0,0,1,1,0,0,0,2,0,0,421,0,0,0
+</example of CSV formatted stint data>
+
+Stints tell us when each player started playing in a game and how long he played.
+Every time a player starts playing and stops playing creates a stint.
+
+The first line in the file describes the data.
+Stint files have this first line as a column header: 'date,PLAYER,TEAM,PERIOD.START,CLOCK.START,PERIOD.STOP,CLOCK.STOP,PLAY.TIME,OFF,DEF,±,PTS,REB,BLK,AST,STL,TO,PF,3P.MI,3P.MA,FG.MI,FG.MA,FT.MI,FT.MA,EOQ,secs,TF,JB,VO,EJ,FD'
+
+This files have multiple rows in them.  Each row has stint data seperated by commas.
+
+the data in a 'date' column is the date of this game.
+the data in a 'PLAYER' column is the name of the player
+the data in a 'TEAM' column is the name of the team
+the data in a 'PERIOD.START' and 'CLOCK.START' column is when in game the stint started
+the data in a 'PERIOD.STOP' and 'CLOCK.STOP' column is when in game the stint ended
+the data in a 'PLAY.TIME' column is the duration of the stint
+
+To determine how many times a player entered a game, count the number of times the player is 
+listed in the 'PLAYER' column
+
+To determine how long a player played in a game, sum the 'PLAY.TIME' values for each stint
+where the player is listed in the 'PLAYER' column
+
+You will be provided CSV formatted play by play data for a game.  
+
+<example CSV formatted play by play>
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+0,SUB,1,12:00,SUB: Strus Starts playing.,0 - 0,0,,,Max Strus,CLE,,
+1,SUB,1,12:00,SUB: Okoro Starts playing.,0 - 0,0,,,Isaac Okoro,CLE,,
+2,SUB,1,12:00,SUB: Mitchell Starts playing.,0 - 0,0,,,Donovan Mitchell,CLE,,
+3,SUB,1,12:00,SUB: Wade Starts playing.,0 - 0,0,,,Dean Wade,CLE,,
+4,SUB,1,12:00,SUB: Allen Starts playing.,0 - 0,0,,,Jarrett Allen,CLE,,
+5,SUB,1,12:00,SUB: Avdija Starts playing.,0 - 0,0,,,Deni Avdija,WAS,,
+6,SUB,1,12:00,SUB: Jones Starts playing.,0 - 0,0,,,Tyus Jones,WAS,,
+7,SUB,1,12:00,SUB: Poole Starts playing.,0 - 0,0,,,Jordan Poole,WAS,,
+8,SUB,1,12:00,SUB: Kuzma Starts playing.,0 - 0,0,,,Kyle Kuzma,WAS,,
+9,SUB,1,12:00,SUB: Gafford Starts playing.,0 - 0,0,,,Daniel Gafford,WAS,,
+10,STARTOFPERIOD,1,12:00,Start of 1st Period (7:41 PM EST),0 - 0,0,,,,,,
+11,JUMPBALL,1,12:00,Jump Ball Allen vs. Gafford: Tip to Mitchell,0 - 0,0,Jarrett Allen,CLE,Daniel Gafford,WAS,Donovan Mitchell,CLE
+12,3POINT,1,11:41,Mitchell 26' 3PT Pullup Jump Shot (3 PTS),0 - 3,3,Donovan Mitchell,CLE,,,,
+13,3POINT.ASSIST,1,11:22,Jones 3PT Jump Shot (3 PTS) (Kuzma 1 AST),3 - 3,TIE,Tyus Jones,WAS,Kyle Kuzma,WAS,,
+14,2POINT.ASSIST,1,11:12,Allen 6' Driving Hook Shot (2 PTS) (Mitchell 1 AST),3 - 5,2,Jarrett Allen,CLE,Donovan Mitchell,CLE,,
+15,STEAL.TURNOVER,1,10:53,Okoro STEAL (1 STL)  Avdija Bad Pass Turnover (P1.T1),3 - 5,2,Deni Avdija,WAS,Isaac Okoro,CLE,,
+16,FOUL,1,10:50,Poole S.FOUL (P1.T1) (T.Ricks),3 - 5,2,Jordan Poole,WAS,Isaac Okoro,CLE,,
+17,FTMAKE,1,10:50,Okoro Free Throw 1 of 2 (1 PTS),3 - 6,3,Isaac Okoro,CLE,,,,
+18,FTMISS,1,10:50,MISS Okoro Free Throw 2 of 2,3 - 6,3,Isaac Okoro,CLE,,,,
+19,REBOUND,1,10:48,Avdija REBOUND (Off:0 Def:1),3 - 6,3,Deni Avdija,WAS,,,,
+20,2POINT.ASSIST,1,10:25,Kuzma 17' Step Back Jump Shot (2 PTS) (Jones 1 AST),5 - 6,1,Kyle Kuzma,WAS,Tyus Jones,WAS,,
+21,2POINT,1,10:07,Allen 1' Driving Dunk (4 PTS),5 - 8,3,Jarrett Allen,CLE,,,,
+
+<\example CSV formatted play by play>
+
+<play by play SUB event information>
+
+        - ‘SUB’ in the ‘eventmsgtype’ column identifies this row as a SUB event row. 
+
+        - In a SUB event row, if the ‘player2_name’ column player is not empty this means 
+          the player is starting playing.
+
+        - In a SUB event row, if the ‘player1_name’ column player is not empty this means 
+          the player is stopping playing.
+        
+        - Any time a player stops playing another player from his team must start playing. 
+          The only exception to this rule is at end of the game.
+
+</play by play SUB event information>
+
+<SUB_event_example>
+    Here is an example of SUB events in CSV format:
+ 
+   ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+    88,SUB,1,3:31,SUB: Burks stops playing,22 - 15,-7,Alec Burks,DET,,,,
+    89,SUB,2,9:15,SUB: Livers starts,22 - 15,-7,,,Isaiah Livers,NYC,,
+        
+    In event row 88, Alec Burks (playing for DET) ends playing with 3 minutes and 31 seconds remaining in period 1.
+
+    This is because: 
+    - the ‘eventmsgtype’ column value is ‘SUB’ 
+    - the ‘player1_name’ column value is ‘Alec Burks’
+    - the ‘period’ column value is '1'
+    - the ‘pctimestring’ column value is ‘3:31’
+    - the ‘player1_team_abbreviation’ column value is 'DET'
+
+    In event row 89, Isaiah Livers (playing for NYC) starts playing with 9 minutes and 15 seconds remaining in period 2.
+    
+    This is because: 
+    - the ‘eventmsgtype’ column value is ‘SUB’ 
+    - the ‘player2_name’ column value is ‘Isaiah Livers’
+    - the ‘period’ column value is '2'
+    - the ‘pctimestring’ column value is ‘9:15’
+    - the ‘player2_team_abbreviation’ column value is 'NYC'
+</SUB_event_example>
+  
+8 full game examples of stint data in csv formatted data are provided.
+these stints average between 60 and 84 stints per game. 
+This is 30 to 42 stints per team per game.
+Two SUB events make one stint.  This means  
+These stint examples include stints for both teams.
+
+Use this information to answer questions about how many times a player enters a game

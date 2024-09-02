@@ -15,6 +15,78 @@ from box_score import box_score
 DBG                     = defaults.get('DBG')      
 
 
+def insert_row(new_row, old_df):
+
+    from pandas import DataFrame, concat
+
+    event_cols = [ 'eventmsgtype','period', 'pctimestring',
+        'neutraldescription',
+        'score', 'scoremargin',
+        'player1_name', 'player1_team_abbreviation',
+        'player2_name', 'player2_team_abbreviation',
+        'player3_name', 'player3_team_abbreviation'
+    ]
+   
+    new_row = new_row.split(',')
+    
+    period = new_row[1]
+    pctime = new_row[2]
+    s = f'period == {period} & pctimestring == "{pctime}"'
+    us = old_df.query(s) 
+    
+    index = us.index.tolist()
+    values = us.values.tolist()
+    
+    insert_point = index[-1]
+    new_insert = values[-1]
+    
+    df_cols = us.columns.tolist()
+    
+    for j,c in enumerate(df_cols):
+        if c in event_cols:
+            i = event_cols.index(c)
+            new_insert[j] = new_row[i]     
+        else:
+           if type(new_insert[j]) == type(2): new_insert[j] = 0
+           if type(new_insert[j]) == type(2.0): new_insert[j] = 0.0
+           if type(new_insert[j]) == type('a'): new_insert[j] = ''
+           
+                
+    new_insert[2] = int(new_insert[2])    
+    line = DataFrame([new_insert], columns=df_cols)
+    df2 = concat([old_df.iloc[0:insert_point], line, old_df.iloc[insert_point:]]).reset_index(drop=True)
+    return df2
+
+def get_players_and_team(game_data, team_abbreviation, play_by_play, get_opponent_data = False):
+
+    # get who's playing and the team they are playing for
+    if get_opponent_data:
+
+        p1s = play_by_play[play_by_play["player1_team_abbreviation"] != team_abbreviation]
+        p2s = play_by_play[play_by_play["player2_team_abbreviation"] != team_abbreviation]
+
+        # we might be home or away.  we're opponent so we're not team_abbreviation        
+        if team_abbreviation != game_data.team_abbreviation_home:
+            team_abbreviation = game_data.team_abbreviation_home
+        else:
+            team_abbreviation = game_data.team_abbreviation_away
+
+    else:
+        
+        p1s = play_by_play[play_by_play["player1_team_abbreviation"] == team_abbreviation]
+        p2s = play_by_play[play_by_play["player2_team_abbreviation"] == team_abbreviation]
+    
+    p1s = p1s['player1_name']
+    p2s = p2s['player2_name']
+    
+    players_in_game = list(pd.concat([p1s,p2s]).dropna().unique())
+    players_in_game = list(pd.concat([p1s,p2s]).dropna().unique())
+
+    # happens in csv read where we have a team rebound with no players
+    if '' in players_in_game: players_in_game.remove('')
+    
+    return team_abbreviation, players_in_game
+        
 def get_sub_io_events_by_player(box):
 
     TEST_PLAYERS = defaults.get('TEST_PLAYERS')
@@ -28,7 +100,7 @@ def get_sub_io_events_by_player(box):
     in_the_game = False
     last_event = None
     
-    if defaults.get("SOURCE") == 'CSV':
+    if defaults.get("SOURCE") in ['CSV','GEMINI']:
         
         for player in box.get_players():
             _sub_events_by_player[player] = []        
@@ -448,7 +520,7 @@ def event_sort_keys(x):
      
         return ((game_second))
      
-def dump_pbp(game, game_stints, save_as_raw = False):
+def pbp_as_csv_file(game, game_stints, save_as_raw = False):
     
     event_keys = list(pbp_event_map.keys())
         
@@ -556,38 +628,22 @@ def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
 
     pbp = game_data.play_by_play
 
-    if  pbp.shape[0] != 0:
+    if pbp.shape[0] != 0:
         
         # creates a computed column of seconds into game of event 
         pbp[['sec','score_home','score_away']] = pbp.apply(
             lambda row: make_seconds_home_away_scores(row), axis=1, result_type='expand'
         )
-
-        # get who's playing and the team they are playing for
-        if get_opponent_data:
-
-            p1s = pbp.query(f'player1_team_abbreviation != "{team_abbreviation}"')['player1_name'] 
-            p2s = pbp.query(f'player2_team_abbreviation != "{team_abbreviation}"')['player2_name']
-            
-            if team_abbreviation != game_data.team_abbreviation_home:
-                team_abbreviation = game_data.team_abbreviation_home
-            else:
-                team_abbreviation = game_data.team_abbreviation_away
-
-        else:
-            p1s = pbp.query(f'player1_team_abbreviation == "{team_abbreviation}"')['player1_name'] 
-            p2s = pbp.query(f'player2_team_abbreviation == "{team_abbreviation}"')['player2_name']
         
-        playersInGame = list(set(p1s.dropna()) | set(p2s.dropna()))
-
-        # happens in csv read where we have a team rebound with no players
-        if '' in playersInGame: playersInGame.remove('')
-                                
+        # def get_players_and_team(game_data, team_abbreviation, play_by_play, get_opponent_data = False)
+        
+        team_abbreviation, players_in_game = get_players_and_team(game_data, team_abbreviation, pbp, get_opponent_data)   
+                                         
         # fill box score with events from play by play
         box_ = box_score({})
 
         box_._team_name = team_abbreviation
-        box_.stuff_bs(pbp, playersInGame)
+        box_.stuff_bs(pbp, players_in_game)
         
         game_data.start_time = box_._start_time 
               
@@ -599,4 +655,3 @@ def generatePBP(game_data, team_abbreviation, get_opponent_data=False ):
         return [stints_by_player, dict(box_.getBoxScore())]
 
     return [{},{}],  box_.start_time
-

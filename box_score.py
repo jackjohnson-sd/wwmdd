@@ -216,7 +216,7 @@ class box_score:
 
             if type(_evnt) != type(None):
                 if _evnt.equals(prev_event):
-                    logger.warning(f'boxscore event loading found a duplicate line {i}, {_evnt.period} {_evnt.pctimestring}')
+                    logger.warning(f'duplicate event while loading box score {i}, {_evnt.period} {_evnt.pctimestring}')
                         
             prev_event = _evnt
             p1 = _evnt.player1_name #if _evnt.player1_team_abbreviation == self._team_name else ''
@@ -409,7 +409,7 @@ class box_score:
         return str(self._max_by_items[item]) == str(value)
 
 
-def save_box_score(box1,box2,game_data):
+def box_score_to_csv_file(box1,box2,game_data):
     
     rows, columns, data = box1.get_bs_data(all=True)
 

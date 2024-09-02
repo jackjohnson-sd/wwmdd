@@ -6,20 +6,56 @@
     "configurations": [
 
        {
-            "name": "WAS NO ARGS",
+            "name": "NO ARGS",
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
-            "args":[
-                "-s", "web", 
-                "-t", "MIL", 
-                "-d", "2023-11-30", 
-                "-m", "raw","stints","events","box",
-                "-p", "all"
+            "args":[]
+        },
+
+        {
+            "name": "gemini_web",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "web",
+                "-t", "MIN", "-d", "2024-01-10",
+                "-json", "tests/gemini/web.json",
+                "-m", "plot", "csv", "img", "stints","box","raw" , "-p", "stints"
+            ]
+        },
+        {
+            "name": "gemini_csv",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/gemini/ATLvMIA20240110.csv",
+                "-m", "plot", 
+                "-p", "stints", "boxscore",
+                "-json", "tests/gemini/csv.json"
             ]
         },
 
+        {
+            "name": "GEMINI_MIA_ATL_0110",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-s", "csv",
+                "-f", "tests/MIN_0110/test_data/web/_W_ATLvMIA20240110.csv",
+                "-m", "plot", 
+                "-p", "stints","events","periodscores","boxscore",
+                "-json", "tests/MIN_0110/csv.json"
+            ]
+        },
 
         {
             "name": "WEB_CHI_1211",
@@ -33,7 +69,7 @@
                 "-json", "tests/chi_1211/web.json",
                 "-m", "plot", "csv", "img", "stints","box","raw" , 
                 "-p", "stints","events","periodscores","boxscore",
-                "-w", "1"
+                "-w", "-1"
             ]
         },
         {

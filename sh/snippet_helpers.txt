@@ -1,4 +1,8 @@
 
+
+grep -E cut example
+grep -r -E 'STARTOFPERIOD|ENDOFPERIOD' gemini_test_A/creator_cache/*.csv | cut -d ',' -f 2-3,6
+
 COMMAND-K, COMMAND-0  -- folds all
 
 https://statsdmz.nba.com/pdfs/20240414/20240414_CHINYK_book.pdf

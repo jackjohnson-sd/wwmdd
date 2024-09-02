@@ -134,7 +134,7 @@ def overlap_combos(game_stints_by_player):
                 
     return game_stints_by_combo
 
-def overlap_dump(game_stints_by_combo, game_data, box, home_scores, away_scores):
+def overlap_to_csv_file(game_stints_by_combo, game_data, box, home_scores, away_scores):
     
     team_name = box._team_name   
     L1, L2 = box.stint_columns()
@@ -227,7 +227,7 @@ def _overlap_stints(pa_stints, pb_stints):
 
 def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_scores):
     
-    def stints_for_team(stints, bx, labels):
+    def stints_for_team(stints, bx, labels, game_day):
             
         def oinks_for_player_stint(player, stint, box):
             
@@ -279,7 +279,7 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
   
             return oinks_sum   
         
-        def stints_str_array(stints,player,box):
+        def stints_str_array(stints, player, box):
             s = ''
             if player in stints[0]:
                     
@@ -294,7 +294,7 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
                         v = oinks[o] if o in oinks.keys() else 0
                         oinks_str += ',' + str(v)
                         
-                    tmp = f'{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2],for_end=True).replace(' ',',')},{ms(int(stint[0]))}'
+                    tmp = f'{game_day},{player},{bx._team_name},{sec_to_period_time(stint[1]).replace(' ',',')},{sec_to_period_time(stint[2],for_end=True).replace(' ',',')},{ms(int(stint[0]))}'
                     
                     s += tmp + oinks_str + '\n'
             # else:
@@ -323,13 +323,14 @@ def stints_as_csv(bx1, bx2, stints1, stints2, game_data, home_scores, away_score
         try: return int(s.split(',')[pm_index]) * m
         except: return 0 
     
-    a = stints_for_team(stints1, bx1, L2)
-    b = stints_for_team(stints2, bx2, L2)
+    game_day = game_data.game_date
+    a = stints_for_team(stints1, bx1, L2, game_day)
+    b = stints_for_team(stints2, bx2, L2, game_day)
 
     aa = sorted(a.split('\n'), key=lambda x: pm_sort_index(x, pm_index, m))
     bb = sorted(b.split('\n'), key=lambda x: pm_sort_index(x, pm_index, m))
 
-    data = L1 + '\n' + a + '\n\n\n' + b
+    data = 'date,'+ L1 + '\n' + a + '\n' + b
     # data = L1 + '\n' + '\n'.join(aa) + '\n\n\n' + '\n'.join(bb)
      
     save_file('STINTS_', game_data, 'SAVE_DIR', data)

@@ -1,0 +1,78 @@
+</description of CSV formatted play by play>
+
+
+    <SUB_event_information>
+
+        - ‘SUB’ in the ‘eventmsgtype’ column identifies this row as a SUB event row. 
+
+        - In a SUB event row, if the ‘player2_name’ column player is not empty this means 
+          the player is starting playing.
+
+        - In a SUB event row, if the ‘player1_name’ column player is not empty this means 
+          the player is stopping playing.
+        
+        - Any time a player stops playing another player from his team must start playing. 
+          The only exception to this rule is at end of the game.
+
+    </SUB_event_information>
+
+    <SUB_event_example>
+        Here is an example of SUB events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        88,SUB,1,3:31,SUB: Burks stops playing,22 - 15,-7,Alec Burks,DET,,,,
+        89,SUB,2,9:15,SUB: Livers starts,22 - 15,-7,,,Isaiah Livers,NYC,,
+            
+        In event row 88, Alec Burks (playing for DET) ends playing with 3 minutes and 31 seconds remaining in period 1.
+
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player1_name’ column value is ‘Alec Burks’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘3:31’
+        - the ‘player1_team_abbreviation’ column value is 'DET'
+
+        In event row 89, Isaiah Livers (playing for NYC) starts playing with 9 minutes and 15 seconds remaining in period 2.
+        
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player2_name’ column value is ‘Isaiah Livers’
+        - the ‘period’ column value is '2'
+        - the ‘pctimestring’ column value is ‘9:15’
+        - the ‘player2_team_abbreviation’ column value is 'NYC'
+    </SUB_event_example>
+                                   
+    <FOUL_event_information>
+        - ‘FOUL’ in the ‘eventmsgtype’ column identifies this row as a FOUL event row.
+
+        - In a FOUL event row, the ‘player1_name’ column player commits the foul.
+        player1_name is credited with committing the foul. 
+
+        - In a FOUL event row, the player named in the ‘player2_name’ column is the victim of player1_name's foul.
+        player2_name is not credited with committing the foul.  
+    </FOUL_event_information>
+
+    <FOUL_event_example>
+        Here is an example of FOUL events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+ 
+        In event row 18, Dereck Lively II (playing for DAL) committed the foul with 8 minutes and 49 seconds remaining in the first period.
+                
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player1_name’ column value is ‘Dereck Lively II’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player1_team_abbreviation’ column value is 'DAL'
+
+        player1_name is credited with the foul, which counts towards his and player1_team_abbreviation's foul counts.
+                
+        In event row 18, Clint Capela (playing for ATL) is the victim of player1_name's foul with 8 minutes and 49 seconds remaining in the first period.
+            
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player2_name’ column value is ‘Clint Capela’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player2_team_abbreviation’ column value is 'ATL'
+    </FOUL_event_example>

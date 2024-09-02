@@ -37,9 +37,9 @@
     , "TEAM"            : ["OKC"]
     , "START_DAY"       : "2024-04-29" 
     , "STOP_DAY"        : "2024-04-29"
-    , "SOURCE"          : "WEB:"
- 
 
+    , "SOURCE"          : "GEMINI:gemini_test_A"
+ 
     , "tSOURCE"     : "TESTPARTSCALE:"  
     , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
     , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"

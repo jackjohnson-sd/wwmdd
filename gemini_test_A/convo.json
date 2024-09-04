@@ -42,9 +42,17 @@
    "call_and_response": 
     [   
         [   "#:$$READ:$$R0:Q1"],
-        [   "#:$$$SAVE:$$R0:Q1.1"],
-        [   "#:$$JSON:$$R0:Q1.1"],
-        [   "#:$$CALL:$$R0:"],
+        [   "#:$$SAVE:$$R0:Q1.1"],
+        [   "#:$$QUIT:BEACUSE I SAID SO"],
+
+        [   ":$$JSON:UTILS:code/sub_convo.json"],
+        [   ":$$CALL:UTILS.DARIO"],
+        [   "# return from dario call"],
+
+        [   ":$$CALL:CALLI"],
+        [   "# return from calli call"],
+
+        [   ":$$RETURN: forced exit inserted" ],
 
         [   ":$$CREATOR:$$R0",
             "Create a fictional yet realistic play by play, in csv format, ",
@@ -53,11 +61,12 @@
             "Just provide the play by play. No summary or discussion. "      
         ],
 
+        [   ":$$CALL:UTILS.CLEAN:$$RO"],
+        
         [   "CRITIC_1:$$CRITIC:$$R1",
             "Here is a play by play, in csv format for the first period of the game between TEAM1 and TEAM2. \n",
             "$$R0",
             "Does this have a resonable number of SUB events for the 1st period based on the stint data you have? ",
-            "# I need a yes or no answer. ",
             "I need a rating of 1 to 10. Make the first line of your response 'The rating is X of 10' where x is your rating. ",
             " follow with what could have been done better. Thanks"
         ],   
@@ -103,9 +112,9 @@
 
         [   ":$$CREATOR:$$R4",
             "# we are asking for the 3rd period and providing the first and second periods",
-            "\nFirst period play by play",
+            "\nFirst period play by play\n",
             "$$R0",
-            "\nSecond period data",
+            "\nSecond period  play by play\n",
             "$$R2",
             "These are fictional yet realistic play by plays, in csv format, ",
             "for the first and second period of a game between TEAM1 and TEAM2. " ,
@@ -179,7 +188,11 @@
             "$$GOTO|CRITIC_4"
         ], 
 
-        [   ":$$SAVE:$$R0,$$R2,$$R4,$$R6:Q1-4" ]
+        [   ":$$SAVE:$$R0,$$R2,$$R4,$$R6:Q1-4" ],
 
-     ]
+        [   ":$$RETURN:DATA IS SAVED" ],
+
+        [   "CALLI:$$READ:$$R0:Q1-4","# "] 
+
+    ]
 }

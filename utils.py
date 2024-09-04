@@ -241,7 +241,25 @@ def make_file_name(who, game_data, where):
     return fn,cwd,os.path.isfile(fn)
     
 
-def save_file(who, game_data, where, data):
+def save_file(who, game_data, where, data, append=False):
+    
+    if game_data == None: 
+        fn = where
+        cwd = '' 
+    else:   
+        fn, cwd, exists = make_file_name(who, game_data, where)
+        if not os.path.exists(cwd): os.mkdir(cwd)   
+    
+    logger.info(f'saving {os.path.basename(fn)}')
+    
+    fl_s = open(fn, 'a' if append else 'w')
+    
+    if type(data) == type([]): fl_s.writelines(data)
+    else: fl_s.write(data)
+    
+    fl_s.close()
+
+def append(who, game_data, where, data):
     
     if game_data == None: 
         fn = where

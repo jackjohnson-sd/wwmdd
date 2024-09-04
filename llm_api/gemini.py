@@ -225,156 +225,217 @@ def start_conversation(file_dir_name):
     genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
     try:
-        
-        creator = make_model(creator_config, file_dir_name)
-        
-        critic = make_model(critic_config, file_dir_name)
-        
+        if True:
+            creator = make_model(creator_config, file_dir_name)
+            critic = make_model(critic_config, file_dir_name)
+   
     except Exception as ex:
         
         logger.error(f'loading cached files {ex}')
         return
   
+    call_stack = []
     responses = {}    
     msg_idx = 0
     
-    while msg_idx < len(call_and_response):
-                   
-        # skip section if commented out
-        if '#' in call_and_response[msg_idx][0]:
-            logger.info(f'skipping {call_and_response[msg_idx][0]}')
-            msg_idx += 1
-            continue
-
-        # first line identifies which model gets the prompt
-        call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx, call_and_response)
-        
-        # actual prompt starts on second line
-        this_prompt = ''
-        next_data = 1
-
-        if '$$SAVE' == call_type:
-            responese_s = storage_name.split(',')
-            
-            resp_data = ''
-            for r in responese_s:
-                resp_data += get_text(responses[r])
-            
-            fn = l2
-            utils.save_file('', None, os.path.join(file_dir_name,fn), resp_data)
-
-            msg_idx += 1
-            continue
-        
-        if '$$READ' == call_type:
-
-            fn = l2
-            responses[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
-            
-            msg_idx += 1
-            continue            
-
-        if '$$JSON' == call_type:
-
-            fn = l2
-            with open(fn, "r") as f:
-                new_stuff = json.load(f)
-        
-            responses[storage_name] = new_stuff
-            msg_idx += 1
-            
-            continue
-
-        if '$$IF' == call_type:
-            
-            max_retrys = int(l4)
-            data = get_text(responses[storage_name])
-              
-            match l2:
-                
-                case '_LT_':
+    carry_on = True
+    while carry_on:
+        while msg_idx < len(call_and_response):
                     
-                    threshold = int(l3)
-                    result = check_if_less_than(msg_idx, data.split('\n')[0].upper(), threshold, max_retrys,'SUCCESS')
-        
-                    if result == 'FAILED':
-                        # means are score exceeded becuase it a less than check
-                        # so go one to next item
-                        msg_idx +=1
-                        continue
-                    
-                    elif result == 'SUCCESS':
-                        # we are less than, do remediation in this msg follow
-                        call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)
-                        next_data += 1
-                    
-                    else: # FAILED_MAX_RETRYS
-                        logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
-                        return
-                    
-                case '_NOT_YES_': 
-                    # this means we should do the retry 
-                    # when there is NO yes in the message
-                    
-                    # 'SUCCESS' means a YES was found
-                    result = check_if_yes(msg_idx, data.split('\n')[0].upper(), max_retrys,'FAILED')
-                    
-                    if result == 'SUCCESS':
-                        # _NOT_YES_ is false, do remdial action
-                        msg_idx +=1
-                        continue
-                    
-                    elif result == 'FAILED':
-                        # we failed -- form retry prompt 
-                        call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)          
-                        next_data += 1
-                    
-                    else: # FAILED_MAX_RETRYS
-                        logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
-                        return
-            
-        goto_idx = -1
-        
-        for partial in call_and_response[msg_idx][next_data:]:
-            
-            if '$$GOTO' in partial:
-                
-                b = partial.split('|')
-                goto_idx = labels[b[1]]
-                break
-                    
-            elif '$$R' in partial: 
-
-                this_prompt += '\n' + get_text(responses[partial]) + '\n'
-                
-            elif '#' == partial[0]:
-                logger.info(f'# skipped {partial}')
+            # skip section if commented out
+            if '#' in call_and_response[msg_idx][0]:
+                logger.info(f'skipping {call_and_response[msg_idx][0]}')
+                msg_idx += 1
                 continue
-                         
-            else:
-                this_prompt += partial
-            
-        if this_prompt != '':
 
-            logger.info(f'{call_type}.{storage_name} prompt \n{shrink_this(this_prompt,20)}')
+            # first line identifies which model gets the prompt
+            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx, call_and_response)
             
-            if '$$CREATOR' in call_type:        
-                responses[storage_name] = creator.generate_content(this_prompt)
-                
-            elif '$$CRITIC' in call_type:
-                responses[storage_name] = critic.generate_content(this_prompt)
+            # actual prompt starts on second line
+            this_prompt = ''
+            next_data = 1
 
-            else:
-                logger.error(f'invalid llm name {call_type}.{storage_name}')    
+            if '$$QUIT' == call_type:
+                logger.info(f'quit {call_and_response[msg_idx][0]}')
                 return
+            
+            elif '$$RETURN' == call_type:
+                logger.info(f'{call_and_response[msg_idx][0]}')
+                break
+            
+            elif '$$SAVE' == call_type:
+                responese_s = storage_name.split(',')
+                
+                resp_data = ''
+                for r in responese_s:
+                    resp_data += get_text(responses[r])
+                
+                fn = l2
+                utils.save_file('', None, os.path.join(file_dir_name,fn), resp_data)
+
+                msg_idx += 1
+                continue
+            
+            elif '$$READ' == call_type:
+
+                fn = l2
+                responses[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
+                
+                msg_idx += 1
+                continue            
+
+            elif '$$JSON' == call_type:
+
+                fn = os.path.join(file_dir_name,l2)
+                with open(fn, "r") as f:
+                    new_stuff = json.load(f)
+            
+                responses[storage_name] = new_stuff['call_and_response']
+                
+                for i,mm in enumerate(responses[storage_name]):
+                    for k,nn in enumerate(responses[storage_name][i]):
+                        oo = nn.replace('TEAM1', team1)
+                        responses[storage_name][i][k] = oo.replace('TEAM2', team2)
+
+                new_labels = {}
+                
+                for i,a in enumerate(responses[storage_name]):
+                    if a[0][0] != ':':        
+                        b = a[0].split(':')
+                        new_labels[b[0]] = i
+
+                responses[f'{storage_name}.labels'] = new_labels
+                
+                msg_idx += 1
+                
+                continue
+            
+            elif '$$CALL' == call_type:
+                
+                destination = l2
+                
+                global trys
+                a = (call_and_response,trys,msg_idx + 1,labels)
+                call_stack.extend([a])    
+                
+                h = storage_name.split('.')
+                if len(h) == 2:
+                    storage_name = h[0]
+                    destination = h[1]
+                else:
+                    destination = h[0]
+                    storage_name = ''
+                             
+                if storage_name != '':
+                    
+                    call_and_response = responses[storage_name]
+                    trys = {}      
+                    
+                    labels = {}       
+                    for i,a in enumerate(responses[storage_name]):
+                        if a[0][0] != ':':        
+                            b = a[0].split(':')
+                            labels[b[0]] = i
+                    
+                msg_idx = labels[destination]
+                continue
+                    
+            elif '$$IF' == call_type:
+                
+                max_retrys = int(l4)
+                data = get_text(responses[storage_name])
+                
+                match l2:
+                    
+                    case '_LT_':
+                        
+                        threshold = int(l3)
+                        result = check_if_less_than(msg_idx, data.split('\n')[0].upper(), threshold, max_retrys,'SUCCESS')
+            
+                        if result == 'FAILED':
+                            # means are score exceeded becuase it a less than check
+                            # so go one to next item
+                            msg_idx +=1
+                            continue
+                        
+                        elif result == 'SUCCESS':
+                            # we are less than, do remediation in this msg follow
+                            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)
+                            next_data += 1
+                        
+                        else: # FAILED_MAX_RETRYS
+                            logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
+                            return
+                        
+                    case '_NOT_YES_': 
+                        # this means we should do the retry 
+                        # when there is NO yes in the message
+                        
+                        # 'SUCCESS' means a YES was found
+                        result = check_if_yes(msg_idx, data.split('\n')[0].upper(), max_retrys,'FAILED')
+                        
+                        if result == 'SUCCESS':
+                            # _NOT_YES_ is false, do remdial action
+                            msg_idx +=1
+                            continue
+                        
+                        elif result == 'FAILED':
+                            # we failed -- form retry prompt 
+                            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)          
+                            next_data += 1
+                        
+                        else: # FAILED_MAX_RETRYS
+                            logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
+                            return
+                
+            goto_idx = -1
+            
+            for partial in call_and_response[msg_idx][next_data:]:
+                
+                if '$$GOTO' in partial:
+                    
+                    b = partial.split('|')
+                    goto_idx = labels[b[1]]
+                    break
+                        
+                elif '$$R' in partial: 
+
+                    this_prompt += '\n' + get_text(responses[partial]) + '\n'
+                    
+                elif '#' == partial[0]:
+                    logger.info(f'skipped {partial}')
+                    continue
+                            
+                else:
+                    this_prompt += partial
+                
+            if this_prompt != '':
+
+                logger.info(f'{call_type}.{storage_name} prompt \n{shrink_this(this_prompt,20)}')
+                
+                if '$$CREATOR' in call_type:        
+                    responses[storage_name] = creator.generate_content(this_prompt)
+                    
+                elif '$$CRITIC' in call_type:
+                    responses[storage_name] = critic.generate_content(this_prompt)
+
+                else:
+                    logger.error(f'invalid llm name {call_type}.{storage_name}')    
+                    return
+            
+                logger.info(f'{call_type}.{storage_name} response \n{shrink_this(get_text(responses[storage_name]),20)}')
         
-            logger.info(f'{call_type}.{storage_name} response \n{shrink_this(get_text(responses[storage_name]),20)}')
-       
-        # where do we go next
-        if goto_idx != -1 : msg_idx = goto_idx
-        else: msg_idx += 1
+            # where do we go next
+            msg_idx = goto_idx if goto_idx != -1 else msg_idx + 1
+            # if goto_idx != -1 : 
+            #     msg_idx = goto_idx
+            # else: msg_idx += 1
 
-
+        if len(call_stack) != 0:
+            call_and_response,trys,msg_idx,labels = call_stack.pop() 
+        else:
+            carry_on = False
+        
 
 def main(file_directory):
     

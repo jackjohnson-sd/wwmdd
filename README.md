@@ -1,5 +1,7 @@
 Please Read
 
+SEPT 3   -- added call, call external,return, 
+            quit to convo's
 AUG 30   -- added gemini conversation
             creator makes play_by_plays, critic advices on number of SUB events
             see gemini_test_A and gemini.py

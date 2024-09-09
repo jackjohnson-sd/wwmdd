@@ -7,7 +7,7 @@ AUG 30   -- added gemini conversation
             see gemini_test_A and gemini.py
 
 AUG 24   -- added key pressed events: 
-
+            
             1 - regular size,       5 - make full screen ish, 
             b - toggle boxscore     e - toggle events, 
             m - toggle margin       s - toggle score, 

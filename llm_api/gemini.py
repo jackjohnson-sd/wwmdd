@@ -1,13 +1,21 @@
 import os
 import google.generativeai as genai
+genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
+
 from google.generativeai import caching
 import datetime
 import time
 import json
+from collections import namedtuple
+
 
 from loguru import logger
-from utils import save_files, get_file_names,get_all_files,get_files_in_path,filter_by_extension
+
+from utils import get_file_names,filter_by_extension,shrink_this
 import utils
+
+_parts = namedtuple('_parts','CMD,L1,L2,L3,L4,L5,L6')
+
 
 MODEL = "models/gemini-1.5-flash-latest"
 
@@ -25,8 +33,6 @@ MODEL = "models/gemini-1.5-flash-latest"
     models/gemini-pro
     models/gemini-pro-vision
 """
-from cleaner import cleaner, progress
-
 
 def token_count(source):
     model = genai.GenerativeModel(MODEL)
@@ -105,33 +111,6 @@ def make_model(config, file_path):
     model = genai.GenerativeModel.from_cached_content(cached_content=cache)
     
     return model
-
-def shrink_this(text, max_line_cnt):
-    lc = text.count('\n')
-    if lc < max_line_cnt: return text
-    
-    tt = text.split('\n')
-    s1 = '\n'.join(tt[0:int(max_line_cnt/2)]) 
-    s2 = f'\n\n    ... {lc - max_line_cnt} removed ...\n\n'
-    s3 = '\n'.join(tt[-int(max_line_cnt/2):])
-    
-    return s1 + s2 + s3
-
-def get_l_parts(msg_idx,call_and_response,offset=0):
-        
-    line1 = call_and_response[msg_idx][offset].split(':')     
-    del line1[0]
-    
-    call_type    = line1[0]   # model name or pyhton code name
-    storage_name = line1[1]  # where in the resonce dict to store the results of this call
-    l2 = ''
-    if len(line1) > 2: l2 = line1[2]
-    l3 = ''
-    if len(line1) > 3: l3 = line1[3]
-    l4 = ''
-    if len(line1) > 4: l4 = line1[4]
-    
-    return call_type,storage_name,l2,l3,l4
         
 trys = {}
 
@@ -146,7 +125,7 @@ def check_retry(ret_val, idx, max_trys, retry_val):
             ret_val = 'FAILED_MAX_TRYS' 
         
     return ret_val
-
+    
 def check_if_yes(idx, data, max_trys, retry_on):
     
     ret_val = 'SUCCESS' if 'YES' in data else 'FAILED'
@@ -176,6 +155,17 @@ def get_text(the_response):
     # so figure out which this is
     return the_response if type(the_response) == type('aa') else the_response.text    
     
+def get_labels(script,key_words):
+   
+    labels = {}
+    for i,a in enumerate(script):
+        b = a.strip().split(' ')
+        if b[0].isupper():
+            if b[0] not in key_words:
+                if script[i+1].strip().split(' ')[0] in key_words:
+                    labels[b[0]] = i
+    return labels
+
 
 def start_conversation(file_dir_name):
 
@@ -196,246 +186,308 @@ def start_conversation(file_dir_name):
         logger.error(f'troubles loading {fn} {ex}')
         return
     
-    try:   # fails if not valid
+    try:   # fails if not valid json file
     
-        creator_config    = stuff['creator_config']
-        critic_config     = stuff['critic_config']
-        call_and_response = stuff['call_and_response']
+        # creator_config    = stuff['creator_config']
+        # critic_config     = stuff['critic_config']
+        script = stuff['script']
         
         team1 = stuff['TEAM1']
         team2 = stuff['TEAM2']
 
-        for i,mm in enumerate(call_and_response):
-            for k,nn in enumerate(call_and_response[i]):
-                oo = nn.replace('TEAM1', team1)
-                call_and_response[i][k] = oo.replace('TEAM2', team2)
+        fn = stuff['script']
+        fn = os.path.join(file_dir_name,fn)
+        with open(fn, "r") as f:
+            script = f.readlines()
+
+        for i,nn in enumerate(script):
+            script[i] = nn.replace('TEAM1', team1).replace('TEAM2', team2)
 
     except Exception as ex:
-        
+
         logger.error(f'troubles, not our json? loading {fn} {ex}')
         return
         
-    labels = {}
-    
-    for i,a in enumerate(call_and_response):
-        if a[0][0] != ':':        
-            b = a[0].split(':')
-            labels[b[0]] = i
-
-    genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-
-    try:
-        if True:
-            creator = make_model(creator_config, file_dir_name)
-            critic = make_model(critic_config, file_dir_name)
-   
-    except Exception as ex:
+    key_words = {
         
-        logger.error(f'loading cached files {ex}')
-        return
-  
+        'READ'   : [ 1,3,],     # READ FN AS STORAGE_NAME
+        'SAVE'   : [ 1,3,],     # SAVE STORAGE_NAME AS FN
+        'COPY'   : [ 1,3,],     # COPY STORAGE1 STORAGE2
+        'INSERT' : [ 1,0,],     # INSERT STORAGE_NAME
+        'QUIT'   : [ 0,0,],     # QUIT
+        'RETURN' : [ 0,0,],     # RETURN
+        'GOTO'   : [ 1,0,],     # GOTO LABEL
+        'IMPORT' : [ 1,2,],     # IMPORT CODE_FN STORAGE_NAME
+        'CALL'   : [ 1,0,],     # CALL STORAGE_NAME.LABEL,  CALL LABEL
+        'IF'     : [ 1,4,],     # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
+        'PROMPT' : [ 1,0,],     # PROMPT MODEL     
+        'MODEL'  : [ 1,3,],     # MODEL SKILL as STORAGE_NAME    
+    }
+
+    storage = {}
+            
+    _prompt = None
+
+    llm_model = None
+    
+    labels = get_labels(script, key_words)
+
     call_stack = []
-    responses = {}    
+    
     msg_idx = 0
     
     carry_on = True
+    
     while carry_on:
-        while msg_idx < len(call_and_response):
-                    
-            # skip section if commented out
-            if '#' in call_and_response[msg_idx][0]:
-                logger.info(f'skipping {call_and_response[msg_idx][0]}')
-                msg_idx += 1
-                continue
-
-            # first line identifies which model gets the prompt
-            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx, call_and_response)
-            
-            # actual prompt starts on second line
-            this_prompt = ''
-            next_data = 1
-
-            if '$$QUIT' == call_type:
-                logger.info(f'quit {call_and_response[msg_idx][0]}')
-                return
-            
-            elif '$$RETURN' == call_type:
-                logger.info(f'{call_and_response[msg_idx][0]}')
-                break
-            
-            elif '$$SAVE' == call_type:
-                responese_s = storage_name.split(',')
-                
-                resp_data = ''
-                for r in responese_s:
-                    resp_data += get_text(responses[r])
-                
-                fn = l2
-                utils.save_file('', None, os.path.join(file_dir_name,fn), resp_data)
-
-                msg_idx += 1
-                continue
-            
-            elif '$$READ' == call_type:
-
-                fn = l2
-                responses[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
-                
-                msg_idx += 1
-                continue            
-
-            elif '$$JSON' == call_type:
-
-                fn = os.path.join(file_dir_name,l2)
-                with open(fn, "r") as f:
-                    new_stuff = json.load(f)
-            
-                responses[storage_name] = new_stuff['call_and_response']
-                
-                for i,mm in enumerate(responses[storage_name]):
-                    for k,nn in enumerate(responses[storage_name][i]):
-                        oo = nn.replace('TEAM1', team1)
-                        responses[storage_name][i][k] = oo.replace('TEAM2', team2)
-
-                new_labels = {}
-                
-                for i,a in enumerate(responses[storage_name]):
-                    if a[0][0] != ':':        
-                        b = a[0].split(':')
-                        new_labels[b[0]] = i
-
-                responses[f'{storage_name}.labels'] = new_labels
-                
-                msg_idx += 1
-                
-                continue
-            
-            elif '$$CALL' == call_type:
-                
-                destination = l2
-                
-                global trys
-                a = (call_and_response,trys,msg_idx + 1,labels)
-                call_stack.extend([a])    
-                
-                h = storage_name.split('.')
-                if len(h) == 2:
-                    storage_name = h[0]
-                    destination = h[1]
-                else:
-                    destination = h[0]
-                    storage_name = ''
-                             
-                if storage_name != '':
-                    
-                    call_and_response = responses[storage_name]
-                    trys = {}      
-                    
-                    labels = {}       
-                    for i,a in enumerate(responses[storage_name]):
-                        if a[0][0] != ':':        
-                            b = a[0].split(':')
-                            labels[b[0]] = i
-                    
-                msg_idx = labels[destination]
-                continue
-                    
-            elif '$$IF' == call_type:
-                
-                max_retrys = int(l4)
-                data = get_text(responses[storage_name])
-                
-                match l2:
-                    
-                    case '_LT_':
-                        
-                        threshold = int(l3)
-                        result = check_if_less_than(msg_idx, data.split('\n')[0].upper(), threshold, max_retrys,'SUCCESS')
-            
-                        if result == 'FAILED':
-                            # means are score exceeded becuase it a less than check
-                            # so go one to next item
-                            msg_idx +=1
-                            continue
-                        
-                        elif result == 'SUCCESS':
-                            # we are less than, do remediation in this msg follow
-                            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)
-                            next_data += 1
-                        
-                        else: # FAILED_MAX_RETRYS
-                            logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
-                            return
-                        
-                    case '_NOT_YES_': 
-                        # this means we should do the retry 
-                        # when there is NO yes in the message
-                        
-                        # 'SUCCESS' means a YES was found
-                        result = check_if_yes(msg_idx, data.split('\n')[0].upper(), max_retrys,'FAILED')
-                        
-                        if result == 'SUCCESS':
-                            # _NOT_YES_ is false, do remdial action
-                            msg_idx +=1
-                            continue
-                        
-                        elif result == 'FAILED':
-                            # we failed -- form retry prompt 
-                            call_type, storage_name,l2,l3,l4 = get_l_parts(msg_idx,call_and_response,offset=1)          
-                            next_data += 1
-                        
-                        else: # FAILED_MAX_RETRYS
-                            logger.error(f'max retrys exceeded, giving up on {call_and_response[msg_idx][0]}')
-                            return
-                
-            goto_idx = -1
-            
-            for partial in call_and_response[msg_idx][next_data:]:
-                
-                if '$$GOTO' in partial:
-                    
-                    b = partial.split('|')
-                    goto_idx = labels[b[1]]
-                    break
-                        
-                elif '$$R' in partial: 
-
-                    this_prompt += '\n' + get_text(responses[partial]) + '\n'
-                    
-                elif '#' == partial[0]:
-                    logger.info(f'skipped {partial}')
-                    continue
-                            
-                else:
-                    this_prompt += partial
-                
-            if this_prompt != '':
-
-                logger.info(f'{call_type}.{storage_name} prompt \n{shrink_this(this_prompt,20)}')
-                
-                if '$$CREATOR' in call_type:        
-                    responses[storage_name] = creator.generate_content(this_prompt)
-                    
-                elif '$$CRITIC' in call_type:
-                    responses[storage_name] = critic.generate_content(this_prompt)
-
-                else:
-                    logger.error(f'invalid llm name {call_type}.{storage_name}')    
-                    return
-            
-                logger.info(f'{call_type}.{storage_name} response \n{shrink_this(get_text(responses[storage_name]),20)}')
         
-            # where do we go next
+        while msg_idx < len(script):
+
+            goto_idx = -1
+                    
+            line = script[msg_idx].strip()
+            logger.debug(f'{msg_idx+1} {line}')
+        
+            line = line.split(' ')
+            while '' in line: line.remove('')
+            
+            if len(line) == 0:
+                
+                if _prompt != None: 
+
+                    our_model = storage[llm_model] 
+                    storage[f'{llm_model}.RESP'] = our_model.generate_content(_prompt).text
+                                      
+                    _prompt = None
+                    
+            else:
+                
+                # comments to log
+                if '#' == line[0][0]:
+                    logger.info(f'-{script[msg_idx].strip()}')
+                    msg_idx += 1
+                    continue            
+                
+                # if this starts with a key word
+                elif line[0] in key_words: 
+                    
+                    while len(line) < 10: line.extend([''])
+                        
+                    _line = _parts(line[0], line[1], line[2], line[3], line[4],line[5],line[6])
+                    
+                    match _line.CMD:
+                        
+                        case 'READ':    # READ file_name AS storage_name
+
+                            fn = _line.L1
+                            storage_name = _line.L3
+                            
+                            try:
+                                storage[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
+                            except:
+                                logger.error(f'bad file name {fn}, {msg_idx + 1} {call_and_response[msg_idx]}')
+                                return
+                                                   
+                        case 'SAVE':    # SAVE s1 AS file_name 
+                                        # SAVE s1,s2,s3 AS file_name
+                                        
+                            data_set = _line.L1.split(',')
+                
+                            _data = ''
+                            
+                            for r in data_set:
+                                _data += get_text(storage[r])
+                
+                            try:
+                                fn = _line.L3
+                                utils.save_file('', None, os.path.join(file_dir_name,fn), _data)
+                            
+                            except:
+                                logger.error(f'bad file name {fn}, {msg_idx} {call_and_response[msg_idx].strip()}')
+                                return
+
+                        case 'COPY':    # COPY RO to R1
+
+                            if _line.L1 not in storage.keys():
+                                logger.error(f'invalid source {_line.L1}, {msg_idx} {script[msg_idx].strip()}')
+                                return
+        
+                            else:
+                                storage[_line.L2] = storage[_line.L1]
+                                msg_idx += 1
+                
+                        case 'INSERT':  # INSERT RO
+                            if _line.L1 not in storage.keys():
+                                logger.error(f'invalid source {_line.L1}, {msg_idx} {script[msg_idx]}')
+                                return
+        
+                            _prompt += '\n' + get_text(storage[_line.L1]) + '\n' 
+                        
+                        case 'QUIT':    # QUIT THIS IS_NOT USED
+                            logger.info(f'quit {script[msg_idx].strip()}')
+                            return
+                                    
+                        case 'RETURN':  # RETURN THIS_ IS NOT USED ...
+                            break
+                        
+                        case 'GOTO':    # GOTO CRITIC_3
+                            
+                            try :
+                                goto_idx = labels[_line.L1]
+                            except:
+                                logger.error(f'invalid line lable {msg_idx} {script[msg_idx]}')
+                                return
+                                          
+                        case 'CALL':    # CALL UTILS.CLEAN
+                                        # CALL CALI
+                                        
+                            storage_name = _line.L1
+                
+                            global trys
+                            
+                            a = (script,trys,msg_idx + 1,labels)
+                            call_stack.extend([a])    
+                            
+                            h = storage_name.split('.')
+                            if len(h) == 2:
+                                storage_name = h[0]
+                                destination = h[1]
+                            else:
+                                destination = h[0]
+                                storage_name = ''
+                                        
+                            if storage_name != '':
+                                
+                                script = storage[storage_name]
+                                labels = get_labels(script, key_words)
+                                trys = {}      
+                                     
+                            msg_idx = labels[destination]
+                            continue
+
+                        case 'IF':      # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
+                            
+                            data = get_text(storage[_line.L1])
+                            
+                            match _line.L2:
+                                
+                                case 'IN'         : pass
+                                case 'NOT_IN'     : pass
+                                case 'EQ'         : pass
+                                case 'NOT_EQ'     : pass
+                                case 'MORE_THAN'  : pass
+                                case 'NO'         : pass
+                                case 'NOT_NO'     : pass
+                                case 'YES'        : pass
+                                
+                                case 'LESS_THAN'  : 
+                                    
+                                    max_retrys = int(line[6])
+                                    threshold = int(_line.L3)
+                                    result = check_if_less_than(msg_idx, data.split('\n')[0].upper(), threshold, max_retrys,'SUCCESS')
+                        
+                                    if result == 'FAILED':
+                                        # means our score exceeded because it a less than check
+                                        # skip remediation, find next blank line
+                                        # if a prompt along the way add an additional skip 
+                                        bcount = 1
+                                        while bcount > 0: 
+                                            msg_idx +=1
+                                            if script[msg_idx].strip() == '':
+                                                bcount -= 1
+                                            elif script[msg_idx].strip()[0:6] == 'PROMPT':
+                                                bcount += 1
+                                                
+                                        continue
+                                    
+                                    elif result == 'SUCCESS':
+                                        # we are less than, 
+                                        # do remediation as the following statements
+                                        
+                                        msg_idx += 1
+                                    
+                                    else: # FAILED_MAX_RETRYS
+                                        logger.error(f'max retrys exceeded, giving up on {script[msg_idx]}')
+                                        return
+
+                                case 'NOT_YES': 
+                                    # this means we should do the retry 
+                                    # when there is NO yes in the message
+                                    
+                                    # 'SUCCESS' means a YES was found
+                                    
+                                    max_retrys = int(line[5])
+                                    
+                                    result = check_if_yes(msg_idx, data.split('\n')[0].upper(), max_retrys,'FAILED')
+                                    
+                                    if result == 'SUCCESS':
+                                        msg_idx +=1
+                                        continue
+                                    
+                                    elif result == 'FAILED':
+                                        # we failed -- form retry prompt 
+                                        next_data += 1
+                                    
+                                    else: # FAILED_MAX_RETRYS
+                                        logger.error(f'max retrys exceeded, giving up on {script[msg_idx][0]}')
+                                        return
+                       
+                        case 'IMPORT':  # IMPORT UTILS code/sub_convo.txt
+                            
+                            fn = os.path.join(file_dir_name,_line.L2)
+                            with open(fn, "r") as f:
+                                new_stuff = f.readlines()
+                                
+                            storage_name = _line.L1
+                            
+                            storage[storage_name] = new_stuff
+                
+                            for i,nn in enumerate(storage[storage_name]):
+                                storage[storage_name][i] = nn.replace('TEAM1', team1).replace('TEAM2', team2)
+
+                            new_labels = get_labels(storage[storage_name],key_words)
+                
+                            storage[f'{storage_name}.labels'] = new_labels
+                
+                            msg_idx += 1
+                            continue
+
+                        case 'PROMPT':  # PROMPT LLM_MODEL
+                            _prompt = ''
+                            llm_model = _line.L1
+                      
+                        case 'MODEL' :
+                            
+                            skill = _line.L1
+                            name = _line.L3
+                            
+                            found = False
+                            for x in stuff['models']:
+                                if x['area_expert'] == skill:
+                                    storage[name] = make_model(x, file_dir_name)
+                                    found = True
+                                    break
+                                    
+                            if not found:
+                                logger.error(F'no skill {skill} in models')
+                                return                     
+
+                # if its not a line label
+                elif line[0] not in labels:
+                    
+                    # if we're making a prompt
+                    if _prompt != None:
+                         
+                        _prompt += script[msg_idx].strip()
+                        
+                    # else this can be thought of aa comments in the script 
+                    
             msg_idx = goto_idx if goto_idx != -1 else msg_idx + 1
-            # if goto_idx != -1 : 
-            #     msg_idx = goto_idx
-            # else: msg_idx += 1
 
         if len(call_stack) != 0:
-            call_and_response,trys,msg_idx,labels = call_stack.pop() 
+            script,trys,msg_idx,labels = call_stack.pop() 
         else:
             carry_on = False
-        
+
 
 def main(file_directory):
     

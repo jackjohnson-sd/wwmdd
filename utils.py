@@ -154,6 +154,16 @@ def shorten_player_name(what, max_length):
         return what[0] + '. ' + what.split(' ')[1]
     return what
 
+def shrink_this(text, max_line_cnt):
+    lc = text.count('\n')
+    if lc < max_line_cnt: return text
+    
+    tt = text.split('\n')
+    s1 = '\n'.join(tt[0:int(max_line_cnt/2)]) 
+    s2 = f'\n\n    ... {lc - max_line_cnt} removed ...\n\n'
+    s3 = '\n'.join(tt[-int(max_line_cnt/2):])
+    
+    return s1 + s2 + s3
 
 def get_file_names(file_directory):
 

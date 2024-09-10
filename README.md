@@ -1,6 +1,7 @@
 Please Read
-
-SEPT 3   -- added call, call external,return, 
+SEPT 10  -- script works for 4 quarter collection, 
+            has pre-run syntax check. see readme.txt in gemini_test_A 
+SEPT 3   -- added call, call external, return, 
             quit to convo's
 AUG 30   -- added gemini conversation
             creator makes play_by_plays, critic advices on number of SUB events

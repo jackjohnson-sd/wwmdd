@@ -34,7 +34,9 @@
 -   IMPORT fn AS dst - moves file contents to dst, creates a FN
 -     and creates a sn.label storage. dst is callable
 -     via dst.LABEL 
--
+-   SHOW sn [LOG,SHRINK] - show storage location contents optionally
+    to LOG vs. screen with optional 
+SHRINK 
 -   QUIT    - ends execution of script
 -   RETURN  - return execution to CALL-ing script
 -             or ends execution for initial script

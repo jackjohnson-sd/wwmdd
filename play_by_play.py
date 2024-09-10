@@ -399,7 +399,7 @@ def sub_events_from_stints(game, game_stints):
         for stint in stints:    
                
             start_time = pms(stint[1])
-            stop_time = pms(stint[2])
+            stop_time = pms(stint[2],as_end=True)
             
             s1 = f'SUB,{start_time},SUB: {p1_ln} Starts playing.,,,,,{player},{stint[3]},,'
             s2 = f'SUB,{stop_time},SUB: {p1_ln} Stops playing.,,,{player},{stint[3]},,,,'
@@ -509,16 +509,30 @@ def event_sort_keys(x):
             'ENDOFPERIOD'   :[  3,   2,   2,   0    ],
         }
         
+
         event_type = x[0]
         period = int(x[1])        
         game_second = period_time_to_sec(period,x[2])
-        
+
+
+        etype_order = 0 
+        if event_type == 'STARTOFPERIOD':
+            etype_order = 0
+            
+        elif event_type == 'ENDOFPERIOD': 
+            etype_order = 8
+    
+        elif event_type == 'SUB':
+            etype_order = 3
+        else:
+            etype_order = 5
+                      
         so = 2
         if event_type == 'SUB': 
             so = 1 if x[8] == '' else 3
                 
      
-        return ((game_second))
+        return ((period,game_second,etype_order))
      
 def pbp_as_csv_file(game, game_stints, save_as_raw = False):
     

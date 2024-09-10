@@ -170,12 +170,16 @@ def get_labels(script,key_words):
                     labels[b[0]] = i
     return labels
 
-def equal(a,b): return a == b
+def equal(a,b):     return a == b
 def not_equal(a,b): return a != b
 def more_than(a,b): return a > b
 def less_than(a,b): return a < b
-def has_this(a,b): return a in b
+def has_this(a,b):  return a in b
 def not_has_this(a,b): return a not in b
+
+stores = {}
+models = {}
+
 
 def link_check(script,key_words,file_dir_name):
     
@@ -210,10 +214,8 @@ def link_check(script,key_words,file_dir_name):
 
         return True       
 
-    cmp_codes = ['IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
+    cmp_codes = ['SHOW','IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
 
-    stores = {}
-    models = {}
     
     for i,line in enumerate(script):
         line = line.strip()
@@ -228,6 +230,10 @@ def link_check(script,key_words,file_dir_name):
             try:
                 match l[0]:
                     
+                    case 'SHOW':  # SHOW STORAGE_NAME [LOG] [SHRINK]
+
+                        if not src_check(l[1],i,line): return False
+                        
                     case 'READ':  # READ FN AS STORAGE_NAME
                         fn = l[1]
                         stores[l[3]] = i
@@ -289,6 +295,7 @@ def link_check(script,key_words,file_dir_name):
 
     return True
 
+
 def start_conversation(file_dir_name):
 
     try:
@@ -298,14 +305,14 @@ def start_conversation(file_dir_name):
             logger.error(f' more than one .json file here. {file_dir_name} (for now)')
             return
         
-        fn = os.path.join(file_dir_name,files[0])    
+        our_fn = os.path.join(file_dir_name,files[0])    
         
-        with open(fn, "r") as f:
+        with open(our_fn, "r") as f:
             stuff = json.load(f)
             
     except Exception as ex:
         
-        logger.error(f'troubles loading {fn} {ex}')
+        logger.error(f'troubles loading {our_fn} {ex}')
         return
     
     try:   # fails if not valid json file
@@ -341,12 +348,14 @@ def start_conversation(file_dir_name):
         'CALL'   : [ 1,0,],     # CALL STORAGE_NAME.LABEL,  CALL LABEL
         'IF'     : [ 1,4,],     # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
         'PROMPT' : [ 1,0,],     # PROMPT MODEL     
-        'MODEL'  : [ 1,3,],     # MODEL SKILL as STORAGE_NAME    
+        'MODEL'  : [ 1,3,],     # MODEL SKILL as STORAGE_NAME   
+        'SHOW'   : [ 1,0,],      # SHOW SN [LOG]
     }
 
     if not link_check(script,key_words,file_dir_name):
         return
     
+    history = []
     storage = {}
             
     _prompt = None
@@ -377,13 +386,18 @@ def start_conversation(file_dir_name):
                 
                 if _prompt != None: 
 
+                    history.append([f'{llm_model}.PROMPT\n'])                     
+                    history.append([_prompt])
+
                     our_model = storage[llm_model] 
                     storage[f'{llm_model}.RESPONSE'] = our_model.generate_content(_prompt).text
-                                      
+
+                    history.append([f'{llm_model}.RESPONSE\n'])
+                    history.append([storage[f'{llm_model}.RESPONSE']])
+                                               
                     _prompt = None
                     
-            else:
-                
+            else:                
                 # comments to log
                 if '#' == line[0][0]:
                     logger.info(f'-{script[msg_idx].strip()}')
@@ -399,6 +413,18 @@ def start_conversation(file_dir_name):
                     
                     match _line.CMD:
                         
+                        case 'SHOW':    # SHOW sn [LOG] [SHRINK]
+                            
+                            text = get_text(storage[_line.L1])
+                            
+                            if 'SHRINK' in line:
+                                text = utils.shrink_this(text,20)
+                                
+                            if _line.L2 == 'LOG':
+                                logger.info(text)
+                            else:
+                                print(text)
+                                
                         case 'READ':    # READ file_name AS storage_name
 
                             fn = _line.L1
@@ -557,7 +583,10 @@ def start_conversation(file_dir_name):
                             storage_name = _line.L3
                             
                             storage[storage_name] = new_stuff
-                
+                            
+                            if not link_check(storage[storage_name],key_words,file_dir_name): 
+                                return
+
                             for i,nn in enumerate(storage[storage_name]):
                                 storage[storage_name][i] = nn.replace('TEAM1', team1).replace('TEAM2', team2)
 
@@ -606,8 +635,15 @@ def start_conversation(file_dir_name):
             script,trys,msg_idx,labels = call_stack.pop() 
         else:
             carry_on = False
-
-
+            
+    history_fn = our_fn.replace('.json','.history.txt')
+    fl_s = open(history_fn,'w')
+      
+    for h in history:
+        fl_s.write(h[0] + '\n')
+        
+    fl_s.close()
+       
 def main(file_directory):
     
     start_conversation(file_directory[0])

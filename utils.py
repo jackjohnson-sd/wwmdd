@@ -196,7 +196,7 @@ def ttd(game_data):
    
 def fn_root(game_data):
     
-    if game_data == None: return ''
+    if type(game_data) == type(None): return ''
     
     keys = game_data.keys().tolist()
     if 'matchup_home' in keys:
@@ -253,7 +253,7 @@ def make_file_name(who, game_data, where):
 
 def save_file(who, game_data, where, data, append=False):
     
-    if game_data == None: 
+    if type(game_data) == type(None): 
         fn = where
         cwd = '' 
     else:   

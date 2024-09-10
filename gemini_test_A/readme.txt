@@ -1,0 +1,51 @@
+- This file is used along with a json file.
+- the json file specifes this file as the script
+- the app plays this script to manage the interactions
+- between LLMs. The json file maintains a list of
+- LLMs 
+
+- this application uses a dictionary to store:
+-   a. responses from LLM models
+-   b. LLM models, as callable objects
+-   c. LABELS, places we GOTO or CALL
+-   d. the contents of files
+-
+- file names, fn in lower case, READ and WRITE text file 
+- storage names, sn in lower case, in memory storage location
+- label names, ln in UPPER case
+- 
+- if UPPER first word its
+-  a. a label, a place we can CALL or GOTO
+-  or b. a KEY WORD,  
+- 
+- labels are a single UPPER case word. nothing else on the line
+-
+- key words are UPPER case words tell us to do stuff
+- 
+- the next blank line has meaning only 
+- when it follows an IF or PROMPT key word
+
+- ... the KEY WORDS ...
+
+-   COPY src dst - moves storage from src to dst
+-   READ fn AS dst - moves file contents to dst
+-   SAVE dst fn - moves storage to file 
+-   INSERT fn - moves fn contents to prompt string
+-   IMPORT fn AS dst - moves file contents to dst, creates a FN
+-     and creates a sn.label storage. dst is callable
+-     via dst.LABEL 
+-
+-   QUIT    - ends execution of script
+-   RETURN  - return execution to CALL-ing script
+-             or ends execution for initial script
+-   CALL ln - pushes application context unto stack 
+-             and moves execution to ln or sn.ln
+-   GOTO ln - shift execution to ln
+-   IF sn cmp val1 [val2] STOP AFTER max_trys TRYS
+-       if cmp false move execution to next blank line
+-       if cmp true execute next line
+-   MODEL skill AS sn
+-       store LLM with claimed skill in sn 
+-   PROMPT sn - collect lines until next blank
+-       and send to LLM at sn. LLM stores its
+-       response to the prompt in sn.RESPONSE

@@ -1,5 +1,8 @@
-MODEL PBPs as CREATOR
-MODEL SUBs as CRITIC
+
+IMPORT code/sub_convo.txt AS util
+
+MODEL PBPs AS CREATOR
+MODEL SUBs AS CRITIC
 
 PROMPT CREATOR 
     Create a fictional yet realistic play by play, in csv format, 
@@ -12,14 +15,11 @@ PROMPT CRITIC
     Here is a play by play, in csv format for the first period of the game between TEAM1 and TEAM2.
     INSERT CREATOR.RESPONSE
     Does this have a resonable number of SUB events for the 1st period based on the stint data you have? 
-    I need a yes or no anwwer nothint else.
-    #I need a rating of 1 to 10. 
-    #Make the first line of your response 'The rating is X of 10' where X is your rating. 
-    #Follow with what could have been done better. Thanks   
+    I need a rating of 1 to 10. 
+    Make the first line of your response 'The rating is X of 10' where X is your rating. 
+    Follow with what could have been done better. Thanks   
 
-#IF CRITIC.RESPONSE LESS_THAN 6 STOP AFTER 2 TRYS
-
-IF CRITIC.RESPONSE NOT_YES STOP AFTER 2 TRYS
+IF CRITIC.RESPONSE LESS_THAN 8 STOP AFTER 2 TRYS
     PROMPT CREATOR 
         You do not have a realistic number of SUB events the last fictional play_by_play you created. 
         Create a fictional yet realistic play by play, in csv format for the first period of a game between TEAM1 and TEAM2.  
@@ -112,7 +112,7 @@ PROMPT CREATOR
 CRITIC_4
 PROMPT CRITIC
     Here is a play by play, in csv format for the fourth period of the game between TEAM1 and TEAM2. 
-    INSERT CRESTOR.RESPONSE
+    INSERT CREATOR.RESPONSE
     Does this have a resonable number of SUB events for the third period based on the stint data you have? 
     I need a yes or no answer. 
     
@@ -136,6 +136,11 @@ IF CRITIC.RESPONSE NOT_YES STOP AFTER 2 TRYS
 
 COPY CREATOR.RESPONSE q4
 
-SAVE q1,q2,q3,q4 AS Q1-4
+COPY q1,q2,q3,q4 CLEANER
+SAVE CLEANER AS Q1-4
+
+CALL util.CLEAN
+
+SAVE CLEANER AS Q1-4.MOD
 
 RETURN 

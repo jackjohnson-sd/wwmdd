@@ -42,5 +42,5 @@
     }
     ],
 
-   "call_and_response": "convo.txt"
+   "script": "convo.txt"
 }

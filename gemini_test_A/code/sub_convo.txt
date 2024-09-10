@@ -6,14 +6,15 @@ Use only players from those teams.
 Just provide the play by play. No summary or discussion.       
 
 CLEAN
-PROMPT CREATOR CLEANER
-
+PROMPT CREATOR 
+INSERT CLEANER
 This the play by play for a game.
+With the exception of the first line,
 remove all lines that do not start with a number.
 return the modifed data and nothing else. Thanks.       
 
+COPY CREATOR.RESPONSE CLEANER
 
-SAVE CLEANER CLEANED
 RETURN
 
 DARIO

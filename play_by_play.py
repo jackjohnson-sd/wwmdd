@@ -531,7 +531,6 @@ def event_sort_keys(x):
         if event_type == 'SUB': 
             so = 1 if x[8] == '' else 3
                 
-     
         return ((period,game_second,etype_order))
      
 def pbp_as_csv_file(game, game_stints, save_as_raw = False):

@@ -1,0 +1,30 @@
+
+START
+READ YES_VALUE AS yes_value
+READ NO_VALUE AS no_value
+
+IF yes_value NO STOP AFTER 2 TRYS
+    yes_value is NO
+
+IF yes_value NOT_NO STOP AFTER 2 TRYS
+    yes_value is NOT_NO
+
+IF yes_value YES STOP AFTER 2 TRYS
+    yes_value is YES
+
+IF yes_value NOT_YES STOP AFTER 2 TRYS
+    yes_value is NOT_YES
+
+IF no_value NO STOP AFTER 2 TRYS
+    no_value is NO
+
+IF no_value NOT_NO STOP AFTER 2 TRYS
+    no_value is NOT_NO
+
+IF no_value YES STOP AFTER 2 TRYS
+    no_value is YES
+
+IF no_value NOT_YES STOP AFTER 2 TRYS
+    no_value is NOT_YES
+
+RETURN

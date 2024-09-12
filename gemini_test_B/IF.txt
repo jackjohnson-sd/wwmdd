@@ -1,0 +1,90 @@
+
+START
+READ YES_VALUE AS y_v
+READ NO_VALUE AS n_v
+
+READ 8_VALUE AS 8_v
+READ 6_VALUE AS 6_v
+READ 4_VALUE AS 4_v
+
+IF y_v NOT_YES
+
+
+IF 6_v EQUAL 6_v STOP AFTER 3 TRYS
+    OK 6_V == 6_V as storage names
+
+IF 6_v EQUAL 6
+    6_V == 6  as literal
+
+IF 6_v EQUAL 66
+    6_V == 66 as literal
+
+IF 6_v EQUAL 8
+    6_V EQUAL 8 as literal
+
+IF 6_v EQUAL 6_v
+    6_V EQUAL 6_V
+
+
+READ mice as mice_
+READ blindmice as bm_
+READ NO_VALUE as nv_
+READ YES_VALUE as yv_
+
+
+IF 6_v EQUAL 4_v
+    6_v EQUAL 4_v
+
+IF 6_v MORE_THAN 6
+    6_v MORE_THAN 6
+
+IF 6_v MORE_THAN 6
+    6_v MORE_THAN 4
+
+IF 6_v MORE_THAN 4_v
+    6_v MORE_THAN 4_v
+
+IF 6_v MORE_THAN 6_v
+    6_v MORE_THAN 6_v
+
+IF 4_v MORE_THAN 6_v
+    4_v MORE_THAN 6_v
+
+IF 6_v LESS_THAN 8
+    6_v LESS_THAN 8
+
+IF 6_v LESS_THAN 6
+    6_v LESS_THAN 6
+
+IF 4_v LESS_THAN 6
+    4_v LESS_THAN 6
+
+IF mice_ IN bm_
+    mice_ IN bm_
+
+IF mice_ NOT_IN bm_
+    mice_ NOT_IN bm_
+
+IF mice_ NOT_EQUAL mice
+    mice_ NOT_EQUAL mice
+
+IF nv_ NO 
+ nv_ NO
+
+IF nv_ NOT_NO 
+ nv_ NOT_NO
+
+IF yv_ YES
+ yv_ YES
+
+IF yv_ NOT_YES 
+ yv_ NOT_YES
+
+IF yv_ YES
+    IF nv_ NO 
+        this is YES and NO 
+
+    this is yes only
+
+this is next
+

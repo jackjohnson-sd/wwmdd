@@ -17,7 +17,3 @@ COPY CREATOR.RESPONSE CLEANER
 
 RETURN
 
-DARIO
-READ Q1-4.MOD AS R0
-# end of sub_convo
-return

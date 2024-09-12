@@ -112,24 +112,76 @@ def make_model(config, file_path):
         
 trys = {}
 
+"""
+COPY    src dst     - moves storage from src to dst
+READ    fn  AS  dst - moves file contents to dst
+SAVE    dst fn      - moves storage to file 
+INSERT  sn          - moves sn contents to prompt string
+
+IMPORT  fn  AS  dst - moves file contents to dst, creates a FN
+
+SHOW    sn  LOG SHRINK - show storage location 
+SHOW    sn  LOG        - show storage location 
+SHOW    sn  SHRINK     - show storage location
+SHOW    sn             - show storage location 
+
+QUIT                   - ends execution of script
+RETURN                 - return execution to CALL-ing script
+CALL    ln             - pushes application context unto stack 
+GOTO    ln             - shift execution to label name
+
+
+IF sn  EQUAL      val1 STOP AFTER max_trys TRYS
+IF sn  NOT_EQUAL  val1 STOP AFTER max_trys TRYS
+
+IF sn  MORE_THAN  val1 STOP AFTER max_trys TRYS
+IF sn  LESS_THAN  val1 STOP AFTER max_trys TRYS
+
+IF sn  IN         val1 STOP AFTER max_trys TRYS
+IF sn  NOT_IN     val1 STOP AFTER max_trys TRYS
+
+IF sn  NO              STOP AFTER max_trys TRYS
+IF sn  NOT_NO          STOP AFTER max_trys TRYS
+
+IF sn  YES             STOP AFTER max_trys TRYS
+IF sn  NOT_YES         STOP AFTER max_trys TRYS
+
+
+MODEL   skill   AS sn
+PROMPT  sn             - collect lines until next blank
+
+'IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
+"""
+
+
 def next_blank_line(msg_idx,script):
     
     bcount = 1
     
     while bcount > 0: 
         msg_idx +=1
-        if script[msg_idx].strip() == '':
+        
+        if msg_idx  >= len(script): 
+            return msg_idx
+        
+        next_line = script[msg_idx].strip() 
+        if next_line == '':
             bcount -= 1
-        elif script[msg_idx].strip()[0:6] == 'PROMPT':
+        elif next_line[0:6] == 'PROMPT':
+            bcount += 1
+        elif next_line[0:3] == 'IF':
             bcount += 1
                                       
     return msg_idx - 1
 
 def check_retry(ret_val, idx, max_trys, script):
-                
+
     if idx not in trys.keys(): trys[idx] = 0
 
-    if ret_val == 'SUCCESS' or ret_val :
+    if ret_val == 'SUCCESS' or ret_val:
+        
+        if max_trys == 0: return idx
+        
         trys[idx] += 1
         if trys[idx] > max_trys: 
             logger.error(f'max retrys exceeded, giving up on {script[idx]}')
@@ -141,17 +193,25 @@ def check_retry(ret_val, idx, max_trys, script):
     return idx
 
 def get_score(data):
-    
-    n = data.find('OF 10')
-
-    if n == -1: return None
+    try :
         
-    the_answer = data[0:n]
-    # extract numbers prior to 'OF 10'
-    score = [int(s) for s in the_answer.split() if s.isdigit()]        
+        d = data.split('\n')[0].upper()
+        n = d.find('OF 10')
 
-    if len(score) != 1: return None
+        if n == -1: 
+            if d.isnumeric(): 
+                return d
+            return None
+            
+        the_answer = d[0:n]
+        # extract numbers prior to 'OF 10'
+        score = [int(s) for s in the_answer.split() if s.isdigit()]        
 
+        if len(score) != 1: return None
+    except:
+        logger.error(f'processing score {d}')
+        return None
+    
     return score[0]
 
 def get_text(the_response):
@@ -175,11 +235,10 @@ def not_equal(a,b): return a != b
 def more_than(a,b): return a > b
 def less_than(a,b): return a < b
 def has_this(a,b):  return a in b
-def not_has_this(a,b): return a not in b
+def not_has_this(a,b): return not a in b
 
 stores = {}
 models = {}
-
 
 def link_check(script,key_words,file_dir_name):
     
@@ -206,21 +265,27 @@ def link_check(script,key_words,file_dir_name):
                         logger.error(f'invalid storage name {k[0]}, line {i + 1}: {line}')
                         return False
                 else:
-                    pass
+                    if src not in stores:
+                        logger.error(f'invalid storage name {src}, line {i + 1}: {line}')
+                        return False
                     
             elif src not in stores:
-                logger.error(f'invalid storage name {k[0]}, line {i + 1}: {line}')
+                logger.error(f'invalid label name {k[0]}, line {i + 1}: {line}')
                 return False
 
         return True       
 
-    cmp_codes = ['SHOW','IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
+    cmp_codes = ['IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
 
     
     for i,line in enumerate(script):
+        
         line = line.strip()
         l = line.split(' ')
-        
+        while '' in l: l.remove('')
+
+        if len(l) == 0: continue
+
         if l[0] not in key_words:
             if l[0].isupper():
                 stores[l[0]] = i
@@ -262,7 +327,21 @@ def link_check(script,key_words,file_dir_name):
                         
                     case 'IMPORT':# IMPORT CODE_FN AS STORAGE_NAME
                         stores[l[3]] = i
-                        fn = l[1]                    
+                        fn = l[1]   
+                         
+                        fn1 = os.path.join(file_dir_name,fn)
+                        
+                        if not os.path.isfile(fn1):
+                            logger.error(f'not a file {fn1}, line {i + 1}: {line}')
+                            return False   
+                         
+                        with open(fn1, "r") as f:
+                            new_stuff = f.readlines()
+                        
+                        new_labels = get_labels(new_stuff,key_words)
+                        for lb in new_labels:
+                            stores[f'{l[3]}.{lb}'] = i
+                        
                         
                     case 'CALL'  :# CALL STORAGE_NAME.LABEL,  CALL LABEL
                         if not src_check(l[1],i,line): return False
@@ -295,8 +374,7 @@ def link_check(script,key_words,file_dir_name):
 
     return True
 
-
-def start_conversation(file_dir_name):
+def converse(file_dir_name):
 
     try:
         files = filter_by_extension(file_dir_name,'.json')
@@ -352,6 +430,19 @@ def start_conversation(file_dir_name):
         'SHOW'   : [ 1,0,],      # SHOW SN [LOG]
     }
 
+    cmp = {
+        'IN'        :has_this,
+        'NOT_IN'    :not_has_this,
+        'NOT_EQUAL' :not_equal,
+        'EQUAL'     :equal,
+        'MORE_THAN' :more_than,
+        'LESS_THAN' :less_than,
+        'NO'        :has_this,
+        'NOT_NO'    :not_has_this,
+        'YES'       :has_this,
+        'NOT_YES'   :not_has_this
+        
+    }
     if not link_check(script,key_words,file_dir_name):
         return
     
@@ -384,15 +475,17 @@ def start_conversation(file_dir_name):
             
             if len(line) == 0:
                 
+                # if prompt text collection over 
+                # send PROMPT to LLM and get RESPONSE
                 if _prompt != None: 
 
-                    history.append([f'{llm_model}.PROMPT\n'])                     
+                    history.append([f'{llm_model}.PROMPT'])                     
                     history.append([_prompt])
 
                     our_model = storage[llm_model] 
                     storage[f'{llm_model}.RESPONSE'] = our_model.generate_content(_prompt).text
 
-                    history.append([f'{llm_model}.RESPONSE\n'])
+                    history.append([f'{llm_model}.RESPONSE'])
                     history.append([storage[f'{llm_model}.RESPONSE']])
                                                
                     _prompt = None
@@ -519,60 +612,61 @@ def start_conversation(file_dir_name):
                             continue
 
                         case 'IF':      # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
-                            
-                            if _line.L1 in storage:
-                                data = get_text(storage[_line.L1]).split('\n')[0].upper()
-                            elif _line.L2 in ['IN','NOT_IN']:
-                                data = get_text(storage[_line.L3])  
-                                                          
-                            else:
-                                logger.error(f'invalid source {_line.L1}, {msg_idx} {script[msg_idx]}')
-                                return
-                            
-                            if _line.L5.isdigit():
-                                max_retrys = int(_line.L5)
-                            else:    
-                                max_retrys = int(_line.L6)
-                            
-                            def xxx(msg_idx, threshold, score, evaluate,max_trys, script):
+                                                        
+                            def xxx(msg_idx, threshold, score, evaluate, max_trys, script):
+                                if type(threshold) != type(score):
+                                    
+                                    if isinstance(threshold,int):
+                                        if score.isnumeric():
+                                            score = int(score)
+                                    else:
+                                        if threshold.isnumeric():
+                                            threshold = int(threshold)
+
                                 ret_val = evaluate(score,threshold)
-                                return check_retry(ret_val,msg_idx,max_trys,script)
+                                
+                                return check_retry(ret_val, msg_idx, max_trys, script)
                             
-                            if _line.L3.isdigit():
-                                 threshold = int(_line.L3)
-                            score = get_score(data)
-                                            
+                            data1 =\
+                                _line.L1 if _line.L1 not in storage\
+                                         else get_text(storage[_line.L1])
+                                
+                            data3 =\
+                                _line.L3 if _line.L3 not in storage\
+                                         else get_text(storage[_line.L3])
+                            
                             match _line.L2:
                                 
-                                case 'IN': 
-                                    msg_idx = xxx(msg_idx, _line.L1, data, has_this, max_retrys, script)
-
-                                case 'NOT_IN':
-                                    msg_idx = xxx(msg_idx, _line.L1, data, not_has_this, max_retrys, script)
-                                
-                                case 'NOT_EQUAL':
-                                    msg_idx = xxx(msg_idx, threshold, score, not_equal, max_retrys, script)
-
-                                case 'EQUAL': 
-                                    msg_idx = xxx(msg_idx, threshold, score, equal, max_retrys, script)
-                                
-                                case 'MORE_THAN'  : 
-                                    msg_idx = xxx(msg_idx, threshold, score, more_than, max_retrys, script)
-                                                        
-                                case 'LESS_THAN' :
-                                    msg_idx = xxx(msg_idx, threshold, score, less_than, max_retrys, script)
-
-                                case 'NO': 
-                                    msg_idx = xxx(msg_idx, data, 'NO',  has_this, max_retrys, script)
+                                case 'IN' | 'NOT_IN': 
                                     
-                                case 'NOT_NO' : 
-                                    msg_idx = xxx(msg_idx, data, 'NO', not_has_this, max_retrys, script)
+                                    max_retrys = 0 if _line.L6 == '' else int(_line.L6)
+                                     
+                                    msg_idx = xxx(msg_idx, data1, data3, cmp[_line.L2], max_retrys, script)
+
+                                case 'NOT_EQUAL' | 'EQUAL' | 'MORE_THAN' | 'LESS_THAN':
+                                                                        
+                                    max_retrys = 0 if _line.L6 == '' else int(_line.L6)
+                                    threshold = data3.split('\n')[0].upper()
                                     
-                                case 'YES': 
-                                    msg_idx = xxx(msg_idx, data, 'YES',  has_this, max_retrys, script)
-                                    
-                                case 'NOT_YES' : 
-                                    msg_idx = xxx(msg_idx, data, 'YES', not_has_this, max_retrys, script)
+                                    score = get_score(data1)
+                                    if score == None:
+                                        logger.error(f'processing score, {msg_idx}:{line}')
+                                        return 
+                            
+                                    msg_idx = xxx(msg_idx, threshold, score, cmp[_line.L2], max_retrys, script)
+
+                                case 'NO' | 'NOT_NO' | 'YES' | 'NOT_YES': 
+             
+                                    max_retrys = 0 if _line.L5 == '' else int(_line.L5)  
+                                    data1 = data1.split('\n')[0].upper()
+                                     
+                                    msg_idx = xxx(msg_idx, data1, 'YES' if 'YES' in _line.L2 else 'NO', cmp[_line.L2], max_retrys, script)
+
+                                case _ :
+                                      
+                                      logger.error(F'invalid compare skill {_line.L2} {msg_idx}:{line}')
+                                      return 
+                                  
                                                        
                         case 'IMPORT':  # IMPORT code/sub_convo.txt AS util
                             
@@ -593,6 +687,7 @@ def start_conversation(file_dir_name):
                             new_labels = get_labels(storage[storage_name],key_words)
                 
                             storage[f'{storage_name}.labels'] = new_labels
+                            storage[f'{storage_name}.file_path'] = fn
                 
                             msg_idx += 1
                             continue
@@ -646,4 +741,4 @@ def start_conversation(file_dir_name):
        
 def main(file_directory):
     
-    start_conversation(file_directory[0])
+    converse(file_directory[0])

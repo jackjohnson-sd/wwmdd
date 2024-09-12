@@ -1,0 +1,13 @@
+IMPORT yes_no_test.txt AS yn 
+IMPORT numeric.txt AS num 
+IMPORT retry.txt AS rt
+IMPORT IF.txt AS if
+
+CALL if.START
+RETURN
+
+CALL rt.START
+
+CALL num.START
+
+CALL yn.START

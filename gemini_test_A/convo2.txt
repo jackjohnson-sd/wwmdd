@@ -1,0 +1,14 @@
+
+
+READ yes_value as y_v
+
+IF y_v NOT_YES
+    we said not yes
+
+
+IF y_v YES
+    we said  yes
+
+we are done
+
+

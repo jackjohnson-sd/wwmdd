@@ -21,7 +21,6 @@
         "name"  : "critic",
         "area_expert" : "SUBs",
         "model" : "models/gemini-1.5-flash-001",
-        "cache_file_spec" : "last 3 games each team, 5 stints, 5 boxscores",
         "cached_dir" : "sub_critic_cache", 
         "ttl"   : 15,
         "system_prompt" : [
@@ -43,5 +42,5 @@
     }
     ],
 
-   "script": "convo.txt"
+   "script": "start.txt"
 }

@@ -1,0 +1,39 @@
+-
+- IF value compare_function value
+-    stuff that get's done when "value compare value" is true 
+- (blank line) 
+- stuff or (blank line)
+-
+
+- add exit after max trys
+IF 7_value EQUAL 7 STOP AFTER 2 TRYS
+-    stuff that get's done 
+-    when this "value compare value" is true 
+-    less than 2 times in a row
+-    on the 2nd time the app exits
+- (blank line) 
+- stuff or (blank line)
+-
+
+- add skip after max trys
+IF 7_value EQUAL 7 SKIP AFTER 2 TRYS
+-    stuff that get's done 
+-    when this "value compare value" is true 
+-    less than 2 times in a row
+-    after the 2nd time the app skip to the blank line 
+- (blank line) 
+- stuff or (blank line)
+-
+-IF 7_value EQUAL 7 STOP AFTER 2 TRYS
+
+START
+READ NUMERIC_7 AS 7_value
+
+TEST
+IF 7_value EQUAL 7 
+    EQUAL evals TRUE
+    7_value EQUAL 7
+
+GOTO TEST
+
+

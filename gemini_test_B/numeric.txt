@@ -1,0 +1,18 @@
+
+START
+READ NUMERIC_4 AS 4_value
+READ NUMERIC_7 AS 7_value
+
+IF 7_value EQUAL 7 STOP AFTER 2 TRYS
+    7_value EQUAL 7
+
+IF 7_value NOT_EQUAL 7 STOP AFTER 2 TRYS
+    7_value NOT_EQUAL 7
+
+IF 7_value MORE_THAN 7 STOP AFTER 2 TRYS
+    7_value is MORE_THAN 7
+
+IF 7_value LESS_THAN 7 STOP AFTER 2 TRYS
+    7_value is LESS_TRAN 7
+
+

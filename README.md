@@ -1,8 +1,11 @@
 Please Read
-SEPT 10  -- script works for 4 quarter collection, 
-            has pre-run syntax check. see readme.txt in gemini_test_A 
-SEPT 3   -- added call, call external, return, 
-            quit to convo's
+SEPT 10  -- script works for 4 quarter collection, added SHOW,
+            has pre-run syntax check.  
+            definition of 'Mark Script' folllows in this document
+            worked on making game cvs look better at period changes
+            SOQ, SUBS, EVENTS ... EVENTS, SUBS, EOQ
+
+SEPT 3   -- added call, call external, return, quit to convo's
 AUG 30   -- added gemini conversation
             creator makes play_by_plays, critic advices on number of SUB events
             see gemini_test_A and gemini.py
@@ -89,6 +92,61 @@ Jult 7 -- broke off wwmdd_colors.json from wwmdd.json
 July 6 -- added overlap.py
 July 5 -- some testing on OKC v BOS 2024-04-03?
 
+
+
+-- MARK SCRIPT 
+
+There are two files, a json file and a .txt file.
+
+This json file specifes a script by filename.
+the app executes this script to manage the interactions
+between LLMs. The json file maintains a list of
+LLMs 
+
+this application uses a dictionary to store:
+  a. responses from LLM models
+  b. LLM models, as callable objects
+  c. LABELS, places we GOTO or CALL
+  d. the contents of files
+
+file names, fn in lower case, READ and WRITE text file 
+storage names, sn in lower case, in memory storage location
+label names, ln in UPPER case
+
+if UPPER first word its
+ a. a label, a place we can CALL or GOTO
+ or b. a KEY WORD,  
+
+labels are a single UPPER case word. nothing else on the line
+
+key words are UPPER case words tell us to do stuff
+
+the next blank line has meaning only 
+when it follows an IF or PROMPT key word
+... the KEY WORDS ...
+  COPY src dst - moves storage from src to dst
+  READ fn AS dst - moves file contents to dst
+  SAVE dst fn - moves storage to file 
+  INSERT fn/sn - moves fn contents to prompt string
+  IMPORT fn AS dst - moves file contents to dst, creates a FN
+    and creates a sn.label storage. dst is callable
+    via dst.LABEL 
+  SHOW sn [LOG,SHRINK] - show storage location contents optionally
+  to LOG vs. screen with optional SHRINK 
+  QUIT    - ends execution of script
+  RETURN  - return execution to CALL-ing script
+            or ends execution for initial script
+  CALL ln - pushes application context unto stack 
+            and moves execution to label or storage_name.label
+  GOTO ln - shift execution to label name
+  IF sn cmp val1 STOP AFTER max_trys TRYS
+      if cmp false move execution to next blank line
+      if cmp true execute next line
+  MODEL skill AS sn
+      store LLM with claimed skill in sn 
+  PROMPT sn - collect lines until next blank
+      and send to LLM at sn. LLM stores its
+      response to the prompt in sn.RESPONSE
 
 Stints and Overlaps
 

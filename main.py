@@ -237,7 +237,6 @@ if __name__ == '__main__':
 
         import main_web
         import main_csv
-        import main_db
         import llm_api.open_ai as gpt
         import llm_api.claude as claude
         import llm_api.gemini as gemini
@@ -374,11 +373,7 @@ if __name__ == '__main__':
 
         elif "TOKENS:" in data_source:
             gemini.do_tokens(data_source.split(":")[1])
-
-        elif "DB:" in data_source:
-            main_db.main()
-        # get games and play_by_play from kaggle sourced nba_sqlite DB.  date END spring 2023 !!!!!
-
+            
         else:
             logger.error("NO SOURCE specified in .wwmdd/setttings.json.")
 

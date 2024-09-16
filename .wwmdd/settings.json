@@ -38,16 +38,14 @@
     , "START_DAY"       : "2024-04-29" 
     , "STOP_DAY"        : "2024-04-29"
 
-    , "SOURCE"          : "GEMINI:gemini_test_A"
+    , "SOURCE"          : "GEMINI:tests/gemini_test_A"
  
-    , "tSOURCE"     : "TESTPARTSCALE:"  
     , "bSOURCE"     : "FILE:llm/llm_training_data/csv"
     , "cSOURCE"     : "FILE:llm/llm_training_data/csv/OKCvGSW20230130.csv"
     , "dSOURCE"     : "CLAUDE:claude_test"
     , "eSOURCE"     : "GEMINI:gemini_test"
     , "fSOURCE"     : "TOKENS:gemini_test"
-    , "nSOURCE"     : "nba.sqlite"
-
+    
     , "example_PARTS"   : ["all", "tools", "stints", "events", "score", "margin", "periodscores", "boxscore","legend"]
     , "example_SHOW"    : ["plot","csv","raw","img","stints", "overlaps","logs"]
     , "AI"              : ["GEMINI", "CLAUDE"]

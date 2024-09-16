@@ -1,11 +1,11 @@
 import os
 import google.generativeai as genai
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-
 from google.generativeai import caching
 import datetime
 import time
 import json
+
 from collections import namedtuple
 
 from loguru import logger
@@ -31,6 +31,45 @@ MODEL = "models/gemini-1.5-flash-latest"
     models/gemini-pro
     models/gemini-pro-vision
 """
+
+def equal(a,b):     return a == b
+def not_equal(a,b): return a != b
+def more_than(a,b): return a > b
+def less_than(a,b): return a < b
+def has_this(a,b):  return a in b
+def not_has_this(a,b): return not a in b
+
+
+key_words = {
+    
+    'READ'   : [ 1,3,],     # READ FN AS STORAGE_NAME
+    'SAVE'   : [ 1,3,],     # SAVE STORAGE_NAME AS FN
+    'COPY'   : [ 1,3,],     # COPY STORAGE1 STORAGE2
+    'INSERT' : [ 1,0,],     # INSERT STORAGE_NAME
+    'QUIT'   : [ 0,0,],     # QUIT
+    'RETURN' : [ 0,0,],     # RETURN
+    'GOTO'   : [ 1,0,],     # GOTO LABEL
+    'IMPORT' : [ 1,2,],     # IMPORT CODE_FN STORAGE_NAME
+    'CALL'   : [ 1,0,],     # CALL STORAGE_NAME.LABEL,  CALL LABEL
+    'IF'     : [ 1,4,],     # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
+    'PROMPT' : [ 1,0,],     # PROMPT MODEL     
+    'MODEL'  : [ 1,3,],     # MODEL SKILL as STORAGE_NAME   
+    'SHOW'   : [ 1,0,],      # SHOW SN [LOG]
+}
+
+cmp = {
+    'IN'        :has_this,
+    'NOT_IN'    :not_has_this,
+    'NOT_EQUAL' :not_equal,
+    'EQUAL'     :equal,
+    'MORE_THAN' :more_than,
+    'LESS_THAN' :less_than,
+    'NO'        :has_this,
+    'NOT_NO'    :not_has_this,
+    'YES'       :has_this,
+    'NOT_YES'   :not_has_this
+}
+
 
 def token_count(source):
     model = genai.GenerativeModel(MODEL)
@@ -217,9 +256,12 @@ def get_score(data):
 def get_text(the_response):
     # we store the reponse from the AI or text from python code
     # so figure out which this is
-    return the_response if type(the_response) == type('aa') else the_response.text    
+    if isinstance(the_response,int):   return str(the_response)
+    if isinstance(the_response,str):   return the_response
     
-def get_labels(script,key_words):
+    return the_response.text.copy()   
+    
+def get_labels(script, key_words):
    
     labels = {}
     for i,a in enumerate(script):
@@ -230,17 +272,35 @@ def get_labels(script,key_words):
                     labels[b[0]] = i
     return labels
 
-def equal(a,b):     return a == b
-def not_equal(a,b): return a != b
-def more_than(a,b): return a > b
-def less_than(a,b): return a < b
-def has_this(a,b):  return a in b
-def not_has_this(a,b): return not a in b
-
 stores = {}
 models = {}
 
-def link_check(script,key_words,file_dir_name):
+def get_script(fn, key_words, stuff, file_dir_name):
+    
+    try:
+        with open(fn, "r") as f:
+            new_script = f.readlines()
+
+        for i,nn in enumerate(new_script):
+            for arg in stuff['script']['args']:
+                new_script[i] = new_script[i].replace(arg, stuff['script']['args'][arg])
+        
+        l_abels = get_labels(new_script, key_words) # places to call or goto in scripts
+
+        for lb in l_abels:
+            stores[f'{lb}'] = i
+                        
+        if not link_check(new_script, key_words, file_dir_name, stuff):
+            return None
+    
+        return new_script
+    
+    except Exception as ex:
+        
+        logger.error(f'troubles loading {fn} {ex}')
+        return None
+
+def link_check(script, key_words, file_dir_name, stuff):
     
     def src_check(loc,i,line):
         
@@ -250,34 +310,36 @@ def link_check(script,key_words,file_dir_name):
             j = [loc]
             
         for src in j:        
-            
+
+            if src in stores:
+                return True
+                  
             if '.' in src:
-                
+
                 k = loc.split('.')
                 
-                if k[0] not in stores:
+                if k[0] in stores:
+                    if k[1] in stores: return True
+                    elif k[1] == 'RESPONSE': return True
+                    else:   
+                        logger.error(f'invalid storage name {k[1]}, line {i + 1}: {line}')
+                        return False
+                else:  
                     logger.error(f'invalid storage name {k[0]}, line {i + 1}: {line}')
                     return False
-                
-                if k[0] in models:
-                    if k[1] != 'RESPONSE':
-                        
-                        logger.error(f'invalid storage name {k[0]}, line {i + 1}: {line}')
-                        return False
-                else:
-                    if src not in stores:
-                        logger.error(f'invalid storage name {src}, line {i + 1}: {line}')
-                        return False
-                    
-            elif src not in stores:
-                logger.error(f'invalid label name {k[0]}, line {i + 1}: {line}')
-                return False
-
         return True       
 
-    cmp_codes = ['IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
-
+    cmp_codes = list(cmp.keys())
     
+    code_imports = []
+    code_call = []
+        
+    for i,line in enumerate(script):
+        if  line[0:6] == 'IMPORT': 
+            code_imports.append(i)            
+        elif line[0:4] == 'CALL': 
+            code_call.append(i)
+            
     for i,line in enumerate(script):
         
         line = line.strip()
@@ -285,7 +347,8 @@ def link_check(script,key_words,file_dir_name):
         while '' in l: l.remove('')
 
         if len(l) == 0: continue
-
+        if  l[0][0] == '#': continue
+                 
         if l[0] not in key_words:
             if l[0].isupper():
                 stores[l[0]] = i
@@ -312,6 +375,7 @@ def link_check(script,key_words,file_dir_name):
                     case 'COPY':  # COPY STORAGE1 STORAGE2
 
                         stores[l[2]] = i
+                        
                         if not src_check(l[1],i,line): return False
                         
                     case 'INSERT':# INSERT STORAGE_NAME
@@ -326,26 +390,20 @@ def link_check(script,key_words,file_dir_name):
                             return False
                         
                     case 'IMPORT':# IMPORT CODE_FN AS STORAGE_NAME
+                        
                         stores[l[3]] = i
-                        fn = l[1]   
-                         
-                        fn1 = os.path.join(file_dir_name,fn)
                         
-                        if not os.path.isfile(fn1):
-                            logger.error(f'not a file {fn1}, line {i + 1}: {line}')
-                            return False   
-                         
-                        with open(fn1, "r") as f:
-                            new_stuff = f.readlines()
+                        # fn_I = os.path.join(file_dir_name,l[1])
+                        # new_script = get_script(fn_I, key_words, stuff, file_dir_name)
                         
-                        new_labels = get_labels(new_stuff,key_words)
-                        for lb in new_labels:
-                            stores[f'{l[3]}.{lb}'] = i
-                        
-                        
+                        # if new_script is None: return False
+                                             
                     case 'CALL'  :# CALL STORAGE_NAME.LABEL,  CALL LABEL
-                        if not src_check(l[1],i,line): return False
-                                                
+                        pass
+                    
+                        # if not src_check(l[1],i,line): return False
+
+                        # we should check the rest of args.  they should be in storage                        
                     case 'IF'    :# IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
 
                         if not src_check(l[1],i,line): return False
@@ -363,8 +421,8 @@ def link_check(script,key_words,file_dir_name):
                         stores[l[3]] = i
                         models[l[3]] = i
             
-            except:
-                logger.error(f'likely missing feilds, line {i + 1}: {line}')
+            except Exception as ex:
+                logger.error(f'{ex} likely missing feilds, line {i + 1}: {line}')
                 return False     
                 
             if fn != '':
@@ -372,105 +430,95 @@ def link_check(script,key_words,file_dir_name):
                     logger.error(f'not a file {fn}, line {i + 1}: {line}')
                     return False     
 
+    for i in code_imports:
+        line = script[i]
+        if  line[0] == '#': continue
+        
+        line = line.strip()
+        l = line.split(' ')
+        while '' in l: l.remove('')
+
+        if len(l) == 0: continue
+
+        
+        fn_I = os.path.join(file_dir_name, l[1])
+        new_script = get_script(fn_I, key_words, stuff, file_dir_name)
+        if new_script is None: return False
+ 
+    for i in code_call:
+        
+        line = script[i]
+        if  line[0] == '#': continue
+        
+        line = line.strip()
+        l = line.split(' ')
+        while '' in l: l.remove('')
+
+        if len(l) == 0: continue
+
+        if not src_check(l[1],i,line): 
+            return False
+
+
     return True
 
 def converse(file_dir_name):
-
+    
+    fn = ''
     try:
+        # load the .json config file
         files = filter_by_extension(file_dir_name,'.json')
         
         if len(files) != 1:
-            logger.error(f' more than one .json file here. {file_dir_name} (for now)')
+            logger.error(f'one .json file allowed here. {file_dir_name} (for now)')
             return
         
         our_fn = os.path.join(file_dir_name,files[0])    
+  
+        if not os.path.isfile(our_fn):
+            logger.error(f'not a file {our_fn}')
+            return
         
         with open(our_fn, "r") as f:
             stuff = json.load(f)
-            
+
+
+        # load the script.txt file in this config
+        fn = os.path.join(file_dir_name, stuff['script']['file_name'])   
+        
+        script = get_script(fn, key_words, stuff, file_dir_name)
+    
+        if script is None: return
     except Exception as ex:
         
-        logger.error(f'troubles loading {our_fn} {ex}')
+        logger.error(f'troubles loading {our_fn} {fn} {ex}')
         return
-    
-    try:   # fails if not valid json file
-    
-        script = stuff['script']
-        
-        team1 = stuff['TEAM1']
-        team2 = stuff['TEAM2']
-
-        fn = stuff['script']
-        fn = os.path.join(file_dir_name,fn)
-        with open(fn, "r") as f:
-            script = f.readlines()
-
-        for i,nn in enumerate(script):
-            script[i] = nn.replace('TEAM1', team1).replace('TEAM2', team2)
-
-    except Exception as ex:
-
-        logger.error(f'troubles, not our json? loading {fn} {ex}')
-        return
-        
-    key_words = {
-        
-        'READ'   : [ 1,3,],     # READ FN AS STORAGE_NAME
-        'SAVE'   : [ 1,3,],     # SAVE STORAGE_NAME AS FN
-        'COPY'   : [ 1,3,],     # COPY STORAGE1 STORAGE2
-        'INSERT' : [ 1,0,],     # INSERT STORAGE_NAME
-        'QUIT'   : [ 0,0,],     # QUIT
-        'RETURN' : [ 0,0,],     # RETURN
-        'GOTO'   : [ 1,0,],     # GOTO LABEL
-        'IMPORT' : [ 1,2,],     # IMPORT CODE_FN STORAGE_NAME
-        'CALL'   : [ 1,0,],     # CALL STORAGE_NAME.LABEL,  CALL LABEL
-        'IF'     : [ 1,4,],     # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
-        'PROMPT' : [ 1,0,],     # PROMPT MODEL     
-        'MODEL'  : [ 1,3,],     # MODEL SKILL as STORAGE_NAME   
-        'SHOW'   : [ 1,0,],      # SHOW SN [LOG]
-    }
-
-    cmp = {
-        'IN'        :has_this,
-        'NOT_IN'    :not_has_this,
-        'NOT_EQUAL' :not_equal,
-        'EQUAL'     :equal,
-        'MORE_THAN' :more_than,
-        'LESS_THAN' :less_than,
-        'NO'        :has_this,
-        'NOT_NO'    :not_has_this,
-        'YES'       :has_this,
-        'NOT_YES'   :not_has_this
-        
-    }
-    if not link_check(script,key_words,file_dir_name):
-        return
-    
-    history = []
-    storage = {}
             
-    _prompt = None
+    history = []    # every prompt to and response from and LLM
+    
+    # storage = {}    # labels,llm,file contents, prompt responces
+            
+    _prompt = None  # a string we're build to become a prompt for an LLM
 
-    llm_model = None
+    llm_model = None # the LLM we prompt to return a response
     
-    labels = get_labels(script, key_words)
-
-    call_stack = []
+    call_stack = [] # place we push contex before script call 
     
-    msg_idx = 0
-    
-    carry_on = True
-    
-    while carry_on:
+    msg_idx = 0     # index into script to get line
         
+    # interpret script a line at a time
+    while True:
+         
         while msg_idx < len(script):
 
-            goto_idx = -1
+            goto_idx = -1   # possible call, goto destination
                     
             line = script[msg_idx].strip()
+            
             logger.debug(f'{msg_idx+1} {line}')
-        
+
             line = line.split(' ')
+            
             while '' in line: line.remove('')
             
             if len(line) == 0:
@@ -482,16 +530,17 @@ def converse(file_dir_name):
                     history.append([f'{llm_model}.PROMPT'])                     
                     history.append([_prompt])
 
-                    our_model = storage[llm_model] 
-                    storage[f'{llm_model}.RESPONSE'] = our_model.generate_content(_prompt).text
+                    our_model = stores[llm_model] 
+                    stores[f'{llm_model}.RESPONSE'] = our_model.generate_content(_prompt).text
 
                     history.append([f'{llm_model}.RESPONSE'])
-                    history.append([storage[f'{llm_model}.RESPONSE']])
-                                               
+                    history.append([stores[f'{llm_model}.RESPONSE']])
+                                                
                     _prompt = None
                     
-            else:                
-                # comments to log
+            else:
+                            
+                # if a comment line
                 if '#' == line[0][0]:
                     logger.info(f'-{script[msg_idx].strip()}')
                     msg_idx += 1
@@ -507,28 +556,31 @@ def converse(file_dir_name):
                     match _line.CMD:
                         
                         case 'SHOW':    # SHOW sn [LOG] [SHRINK]
-                            
-                            text = get_text(storage[_line.L1])
+                            data = stores[_line.L1]
+                            if isinstance(data, list):                           
+                                data = ('').join(data)
+                                
+                            text = get_text(data)
                             
                             if 'SHRINK' in line:
                                 text = utils.shrink_this(text,20)
                                 
-                            if _line.L2 == 'LOG':
+                            if 'LOG' in line:
                                 logger.info(text)
                             else:
                                 print(text)
                                 
-                        case 'READ':    # READ file_name AS storage_name
+                        case 'READ':    # READ file_name AS sn
 
                             fn = _line.L1
                             storage_name = _line.L3
                             
                             try:
-                                storage[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
+                                stores[storage_name] = utils.read_file(os.path.join(file_dir_name,fn))
                             except:
                                 logger.error(f'bad file name {fn}, {msg_idx + 1} {script[msg_idx]}')
                                 return
-                                                   
+                                                    
                         case 'SAVE':    # SAVE s1 AS file_name 
                                         # SAVE s1,s2,s3 AS file_name
                                         
@@ -537,7 +589,7 @@ def converse(file_dir_name):
                             _data = ''
                             
                             for r in data_set:
-                                _data += get_text(storage[r])
+                                _data += get_text(stores[r])
                 
                             try:
                                 fn = _line.L3
@@ -547,51 +599,70 @@ def converse(file_dir_name):
                                 logger.error(f'bad file name {fn}, {msg_idx} {script[msg_idx].strip()}')
                                 return
 
-                        case 'COPY':    # COPY RO to R1
+                        case 'COPY':    # COPY sn to sn
 
                             names = _line.L1.split(',') 
+                            
                             the_text = ''
                             for name in names:
-                                if name in storage.keys(): 
-                                    the_text += '\n' + get_text(storage[name]) + '\n'
+                                if name in stores.keys(): 
+                                    the_text += '\n' + get_text(stores[name]) + '\n'
                                 else:
                                     logger.error(f'invalid source {name}, {msg_idx} {script[msg_idx].strip()}')
                                     return
-        
+
                             else:
-                                storage[_line.L2] = the_text
+                                stores[_line.L2] = the_text
                                 msg_idx += 1
                 
-                        case 'INSERT':  # INSERT RO
-                            if _line.L1 not in storage.keys():
+                        case 'INSERT':  # INSERT sn
+                            
+                            if _line.L1 not in stores.keys():
                                 logger.error(f'invalid source {_line.L1}, {msg_idx} {script[msg_idx]}')
                                 return
-        
-                            _prompt += '\n' + get_text(storage[_line.L1]) + '\n' 
-                        
-                        case 'QUIT':    # QUIT IS_NOT USED
+
+                            _prompt += '\n' + get_text(stores[_line.L1]) + '\n' 
+
+                        case 'IMPORT':  # IMPORT fn AS sn  # as scrupt
+                            
+                            import_fn = os.path.join(file_dir_name,_line.L1)                        
+
+                            new_script = get_script(import_fn, key_words, stuff, file_dir_name)
+                            
+                            if new_script is None: return
+      
+                            storage_name = _line.L3                       
+                            stores[storage_name] = new_script
+                            # storag e[f'{storage_name}.labels'] = labels
+                            stores[f'{storage_name}.file_path'] = import_fn
+                
+                            msg_idx += 1
+                            continue
+
+
+                        case 'QUIT':    # QUIT
                             logger.info(f'quit {script[msg_idx].strip()}')
                             return
                                     
-                        case 'RETURN':  # RETURN THIS_ IS NOT USED ...
+                        case 'RETURN':  # RETURN
                             break
                         
-                        case 'GOTO':    # GOTO CRITIC_3
+                        case 'GOTO':    # GOTO label
                             
                             try :
-                                goto_idx = labels[_line.L1]
+                                goto_idx = stores[_line.L1]
                             except:
                                 logger.error(f'invalid line lable {msg_idx} {script[msg_idx]}')
                                 return
-                                          
-                        case 'CALL':    # CALL UTILS.CLEAN
+                                            
+                        case 'CALL':    # CALL sn.label
                                         # CALL CALI
                                         
                             storage_name = _line.L1
                 
                             global trys
                             
-                            a = (script,trys,msg_idx + 1,labels)
+                            a = (script,trys,msg_idx + 1)
                             call_stack.extend([a])    
                             
                             h = storage_name.split('.')
@@ -604,14 +675,14 @@ def converse(file_dir_name):
                                         
                             if storage_name != '':
                                 
-                                script = storage[storage_name]
-                                labels = get_labels(script, key_words)
+                                script = stores[storage_name]
+                                xlabels = get_labels(script, key_words)
                                 trys = {}      
-                                     
-                            msg_idx = labels[destination]
+                                        
+                            msg_idx = stores[destination]
                             continue
 
-                        case 'IF':      # IF q1 LESS_THAN 6 STOP AFTER 2 TRYS
+                        case 'IF':      # IF sn compare [6] [STOP AFTER 2 TRYS]
                                                         
                             def xxx(msg_idx, threshold, score, evaluate, max_trys, script):
                                 if type(threshold) != type(score):
@@ -628,19 +699,19 @@ def converse(file_dir_name):
                                 return check_retry(ret_val, msg_idx, max_trys, script)
                             
                             data1 =\
-                                _line.L1 if _line.L1 not in storage\
-                                         else get_text(storage[_line.L1])
+                                _line.L1 if _line.L1 not in stores\
+                                            else get_text(stores[_line.L1])
                                 
                             data3 =\
-                                _line.L3 if _line.L3 not in storage\
-                                         else get_text(storage[_line.L3])
+                                _line.L3 if _line.L3 not in stores\
+                                            else get_text(stores[_line.L3])
                             
                             match _line.L2:
                                 
                                 case 'IN' | 'NOT_IN': 
                                     
                                     max_retrys = 0 if _line.L6 == '' else int(_line.L6)
-                                     
+                                        
                                     msg_idx = xxx(msg_idx, data1, data3, cmp[_line.L2], max_retrys, script)
 
                                 case 'NOT_EQUAL' | 'EQUAL' | 'MORE_THAN' | 'LESS_THAN':
@@ -656,47 +727,23 @@ def converse(file_dir_name):
                                     msg_idx = xxx(msg_idx, threshold, score, cmp[_line.L2], max_retrys, script)
 
                                 case 'NO' | 'NOT_NO' | 'YES' | 'NOT_YES': 
-             
+                
                                     max_retrys = 0 if _line.L5 == '' else int(_line.L5)  
                                     data1 = data1.split('\n')[0].upper()
-                                     
+                                        
                                     msg_idx = xxx(msg_idx, data1, 'YES' if 'YES' in _line.L2 else 'NO', cmp[_line.L2], max_retrys, script)
 
                                 case _ :
-                                      
-                                      logger.error(F'invalid compare skill {_line.L2} {msg_idx}:{line}')
-                                      return 
-                                  
-                                                       
-                        case 'IMPORT':  # IMPORT code/sub_convo.txt AS util
-                            
-                            fn = os.path.join(file_dir_name,_line.L1)
-                            with open(fn, "r") as f:
-                                new_stuff = f.readlines()
-                                
-                            storage_name = _line.L3
-                            
-                            storage[storage_name] = new_stuff
-                            
-                            if not link_check(storage[storage_name],key_words,file_dir_name): 
-                                return
-
-                            for i,nn in enumerate(storage[storage_name]):
-                                storage[storage_name][i] = nn.replace('TEAM1', team1).replace('TEAM2', team2)
-
-                            new_labels = get_labels(storage[storage_name],key_words)
-                
-                            storage[f'{storage_name}.labels'] = new_labels
-                            storage[f'{storage_name}.file_path'] = fn
-                
-                            msg_idx += 1
-                            continue
-
+                                        
+                                        logger.error(F'invalid compare skill {_line.L2} {msg_idx}:{line}')
+                                        return 
+                                    
+                                                        
                         case 'PROMPT':  # PROMPT LLM_MODEL
                             _prompt = ''
                             llm_model = _line.L1
-                      
-                        case 'MODEL' :
+                        
+                        case 'MODEL' :  # MODEL skill AS sn
                             
                             skill = _line.L1
                             name = _line.L3
@@ -704,7 +751,7 @@ def converse(file_dir_name):
                             found = False
                             for x in stuff['models']:
                                 if x['area_expert'] == skill:
-                                    storage[name] = make_model(x, file_dir_name)
+                                    stores[name] = make_model(x, file_dir_name)
                                     found = True
                                     break
                                     
@@ -713,30 +760,25 @@ def converse(file_dir_name):
                                 return                     
 
                 # if its not a line label
-                elif line[0] not in labels:
+                elif line[0] not in stores:
                     
                     # if we're making a prompt
                     if _prompt != None:
-                         
+                            
                         _prompt += script[msg_idx].strip()
                         
                     # else this can be thought of aa comments in the script 
-            
-            if msg_idx == -1: return
                     
             msg_idx = goto_idx if goto_idx != -1 else msg_idx + 1
 
-        if len(call_stack) != 0:
-            script,trys,msg_idx,labels = call_stack.pop() 
-        else:
-            carry_on = False
-            
-    history_fn = our_fn.replace('.json','.history.txt')
-    fl_s = open(history_fn,'w')
-      
-    for h in history:
-        fl_s.write(h[0] + '\n')
-        
+        if len(call_stack) == 0: break
+    
+        script,trys,msg_idx = call_stack.pop() 
+
+    # write history file        
+    history_fn = our_fn.replace('.json', '.history.txt')
+    fl_s = open(history_fn, 'w')
+    for h in history: fl_s.write(h[0] + '\n')
     fl_s.close()
        
 def main(file_directory):

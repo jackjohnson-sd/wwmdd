@@ -98,7 +98,7 @@ def ask_claude(prompt,system_prompt,example_game,continue_prompt, file_directory
         
         # messages are state less.  
         # i.e. no memory this is it.
-            
+             
         the_responce = ''        
         
         the_responce = stream_claude(

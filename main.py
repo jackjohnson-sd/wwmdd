@@ -108,6 +108,8 @@ def get_args():
     # debug and other stuff we don't tell about
     parser.add_argument("-with", help=argparse.SUPPRESS)
     parser.add_argument("-wait", "-w", nargs=1, help=argparse.SUPPRESS)
+    parser.add_argument("-cnt", nargs=1, help=argparse.SUPPRESS)
+    
     parser.add_argument("-combo", "-cb", nargs="+", help=argparse.SUPPRESS)
     parser.add_argument("-trim", help=argparse.SUPPRESS)
     parser.add_argument("-console", help=argparse.SUPPRESS)
@@ -191,6 +193,7 @@ def set_args(args):
     if args.it              != None:    settings.defaults.set("SAVE_IMAGE_TYPE", args.it[0])
     if args.test_players    != None:    settings.defaults.set("TEST_PLAYERS", args.test_players)
     if args.wait            != None:    settings.defaults.set("PLOT_WAIT", int(args.wait[0]))
+    if args.cnt             != None:    settings.defaults.set("COUNT", int(args.cnt[0]))
     
     if args.team            != None:    settings.defaults.set("TEAM", args.team)
     if args.subplots        != None:    settings.defaults.set("PARTS", args.subplots)

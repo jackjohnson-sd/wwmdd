@@ -1,17 +1,17 @@
 import os
-import google.generativeai as genai
-genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-from google.generativeai import caching
 import datetime
 import time
 import json
-
 from collections import namedtuple
 
 from loguru import logger
+import google.generativeai as genai
+genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
+from google.generativeai import caching
 
-from utils import get_file_names,filter_by_extension,shrink_this
 import utils
+from utils import get_file_names,filter_by_extension
+
 
 _parts = namedtuple('_parts','CMD,L1,L2,L3,L4,L5,L6')
 
@@ -38,7 +38,6 @@ def more_than(a,b): return a > b
 def less_than(a,b): return a < b
 def has_this(a,b):  return a in b
 def not_has_this(a,b): return not a in b
-
 
 key_words = {
     
@@ -85,37 +84,60 @@ def do_tokens(file_directory):
         resp = token_count(prompt)
         logger.info(f"{resp.total_tokens:<10} tokens from {fn}")
 
+def get_files_for_cache(files, file_dir_name, cache_file_spec, args):
 
-def make_model(config, file_path):
+    try:
+        #     in dest directory, if so skip   
+        args['FILEDIR'] = file_dir_name
+        for line in cache_file_spec:
+            for arg in args: line = line.replace(arg,args[arg])
+            import subprocess
+            import sys
+            logger.info(f'{line}')
+            subprocess.run(line.split(' '), stderr=sys.stderr, stdout=sys.stdout)
+
+        return files
+
+    except Exception as ex:
+        logger.error(f' getting cache files {file_dir_name} {ex}')
+        return None
+    
+def make_model(config, file_path, args):
 
     cached_name     = config['name']
-    file_dir_name   = os.path.join(file_path,config['cached_dir'])
+    file_dir        = os.path.join(file_path,config['cached_dir'])
     cache_ttl       = config['ttl']
     llm_model       = config['model']
     system_prompt   = config['system_prompt']
-     
+    cache_file_src = config['cache_file_src']
     
     cached_files = []
 
-    if os.path.isdir(file_dir_name):
+    if os.path.isdir(file_dir):
         try:
-            cwd = os.path.join(os.getcwd(), file_dir_name)
-            # files = time_sorted(cwd,file_dir_name)
+            cwd = os.path.join(os.getcwd(), file_dir)
             files = [
                 os.path.join(cwd, f)
                 for f in os.listdir(cwd)
                 if os.path.isfile(os.path.join(cwd, f))
             ]
         except:
-            logger.error("sorted file error")
+            logger.error(" file error")
     else:
-        cached_name = [file_dir_name]
+        cached_name = [file_dir]
 
     if len(files) == 0:
-        logger.debug(f"{cached_name} NO files found ... {file_dir_name}")
+        logger.debug(f"{cached_name} NO files found ... {file_dir}")
 
     else:
-        logger.info(f'{cached_name} model {llm_model}, {file_dir_name} {len(files)} files.')
+    
+        files = get_files_for_cache(files, file_dir, cache_file_src, args)
+        
+        if files is None:
+            logger.error(f"loading cache files. {cached_name} model {llm_model}, {file_dir} ")
+            return None
+        
+        logger.info(f'{cached_name} model {llm_model}, {file_dir} {len(files)} files.')
 
         for filename in files:
 
@@ -133,22 +155,27 @@ def make_model(config, file_path):
             cached_files.extend([genai.get_file(cached_file.name)])
 
     if len(cached_files) == 0:
-        logger.error(f"no cached_files in {file_dir_name}")
+        logger.error(f"no cached_files in {file_dir}")
         return None
 
-    cache = caching.CachedContent.create(
-        model= llm_model,
-        display_name = cached_name,  # used to identify the cache
-        system_instruction = system_prompt,
-        contents = cached_files,
-        ttl = datetime.timedelta(minutes=cache_ttl),
-    )
+    try:
+        cache = caching.CachedContent.create(
+            model= llm_model,
+            display_name = cached_name,  # used to identify the cache
+            system_instruction = system_prompt,
+            contents = cached_files,
+            ttl = datetime.timedelta(minutes=cache_ttl),
+        )
 
-    # mak model the uses created cache.
-    model = genai.GenerativeModel.from_cached_content(cached_content=cache)
-    
-    return model
+        # mak model the uses created cache.
+        model = genai.GenerativeModel.from_cached_content(cached_content=cache)
         
+        return model
+   
+    except Exception as ex:
+        logger.error(f'gemini model generation {ex}') 
+        return None
+           
 trys = {}
 
 """
@@ -282,8 +309,8 @@ def get_script(fn, key_words, stuff, file_dir_name):
             new_script = f.readlines()
 
         for i,nn in enumerate(new_script):
-            for arg in stuff['script']['args']:
-                new_script[i] = new_script[i].replace(arg, stuff['script']['args'][arg])
+            for arg in stuff['args']:
+                new_script[i] = new_script[i].replace(arg, stuff['args'][arg])
         
         l_abels = get_labels(new_script, key_words) # places to call or goto in scripts
 
@@ -751,7 +778,11 @@ def converse(file_dir_name):
                             found = False
                             for x in stuff['models']:
                                 if x['area_expert'] == skill:
-                                    stores[name] = make_model(x, file_dir_name)
+                                    
+                                    t = make_model(x, file_dir_name,stuff['args'])
+                                    if t is None: return 
+                                    
+                                    stores[name] = t
                                     found = True
                                     break
                                     

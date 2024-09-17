@@ -5,7 +5,16 @@
         "name"  :"creator",
         "area_expert" : "PBPs",
         "model" :"models/gemini-1.5-flash-001",
+
+  
+        "cache_file_src" : [
+            "./w.sh -s web -t TEAM1vTEAM2 -d 2024-01-01 2024-05-01 -cnt 2 -m csv box -f FILEDIR",
+            "./w.sh -s web -t TEAM1 -d 2024-01-01 2024-05-01 -cnt 2 -m csv box -f FILEDIR",
+            "./w.sh -s web -t TEAM2 -d 2024-01-01 2024-05-01 -cnt 2 -m csv box -f FILEDIR"
+        ],
+
         "cached_dir" :"creator_cache", 
+
         "ttl"   : 15,
         "system_prompt" : [
             "You are assisting the worlds most renowned sports announcer.",
@@ -18,7 +27,12 @@
         "name"  : "critic",
         "area_expert" : "SUBs",
         "model" : "models/gemini-1.5-flash-001",
-        "cache_file_spec" : "3 pbp stints boxscores, 2 head_to_head",
+        "cache_file_src" : [
+            "./w.sh -s web -t TEAM1vTEAM2 -d 2024-01-01 2024-05-01 -cnt 2 -m stints -f FILEDIR",
+            "./w.sh -s web -t TEAM1 -d 2024-01-01 2024-05-01 -cnt 2 -m stints -f FILEDIR",
+            "./w.sh -s web -t TEAM2 -d 2024-01-01 2024-05-01 -cnt 2 -m stints -f FILEDIR"
+        ],
+        
         "cached_dir" : "sub_critic_cache", 
         "ttl"   : 15,
         "system_prompt" : [
@@ -28,24 +42,26 @@
     },
 
     {
-        "name"  : "foul_critic",
-        "area_expert" : "FOULs",
+        "name"  : "TBD",
+        "area_expert" : "",
         "model" : "models/gemini-1.5-flash-001",
-        "cached_dir" : "FOUL_critic_cache", 
+        "cache_file_src" : "",
+        "cached_dir" : "_cache", 
         "ttl"   : 15,
         "system_prompt" : [
-            "You are a senior basketball analyst. Your job is to answer questions about about",
-            " when players play given the play by play data provided. " 
+            "",
+            "" 
             ]
     }
     ],
 
-   "script": {
+    "args":{
+        "TEAM1" : "MIA",
+        "TEAM2" : "ATL",
+        "FILEDIR" : "TBD"
+    },
 
-        "args":{
-            "TEAM1" : "MIA",
-            "TEAM2" : "ATL"
-        },
+   "script": {
 
         "file_name":"convo.txt"
     }

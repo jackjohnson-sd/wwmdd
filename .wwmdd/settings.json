@@ -34,10 +34,11 @@
     , "DBG"             : false
     , "TEST_PLAYERS"    : []
     
+
     , "TEAM"            : ["OKC"]
     , "START_DAY"       : "2024-04-29" 
     , "STOP_DAY"        : "2024-04-29"
-
+    , "COUNT"           : -1
     , "SOURCE"          : "GEMINI:tests/gemini_test_A"
  
     , "bSOURCE"     : "FILE:llm/llm_training_data/csv"

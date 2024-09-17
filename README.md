@@ -1,4 +1,8 @@
 Please Read
+
+SEPT 16  -- convo.txt works, broken during 
+            weak effort at consolidation of 
+            checks before executions
 SEPT 10  -- script works for 4 quarter collection, added SHOW,
             has pre-run syntax check.  
             definition of 'Mark Script' folllows in this document

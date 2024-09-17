@@ -58,6 +58,7 @@ def main(team=None, start=None, stop=None):
     _TEAMS      = defaults.get("TEAM")      # OKC
     _START_DAY  = defaults.get("START_DAY") # 2023-01-01
     _STOP_DAY   = defaults.get("STOP_DAY")  # 2023-04-20
+    _COUNT      = defaults.get("COUNT")     # -1
 
     # I think this is static (i.e)
     teams = nba.get_teams()
@@ -88,16 +89,27 @@ def main(team=None, start=None, stop=None):
         else:
 
             try:
-
+                if _START_DAY == 'last':
+                    if _COUNT == -1:
+                        logger.error('cnt parameter required with \'last\'')
+                        break
+                    import datetime
+                    current_date = datetime.date.today()
+                    _STOP_DAY = current_date.strftime("%Y-%m-%d")
+                    _START_DAY = (current_date - datetime.timedelta(days=365)).strftime("%Y-%m-%d")
+                # else: _COUNT = 1
+                
                 _team_id = nba.getTeamID(teams, team)
                 games = nba.get_games_game_id(_team_id, _START_DAY, _STOP_DAY)
 
-            except:
-                logger.error(f"{team} not in NBA? or timeout problem? or date issue")
+            except Exception as ex:
+                logger.error(f"{team} not in NBA? or timeout problem? or date issue {ex}")
                 continue
 
             prev = None
-            for i, game_data in games.iterrows():
+           
+            g = games if _COUNT == -1 or opp_team != None else games.head(_COUNT)
+            for i, game_data in g.iterrows():
                 
                 if WEB_CACHE:
 
@@ -113,7 +125,7 @@ def main(team=None, start=None, stop=None):
                 if opp_team != None:
                     if opp_team not in game_data.matchup:
                         continue
-
+                        
                 if type(prev) != type(None):
 
                     if game_data.game_date == prev.game_date:

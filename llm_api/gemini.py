@@ -94,7 +94,16 @@ def get_files_for_cache(files, file_dir_name, cache_file_spec, args):
             import subprocess
             import sys
             logger.info(f'{line}')
-            subprocess.run(line.split(' '), stderr=sys.stderr, stdout=sys.stdout)
+            res = subprocess.run(line.split(' '),capture_output=True, text=True)
+            print(res.stdout)
+
+
+        cwd = os.path.join(os.getcwd(), file_dir_name)
+        files = [
+            os.path.join(cwd, f)
+            for f in os.listdir(cwd)
+            if os.path.isfile(os.path.join(cwd, f))
+        ]
 
         return files
 

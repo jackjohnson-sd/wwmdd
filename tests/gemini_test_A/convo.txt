@@ -4,9 +4,8 @@ IMPORT code/sub_convo.txt AS util
 this is TeAM1 TEAM1 TeEAM2 TEAM2 ...
 
 MODEL SUBs AS CRITIC
-RETURN
-
 MODEL PBPs AS CREATOR
+
 
 PROMPT CREATOR 
     Create a fictional yet realistic play by play, in csv format, 

@@ -88,7 +88,7 @@ def get_args():
             
         help = "What to do?  ",
     )
-    parser.add_argument("-source", "-s", default='web',choices=["web", "csv"], help="where to get the data")
+    parser.add_argument("-source", "-s", default='web',choices=["web", "csv","gemini"], help="where to get the data")
     parser.add_argument("-file", "-f", metavar='file',help="where to save or get file(s)")
     parser.add_argument("-team","-t", nargs="+", metavar='team', help="team to use in game search")
     parser.add_argument("-date","-d", metavar='date(s)', nargs="+", help="date or date range")
@@ -268,8 +268,14 @@ if __name__ == '__main__':
 
                 logger.info((" ").join(_args[1]))
                 
-                if args.make != None:
-
+                if args.make == None:
+                    do_gemini = "gemini" in args.source
+                    
+                    if do_gemini:
+                        if args.file:
+                            gemini.main([args.file])
+        
+                else:
                     stints      = "stints" in args.make
                     olaps       = "overlaps" in args.make
                     plot        = "plot" in args.make
@@ -316,7 +322,7 @@ if __name__ == '__main__':
 
                     if not do_csv:
                         do_web = True
-
+                    
                     if do_web:
 
                         if args.date == None: logger.error("-date required")

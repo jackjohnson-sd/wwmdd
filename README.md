@@ -1,5 +1,10 @@
 Please Read
 
+SEPT 18  -- sh call to get cache files errors caused by. 
+                rm -f required for no errors when no files remove
+                AND works if pass complete line vs. NO Wwork if line is array split on ' ' 
+            ./w.sh -s gemini -f tests/gemini_test_A works
+
 SEPT 16  -- convo.txt works, broken during 
             weak effort at consolidation of 
             checks before executions

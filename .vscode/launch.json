@@ -15,6 +15,15 @@
             
         },
        {
+            "name": "GEMINI CMD_LINE",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "args" : ["-s","gemini","-f","tests/gemini_test_A"]
+            
+        },
+       {
             "name": "-cnt, last test",
             "type": "debugpy",
             "request": "launch",

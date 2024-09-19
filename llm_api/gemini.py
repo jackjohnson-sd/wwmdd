@@ -1,20 +1,23 @@
 import os
+import subprocess
+
 import datetime
 import time
 import json
 from collections import namedtuple
 
 from loguru import logger
+
 import google.generativeai as genai
-genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 from google.generativeai import caching
 
 import utils
 from utils import get_file_names,filter_by_extension
 
-
 _parts = namedtuple('_parts','CMD,L1,L2,L3,L4,L5,L6')
 
+
+genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 MODEL = "models/gemini-1.5-flash-latest"
 
 """
@@ -89,18 +92,19 @@ def get_files_for_cache(files, file_dir_name, cache_file_spec, args):
     try:
         #     in dest directory, if so skip   
         args['FILEDIR'] = file_dir_name
+        
         for line in cache_file_spec:
+            
             for arg in args: line = line.replace(arg,args[arg])
-            import subprocess
-            import sys
             logger.info(f'{line}')
+            
             res = subprocess.run(args=[line],check=True,capture_output=True, shell=True,text=True)
-            # pwd
-            print(res.stdout)
-            print(res.stderr)
-
+            
+            if res.stdout != '': print(res.stdout)
+            if res.stderr != '': print(res.stderr)
 
         cwd = os.path.join(os.getcwd(), file_dir_name)
+
         files = [
             os.path.join(cwd, f)
             for f in os.listdir(cwd)
@@ -120,7 +124,7 @@ def make_model(config, file_path, args):
     cache_ttl       = config['ttl']
     llm_model       = config['model']
     system_prompt   = config['system_prompt']
-    cache_file_src = config['cache_file_src']
+    cache_file_src  = config['cache_file_src']
     
     cached_files = []
 
@@ -529,13 +533,11 @@ def converse(file_dir_name):
         if script is None: return
     except Exception as ex:
         
-        logger.error(f'troubles loading {our_fn} {fn} {ex}')
+        logger.error(f'troubles loading {file_dir_name} {fn} {ex}')
         return
             
     history = []    # every prompt to and response from and LLM
-    
-    # storage = {}    # labels,llm,file contents, prompt responces
-            
+                
     _prompt = None  # a string we're build to become a prompt for an LLM
 
     llm_model = None # the LLM we prompt to return a response

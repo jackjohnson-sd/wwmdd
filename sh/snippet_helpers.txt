@@ -73,8 +73,9 @@ select * where a12 == 'Marcus Morris Sr.' || a10 == 'Marcus Morris Sr.' || a8 ==
 
 select * where a12 == 'Brook Lopez' || a10 == 'Brook Lopez' || a8 == 'Brook Lopez' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
-select * where a12 == '' || a10 == '' || a8 == '' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
+select * where a12 == 'Shai Gilgeous-Alexander' || a10 == 'Shai Gilgeous-Alexander' || a8 == 'Shai Gilgeous-Alexander' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
+select * where a12 == 'Marcus Morris Sr.' || a10 == 'Marcus Morris Sr.' || a8 == 'Marcus Morris Sr.' || a2 == 'STARTOFPERIOD' || a2 == 'ENDOFPERIOD'
 
 """"""""""  command line args tutorial """""""""" taken from readme.md """""""""
 

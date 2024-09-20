@@ -226,7 +226,8 @@ def get_sub_io_events_by_player(box):
                                 # if dsec == 2880:
                                 #     if oinks[oi_ - 1][0] != 'SUB.IN':
                                 #         continue
-                                
+
+                                # print(f'out {player}  {period_start_sec(dsec)}')           
                                 _sub_events_by_player[player].append(r_(
                                     ['OUT', period_start_sec(dsec), 
                                     'PCO, period change out']))
@@ -270,7 +271,11 @@ def get_sub_io_events_by_player(box):
                                         
                                         # if next oink same time as this, absorb this oink    
                                         if oinks[oi_ +  1][2] !=  oink[2]: 
-                                            _sub_events_by_player[player].pop()
+                                            #  _sub_events_by_player[player].pop()
+                                             _sub_events_by_player[player].append(r_(
+                                                ['IN', period_start_sec(dsec),
+                                                'first event non SUB' ]))
+
                                     else:
                                         
                                         # PCO'd more than one period ago
@@ -371,25 +376,25 @@ def sub_events_from_stints(game, game_stints):
         
     sub_events = []
     
-    for player,stints in game_stints.items():
-        stints_count = len(stints)
-        if stints_count > 1:
+    # for player,stints in game_stints.items():
+    #     stints_count = len(stints)
+    #     if stints_count > 1:
     
-            try :    
+    #         # try :    
             
-                for i in range(stints_count - 1,0,-1):
-                    s1 = stints[i-1]
-                    s2 = stints[i]
-                    s1_stop = s1[2]
-                    s2_start = s2[1]
-                    if s1_stop == s2_start:
-                        # extend s1 
-                        s1[2] = s2[2]  
-                        s1[0] += s2[0]        
-                        del stints[i]
-                        logger.trace(f'{player} consolidating adjacent stints {i+1} ')
-            except:
-                logger.error(f'{player} stints bad news') 
+            #     for i in range(stints_count - 1,0,-1):
+            #         s1 = stints[i-1]
+            #         s2 = stints[i]
+            #         s1_stop = s1[2]
+            #         s2_start = s2[1]
+            #         if s1_stop == s2_start:
+            #             # extend s1 
+            #             s1[2] = s2[2]  
+            #             s1[0] += s2[0]        
+            #             del stints[i]
+            #             logger.trace(f'{player} consolidating adjacent stints {i+1} ')
+            # except:
+            #     logger.error(f'{player} stints bad news') 
                            
     for player in game_stints.keys():
         

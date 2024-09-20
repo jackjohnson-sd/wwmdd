@@ -14,6 +14,10 @@
         - Any time a player stops playing another player from his team must start playing. 
           The only exception to this rule is at end of the game.
 
+        - All players who are start the period SUB in at the start
+
+        _ All players who are still in the game at the of period SUB out
+
     </SUB_event_information>
 
     <SUB_event_example>
@@ -76,3 +80,251 @@
         - the ‘pctimestring’ column value is ‘8:49’
         - the ‘player2_team_abbreviation’ column value is 'ATL'
     </FOUL_event_example>
+
+
+
+-----
+
+
+    <preamble_to_prompt>
+        Here is information about basketball game play-by-plays in CSV format. 
+        This information should be used in determining your answers to my upcoming questions. 
+        Hold off on providing any summaries and/or answers for now.
+        If your first answer has issues, try another approach.
+    </preamble_to_prompt>
+
+    <play-by-plays_in_CSV_format_information>
+        Play-by-plays describe the events in basketball games. 
+        Play-by-plays are in CSV format. 
+        CSV format, Comma Separated Values, uses commas as a delimiter between values.
+        In CSV formatted play-by-plays, the first row contains the column names separated by commas. 
+        The column names are the names of the values in the columns of a CSV row. 
+
+        In the case of basketball game play-by-plays, the column names are as follows:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+
+        The subsequent rows are called event rows.
+        Each event row describes an event in the game.
+
+        
+        .1. The first column's optional value is the event number.
+        Event numbers start at ‘0’ for the first event row.
+        The following rows use sequentially numbered values. 
+
+        .2. The second column is named ‘eventmsgtype’. 
+        Its value is an event that occurs during the game.
+        Eventmsgtype values are: STARTOFPERIOD, ENDOFPERIOD, TIMEOUT, SUB, JUMPBALL, 3POINT.ASSIST, 2POINT.ASSIST, 2POINTMISS,3POINTMISS, REBOUND, 2POINT, 3POINT, FOUL, STEAL, FTMAKE, FTMISS, STEAL.TURNOVER
+
+        .3. The third column is named ‘period’. 
+        Its value is a number that identifies the period the event occurs. 
+        Basketball games include at least 4 periods. 
+        Period values range from 1 - 4 and increase as the game progresses.
+
+        .4. The fourth column is named ‘pctimestring’.
+        Its value is the time remaining in the period when the event occurs..
+        It is formatted as minutes and seconds seperated by a colon.
+        Its value descends in seconds as the game progresses.
+        Its value is '12:00' at the start of each period. 
+        Its value is '0:00' at the end of each period. 
+        
+        For example, an event row with a pctimestring value of 7:29 occurs at 7 minutes and 29 seconds before the end of the period. 
+        For example, an event row with a pctimestring value of 7:29 occurs at 4 minutes and 31 seconds after the start of the period. 
+
+
+        .5. The fifth column is named ‘neutraldescription’.
+        Its value is a brief description of the event. 
+
+        .6. The sixth column is named ‘score’.
+        Its value is the two teams’ scores at the time of the event. 
+        The initial score value is ‘0 - 0’.
+        ‘x’ is a number that represents the away team’s score.
+        ‘y’ is a number that represents the home team’s score.
+
+        .7. The seventh column is named ‘scoremargin’.
+        Its value is the difference between the teams’ scores. 
+        Its value equals 'y' minus 'x'.
+
+        .8. The eighth column is named ‘player1_name’.
+        Its value is the name of a player involved in the event.
+
+        .9. The ninth column is named ‘player1_team_abbreviation’.
+        Its value is the name of the team of the ‘player1_name’ player. 
+
+        .10. The tenth column is named ‘player2_name’.
+        Its value is the name of a player involved in the event. 
+
+        .11. The eleventh column is named ‘player2_team_abbreviation’. 
+        Its value is the name of the team of the ‘player2_name’ player. 
+
+        .12. The twelfth column is named ‘player3_name’.
+        Its value is the name of a player involved in the event.
+
+        .13. The thirteenth column is named ‘player3_team_abbreviation’.
+        Its value is the name of the team of the ‘player3_name’ player. 
+    </play-by-plays_in_CSV_format_information>
+
+    <game_time_information>
+        Game_time refers to the time an event occurs in a basketball play-by-play.
+        
+        Game_time uses the 'period' and 'pctimestring' values to determine when an event occurs in a game. 
+        
+        Game_time values are expressed in seconds. 
+
+        A game begins with a game_time of 0 seconds.
+        Game_time increases by 1 second as each second of the game is played. 
+        A game ends with a game_time of 2880 seconds.
+        
+        Each period begins with a game_time of ('period value' minus 1) multiplied by 720 seconds. 
+        Each period ends with a game_time of period begin game_time plus 720 seconds.
+
+        This python code converts time from game_time format to period, pctimestring format:
+            # Define the function pms
+            def pms(_sec):  # p eriod m inute s econd
+                
+                q        = int(_sec / 720) + 1
+                s_into_q = int(_sec % 720)
+                m_into_q = s_into_q / 60
+                s_into_m = int(s_into_q % 60)
+                if s_into_m == 0: s_into_m = 60
+                if m_into_q == 0 and s_into_m == 60:
+                    m_into_q = 12
+                    q -= 1
+                s = f'{q},{int(12-m_into_q)}:{int(60-s_into_m):02d}'
+                return s
+    </game_time_information>
+
+    <SUB_event_information>
+        - ‘SUB’ in the ‘eventmsgtype’ column identifies this row as a SUB event row. 
+
+        - SUB_events state when a player starts of stops playing.
+        - The players playing status determins if they can have other game events.
+
+        - In a SUB event row, the ‘player2_name’ column player starts playing.
+        This player starts playing at the game_time calculated using the values in the 'period' and ‘pctimestring’ columns of that row. 
+        players particpate in all game eventmsgtype when they are playing
+        The exeception is they cannot have a SUB_event that lists them in player1_name 
+        since this would have then entering a game they are already in.
+
+        - In a SUB event row, the ‘player1_name’ column player ends playing.
+        This player ends playing at the game_time calculated using the values in the 'period' and ‘pctimestring’ columns of that row. 
+        A player not playing cannot particpate in other events, with the exception of SUB_event which has them start playing. 
+
+    </SUB_event_information>
+
+    <SUB_event_example>
+        Here is an example of SUB events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        88,SUB,1,3:31,SUB: Burks stops playing,22 - 15,-7,Alec Burks,DET,,,,
+        89,SUB,2,9:15,SUB: Livers starts,22 - 15,-7,,,Isaiah Livers,NYC,,
+            
+        In event row 88, Alec Burks (playing for DET) ends playing with 3 minutes and 31 seconds remaining in period 1.
+
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player1_name’ column value is ‘Alec Burks’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘3:31’
+        - the ‘player1_team_abbreviation’ column value is 'DET'
+
+        In event row 89, Isaiah Livers (playing for NYC) starts playing with 9 minutes and 15 seconds remaining in period 2.
+        
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘SUB’ 
+        - the ‘player2_name’ column value is ‘Isaiah Livers’
+        - the ‘period’ column value is '2'
+        - the ‘pctimestring’ column value is ‘9:15’
+        - the ‘player2_team_abbreviation’ column value is 'NYC'
+    </SUB_event_example>
+                                   
+    <stint_information>
+        - THIS IS MY CHANGE
+        - A stint refers to the time a player is playing (substituted in the game).
+        - Stint start time is the time a player starts playing.
+        - Stint end time is the time a player ends playing. 
+        - A stint duration is the stint end time minus the stint start time. 
+        - A player can play in multiple stints per period and game. 
+        - A stint is expressed as stint start, stint end, stint duration.
+        - Stints end at the end of the period for players in the game at the end of a period.
+        - Stints begin for players starting the period begin at the start of ther period.
+    </stint_information>
+
+    <stint_calculation_example>
+        SUB events in CSV format:
+        224,SUB,2,6:02,SUB: Bogdanovic starts playing,40 - 46,6,,,Bojan Bogdanovic,ATL,,
+
+        451,SUB,2,3:04,SUB: Bogdanovic stops playing,52 - 61,9,Bojan Bogdanovic,ATL,,,,
+
+        In event row 224, Bojan Bogdanovic starts playing. 
+        This is because:
+        - The ‘eventmsgtype’ column value is ‘SUB’
+        - The ‘player2_name’ column value is ‘Bojan Bogdanovic’ 
+
+        His stint start time is 1078 seconds (in game_time format).
+        This is because:
+        - The ‘period’ column value is ‘2’
+        - The ‘pctimestring’ column value is ‘6:02’
+        - Period, pctimestring to game_time:
+            Each period is 12 minutes * 60 seconds/minute = 720 seconds long.
+            The start of Period 2 is at 720 seconds.
+            6:02 remaining in Period 2 means (12 minutes - 6 minutes) * 60 seconds/minute - 2 seconds = 358 seconds have elapsed in Period 2.
+            Therefore, game time at the start of the stint is 720 seconds (Period 1) + 358 seconds (Period 2) = 1078 seconds.
+
+        In event row 451, Bojan Bogdanovic ends playing. 
+        This is because:
+        - The ‘eventmsgtype’ column value is ‘SUB’
+        - The ‘player1_name’ column value is ‘Bojan Bogdanovic’ 
+
+        His stint end time is 2336 seconds (in game_time format).
+        This is because:
+        - The ‘period’ column value is ‘2’
+        - The ‘pctimestring’ column value is ‘3:04’
+        - Period, pctimestring to game_time:
+            The start of Period 2 is at 720 seconds.
+            3:04 remaining in Period 2 means (12 minutes - 3 minutes) * 60 seconds/minute - 4 seconds = 536 seconds have elapsed in Period 4.
+            Therefore, game time at the end of the stint is 720 seconds (Periods 1) + 536 seconds (Period 2 offset) = 1256 seconds.
+
+        His stint duration is his stint end time minus his stint start time. 
+
+        1256 (Stint end time) – 1078 (Stint start time) = 222 seconds 
+
+        His stint duration is 178 seconds.
+    </stint_calculation_example>
+
+ 
+    <FOUL_event_information>
+        - ‘FOUL’ in the ‘eventmsgtype’ column identifies this row as a FOUL event row.
+
+        - In a FOUL event row, the ‘player1_name’ column player commits the foul.
+        player1_name is credited with committing the foul. 
+
+        - In a FOUL event row, the player named in the ‘player2_name’ column is the victim of player1_name's foul.
+        player2_name is not credited with committing the foul.  
+    </FOUL_event_information>
+
+    <FOUL_event_example>
+        Here is an example of FOUL events in CSV format:
+        ,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation
+        18,FOUL,1,8:49,Lively II OFF.Foul (P1) (M.Kallio),9 - 7,-2,Dereck Lively II,DAL,Clint Capela,ATL,,
+ 
+        In event row 18, Dereck Lively II (playing for DAL) committed the foul with 8 minutes and 49 seconds remaining in the first period.
+                
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player1_name’ column value is ‘Dereck Lively II’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player1_team_abbreviation’ column value is 'DAL'
+
+        player1_name is credited with the foul, which counts towards his and player1_team_abbreviation's foul counts.
+                
+        In event row 18, Clint Capela (playing for ATL) is the victim of player1_name's foul with 8 minutes and 49 seconds remaining in the first period.
+            
+        This is because: 
+        - the ‘eventmsgtype’ column value is ‘FOUL’ 
+        - the ‘player2_name’ column value is ‘Clint Capela’
+        - the ‘period’ column value is '1'
+        - the ‘pctimestring’ column value is ‘8:49’
+        - the ‘player2_team_abbreviation’ column value is 'ATL'
+    </FOUL_event_example>
+
+   

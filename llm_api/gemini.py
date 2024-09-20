@@ -6,7 +6,7 @@ from collections import namedtuple
 
 from loguru import logger
 import google.generativeai as genai
-genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
+genai.configure(api_key=os.environ["MYKEY"])
 from google.generativeai import caching
 
 import utils

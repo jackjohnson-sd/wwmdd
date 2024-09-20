@@ -9,6 +9,10 @@ from collections import namedtuple
 from loguru import logger
 
 import google.generativeai as genai
+<<<<<<< HEAD
+=======
+genai.configure(api_key=os.environ["MYKEY"])
+>>>>>>> 87c2b30faf7068f5bfb5e316e1492721af48f2a5
 from google.generativeai import caching
 
 import utils

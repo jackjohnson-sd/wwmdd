@@ -1,8 +1,7 @@
 {
     "models" : [
 
-    {
-        "name"  :"creator",
+    { "name"  :"creator",
         "area_expert" : "PBPs",
         "model" :"models/gemini-1.5-flash-001",
 
@@ -24,8 +23,7 @@
             ]
     },
 
-    {
-        "name"  : "critic",
+    { "name"  : "critic",
         "area_expert" : "SUBs",
         "model" : "models/gemini-1.5-flash-001",
         "cache_file_src" : [
@@ -45,8 +43,7 @@
             ]
     },
 
-    {
-        "name"  : "TBD",
+    { "name"  : "TBD",
         "area_expert" : "",
         "model" : "models/gemini-1.5-flash-001",
         "cache_file_src" : "",
@@ -65,8 +62,6 @@
         "FILEDIR" : "TBD"
     },
 
-   "script": {
-
-        "file_name":"convo.txt"
+   "script": { "file_name":"convo.txt"
     }
 }

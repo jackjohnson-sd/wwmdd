@@ -9,10 +9,6 @@ from collections import namedtuple
 from loguru import logger
 
 import google.generativeai as genai
-<<<<<<< HEAD
-=======
-genai.configure(api_key=os.environ["MYKEY"])
->>>>>>> 87c2b30faf7068f5bfb5e316e1492721af48f2a5
 from google.generativeai import caching
 
 import utils
@@ -23,6 +19,22 @@ _parts = namedtuple('_parts','CMD,L1,L2,L3,L4,L5,L6')
 
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 MODEL = "models/gemini-1.5-flash-latest"
+
+
+def token_count(source):
+    model = genai.GenerativeModel(MODEL)
+    return model.count_tokens(source)
+
+def do_tokens(file_directory):
+
+    files = get_file_names(file_directory)
+
+    for fn in files:
+        with open(fn, "r") as content_file:
+            prompt = content_file.read()
+        resp = token_count(prompt)
+        logger.info(f"{resp.total_tokens:<10} tokens from {fn}")
+
 
 """
     models/gemini-1.0-pro
@@ -76,33 +88,24 @@ cmp = {
     'NOT_YES'   :not_has_this
 }
 
-
-def token_count(source):
-    model = genai.GenerativeModel(MODEL)
-    return model.count_tokens(source)
-
-def do_tokens(file_directory):
-
-    files = get_file_names(file_directory)
-
-    for fn in files:
-        with open(fn, "r") as content_file:
-            prompt = content_file.read()
-        resp = token_count(prompt)
-        logger.info(f"{resp.total_tokens:<10} tokens from {fn}")
-
 def get_files_for_cache(files, file_dir_name, cache_file_spec, args):
 
     try:
-        #     in dest directory, if so skip   
+        # in dest directory, if so skip   
         args['FILEDIR'] = file_dir_name
         
         for line in cache_file_spec:
             
-            for arg in args: line = line.replace(arg,args[arg])
+            for arg in args: line = line.replace(arg, args[arg])
             logger.info(f'{line}')
             
-            res = subprocess.run(args=[line],check=True,capture_output=True, shell=True,text=True)
+            res = subprocess.run(
+                args    = [line],
+                check   =   True,
+                capture_output = True, 
+                shell   =   True,
+                cwd     =   os.getcwd(),
+                text    =   True)
             
             if res.stdout != '': print(res.stdout)
             if res.stderr != '': print(res.stderr)
@@ -178,15 +181,16 @@ def make_model(config, file_path, args):
         return None
 
     try:
+        
         cache = caching.CachedContent.create(
-            model= llm_model,
+            model        = llm_model,
             display_name = cached_name,  # used to identify the cache
             system_instruction = system_prompt,
-            contents = cached_files,
-            ttl = datetime.timedelta(minutes=cache_ttl),
+            contents     = cached_files,
+            ttl          = datetime.timedelta(minutes=cache_ttl),
         )
 
-        # mak model the uses created cache.
+        # making model that uses the created cache.
         model = genai.GenerativeModel.from_cached_content(cached_content=cache)
         
         return model
@@ -215,7 +219,6 @@ RETURN                 - return execution to CALL-ing script
 CALL    ln             - pushes application context unto stack 
 GOTO    ln             - shift execution to label name
 
-
 IF sn  EQUAL      val1 STOP AFTER max_trys TRYS
 IF sn  NOT_EQUAL  val1 STOP AFTER max_trys TRYS
 
@@ -231,27 +234,34 @@ IF sn  NOT_NO          STOP AFTER max_trys TRYS
 IF sn  YES             STOP AFTER max_trys TRYS
 IF sn  NOT_YES         STOP AFTER max_trys TRYS
 
+'IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
 
 MODEL   skill   AS sn
 PROMPT  sn             - collect lines until next blank
 
-'IN','NOT_IN','NOT_EQUAL','EQUAL','MORE_THAN','LESS_THAN','NO','NOT_NO','YES','NOT_YES']
 """
-
 
 def next_blank_line(msg_idx,script):
     
-    bcount = 1
+    # taking into account that IF's and PROMPT's
+    # take 1 additional line per occurence
+    # i.e. IF's and PROMPT's end when they see a blank line
+    
+    bcount = 1      # how many blank lines we need to see before quiting
     
     while bcount > 0: 
+        
         msg_idx +=1
         
-        if msg_idx  >= len(script): 
+        if msg_idx  >= len(script):
+            # our script has ended without a blank 
             return msg_idx
         
         next_line = script[msg_idx].strip() 
-        if next_line == '':
-            bcount -= 1
+        
+        # found a blank we might be done
+        if next_line == '' : bcount -= 1
+        
         elif next_line[0:6] == 'PROMPT':
             bcount += 1
         elif next_line[0:3] == 'IF':
@@ -260,7 +270,8 @@ def next_blank_line(msg_idx,script):
     return msg_idx - 1
 
 def check_retry(ret_val, idx, max_trys, script):
-
+    
+    # our IFs have an option feild to say try N time then quit
     if idx not in trys.keys(): trys[idx] = 0
 
     if ret_val == 'SUCCESS' or ret_val:
@@ -278,6 +289,10 @@ def check_retry(ret_val, idx, max_trys, script):
     return idx
 
 def get_score(data):
+    
+    # based on the prompt requesting a value in 0 to 10 range
+    # we parse it out to get the number
+    
     try :
         
         d = data.split('\n')[0].upper()
@@ -300,6 +315,7 @@ def get_score(data):
     return score[0]
 
 def get_text(the_response):
+    # may no longer be needed, model stored elsewhere
     # we store the reponse from the AI or text from python code
     # so figure out which this is
     if isinstance(the_response,int):   return str(the_response)
@@ -308,7 +324,13 @@ def get_text(the_response):
     return the_response.text.copy()   
     
 def get_labels(script, key_words):
-   
+    
+    # search through script to find ALL_CAPS,
+    # starting in the first column,
+    # words that are not KEYWORDs
+    # call them labels and save the index into
+    # the script where they LABEL occured
+    
     labels = {}
     for i,a in enumerate(script):
         b = a.strip().split(' ')
@@ -316,6 +338,7 @@ def get_labels(script, key_words):
             if b[0] not in key_words:
                 if script[i+1].strip().split(' ')[0] in key_words:
                     labels[b[0]] = i
+
     return labels
 
 stores = {}
@@ -505,7 +528,6 @@ def link_check(script, key_words, file_dir_name, stuff):
         if not src_check(l[1],i,line): 
             return False
 
-
     return True
 
 def converse(file_dir_name):
@@ -528,13 +550,13 @@ def converse(file_dir_name):
         with open(our_fn, "r") as f:
             stuff = json.load(f)
 
-
         # load the script.txt file in this config
         fn = os.path.join(file_dir_name, stuff['script']['file_name'])   
         
         script = get_script(fn, key_words, stuff, file_dir_name)
     
         if script is None: return
+        
     except Exception as ex:
         
         logger.error(f'troubles loading {file_dir_name} {fn} {ex}')
@@ -831,4 +853,8 @@ def converse(file_dir_name):
        
 def main(file_directory):
     
-    converse(file_directory[0])
+    try:
+        converse(file_directory[0])
+    except Exception as ex:
+        logger.error(f'proccessing {file_directory[0]}\n, {ex}')
+        return 

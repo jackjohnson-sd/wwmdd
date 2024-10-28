@@ -6,7 +6,6 @@ this is TeAM1 TEAM1 TeEAM2 TEAM2 ...
 MODEL PBPs AS CREATOR
 MODEL SUBs AS CRITIC
 
-
 PROMPT CREATOR 
     Create a fictional yet realistic play by play, in csv format, 
     for the first period of a game between TEAM1 and TEAM2.  
@@ -37,8 +36,6 @@ IF CRITIC.RESPONSE LESS_THAN 8 STOP AFTER 2 TRYS
 COPY CREATOR.RESPONSE q1
 
 SAVE q1 AS Q1_GSWvOKC20240414.csv
-
-RETURN
 
 PROMPT CREATOR 
     INSERT q1

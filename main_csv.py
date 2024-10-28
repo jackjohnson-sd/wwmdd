@@ -49,7 +49,7 @@ def main(file_dir_name):
         
         df = pd.read_csv(filename, keep_default_na=False)
         
-        if df.shape[1] != 13: continue
+        if df.shape[1] not in [13,14]: continue
             
         try:
             n = os.path.basename(filename)[-12:-4]
@@ -96,6 +96,7 @@ def main(file_dir_name):
             'player1_name', 'player1_team_abbreviation',
             'player2_name', 'player2_team_abbreviation',
             'player3_name', 'player3_team_abbreviation',
+            'wctimestring',
         ]
         
         oink = []
@@ -128,7 +129,8 @@ def main(file_dir_name):
                     r.score, r.scoremargin,
                     r.player1_name, r.player1_team_abbreviation,
                     r.player2_name, r.player2_team_abbreviation,
-                    r.player3_name, r.player3_team_abbreviation,]
+                    r.player3_name, r.player3_team_abbreviation,
+                    r.wctimestring]
                     
                     if type(prev) != type(None):
                         

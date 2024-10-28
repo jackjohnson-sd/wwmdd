@@ -1,0 +1,549 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation,wctimestring
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (9:44 PM EST),0 - 0,0,,,,,,,9:44 PM
+1,SUB,1,12:00,SUB: Holmgren Starts playing.,0 - 0,0,,,Chet Holmgren,OKC,,,
+2,SUB,1,12:00,SUB: Williams Starts playing.,0 - 0,0,,,Jalen Williams,OKC,,,
+3,SUB,1,12:00,SUB: Dort Starts playing.,0 - 0,0,,,Luguentz Dort,OKC,,,
+4,SUB,1,12:00,SUB: Gilgeous-Alexander Starts playing.,0 - 0,0,,,Shai Gilgeous-Alexander,OKC,,,
+5,SUB,1,12:00,SUB: Giddey Starts playing.,0 - 0,0,,,Josh Giddey,OKC,,,
+6,SUB,1,12:00,SUB: Valančiūnas Starts playing.,0 - 0,0,,,Jonas Valančiūnas,NOP,,,
+7,SUB,1,12:00,SUB: Ingram Starts playing.,0 - 0,0,,,Brandon Ingram,NOP,,,
+8,SUB,1,12:00,SUB: Murphy Starts playing.,0 - 0,0,,,Trey Murphy III,NOP,,,
+9,SUB,1,12:00,SUB: McCollum Starts playing.,0 - 0,0,,,CJ McCollum,NOP,,,
+10,SUB,1,12:00,SUB: Jones Starts playing.,0 - 0,0,,,Herbert Jones,NOP,,,
+11,JUMPBALL,1,12:00,Jump Ball Holmgren vs. Valanciunas: Tip to Ingram,0 - 0,0,Chet Holmgren,OKC,Jonas Valančiūnas,NOP,Brandon Ingram,NOP,9:44 PM
+12,2POINT,1,11:36,Valanciunas Driving Reverse Layup (2 PTS),2 - 0,-2,Jonas Valančiūnas,NOP,,,,,9:44 PM
+13,FOUL,1,11:36,Jal. Williams P.FOUL (P1.T1) (J.Capers),2 - 0,-2,Jalen Williams,OKC,Jonas Valančiūnas,NOP,,,9:44 PM
+14,FTMAKE,1,11:36,Valanciunas Free Throw 1 of 1 (3 PTS),3 - 0,-3,Jonas Valančiūnas,NOP,,,,,9:45 PM
+15,3POINTMISS,1,11:17,MISS Dort 27' 3PT Jump Shot,3 - 0,-3,Luguentz Dort,OKC,,,,,9:45 PM
+16,REBOUND,1,11:13,Ingram REBOUND (Off:0 Def:1),3 - 0,-3,Brandon Ingram,NOP,,,,,9:45 PM
+17,2POINTMISS,1,11:08,MISS Ingram 3' Driving Layup,3 - 0,-3,Brandon Ingram,NOP,,,,,9:45 PM
+18,REBOUND,1,11:06,Valanciunas REBOUND (Off:1 Def:0),3 - 0,-3,Jonas Valančiūnas,NOP,,,,,9:46 PM
+19,2POINT,1,11:06,Valanciunas Tip Layup Shot (5 PTS),5 - 0,-5,Jonas Valančiūnas,NOP,,,,,9:46 PM
+20,3POINT.ASSIST,1,10:56,Holmgren 26' 3PT Jump Shot (3 PTS) (Jal. Williams 1 AST),5 - 3,-2,Chet Holmgren,OKC,Jalen Williams,OKC,,,9:46 PM
+21,2POINTMISS,1,10:43,MISS Valanciunas 15' Jump Bank Shot,5 - 3,-2,Jonas Valančiūnas,NOP,,,,,9:46 PM
+22,REBOUND,1,10:41,Jal. Williams REBOUND (Off:0 Def:1),5 - 3,-2,Jalen Williams,OKC,,,,,9:46 PM
+23,2POINTMISS,1,10:35,MISS Dort 15' Jump Shot,5 - 3,-2,Luguentz Dort,OKC,,,,,9:46 PM
+24,REBOUND,1,10:31,Valanciunas REBOUND (Off:1 Def:1),5 - 3,-2,Jonas Valančiūnas,NOP,,,,,9:46 PM
+25,2POINT.ASSIST,1,10:17,Valanciunas 5' Floating Jump Shot (7 PTS) (Murphy III 1 AST),7 - 3,-4,Jonas Valančiūnas,NOP,Trey Murphy III,NOP,,,9:46 PM
+26,2POINT,1,10:06,Jal. Williams 14' Pullup Jump Shot (2 PTS),7 - 5,-2,Jalen Williams,OKC,,,,,9:46 PM
+27,2POINT.ASSIST,1,9:44,Valanciunas 6' Layup (9 PTS) (Murphy III 2 AST),9 - 5,-4,Jonas Valančiūnas,NOP,Trey Murphy III,NOP,,,9:47 PM
+28,FOUL,1,9:37,Murphy III S.FOUL (P1.T1) (J.Capers),9 - 5,-4,Trey Murphy III,NOP,Chet Holmgren,OKC,,,9:47 PM
+29,FTMAKE,1,9:37,Holmgren Free Throw 1 of 2 (4 PTS),9 - 6,-3,Chet Holmgren,OKC,,,,,9:47 PM
+30,FTMAKE,1,9:37,Holmgren Free Throw 2 of 2 (5 PTS),9 - 7,-2,Chet Holmgren,OKC,,,,,9:48 PM
+31,2POINT.ASSIST,1,9:19,Valanciunas 3' Driving Layup (11 PTS) (Jones 1 AST),11 - 7,-4,Jonas Valančiūnas,NOP,Herbert Jones,NOP,,,9:48 PM
+32,2POINTMISS,1,9:07,MISS Gilgeous-Alexander 14' Turnaround Jump Shot,11 - 7,-4,Shai Gilgeous-Alexander,OKC,,,,,9:48 PM
+33,REBOUND,1,9:05,McCollum REBOUND (Off:0 Def:1),11 - 7,-4,CJ McCollum,NOP,,,,,9:48 PM
+34,2POINTMISS,1,8:58,MISS McCollum 16' Pullup Jump Shot,11 - 7,-4,CJ McCollum,NOP,,,,,9:48 PM
+35,REBOUND,1,8:55,Holmgren REBOUND (Off:0 Def:1),11 - 7,-4,Chet Holmgren,OKC,,,,,9:48 PM
+36,3POINT.ASSIST,1,8:46,Dort 3PT Step Back Jump Shot (3 PTS) (Holmgren 1 AST),11 - 10,-1,Luguentz Dort,OKC,Chet Holmgren,OKC,,,9:49 PM
+37,3POINTMISS,1,8:32,MISS Jones 25' 3PT Step Back Jump Shot,11 - 10,-1,Herbert Jones,NOP,,,,,9:49 PM
+38,REBOUND,1,8:29,Giddey REBOUND (Off:0 Def:1),11 - 10,-1,Josh Giddey,OKC,,,,,9:49 PM
+39,2POINT,1,8:24,Giddey 2' Running Finger Roll Layup (2 PTS),11 - 12,1,Josh Giddey,OKC,,,,,9:49 PM
+40,3POINT.ASSIST,1,7:58,Jones 3PT Jump Shot (3 PTS) (Ingram 1 AST),14 - 12,-2,Herbert Jones,NOP,Brandon Ingram,NOP,,,9:49 PM
+41,3POINT.ASSIST,1,7:43,Holmgren 26' 3PT Jump Shot (8 PTS) (Jal. Williams 2 AST),14 - 15,1,Chet Holmgren,OKC,Jalen Williams,OKC,,,9:50 PM
+42,FOUL,1,7:23,Ingram OFF.Foul (P1) (T.Ford),14 - 15,1,Brandon Ingram,NOP,Jalen Williams,OKC,,,9:50 PM
+43,STEAL,1,7:23,Ingram Offensive Foul Turnover (P1.T1),14 - 15,1,Brandon Ingram,NOP,,,,,9:50 PM
+44,TIMEOUT,1,7:23,THUNDER Timeout: Regular (Full 1 Short 0),14 - 15,1,,,,,,,9:50 PM
+45,3POINTMISS,1,7:10,MISS Jal. Williams 3PT Jump Shot,14 - 15,1,Jalen Williams,OKC,,,,,9:54 PM
+46,REBOUND,1,7:06,Murphy III REBOUND (Off:0 Def:1),14 - 15,1,Trey Murphy III,NOP,,,,,9:54 PM
+47,STEAL.TURNOVER,1,6:57,Dort STEAL (1 STL)  McCollum Bad Pass Turnover (P1.T2),14 - 15,1,CJ McCollum,NOP,Luguentz Dort,OKC,,,9:54 PM
+48,3POINT.ASSIST,1,6:52,Dort 26' 3PT Running Jump Shot (6 PTS) (Gilgeous-Alexander 1 AST),14 - 18,4,Luguentz Dort,OKC,Shai Gilgeous-Alexander,OKC,,,9:55 PM
+49,2POINT.ASSIST,1,6:32,Ingram 15' Jump Shot (2 PTS) (McCollum 1 AST),16 - 18,2,Brandon Ingram,NOP,CJ McCollum,NOP,,,9:55 PM
+50,3POINT.ASSIST,1,6:16,Holmgren 25' 3PT Jump Shot (11 PTS) (Dort 1 AST),16 - 21,5,Chet Holmgren,OKC,Luguentz Dort,OKC,,,9:55 PM
+51,2POINTMISS,1,5:56,MISS Valanciunas 11' Turnaround Fadeaway Shot,16 - 21,5,Jonas Valančiūnas,NOP,,,,,9:55 PM
+52,REBOUND,1,5:54,Giddey REBOUND (Off:0 Def:2),16 - 21,5,Josh Giddey,OKC,,,,,9:55 PM
+53,2POINTMISS,1,5:48,MISS Giddey 7' Driving Floating Jump Shot,16 - 21,5,Josh Giddey,OKC,,,,,9:56 PM
+54,REBOUND,1,5:46,McCollum REBOUND (Off:0 Def:2),16 - 21,5,CJ McCollum,NOP,,,,,9:56 PM
+55,3POINTMISS,1,5:40,MISS Murphy III 24' 3PT Jump Shot,16 - 21,5,Trey Murphy III,NOP,,,,,9:56 PM
+56,REBOUND,1,5:37,Giddey REBOUND (Off:0 Def:3),16 - 21,5,Josh Giddey,OKC,,,,,9:56 PM
+57,2POINTMISS,1,5:21,MISS Dort 3' Reverse Layup,16 - 21,5,Luguentz Dort,OKC,,,,,9:56 PM
+58,REBOUND,1,5:19,Holmgren REBOUND (Off:1 Def:1),16 - 21,5,Chet Holmgren,OKC,,,,,9:56 PM
+59,2POINT,1,5:18,Holmgren 2' Putback Layup (13 PTS),16 - 23,7,Chet Holmgren,OKC,,,,,9:56 PM
+60,SUB,1,5:09,SUB: Holmgren Stops playing.,16 - 23,7,Chet Holmgren,OKC,,,,,
+61,SUB,1,5:09,SUB: Giddey Stops playing.,16 - 23,7,Josh Giddey,OKC,,,,,
+62,SUB,1,5:09,SUB: Williams Starts playing.,16 - 23,7,,,Jaylin Williams,OKC,,,
+63,SUB,1,5:09,SUB: Joe Starts playing.,16 - 23,7,,,Isaiah Joe,OKC,,,
+64,SUB,1,5:09,SUB: Valančiūnas Stops playing.,16 - 23,7,Jonas Valančiūnas,NOP,,,,,
+65,SUB,1,5:09,SUB: Ingram Stops playing.,16 - 23,7,Brandon Ingram,NOP,,,,,
+66,SUB,1,5:09,SUB: Nance Starts playing.,16 - 23,7,,,Larry Nance Jr.,NOP,,,
+67,SUB,1,5:09,SUB: Alvarado Starts playing.,16 - 23,7,,,Jose Alvarado,NOP,,,
+68,TIMEOUT,1,5:09,Pelicans Timeout: Regular (Reg.1 Short 0),16 - 23,7,,,,,,,9:56 PM
+69,3POINTMISS,1,5:00,MISS McCollum 26' 3PT Jump Shot,16 - 23,7,CJ McCollum,NOP,,,,,10:00 PM
+70,REBOUND,1,4:57,Murphy III REBOUND (Off:1 Def:1),16 - 23,7,Trey Murphy III,NOP,,,,,10:00 PM
+71,3POINTMISS,1,4:53,MISS McCollum 3PT Jump Shot,16 - 23,7,CJ McCollum,NOP,,,,,10:00 PM
+72,REBOUND,1,4:50,Nance Jr. REBOUND (Off:1 Def:0),16 - 23,7,Larry Nance Jr.,NOP,,,,,10:00 PM
+73,2POINTMISS,1,4:37,MISS Murphy III 9' Driving Floating Jump Shot,16 - 23,7,Trey Murphy III,NOP,,,,,10:00 PM
+74,REBOUND,1,4:35,Jal. Williams REBOUND (Off:0 Def:2),16 - 23,7,Jalen Williams,OKC,,,,,10:00 PM
+75,3POINTMISS,1,4:13,MISS Jay. Williams 25' 3PT Jump Shot,16 - 23,7,Jaylin Williams,OKC,,,,,10:01 PM
+76,REBOUND,1,4:11,Nance Jr. REBOUND (Off:1 Def:1),16 - 23,7,Larry Nance Jr.,NOP,,,,,10:01 PM
+77,3POINTMISS,1,4:00,MISS Murphy III 25' 3PT Step Back Jump Shot,16 - 23,7,Trey Murphy III,NOP,,,,,10:01 PM
+78,REBOUND,1,3:59,Nance Jr. REBOUND (Off:2 Def:1),16 - 23,7,Larry Nance Jr.,NOP,,,,,10:01 PM
+79,2POINT,1,3:57,Nance Jr. 1' Putback Dunk (2 PTS),18 - 23,5,Larry Nance Jr.,NOP,,,,,10:01 PM
+80,3POINTMISS,1,3:33,MISS Gilgeous-Alexander 24' 3PT Pullup Jump Shot,18 - 23,5,Shai Gilgeous-Alexander,OKC,,,,,10:02 PM
+81,REBOUND,1,3:30,McCollum REBOUND (Off:0 Def:3),18 - 23,5,CJ McCollum,NOP,,,,,10:02 PM
+82,3POINTMISS,1,3:22,MISS Murphy III 25' 3PT Jump Shot,18 - 23,5,Trey Murphy III,NOP,,,,,10:02 PM
+83,REBOUND,1,3:18,Nance Jr. REBOUND (Off:3 Def:1),18 - 23,5,Larry Nance Jr.,NOP,,,,,10:02 PM
+84,SUB,1,3:16,SUB: Williams Stops playing.,18 - 23,5,Jalen Williams,OKC,,,,,
+85,SUB,1,3:16,SUB: Dort Stops playing.,18 - 23,5,Luguentz Dort,OKC,,,,,
+86,SUB,1,3:16,SUB: Hayward Starts playing.,18 - 23,5,,,Gordon Hayward,OKC,,,
+87,SUB,1,3:16,SUB: Wallace Starts playing.,18 - 23,5,,,Cason Wallace,OKC,,,
+88,FOUL,1,3:16,Dort P.FOUL (P1.T2) (T.Ford),18 - 23,5,Luguentz Dort,OKC,Trey Murphy III,NOP,,,10:02 PM
+89,3POINTMISS,1,3:09,MISS Jones 3PT Jump Shot,18 - 23,5,Herbert Jones,NOP,,,,,10:03 PM
+90,REBOUND,1,3:05,Hayward REBOUND (Off:0 Def:1),18 - 23,5,Gordon Hayward,OKC,,,,,10:03 PM
+91,3POINT,1,2:59,Gilgeous-Alexander 26' 3PT Step Back Jump Shot (3 PTS),18 - 26,8,Shai Gilgeous-Alexander,OKC,,,,,10:03 PM
+92,SUB,1,2:42,SUB: Ingram Starts playing.,18 - 26,8,,,Brandon Ingram,NOP,,,
+93,SUB,1,2:42,SUB: McCollum Stops playing.,18 - 26,8,CJ McCollum,NOP,,,,,
+94,FOUL,1,2:42,Joe S.FOUL (P1.T3) (J.Capers),18 - 26,8,Isaiah Joe,OKC,Herbert Jones,NOP,,,10:03 PM
+95,FTMAKE,1,2:42,Jones Free Throw 1 of 2 (4 PTS),19 - 26,7,Herbert Jones,NOP,,,,,10:03 PM
+96,FTMAKE,1,2:42,Jones Free Throw 2 of 2 (5 PTS),20 - 26,6,Herbert Jones,NOP,,,,,10:04 PM
+97,2POINT,1,2:24,Gilgeous-Alexander 10' Fadeaway Jumper (5 PTS),20 - 28,8,Shai Gilgeous-Alexander,OKC,,,,,10:04 PM
+98,2POINTMISS,1,2:12,MISS Alvarado 7' Driving Floating Jump Shot,20 - 28,8,Jose Alvarado,NOP,,,,,10:04 PM
+99,REBOUND,1,2:10,Wallace REBOUND (Off:0 Def:1),20 - 28,8,Cason Wallace,OKC,,,,,10:04 PM
+100,2POINTMISS,1,1:59,MISS Gilgeous-Alexander 5' Driving Layup,20 - 28,8,Shai Gilgeous-Alexander,OKC,,,,,10:05 PM
+101,REBOUND,1,1:57,Ingram REBOUND (Off:0 Def:2),20 - 28,8,Brandon Ingram,NOP,,,,,10:05 PM
+102,SUB,1,1:52,SUB: Jones Stops playing.,20 - 28,8,Herbert Jones,NOP,,,,,
+103,SUB,1,1:52,SUB: Marshall Starts playing.,20 - 28,8,,,Naji Marshall,NOP,,,
+104,FOUL,1,1:52,Ingram Offensive Charge Foul (P2) (T.Ford),20 - 28,8,Brandon Ingram,NOP,Jaylin Williams,OKC,,,10:05 PM
+105,STEAL,1,1:52,Ingram Offensive Foul Turnover (P2.T3),20 - 28,8,Brandon Ingram,NOP,,,,,10:05 PM
+106,2POINT,1,1:36,Gilgeous-Alexander 12' Step Back Jump Shot (7 PTS),20 - 30,10,Shai Gilgeous-Alexander,OKC,,,,,10:05 PM
+107,FOUL,1,1:32,Nance Jr. OFF.Foul (P1) (P.Fraher),20 - 30,10,Larry Nance Jr.,NOP,Isaiah Joe,OKC,,,10:05 PM
+108,STEAL,1,1:32,Nance Jr. Offensive Foul Turnover (P1.T4),20 - 30,10,Larry Nance Jr.,NOP,,,,,10:05 PM
+109,FOUL,1,1:22,Nance Jr. P.FOUL (P2.T2) (P.Fraher),20 - 30,10,Larry Nance Jr.,NOP,Shai Gilgeous-Alexander,OKC,,,10:06 PM
+110,3POINT.ASSIST,1,1:07,Joe 26' 3PT Jump Shot (3 PTS) (Wallace 1 AST),20 - 33,13,Isaiah Joe,OKC,Cason Wallace,OKC,,,10:07 PM
+111,SUB,1,0:53,SUB: Holmgren Starts playing.,20 - 33,13,,,Chet Holmgren,OKC,,,
+112,SUB,1,0:53,SUB: Williams Starts playing.,20 - 33,13,,,Jalen Williams,OKC,,,
+113,SUB,1,0:53,SUB: Williams Stops playing.,20 - 33,13,Jaylin Williams,OKC,,,,,
+114,SUB,1,0:53,SUB: Wallace Stops playing.,20 - 33,13,Cason Wallace,OKC,,,,,
+115,FOUL,1,0:53,Wallace S.FOUL (P1.T4) (T.Ford),20 - 33,13,Cason Wallace,OKC,Brandon Ingram,NOP,,,10:07 PM
+116,FTMAKE,1,0:53,Ingram Free Throw 1 of 2 (3 PTS),21 - 33,12,Brandon Ingram,NOP,,,,,10:07 PM
+117,FTMAKE,1,0:53,Ingram Free Throw 2 of 2 (4 PTS),22 - 33,11,Brandon Ingram,NOP,,,,,10:08 PM
+118,2POINT.ASSIST,1,0:31,Holmgren 10' Pullup Jump Shot (15 PTS) (Jal. Williams 3 AST),22 - 35,13,Chet Holmgren,OKC,Jalen Williams,OKC,,,10:08 PM
+119,SUB,1,0:10,SUB: Ingram Stops playing.,22 - 35,13,Brandon Ingram,NOP,,,,,
+120,SUB,1,0:10,SUB: Jones Starts playing.,22 - 35,13,,,Herbert Jones,NOP,,,
+121,STEAL,1,0:10,Ingram Out of Bounds Lost Ball Turnover (P3.T5),22 - 35,13,Brandon Ingram,NOP,,,,,10:09 PM
+122,SUB,1,0:00,SUB: Holmgren Stops playing.,22 - 35,13,Chet Holmgren,OKC,,,,,
+123,SUB,1,0:00,SUB: Williams Stops playing.,22 - 35,13,Jalen Williams,OKC,,,,,
+124,SUB,1,0:00,SUB: Gilgeous-Alexander Stops playing.,22 - 35,13,Shai Gilgeous-Alexander,OKC,,,,,
+125,SUB,1,0:00,SUB: Hayward Stops playing.,22 - 35,13,Gordon Hayward,OKC,,,,,
+126,SUB,1,0:00,SUB: Joe Stops playing.,22 - 35,13,Isaiah Joe,OKC,,,,,
+127,SUB,1,0:00,SUB: Murphy Stops playing.,22 - 35,13,Trey Murphy III,NOP,,,,,
+128,SUB,1,0:00,SUB: Jones Stops playing.,22 - 35,13,Herbert Jones,NOP,,,,,
+129,SUB,1,0:00,SUB: Nance Stops playing.,22 - 35,13,Larry Nance Jr.,NOP,,,,,
+130,SUB,1,0:00,SUB: Alvarado Stops playing.,22 - 35,13,Jose Alvarado,NOP,,,,,
+131,SUB,1,0:00,SUB: Marshall Stops playing.,22 - 35,13,Naji Marshall,NOP,,,,,
+132,ENDOFPERIOD,1,0:00,End of 1st Period (10:10 PM EST),22 - 35,13,,,,,,,10:10 PM
+133,STARTOFPERIOD,2,12:00,Start of 2nd Period (10:13 PM EST),22 - 35,13,,,,,,,10:13 PM
+134,SUB,2,12:00,SUB: Holmgren Starts playing.,22 - 35,13,,,Chet Holmgren,OKC,,,
+135,SUB,2,12:00,SUB: Williams Starts playing.,22 - 35,13,,,Jalen Williams,OKC,,,
+136,SUB,2,12:00,SUB: Dort Starts playing.,22 - 35,13,,,Luguentz Dort,OKC,,,
+137,SUB,2,12:00,SUB: Hayward Starts playing.,22 - 35,13,,,Gordon Hayward,OKC,,,
+138,SUB,2,12:00,SUB: Wiggins Starts playing.,22 - 35,13,,,Aaron Wiggins,OKC,,,
+139,SUB,2,12:00,SUB: Valančiūnas Starts playing.,22 - 35,13,,,Jonas Valančiūnas,NOP,,,
+140,SUB,2,12:00,SUB: Ingram Starts playing.,22 - 35,13,,,Brandon Ingram,NOP,,,
+141,SUB,2,12:00,SUB: McCollum Starts playing.,22 - 35,13,,,CJ McCollum,NOP,,,
+142,SUB,2,12:00,SUB: Alvarado Starts playing.,22 - 35,13,,,Jose Alvarado,NOP,,,
+143,SUB,2,12:00,SUB: Marshall Starts playing.,22 - 35,13,,,Naji Marshall,NOP,,,
+144,2POINT.ASSIST,2,11:40,Holmgren 1' Cutting Dunk Shot (17 PTS) (Dort 2 AST),22 - 37,15,Chet Holmgren,OKC,Luguentz Dort,OKC,,,10:13 PM
+145,FOUL,2,11:27,Holmgren P.FOUL (P1.T1) (P.Fraher),22 - 37,15,Chet Holmgren,OKC,Jonas Valančiūnas,NOP,,,10:14 PM
+146,3POINT.ASSIST,2,11:23,McCollum 3PT Jump Shot (3 PTS) (Alvarado 1 AST),25 - 37,12,CJ McCollum,NOP,Jose Alvarado,NOP,,,10:14 PM
+147,3POINT.ASSIST,2,11:07,Dort 24' 3PT Jump Shot (9 PTS) (Jal. Williams 4 AST),25 - 40,15,Luguentz Dort,OKC,Jalen Williams,OKC,,,10:14 PM
+148,2POINT,2,10:55,McCollum 8' Driving Floating Jump Shot (5 PTS),27 - 40,13,CJ McCollum,NOP,,,,,10:15 PM
+149,FOUL,2,10:37,Marshall P.FOUL (P1.T1) (T.Ford),27 - 40,13,Naji Marshall,NOP,Jalen Williams,OKC,,,10:15 PM
+150,2POINT.ASSIST,2,10:28,Holmgren 1' Dunk (19 PTS) (Jal. Williams 5 AST),27 - 42,15,Chet Holmgren,OKC,Jalen Williams,OKC,,,10:15 PM
+151,3POINTMISS,2,10:17,MISS Alvarado 27' 3PT Jump Shot,27 - 42,15,Jose Alvarado,NOP,,,,,10:16 PM
+152,REBOUND,2,10:14,Hayward REBOUND (Off:0 Def:2),27 - 42,15,Gordon Hayward,OKC,,,,,10:16 PM
+153,STEAL.TURNOVER,2,10:11,Jal. Williams Bad Pass Turnover (P1.T1)  McCollum STEAL (1 STL),27 - 42,15,Jalen Williams,OKC,CJ McCollum,NOP,,,10:16 PM
+154,2POINTMISS.BLOCK,2,9:58,Holmgren BLOCK (1 BLK)  MISS Valanciunas 3' Driving Hook Shot,27 - 42,15,Jonas Valančiūnas,NOP,,,Chet Holmgren,OKC,10:16 PM
+155,REBOUND,2,9:56,Jal. Williams REBOUND (Off:0 Def:3),27 - 42,15,Jalen Williams,OKC,,,,,10:16 PM
+156,2POINTMISS,2,9:50,MISS Holmgren 19' Running Pull-Up Jump Shot,27 - 42,15,Chet Holmgren,OKC,,,,,10:16 PM
+157,REBOUND,2,9:48,Ingram REBOUND (Off:0 Def:3),27 - 42,15,Brandon Ingram,NOP,,,,,10:16 PM
+158,3POINTMISS,2,9:30,MISS Marshall 26' 3PT Jump Shot,27 - 42,15,Naji Marshall,NOP,,,,,10:16 PM
+159,REBOUND,2,9:25,Holmgren REBOUND (Off:1 Def:2),27 - 42,15,Chet Holmgren,OKC,,,,,10:16 PM
+160,SUB,2,9:17,SUB: Giddey Starts playing.,27 - 42,15,,,Josh Giddey,OKC,,,
+161,SUB,2,9:17,SUB: Hayward Stops playing.,27 - 42,15,Gordon Hayward,OKC,,,,,
+162,FOUL,2,9:17,Marshall S.FOUL (P2.T2) (J.Capers),27 - 42,15,Naji Marshall,NOP,Chet Holmgren,OKC,,,10:17 PM
+163,FTMISS,2,9:17,MISS Holmgren Free Throw 1 of 2,27 - 42,15,Chet Holmgren,OKC,,,,,10:17 PM
+164,REBOUND,2,9:17,THUNDER Rebound,27 - 42,15,,,,,,,10:17 PM
+165,FTMAKE,2,9:17,Holmgren Free Throw 2 of 2 (20 PTS),27 - 43,16,Chet Holmgren,OKC,,,,,10:18 PM
+166,2POINTMISS,2,9:01,MISS Valanciunas 9' Floating Jump Shot,27 - 43,16,Jonas Valančiūnas,NOP,,,,,10:18 PM
+167,REBOUND,2,8:58,Wiggins REBOUND (Off:0 Def:1),27 - 43,16,Aaron Wiggins,OKC,,,,,10:18 PM
+168,2POINT.ASSIST,2,8:40,Wiggins 2' Cutting Finger Roll Layup Shot (2 PTS) (Jal. Williams 6 AST),27 - 45,18,Aaron Wiggins,OKC,Jalen Williams,OKC,,,10:18 PM
+169,SUB,2,8:38,SUB: Murphy Starts playing.,27 - 45,18,,,Trey Murphy III,NOP,,,
+170,SUB,2,8:38,SUB: Jones Starts playing.,27 - 45,18,,,Herbert Jones,NOP,,,
+171,SUB,2,8:38,SUB: Alvarado Stops playing.,27 - 45,18,Jose Alvarado,NOP,,,,,
+172,SUB,2,8:38,SUB: Marshall Stops playing.,27 - 45,18,Naji Marshall,NOP,,,,,
+173,TIMEOUT,2,8:38,Pelicans Timeout: Regular (Reg.2 Short 0),27 - 45,18,,,,,,,10:18 PM
+174,FOUL,2,8:21,Valanciunas OFF.Foul (P1) (J.Capers),27 - 45,18,Jonas Valančiūnas,NOP,Chet Holmgren,OKC,,,10:22 PM
+175,STEAL,2,8:21,Valanciunas Offensive Foul Turnover (P1.T6),27 - 45,18,Jonas Valančiūnas,NOP,,,,,10:22 PM
+176,3POINTMISS,2,8:05,MISS Holmgren 27' 3PT Jump Shot,27 - 45,18,Chet Holmgren,OKC,,,,,10:23 PM
+177,REBOUND,2,8:02,Valanciunas REBOUND (Off:1 Def:2),27 - 45,18,Jonas Valančiūnas,NOP,,,,,10:23 PM
+178,2POINT.ASSIST,2,7:52,Valanciunas 3' Turnaround Hook Shot (13 PTS) (McCollum 2 AST),29 - 45,16,Jonas Valančiūnas,NOP,CJ McCollum,NOP,,,10:23 PM
+179,3POINTMISS,2,7:39,MISS Giddey 26' 3PT Jump Shot,29 - 45,16,Josh Giddey,OKC,,,,,10:23 PM
+180,REBOUND,2,7:37,Valanciunas REBOUND (Off:1 Def:3),29 - 45,16,Jonas Valančiūnas,NOP,,,,,10:23 PM
+181,3POINTMISS,2,7:30,MISS McCollum 28' 3PT Jump Shot,29 - 45,16,CJ McCollum,NOP,,,,,10:24 PM
+182,SUB,2,7:28,SUB: Holmgren Stops playing.,29 - 45,16,Chet Holmgren,OKC,,,,,
+183,SUB,2,7:28,SUB: Williams Stops playing.,29 - 45,16,Jalen Williams,OKC,,,,,
+184,SUB,2,7:28,SUB: Dort Stops playing.,29 - 45,16,Luguentz Dort,OKC,,,,,
+185,SUB,2,7:28,SUB: Gilgeous-Alexander Starts playing.,29 - 45,16,,,Shai Gilgeous-Alexander,OKC,,,
+186,SUB,2,7:28,SUB: Williams Starts playing.,29 - 45,16,,,Jaylin Williams,OKC,,,
+187,SUB,2,7:28,SUB: Wallace Starts playing.,29 - 45,16,,,Cason Wallace,OKC,,,
+188,SUB,2,7:28,SUB: Ingram Stops playing.,29 - 45,16,Brandon Ingram,NOP,,,,,
+189,SUB,2,7:28,SUB: Marshall Starts playing.,29 - 45,16,,,Naji Marshall,NOP,,,
+190,REBOUND,2,7:28,Pelicans Rebound,29 - 45,16,,,,,,,10:24 PM
+191,FOUL,2,7:28,Holmgren L.B.FOUL (P2.T2) (J.Capers),29 - 45,16,Chet Holmgren,OKC,Jonas Valančiūnas,NOP,,,10:24 PM
+192,2POINT,2,7:14,McCollum 13' Pullup Jump Shot (7 PTS),31 - 45,14,CJ McCollum,NOP,,,,,10:24 PM
+193,2POINT.ASSIST,2,6:53,Giddey 5' Floating Jump Shot (4 PTS) (Jay. Williams 1 AST),31 - 47,16,Josh Giddey,OKC,Jaylin Williams,OKC,,,10:25 PM
+194,FOUL,2,6:40,Giddey S.FOUL (P1.T3) (P.Fraher),31 - 47,16,Josh Giddey,OKC,Jonas Valančiūnas,NOP,,,10:25 PM
+195,FTMAKE,2,6:40,Valanciunas Free Throw 1 of 2 (14 PTS),32 - 47,15,Jonas Valančiūnas,NOP,,,,,10:25 PM
+196,FTMAKE,2,6:40,Valanciunas Free Throw 2 of 2 (15 PTS),33 - 47,14,Jonas Valančiūnas,NOP,,,,,10:26 PM
+197,STEAL.TURNOVER,2,6:26,Giddey Lost Ball Turnover (P1.T2)  McCollum STEAL (2 STL),33 - 47,14,Josh Giddey,OKC,CJ McCollum,NOP,,,10:26 PM
+198,SUB,2,6:12,SUB: Williams Starts playing.,33 - 47,14,,,Jalen Williams,OKC,,,
+199,SUB,2,6:12,SUB: Giddey Stops playing.,33 - 47,14,Josh Giddey,OKC,,,,,
+200,SUB,2,6:12,SUB: Joe Starts playing.,33 - 47,14,,,Isaiah Joe,OKC,,,
+201,SUB,2,6:12,SUB: Wiggins Stops playing.,33 - 47,14,Aaron Wiggins,OKC,,,,,
+202,2POINT.ASSIST,2,6:12,McCollum 2' Driving Reverse Layup (9 PTS) (Valanciunas 1 AST),35 - 47,12,CJ McCollum,NOP,Jonas Valančiūnas,NOP,,,10:26 PM
+203,TIMEOUT,2,6:12,THUNDER Timeout: Regular (Full 2 Short 0),35 - 47,12,,,,,,,10:26 PM
+204,3POINTMISS,2,5:49,MISS Gilgeous-Alexander 30' 3PT Pullup Jump Shot,35 - 47,12,Shai Gilgeous-Alexander,OKC,,,,,10:30 PM
+205,REBOUND,2,5:46,Valanciunas REBOUND (Off:1 Def:4),35 - 47,12,Jonas Valančiūnas,NOP,,,,,10:30 PM
+206,3POINT.ASSIST,2,5:37,Jones 3PT Jump Shot (8 PTS) (McCollum 3 AST),38 - 47,9,Herbert Jones,NOP,CJ McCollum,NOP,,,10:30 PM
+207,2POINT,2,5:14,Gilgeous-Alexander 15' Fadeaway Jumper (9 PTS),38 - 49,11,Shai Gilgeous-Alexander,OKC,,,,,10:31 PM
+208,FOUL,2,4:56,Wallace S.FOUL (P2.T4) (T.Ford),38 - 49,11,Cason Wallace,OKC,Naji Marshall,NOP,,,10:31 PM
+209,FTMAKE,2,4:56,Marshall Free Throw 1 of 2 (1 PTS),39 - 49,10,Naji Marshall,NOP,,,,,10:32 PM
+210,FTMAKE,2,4:56,Marshall Free Throw 2 of 2 (2 PTS),40 - 49,9,Naji Marshall,NOP,,,,,10:32 PM
+211,2POINT.ASSIST,2,4:35,Jal. Williams 9' Pullup Jump Shot (4 PTS) (Joe 1 AST),40 - 51,11,Jalen Williams,OKC,Isaiah Joe,OKC,,,10:32 PM
+212,3POINT.ASSIST,2,4:20,Murphy III 27' 3PT Step Back Jump Shot (3 PTS) (Valanciunas 2 AST),43 - 51,8,Trey Murphy III,NOP,Jonas Valančiūnas,NOP,,,10:32 PM
+213,2POINT.ASSIST,2,3:59,Jal. Williams 6' Driving Layup (6 PTS) (Gilgeous-Alexander 2 AST),43 - 53,10,Jalen Williams,OKC,Shai Gilgeous-Alexander,OKC,,,10:33 PM
+214,2POINTMISS,2,3:37,MISS McCollum 7' Driving Floating Bank Jump Shot,43 - 53,10,CJ McCollum,NOP,,,,,10:33 PM
+215,REBOUND,2,3:35,Gilgeous-Alexander REBOUND (Off:0 Def:1),43 - 53,10,Shai Gilgeous-Alexander,OKC,,,,,10:33 PM
+216,3POINTMISS,2,3:32,MISS Wallace 3PT Running Jump Shot,43 - 53,10,Cason Wallace,OKC,,,,,10:33 PM
+217,REBOUND,2,3:30,Wallace REBOUND (Off:1 Def:1),43 - 53,10,Cason Wallace,OKC,,,,,10:33 PM
+218,3POINT.ASSIST,2,3:26,Joe 25' 3PT Jump Shot (6 PTS) (Wallace 2 AST),43 - 56,13,Isaiah Joe,OKC,Cason Wallace,OKC,,,10:33 PM
+219,SUB,2,3:09,SUB: Valančiūnas Stops playing.,43 - 56,13,Jonas Valančiūnas,NOP,,,,,
+220,SUB,2,3:09,SUB: Ingram Starts playing.,43 - 56,13,,,Brandon Ingram,NOP,,,
+221,SUB,2,3:09,SUB: Nance Starts playing.,43 - 56,13,,,Larry Nance Jr.,NOP,,,
+222,SUB,2,3:09,SUB: Marshall Stops playing.,43 - 56,13,Naji Marshall,NOP,,,,,
+223,FOUL,2,3:09,McCollum L.B.FOUL (P1.T3) (J.Capers),43 - 56,13,CJ McCollum,NOP,Jalen Williams,OKC,,,10:34 PM
+224,STEAL,2,3:09,McCollum Lost Ball Turnover (P2.T7),43 - 56,13,CJ McCollum,NOP,,,,,10:34 PM
+225,2POINT,2,2:57,Gilgeous-Alexander 22' Step Back Jump Shot (11 PTS),43 - 58,15,Shai Gilgeous-Alexander,OKC,,,,,10:34 PM
+226,2POINT,2,2:43,Murphy III 1' Layup (5 PTS),45 - 58,13,Trey Murphy III,NOP,,,,,10:34 PM
+227,3POINT,2,2:24,Gilgeous-Alexander 25' 3PT Step Back Jump Shot (14 PTS),45 - 61,16,Shai Gilgeous-Alexander,OKC,,,,,10:35 PM
+228,STEAL.TURNOVER,2,2:02,Gilgeous-Alexander STEAL (1 STL)  Murphy III Lost Ball Turnover (P1.T8),45 - 61,16,Trey Murphy III,NOP,Shai Gilgeous-Alexander,OKC,,,10:35 PM
+229,2POINTMISS.BLOCK,2,1:54,MISS Gilgeous-Alexander 16' Pullup Jump Shot  Ingram BLOCK (1 BLK),45 - 61,16,Shai Gilgeous-Alexander,OKC,,,Brandon Ingram,NOP,10:35 PM
+230,REBOUND,2,1:52,Jones REBOUND (Off:0 Def:1),45 - 61,16,Herbert Jones,NOP,,,,,10:35 PM
+231,2POINT,2,1:48,Jones 1' Running Dunk (10 PTS),47 - 61,14,Herbert Jones,NOP,,,,,10:35 PM
+232,STEAL.TURNOVER,2,1:30,Jal. Williams Lost Ball Turnover (P2.T3)  Ingram STEAL (1 STL),47 - 61,14,Jalen Williams,OKC,Brandon Ingram,NOP,,,10:36 PM
+233,STEAL.TURNOVER,2,1:24,Jal. Williams STEAL (1 STL)  Nance Jr. Lost Ball Turnover (P2.T9),47 - 61,14,Larry Nance Jr.,NOP,Jalen Williams,OKC,,,10:36 PM
+234,2POINTMISS,2,1:04,MISS Jal. Williams 9' Step Back Jump Shot,47 - 61,14,Jalen Williams,OKC,,,,,10:36 PM
+235,REBOUND,2,1:00,McCollum REBOUND (Off:0 Def:4),47 - 61,14,CJ McCollum,NOP,,,,,10:36 PM
+236,STEAL.TURNOVER,2,0:43,Joe STEAL (1 STL)  McCollum Bad Pass Turnover (P3.T10),47 - 61,14,CJ McCollum,NOP,Isaiah Joe,OKC,,,10:37 PM
+237,2POINT,2,0:35,Gilgeous-Alexander 8' Pullup Jump Shot (16 PTS),47 - 63,16,Shai Gilgeous-Alexander,OKC,,,,,10:37 PM
+238,3POINT.ASSIST,2,0:14,Murphy III 25' 3PT Jump Shot (8 PTS) (Ingram 2 AST),50 - 63,13,Trey Murphy III,NOP,Brandon Ingram,NOP,,,10:37 PM
+239,SUB,2,0:06,SUB: Dort Starts playing.,50 - 63,13,,,Luguentz Dort,OKC,,,
+240,SUB,2,0:06,SUB: Giddey Starts playing.,50 - 63,13,,,Josh Giddey,OKC,,,
+241,SUB,2,0:06,SUB: Williams Stops playing.,50 - 63,13,Jaylin Williams,OKC,,,,,
+242,SUB,2,0:06,SUB: Joe Stops playing.,50 - 63,13,Isaiah Joe,OKC,,,,,
+243,SUB,2,0:06,SUB: Joe Starts playing.,50 - 63,13,,,Isaiah Joe,OKC,,,
+244,SUB,2,0:06,SUB: Wallace Stops playing.,50 - 63,13,Cason Wallace,OKC,,,,,
+245,SUB,2,0:06,SUB: Wiggins Starts playing.,50 - 63,13,,,Aaron Wiggins,OKC,,,
+246,SUB,2,0:06,SUB: Wiggins Stops playing.,50 - 63,13,Aaron Wiggins,OKC,,,,,
+247,SUB,2,0:06,SUB: Ingram Stops playing.,50 - 63,13,Brandon Ingram,NOP,,,,,
+248,SUB,2,0:06,SUB: McCollum Stops playing.,50 - 63,13,CJ McCollum,NOP,,,,,
+249,SUB,2,0:06,SUB: Marshall Starts playing.,50 - 63,13,,,Naji Marshall,NOP,,,
+250,SUB,2,0:06,SUB: Daniels Starts playing.,50 - 63,13,,,Dyson Daniels,NOP,,,
+251,FOUL,2,0:06,Jones P.FOUL (P1.T4) (J.Capers),50 - 63,13,Herbert Jones,NOP,Shai Gilgeous-Alexander,OKC,,,10:37 PM
+252,REPLAY,2,0:06,Instant Replay2nd Period (10:38 PM EST),50 - 63,13,Lindsey Hunter,,,,,,10:38 PM
+253,SUB,2,0:00,SUB: Williams Stops playing.,50 - 63,13,Jalen Williams,OKC,,,,,
+254,SUB,2,0:00,SUB: Dort Stops playing.,50 - 63,13,Luguentz Dort,OKC,,,,,
+255,SUB,2,0:00,SUB: Gilgeous-Alexander Stops playing.,50 - 63,13,Shai Gilgeous-Alexander,OKC,,,,,
+256,SUB,2,0:00,SUB: Giddey Stops playing.,50 - 63,13,Josh Giddey,OKC,,,,,
+257,SUB,2,0:00,SUB: Joe Stops playing.,50 - 63,13,Isaiah Joe,OKC,,,,,
+258,SUB,2,0:00,SUB: Murphy Stops playing.,50 - 63,13,Trey Murphy III,NOP,,,,,
+259,SUB,2,0:00,SUB: Jones Stops playing.,50 - 63,13,Herbert Jones,NOP,,,,,
+260,SUB,2,0:00,SUB: Nance Stops playing.,50 - 63,13,Larry Nance Jr.,NOP,,,,,
+261,SUB,2,0:00,SUB: Marshall Stops playing.,50 - 63,13,Naji Marshall,NOP,,,,,
+262,SUB,2,0:00,SUB: Daniels Stops playing.,50 - 63,13,Dyson Daniels,NOP,,,,,
+263,2POINTMISS,2,0:00,MISS Joe 19' Jump Shot,50 - 63,13,Isaiah Joe,OKC,,,,,10:41 PM
+264,REBOUND,2,0:00,THUNDER Rebound,50 - 63,13,,,,,,,10:41 PM
+265,ENDOFPERIOD,2,0:00,End of 2nd Period (10:42 PM EST),50 - 63,13,,,,,,,10:42 PM
+266,STARTOFPERIOD,3,12:00,Start of 3rd Period (10:58 PM EST),50 - 63,13,,,,,,,10:58 PM
+267,SUB,3,12:00,SUB: Holmgren Starts playing.,50 - 63,13,,,Chet Holmgren,OKC,,,
+268,SUB,3,12:00,SUB: Williams Starts playing.,50 - 63,13,,,Jalen Williams,OKC,,,
+269,SUB,3,12:00,SUB: Dort Starts playing.,50 - 63,13,,,Luguentz Dort,OKC,,,
+270,SUB,3,12:00,SUB: Gilgeous-Alexander Starts playing.,50 - 63,13,,,Shai Gilgeous-Alexander,OKC,,,
+271,SUB,3,12:00,SUB: Giddey Starts playing.,50 - 63,13,,,Josh Giddey,OKC,,,
+272,SUB,3,12:00,SUB: Valančiūnas Starts playing.,50 - 63,13,,,Jonas Valančiūnas,NOP,,,
+273,SUB,3,12:00,SUB: Ingram Starts playing.,50 - 63,13,,,Brandon Ingram,NOP,,,
+274,SUB,3,12:00,SUB: Murphy Starts playing.,50 - 63,13,,,Trey Murphy III,NOP,,,
+275,SUB,3,12:00,SUB: McCollum Starts playing.,50 - 63,13,,,CJ McCollum,NOP,,,
+276,SUB,3,12:00,SUB: Jones Starts playing.,50 - 63,13,,,Herbert Jones,NOP,,,
+277,2POINTMISS,3,11:45,MISS Jal. Williams 16' Pullup Jump Shot,50 - 63,13,Jalen Williams,OKC,,,,,10:58 PM
+278,REBOUND,3,11:43,Valanciunas REBOUND (Off:1 Def:5),50 - 63,13,Jonas Valančiūnas,NOP,,,,,10:58 PM
+279,FOUL,3,11:31,Gilgeous-Alexander S.FOUL (P1.T1) (J.Capers),50 - 63,13,Shai Gilgeous-Alexander,OKC,Brandon Ingram,NOP,,,10:58 PM
+280,REPLAY,3,11:31,Instant Replay3rd Period (10:59 PM EST),50 - 63,13,,,,,,,10:59 PM
+281,FOUL,3,11:31,Ingram T.FOUL (P2.T0) (J.Capers),50 - 63,13,Brandon Ingram,NOP,,,,,11:01 PM
+282,FTMAKE,3,11:31,Gilgeous-Alexander Free Throw Technical (17 PTS),50 - 64,14,Shai Gilgeous-Alexander,OKC,,,,,11:02 PM
+283,FTMAKE,3,11:31,Ingram Free Throw 1 of 2 (5 PTS),51 - 64,13,Brandon Ingram,NOP,,,,,11:02 PM
+284,FTMAKE,3,11:31,Ingram Free Throw 2 of 2 (6 PTS),52 - 64,12,Brandon Ingram,NOP,,,,,11:02 PM
+285,FOUL,3,11:14,Murphy III S.FOUL (P2.T1) (T.Ford),52 - 64,12,Trey Murphy III,NOP,Shai Gilgeous-Alexander,OKC,,,11:03 PM
+286,FTMAKE,3,11:14,Gilgeous-Alexander Free Throw 1 of 2 (18 PTS),52 - 65,13,Shai Gilgeous-Alexander,OKC,,,,,11:03 PM
+287,FTMAKE,3,11:14,Gilgeous-Alexander Free Throw 2 of 2 (19 PTS),52 - 66,14,Shai Gilgeous-Alexander,OKC,,,,,11:03 PM
+288,FOUL,3,11:00,Valanciunas OFF.Foul (P2) (T.Ford),52 - 66,14,Jonas Valančiūnas,NOP,Luguentz Dort,OKC,,,11:04 PM
+289,STEAL,3,11:00,Valanciunas Offensive Foul Turnover (P2.T11),52 - 66,14,Jonas Valančiūnas,NOP,,,,,11:04 PM
+290,FOUL,3,10:52,Gilgeous-Alexander OFF.Foul (P2) (T.Ford),52 - 66,14,Shai Gilgeous-Alexander,OKC,CJ McCollum,NOP,,,11:04 PM
+291,STEAL,3,10:52,Gilgeous-Alexander Offensive Foul Turnover (P1.T4),52 - 66,14,Shai Gilgeous-Alexander,OKC,,,,,11:04 PM
+292,FOUL,3,10:37,Dort P.FOUL (P2.T2) (T.Ford),52 - 66,14,Luguentz Dort,OKC,Brandon Ingram,NOP,,,11:05 PM
+293,2POINT.ASSIST,3,10:31,Ingram 13' Fadeaway Jumper (8 PTS) (McCollum 4 AST),54 - 66,12,Brandon Ingram,NOP,CJ McCollum,NOP,,,11:05 PM
+294,2POINT,3,10:06,Gilgeous-Alexander 15' Turnaround Jump Shot (21 PTS),54 - 68,14,Shai Gilgeous-Alexander,OKC,,,,,11:06 PM
+295,STEAL,3,9:49,Jones Out of Bounds Lost Ball Turnover (P1.T12),54 - 68,14,Herbert Jones,NOP,,,,,11:06 PM
+296,2POINTMISS.BLOCK,3,9:34,MISS Jal. Williams 4' Driving Layup  Murphy III BLOCK (1 BLK),54 - 68,14,Jalen Williams,OKC,,,Trey Murphy III,NOP,11:06 PM
+297,REBOUND,3,9:32,Murphy III REBOUND (Off:1 Def:2),54 - 68,14,Trey Murphy III,NOP,,,,,11:06 PM
+298,STEAL.TURNOVER,3,9:27,Gilgeous-Alexander STEAL (2 STL)  Murphy III Lost Ball Turnover (P2.T13),54 - 68,14,Trey Murphy III,NOP,Shai Gilgeous-Alexander,OKC,,,11:06 PM
+299,2POINT.ASSIST,3,9:21,Jal. Williams Running Finger Roll Layup (8 PTS) (Giddey 1 AST),54 - 70,16,Jalen Williams,OKC,Josh Giddey,OKC,,,11:06 PM
+300,FOUL,3,9:11,Holmgren S.FOUL (P3.T3) (J.Capers),54 - 70,16,Chet Holmgren,OKC,Brandon Ingram,NOP,,,11:07 PM
+301,FTMAKE,3,9:11,Ingram Free Throw 1 of 2 (9 PTS),55 - 70,15,Brandon Ingram,NOP,,,,,11:07 PM
+302,FTMAKE,3,9:11,Ingram Free Throw 2 of 2 (10 PTS),56 - 70,14,Brandon Ingram,NOP,,,,,11:08 PM
+303,3POINTMISS,3,9:00,MISS Holmgren 25' 3PT Jump Shot,56 - 70,14,Chet Holmgren,OKC,,,,,11:08 PM
+304,REBOUND,3,8:57,Jones REBOUND (Off:0 Def:2),56 - 70,14,Herbert Jones,NOP,,,,,11:08 PM
+305,2POINTMISS,3,8:47,MISS Valanciunas 4' Turnaround Bank Hook Shot,56 - 70,14,Jonas Valančiūnas,NOP,,,,,11:08 PM
+306,REBOUND,3,8:45,Jal. Williams REBOUND (Off:0 Def:4),56 - 70,14,Jalen Williams,OKC,,,,,11:08 PM
+307,FOUL,3,8:44,Murphy III P.FOUL (P3.T2) (P.Fraher),56 - 70,14,Trey Murphy III,NOP,Jalen Williams,OKC,,,11:08 PM
+308,2POINT,3,8:35,Jal. Williams 12' Step Back Jump Shot (10 PTS),56 - 72,16,Jalen Williams,OKC,,,,,11:08 PM
+309,3POINTMISS,3,8:25,MISS McCollum 26' 3PT Pullup Jump Shot,56 - 72,16,CJ McCollum,NOP,,,,,11:09 PM
+310,REBOUND,3,8:23,Valanciunas REBOUND (Off:2 Def:5),56 - 72,16,Jonas Valančiūnas,NOP,,,,,11:09 PM
+311,2POINTMISS,3,8:18,MISS Valanciunas 6' Floating Jump Shot,56 - 72,16,Jonas Valančiūnas,NOP,,,,,11:09 PM
+312,REBOUND,3,8:16,Gilgeous-Alexander REBOUND (Off:0 Def:2),56 - 72,16,Shai Gilgeous-Alexander,OKC,,,,,11:09 PM
+313,2POINT.ASSIST,3,8:01,Holmgren 1' Driving Dunk (22 PTS) (Jal. Williams 7 AST),56 - 74,18,Chet Holmgren,OKC,Jalen Williams,OKC,,,11:09 PM
+314,SUB,3,8:00,SUB: Valančiūnas Stops playing.,56 - 74,18,Jonas Valančiūnas,NOP,,,,,
+315,SUB,3,8:00,SUB: Nance Starts playing.,56 - 74,18,,,Larry Nance Jr.,NOP,,,
+316,TIMEOUT,3,8:00,Pelicans Timeout: Regular (Reg.3 Short 0),56 - 74,18,,,,,,,11:09 PM
+317,2POINT,3,7:47,Ingram 18' Jump Shot (12 PTS),58 - 74,16,Brandon Ingram,NOP,,,,,11:13 PM
+318,2POINTMISS,3,7:26,MISS Giddey 6' Driving Floating Jump Shot,58 - 74,16,Josh Giddey,OKC,,,,,11:13 PM
+319,REBOUND,3,7:24,Ingram REBOUND (Off:0 Def:4),58 - 74,16,Brandon Ingram,NOP,,,,,11:13 PM
+320,2POINTMISS,3,7:17,MISS McCollum 15' Running Pull-Up Jump Shot,58 - 74,16,CJ McCollum,NOP,,,,,11:13 PM
+321,REBOUND,3,7:15,Holmgren REBOUND (Off:1 Def:3),58 - 74,16,Chet Holmgren,OKC,,,,,11:14 PM
+322,FOUL,3,6:57,McCollum S.FOUL (P2.T3) (J.Capers),58 - 74,16,CJ McCollum,NOP,Josh Giddey,OKC,,,11:14 PM
+323,FTMAKE,3,6:57,Giddey Free Throw 1 of 2 (5 PTS),58 - 75,17,Josh Giddey,OKC,,,,,11:14 PM
+324,FTMAKE,3,6:57,Giddey Free Throw 2 of 2 (6 PTS),58 - 76,18,Josh Giddey,OKC,,,,,11:15 PM
+325,FOUL,3,6:46,Nance Jr. OFF.Foul (P3) (P.Fraher),58 - 76,18,Larry Nance Jr.,NOP,Luguentz Dort,OKC,,,11:15 PM
+326,STEAL,3,6:46,Nance Jr. Offensive Foul Turnover (P3.T14),58 - 76,18,Larry Nance Jr.,NOP,,,,,11:15 PM
+327,3POINT,3,6:27,Gilgeous-Alexander 25' 3PT Step Back Jump Shot (24 PTS),58 - 79,21,Shai Gilgeous-Alexander,OKC,,,,,11:15 PM
+328,2POINTMISS,3,6:14,MISS Ingram 14' Fadeaway Jumper,58 - 79,21,Brandon Ingram,NOP,,,,,11:16 PM
+329,REBOUND,3,6:12,Jal. Williams REBOUND (Off:0 Def:5),58 - 79,21,Jalen Williams,OKC,,,,,11:16 PM
+330,2POINT,3,5:57,Jal. Williams 8' Driving Floating Bank Jump Shot (12 PTS),58 - 81,23,Jalen Williams,OKC,,,,,11:16 PM
+331,2POINT,3,5:42,McCollum 4' Driving Layup (11 PTS),60 - 81,21,CJ McCollum,NOP,,,,,11:16 PM
+332,SUB,3,5:22,SUB: Holmgren Stops playing.,60 - 81,21,Chet Holmgren,OKC,,,,,
+333,SUB,3,5:22,SUB: Giddey Stops playing.,60 - 81,21,Josh Giddey,OKC,,,,,
+334,SUB,3,5:22,SUB: Williams Starts playing.,60 - 81,21,,,Jaylin Williams,OKC,,,
+335,SUB,3,5:22,SUB: Joe Starts playing.,60 - 81,21,,,Isaiah Joe,OKC,,,
+336,SUB,3,5:22,SUB: McCollum Stops playing.,60 - 81,21,CJ McCollum,NOP,,,,,
+337,SUB,3,5:22,SUB: Marshall Starts playing.,60 - 81,21,,,Naji Marshall,NOP,,,
+338,FOUL,3,5:22,Jones S.FOUL (P2.T4) (P.Fraher),60 - 81,21,Herbert Jones,NOP,Luguentz Dort,OKC,,,11:17 PM
+339,FTMAKE,3,5:22,Dort Free Throw 1 of 2 (10 PTS),60 - 82,22,Luguentz Dort,OKC,,,,,11:17 PM
+340,FTMISS,3,5:22,MISS Dort Free Throw 2 of 2,60 - 82,22,Luguentz Dort,OKC,,,,,11:17 PM
+341,REBOUND,3,5:20,Murphy III REBOUND (Off:1 Def:3),60 - 82,22,Trey Murphy III,NOP,,,,,11:17 PM
+342,FOUL,3,5:08,Jay. Williams P.FOUL (P1.T4) (P.Fraher),60 - 82,22,Jaylin Williams,OKC,Trey Murphy III,NOP,,,11:18 PM
+343,FOUL,3,5:01,Jay. Williams S.FOUL (P2.PN) (J.Capers),60 - 82,22,Jaylin Williams,OKC,Brandon Ingram,NOP,,,11:18 PM
+344,FTMAKE,3,5:01,Ingram Free Throw 1 of 2 (13 PTS),61 - 82,21,Brandon Ingram,NOP,,,,,11:19 PM
+345,FTMAKE,3,5:01,Ingram Free Throw 2 of 2 (14 PTS),62 - 82,20,Brandon Ingram,NOP,,,,,11:19 PM
+346,3POINTMISS,3,4:49,MISS Jal. Williams 26' 3PT Step Back Jump Shot,62 - 82,20,Jalen Williams,OKC,,,,,11:19 PM
+347,REBOUND,3,4:47,Marshall REBOUND (Off:0 Def:1),62 - 82,20,Naji Marshall,NOP,,,,,11:19 PM
+348,3POINT.ASSIST,3,4:34,Jones 24' 3PT Jump Shot (13 PTS) (Nance Jr. 1 AST),65 - 82,17,Herbert Jones,NOP,Larry Nance Jr.,NOP,,,11:20 PM
+349,2POINTMISS,3,4:17,MISS Gilgeous-Alexander 2' Driving Finger Roll Layup,65 - 82,17,Shai Gilgeous-Alexander,OKC,,,,,11:20 PM
+350,REBOUND,3,4:14,Nance Jr. REBOUND (Off:3 Def:2),65 - 82,17,Larry Nance Jr.,NOP,,,,,11:20 PM
+351,SUB,3,4:12,SUB: Williams Stops playing.,65 - 82,17,Jalen Williams,OKC,,,,,
+352,SUB,3,4:12,SUB: Hayward Starts playing.,65 - 82,17,,,Gordon Hayward,OKC,,,
+353,2POINTMISS,3,4:02,MISS Ingram 17' Pullup Jump Shot,65 - 82,17,Brandon Ingram,NOP,,,,,11:20 PM
+354,REBOUND,3,3:59,Joe REBOUND (Off:0 Def:1),65 - 82,17,Isaiah Joe,OKC,,,,,11:20 PM
+355,3POINTMISS,3,3:47,MISS Dort 25' 3PT Jump Shot,65 - 82,17,Luguentz Dort,OKC,,,,,11:21 PM
+356,REBOUND,3,3:45,Nance Jr. REBOUND (Off:3 Def:3),65 - 82,17,Larry Nance Jr.,NOP,,,,,11:21 PM
+357,SUB,3,3:30,SUB: Holmgren Starts playing.,65 - 82,17,,,Chet Holmgren,OKC,,,
+358,SUB,3,3:30,SUB: Williams Stops playing.,65 - 82,17,Jaylin Williams,OKC,,,,,
+359,2POINT,3,3:30,Ingram 8' Pullup Jump Shot (16 PTS),67 - 82,15,Brandon Ingram,NOP,,,,,11:21 PM
+360,TIMEOUT,3,3:30,THUNDER Timeout: Regular (Full 3 Short 0),67 - 82,15,,,,,,,11:21 PM
+361,2POINT,3,3:13,Gilgeous-Alexander 1' Driving Layup (26 PTS),67 - 84,17,Shai Gilgeous-Alexander,OKC,,,,,11:25 PM
+362,STEAL,3,2:43,Pelicans Turnover: Shot Clock (T#15),67 - 84,17,,,,,,,11:25 PM
+363,STEAL,3,2:30,Dort Out of Bounds - Bad Pass Turnover Turnover (P1.T5),67 - 84,17,Luguentz Dort,OKC,,,,,11:26 PM
+364,2POINTMISS,3,2:21,MISS Ingram 19' Pullup Jump Shot,67 - 84,17,Brandon Ingram,NOP,,,,,11:26 PM
+365,REBOUND,3,2:19,Holmgren REBOUND (Off:1 Def:4),67 - 84,17,Chet Holmgren,OKC,,,,,11:26 PM
+366,STEAL.TURNOVER,3,2:12,Holmgren Lost Ball Turnover (P1.T6)  Marshall STEAL (1 STL),67 - 84,17,Chet Holmgren,OKC,Naji Marshall,NOP,,,11:26 PM
+367,3POINTMISS,3,2:06,MISS Murphy III 3PT Step Back Jump Shot,67 - 84,17,Trey Murphy III,NOP,,,,,11:26 PM
+368,REBOUND,3,2:03,Joe REBOUND (Off:0 Def:2),67 - 84,17,Isaiah Joe,OKC,,,,,11:26 PM
+369,SUB,3,1:52,SUB: Valančiūnas Starts playing.,67 - 84,17,,,Jonas Valančiūnas,NOP,,,
+370,SUB,3,1:52,SUB: Murphy Stops playing.,67 - 84,17,Trey Murphy III,NOP,,,,,
+371,SUB,3,1:52,SUB: McCollum Starts playing.,67 - 84,17,,,CJ McCollum,NOP,,,
+372,SUB,3,1:52,SUB: Nance Stops playing.,67 - 84,17,Larry Nance Jr.,NOP,,,,,
+373,FOUL,3,1:52,Nance Jr. S.FOUL (P4.PN) (T.Ford),67 - 84,17,Larry Nance Jr.,NOP,Chet Holmgren,OKC,,,11:27 PM
+374,FTMAKE,3,1:52,Holmgren Free Throw 1 of 2 (23 PTS),67 - 85,18,Chet Holmgren,OKC,,,,,11:27 PM
+375,FTMAKE,3,1:52,Holmgren Free Throw 2 of 2 (24 PTS),67 - 86,19,Chet Holmgren,OKC,,,,,11:28 PM
+376,2POINT,3,1:30,Valanciunas 4' Driving Hook Shot (17 PTS),69 - 86,17,Jonas Valančiūnas,NOP,,,,,11:28 PM
+377,FOUL,3,1:08,Ingram P.FOUL (P3.PN) (T.Ford),69 - 86,17,Brandon Ingram,NOP,Luguentz Dort,OKC,,,11:28 PM
+378,FTMAKE,3,1:08,Dort Free Throw 1 of 2 (11 PTS),69 - 87,18,Luguentz Dort,OKC,,,,,11:29 PM
+379,FTMAKE,3,1:08,Dort Free Throw 2 of 2 (12 PTS),69 - 88,19,Luguentz Dort,OKC,,,,,11:29 PM
+380,3POINT.ASSIST,3,0:57,Jones 26' 3PT Jump Shot (16 PTS) (Ingram 3 AST),72 - 88,16,Herbert Jones,NOP,Brandon Ingram,NOP,,,11:29 PM
+381,2POINT.ASSIST,3,0:41,Joe 17' Pullup Jump Shot (8 PTS) (Gilgeous-Alexander 3 AST),72 - 90,18,Isaiah Joe,OKC,Shai Gilgeous-Alexander,OKC,,,11:30 PM
+382,SUB,3,0:34,SUB: Holmgren Stops playing.,72 - 90,18,Chet Holmgren,OKC,,,,,
+383,SUB,3,0:34,SUB: Williams Starts playing.,72 - 90,18,,,Jalen Williams,OKC,,,
+384,SUB,3,0:34,SUB: Valančiūnas Stops playing.,72 - 90,18,Jonas Valančiūnas,NOP,,,,,
+385,SUB,3,0:34,SUB: Daniels Starts playing.,72 - 90,18,,,Dyson Daniels,NOP,,,
+386,FOUL,3,0:34,Holmgren S.FOUL (P4.PN) (T.Ford),72 - 90,18,Chet Holmgren,OKC,CJ McCollum,NOP,,,11:30 PM
+387,FTMAKE,3,0:34,McCollum Free Throw 1 of 2 (12 PTS),73 - 90,17,CJ McCollum,NOP,,,,,11:30 PM
+388,FTMAKE,3,0:34,McCollum Free Throw 2 of 2 (13 PTS),74 - 90,16,CJ McCollum,NOP,,,,,11:31 PM
+389,2POINTMISS,3,0:26,MISS Hayward 20' Pullup Jump Shot,74 - 90,16,Gordon Hayward,OKC,,,,,11:31 PM
+390,REBOUND,3,0:24,Dort REBOUND (Off:1 Def:0),74 - 90,16,Luguentz Dort,OKC,,,,,11:31 PM
+391,2POINT,3,0:13,Gilgeous-Alexander 6' Driving Finger Roll Layup (28 PTS),74 - 92,18,Shai Gilgeous-Alexander,OKC,,,,,11:31 PM
+392,SUB,3,0:06,SUB: Murphy Starts playing.,74 - 92,18,,,Trey Murphy III,NOP,,,
+393,SUB,3,0:06,SUB: McCollum Stops playing.,74 - 92,18,CJ McCollum,NOP,,,,,
+394,FOUL,3,0:06,Jones OFF.Foul (P3) (P.Fraher),74 - 92,18,Herbert Jones,NOP,Shai Gilgeous-Alexander,OKC,,,11:32 PM
+395,STEAL,3,0:06,Jones Offensive Foul Turnover (P2.T16),74 - 92,18,Herbert Jones,NOP,,,,,11:32 PM
+396,SUB,3,0:00,SUB: Williams Stops playing.,74 - 92,18,Jalen Williams,OKC,,,,,
+397,SUB,3,0:00,SUB: Dort Stops playing.,74 - 92,18,Luguentz Dort,OKC,,,,,
+398,SUB,3,0:00,SUB: Gilgeous-Alexander Stops playing.,74 - 92,18,Shai Gilgeous-Alexander,OKC,,,,,
+399,SUB,3,0:00,SUB: Hayward Stops playing.,74 - 92,18,Gordon Hayward,OKC,,,,,
+400,SUB,3,0:00,SUB: Joe Stops playing.,74 - 92,18,Isaiah Joe,OKC,,,,,
+401,SUB,3,0:00,SUB: Ingram Stops playing.,74 - 92,18,Brandon Ingram,NOP,,,,,
+402,SUB,3,0:00,SUB: Murphy Stops playing.,74 - 92,18,Trey Murphy III,NOP,,,,,
+403,SUB,3,0:00,SUB: Jones Stops playing.,74 - 92,18,Herbert Jones,NOP,,,,,
+404,SUB,3,0:00,SUB: Marshall Stops playing.,74 - 92,18,Naji Marshall,NOP,,,,,
+405,SUB,3,0:00,SUB: Daniels Stops playing.,74 - 92,18,Dyson Daniels,NOP,,,,,
+406,ENDOFPERIOD,3,0:00,End of 3rd Period (11:33 PM EST),74 - 92,18,,,,,,,11:33 PM
+407,STARTOFPERIOD,4,12:00,Start of 4th Period (11:36 PM EST),74 - 92,18,,,,,,,11:36 PM
+408,SUB,4,12:00,SUB: Holmgren Starts playing.,74 - 92,18,,,Chet Holmgren,OKC,,,
+409,SUB,4,12:00,SUB: Williams Starts playing.,74 - 92,18,,,Jalen Williams,OKC,,,
+410,SUB,4,12:00,SUB: Giddey Starts playing.,74 - 92,18,,,Josh Giddey,OKC,,,
+411,SUB,4,12:00,SUB: Wallace Starts playing.,74 - 92,18,,,Cason Wallace,OKC,,,
+412,SUB,4,12:00,SUB: Wiggins Starts playing.,74 - 92,18,,,Aaron Wiggins,OKC,,,
+413,SUB,4,12:00,SUB: Valančiūnas Starts playing.,74 - 92,18,,,Jonas Valančiūnas,NOP,,,
+414,SUB,4,12:00,SUB: Murphy Starts playing.,74 - 92,18,,,Trey Murphy III,NOP,,,
+415,SUB,4,12:00,SUB: McCollum Starts playing.,74 - 92,18,,,CJ McCollum,NOP,,,
+416,SUB,4,12:00,SUB: Alvarado Starts playing.,74 - 92,18,,,Jose Alvarado,NOP,,,
+417,SUB,4,12:00,SUB: Marshall Starts playing.,74 - 92,18,,,Naji Marshall,NOP,,,
+418,2POINT,4,11:37,Valanciunas 2' Driving Layup (19 PTS),76 - 92,16,Jonas Valančiūnas,NOP,,,,,11:36 PM
+419,FOUL,4,11:24,Marshall P.FOUL (P3.T1) (J.Capers),76 - 92,16,Naji Marshall,NOP,Jalen Williams,OKC,,,11:37 PM
+420,3POINTMISS,4,11:18,MISS Holmgren 25' 3PT Jump Shot,76 - 92,16,Chet Holmgren,OKC,,,,,11:37 PM
+421,REBOUND,4,11:16,Wiggins REBOUND (Off:1 Def:1),76 - 92,16,Aaron Wiggins,OKC,,,,,11:37 PM
+422,2POINT.ASSIST,4,11:06,Holmgren 3' Cutting Finger Roll Layup Shot (26 PTS) (Giddey 2 AST),76 - 94,18,Chet Holmgren,OKC,Josh Giddey,OKC,,,11:38 PM
+423,FOUL,4,10:51,Alvarado OFF.Foul (P1) (T.Ford),76 - 94,18,Jose Alvarado,NOP,Cason Wallace,OKC,,,11:38 PM
+424,STEAL,4,10:51,Alvarado Offensive Foul Turnover (P1.T17),76 - 94,18,Jose Alvarado,NOP,,,,,11:38 PM
+425,3POINT.ASSIST,4,10:37,Jal. Williams 25' 3PT Jump Shot (15 PTS) (Giddey 3 AST),76 - 97,21,Jalen Williams,OKC,Josh Giddey,OKC,,,11:38 PM
+426,2POINTMISS,4,10:21,MISS McCollum 5' Driving Layup,76 - 97,21,CJ McCollum,NOP,,,,,11:39 PM
+427,REBOUND,4,10:20,Wiggins REBOUND (Off:1 Def:2),76 - 97,21,Aaron Wiggins,OKC,,,,,11:39 PM
+428,2POINT.ASSIST,4,10:16,Jal. Williams 3' Running Finger Roll Layup (17 PTS) (Wiggins 1 AST),76 - 99,23,Jalen Williams,OKC,Aaron Wiggins,OKC,,,11:39 PM
+429,SUB,4,10:15,SUB: Valančiūnas Stops playing.,76 - 99,23,Jonas Valančiūnas,NOP,,,,,
+430,SUB,4,10:15,SUB: Jones Starts playing.,76 - 99,23,,,Herbert Jones,NOP,,,
+431,TIMEOUT,4,10:15,Pelicans Timeout: Regular (Reg.4 Short 0),76 - 99,23,,,,,,,11:39 PM
+432,3POINTMISS,4,10:00,MISS Alvarado 3PT Jump Shot,76 - 99,23,Jose Alvarado,NOP,,,,,11:43 PM
+433,REBOUND,4,9:58,Holmgren REBOUND (Off:1 Def:5),76 - 99,23,Chet Holmgren,OKC,,,,,11:43 PM
+434,2POINTMISS,4,9:46,MISS Giddey 23' Jump Shot,76 - 99,23,Josh Giddey,OKC,,,,,11:43 PM
+435,REBOUND,4,9:43,Murphy III REBOUND (Off:1 Def:4),76 - 99,23,Trey Murphy III,NOP,,,,,11:43 PM
+436,2POINT,4,9:37,Marshall 2' Running Layup (4 PTS),78 - 99,21,Naji Marshall,NOP,,,,,11:43 PM
+437,2POINT.ASSIST,4,9:22,Giddey 2' Cutting Layup Shot (8 PTS) (Wiggins 2 AST),78 - 101,23,Josh Giddey,OKC,Aaron Wiggins,OKC,,,11:43 PM
+438,2POINTMISS,4,9:06,MISS Alvarado 4' Cutting Layup Shot,78 - 101,23,Jose Alvarado,NOP,,,,,11:44 PM
+439,REBOUND,4,9:04,Wiggins REBOUND (Off:1 Def:3),78 - 101,23,Aaron Wiggins,OKC,,,,,11:44 PM
+440,SUB,4,9:01,SUB: Dort Starts playing.,78 - 101,23,,,Luguentz Dort,OKC,,,
+441,SUB,4,9:01,SUB: Wiggins Stops playing.,78 - 101,23,Aaron Wiggins,OKC,,,,,
+442,SUB,4,9:01,SUB: Ingram Starts playing.,78 - 101,23,,,Brandon Ingram,NOP,,,
+443,SUB,4,9:01,SUB: Alvarado Stops playing.,78 - 101,23,Jose Alvarado,NOP,,,,,
+444,FOUL,4,9:01,McCollum P.FOUL (P3.T2) (P.Fraher),78 - 101,23,CJ McCollum,NOP,Jalen Williams,OKC,,,11:44 PM
+445,2POINT,4,8:55,Jal. Williams 2' Driving Layup (19 PTS),78 - 103,25,Jalen Williams,OKC,,,,,11:44 PM
+446,2POINT,4,8:40,Ingram 18' Pullup Jump Shot (18 PTS),80 - 103,23,Brandon Ingram,NOP,,,,,11:45 PM
+447,2POINTMISS,4,8:23,MISS Jal. Williams 3' Driving Reverse Layup,80 - 103,23,Jalen Williams,OKC,,,,,11:45 PM
+448,REBOUND,4,8:21,Marshall REBOUND (Off:0 Def:2),80 - 103,23,Naji Marshall,NOP,,,,,11:45 PM
+449,3POINTMISS,4,8:13,MISS Jones 25' 3PT Jump Shot,80 - 103,23,Herbert Jones,NOP,,,,,11:45 PM
+450,REBOUND,4,8:08,Giddey REBOUND (Off:0 Def:4),80 - 103,23,Josh Giddey,OKC,,,,,11:45 PM
+451,2POINT.ASSIST,4,7:54,Jal. Williams 1' Cutting Dunk Shot (21 PTS) (Wallace 3 AST),80 - 105,25,Jalen Williams,OKC,Cason Wallace,OKC,,,11:45 PM
+452,3POINTMISS,4,7:37,MISS Marshall 3PT Jump Shot,80 - 105,25,Naji Marshall,NOP,,,,,11:46 PM
+453,REBOUND,4,7:34,McCollum REBOUND (Off:1 Def:4),80 - 105,25,CJ McCollum,NOP,,,,,11:46 PM
+454,2POINT,4,7:33,McCollum 7' Driving Floating Jump Shot (15 PTS),82 - 105,23,CJ McCollum,NOP,,,,,11:46 PM
+455,2POINT,4,7:08,Wallace 9' Driving Floating Jump Shot (2 PTS),82 - 107,25,Cason Wallace,OKC,,,,,11:46 PM
+456,SUB,4,7:01,SUB: Holmgren Stops playing.,82 - 107,25,Chet Holmgren,OKC,,,,,
+457,SUB,4,7:01,SUB: Gilgeous-Alexander Starts playing.,82 - 107,25,,,Shai Gilgeous-Alexander,OKC,,,
+458,STEAL,4,7:01,McCollum Out of Bounds Lost Ball Turnover (P4.T18),82 - 107,25,CJ McCollum,NOP,,,,,11:46 PM
+459,2POINT,4,6:51,Gilgeous-Alexander 1' Driving Finger Roll Layup (30 PTS),82 - 109,27,Shai Gilgeous-Alexander,OKC,,,,,11:47 PM
+460,SUB,4,6:50,SUB: Marshall Stops playing.,82 - 109,27,Naji Marshall,NOP,,,,,
+461,SUB,4,6:50,SUB: Daniels Starts playing.,82 - 109,27,,,Dyson Daniels,NOP,,,
+462,FOUL,4,6:50,Jones T.FOUL (P3.T2) (T.Ford),82 - 109,27,Herbert Jones,NOP,,,,,11:47 PM
+463,FTMAKE,4,6:50,Gilgeous-Alexander Free Throw Technical (31 PTS),82 - 110,28,Shai Gilgeous-Alexander,OKC,,,,,11:47 PM
+464,2POINTMISS,4,6:41,MISS Ingram 13' Turnaround Jump Shot,82 - 110,28,Brandon Ingram,NOP,,,,,11:48 PM
+465,REBOUND,4,6:39,Gilgeous-Alexander REBOUND (Off:0 Def:3),82 - 110,28,Shai Gilgeous-Alexander,OKC,,,,,11:48 PM
+466,3POINT.ASSIST,4,6:24,Giddey 24' 3PT Jump Shot (11 PTS) (Gilgeous-Alexander 4 AST),82 - 113,31,Josh Giddey,OKC,Shai Gilgeous-Alexander,OKC,,,11:48 PM
+467,2POINT,4,6:09,Jones 1' Driving Reverse Layup (18 PTS),84 - 113,29,Herbert Jones,NOP,,,,,11:48 PM
+468,2POINTMISS,4,5:57,MISS Jal. Williams 2' Driving Layup,84 - 113,29,Jalen Williams,OKC,,,,,11:49 PM
+469,REBOUND,4,5:55,Wallace REBOUND (Off:2 Def:1),84 - 113,29,Cason Wallace,OKC,,,,,11:49 PM
+470,3POINTMISS,4,5:52,MISS Giddey 25' 3PT Jump Shot,84 - 113,29,Josh Giddey,OKC,,,,,11:49 PM
+471,REBOUND,4,5:49,Daniels REBOUND (Off:0 Def:1),84 - 113,29,Dyson Daniels,NOP,,,,,11:49 PM
+472,FOUL,4,5:39,Giddey P.FOUL (P2.T1) (T.Ford),84 - 113,29,Josh Giddey,OKC,Trey Murphy III,NOP,,,11:49 PM
+473,3POINTMISS,4,5:30,MISS Daniels 3PT Jump Shot,84 - 113,29,Dyson Daniels,NOP,,,,,11:49 PM
+474,REBOUND,4,5:28,Giddey REBOUND (Off:0 Def:5),84 - 113,29,Josh Giddey,OKC,,,,,11:49 PM
+475,SUB,4,5:24,SUB: Holmgren Starts playing.,84 - 113,29,,,Chet Holmgren,OKC,,,
+476,SUB,4,5:24,SUB: Williams Stops playing.,84 - 113,29,Jalen Williams,OKC,,,,,
+477,FOUL,4,5:24,Jones S.FOUL (P4.T3) (T.Ford),84 - 113,29,Herbert Jones,NOP,Josh Giddey,OKC,,,11:50 PM
+478,FTMAKE,4,5:24,Giddey Free Throw 1 of 2 (12 PTS),84 - 114,30,Josh Giddey,OKC,,,,,11:50 PM
+479,FTMAKE,4,5:24,Giddey Free Throw 2 of 2 (13 PTS),84 - 115,31,Josh Giddey,OKC,,,,,11:50 PM
+480,SUB,4,5:17,SUB: Ingram Stops playing.,84 - 115,31,Brandon Ingram,NOP,,,,,
+481,SUB,4,5:17,SUB: Murphy Stops playing.,84 - 115,31,Trey Murphy III,NOP,,,,,
+482,SUB,4,5:17,SUB: McCollum Stops playing.,84 - 115,31,CJ McCollum,NOP,,,,,
+483,SUB,4,5:17,SUB: Jones Stops playing.,84 - 115,31,Herbert Jones,NOP,,,,,
+484,SUB,4,5:17,SUB: Alvarado Starts playing.,84 - 115,31,,,Jose Alvarado,NOP,,,
+485,SUB,4,5:17,SUB: Marshall Starts playing.,84 - 115,31,,,Naji Marshall,NOP,,,
+486,SUB,4,5:17,SUB: Robinson-Earl Starts playing.,84 - 115,31,,,Jeremiah Robinson-Earl,NOP,,,
+487,SUB,4,5:17,SUB: Hawkins Starts playing.,84 - 115,31,,,Jordan Hawkins,NOP,,,
+488,TIMEOUT,4,5:17,Pelicans Timeout: Regular (Reg.5 Short 0),84 - 115,31,,,,,,,11:51 PM
+489,2POINT.ASSIST,4,5:10,Marshall 2' Driving Layup (6 PTS) (Robinson-Earl 1 AST),86 - 115,29,Naji Marshall,NOP,Jeremiah Robinson-Earl,NOP,,,11:54 PM
+490,STEAL,4,4:49,Gilgeous-Alexander Out of Bounds - Bad Pass Turnover Turnover (P2.T7),86 - 115,29,Shai Gilgeous-Alexander,OKC,,,,,11:55 PM
+491,2POINTMISS,4,4:34,MISS Marshall 11' Driving Floating Jump Shot,86 - 115,29,Naji Marshall,NOP,,,,,11:55 PM
+492,REBOUND,4,4:32,Holmgren REBOUND (Off:1 Def:6),86 - 115,29,Chet Holmgren,OKC,,,,,11:55 PM
+493,2POINT,4,4:19,Gilgeous-Alexander 10' Turnaround Fadeaway (33 PTS),86 - 117,31,Shai Gilgeous-Alexander,OKC,,,,,11:55 PM
+494,2POINTMISS.BLOCK,4,4:01,Holmgren BLOCK (2 BLK)  MISS Robinson-Earl 3' Driving Layup,86 - 117,31,Jeremiah Robinson-Earl,NOP,,,Chet Holmgren,OKC,11:55 PM
+495,REBOUND,4,3:58,Giddey REBOUND (Off:0 Def:6),86 - 117,31,Josh Giddey,OKC,,,,,11:56 PM
+496,3POINT.ASSIST,4,3:40,Dort 25' 3PT Jump Shot (15 PTS) (Gilgeous-Alexander 5 AST),86 - 120,34,Luguentz Dort,OKC,Shai Gilgeous-Alexander,OKC,,,11:56 PM
+497,SUB,4,3:29,SUB: Holmgren Stops playing.,86 - 120,34,Chet Holmgren,OKC,,,,,
+498,SUB,4,3:29,SUB: Dort Stops playing.,86 - 120,34,Luguentz Dort,OKC,,,,,
+499,SUB,4,3:29,SUB: Gilgeous-Alexander Stops playing.,86 - 120,34,Shai Gilgeous-Alexander,OKC,,,,,
+500,SUB,4,3:29,SUB: Williams Starts playing.,86 - 120,34,,,Jaylin Williams,OKC,,,
+501,SUB,4,3:29,SUB: Wiggins Starts playing.,86 - 120,34,,,Aaron Wiggins,OKC,,,
+502,SUB,4,3:29,SUB: Williams Starts playing.,86 - 120,34,,,Kenrich Williams,OKC,,,
+503,FOUL,4,3:29,Gilgeous-Alexander Personal Take Foul (P3.T2) (J.Capers),86 - 120,34,Shai Gilgeous-Alexander,OKC,Jordan Hawkins,NOP,,,11:56 PM
+504,3POINTMISS,4,3:26,MISS Alvarado 28' 3PT Jump Shot,86 - 120,34,Jose Alvarado,NOP,,,,,11:56 PM
+505,REBOUND,4,3:22,K. Williams REBOUND (Off:0 Def:1),86 - 120,34,Kenrich Williams,OKC,,,,,11:56 PM
+506,STEAL,4,3:07,Giddey Out of Bounds - Bad Pass Turnover Turnover (P2.T8),86 - 120,34,Josh Giddey,OKC,,,,,11:57 PM
+507,SUB,4,2:58,SUB: Giddey Stops playing.,86 - 120,34,Josh Giddey,OKC,,,,,
+508,SUB,4,2:58,SUB: Wallace Stops playing.,86 - 120,34,Cason Wallace,OKC,,,,,
+509,SUB,4,2:58,SUB: Waters Starts playing.,86 - 120,34,,,Lindy Waters III,OKC,,,
+510,SUB,4,2:58,SUB: Dieng Starts playing.,86 - 120,34,,,Ousmane Dieng,OKC,,,
+511,VIOLATION,4,2:58,Jay. Williams Violation:Kicked Ball (J.Capers),86 - 120,34,Jaylin Williams,OKC,,,,,11:57 PM
+512,2POINT,4,2:50,Marshall 9' Driving Floating Jump Shot (8 PTS),88 - 120,32,Naji Marshall,NOP,,,,,11:58 PM
+513,3POINTMISS,4,2:30,MISS Waters III 25' 3PT Jump Shot,88 - 120,32,Lindy Waters III,OKC,,,,,11:58 PM
+514,REBOUND,4,2:28,Alvarado REBOUND (Off:0 Def:1),88 - 120,32,Jose Alvarado,NOP,,,,,11:58 PM
+515,2POINT.ASSIST,4,2:25,Robinson-Earl 1' Running Dunk (2 PTS) (Alvarado 2 AST),90 - 120,30,Jeremiah Robinson-Earl,NOP,Jose Alvarado,NOP,,,11:58 PM
+516,3POINTMISS,4,2:00,MISS K. Williams 26' 3PT Pullup Jump Shot,90 - 120,30,Kenrich Williams,OKC,,,,,11:58 PM
+517,REBOUND,4,1:57,Hawkins REBOUND (Off:0 Def:1),90 - 120,30,Jordan Hawkins,NOP,,,,,11:58 PM
+518,2POINTMISS,4,1:38,MISS Daniels 9' Turnaround Jump Shot,90 - 120,30,Dyson Daniels,NOP,,,,,11:59 PM
+519,REBOUND,4,1:35,Waters III REBOUND (Off:0 Def:1),90 - 120,30,Lindy Waters III,OKC,,,,,11:59 PM
+520,FOUL,4,1:21,Hawkins S.FOUL (P1.T4) (J.Capers),90 - 120,30,Jordan Hawkins,NOP,Aaron Wiggins,OKC,,,11:59 PM
+521,FTMAKE,4,1:21,Wiggins Free Throw 1 of 2 (3 PTS),90 - 121,31,Aaron Wiggins,OKC,,,,,11:59 PM
+522,FTMAKE,4,1:21,Wiggins Free Throw 2 of 2 (4 PTS),90 - 122,32,Aaron Wiggins,OKC,,,,,12:00 AM
+523,FOUL,4,1:09,Wiggins S.FOUL (P1.T3) (J.Capers),90 - 122,32,Aaron Wiggins,OKC,Naji Marshall,NOP,,,12:00 AM
+524,FTMAKE,4,1:09,Marshall Free Throw 1 of 2 (9 PTS),91 - 122,31,Naji Marshall,NOP,,,,,12:00 AM
+525,FTMAKE,4,1:09,Marshall Free Throw 2 of 2 (10 PTS),92 - 122,30,Naji Marshall,NOP,,,,,12:00 AM
+526,2POINT,4,0:52,Wiggins 2' Layup (6 PTS),92 - 124,32,Aaron Wiggins,OKC,,,,,12:01 AM
+527,3POINTMISS,4,0:42,MISS Hawkins 27' 3PT Pullup Jump Shot,92 - 124,32,Jordan Hawkins,NOP,,,,,12:01 AM
+528,REBOUND,4,0:41,Robinson-Earl REBOUND (Off:1 Def:0),92 - 124,32,Jeremiah Robinson-Earl,NOP,,,,,12:01 AM
+529,FOUL,4,0:39,Wiggins P.FOUL (P2.PN) (P.Fraher),92 - 124,32,Aaron Wiggins,OKC,Jeremiah Robinson-Earl,NOP,,,12:01 AM
+530,FTMISS,4,0:39,MISS Robinson-Earl Free Throw 1 of 2,92 - 124,32,Jeremiah Robinson-Earl,NOP,,,,,12:01 AM
+531,REBOUND,4,0:39,Pelicans Rebound,92 - 124,32,,,,,,,12:01 AM
+532,FTMISS,4,0:39,MISS Robinson-Earl Free Throw 2 of 2,92 - 124,32,Jeremiah Robinson-Earl,NOP,,,,,12:01 AM
+533,REBOUND,4,0:38,Jay. Williams REBOUND (Off:0 Def:1),92 - 124,32,Jaylin Williams,OKC,,,,,12:01 AM
+534,STEAL,4,0:14,THUNDER Turnover: Shot Clock (T#9),92 - 124,32,,,,,,,12:02 AM
+535,3POINTMISS,4,0:04,MISS Hawkins 29' 3PT Step Back Jump Shot,92 - 124,32,Jordan Hawkins,NOP,,,,,12:02 AM
+536,REBOUND,4,0:01,Wiggins REBOUND (Off:1 Def:4),92 - 124,32,Aaron Wiggins,OKC,,,,,12:02 AM
+537,SUB,4,0:00,SUB: Williams Stops playing.,92 - 124,32,Jaylin Williams,OKC,,,,,
+538,SUB,4,0:00,SUB: Wiggins Stops playing.,92 - 124,32,Aaron Wiggins,OKC,,,,,
+539,SUB,4,0:00,SUB: Williams Stops playing.,92 - 124,32,Kenrich Williams,OKC,,,,,
+540,SUB,4,0:00,SUB: Waters Stops playing.,92 - 124,32,Lindy Waters III,OKC,,,,,
+541,SUB,4,0:00,SUB: Dieng Stops playing.,92 - 124,32,Ousmane Dieng,OKC,,,,,
+542,SUB,4,0:00,SUB: Alvarado Stops playing.,92 - 124,32,Jose Alvarado,NOP,,,,,
+543,SUB,4,0:00,SUB: Marshall Stops playing.,92 - 124,32,Naji Marshall,NOP,,,,,
+544,SUB,4,0:00,SUB: Daniels Stops playing.,92 - 124,32,Dyson Daniels,NOP,,,,,
+545,SUB,4,0:00,SUB: Robinson-Earl Stops playing.,92 - 124,32,Jeremiah Robinson-Earl,NOP,,,,,
+546,SUB,4,0:00,SUB: Hawkins Stops playing.,92 - 124,32,Jordan Hawkins,NOP,,,,,
+547,ENDOFPERIOD,4,0:00,End of 4th Period (12:03 AM EST),92 - 124,32,,,,,,,12:03 AM

@@ -1,0 +1,559 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation,wctimestring
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (3:42 PM EST),0 - 0,0,,,,,,,3:42 PM
+1,SUB,1,12:00,SUB: Jackson-Davis Starts playing.,0 - 0,0,,,Trayce Jackson-Davis,GSW,,,
+2,SUB,1,12:00,SUB: Wiggins Starts playing.,0 - 0,0,,,Andrew Wiggins,GSW,,,
+3,SUB,1,12:00,SUB: Thompson Starts playing.,0 - 0,0,,,Klay Thompson,GSW,,,
+4,SUB,1,12:00,SUB: Paul Starts playing.,0 - 0,0,,,Chris Paul,GSW,,,
+5,SUB,1,12:00,SUB: Kuminga Starts playing.,0 - 0,0,,,Jonathan Kuminga,GSW,,,
+6,SUB,1,12:00,SUB: Yurtseven Starts playing.,0 - 0,0,,,Omer Yurtseven,UTA,,,
+7,SUB,1,12:00,SUB: George Starts playing.,0 - 0,0,,,Keyonte George,UTA,,,
+8,SUB,1,12:00,SUB: Samanic Starts playing.,0 - 0,0,,,Luka Samanic,UTA,,,
+9,SUB,1,12:00,SUB: Hendricks Starts playing.,0 - 0,0,,,Taylor Hendricks,UTA,,,
+10,SUB,1,12:00,SUB: Juzang Starts playing.,0 - 0,0,,,Johnny Juzang,UTA,,,
+11,JUMPBALL,1,12:00,Jump Ball Jackson-Davis vs. Yurtseven: Tip to Juzang,0 - 0,0,Trayce Jackson-Davis,GSW,Omer Yurtseven,UTA,Johnny Juzang,UTA,3:42 PM
+12,2POINT.ASSIST,1,11:39,Yurtseven 5' Hook Shot (2 PTS) (Hendricks 1 AST),2 - 0,-2,Omer Yurtseven,UTA,Taylor Hendricks,UTA,,,3:42 PM
+13,2POINT.ASSIST,1,11:22,Wiggins 21' Step Back Jump Shot (2 PTS) (Paul 1 AST),2 - 2,TIE,Andrew Wiggins,GSW,Chris Paul,GSW,,,3:42 PM
+14,STEAL,1,11:02,Yurtseven Double Dribble Turnover (P1.T1),2 - 2,TIE,Omer Yurtseven,UTA,,,,,3:43 PM
+15,2POINTMISS,1,10:51,MISS Wiggins 18' Pullup Jump Shot,2 - 2,TIE,Andrew Wiggins,GSW,,,,,3:43 PM
+16,REBOUND,1,10:45,Yurtseven REBOUND (Off:0 Def:1),2 - 2,TIE,Omer Yurtseven,UTA,,,,,3:43 PM
+17,2POINT,1,10:39,George 3' Driving Layup (2 PTS),4 - 2,-2,Keyonte George,UTA,,,,,3:43 PM
+18,3POINTMISS,1,10:23,MISS Thompson 28' 3PT Jump Shot,4 - 2,-2,Klay Thompson,GSW,,,,,3:43 PM
+19,REBOUND,1,10:19,Samanic REBOUND (Off:0 Def:1),4 - 2,-2,Luka Samanic,UTA,,,,,3:44 PM
+20,2POINTMISS.BLOCK,1,10:10,Kuminga BLOCK (1 BLK)  MISS Yurtseven 9' Turnaround Fadeaway Shot,4 - 2,-2,Omer Yurtseven,UTA,,,Jonathan Kuminga,GSW,3:44 PM
+21,REBOUND,1,10:09,Yurtseven REBOUND (Off:1 Def:1),4 - 2,-2,Omer Yurtseven,UTA,,,,,3:44 PM
+22,2POINT,1,10:07,Yurtseven 6' Floating Jump Shot (4 PTS),6 - 2,-4,Omer Yurtseven,UTA,,,,,3:44 PM
+23,FOUL,1,10:07,Paul S.FOUL (P1.T1) (D.Taylor),6 - 2,-4,Chris Paul,GSW,Omer Yurtseven,UTA,,,3:44 PM
+24,FTMAKE,1,10:07,Yurtseven Free Throw 1 of 1 (5 PTS),7 - 2,-5,Omer Yurtseven,UTA,,,,,3:44 PM
+25,2POINT.ASSIST,1,9:57,Jackson-Davis 6' Cutting Finger Roll Layup Shot (2 PTS) (Paul 2 AST),7 - 4,-3,Trayce Jackson-Davis,GSW,Chris Paul,GSW,,,3:44 PM
+26,STEAL.TURNOVER,1,9:42,Wiggins STEAL (1 STL)  George Bad Pass Turnover (P1.T2),7 - 4,-3,Keyonte George,UTA,Andrew Wiggins,GSW,,,3:45 PM
+27,STEAL.TURNOVER,1,9:34,Wiggins Bad Pass Turnover (P1.T1)  Samanic STEAL (1 STL),7 - 4,-3,Andrew Wiggins,GSW,Luka Samanic,UTA,,,3:45 PM
+28,2POINTMISS,1,9:25,MISS Samanic 6' Turnaround Bank Shot,7 - 4,-3,Luka Samanic,UTA,,,,,3:45 PM
+29,REBOUND,1,9:25,Jazz Rebound,7 - 4,-3,,,,,,,3:45 PM
+30,STEAL,1,9:17,Samanic Traveling Turnover (P1.T3),7 - 4,-3,Luka Samanic,UTA,,,,,3:46 PM
+31,2POINT,1,9:09,Paul 11' Pullup Jump Shot (2 PTS),7 - 6,-1,Chris Paul,GSW,,,,,3:46 PM
+32,3POINTMISS,1,8:52,MISS Samanic 27' 3PT Jump Shot,7 - 6,-1,Luka Samanic,UTA,,,,,3:46 PM
+33,REBOUND,1,8:47,Paul REBOUND (Off:0 Def:1),7 - 6,-1,Chris Paul,GSW,,,,,3:46 PM
+34,3POINT.ASSIST,1,8:40,Wiggins 24' 3PT Jump Shot (5 PTS) (Paul 3 AST),7 - 9,2,Andrew Wiggins,GSW,Chris Paul,GSW,,,3:46 PM
+35,3POINTMISS,1,8:22,MISS Yurtseven 25' 3PT Jump Shot,7 - 9,2,Omer Yurtseven,UTA,,,,,3:47 PM
+36,REBOUND,1,8:19,Thompson REBOUND (Off:0 Def:1),7 - 9,2,Klay Thompson,GSW,,,,,3:47 PM
+37,3POINT.ASSIST,1,8:04,Thompson 26' 3PT Jump Shot (3 PTS) (Kuminga 1 AST),7 - 12,5,Klay Thompson,GSW,Jonathan Kuminga,GSW,,,3:47 PM
+38,FOUL,1,7:51,Samanic Offensive Charge Foul (P1) (D.Taylor),7 - 12,5,Luka Samanic,UTA,Jonathan Kuminga,GSW,,,3:47 PM
+39,STEAL,1,7:51,Samanic Offensive Foul Turnover (P2.T4),7 - 12,5,Luka Samanic,UTA,,,,,3:47 PM
+40,3POINTMISS,1,7:38,MISS Paul 26' 3PT Jump Shot,7 - 12,5,Chris Paul,GSW,,,,,3:48 PM
+41,REBOUND,1,7:35,Hendricks REBOUND (Off:0 Def:1),7 - 12,5,Taylor Hendricks,UTA,,,,,3:48 PM
+42,SUB,1,7:18,SUB: Thompson Stops playing.,7 - 12,5,Klay Thompson,GSW,,,,,
+43,SUB,1,7:18,SUB: Podziemski Starts playing.,7 - 12,5,,,Brandin Podziemski,GSW,,,
+44,2POINT.ASSIST,1,7:18,Samanic 4' Cutting Finger Roll Layup Shot (2 PTS) (Juzang 1 AST),9 - 12,3,Luka Samanic,UTA,Johnny Juzang,UTA,,,3:48 PM
+45,FOUL,1,7:18,Kuminga S.FOUL (P1.T2) (K.Cutler),9 - 12,3,Jonathan Kuminga,GSW,Luka Samanic,UTA,,,3:48 PM
+46,FTMAKE,1,7:18,Samanic Free Throw 1 of 1 (3 PTS),10 - 12,2,Luka Samanic,UTA,,,,,3:49 PM
+47,3POINTMISS,1,7:06,MISS Wiggins 26' 3PT Jump Shot,10 - 12,2,Andrew Wiggins,GSW,,,,,3:49 PM
+48,REBOUND,1,7:04,Yurtseven REBOUND (Off:1 Def:2),10 - 12,2,Omer Yurtseven,UTA,,,,,3:49 PM
+49,TIMEOUT,1,6:55,WARRIORS Timeout: Regular (Full 1 Short 0),10 - 12,2,,,,,,,3:49 PM
+50,2POINTMISS,1,6:47,MISS Juzang 6' Fadeaway Bank Shot,10 - 12,2,Johnny Juzang,UTA,,,,,3:51 PM
+51,REBOUND,1,6:45,Hendricks REBOUND (Off:1 Def:1),10 - 12,2,Taylor Hendricks,UTA,,,,,3:51 PM
+52,2POINT,1,6:45,Hendricks 3' Tip Dunk Shot (2 PTS),12 - 12,TIE,Taylor Hendricks,UTA,,,,,3:52 PM
+53,3POINT.ASSIST,1,6:28,Podziemski 3PT Jump Shot (3 PTS) (Kuminga 2 AST),12 - 15,3,Brandin Podziemski,GSW,Jonathan Kuminga,GSW,,,3:53 PM
+54,2POINT,1,6:10,Hendricks 5' Driving Layup (4 PTS),14 - 15,1,Taylor Hendricks,UTA,,,,,3:53 PM
+55,2POINT,1,5:59,Podziemski 15' Step Back Jump Shot (5 PTS),14 - 17,3,Brandin Podziemski,GSW,,,,,3:53 PM
+56,2POINT,1,5:32,Hendricks 15' Pullup Jump Shot (6 PTS),16 - 17,1,Taylor Hendricks,UTA,,,,,3:54 PM
+57,3POINTMISS,1,5:09,MISS Paul 26' 3PT Jump Shot,16 - 17,1,Chris Paul,GSW,,,,,3:54 PM
+58,REBOUND,1,5:09,Yurtseven REBOUND (Off:1 Def:3),16 - 17,1,Omer Yurtseven,UTA,,,,,3:54 PM
+59,3POINT.ASSIST,1,4:59,George 27' 3PT Pullup Jump Shot (5 PTS) (Yurtseven 1 AST),19 - 17,-2,Keyonte George,UTA,Omer Yurtseven,UTA,,,3:54 PM
+60,2POINT,1,4:45,Paul 13' Pullup Jump Shot (4 PTS),19 - 19,TIE,Chris Paul,GSW,,,,,3:54 PM
+61,3POINTMISS,1,4:29,MISS Samanic 26' 3PT Jump Shot,19 - 19,TIE,Luka Samanic,UTA,,,,,3:55 PM
+62,SUB,1,4:27,SUB: Jackson-Davis Stops playing.,19 - 19,TIE,Trayce Jackson-Davis,GSW,,,,,
+63,SUB,1,4:27,SUB: Wiggins Stops playing.,19 - 19,TIE,Andrew Wiggins,GSW,,,,,
+64,SUB,1,4:27,SUB: Kuminga Stops playing.,19 - 19,TIE,Jonathan Kuminga,GSW,,,,,
+65,SUB,1,4:27,SUB: Santos Starts playing.,19 - 19,TIE,,,Gui Santos,GSW,,,
+66,SUB,1,4:27,SUB: Looney Starts playing.,19 - 19,TIE,,,Kevon Looney,GSW,,,
+67,SUB,1,4:27,SUB: Moody Starts playing.,19 - 19,TIE,,,Moses Moody,GSW,,,
+68,SUB,1,4:27,SUB: Yurtseven Stops playing.,19 - 19,TIE,Omer Yurtseven,UTA,,,,,
+69,SUB,1,4:27,SUB: Juzang Stops playing.,19 - 19,TIE,Johnny Juzang,UTA,,,,,
+70,SUB,1,4:27,SUB: Potter Starts playing.,19 - 19,TIE,,,Micah Potter,UTA,,,
+71,SUB,1,4:27,SUB: Sensabaugh Starts playing.,19 - 19,TIE,,,Brice Sensabaugh,UTA,,,
+72,REBOUND,1,4:27,WARRIORS Rebound,19 - 19,TIE,,,,,,,3:55 PM
+73,3POINTMISS,1,4:11,MISS Santos 26' 3PT Jump Shot,19 - 19,TIE,Gui Santos,GSW,,,,,3:55 PM
+74,REBOUND,1,4:07,Potter REBOUND (Off:0 Def:1),19 - 19,TIE,Micah Potter,UTA,,,,,3:56 PM
+75,2POINT.ASSIST,1,3:49,Samanic 8' Driving Layup (5 PTS) (George 1 AST),21 - 19,-2,Luka Samanic,UTA,Keyonte George,UTA,,,3:56 PM
+76,2POINT.ASSIST,1,3:30,Looney 4' Driving Layup (2 PTS) (Podziemski 1 AST),21 - 21,TIE,Kevon Looney,GSW,Brandin Podziemski,GSW,,,3:56 PM
+77,3POINTMISS,1,3:18,MISS George 27' 3PT Step Back Jump Shot,21 - 21,TIE,Keyonte George,UTA,,,,,3:56 PM
+78,REBOUND,1,3:17,Samanic REBOUND (Off:1 Def:1),21 - 21,TIE,Luka Samanic,UTA,,,,,3:56 PM
+79,STEAL.TURNOVER,1,3:16,Moody STEAL (1 STL)  Samanic Lost Ball Turnover (P3.T5),21 - 21,TIE,Luka Samanic,UTA,Moses Moody,GSW,,,3:56 PM
+80,SUB,1,3:15,SUB: Thompson Starts playing.,21 - 21,TIE,,,Klay Thompson,GSW,,,
+81,SUB,1,3:15,SUB: Paul Stops playing.,21 - 21,TIE,Chris Paul,GSW,,,,,
+82,SUB,1,3:15,SUB: George Stops playing.,21 - 21,TIE,Keyonte George,UTA,,,,,
+83,SUB,1,3:15,SUB: Samanic Stops playing.,21 - 21,TIE,Luka Samanic,UTA,,,,,
+84,SUB,1,3:15,SUB: Hendricks Stops playing.,21 - 21,TIE,Taylor Hendricks,UTA,,,,,
+85,SUB,1,3:15,SUB: Bazley Starts playing.,21 - 21,TIE,,,Darius Bazley,UTA,,,
+86,SUB,1,3:15,SUB: Lofton Starts playing.,21 - 21,TIE,,,Kenneth Lofton Jr.,UTA,,,
+87,SUB,1,3:15,SUB: Lewis Starts playing.,21 - 21,TIE,,,Kira Lewis Jr.,UTA,,,
+88,VIOLATION,1,3:15,Jazz Violation: Delay of game Violation,21 - 21,TIE,,,,,,,3:57 PM
+89,TIMEOUT,1,2:55,Jazz Timeout: Regular (Reg.1 Short 0),21 - 21,TIE,,,,,,,3:58 PM
+90,3POINTMISS,1,2:53,MISS Moody 3PT Jump Shot,21 - 21,TIE,Moses Moody,GSW,,,,,4:00 PM
+91,REBOUND,1,2:51,Podziemski REBOUND (Off:1 Def:0),21 - 21,TIE,Brandin Podziemski,GSW,,,,,4:00 PM
+92,3POINTMISS,1,2:49,MISS Thompson 25' 3PT Step Back Jump Shot,21 - 21,TIE,Klay Thompson,GSW,,,,,4:00 PM
+93,REBOUND,1,2:47,WARRIORS Rebound,21 - 21,TIE,,,,,,,4:00 PM
+94,FOUL,1,2:47,Potter L.B.FOUL (P1.T1) (K.Cutler),21 - 21,TIE,Micah Potter,UTA,Gui Santos,GSW,,,4:01 PM
+95,2POINT.ASSIST,1,2:39,Santos 2' Reverse Layup (2 PTS) (Looney 1 AST),21 - 23,2,Gui Santos,GSW,Kevon Looney,GSW,,,4:01 PM
+96,2POINT,1,2:14,Bazley 13' Fadeaway Jumper (2 PTS),23 - 23,TIE,Darius Bazley,UTA,,,,,4:01 PM
+97,3POINTMISS,1,2:00,MISS Thompson 25' 3PT Jump Shot,23 - 23,TIE,Klay Thompson,GSW,,,,,4:02 PM
+98,REBOUND,1,1:56,WARRIORS Rebound,23 - 23,TIE,,,,,,,4:02 PM
+99,FOUL,1,1:53,Bazley S.FOUL (P1.T2) (K.Scott),23 - 23,TIE,Darius Bazley,UTA,Klay Thompson,GSW,,,4:02 PM
+100,FTMAKE,1,1:53,Thompson Free Throw 1 of 3 (4 PTS),23 - 24,1,Klay Thompson,GSW,,,,,4:03 PM
+101,FTMAKE,1,1:53,Thompson Free Throw 2 of 3 (5 PTS),23 - 25,2,Klay Thompson,GSW,,,,,4:03 PM
+102,FTMAKE,1,1:53,Thompson Free Throw 3 of 3 (6 PTS),23 - 26,3,Klay Thompson,GSW,,,,,4:03 PM
+103,2POINT,1,1:39,Sensabaugh 13' Fadeaway Jumper (2 PTS),25 - 26,1,Brice Sensabaugh,UTA,,,,,4:03 PM
+104,3POINT.ASSIST,1,1:21,Moody 27' 3PT Jump Shot (3 PTS) (Thompson 1 AST),25 - 29,4,Moses Moody,GSW,Klay Thompson,GSW,,,4:04 PM
+105,3POINTMISS,1,1:11,MISS Lofton Jr. 27' 3PT Jump Shot,25 - 29,4,Kenneth Lofton Jr.,UTA,,,,,4:04 PM
+106,REBOUND,1,1:07,Thompson REBOUND (Off:0 Def:2),25 - 29,4,Klay Thompson,GSW,,,,,4:04 PM
+107,FOUL,1,1:01,Sensabaugh P.FOUL (P1.PN) (K.Cutler),25 - 29,4,Brice Sensabaugh,UTA,Klay Thompson,GSW,,,4:04 PM
+108,FTMAKE,1,1:01,Thompson Free Throw 1 of 2 (7 PTS),25 - 30,5,Klay Thompson,GSW,,,,,4:05 PM
+109,FTMAKE,1,1:01,Thompson Free Throw 2 of 2 (8 PTS),25 - 31,6,Klay Thompson,GSW,,,,,4:05 PM
+110,2POINT.ASSIST,1,0:48,Lewis Jr. 11' Fadeaway Bank Shot (2 PTS) (Lofton Jr. 1 AST),27 - 31,4,Kira Lewis Jr.,UTA,Kenneth Lofton Jr.,UTA,,,4:05 PM
+111,2POINTMISS.BLOCK,1,0:38,MISS Looney 3' Cutting Layup Shot  Lofton Jr. BLOCK (1 BLK),27 - 31,4,Kevon Looney,GSW,,,Kenneth Lofton Jr.,UTA,4:05 PM
+112,REBOUND,1,0:37,Jazz Rebound,27 - 31,4,,,,,,,4:05 PM
+113,2POINTMISS,1,0:35,MISS Lewis Jr. 23' Pullup Jump Shot,27 - 31,4,Kira Lewis Jr.,UTA,,,,,4:06 PM
+114,REBOUND,1,0:33,Moody REBOUND (Off:0 Def:1),27 - 31,4,Moses Moody,GSW,,,,,4:06 PM
+115,2POINT,1,0:12,Thompson 3' Driving Reverse Layup (10 PTS),27 - 33,6,Klay Thompson,GSW,,,,,4:06 PM
+116,FOUL,1,0:05,Santos P.FOUL (P1.T3) (K.Scott),27 - 33,6,Gui Santos,GSW,Kira Lewis Jr.,UTA,,,4:07 PM
+117,SUB,1,0:00,SUB: Thompson Stops playing.,27 - 33,6,Klay Thompson,GSW,,,,,
+118,SUB,1,0:00,SUB: Podziemski Stops playing.,27 - 33,6,Brandin Podziemski,GSW,,,,,
+119,SUB,1,0:00,SUB: Santos Stops playing.,27 - 33,6,Gui Santos,GSW,,,,,
+120,SUB,1,0:00,SUB: Looney Stops playing.,27 - 33,6,Kevon Looney,GSW,,,,,
+121,SUB,1,0:00,SUB: Moody Stops playing.,27 - 33,6,Moses Moody,GSW,,,,,
+122,SUB,1,0:00,SUB: Potter Stops playing.,27 - 33,6,Micah Potter,UTA,,,,,
+123,SUB,1,0:00,SUB: Bazley Stops playing.,27 - 33,6,Darius Bazley,UTA,,,,,
+124,SUB,1,0:00,SUB: Sensabaugh Stops playing.,27 - 33,6,Brice Sensabaugh,UTA,,,,,
+125,SUB,1,0:00,SUB: Lofton Stops playing.,27 - 33,6,Kenneth Lofton Jr.,UTA,,,,,
+126,SUB,1,0:00,SUB: Lewis Stops playing.,27 - 33,6,Kira Lewis Jr.,UTA,,,,,
+127,ENDOFPERIOD,1,0:00,End of 1st Period (4:08 PM EST),27 - 33,6,,,,,,,4:08 PM
+128,STARTOFPERIOD,2,12:00,Start of 2nd Period (4:10 PM EST),27 - 33,6,,,,,,,4:10 PM
+129,SUB,2,12:00,SUB: Jackson-Davis Starts playing.,27 - 33,6,,,Trayce Jackson-Davis,GSW,,,
+130,SUB,2,12:00,SUB: Thompson Starts playing.,27 - 33,6,,,Klay Thompson,GSW,,,
+131,SUB,2,12:00,SUB: Podziemski Starts playing.,27 - 33,6,,,Brandin Podziemski,GSW,,,
+132,SUB,2,12:00,SUB: Moody Starts playing.,27 - 33,6,,,Moses Moody,GSW,,,
+133,SUB,2,12:00,SUB: Šarić Starts playing.,27 - 33,6,,,Dario Šarić,GSW,,,
+134,SUB,2,12:00,SUB: Potter Starts playing.,27 - 33,6,,,Micah Potter,UTA,,,
+135,SUB,2,12:00,SUB: Bazley Starts playing.,27 - 33,6,,,Darius Bazley,UTA,,,
+136,SUB,2,12:00,SUB: Sensabaugh Starts playing.,27 - 33,6,,,Brice Sensabaugh,UTA,,,
+137,SUB,2,12:00,SUB: Lofton Starts playing.,27 - 33,6,,,Kenneth Lofton Jr.,UTA,,,
+138,SUB,2,12:00,SUB: Lewis Starts playing.,27 - 33,6,,,Kira Lewis Jr.,UTA,,,
+139,2POINT,2,11:40,Saric 2' Driving Reverse Layup (2 PTS),27 - 35,8,Dario Šarić,GSW,,,,,4:10 PM
+140,2POINT.ASSIST,2,11:24,Sensabaugh 2' Driving Layup (4 PTS) (Lofton Jr. 2 AST),29 - 35,6,Brice Sensabaugh,UTA,Kenneth Lofton Jr.,UTA,,,4:10 PM
+141,STEAL.TURNOVER,2,11:10,Saric Bad Pass Turnover (P1.T2)  Sensabaugh STEAL (1 STL),29 - 35,6,Dario Šarić,GSW,Brice Sensabaugh,UTA,,,4:11 PM
+142,3POINTMISS,2,11:05,MISS Lewis Jr. 3PT Running Jump Shot,29 - 35,6,Kira Lewis Jr.,UTA,,,,,4:11 PM
+143,REBOUND,2,11:01,Thompson REBOUND (Off:0 Def:3),29 - 35,6,Klay Thompson,GSW,,,,,4:11 PM
+144,STEAL,2,10:52,Moody Traveling Turnover (P1.T3),29 - 35,6,Moses Moody,GSW,,,,,4:11 PM
+145,STEAL.TURNOVER,2,10:43,Podziemski STEAL (1 STL)  Lofton Jr. Lost Ball Turnover (P1.T6),29 - 35,6,Kenneth Lofton Jr.,UTA,Brandin Podziemski,GSW,,,4:11 PM
+146,2POINT.ASSIST,2,10:30,Jackson-Davis 2' Cutting Dunk Shot (4 PTS) (Thompson 2 AST),29 - 37,8,Trayce Jackson-Davis,GSW,Klay Thompson,GSW,,,4:12 PM
+147,2POINT,2,10:20,Lewis Jr. 2' Driving Layup (4 PTS),31 - 37,6,Kira Lewis Jr.,UTA,,,,,4:12 PM
+148,2POINTMISS.BLOCK,2,10:06,MISS Podziemski 4' Driving Finger Roll Layup  Bazley BLOCK (1 BLK),31 - 37,6,Brandin Podziemski,GSW,,,Darius Bazley,UTA,4:12 PM
+149,REBOUND,2,10:03,Sensabaugh REBOUND (Off:0 Def:1),31 - 37,6,Brice Sensabaugh,UTA,,,,,4:12 PM
+150,3POINT.ASSIST,2,9:57,Sensabaugh 3PT Jump Shot (7 PTS) (Lewis Jr. 1 AST),34 - 37,3,Brice Sensabaugh,UTA,Kira Lewis Jr.,UTA,,,4:12 PM
+151,3POINTMISS,2,9:39,MISS Podziemski 3PT Jump Shot,34 - 37,3,Brandin Podziemski,GSW,,,,,4:13 PM
+152,REBOUND,2,9:34,Lewis Jr. REBOUND (Off:0 Def:1),34 - 37,3,Kira Lewis Jr.,UTA,,,,,4:13 PM
+153,2POINTMISS,2,9:23,MISS Lofton Jr. 4' Driving Layup,34 - 37,3,Kenneth Lofton Jr.,UTA,,,,,4:13 PM
+154,REBOUND,2,9:21,Podziemski REBOUND (Off:1 Def:1),34 - 37,3,Brandin Podziemski,GSW,,,,,4:13 PM
+155,3POINT.ASSIST,2,9:16,Thompson 28' 3PT Pullup Jump Shot (13 PTS) (Podziemski 2 AST),34 - 40,6,Klay Thompson,GSW,Brandin Podziemski,GSW,,,4:13 PM
+156,3POINTMISS,2,9:01,MISS Potter 24' 3PT Jump Shot,34 - 40,6,Micah Potter,UTA,,,,,4:13 PM
+157,REBOUND,2,9:01,Podziemski REBOUND (Off:1 Def:2),34 - 40,6,Brandin Podziemski,GSW,,,,,4:13 PM
+158,3POINTMISS,2,8:49,MISS Thompson 25' 3PT Step Back Jump Shot,34 - 40,6,Klay Thompson,GSW,,,,,4:13 PM
+159,REBOUND,2,8:45,Potter REBOUND (Off:0 Def:2),34 - 40,6,Micah Potter,UTA,,,,,4:14 PM
+160,3POINTMISS,2,8:34,MISS Sensabaugh 3PT Jump Shot,34 - 40,6,Brice Sensabaugh,UTA,,,,,4:14 PM
+161,REBOUND,2,8:31,Saric REBOUND (Off:0 Def:1),34 - 40,6,Dario Šarić,GSW,,,,,4:14 PM
+162,3POINT.ASSIST,2,8:28,Thompson 3PT Running Jump Shot (16 PTS) (Moody 1 AST),34 - 43,9,Klay Thompson,GSW,Moses Moody,GSW,,,4:14 PM
+163,SUB,2,8:26,SUB: Hendricks Starts playing.,34 - 43,9,,,Taylor Hendricks,UTA,,,
+164,SUB,2,8:26,SUB: Bazley Stops playing.,34 - 43,9,Darius Bazley,UTA,,,,,
+165,TIMEOUT,2,8:26,Jazz Timeout: Regular (Reg.2 Short 0),34 - 43,9,,,,,,,4:14 PM
+166,STEAL.TURNOVER,2,8:08,Podziemski STEAL (2 STL)  Sensabaugh Bad Pass Turnover (P1.T7),34 - 43,9,Brice Sensabaugh,UTA,Brandin Podziemski,GSW,,,4:17 PM
+167,3POINT.ASSIST,2,8:01,Thompson 3PT Jump Shot (19 PTS) (Jackson-Davis 1 AST),34 - 46,12,Klay Thompson,GSW,Trayce Jackson-Davis,GSW,,,4:17 PM
+168,3POINT.ASSIST,2,7:45,Potter 3PT Jump Shot (3 PTS) (Lofton Jr. 3 AST),37 - 46,9,Micah Potter,UTA,Kenneth Lofton Jr.,UTA,,,4:18 PM
+169,2POINTMISS.BLOCK,2,7:22,MISS Saric 3' Driving Layup  Potter BLOCK (1 BLK),37 - 46,9,Dario Šarić,GSW,,,Micah Potter,UTA,4:18 PM
+170,REBOUND,2,7:21,Saric REBOUND (Off:1 Def:1),37 - 46,9,Dario Šarić,GSW,,,,,4:18 PM
+171,STEAL.TURNOVER,2,7:19,Saric Bad Pass Turnover (P2.T4)  Lewis Jr. STEAL (1 STL),37 - 46,9,Dario Šarić,GSW,Kira Lewis Jr.,UTA,,,4:18 PM
+172,SUB,2,7:13,SUB: Wiggins Starts playing.,37 - 46,9,,,Andrew Wiggins,GSW,,,
+173,SUB,2,7:13,SUB: Thompson Stops playing.,37 - 46,9,Klay Thompson,GSW,,,,,
+174,SUB,2,7:13,SUB: Paul Starts playing.,37 - 46,9,,,Chris Paul,GSW,,,
+175,SUB,2,7:13,SUB: Podziemski Stops playing.,37 - 46,9,Brandin Podziemski,GSW,,,,,
+176,2POINT.ASSIST,2,7:02,Sensabaugh 4' Driving Layup (9 PTS) (Potter 1 AST),39 - 46,7,Brice Sensabaugh,UTA,Micah Potter,UTA,,,4:19 PM
+177,3POINT.ASSIST,2,6:42,Saric 24' 3PT Jump Shot (5 PTS) (Moody 2 AST),39 - 49,10,Dario Šarić,GSW,Moses Moody,GSW,,,4:19 PM
+178,3POINTMISS,2,6:24,MISS Sensabaugh 26' 3PT Step Back Jump Shot,39 - 49,10,Brice Sensabaugh,UTA,,,,,4:19 PM
+179,REBOUND,2,6:21,Paul REBOUND (Off:0 Def:2),39 - 49,10,Chris Paul,GSW,,,,,4:19 PM
+180,STEAL.TURNOVER,2,6:14,Saric Bad Pass Turnover (P3.T5)  Hendricks STEAL (1 STL),39 - 49,10,Dario Šarić,GSW,Taylor Hendricks,UTA,,,4:20 PM
+181,2POINT,2,6:10,Hendricks 2' Running Dunk (8 PTS),41 - 49,8,Taylor Hendricks,UTA,,,,,4:20 PM
+182,SUB,2,5:56,SUB: Jackson-Davis Stops playing.,41 - 49,8,Trayce Jackson-Davis,GSW,,,,,
+183,SUB,2,5:56,SUB: Kuminga Starts playing.,41 - 49,8,,,Jonathan Kuminga,GSW,,,
+184,SUB,2,5:56,SUB: Looney Starts playing.,41 - 49,8,,,Kevon Looney,GSW,,,
+185,SUB,2,5:56,SUB: Šarić Stops playing.,41 - 49,8,Dario Šarić,GSW,,,,,
+186,SUB,2,5:56,SUB: Yurtseven Starts playing.,41 - 49,8,,,Omer Yurtseven,UTA,,,
+187,SUB,2,5:56,SUB: George Starts playing.,41 - 49,8,,,Keyonte George,UTA,,,
+188,SUB,2,5:56,SUB: Lofton Stops playing.,41 - 49,8,Kenneth Lofton Jr.,UTA,,,,,
+189,SUB,2,5:56,SUB: Lewis Stops playing.,41 - 49,8,Kira Lewis Jr.,UTA,,,,,
+190,FOUL,2,5:56,Lewis Jr. S.FOUL (P1.T1) (K.Scott),41 - 49,8,Kira Lewis Jr.,UTA,Andrew Wiggins,GSW,,,4:20 PM
+191,FTMAKE,2,5:56,Wiggins Free Throw 1 of 2 (6 PTS),41 - 50,9,Andrew Wiggins,GSW,,,,,4:21 PM
+192,FTMAKE,2,5:56,Wiggins Free Throw 2 of 2 (7 PTS),41 - 51,10,Andrew Wiggins,GSW,,,,,4:21 PM
+193,3POINTMISS,2,5:47,MISS Hendricks 27' 3PT Jump Shot,41 - 51,10,Taylor Hendricks,UTA,,,,,4:21 PM
+194,REBOUND,2,5:42,Wiggins REBOUND (Off:0 Def:1),41 - 51,10,Andrew Wiggins,GSW,,,,,4:21 PM
+195,2POINTMISS,2,5:38,MISS Looney 5' Running Layup,41 - 51,10,Kevon Looney,GSW,,,,,4:21 PM
+196,REBOUND,2,5:35,Potter REBOUND (Off:0 Def:3),41 - 51,10,Micah Potter,UTA,,,,,4:21 PM
+197,3POINT,2,5:25,Sensabaugh 26' 3PT Step Back Jump Shot (12 PTS),44 - 51,7,Brice Sensabaugh,UTA,,,,,4:21 PM
+198,2POINTMISS,2,5:10,MISS Paul 12' Pullup Jump Shot,44 - 51,7,Chris Paul,GSW,,,,,4:22 PM
+199,REBOUND,2,5:07,Yurtseven REBOUND (Off:1 Def:4),44 - 51,7,Omer Yurtseven,UTA,,,,,4:22 PM
+200,3POINTMISS,2,5:01,MISS Sensabaugh 26' 3PT Jump Shot,44 - 51,7,Brice Sensabaugh,UTA,,,,,4:22 PM
+201,REBOUND,2,4:59,Paul REBOUND (Off:0 Def:3),44 - 51,7,Chris Paul,GSW,,,,,4:22 PM
+202,SUB,2,4:57,SUB: Podziemski Starts playing.,44 - 51,7,,,Brandin Podziemski,GSW,,,
+203,SUB,2,4:57,SUB: Moody Stops playing.,44 - 51,7,Moses Moody,GSW,,,,,
+204,FOUL,2,4:57,Sensabaugh P.FOUL (P2.T2) (K.Cutler),44 - 51,7,Brice Sensabaugh,UTA,Moses Moody,GSW,,,4:22 PM
+205,REPLAY,2,4:57,Instant Replay2nd Period (4:23 PM EST),44 - 51,7,,,,,,,4:23 PM
+206,2POINT.ASSIST,2,4:40,Wiggins 13' Turnaround Jump Shot (9 PTS) (Looney 2 AST),44 - 53,9,Andrew Wiggins,GSW,Kevon Looney,GSW,,,4:24 PM
+207,2POINTMISS,2,4:27,MISS George 6' Fadeaway Bank Shot,44 - 53,9,Keyonte George,UTA,,,,,4:24 PM
+208,REBOUND,2,4:25,Podziemski REBOUND (Off:1 Def:3),44 - 53,9,Brandin Podziemski,GSW,,,,,4:24 PM
+209,2POINTMISS,2,4:08,MISS Paul 15' Pullup Jump Shot,44 - 53,9,Chris Paul,GSW,,,,,4:25 PM
+210,REBOUND,2,4:03,Potter REBOUND (Off:0 Def:4),44 - 53,9,Micah Potter,UTA,,,,,4:25 PM
+211,SUB,2,4:00,SUB: Juzang Starts playing.,44 - 53,9,,,Johnny Juzang,UTA,,,
+212,SUB,2,4:00,SUB: Sensabaugh Stops playing.,44 - 53,9,Brice Sensabaugh,UTA,,,,,
+213,FOUL,2,4:00,Wiggins S.FOUL (P1.T1) (K.Cutler),44 - 53,9,Andrew Wiggins,GSW,Micah Potter,UTA,,,4:25 PM
+214,FTMISS,2,4:00,MISS Potter Free Throw 1 of 2,44 - 53,9,Micah Potter,UTA,,,,,4:25 PM
+215,REBOUND,2,4:00,Jazz Rebound,44 - 53,9,,,,,,,4:25 PM
+216,FTMISS,2,4:00,MISS Potter Free Throw 2 of 2,44 - 53,9,Micah Potter,UTA,,,,,4:25 PM
+217,REBOUND,2,4:00,Podziemski REBOUND (Off:1 Def:4),44 - 53,9,Brandin Podziemski,GSW,,,,,4:25 PM
+218,2POINTMISS,2,3:45,MISS Kuminga 3' Driving Layup,44 - 53,9,Jonathan Kuminga,GSW,,,,,4:26 PM
+219,REBOUND,2,3:42,George REBOUND (Off:0 Def:1),44 - 53,9,Keyonte George,UTA,,,,,4:26 PM
+220,2POINTMISS,2,3:24,MISS Yurtseven 8' Turnaround Hook Shot,44 - 53,9,Omer Yurtseven,UTA,,,,,4:26 PM
+221,REBOUND,2,3:21,Yurtseven REBOUND (Off:2 Def:4),44 - 53,9,Omer Yurtseven,UTA,,,,,4:26 PM
+222,2POINTMISS.BLOCK,2,3:19,Looney BLOCK (1 BLK)  MISS Yurtseven 5' Turnaround Hook Shot,44 - 53,9,Omer Yurtseven,UTA,,,Kevon Looney,GSW,4:27 PM
+223,REBOUND,2,3:16,Jazz Rebound,44 - 53,9,,,,,,,4:27 PM
+224,JUMPBALL,2,3:16,Jump Ball Looney vs. Potter: Tip to George,44 - 53,9,Kevon Looney,GSW,Micah Potter,UTA,Keyonte George,UTA,4:27 PM
+225,2POINT,2,3:09,George 13' Driving Floating Jump Shot (7 PTS),46 - 53,7,Keyonte George,UTA,,,,,4:27 PM
+226,3POINTMISS,2,2:56,MISS Wiggins 26' 3PT Jump Shot,46 - 53,7,Andrew Wiggins,GSW,,,,,4:27 PM
+227,REBOUND,2,2:54,Yurtseven REBOUND (Off:2 Def:5),46 - 53,7,Omer Yurtseven,UTA,,,,,4:27 PM
+228,SUB,2,2:47,SUB: Jackson-Davis Starts playing.,46 - 53,7,,,Trayce Jackson-Davis,GSW,,,
+229,SUB,2,2:47,SUB: Thompson Starts playing.,46 - 53,7,,,Klay Thompson,GSW,,,
+230,SUB,2,2:47,SUB: Kuminga Stops playing.,46 - 53,7,Jonathan Kuminga,GSW,,,,,
+231,SUB,2,2:47,SUB: Looney Stops playing.,46 - 53,7,Kevon Looney,GSW,,,,,
+232,SUB,2,2:47,SUB: Samanic Starts playing.,46 - 53,7,,,Luka Samanic,UTA,,,
+233,SUB,2,2:47,SUB: Potter Stops playing.,46 - 53,7,Micah Potter,UTA,,,,,
+234,3POINT,2,2:47,George 27' 3PT Running Pull-Up Jump Shot (10 PTS),49 - 53,4,Keyonte George,UTA,,,,,4:28 PM
+235,FOUL,2,2:47,Paul S.FOUL (P2.T2) (K.Scott),49 - 53,4,Chris Paul,GSW,Keyonte George,UTA,,,4:28 PM
+236,TIMEOUT,2,2:47,WARRIORS Timeout: Regular (Full 2 Short 0),49 - 53,4,,,,,,,4:28 PM
+237,FTMISS,2,2:47,MISS George Free Throw 1 of 1,49 - 53,4,Keyonte George,UTA,,,,,4:31 PM
+238,REBOUND,2,2:45,Paul REBOUND (Off:0 Def:4),49 - 53,4,Chris Paul,GSW,,,,,4:31 PM
+239,STEAL,2,2:45,Paul Out of Bounds - Bad Pass Turnover Turnover (P1.T6),49 - 53,4,Chris Paul,GSW,,,,,4:31 PM
+240,3POINTMISS,2,2:40,MISS Samanic 26' 3PT Jump Shot,49 - 53,4,Luka Samanic,UTA,,,,,4:31 PM
+241,REBOUND,2,2:38,Podziemski REBOUND (Off:1 Def:5),49 - 53,4,Brandin Podziemski,GSW,,,,,4:31 PM
+242,2POINTMISS,2,2:23,MISS Paul 5' Driving Layup,49 - 53,4,Chris Paul,GSW,,,,,4:32 PM
+243,REBOUND,2,2:21,Yurtseven REBOUND (Off:2 Def:6),49 - 53,4,Omer Yurtseven,UTA,,,,,4:32 PM
+244,2POINTMISS,2,2:19,MISS George 3' Driving Floating Bank Jump Shot,49 - 53,4,Keyonte George,UTA,,,,,4:32 PM
+245,REBOUND,2,2:17,Yurtseven REBOUND (Off:3 Def:6),49 - 53,4,Omer Yurtseven,UTA,,,,,4:32 PM
+246,2POINT,2,2:17,Yurtseven Tip Dunk Shot (7 PTS),51 - 53,2,Omer Yurtseven,UTA,,,,,4:32 PM
+247,3POINTMISS,2,2:07,MISS Paul 3PT Jump Shot,51 - 53,2,Chris Paul,GSW,,,,,4:32 PM
+248,REBOUND,2,2:06,Samanic REBOUND (Off:1 Def:2),51 - 53,2,Luka Samanic,UTA,,,,,4:32 PM
+249,2POINT.ASSIST,2,1:49,Samanic 2' Driving Layup (7 PTS) (George 2 AST),53 - 53,TIE,Luka Samanic,UTA,Keyonte George,UTA,,,4:32 PM
+250,2POINTMISS,2,1:40,MISS Podziemski 12' Driving Floating Jump Shot,53 - 53,TIE,Brandin Podziemski,GSW,,,,,4:32 PM
+251,REBOUND,2,1:40,Yurtseven REBOUND (Off:3 Def:7),53 - 53,TIE,Omer Yurtseven,UTA,,,,,4:32 PM
+252,2POINT,2,1:34,George 9' Driving Floating Bank Jump Shot (12 PTS),55 - 53,-2,Keyonte George,UTA,,,,,4:32 PM
+253,2POINT,2,1:15,Wiggins 3' Driving Layup (11 PTS),55 - 55,TIE,Andrew Wiggins,GSW,,,,,4:33 PM
+254,FOUL,2,0:59,Samanic Offensive Charge Foul (P2) (K.Cutler),55 - 55,TIE,Luka Samanic,UTA,Brandin Podziemski,GSW,,,4:33 PM
+255,STEAL,2,0:59,Samanic Offensive Foul Turnover (P4.T8),55 - 55,TIE,Luka Samanic,UTA,,,,,4:33 PM
+256,2POINT.ASSIST,2,0:50,Jackson-Davis 1' Cutting Layup Shot (6 PTS) (Wiggins 1 AST),55 - 57,2,Trayce Jackson-Davis,GSW,Andrew Wiggins,GSW,,,4:33 PM
+257,FOUL,2,0:50,Yurtseven S.FOUL (P1.T3) (K.Scott),55 - 57,2,Omer Yurtseven,UTA,Trayce Jackson-Davis,GSW,,,4:34 PM
+258,FTMISS,2,0:50,MISS Jackson-Davis Free Throw 1 of 1,55 - 57,2,Trayce Jackson-Davis,GSW,,,,,4:34 PM
+259,REBOUND,2,0:48,Wiggins REBOUND (Off:1 Def:1),55 - 57,2,Andrew Wiggins,GSW,,,,,4:34 PM
+260,2POINT,2,0:47,Wiggins 5' Putback Layup (13 PTS),55 - 59,4,Andrew Wiggins,GSW,,,,,4:34 PM
+261,FOUL,2,0:35,Jackson-Davis S.FOUL (P1.T3) (K.Cutler),55 - 59,4,Trayce Jackson-Davis,GSW,Johnny Juzang,UTA,,,4:34 PM
+262,FTMAKE,2,0:35,Juzang Free Throw 1 of 2 (1 PTS),56 - 59,3,Johnny Juzang,UTA,,,,,4:35 PM
+263,FTMISS,2,0:35,MISS Juzang Free Throw 2 of 2,56 - 59,3,Johnny Juzang,UTA,,,,,4:35 PM
+264,REBOUND,2,0:33,Wiggins REBOUND (Off:1 Def:2),56 - 59,3,Andrew Wiggins,GSW,,,,,4:35 PM
+265,SUB,2,0:25,SUB: Thompson Stops playing.,56 - 59,3,Klay Thompson,GSW,,,,,
+266,SUB,2,0:25,SUB: Kuminga Starts playing.,56 - 59,3,,,Jonathan Kuminga,GSW,,,
+267,FOUL,2,0:25,Samanic S.FOUL (P3.PN) (K.Cutler),56 - 59,3,Luka Samanic,UTA,Andrew Wiggins,GSW,,,4:35 PM
+268,FTMAKE,2,0:25,Wiggins Free Throw 1 of 2 (14 PTS),56 - 60,4,Andrew Wiggins,GSW,,,,,4:36 PM
+269,FTMAKE,2,0:25,Wiggins Free Throw 2 of 2 (15 PTS),56 - 61,5,Andrew Wiggins,GSW,,,,,4:36 PM
+270,STEAL.TURNOVER,2,0:04,Wiggins STEAL (2 STL)  Yurtseven Bad Pass Turnover (P2.T9),56 - 61,5,Omer Yurtseven,UTA,Andrew Wiggins,GSW,,,4:37 PM
+271,2POINT.ASSIST,2,0:01,Podziemski 2' Running Reverse Layup (7 PTS) (Wiggins 2 AST),56 - 63,7,Brandin Podziemski,GSW,Andrew Wiggins,GSW,,,4:37 PM
+272,SUB,2,0:00,SUB: Jackson-Davis Stops playing.,56 - 63,7,Trayce Jackson-Davis,GSW,,,,,
+273,SUB,2,0:00,SUB: Wiggins Stops playing.,56 - 63,7,Andrew Wiggins,GSW,,,,,
+274,SUB,2,0:00,SUB: Paul Stops playing.,56 - 63,7,Chris Paul,GSW,,,,,
+275,SUB,2,0:00,SUB: Podziemski Stops playing.,56 - 63,7,Brandin Podziemski,GSW,,,,,
+276,SUB,2,0:00,SUB: Yurtseven Stops playing.,56 - 63,7,Omer Yurtseven,UTA,,,,,
+277,SUB,2,0:00,SUB: George Stops playing.,56 - 63,7,Keyonte George,UTA,,,,,
+278,SUB,2,0:00,SUB: Samanic Stops playing.,56 - 63,7,Luka Samanic,UTA,,,,,
+279,SUB,2,0:00,SUB: Hendricks Stops playing.,56 - 63,7,Taylor Hendricks,UTA,,,,,
+280,SUB,2,0:00,SUB: Juzang Stops playing.,56 - 63,7,Johnny Juzang,UTA,,,,,
+281,STEAL,2,0:00,Hendricks Traveling Turnover (P1.T10),56 - 63,7,Taylor Hendricks,UTA,,,,,4:38 PM
+282,ENDOFPERIOD,2,0:00,End of 2nd Period (4:38 PM EST),56 - 63,7,,,,,,,4:38 PM
+283,STARTOFPERIOD,3,12:00,Start of 3rd Period (4:54 PM EST),56 - 63,7,,,,,,,4:54 PM
+284,SUB,3,12:00,SUB: Jackson-Davis Starts playing.,56 - 63,7,,,Trayce Jackson-Davis,GSW,,,
+285,SUB,3,12:00,SUB: Wiggins Starts playing.,56 - 63,7,,,Andrew Wiggins,GSW,,,
+286,SUB,3,12:00,SUB: Thompson Starts playing.,56 - 63,7,,,Klay Thompson,GSW,,,
+287,SUB,3,12:00,SUB: Paul Starts playing.,56 - 63,7,,,Chris Paul,GSW,,,
+288,SUB,3,12:00,SUB: Yurtseven Starts playing.,56 - 63,7,,,Omer Yurtseven,UTA,,,
+289,SUB,3,12:00,SUB: George Starts playing.,56 - 63,7,,,Keyonte George,UTA,,,
+290,SUB,3,12:00,SUB: Samanic Starts playing.,56 - 63,7,,,Luka Samanic,UTA,,,
+291,SUB,3,12:00,SUB: Hendricks Starts playing.,56 - 63,7,,,Taylor Hendricks,UTA,,,
+292,SUB,3,12:00,SUB: Juzang Starts playing.,56 - 63,7,,,Johnny Juzang,UTA,,,
+293,3POINT.ASSIST,3,11:52,Thompson 27' 3PT Jump Shot (22 PTS) (Wiggins 3 AST),56 - 66,10,Klay Thompson,GSW,Andrew Wiggins,GSW,,,4:54 PM
+294,FOUL,3,11:33,Wiggins S.FOUL (P2.T1) (K.Cutler),56 - 66,10,Andrew Wiggins,GSW,Taylor Hendricks,UTA,,,4:54 PM
+295,FTMAKE,3,11:33,Hendricks Free Throw 1 of 2 (9 PTS),57 - 66,9,Taylor Hendricks,UTA,,,,,4:54 PM
+296,FTMAKE,3,11:33,Hendricks Free Throw 2 of 2 (10 PTS),58 - 66,8,Taylor Hendricks,UTA,,,,,4:55 PM
+297,3POINTMISS,3,11:23,MISS Wiggins 28' 3PT Step Back Jump Shot,58 - 66,8,Andrew Wiggins,GSW,,,,,4:55 PM
+298,REBOUND,3,11:20,Yurtseven REBOUND (Off:3 Def:8),58 - 66,8,Omer Yurtseven,UTA,,,,,4:55 PM
+299,3POINTMISS,3,11:10,MISS Juzang 27' 3PT Jump Shot,58 - 66,8,Johnny Juzang,UTA,,,,,4:55 PM
+300,REBOUND,3,11:06,Hendricks REBOUND (Off:2 Def:1),58 - 66,8,Taylor Hendricks,UTA,,,,,4:55 PM
+301,3POINT.ASSIST,3,11:04,George 24' 3PT Step Back Jump Shot (15 PTS) (Hendricks 2 AST),61 - 66,5,Keyonte George,UTA,Taylor Hendricks,UTA,,,4:55 PM
+302,STEAL.TURNOVER,3,10:51,Jackson-Davis Bad Pass Turnover (P1.T7)  Hendricks STEAL (2 STL),61 - 66,5,Trayce Jackson-Davis,GSW,Taylor Hendricks,UTA,,,4:55 PM
+303,2POINTMISS.BLOCK,3,10:37,Thompson BLOCK (1 BLK)  MISS Yurtseven 5' Turnaround Hook Shot,61 - 66,5,Omer Yurtseven,UTA,,,Klay Thompson,GSW,4:56 PM
+304,REBOUND,3,10:35,Wiggins REBOUND (Off:1 Def:3),61 - 66,5,Andrew Wiggins,GSW,,,,,4:56 PM
+305,3POINT.ASSIST,3,10:27,Thompson 27' 3PT Jump Shot (25 PTS) (Paul 4 AST),61 - 69,8,Klay Thompson,GSW,Chris Paul,GSW,,,4:56 PM
+306,3POINT,3,10:06,George 26' 3PT Pullup Jump Shot (18 PTS),64 - 69,5,Keyonte George,UTA,,,,,4:56 PM
+307,2POINT.ASSIST,3,9:52,Jackson-Davis 3' Alley Oop Layup (8 PTS) (Thompson 3 AST),64 - 71,7,Trayce Jackson-Davis,GSW,Klay Thompson,GSW,,,4:57 PM
+308,3POINT.ASSIST,3,9:40,Hendricks 3PT Jump Shot (13 PTS) (Samanic 1 AST),67 - 71,4,Taylor Hendricks,UTA,Luka Samanic,UTA,,,4:57 PM
+309,3POINTMISS,3,9:25,MISS Thompson 25' 3PT Step Back Jump Shot,67 - 71,4,Klay Thompson,GSW,,,,,4:57 PM
+310,REBOUND,3,9:23,Juzang REBOUND (Off:0 Def:1),67 - 71,4,Johnny Juzang,UTA,,,,,4:57 PM
+311,3POINT.ASSIST,3,9:08,George 26' 3PT Pullup Jump Shot (21 PTS) (Yurtseven 2 AST),70 - 71,1,Keyonte George,UTA,Omer Yurtseven,UTA,,,4:57 PM
+312,TIMEOUT,3,9:07,WARRIORS Timeout: Regular (Full 3 Short 0),70 - 71,1,,,,,,,4:58 PM
+313,3POINTMISS,3,8:54,MISS Thompson 25' 3PT Jump Shot,70 - 71,1,Klay Thompson,GSW,,,,,5:01 PM
+314,REBOUND,3,8:51,Hendricks REBOUND (Off:2 Def:2),70 - 71,1,Taylor Hendricks,UTA,,,,,5:01 PM
+315,2POINT.ASSIST,3,8:37,Yurtseven 4' Cutting Layup Shot (9 PTS) (George 3 AST),72 - 71,-1,Omer Yurtseven,UTA,Keyonte George,UTA,,,5:01 PM
+316,FOUL,3,8:23,George S.FOUL (P1.T1) (K.Scott),72 - 71,-1,Keyonte George,UTA,Andrew Wiggins,GSW,,,5:01 PM
+317,FTMAKE,3,8:23,Wiggins Free Throw 1 of 2 (16 PTS),72 - 72,TIE,Andrew Wiggins,GSW,,,,,5:02 PM
+318,FTMISS,3,8:23,MISS Wiggins Free Throw 2 of 2,72 - 72,TIE,Andrew Wiggins,GSW,,,,,5:02 PM
+319,REBOUND,3,8:21,Samanic REBOUND (Off:1 Def:3),72 - 72,TIE,Luka Samanic,UTA,,,,,5:02 PM
+320,3POINT.ASSIST,3,8:09,Juzang 3PT Jump Shot (4 PTS) (George 4 AST),75 - 72,-3,Johnny Juzang,UTA,Keyonte George,UTA,,,5:02 PM
+321,2POINTMISS,3,7:45,MISS Wiggins 11' Driving Floating Jump Shot,75 - 72,-3,Andrew Wiggins,GSW,,,,,5:02 PM
+322,REBOUND,3,7:42,Yurtseven REBOUND (Off:3 Def:9),75 - 72,-3,Omer Yurtseven,UTA,,,,,5:03 PM
+323,2POINTMISS,3,7:35,MISS Yurtseven 2' Driving Hook Shot,75 - 72,-3,Omer Yurtseven,UTA,,,,,5:03 PM
+324,SUB,3,7:34,SUB: Jackson-Davis Stops playing.,75 - 72,-3,Trayce Jackson-Davis,GSW,,,,,
+325,SUB,3,7:34,SUB: Thompson Stops playing.,75 - 72,-3,Klay Thompson,GSW,,,,,
+326,SUB,3,7:34,SUB: Kuminga Stops playing.,75 - 72,-3,Jonathan Kuminga,GSW,,,,,
+327,SUB,3,7:34,SUB: Podziemski Starts playing.,75 - 72,-3,,,Brandin Podziemski,GSW,,,
+328,SUB,3,7:34,SUB: Santos Starts playing.,75 - 72,-3,,,Gui Santos,GSW,,,
+329,SUB,3,7:34,SUB: Looney Starts playing.,75 - 72,-3,,,Kevon Looney,GSW,,,
+330,REBOUND,3,7:34,Yurtseven REBOUND (Off:4 Def:9),75 - 72,-3,Omer Yurtseven,UTA,,,,,5:03 PM
+331,2POINT,3,7:34,Yurtseven 2' Tip Layup Shot (11 PTS),77 - 72,-5,Omer Yurtseven,UTA,,,,,5:03 PM
+332,FOUL,3,7:34,Paul S.FOUL (P3.T2) (K.Cutler),77 - 72,-5,Chris Paul,GSW,Omer Yurtseven,UTA,,,5:03 PM
+333,FTMISS,3,7:34,MISS Yurtseven Free Throw 1 of 1,77 - 72,-5,Omer Yurtseven,UTA,,,,,5:03 PM
+334,REBOUND,3,7:34,Santos REBOUND (Off:0 Def:1),77 - 72,-5,Gui Santos,GSW,,,,,5:03 PM
+335,3POINT.ASSIST,3,7:22,Wiggins 27' 3PT Jump Shot (19 PTS) (Paul 5 AST),77 - 75,-2,Andrew Wiggins,GSW,Chris Paul,GSW,,,5:04 PM
+336,2POINT.ASSIST,3,7:01,Samanic 2' Cutting Layup Shot (9 PTS) (Juzang 2 AST),79 - 75,-4,Luka Samanic,UTA,Johnny Juzang,UTA,,,5:04 PM
+337,2POINT,3,6:48,Paul 12' Pullup Jump Shot (6 PTS),79 - 77,-2,Chris Paul,GSW,,,,,5:04 PM
+338,SUB,3,6:33,SUB: Wiggins Stops playing.,79 - 77,-2,Andrew Wiggins,GSW,,,,,
+339,SUB,3,6:33,SUB: Moody Starts playing.,79 - 77,-2,,,Moses Moody,GSW,,,
+340,SUB,3,6:33,SUB: George Stops playing.,79 - 77,-2,Keyonte George,UTA,,,,,
+341,SUB,3,6:33,SUB: Lewis Starts playing.,79 - 77,-2,,,Kira Lewis Jr.,UTA,,,
+342,FOUL,3,6:33,Looney S.FOUL (P1.T3) (K.Cutler),79 - 77,-2,Kevon Looney,GSW,Johnny Juzang,UTA,,,5:04 PM
+343,FTMAKE,3,6:33,Juzang Free Throw 1 of 2 (5 PTS),80 - 77,-3,Johnny Juzang,UTA,,,,,5:05 PM
+344,FTMISS,3,6:33,MISS Juzang Free Throw 2 of 2,80 - 77,-3,Johnny Juzang,UTA,,,,,5:05 PM
+345,REBOUND,3,6:31,Podziemski REBOUND (Off:1 Def:6),80 - 77,-3,Brandin Podziemski,GSW,,,,,5:05 PM
+346,2POINTMISS.BLOCK,3,6:24,MISS Paul 19' Pullup Jump Shot  Hendricks BLOCK (1 BLK),80 - 77,-3,Chris Paul,GSW,,,Taylor Hendricks,UTA,5:05 PM
+347,REBOUND,3,6:22,Podziemski REBOUND (Off:2 Def:6),80 - 77,-3,Brandin Podziemski,GSW,,,,,5:05 PM
+348,2POINT.ASSIST,3,6:14,Moody 15' Pullup Jump Shot (5 PTS) (Santos 1 AST),80 - 79,-1,Moses Moody,GSW,Gui Santos,GSW,,,5:06 PM
+349,3POINTMISS,3,6:02,MISS Juzang 25' 3PT Jump Shot,80 - 79,-1,Johnny Juzang,UTA,,,,,5:06 PM
+350,REBOUND,3,6:00,Yurtseven REBOUND (Off:5 Def:9),80 - 79,-1,Omer Yurtseven,UTA,,,,,5:06 PM
+351,3POINT.ASSIST,3,5:46,Juzang 3PT Jump Shot (8 PTS) (Samanic 2 AST),83 - 79,-4,Johnny Juzang,UTA,Luka Samanic,UTA,,,5:06 PM
+352,2POINT.ASSIST,3,5:26,Santos 4' Driving Layup (4 PTS) (Paul 6 AST),83 - 81,-2,Gui Santos,GSW,Chris Paul,GSW,,,5:06 PM
+353,SUB,3,5:17,SUB: Paul Stops playing.,83 - 81,-2,Chris Paul,GSW,,,,,
+354,SUB,3,5:17,SUB: Quinones Starts playing.,83 - 81,-2,,,Lester Quinones,GSW,,,
+355,STEAL,3,5:17,Lewis Jr. Out of Bounds - Bad Pass Turnover Turnover (P1.T11),83 - 81,-2,Kira Lewis Jr.,UTA,,,,,5:06 PM
+356,3POINTMISS,3,5:09,MISS Podziemski 27' 3PT Pullup Jump Shot,83 - 81,-2,Brandin Podziemski,GSW,,,,,5:07 PM
+357,REBOUND,3,5:06,Looney REBOUND (Off:1 Def:0),83 - 81,-2,Kevon Looney,GSW,,,,,5:07 PM
+358,2POINTMISS,3,5:02,MISS Moody 10' Driving Floating Jump Shot,83 - 81,-2,Moses Moody,GSW,,,,,5:07 PM
+359,REBOUND,3,4:59,Yurtseven REBOUND (Off:5 Def:10),83 - 81,-2,Omer Yurtseven,UTA,,,,,5:07 PM
+360,2POINTMISS,3,4:48,MISS Lewis Jr. 3' Driving Floating Jump Shot,83 - 81,-2,Kira Lewis Jr.,UTA,,,,,5:07 PM
+361,REBOUND,3,4:46,Lewis Jr. REBOUND (Off:1 Def:1),83 - 81,-2,Kira Lewis Jr.,UTA,,,,,5:07 PM
+362,2POINT,3,4:45,Lewis Jr. 7' Tip Layup Shot (6 PTS),85 - 81,-4,Kira Lewis Jr.,UTA,,,,,5:07 PM
+363,3POINTMISS,3,4:40,MISS Moody 26' 3PT Jump Shot,85 - 81,-4,Moses Moody,GSW,,,,,5:07 PM
+364,REBOUND,3,4:36,Podziemski REBOUND (Off:3 Def:6),85 - 81,-4,Brandin Podziemski,GSW,,,,,5:07 PM
+365,SUB,3,4:24,SUB: Juzang Stops playing.,85 - 81,-4,Johnny Juzang,UTA,,,,,
+366,SUB,3,4:24,SUB: Sensabaugh Starts playing.,85 - 81,-4,,,Brice Sensabaugh,UTA,,,
+367,2POINTMISS,3,4:24,MISS Santos 3' Driving Layup,85 - 81,-4,Gui Santos,GSW,,,,,5:08 PM
+368,REBOUND,3,4:24,WARRIORS Rebound,85 - 81,-4,,,,,,,5:08 PM
+369,2POINT.ASSIST,3,4:19,Moody 11' Pullup Jump Shot (7 PTS) (Quinones 1 AST),85 - 83,-2,Moses Moody,GSW,Lester Quinones,GSW,,,5:08 PM
+370,3POINTMISS,3,4:05,MISS Samanic 24' 3PT Jump Shot,85 - 83,-2,Luka Samanic,UTA,,,,,5:09 PM
+371,REBOUND,3,4:00,Looney REBOUND (Off:1 Def:1),85 - 83,-2,Kevon Looney,GSW,,,,,5:09 PM
+372,FOUL,3,3:57,Yurtseven S.FOUL (P2.T2) (K.Scott),85 - 83,-2,Omer Yurtseven,UTA,Moses Moody,GSW,,,5:09 PM
+373,FTMAKE,3,3:57,Moody Free Throw 1 of 2 (8 PTS),85 - 84,-1,Moses Moody,GSW,,,,,5:09 PM
+374,FTMAKE,3,3:57,Moody Free Throw 2 of 2 (9 PTS),85 - 85,TIE,Moses Moody,GSW,,,,,5:09 PM
+375,3POINTMISS,3,3:37,MISS Sensabaugh 24' 3PT Step Back Jump Shot,85 - 85,TIE,Brice Sensabaugh,UTA,,,,,5:10 PM
+376,REBOUND,3,3:32,Santos REBOUND (Off:0 Def:2),85 - 85,TIE,Gui Santos,GSW,,,,,5:10 PM
+377,3POINTMISS,3,3:15,MISS Quinones 27' 3PT Jump Shot,85 - 85,TIE,Lester Quinones,GSW,,,,,5:10 PM
+378,REBOUND,3,3:11,Santos REBOUND (Off:1 Def:2),85 - 85,TIE,Gui Santos,GSW,,,,,5:10 PM
+379,SUB,3,3:09,SUB: Podziemski Stops playing.,85 - 85,TIE,Brandin Podziemski,GSW,,,,,
+380,SUB,3,3:09,SUB: Spencer Starts playing.,85 - 85,TIE,,,Pat Spencer,GSW,,,
+381,FOUL,3,3:09,Hendricks P.FOUL (P1.T3) (K.Cutler),85 - 85,TIE,Taylor Hendricks,UTA,Brandin Podziemski,GSW,,,5:10 PM
+382,2POINT.ASSIST,3,3:01,Looney 18' Jump Shot (4 PTS) (Quinones 2 AST),85 - 87,2,Kevon Looney,GSW,Lester Quinones,GSW,,,5:11 PM
+383,STEAL.TURNOVER,3,2:42,Moody STEAL (2 STL)  Samanic Bad Pass Turnover (P5.T12),85 - 87,2,Luka Samanic,UTA,Moses Moody,GSW,,,5:11 PM
+384,3POINTMISS,3,2:32,MISS Moody 29' 3PT Jump Shot,85 - 87,2,Moses Moody,GSW,,,,,5:11 PM
+385,REBOUND,3,2:29,Hendricks REBOUND (Off:2 Def:3),85 - 87,2,Taylor Hendricks,UTA,,,,,5:11 PM
+386,2POINTMISS,3,2:13,MISS Sensabaugh 3' Driving Reverse Layup,85 - 87,2,Brice Sensabaugh,UTA,,,,,5:11 PM
+387,REBOUND,3,2:11,Santos REBOUND (Off:1 Def:3),85 - 87,2,Gui Santos,GSW,,,,,5:12 PM
+388,3POINTMISS,3,1:56,MISS Santos 24' 3PT Jump Shot,85 - 87,2,Gui Santos,GSW,,,,,5:12 PM
+389,REBOUND,3,1:54,Hendricks REBOUND (Off:2 Def:4),85 - 87,2,Taylor Hendricks,UTA,,,,,5:12 PM
+390,2POINT,3,1:43,Lewis Jr. 5' Driving Floating Bank Jump Shot (8 PTS),87 - 87,TIE,Kira Lewis Jr.,UTA,,,,,5:12 PM
+391,2POINTMISS,3,1:33,MISS Moody 17' Pullup Jump Shot,87 - 87,TIE,Moses Moody,GSW,,,,,5:12 PM
+392,REBOUND,3,1:32,Samanic REBOUND (Off:1 Def:4),87 - 87,TIE,Luka Samanic,UTA,,,,,5:12 PM
+393,STEAL.TURNOVER,3,1:29,Santos STEAL (1 STL)  Samanic Bad Pass Turnover (P6.T13),87 - 87,TIE,Luka Samanic,UTA,Gui Santos,GSW,,,5:12 PM
+394,2POINT,3,1:22,Santos 3' Driving Layup (6 PTS),87 - 89,2,Gui Santos,GSW,,,,,5:12 PM
+395,SUB,3,1:06,SUB: Kuminga Starts playing.,87 - 89,2,,,Jonathan Kuminga,GSW,,,
+396,SUB,3,1:06,SUB: Moody Stops playing.,87 - 89,2,Moses Moody,GSW,,,,,
+397,SUB,3,1:06,SUB: Yurtseven Stops playing.,87 - 89,2,Omer Yurtseven,UTA,,,,,
+398,SUB,3,1:06,SUB: Potter Starts playing.,87 - 89,2,,,Micah Potter,UTA,,,
+399,FOUL,3,1:06,Quinones P.FOUL (P1.T4) (K.Scott),87 - 89,2,Lester Quinones,GSW,Luka Samanic,UTA,,,5:13 PM
+400,2POINTMISS,3,0:59,MISS Hendricks 3' Driving Layup,87 - 89,2,Taylor Hendricks,UTA,,,,,5:16 PM
+401,REBOUND,3,0:57,Hendricks REBOUND (Off:3 Def:4),87 - 89,2,Taylor Hendricks,UTA,,,,,5:16 PM
+402,2POINTMISS,3,0:57,MISS Hendricks Tip Layup Shot,87 - 89,2,Taylor Hendricks,UTA,,,,,5:16 PM
+403,REBOUND,3,0:57,WARRIORS Rebound,87 - 89,2,,,,,,,5:16 PM
+404,3POINTMISS,3,0:43,MISS Spencer 26' 3PT Jump Shot,87 - 89,2,Pat Spencer,GSW,,,,,5:16 PM
+405,REBOUND,3,0:41,Jazz Rebound,87 - 89,2,,,,,,,5:16 PM
+406,FOUL,3,0:41,Santos L.B.FOUL (P2.PN) (K.Scott),87 - 89,2,Gui Santos,GSW,Luka Samanic,UTA,,,5:17 PM
+407,FTMAKE,3,0:41,Samanic Free Throw 1 of 2 (10 PTS),88 - 89,1,Luka Samanic,UTA,,,,,5:17 PM
+408,FTMAKE,3,0:41,Samanic Free Throw 2 of 2 (11 PTS),89 - 89,TIE,Luka Samanic,UTA,,,,,5:17 PM
+409,3POINT.ASSIST,3,0:31,Quinones 27' 3PT Pullup Jump Shot (3 PTS) (Kuminga 3 AST),89 - 92,3,Lester Quinones,GSW,Jonathan Kuminga,GSW,,,5:17 PM
+410,STEAL,3,0:13,Sensabaugh Traveling Turnover (P2.T14),89 - 92,3,Brice Sensabaugh,UTA,,,,,5:18 PM
+411,3POINT.ASSIST,3,0:07,Santos 27' 3PT Jump Shot (9 PTS) (Kuminga 4 AST),89 - 95,6,Gui Santos,GSW,Jonathan Kuminga,GSW,,,5:18 PM
+412,SUB,3,0:00,SUB: Kuminga Stops playing.,89 - 95,6,Jonathan Kuminga,GSW,,,,,
+413,SUB,3,0:00,SUB: Santos Stops playing.,89 - 95,6,Gui Santos,GSW,,,,,
+414,SUB,3,0:00,SUB: Looney Stops playing.,89 - 95,6,Kevon Looney,GSW,,,,,
+415,SUB,3,0:00,SUB: Quinones Stops playing.,89 - 95,6,Lester Quinones,GSW,,,,,
+416,SUB,3,0:00,SUB: Spencer Stops playing.,89 - 95,6,Pat Spencer,GSW,,,,,
+417,SUB,3,0:00,SUB: Samanic Stops playing.,89 - 95,6,Luka Samanic,UTA,,,,,
+418,SUB,3,0:00,SUB: Hendricks Stops playing.,89 - 95,6,Taylor Hendricks,UTA,,,,,
+419,SUB,3,0:00,SUB: Potter Stops playing.,89 - 95,6,Micah Potter,UTA,,,,,
+420,SUB,3,0:00,SUB: Sensabaugh Stops playing.,89 - 95,6,Brice Sensabaugh,UTA,,,,,
+421,SUB,3,0:00,SUB: Lewis Stops playing.,89 - 95,6,Kira Lewis Jr.,UTA,,,,,
+422,ENDOFPERIOD,3,0:00,End of 3rd Period (5:18 PM EST),89 - 95,6,,,,,,,5:18 PM
+423,STARTOFPERIOD,4,12:00,Start of 4th Period (5:21 PM EST),89 - 95,6,,,,,,,5:21 PM
+424,SUB,4,12:00,SUB: Kuminga Starts playing.,89 - 95,6,,,Jonathan Kuminga,GSW,,,
+425,SUB,4,12:00,SUB: Santos Starts playing.,89 - 95,6,,,Gui Santos,GSW,,,
+426,SUB,4,12:00,SUB: Šarić Starts playing.,89 - 95,6,,,Dario Šarić,GSW,,,
+427,SUB,4,12:00,SUB: Quinones Starts playing.,89 - 95,6,,,Lester Quinones,GSW,,,
+428,SUB,4,12:00,SUB: Spencer Starts playing.,89 - 95,6,,,Pat Spencer,GSW,,,
+429,SUB,4,12:00,SUB: Hendricks Starts playing.,89 - 95,6,,,Taylor Hendricks,UTA,,,
+430,SUB,4,12:00,SUB: Potter Starts playing.,89 - 95,6,,,Micah Potter,UTA,,,
+431,SUB,4,12:00,SUB: Sensabaugh Starts playing.,89 - 95,6,,,Brice Sensabaugh,UTA,,,
+432,SUB,4,12:00,SUB: Lofton Starts playing.,89 - 95,6,,,Kenneth Lofton Jr.,UTA,,,
+433,SUB,4,12:00,SUB: Lewis Starts playing.,89 - 95,6,,,Kira Lewis Jr.,UTA,,,
+434,STEAL.TURNOVER,4,11:44,Kuminga STEAL (1 STL)  Sensabaugh Bad Pass Turnover (P3.T15),89 - 95,6,Brice Sensabaugh,UTA,Jonathan Kuminga,GSW,,,5:21 PM
+435,2POINT.ASSIST,4,11:38,Santos 1' Running Dunk (11 PTS) (Kuminga 5 AST),89 - 97,8,Gui Santos,GSW,Jonathan Kuminga,GSW,,,5:21 PM
+436,STEAL.TURNOVER,4,11:24,Kuminga STEAL (2 STL)  Sensabaugh Bad Pass Turnover (P4.T16),89 - 97,8,Brice Sensabaugh,UTA,Jonathan Kuminga,GSW,,,5:21 PM
+437,FOUL,4,11:21,Potter S.FOUL (P2.T1) (K.Cutler),89 - 97,8,Micah Potter,UTA,Dario Šarić,GSW,,,5:22 PM
+438,FTMAKE,4,11:21,Saric Free Throw 1 of 2 (6 PTS),89 - 98,9,Dario Šarić,GSW,,,,,5:22 PM
+439,FTMAKE,4,11:21,Saric Free Throw 2 of 2 (7 PTS),89 - 99,10,Dario Šarić,GSW,,,,,5:22 PM
+440,FOUL,4,11:14,Potter OFF.Foul (P3) (K.Scott),89 - 99,10,Micah Potter,UTA,Lester Quinones,GSW,,,5:23 PM
+441,STEAL,4,11:14,Potter Offensive Foul Turnover (P1.T17),89 - 99,10,Micah Potter,UTA,,,,,5:23 PM
+442,2POINT.ASSIST,4,11:11,Quinones 2' Driving Dunk (5 PTS) (Saric 1 AST),89 - 101,12,Lester Quinones,GSW,Dario Šarić,GSW,,,5:23 PM
+443,2POINT.ASSIST,4,10:47,Lewis Jr. 1' Cutting Layup Shot (10 PTS) (Lofton Jr. 4 AST),91 - 101,10,Kira Lewis Jr.,UTA,Kenneth Lofton Jr.,UTA,,,5:23 PM
+444,FOUL,4,10:47,Quinones S.FOUL (P2.T1) (K.Cutler),91 - 101,10,Lester Quinones,GSW,Kira Lewis Jr.,UTA,,,5:23 PM
+445,FTMAKE,4,10:47,Lewis Jr. Free Throw 1 of 1 (11 PTS),92 - 101,9,Kira Lewis Jr.,UTA,,,,,5:24 PM
+446,2POINTMISS.BLOCK,4,10:31,MISS Kuminga 3' Driving Layup  Potter BLOCK (2 BLK),92 - 101,9,Jonathan Kuminga,GSW,,,Micah Potter,UTA,5:24 PM
+447,REBOUND,4,10:28,Santos REBOUND (Off:2 Def:3),92 - 101,9,Gui Santos,GSW,,,,,5:24 PM
+448,3POINTMISS,4,10:23,MISS Santos 28' 3PT Step Back Jump Shot,92 - 101,9,Gui Santos,GSW,,,,,5:24 PM
+449,REBOUND,4,10:19,Lofton Jr. REBOUND (Off:0 Def:1),92 - 101,9,Kenneth Lofton Jr.,UTA,,,,,5:24 PM
+450,2POINTMISS,4,10:01,MISS Lewis Jr. 3' Driving Finger Roll Layup,92 - 101,9,Kira Lewis Jr.,UTA,,,,,5:24 PM
+451,REBOUND,4,9:59,Saric REBOUND (Off:1 Def:2),92 - 101,9,Dario Šarić,GSW,,,,,5:24 PM
+452,2POINT.ASSIST,4,9:58,Quinones 3' Running Layup (7 PTS) (Spencer 1 AST),92 - 103,11,Lester Quinones,GSW,Pat Spencer,GSW,,,5:25 PM
+453,3POINT.ASSIST,4,9:46,Lofton Jr. 25' 3PT Jump Shot (3 PTS) (Lewis Jr. 2 AST),95 - 103,8,Kenneth Lofton Jr.,UTA,Kira Lewis Jr.,UTA,,,5:25 PM
+454,3POINT.ASSIST,4,9:40,Quinones 3PT Pullup Jump Shot (10 PTS) (Kuminga 6 AST),95 - 106,11,Lester Quinones,GSW,Jonathan Kuminga,GSW,,,5:25 PM
+455,2POINT,4,9:26,Lofton Jr. 4' Driving Reverse Layup (5 PTS),97 - 106,9,Kenneth Lofton Jr.,UTA,,,,,5:25 PM
+456,2POINT.ASSIST,4,9:09,Saric 2' Cutting Layup Shot (9 PTS) (Kuminga 7 AST),97 - 108,11,Dario Šarić,GSW,Jonathan Kuminga,GSW,,,5:25 PM
+457,2POINTMISS,4,8:50,MISS Potter 5' Driving Hook Shot,97 - 108,11,Micah Potter,UTA,,,,,5:26 PM
+458,2POINT,4,8:43,Potter Tip Layup Shot (5 PTS),99 - 108,9,Micah Potter,UTA,,,,,5:26 PM
+459,REBOUND,4,8:43,Potter REBOUND (Off:1 Def:4),99 - 108,9,Micah Potter,UTA,,,,,5:26 PM
+460,FOUL,4,8:41,Potter P.FOUL (P4.T2) (K.Cutler),99 - 108,9,Micah Potter,UTA,Dario Šarić,GSW,,,5:26 PM
+461,TIMEOUT,4,8:41,WARRIORS Timeout: Regular (Full 4 Short 0),99 - 108,9,,,,,,,5:26 PM
+462,3POINTMISS,4,8:28,MISS Quinones 27' 3PT Step Back Jump Shot,99 - 108,9,Lester Quinones,GSW,,,,,5:29 PM
+463,REBOUND,4,8:24,Spencer REBOUND (Off:1 Def:0),99 - 108,9,Pat Spencer,GSW,,,,,5:29 PM
+464,2POINTMISS,4,8:15,MISS Kuminga 3' Driving Layup,99 - 108,9,Jonathan Kuminga,GSW,,,,,5:30 PM
+465,REBOUND,4,8:12,Lewis Jr. REBOUND (Off:1 Def:2),99 - 108,9,Kira Lewis Jr.,UTA,,,,,5:30 PM
+466,2POINT,4,8:02,Lofton Jr. 3' Driving Floating Jump Shot (7 PTS),101 - 108,7,Kenneth Lofton Jr.,UTA,,,,,5:30 PM
+467,FOUL,4,7:43,Potter S.FOUL (P5.T3) (D.Taylor),101 - 108,7,Micah Potter,UTA,Dario Šarić,GSW,,,5:30 PM
+468,FTMISS,4,7:43,MISS Saric Free Throw 1 of 2,101 - 108,7,Dario Šarić,GSW,,,,,5:31 PM
+469,REBOUND,4,7:43,WARRIORS Rebound,101 - 108,7,,,,,,,5:31 PM
+470,FTMAKE,4,7:43,Saric Free Throw 2 of 2 (10 PTS),101 - 109,8,Dario Šarić,GSW,,,,,5:31 PM
+471,3POINT.ASSIST,4,7:33,Hendricks 27' 3PT Jump Shot (16 PTS) (Lewis Jr. 3 AST),104 - 109,5,Taylor Hendricks,UTA,Kira Lewis Jr.,UTA,,,5:31 PM
+472,3POINTMISS,4,7:18,MISS Spencer 27' 3PT Jump Shot,104 - 109,5,Pat Spencer,GSW,,,,,5:31 PM
+473,REBOUND,4,7:15,Potter REBOUND (Off:1 Def:5),104 - 109,5,Micah Potter,UTA,,,,,5:31 PM
+474,2POINTMISS,4,7:07,MISS Sensabaugh 20' Step Back Jump Shot,104 - 109,5,Brice Sensabaugh,UTA,,,,,5:32 PM
+475,REBOUND,4,7:04,Saric REBOUND (Off:1 Def:3),104 - 109,5,Dario Šarić,GSW,,,,,5:32 PM
+476,2POINTMISS,4,6:54,MISS Kuminga 21' Step Back Jump Shot,104 - 109,5,Jonathan Kuminga,GSW,,,,,5:32 PM
+477,REBOUND,4,6:51,Saric REBOUND (Off:2 Def:3),104 - 109,5,Dario Šarić,GSW,,,,,5:32 PM
+478,FOUL,4,6:51,Lofton Jr. P.FOUL (P1.T4) (D.Taylor),104 - 109,5,Kenneth Lofton Jr.,UTA,Lester Quinones,GSW,,,5:32 PM
+479,2POINT.ASSIST,4,6:42,Saric 3' Driving Layup (12 PTS) (Quinones 3 AST),104 - 111,7,Dario Šarić,GSW,Lester Quinones,GSW,,,5:32 PM
+480,2POINTMISS.BLOCK,4,6:16,Saric BLOCK (1 BLK)  MISS Potter 2' Driving Layup,104 - 111,7,Micah Potter,UTA,,,Dario Šarić,GSW,5:33 PM
+481,REBOUND,4,6:14,Potter REBOUND (Off:2 Def:5),104 - 111,7,Micah Potter,UTA,,,,,5:33 PM
+482,2POINT,4,6:13,Potter 3' Putback Layup (7 PTS),106 - 111,5,Micah Potter,UTA,,,,,5:33 PM
+483,3POINTMISS,4,6:06,MISS Saric 27' 3PT Jump Shot,106 - 111,5,Dario Šarić,GSW,,,,,5:33 PM
+484,REBOUND,4,6:06,Hendricks REBOUND (Off:3 Def:5),106 - 111,5,Taylor Hendricks,UTA,,,,,5:33 PM
+485,3POINT.ASSIST,4,5:58,Potter 3PT Running Jump Shot (10 PTS) (Lofton Jr. 5 AST),109 - 111,2,Micah Potter,UTA,Kenneth Lofton Jr.,UTA,,,5:33 PM
+486,3POINTMISS,4,5:40,MISS Quinones 26' 3PT Jump Shot,109 - 111,2,Lester Quinones,GSW,,,,,5:33 PM
+487,REBOUND,4,5:37,Quinones REBOUND (Off:1 Def:0),109 - 111,2,Lester Quinones,GSW,,,,,5:33 PM
+488,2POINTMISS,4,5:35,MISS Quinones 4' Driving Finger Roll Layup,109 - 111,2,Lester Quinones,GSW,,,,,5:33 PM
+489,REBOUND,4,5:32,Potter REBOUND (Off:2 Def:6),109 - 111,2,Micah Potter,UTA,,,,,5:34 PM
+490,2POINT.ASSIST,4,5:26,Sensabaugh 7' Floating Jump Shot (14 PTS) (Lofton Jr. 6 AST),111 - 111,TIE,Brice Sensabaugh,UTA,Kenneth Lofton Jr.,UTA,,,5:34 PM
+491,SUB,4,5:25,SUB: Kuminga Stops playing.,111 - 111,TIE,Jonathan Kuminga,GSW,,,,,
+492,SUB,4,5:25,SUB: Šarić Stops playing.,111 - 111,TIE,Dario Šarić,GSW,,,,,
+493,SUB,4,5:25,SUB: Garuba Starts playing.,111 - 111,TIE,,,Usman Garuba,GSW,,,
+494,SUB,4,5:25,SUB: Robinson Starts playing.,111 - 111,TIE,,,Jerome Robinson,GSW,,,
+495,SUB,4,5:25,SUB: Yurtseven Starts playing.,111 - 111,TIE,,,Omer Yurtseven,UTA,,,
+496,SUB,4,5:25,SUB: Samanic Starts playing.,111 - 111,TIE,,,Luka Samanic,UTA,,,
+497,SUB,4,5:25,SUB: Potter Stops playing.,111 - 111,TIE,Micah Potter,UTA,,,,,
+498,SUB,4,5:25,SUB: Lofton Stops playing.,111 - 111,TIE,Kenneth Lofton Jr.,UTA,,,,,
+499,TIMEOUT,4,5:25,WARRIORS Timeout: Regular (Full 5 Short 0),111 - 111,TIE,,,,,,,5:34 PM
+500,3POINTMISS,4,5:14,MISS Santos 27' 3PT Step Back Jump Shot,111 - 111,TIE,Gui Santos,GSW,,,,,5:37 PM
+501,REBOUND,4,5:10,Yurtseven REBOUND (Off:5 Def:11),111 - 111,TIE,Omer Yurtseven,UTA,,,,,5:37 PM
+502,3POINTMISS,4,5:00,MISS Lewis Jr. 27' 3PT Pullup Jump Shot,111 - 111,TIE,Kira Lewis Jr.,UTA,,,,,5:37 PM
+503,REBOUND,4,4:57,Garuba REBOUND (Off:0 Def:1),111 - 111,TIE,Usman Garuba,GSW,,,,,5:37 PM
+504,2POINT.ASSIST,4,4:53,Quinones 2' Running Layup (12 PTS) (Spencer 2 AST),111 - 113,2,Lester Quinones,GSW,Pat Spencer,GSW,,,5:37 PM
+505,3POINTMISS,4,4:39,MISS Samanic 3PT Jump Shot,111 - 113,2,Luka Samanic,UTA,,,,,5:37 PM
+506,REBOUND,4,4:36,Garuba REBOUND (Off:0 Def:2),111 - 113,2,Usman Garuba,GSW,,,,,5:38 PM
+507,STEAL.TURNOVER,4,4:28,Spencer Bad Pass Turnover (P1.T8)  Hendricks STEAL (3 STL),111 - 113,2,Pat Spencer,GSW,Taylor Hendricks,UTA,,,5:38 PM
+508,2POINT,4,4:10,Samanic 5' Driving Layup (13 PTS),113 - 113,TIE,Luka Samanic,UTA,,,,,5:38 PM
+509,FOUL,4,4:10,Santos S.FOUL (P3.T2) (D.Taylor),113 - 113,TIE,Gui Santos,GSW,Luka Samanic,UTA,,,5:38 PM
+510,FTMAKE,4,4:10,Samanic Free Throw 1 of 1 (14 PTS),114 - 113,-1,Luka Samanic,UTA,,,,,5:38 PM
+511,FOUL,4,3:48,Samanic S.FOUL (P4.PN) (D.Taylor),114 - 113,-1,Luka Samanic,UTA,Gui Santos,GSW,,,5:39 PM
+512,FTMAKE,4,3:48,Santos Free Throw 1 of 2 (12 PTS),114 - 114,TIE,Gui Santos,GSW,,,,,5:39 PM
+513,FTMAKE,4,3:48,Santos Free Throw 2 of 2 (13 PTS),114 - 115,1,Gui Santos,GSW,,,,,5:40 PM
+514,STEAL.TURNOVER,4,3:36,Robinson STEAL (1 STL)  Samanic Lost Ball Turnover (P7.T18),114 - 115,1,Luka Samanic,UTA,Jerome Robinson,GSW,,,5:40 PM
+515,2POINT.ASSIST,4,3:24,Robinson 3' Driving Layup (2 PTS) (Santos 2 AST),114 - 117,3,Jerome Robinson,GSW,Gui Santos,GSW,,,5:40 PM
+516,2POINT,4,3:09,Lewis Jr. 5' Driving Floating Jump Shot (13 PTS),116 - 117,1,Kira Lewis Jr.,UTA,,,,,5:40 PM
+517,3POINTMISS,4,3:00,MISS Quinones 28' 3PT Jump Shot,116 - 117,1,Lester Quinones,GSW,,,,,5:41 PM
+518,REBOUND,4,2:57,Sensabaugh REBOUND (Off:0 Def:2),116 - 117,1,Brice Sensabaugh,UTA,,,,,5:41 PM
+519,2POINTMISS,4,2:43,MISS Sensabaugh 6' Driving Floating Jump Shot,116 - 117,1,Brice Sensabaugh,UTA,,,,,5:41 PM
+520,REBOUND,4,2:40,Garuba REBOUND (Off:0 Def:3),116 - 117,1,Usman Garuba,GSW,,,,,5:41 PM
+521,FOUL,4,2:32,Sensabaugh S.FOUL (P3.PN) (K.Scott),116 - 117,1,Brice Sensabaugh,UTA,Usman Garuba,GSW,,,5:41 PM
+522,FTMISS,4,2:32,MISS Garuba Free Throw 1 of 2,116 - 117,1,Usman Garuba,GSW,,,,,5:42 PM
+523,REBOUND,4,2:32,WARRIORS Rebound,116 - 117,1,,,,,,,5:42 PM
+524,FTMAKE,4,2:32,Garuba Free Throw 2 of 2 (1 PTS),116 - 118,2,Usman Garuba,GSW,,,,,5:42 PM
+525,2POINTMISS.BLOCK,4,2:10,Garuba BLOCK (1 BLK)  MISS Sensabaugh 7' Fadeaway Jumper,116 - 118,2,Brice Sensabaugh,UTA,,,Usman Garuba,GSW,5:42 PM
+526,REBOUND,4,2:08,Sensabaugh REBOUND (Off:1 Def:2),116 - 118,2,Brice Sensabaugh,UTA,,,,,5:42 PM
+527,STEAL,4,2:08,Jazz Turnover: Shot Clock (T#19),116 - 118,2,,,,,,,5:42 PM
+528,FOUL,4,1:57,Quinones OFF.Foul (P3) (K.Scott),116 - 118,2,Lester Quinones,GSW,Taylor Hendricks,UTA,,,5:43 PM
+529,STEAL,4,1:57,Quinones Offensive Foul Turnover (P1.T9),116 - 118,2,Lester Quinones,GSW,,,,,5:43 PM
+530,STEAL,4,1:39,Sensabaugh Traveling Turnover (P5.T20),116 - 118,2,Brice Sensabaugh,UTA,,,,,5:43 PM
+531,2POINT.ASSIST,4,1:29,Robinson 4' Driving Reverse Layup (4 PTS) (Spencer 3 AST),116 - 120,4,Jerome Robinson,GSW,Pat Spencer,GSW,,,5:44 PM
+532,FOUL,4,1:29,Hendricks S.FOUL (P2.PN) (K.Scott),116 - 120,4,Taylor Hendricks,UTA,Jerome Robinson,GSW,,,5:44 PM
+533,FTMAKE,4,1:29,Robinson Free Throw 1 of 1 (5 PTS),116 - 121,5,Jerome Robinson,GSW,,,,,5:44 PM
+534,3POINTMISS,4,1:15,MISS Sensabaugh 3PT Jump Shot,116 - 121,5,Brice Sensabaugh,UTA,,,,,5:45 PM
+535,REBOUND,4,1:10,Garuba REBOUND (Off:0 Def:4),116 - 121,5,Usman Garuba,GSW,,,,,5:45 PM
+536,2POINTMISS,4,1:02,MISS Garuba 6' Driving Hook Shot,116 - 121,5,Usman Garuba,GSW,,,,,5:45 PM
+537,REBOUND,4,0:59,Spencer REBOUND (Off:2 Def:0),116 - 121,5,Pat Spencer,GSW,,,,,5:45 PM
+538,2POINT,4,0:58,Spencer 6' Fadeaway Jumper (2 PTS),116 - 123,7,Pat Spencer,GSW,,,,,5:45 PM
+539,2POINTMISS,4,0:49,MISS Lewis Jr. 11' Driving Floating Bank Jump Shot,116 - 123,7,Kira Lewis Jr.,UTA,,,,,5:45 PM
+540,REBOUND,4,0:49,Yurtseven REBOUND (Off:6 Def:11),116 - 123,7,Omer Yurtseven,UTA,,,,,5:45 PM
+541,2POINTMISS.BLOCK,4,0:46,Garuba BLOCK (2 BLK)  MISS Yurtseven 4' Turnaround Hook Shot,116 - 123,7,Omer Yurtseven,UTA,,,Usman Garuba,GSW,5:45 PM
+542,REBOUND,4,0:43,Spencer REBOUND (Off:2 Def:1),116 - 123,7,Pat Spencer,GSW,,,,,5:45 PM
+543,3POINTMISS,4,0:24,MISS Quinones 26' 3PT Step Back Jump Shot,116 - 123,7,Lester Quinones,GSW,,,,,5:45 PM
+544,REBOUND,4,0:20,Yurtseven REBOUND (Off:6 Def:12),116 - 123,7,Omer Yurtseven,UTA,,,,,5:45 PM
+545,3POINTMISS,4,0:16,MISS Hendricks 3PT Running Jump Shot,116 - 123,7,Taylor Hendricks,UTA,,,,,5:46 PM
+546,REBOUND,4,0:14,Spencer REBOUND (Off:2 Def:2),116 - 123,7,Pat Spencer,GSW,,,,,5:46 PM
+547,SUB,4,0:00,SUB: Santos Stops playing.,116 - 123,7,Gui Santos,GSW,,,,,
+548,SUB,4,0:00,SUB: Quinones Stops playing.,116 - 123,7,Lester Quinones,GSW,,,,,
+549,SUB,4,0:00,SUB: Spencer Stops playing.,116 - 123,7,Pat Spencer,GSW,,,,,
+550,SUB,4,0:00,SUB: Garuba Stops playing.,116 - 123,7,Usman Garuba,GSW,,,,,
+551,SUB,4,0:00,SUB: Robinson Stops playing.,116 - 123,7,Jerome Robinson,GSW,,,,,
+552,SUB,4,0:00,SUB: Yurtseven Stops playing.,116 - 123,7,Omer Yurtseven,UTA,,,,,
+553,SUB,4,0:00,SUB: Samanic Stops playing.,116 - 123,7,Luka Samanic,UTA,,,,,
+554,SUB,4,0:00,SUB: Hendricks Stops playing.,116 - 123,7,Taylor Hendricks,UTA,,,,,
+555,SUB,4,0:00,SUB: Sensabaugh Stops playing.,116 - 123,7,Brice Sensabaugh,UTA,,,,,
+556,SUB,4,0:00,SUB: Lewis Stops playing.,116 - 123,7,Kira Lewis Jr.,UTA,,,,,
+557,ENDOFPERIOD,4,0:00,End of 4th Period (5:47 PM EST),116 - 123,7,,,,,,,5:47 PM

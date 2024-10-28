@@ -1,0 +1,577 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation,wctimestring
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (10:11 PM EST),0 - 0,0,,,,,,,10:11 PM
+1,SUB,1,12:00,SUB: Jackson-Davis Starts playing.,0 - 0,0,,,Trayce Jackson-Davis,GSW,,,
+2,SUB,1,12:00,SUB: Thompson Starts playing.,0 - 0,0,,,Klay Thompson,GSW,,,
+3,SUB,1,12:00,SUB: Wiggins Starts playing.,0 - 0,0,,,Andrew Wiggins,GSW,,,
+4,SUB,1,12:00,SUB: Curry Starts playing.,0 - 0,0,,,Stephen Curry,GSW,,,
+5,SUB,1,12:00,SUB: Green Starts playing.,0 - 0,0,,,Draymond Green,GSW,,,
+6,SUB,1,12:00,SUB: Murphy Starts playing.,0 - 0,0,,,Trey Murphy III,NOP,,,
+7,SUB,1,12:00,SUB: Jones Starts playing.,0 - 0,0,,,Herbert Jones,NOP,,,
+8,SUB,1,12:00,SUB: Williamson Starts playing.,0 - 0,0,,,Zion Williamson,NOP,,,
+9,SUB,1,12:00,SUB: Valančiūnas Starts playing.,0 - 0,0,,,Jonas Valančiūnas,NOP,,,
+10,SUB,1,12:00,SUB: McCollum Starts playing.,0 - 0,0,,,CJ McCollum,NOP,,,
+11,JUMPBALL,1,12:00,Jump Ball Jackson-Davis vs. Valanciunas: Tip to Williamson,0 - 0,0,Trayce Jackson-Davis,GSW,Jonas Valančiūnas,NOP,Zion Williamson,NOP,10:11 PM
+12,3POINTMISS,1,11:39,MISS Murphy III 26' 3PT Jump Shot,0 - 0,0,Trey Murphy III,NOP,,,,,10:12 PM
+13,REBOUND,1,11:36,WARRIORS Rebound,0 - 0,0,,,,,,,10:12 PM
+14,3POINTMISS,1,11:23,MISS Thompson 27' 3PT Jump Shot,0 - 0,0,Klay Thompson,GSW,,,,,10:12 PM
+15,REBOUND,1,11:20,Jones REBOUND (Off:0 Def:1),0 - 0,0,Herbert Jones,NOP,,,,,10:12 PM
+16,2POINTMISS,1,11:11,MISS Williamson 6' Turnaround Bank Hook Shot,0 - 0,0,Zion Williamson,NOP,,,,,10:13 PM
+17,REBOUND,1,11:08,Valanciunas REBOUND (Off:1 Def:0),0 - 0,0,Jonas Valančiūnas,NOP,,,,,10:13 PM
+18,2POINT,1,11:08,Valanciunas Putback Layup (2 PTS),2 - 0,-2,Jonas Valančiūnas,NOP,,,,,10:13 PM
+19,2POINT.ASSIST,1,10:54,Wiggins 3' Cutting Finger Roll Layup Shot (2 PTS) (Jackson-Davis 1 AST),2 - 2,TIE,Andrew Wiggins,GSW,Trayce Jackson-Davis,GSW,,,10:13 PM
+20,STEAL.TURNOVER,1,10:47,Curry STEAL (1 STL)  Jones Bad Pass Turnover (P1.T1),2 - 2,TIE,Herbert Jones,NOP,Stephen Curry,GSW,,,10:13 PM
+21,2POINT.ASSIST,1,10:24,Jackson-Davis 3' Cutting Layup Shot (2 PTS) (Green 1 AST),2 - 4,2,Trayce Jackson-Davis,GSW,Draymond Green,GSW,,,10:13 PM
+22,2POINT.ASSIST,1,10:08,Murphy III 5' Driving Layup (2 PTS) (Jones 1 AST),4 - 4,TIE,Trey Murphy III,NOP,Herbert Jones,NOP,,,10:14 PM
+23,FOUL,1,10:03,Jones S.FOUL (P1.T1) (D.Guthrie),4 - 4,TIE,Herbert Jones,NOP,Andrew Wiggins,GSW,,,10:14 PM
+24,FTMAKE,1,10:03,Wiggins Free Throw 1 of 2 (3 PTS),4 - 5,1,Andrew Wiggins,GSW,,,,,10:14 PM
+25,FTMAKE,1,10:03,Wiggins Free Throw 2 of 2 (4 PTS),4 - 6,2,Andrew Wiggins,GSW,,,,,10:14 PM
+26,3POINTMISS,1,9:55,MISS McCollum 28' 3PT Pullup Jump Shot,4 - 6,2,CJ McCollum,NOP,,,,,10:15 PM
+27,REBOUND,1,9:52,Jackson-Davis REBOUND (Off:0 Def:1),4 - 6,2,Trayce Jackson-Davis,GSW,,,,,10:15 PM
+28,2POINTMISS,1,9:47,MISS Curry 13' Fadeaway Jumper,4 - 6,2,Stephen Curry,GSW,,,,,10:15 PM
+29,REBOUND,1,9:43,McCollum REBOUND (Off:0 Def:1),4 - 6,2,CJ McCollum,NOP,,,,,10:15 PM
+30,2POINTMISS,1,9:37,MISS McCollum 10' Driving Floating Jump Shot,4 - 6,2,CJ McCollum,NOP,,,,,10:15 PM
+31,REBOUND,1,9:36,Green REBOUND (Off:0 Def:1),4 - 6,2,Draymond Green,GSW,,,,,10:15 PM
+32,STEAL,1,9:31,Curry Out of Bounds - Bad Pass Turnover Turnover (P1.T1),4 - 6,2,Stephen Curry,GSW,,,,,10:15 PM
+33,2POINTMISS,1,9:19,MISS Williamson 9' Pullup Jump Shot,4 - 6,2,Zion Williamson,NOP,,,,,10:15 PM
+34,REBOUND,1,9:19,Green REBOUND (Off:0 Def:2),4 - 6,2,Draymond Green,GSW,,,,,10:15 PM
+35,3POINTMISS,1,9:12,MISS Wiggins 26' 3PT Running Jump Shot,4 - 6,2,Andrew Wiggins,GSW,,,,,10:15 PM
+36,REBOUND,1,9:09,Valanciunas REBOUND (Off:1 Def:1),4 - 6,2,Jonas Valančiūnas,NOP,,,,,10:15 PM
+37,3POINTMISS,1,9:04,MISS Jones 3PT Running Jump Shot,4 - 6,2,Herbert Jones,NOP,,,,,10:16 PM
+38,REBOUND,1,9:01,Jackson-Davis REBOUND (Off:0 Def:2),4 - 6,2,Trayce Jackson-Davis,GSW,,,,,10:16 PM
+39,2POINTMISS,1,8:49,MISS Thompson 12' Fadeaway Jumper,4 - 6,2,Klay Thompson,GSW,,,,,10:16 PM
+40,REBOUND,1,8:49,Murphy III REBOUND (Off:0 Def:1),4 - 6,2,Trey Murphy III,NOP,,,,,10:16 PM
+41,3POINTMISS,1,8:35,MISS Murphy III 27' 3PT Pullup Jump Shot,4 - 6,2,Trey Murphy III,NOP,,,,,10:16 PM
+42,REBOUND,1,8:31,Green REBOUND (Off:0 Def:3),4 - 6,2,Draymond Green,GSW,,,,,10:16 PM
+43,FOUL,1,8:23,McCollum S.FOUL (P1.T2) (B.Nansel),4 - 6,2,CJ McCollum,NOP,Andrew Wiggins,GSW,,,10:16 PM
+44,FTMAKE,1,8:23,Wiggins Free Throw 1 of 2 (5 PTS),4 - 7,3,Andrew Wiggins,GSW,,,,,10:17 PM
+45,FTMAKE,1,8:23,Wiggins Free Throw 2 of 2 (6 PTS),4 - 8,4,Andrew Wiggins,GSW,,,,,10:17 PM
+46,FOUL,1,8:07,Jackson-Davis S.FOUL (P1.T1) (D.Guthrie),4 - 8,4,Trayce Jackson-Davis,GSW,Jonas Valančiūnas,NOP,,,10:17 PM
+47,FTMAKE,1,8:07,Valanciunas Free Throw 1 of 2 (3 PTS),5 - 8,3,Jonas Valančiūnas,NOP,,,,,10:18 PM
+48,FTMAKE,1,8:07,Valanciunas Free Throw 2 of 2 (4 PTS),6 - 8,2,Jonas Valančiūnas,NOP,,,,,10:18 PM
+49,2POINTMISS,1,7:55,MISS Wiggins 3' Cutting Layup Shot,6 - 8,2,Andrew Wiggins,GSW,,,,,10:18 PM
+50,REBOUND,1,7:51,Murphy III REBOUND (Off:0 Def:2),6 - 8,2,Trey Murphy III,NOP,,,,,10:19 PM
+51,2POINTMISS,1,7:45,MISS Williamson 7' Turnaround Hook Shot,6 - 8,2,Zion Williamson,NOP,,,,,10:19 PM
+52,REBOUND,1,7:43,Jackson-Davis REBOUND (Off:0 Def:3),6 - 8,2,Trayce Jackson-Davis,GSW,,,,,10:19 PM
+53,2POINT,1,7:38,Jackson-Davis 3' Running Dunk (4 PTS),6 - 10,4,Trayce Jackson-Davis,GSW,,,,,10:19 PM
+54,STEAL.TURNOVER,1,7:20,Thompson STEAL (1 STL)  McCollum Lost Ball Turnover (P1.T2),6 - 10,4,CJ McCollum,NOP,Klay Thompson,GSW,,,10:19 PM
+55,2POINTMISS,1,7:15,MISS Jackson-Davis 5' Running Finger Roll Layup,6 - 10,4,Trayce Jackson-Davis,GSW,,,,,10:19 PM
+56,SUB,1,7:13,SUB: Thompson Stops playing.,6 - 10,4,Klay Thompson,GSW,,,,,
+57,SUB,1,7:13,SUB: Podziemski Starts playing.,6 - 10,4,,,Brandin Podziemski,GSW,,,
+58,REBOUND,1,7:13,Thompson REBOUND (Off:1 Def:0),6 - 10,4,Klay Thompson,GSW,,,,,10:19 PM
+59,2POINT,1,7:13,Thompson Putback Layup (2 PTS),6 - 12,6,Klay Thompson,GSW,,,,,10:19 PM
+60,TIMEOUT,1,7:13,Pelicans Timeout: Regular (Reg.1 Short 0),6 - 12,6,,,,,,,10:19 PM
+61,2POINTMISS,1,6:52,MISS McCollum 10' Driving Floating Bank Jump Shot,6 - 12,6,CJ McCollum,NOP,,,,,10:23 PM
+62,REBOUND,1,6:49,Jackson-Davis REBOUND (Off:0 Def:4),6 - 12,6,Trayce Jackson-Davis,GSW,,,,,10:23 PM
+63,2POINT.ASSIST,1,6:37,Jackson-Davis 2' Cutting Dunk Shot (6 PTS) (Curry 1 AST),6 - 14,8,Trayce Jackson-Davis,GSW,Stephen Curry,GSW,,,10:23 PM
+64,2POINTMISS,1,6:18,MISS Jones 4' Driving Layup,6 - 14,8,Herbert Jones,NOP,,,,,10:23 PM
+65,REBOUND,1,6:16,Green REBOUND (Off:0 Def:4),6 - 14,8,Draymond Green,GSW,,,,,10:23 PM
+66,3POINT,1,6:07,Curry 27' 3PT Step Back Jump Shot (3 PTS),6 - 17,11,Stephen Curry,GSW,,,,,10:23 PM
+67,2POINTMISS,1,5:45,MISS McCollum 12' Driving Floating Jump Shot,6 - 17,11,CJ McCollum,NOP,,,,,10:24 PM
+68,REBOUND,1,5:43,Podziemski REBOUND (Off:0 Def:1),6 - 17,11,Brandin Podziemski,GSW,,,,,10:24 PM
+69,3POINTMISS,1,5:38,MISS Wiggins 25' 3PT Jump Shot,6 - 17,11,Andrew Wiggins,GSW,,,,,10:24 PM
+70,REBOUND,1,5:34,Williamson REBOUND (Off:0 Def:1),6 - 17,11,Zion Williamson,NOP,,,,,10:24 PM
+71,SUB,1,5:28,SUB: McCollum Stops playing.,6 - 17,11,CJ McCollum,NOP,,,,,
+72,SUB,1,5:28,SUB: Alvarado Starts playing.,6 - 17,11,,,Jose Alvarado,NOP,,,
+73,2POINT.ASSIST,1,5:28,Valanciunas 4' Layup (6 PTS) (McCollum 1 AST),8 - 17,9,Jonas Valančiūnas,NOP,CJ McCollum,NOP,,,10:24 PM
+74,FOUL,1,5:28,Green S.FOUL (P1.T2) (B.Nansel),8 - 17,9,Draymond Green,GSW,Jonas Valančiūnas,NOP,,,10:24 PM
+75,FTMISS,1,5:28,MISS Valanciunas Free Throw 1 of 1,8 - 17,9,Jonas Valančiūnas,NOP,,,,,10:25 PM
+76,REBOUND,1,5:26,Green REBOUND (Off:0 Def:5),8 - 17,9,Draymond Green,GSW,,,,,10:25 PM
+77,2POINT.ASSIST,1,5:13,Curry 20' Pullup Jump Shot (5 PTS) (Green 2 AST),8 - 19,11,Stephen Curry,GSW,Draymond Green,GSW,,,10:25 PM
+78,SUB,1,5:04,SUB: Jackson-Davis Stops playing.,8 - 19,11,Trayce Jackson-Davis,GSW,,,,,
+79,SUB,1,5:04,SUB: Green Stops playing.,8 - 19,11,Draymond Green,GSW,,,,,
+80,SUB,1,5:04,SUB: Looney Starts playing.,8 - 19,11,,,Kevon Looney,GSW,,,
+81,SUB,1,5:04,SUB: Moody Starts playing.,8 - 19,11,,,Moses Moody,GSW,,,
+82,SUB,1,5:04,SUB: Valančiūnas Stops playing.,8 - 19,11,Jonas Valančiūnas,NOP,,,,,
+83,SUB,1,5:04,SUB: Daniels Starts playing.,8 - 19,11,,,Dyson Daniels,NOP,,,
+84,FOUL,1,5:04,Curry P.FOUL (P1.T3) (B.Nansel),8 - 19,11,Stephen Curry,GSW,Jose Alvarado,NOP,,,10:25 PM
+85,2POINT,1,4:52,Williamson 3' Dunk (2 PTS),10 - 19,9,Zion Williamson,NOP,,,,,10:26 PM
+86,3POINTMISS,1,4:28,MISS Curry 27' 3PT Jump Shot,10 - 19,9,Stephen Curry,GSW,,,,,10:26 PM
+87,REBOUND,1,4:26,Daniels REBOUND (Off:0 Def:1),10 - 19,9,Dyson Daniels,NOP,,,,,10:26 PM
+88,2POINTMISS,1,4:21,MISS Williamson 4' Running Finger Roll Layup,10 - 19,9,Zion Williamson,NOP,,,,,10:26 PM
+89,REBOUND,1,4:19,Wiggins REBOUND (Off:0 Def:1),10 - 19,9,Andrew Wiggins,GSW,,,,,10:26 PM
+90,2POINTMISS,1,4:01,MISS Wiggins 5' Driving Floating Jump Shot,10 - 19,9,Andrew Wiggins,GSW,,,,,10:27 PM
+91,SUB,1,3:59,SUB: Thompson Starts playing.,10 - 19,9,,,Klay Thompson,GSW,,,
+92,SUB,1,3:59,SUB: Wiggins Stops playing.,10 - 19,9,Andrew Wiggins,GSW,,,,,
+93,SUB,1,3:59,SUB: Curry Stops playing.,10 - 19,9,Stephen Curry,GSW,,,,,
+94,SUB,1,3:59,SUB: Paul Starts playing.,10 - 19,9,,,Chris Paul,GSW,,,
+95,SUB,1,3:59,SUB: Jones Stops playing.,10 - 19,9,Herbert Jones,NOP,,,,,
+96,SUB,1,3:59,SUB: Robinson-Earl Starts playing.,10 - 19,9,,,Jeremiah Robinson-Earl,NOP,,,
+97,REBOUND,1,3:59,Looney REBOUND (Off:1 Def:0),10 - 19,9,Kevon Looney,GSW,,,,,10:27 PM
+98,FOUL,1,3:59,Jones S.FOUL (P2.T3) (B.Nansel),10 - 19,9,Herbert Jones,NOP,Kevon Looney,GSW,,,10:27 PM
+99,FTMAKE,1,3:59,Looney Free Throw 1 of 2 (1 PTS),10 - 20,10,Kevon Looney,GSW,,,,,10:27 PM
+100,FTMAKE,1,3:59,Looney Free Throw 2 of 2 (2 PTS),10 - 21,11,Kevon Looney,GSW,,,,,10:28 PM
+101,2POINTMISS,1,3:46,MISS Williamson 3' Driving Layup,10 - 21,11,Zion Williamson,NOP,,,,,10:28 PM
+102,REBOUND,1,3:45,Podziemski REBOUND (Off:0 Def:2),10 - 21,11,Brandin Podziemski,GSW,,,,,10:28 PM
+103,3POINTMISS,1,3:28,MISS Podziemski 26' 3PT Jump Shot,10 - 21,11,Brandin Podziemski,GSW,,,,,10:28 PM
+104,REBOUND,1,3:26,Murphy III REBOUND (Off:0 Def:3),10 - 21,11,Trey Murphy III,NOP,,,,,10:28 PM
+105,3POINT.ASSIST,1,3:12,Robinson-Earl 3PT Jump Shot (3 PTS) (Alvarado 1 AST),13 - 21,8,Jeremiah Robinson-Earl,NOP,Jose Alvarado,NOP,,,10:28 PM
+106,SUB,1,3:10,SUB: Green Starts playing.,13 - 21,8,,,Draymond Green,GSW,,,
+107,SUB,1,3:10,SUB: Looney Stops playing.,13 - 21,8,Kevon Looney,GSW,,,,,
+108,SUB,1,3:10,SUB: Murphy Stops playing.,13 - 21,8,Trey Murphy III,NOP,,,,,
+109,SUB,1,3:10,SUB: McCollum Starts playing.,13 - 21,8,,,CJ McCollum,NOP,,,
+110,TIMEOUT,1,3:10,WARRIORS Timeout: Regular (Full 1 Short 0),13 - 21,8,,,,,,,10:29 PM
+111,2POINTMISS,1,2:52,MISS Moody 15' Jump Shot,13 - 21,8,Moses Moody,GSW,,,,,10:32 PM
+112,REBOUND,1,2:49,Daniels REBOUND (Off:0 Def:2),13 - 21,8,Dyson Daniels,NOP,,,,,10:32 PM
+113,3POINTMISS,1,2:39,MISS Alvarado 28' 3PT Jump Shot,13 - 21,8,Jose Alvarado,NOP,,,,,10:32 PM
+114,REBOUND,1,2:36,Daniels REBOUND (Off:1 Def:2),13 - 21,8,Dyson Daniels,NOP,,,,,10:32 PM
+115,2POINT.ASSIST,1,2:33,Williamson 8' Turnaround Hook Shot (4 PTS) (Daniels 1 AST),15 - 21,6,Zion Williamson,NOP,Dyson Daniels,NOP,,,10:32 PM
+116,2POINTMISS,1,2:17,MISS Thompson 16' Pullup Jump Shot,15 - 21,6,Klay Thompson,GSW,,,,,10:32 PM
+117,REBOUND,1,2:14,Daniels REBOUND (Off:1 Def:3),15 - 21,6,Dyson Daniels,NOP,,,,,10:32 PM
+118,2POINTMISS,1,2:03,MISS Williamson 8' Pullup Jump Shot,15 - 21,6,Zion Williamson,NOP,,,,,10:32 PM
+119,REBOUND,1,2:01,Podziemski REBOUND (Off:0 Def:3),15 - 21,6,Brandin Podziemski,GSW,,,,,10:33 PM
+120,SUB,1,1:50,SUB: Green Stops playing.,15 - 21,6,Draymond Green,GSW,,,,,
+121,SUB,1,1:50,SUB: Looney Starts playing.,15 - 21,6,,,Kevon Looney,GSW,,,
+122,SUB,1,1:50,SUB: Murphy Starts playing.,15 - 21,6,,,Trey Murphy III,NOP,,,
+123,SUB,1,1:50,SUB: Williamson Stops playing.,15 - 21,6,Zion Williamson,NOP,,,,,
+124,FOUL,1,1:50,Alvarado P.FOUL (P1.T4) (D.Guthrie),15 - 21,6,Jose Alvarado,NOP,Draymond Green,GSW,,,10:33 PM
+125,STEAL,1,1:44,Paul Out of Bounds Lost Ball Turnover (P1.T2),15 - 21,6,Chris Paul,GSW,,,,,10:34 PM
+126,3POINTMISS,1,1:41,MISS Murphy III 29' 3PT Jump Shot,15 - 21,6,Trey Murphy III,NOP,,,,,10:34 PM
+127,REBOUND,1,1:37,Thompson REBOUND (Off:1 Def:1),15 - 21,6,Klay Thompson,GSW,,,,,10:34 PM
+128,3POINTMISS,1,1:34,MISS Paul 27' 3PT Running Jump Shot,15 - 21,6,Chris Paul,GSW,,,,,10:34 PM
+129,REBOUND,1,1:30,Alvarado REBOUND (Off:0 Def:1),15 - 21,6,Jose Alvarado,NOP,,,,,10:34 PM
+130,2POINTMISS,1,1:23,MISS McCollum 2' Driving Reverse Layup,15 - 21,6,CJ McCollum,NOP,,,,,10:34 PM
+131,REBOUND,1,1:22,Thompson REBOUND (Off:1 Def:2),15 - 21,6,Klay Thompson,GSW,,,,,10:34 PM
+132,3POINT.ASSIST,1,1:08,Podziemski 26' 3PT Jump Shot (3 PTS) (Paul 1 AST),15 - 24,9,Brandin Podziemski,GSW,Chris Paul,GSW,,,10:34 PM
+133,STEAL.TURNOVER,1,0:45,Paul STEAL (1 STL)  McCollum Lost Ball Turnover (P2.T3),15 - 24,9,CJ McCollum,NOP,Chris Paul,GSW,,,10:35 PM
+134,2POINTMISS.BLOCK,1,0:40,MISS Thompson 2' Running Layup  McCollum BLOCK (1 BLK),15 - 24,9,Klay Thompson,GSW,,,CJ McCollum,NOP,10:35 PM
+135,REBOUND,1,0:40,Daniels REBOUND (Off:1 Def:4),15 - 24,9,Dyson Daniels,NOP,,,,,10:35 PM
+136,3POINTMISS,1,0:34,MISS Robinson-Earl 26' 3PT Running Jump Shot,15 - 24,9,Jeremiah Robinson-Earl,NOP,,,,,10:35 PM
+137,REBOUND,1,0:31,Paul REBOUND (Off:0 Def:1),15 - 24,9,Chris Paul,GSW,,,,,10:35 PM
+138,2POINTMISS,1,0:25,MISS Paul 8' Running Pull-Up Jump Shot,15 - 24,9,Chris Paul,GSW,,,,,10:35 PM
+139,REBOUND,1,0:24,Looney REBOUND (Off:2 Def:0),15 - 24,9,Kevon Looney,GSW,,,,,10:35 PM
+140,2POINT,1,0:24,Looney Putback Layup (4 PTS),15 - 26,11,Kevon Looney,GSW,,,,,10:35 PM
+141,2POINT,1,0:03,McCollum 10' Driving Floating Jump Shot (2 PTS),17 - 26,9,CJ McCollum,NOP,,,,,10:36 PM
+142,SUB,1,0:00,SUB: Thompson Stops playing.,17 - 26,9,Klay Thompson,GSW,,,,,
+143,SUB,1,0:00,SUB: Podziemski Stops playing.,17 - 26,9,Brandin Podziemski,GSW,,,,,
+144,SUB,1,0:00,SUB: Looney Stops playing.,17 - 26,9,Kevon Looney,GSW,,,,,
+145,SUB,1,0:00,SUB: Moody Stops playing.,17 - 26,9,Moses Moody,GSW,,,,,
+146,SUB,1,0:00,SUB: Paul Stops playing.,17 - 26,9,Chris Paul,GSW,,,,,
+147,SUB,1,0:00,SUB: Murphy Stops playing.,17 - 26,9,Trey Murphy III,NOP,,,,,
+148,SUB,1,0:00,SUB: McCollum Stops playing.,17 - 26,9,CJ McCollum,NOP,,,,,
+149,SUB,1,0:00,SUB: Daniels Stops playing.,17 - 26,9,Dyson Daniels,NOP,,,,,
+150,SUB,1,0:00,SUB: Robinson-Earl Stops playing.,17 - 26,9,Jeremiah Robinson-Earl,NOP,,,,,
+151,SUB,1,0:00,SUB: Alvarado Stops playing.,17 - 26,9,Jose Alvarado,NOP,,,,,
+152,ENDOFPERIOD,1,0:00,End of 1st Period (10:36 PM EST),17 - 26,9,,,,,,,10:36 PM
+153,STARTOFPERIOD,2,12:00,Start of 2nd Period (10:38 PM EST),17 - 26,9,,,,,,,10:38 PM
+154,SUB,2,12:00,SUB: Thompson Starts playing.,17 - 26,9,,,Klay Thompson,GSW,,,
+155,SUB,2,12:00,SUB: Podziemski Starts playing.,17 - 26,9,,,Brandin Podziemski,GSW,,,
+156,SUB,2,12:00,SUB: Looney Starts playing.,17 - 26,9,,,Kevon Looney,GSW,,,
+157,SUB,2,12:00,SUB: Moody Starts playing.,17 - 26,9,,,Moses Moody,GSW,,,
+158,SUB,2,12:00,SUB: Paul Starts playing.,17 - 26,9,,,Chris Paul,GSW,,,
+159,SUB,2,12:00,SUB: Murphy Starts playing.,17 - 26,9,,,Trey Murphy III,NOP,,,
+160,SUB,2,12:00,SUB: Valančiūnas Starts playing.,17 - 26,9,,,Jonas Valančiūnas,NOP,,,
+161,SUB,2,12:00,SUB: McCollum Starts playing.,17 - 26,9,,,CJ McCollum,NOP,,,
+162,SUB,2,12:00,SUB: Daniels Starts playing.,17 - 26,9,,,Dyson Daniels,NOP,,,
+163,SUB,2,12:00,SUB: Alvarado Starts playing.,17 - 26,9,,,Jose Alvarado,NOP,,,
+164,2POINT,2,11:47,Paul 14' Pullup Jump Shot (2 PTS),17 - 28,11,Chris Paul,GSW,,,,,10:39 PM
+165,2POINT.ASSIST,2,11:30,Valanciunas 15' Jump Shot (8 PTS) (McCollum 2 AST),19 - 28,9,Jonas Valančiūnas,NOP,CJ McCollum,NOP,,,10:39 PM
+166,2POINTMISS,2,11:12,MISS Paul 17' Pullup Jump Shot,19 - 28,9,Chris Paul,GSW,,,,,10:39 PM
+167,REBOUND,2,11:10,McCollum REBOUND (Off:0 Def:2),19 - 28,9,CJ McCollum,NOP,,,,,10:39 PM
+168,2POINTMISS.BLOCK,2,10:48,Looney BLOCK (1 BLK)  MISS Valanciunas 5' Layup,19 - 28,9,Jonas Valančiūnas,NOP,,,Kevon Looney,GSW,10:40 PM
+169,REBOUND,2,10:48,Pelicans Rebound,19 - 28,9,,,,,,,10:40 PM
+170,STEAL,2,10:47,Pelicans Turnover: Shot Clock (T#4),19 - 28,9,,,,,,,10:40 PM
+171,2POINTMISS,2,10:35,MISS Thompson 20' Pullup Jump Shot,19 - 28,9,Klay Thompson,GSW,,,,,10:40 PM
+172,REBOUND,2,10:32,Murphy III REBOUND (Off:0 Def:4),19 - 28,9,Trey Murphy III,NOP,,,,,10:40 PM
+173,2POINT.ASSIST,2,10:19,Valanciunas 6' Turnaround Hook Shot (10 PTS) (McCollum 3 AST),21 - 28,7,Jonas Valančiūnas,NOP,CJ McCollum,NOP,,,10:41 PM
+174,3POINT.ASSIST,2,10:13,Thompson 26' 3PT Jump Shot (5 PTS) (Podziemski 1 AST),21 - 31,10,Klay Thompson,GSW,Brandin Podziemski,GSW,,,10:41 PM
+175,3POINT.ASSIST,2,10:00,Daniels 3PT Jump Shot (3 PTS) (Murphy III 1 AST),24 - 31,7,Dyson Daniels,NOP,Trey Murphy III,NOP,,,10:41 PM
+176,2POINTMISS,2,9:37,MISS Thompson 12' Step Back Jump Shot,24 - 31,7,Klay Thompson,GSW,,,,,10:41 PM
+177,REBOUND,2,9:35,Valanciunas REBOUND (Off:1 Def:2),24 - 31,7,Jonas Valančiūnas,NOP,,,,,10:41 PM
+178,3POINTMISS,2,9:28,MISS McCollum 27' 3PT Jump Shot,24 - 31,7,CJ McCollum,NOP,,,,,10:42 PM
+179,REBOUND,2,9:26,Daniels REBOUND (Off:2 Def:4),24 - 31,7,Dyson Daniels,NOP,,,,,10:42 PM
+180,3POINTMISS,2,9:16,MISS Valanciunas 28' 3PT Jump Shot,24 - 31,7,Jonas Valančiūnas,NOP,,,,,10:42 PM
+181,REBOUND,2,9:13,Moody REBOUND (Off:0 Def:1),24 - 31,7,Moses Moody,GSW,,,,,10:42 PM
+182,2POINT,2,9:03,Paul 4' Driving Floating Bank Jump Shot (4 PTS),24 - 33,9,Chris Paul,GSW,,,,,10:42 PM
+183,SUB,2,8:54,SUB: Thompson Stops playing.,24 - 33,9,Klay Thompson,GSW,,,,,
+184,SUB,2,8:54,SUB: Wiggins Starts playing.,24 - 33,9,,,Andrew Wiggins,GSW,,,
+185,SUB,2,8:54,SUB: Murphy Stops playing.,24 - 33,9,Trey Murphy III,NOP,,,,,
+186,SUB,2,8:54,SUB: Jones Starts playing.,24 - 33,9,,,Herbert Jones,NOP,,,
+187,2POINT.ASSIST,2,8:54,Daniels 5' Driving Reverse Layup (5 PTS) (Valanciunas 1 AST),26 - 33,7,Dyson Daniels,NOP,Jonas Valančiūnas,NOP,,,10:42 PM
+188,FOUL,2,8:54,Moody S.FOUL (P1.T1) (D.Guthrie),26 - 33,7,Moses Moody,GSW,Dyson Daniels,NOP,,,10:42 PM
+189,FTMAKE,2,8:54,Daniels Free Throw 1 of 1 (6 PTS),27 - 33,6,Dyson Daniels,NOP,,,,,10:43 PM
+190,2POINT.ASSIST,2,8:39,Looney 2' Layup (6 PTS) (Paul 2 AST),27 - 35,8,Kevon Looney,GSW,Chris Paul,GSW,,,10:43 PM
+191,VIOLATION,2,8:39,Valanciunas Violation:Defensive Goaltending (D.Guthrie),27 - 35,8,Jonas Valančiūnas,NOP,,,,,10:43 PM
+192,STEAL.TURNOVER,2,8:21,Paul STEAL (2 STL)  Valanciunas Bad Pass Turnover (P1.T5),27 - 35,8,Jonas Valančiūnas,NOP,Chris Paul,GSW,,,10:44 PM
+193,2POINTMISS,2,8:07,MISS Looney 17' Pullup Jump Shot,27 - 35,8,Kevon Looney,GSW,,,,,10:44 PM
+194,REBOUND,2,8:05,McCollum REBOUND (Off:0 Def:3),27 - 35,8,CJ McCollum,NOP,,,,,10:44 PM
+195,2POINT.ASSIST,2,7:51,Jones 24' Jump Shot (2 PTS) (Daniels 2 AST),29 - 35,6,Herbert Jones,NOP,Dyson Daniels,NOP,,,10:44 PM
+196,SUB,2,7:41,SUB: Jackson-Davis Starts playing.,29 - 35,6,,,Trayce Jackson-Davis,GSW,,,
+197,SUB,2,7:41,SUB: Curry Starts playing.,29 - 35,6,,,Stephen Curry,GSW,,,
+198,SUB,2,7:41,SUB: Green Starts playing.,29 - 35,6,,,Draymond Green,GSW,,,
+199,SUB,2,7:41,SUB: Podziemski Stops playing.,29 - 35,6,Brandin Podziemski,GSW,,,,,
+200,SUB,2,7:41,SUB: Looney Stops playing.,29 - 35,6,Kevon Looney,GSW,,,,,
+201,SUB,2,7:41,SUB: Moody Stops playing.,29 - 35,6,Moses Moody,GSW,,,,,
+202,SUB,2,7:41,SUB: Murphy Starts playing.,29 - 35,6,,,Trey Murphy III,NOP,,,
+203,SUB,2,7:41,SUB: Williamson Starts playing.,29 - 35,6,,,Zion Williamson,NOP,,,
+204,SUB,2,7:41,SUB: Valančiūnas Stops playing.,29 - 35,6,Jonas Valančiūnas,NOP,,,,,
+205,SUB,2,7:41,SUB: Daniels Stops playing.,29 - 35,6,Dyson Daniels,NOP,,,,,
+206,TIMEOUT,2,7:41,WARRIORS Timeout: Regular (Full 2 Short 0),29 - 35,6,,,,,,,10:44 PM
+207,STEAL.TURNOVER,2,7:33,Wiggins Lost Ball Turnover (P1.T3)  Williamson STEAL (1 STL),29 - 35,6,Andrew Wiggins,GSW,Zion Williamson,NOP,,,10:48 PM
+208,FOUL,2,7:29,Curry S.FOUL (P2.T2) (B.Nansel),29 - 35,6,Stephen Curry,GSW,Herbert Jones,NOP,,,10:48 PM
+209,FTMISS,2,7:29,MISS Jones Free Throw 1 of 2,29 - 35,6,Herbert Jones,NOP,,,,,10:48 PM
+210,REBOUND,2,7:29,Pelicans Rebound,29 - 35,6,,,,,,,10:48 PM
+211,FTMAKE,2,7:29,Jones Free Throw 2 of 2 (3 PTS),30 - 35,5,Herbert Jones,NOP,,,,,10:48 PM
+212,2POINTMISS,2,7:16,MISS Curry 4' Driving Finger Roll Layup,30 - 35,5,Stephen Curry,GSW,,,,,10:49 PM
+213,REBOUND,2,7:13,Williamson REBOUND (Off:0 Def:2),30 - 35,5,Zion Williamson,NOP,,,,,10:49 PM
+214,3POINT.ASSIST,2,7:10,McCollum 27' 3PT Running Jump Shot (5 PTS) (Williamson 1 AST),33 - 35,2,CJ McCollum,NOP,Zion Williamson,NOP,,,10:49 PM
+215,STEAL.TURNOVER,2,6:58,Curry Lost Ball Turnover (P2.T4)  Williamson STEAL (2 STL),33 - 35,2,Stephen Curry,GSW,Zion Williamson,NOP,,,10:49 PM
+216,2POINT,2,6:55,Jones 3' Running Dunk (5 PTS),35 - 35,TIE,Herbert Jones,NOP,,,,,10:49 PM
+217,2POINTMISS,2,6:36,MISS Curry 12' Fadeaway Jumper,35 - 35,TIE,Stephen Curry,GSW,,,,,10:49 PM
+218,REBOUND,2,6:34,McCollum REBOUND (Off:0 Def:4),35 - 35,TIE,CJ McCollum,NOP,,,,,10:49 PM
+219,3POINT.ASSIST,2,6:22,McCollum 28' 3PT Jump Shot (8 PTS) (Williamson 2 AST),38 - 35,-3,CJ McCollum,NOP,Zion Williamson,NOP,,,10:49 PM
+220,SUB,2,6:18,SUB: Jackson-Davis Stops playing.,38 - 35,-3,Trayce Jackson-Davis,GSW,,,,,
+221,SUB,2,6:18,SUB: Thompson Starts playing.,38 - 35,-3,,,Klay Thompson,GSW,,,
+222,SUB,2,6:18,SUB: Podziemski Starts playing.,38 - 35,-3,,,Brandin Podziemski,GSW,,,
+223,SUB,2,6:18,SUB: Paul Stops playing.,38 - 35,-3,Chris Paul,GSW,,,,,
+224,TIMEOUT,2,6:18,WARRIORS Timeout: Regular (Full 3 Short 0),38 - 35,-3,,,,,,,10:50 PM
+225,3POINT.ASSIST,2,6:05,Curry 26' 3PT Jump Shot (8 PTS) (Green 3 AST),38 - 38,TIE,Stephen Curry,GSW,Draymond Green,GSW,,,10:53 PM
+226,2POINTMISS,2,5:44,MISS Williamson 7' Driving Floating Jump Shot,38 - 38,TIE,Zion Williamson,NOP,,,,,10:53 PM
+227,REBOUND,2,5:41,Green REBOUND (Off:0 Def:6),38 - 38,TIE,Draymond Green,GSW,,,,,10:53 PM
+228,FOUL,2,5:38,Williamson P.FOUL (P1.T1) (J.Butler),38 - 38,TIE,Zion Williamson,NOP,Draymond Green,GSW,,,10:53 PM
+229,STEAL.TURNOVER,2,5:28,Curry Bad Pass Turnover (P3.T5)  Jones STEAL (1 STL),38 - 38,TIE,Stephen Curry,GSW,Herbert Jones,NOP,,,10:54 PM
+230,3POINT.ASSIST,2,5:23,Murphy III 34' 3PT Running Jump Shot (5 PTS) (Alvarado 2 AST),41 - 38,-3,Trey Murphy III,NOP,Jose Alvarado,NOP,,,10:54 PM
+231,STEAL.TURNOVER,2,5:03,Thompson Bad Pass Turnover (P1.T6)  Williamson STEAL (3 STL),41 - 38,-3,Klay Thompson,GSW,Zion Williamson,NOP,,,10:54 PM
+232,3POINT,2,5:00,McCollum 28' 3PT Running Pull-Up Jump Shot (11 PTS),44 - 38,-6,CJ McCollum,NOP,,,,,10:54 PM
+233,3POINTMISS,2,4:44,MISS Wiggins 24' 3PT Jump Shot,44 - 38,-6,Andrew Wiggins,GSW,,,,,10:54 PM
+234,REBOUND,2,4:44,Murphy III REBOUND (Off:0 Def:5),44 - 38,-6,Trey Murphy III,NOP,,,,,10:54 PM
+235,3POINT.ASSIST,2,4:28,Alvarado 3PT Jump Shot (3 PTS) (McCollum 4 AST),47 - 38,-9,Jose Alvarado,NOP,CJ McCollum,NOP,,,10:55 PM
+236,2POINT.ASSIST,2,4:11,Podziemski 4' Reverse Layup (5 PTS) (Green 4 AST),47 - 40,-7,Brandin Podziemski,GSW,Draymond Green,GSW,,,10:55 PM
+237,3POINT.ASSIST,2,4:03,Murphy III 29' 3PT Jump Shot (8 PTS) (Jones 2 AST),50 - 40,-10,Trey Murphy III,NOP,Herbert Jones,NOP,,,10:55 PM
+238,2POINT.ASSIST,2,3:34,Curry 3' Cutting Layup Shot (10 PTS) (Green 5 AST),50 - 42,-8,Stephen Curry,GSW,Draymond Green,GSW,,,10:56 PM
+239,3POINT,2,3:21,McCollum 26' 3PT Step Back Jump Shot (14 PTS),53 - 42,-11,CJ McCollum,NOP,,,,,10:56 PM
+240,2POINTMISS.BLOCK,2,3:10,MISS Wiggins 4' Turnaround Hook Shot  McCollum BLOCK (2 BLK),53 - 42,-11,Andrew Wiggins,GSW,,,CJ McCollum,NOP,10:56 PM
+241,REBOUND,2,3:08,Pelicans Rebound,53 - 42,-11,,,,,,,10:56 PM
+242,2POINTMISS.BLOCK,2,2:58,Podziemski BLOCK (1 BLK)  MISS Murphy III 10' Driving Floating Jump Shot,53 - 42,-11,Trey Murphy III,NOP,,,Brandin Podziemski,GSW,10:57 PM
+243,REBOUND,2,2:56,WARRIORS Rebound,53 - 42,-11,,,,,,,10:57 PM
+244,STEAL.TURNOVER,2,2:44,Curry Lost Ball Turnover (P4.T7)  Murphy III STEAL (1 STL),53 - 42,-11,Stephen Curry,GSW,Trey Murphy III,NOP,,,10:57 PM
+245,2POINTMISS,2,2:32,MISS Williamson 8' Driving Hook Shot,53 - 42,-11,Zion Williamson,NOP,,,,,10:57 PM
+246,REBOUND,2,2:30,Podziemski REBOUND (Off:0 Def:4),53 - 42,-11,Brandin Podziemski,GSW,,,,,10:57 PM
+247,FOUL,2,2:17,Alvarado S.FOUL (P2.T2) (J.Butler),53 - 42,-11,Jose Alvarado,NOP,Andrew Wiggins,GSW,,,10:58 PM
+248,FTMAKE,2,2:17,Wiggins Free Throw 1 of 2 (7 PTS),53 - 43,-10,Andrew Wiggins,GSW,,,,,10:58 PM
+249,FTMISS,2,2:17,MISS Wiggins Free Throw 2 of 2,53 - 43,-10,Andrew Wiggins,GSW,,,,,10:58 PM
+250,REBOUND,2,2:15,Murphy III REBOUND (Off:0 Def:6),53 - 43,-10,Trey Murphy III,NOP,,,,,10:58 PM
+251,3POINTMISS,2,1:58,MISS McCollum 26' 3PT Pullup Jump Shot,53 - 43,-10,CJ McCollum,NOP,,,,,10:59 PM
+252,REBOUND,2,1:54,Curry REBOUND (Off:0 Def:1),53 - 43,-10,Stephen Curry,GSW,,,,,10:59 PM
+253,STEAL.TURNOVER,2,1:50,Curry Lost Ball Turnover (P5.T8)  Williamson STEAL (4 STL),53 - 43,-10,Stephen Curry,GSW,Zion Williamson,NOP,,,10:59 PM
+254,3POINT.ASSIST,2,1:31,Murphy III 36' 3PT Jump Shot (11 PTS) (McCollum 5 AST),56 - 43,-13,Trey Murphy III,NOP,CJ McCollum,NOP,,,10:59 PM
+255,STEAL,2,1:19,Green Out of Bounds - Bad Pass Turnover Turnover (P1.T9),56 - 43,-13,Draymond Green,GSW,,,,,10:59 PM
+256,3POINT,2,0:56,McCollum 27' 3PT Step Back Jump Shot (17 PTS),59 - 43,-16,CJ McCollum,NOP,,,,,11:00 PM
+257,SUB,2,0:42,SUB: Podziemski Stops playing.,59 - 43,-16,Brandin Podziemski,GSW,,,,,
+258,SUB,2,0:42,SUB: Paul Starts playing.,59 - 43,-16,,,Chris Paul,GSW,,,
+259,TIMEOUT,2,0:42,Pelicans Timeout: Coach Challenge (Reg.1 Short 0),59 - 43,-16,,,,,,,11:00 PM
+260,REPLAY,2,0:42,Instant Replay2nd Period (11:01 PM EST),59 - 43,-16,,,,,,,11:01 PM
+261,STEAL,2,0:42,Podziemski Out of Bounds - Bad Pass Turnover Turnover (P1.T10),59 - 43,-16,Brandin Podziemski,GSW,,,,,11:03 PM
+262,STEAL,2,0:30,Williamson Out of Bounds Lost Ball Turnover (P1.T6),59 - 43,-16,Zion Williamson,NOP,,,,,11:03 PM
+263,3POINT,2,0:10,Curry 28' 3PT Pullup Jump Shot (13 PTS),59 - 46,-13,Stephen Curry,GSW,,,,,11:03 PM
+264,SUB,2,0:04,SUB: Curry Stops playing.,59 - 46,-13,Stephen Curry,GSW,,,,,
+265,SUB,2,0:04,SUB: Podziemski Starts playing.,59 - 46,-13,,,Brandin Podziemski,GSW,,,
+266,FOUL,2,0:04,Paul P.FOUL (P1.T3) (B.Nansel),59 - 46,-13,Chris Paul,GSW,Zion Williamson,NOP,,,11:04 PM
+267,SUB,2,0:02,SUB: Curry Starts playing.,59 - 46,-13,,,Stephen Curry,GSW,,,
+268,SUB,2,0:02,SUB: Podziemski Stops playing.,59 - 46,-13,Brandin Podziemski,GSW,,,,,
+269,SUB,2,0:02,SUB: Jones Stops playing.,59 - 46,-13,Herbert Jones,NOP,,,,,
+270,SUB,2,0:02,SUB: McCollum Stops playing.,59 - 46,-13,CJ McCollum,NOP,,,,,
+271,SUB,2,0:02,SUB: Daniels Starts playing.,59 - 46,-13,,,Dyson Daniels,NOP,,,
+272,SUB,2,0:02,SUB: Robinson-Earl Starts playing.,59 - 46,-13,,,Jeremiah Robinson-Earl,NOP,,,
+273,2POINT.ASSIST,2,0:02,Williamson 8' Driving Floating Jump Shot (6 PTS) (Jones 3 AST),61 - 46,-15,Zion Williamson,NOP,Herbert Jones,NOP,,,11:04 PM
+274,FOUL,2,0:02,Green S.FOUL (P2.PN) (B.Nansel),61 - 46,-15,Draymond Green,GSW,Zion Williamson,NOP,,,11:04 PM
+275,FTMAKE,2,0:02,Williamson Free Throw 1 of 1 (7 PTS),62 - 46,-16,Zion Williamson,NOP,,,,,11:05 PM
+276,2POINT.ASSIST,2,0:01,Curry 4' Driving Layup (15 PTS) (Paul 3 AST),62 - 48,-14,Stephen Curry,GSW,Chris Paul,GSW,,,11:05 PM
+277,SUB,2,0:00,SUB: Thompson Stops playing.,62 - 48,-14,Klay Thompson,GSW,,,,,
+278,SUB,2,0:00,SUB: Wiggins Stops playing.,62 - 48,-14,Andrew Wiggins,GSW,,,,,
+279,SUB,2,0:00,SUB: Curry Stops playing.,62 - 48,-14,Stephen Curry,GSW,,,,,
+280,SUB,2,0:00,SUB: Green Stops playing.,62 - 48,-14,Draymond Green,GSW,,,,,
+281,SUB,2,0:00,SUB: Paul Stops playing.,62 - 48,-14,Chris Paul,GSW,,,,,
+282,SUB,2,0:00,SUB: Murphy Stops playing.,62 - 48,-14,Trey Murphy III,NOP,,,,,
+283,SUB,2,0:00,SUB: Williamson Stops playing.,62 - 48,-14,Zion Williamson,NOP,,,,,
+284,SUB,2,0:00,SUB: Daniels Stops playing.,62 - 48,-14,Dyson Daniels,NOP,,,,,
+285,SUB,2,0:00,SUB: Robinson-Earl Stops playing.,62 - 48,-14,Jeremiah Robinson-Earl,NOP,,,,,
+286,SUB,2,0:00,SUB: Alvarado Stops playing.,62 - 48,-14,Jose Alvarado,NOP,,,,,
+287,ENDOFPERIOD,2,0:00,End of 2nd Period (11:05 PM EST),62 - 48,-14,,,,,,,11:05 PM
+288,STARTOFPERIOD,3,12:00,Start of 3rd Period (11:21 PM EST),62 - 48,-14,,,,,,,11:21 PM
+289,SUB,3,12:00,SUB: Jackson-Davis Starts playing.,62 - 48,-14,,,Trayce Jackson-Davis,GSW,,,
+290,SUB,3,12:00,SUB: Thompson Starts playing.,62 - 48,-14,,,Klay Thompson,GSW,,,
+291,SUB,3,12:00,SUB: Wiggins Starts playing.,62 - 48,-14,,,Andrew Wiggins,GSW,,,
+292,SUB,3,12:00,SUB: Curry Starts playing.,62 - 48,-14,,,Stephen Curry,GSW,,,
+293,SUB,3,12:00,SUB: Green Starts playing.,62 - 48,-14,,,Draymond Green,GSW,,,
+294,SUB,3,12:00,SUB: Murphy Starts playing.,62 - 48,-14,,,Trey Murphy III,NOP,,,
+295,SUB,3,12:00,SUB: Jones Starts playing.,62 - 48,-14,,,Herbert Jones,NOP,,,
+296,SUB,3,12:00,SUB: Williamson Starts playing.,62 - 48,-14,,,Zion Williamson,NOP,,,
+297,SUB,3,12:00,SUB: Valančiūnas Starts playing.,62 - 48,-14,,,Jonas Valančiūnas,NOP,,,
+298,SUB,3,12:00,SUB: McCollum Starts playing.,62 - 48,-14,,,CJ McCollum,NOP,,,
+299,2POINT.ASSIST,3,11:43,Thompson 14' Fadeaway Jumper (7 PTS) (Curry 2 AST),62 - 50,-12,Klay Thompson,GSW,Stephen Curry,GSW,,,11:21 PM
+300,2POINTMISS,3,11:21,MISS Valanciunas 5' Driving Hook Shot,62 - 50,-12,Jonas Valančiūnas,NOP,,,,,11:22 PM
+301,REBOUND,3,11:19,Green REBOUND (Off:0 Def:7),62 - 50,-12,Draymond Green,GSW,,,,,11:22 PM
+302,2POINT.ASSIST,3,11:15,Jackson-Davis 3' Alley Oop Dunk (8 PTS) (Green 6 AST),62 - 52,-10,Trayce Jackson-Davis,GSW,Draymond Green,GSW,,,11:22 PM
+303,2POINT,3,10:58,Williamson 6' Turnaround Jump Shot (9 PTS),64 - 52,-12,Zion Williamson,NOP,,,,,11:22 PM
+304,2POINT.ASSIST,3,10:44,Jackson-Davis 3' Reverse Layup (10 PTS) (Curry 3 AST),64 - 54,-10,Trayce Jackson-Davis,GSW,Stephen Curry,GSW,,,11:22 PM
+305,3POINT,3,10:36,McCollum 26' 3PT Step Back Jump Shot (20 PTS),67 - 54,-13,CJ McCollum,NOP,,,,,11:23 PM
+306,STEAL.TURNOVER,3,10:12,Wiggins Lost Ball Turnover (P2.T11)  Williamson STEAL (5 STL),67 - 54,-13,Andrew Wiggins,GSW,Zion Williamson,NOP,,,11:23 PM
+307,FOUL,3,10:09,Thompson S.FOUL (P1.T1) (J.Butler),67 - 54,-13,Klay Thompson,GSW,Zion Williamson,NOP,,,11:23 PM
+308,FTMISS,3,10:09,MISS Williamson Free Throw 1 of 2,67 - 54,-13,Zion Williamson,NOP,,,,,11:23 PM
+309,REBOUND,3,10:09,Pelicans Rebound,67 - 54,-13,,,,,,,11:23 PM
+310,FTMISS,3,10:09,MISS Williamson Free Throw 2 of 2,67 - 54,-13,Zion Williamson,NOP,,,,,11:23 PM
+311,REBOUND,3,10:07,Wiggins REBOUND (Off:0 Def:2),67 - 54,-13,Andrew Wiggins,GSW,,,,,11:24 PM
+312,3POINTMISS,3,9:55,MISS Curry 27' 3PT Step Back Jump Shot,67 - 54,-13,Stephen Curry,GSW,,,,,11:24 PM
+313,REBOUND,3,9:50,Jones REBOUND (Off:0 Def:2),67 - 54,-13,Herbert Jones,NOP,,,,,11:24 PM
+314,2POINT,3,9:43,Williamson 3' Driving Finger Roll Layup (11 PTS),69 - 54,-15,Zion Williamson,NOP,,,,,11:24 PM
+315,2POINT.ASSIST,3,9:28,Wiggins 3' Cutting Layup Shot (9 PTS) (Green 7 AST),69 - 56,-13,Andrew Wiggins,GSW,Draymond Green,GSW,,,11:25 PM
+316,FOUL,3,9:19,Green P.FOUL (P3.T2) (D.Guthrie),69 - 56,-13,Draymond Green,GSW,Trey Murphy III,NOP,,,11:25 PM
+317,3POINTMISS,3,9:09,MISS Jones 27' 3PT Jump Shot,69 - 56,-13,Herbert Jones,NOP,,,,,11:25 PM
+318,REBOUND,3,9:05,Thompson REBOUND (Off:1 Def:3),69 - 56,-13,Klay Thompson,GSW,,,,,11:25 PM
+319,FOUL,3,9:01,Jones S.FOUL (P3.T1) (B.Nansel),69 - 56,-13,Herbert Jones,NOP,Stephen Curry,GSW,,,11:25 PM
+320,FTMAKE,3,9:01,Curry Free Throw 1 of 2 (16 PTS),69 - 57,-12,Stephen Curry,GSW,,,,,11:26 PM
+321,FTMAKE,3,9:01,Curry Free Throw 2 of 2 (17 PTS),69 - 58,-11,Stephen Curry,GSW,,,,,11:26 PM
+322,2POINTMISS,3,8:45,MISS Valanciunas 6' Cutting Finger Roll Layup Shot,69 - 58,-11,Jonas Valančiūnas,NOP,,,,,11:26 PM
+323,REBOUND,3,8:44,Valanciunas REBOUND (Off:2 Def:2),69 - 58,-11,Jonas Valančiūnas,NOP,,,,,11:27 PM
+324,2POINTMISS.BLOCK,3,8:44,Green BLOCK (1 BLK)  MISS Valanciunas 4' Tip Layup Shot,69 - 58,-11,Jonas Valančiūnas,NOP,,,Draymond Green,GSW,11:27 PM
+325,REBOUND,3,8:43,Jackson-Davis REBOUND (Off:0 Def:5),69 - 58,-11,Trayce Jackson-Davis,GSW,,,,,11:27 PM
+326,2POINTMISS.BLOCK,3,8:35,MISS Jackson-Davis 3' Cutting Dunk Shot  Jones BLOCK (1 BLK),69 - 58,-11,Trayce Jackson-Davis,GSW,,,Herbert Jones,NOP,11:27 PM
+327,REBOUND,3,8:34,WARRIORS Rebound,69 - 58,-11,,,,,,,11:27 PM
+328,2POINT.ASSIST,3,8:32,Wiggins 3' Layup (11 PTS) (Curry 4 AST),69 - 60,-9,Andrew Wiggins,GSW,Stephen Curry,GSW,,,11:27 PM
+329,2POINT,3,8:19,Williamson 6' Driving Finger Roll Layup (13 PTS),71 - 60,-11,Zion Williamson,NOP,,,,,11:27 PM
+330,VIOLATION,3,8:19,Jackson-Davis Violation:Defensive Goaltending (D.Guthrie),71 - 60,-11,Trayce Jackson-Davis,GSW,,,,,11:27 PM
+331,2POINT.ASSIST,3,7:57,Wiggins 5' Driving Layup (13 PTS) (Green 8 AST),71 - 62,-9,Andrew Wiggins,GSW,Draymond Green,GSW,,,11:28 PM
+332,3POINTMISS,3,7:50,MISS McCollum 28' 3PT Pullup Jump Shot,71 - 62,-9,CJ McCollum,NOP,,,,,11:28 PM
+333,REBOUND,3,7:48,Curry REBOUND (Off:0 Def:2),71 - 62,-9,Stephen Curry,GSW,,,,,11:28 PM
+334,SUB,3,7:40,SUB: Valančiūnas Stops playing.,71 - 62,-9,Jonas Valančiūnas,NOP,,,,,
+335,SUB,3,7:40,SUB: Daniels Starts playing.,71 - 62,-9,,,Dyson Daniels,NOP,,,
+336,FOUL,3,7:40,Valanciunas S.FOUL (P1.T2) (D.Guthrie),71 - 62,-9,Jonas Valančiūnas,NOP,Andrew Wiggins,GSW,,,11:28 PM
+337,FTMISS,3,7:40,MISS Wiggins Free Throw 1 of 2,71 - 62,-9,Andrew Wiggins,GSW,,,,,11:29 PM
+338,REBOUND,3,7:40,WARRIORS Rebound,71 - 62,-9,,,,,,,11:29 PM
+339,FTMAKE,3,7:40,Wiggins Free Throw 2 of 2 (14 PTS),71 - 63,-8,Andrew Wiggins,GSW,,,,,11:29 PM
+340,2POINTMISS,3,7:30,MISS Williamson 5' Driving Layup,71 - 63,-8,Zion Williamson,NOP,,,,,11:29 PM
+341,REBOUND,3,7:29,Jackson-Davis REBOUND (Off:0 Def:6),71 - 63,-8,Trayce Jackson-Davis,GSW,,,,,11:29 PM
+342,3POINT.ASSIST,3,7:24,Thompson 28' 3PT Running Pull-Up Jump Shot (10 PTS) (Jackson-Davis 2 AST),71 - 66,-5,Klay Thompson,GSW,Trayce Jackson-Davis,GSW,,,11:29 PM
+343,SUB,3,7:23,SUB: Thompson Stops playing.,71 - 66,-5,Klay Thompson,GSW,,,,,
+344,SUB,3,7:23,SUB: Podziemski Starts playing.,71 - 66,-5,,,Brandin Podziemski,GSW,,,
+345,TIMEOUT,3,7:23,Pelicans Timeout: Regular (Reg.2 Short 0),71 - 66,-5,,,,,,,11:30 PM
+346,2POINTMISS,3,7:00,MISS McCollum 12' Turnaround Fadeaway Shot,71 - 66,-5,CJ McCollum,NOP,,,,,11:33 PM
+347,REBOUND,3,6:58,Podziemski REBOUND (Off:0 Def:5),71 - 66,-5,Brandin Podziemski,GSW,,,,,11:33 PM
+348,SUB,3,6:43,SUB: McCollum Stops playing.,71 - 66,-5,CJ McCollum,NOP,,,,,
+349,SUB,3,6:43,SUB: Alvarado Starts playing.,71 - 66,-5,,,Jose Alvarado,NOP,,,
+350,3POINTMISS,3,6:39,MISS Curry 26' 3PT Jump Shot,71 - 66,-5,Stephen Curry,GSW,,,,,11:34 PM
+351,REBOUND,3,6:38,Pelicans Rebound,71 - 66,-5,,,,,,,11:34 PM
+352,2POINT.ASSIST,3,6:22,Williamson 5' Cutting Finger Roll Layup Shot (15 PTS) (Murphy III 2 AST),73 - 66,-7,Zion Williamson,NOP,Trey Murphy III,NOP,,,11:34 PM
+353,3POINTMISS,3,6:06,MISS Podziemski 24' 3PT Jump Shot,73 - 66,-7,Brandin Podziemski,GSW,,,,,11:34 PM
+354,REBOUND,3,6:03,Jackson-Davis REBOUND (Off:1 Def:6),73 - 66,-7,Trayce Jackson-Davis,GSW,,,,,11:35 PM
+355,FOUL,3,6:03,Alvarado S.FOUL (P3.T3) (J.Butler),73 - 66,-7,Jose Alvarado,NOP,Trayce Jackson-Davis,GSW,,,11:35 PM
+356,FTMISS,3,6:03,MISS Jackson-Davis Free Throw 1 of 2,73 - 66,-7,Trayce Jackson-Davis,GSW,,,,,11:35 PM
+357,REBOUND,3,6:03,WARRIORS Rebound,73 - 66,-7,,,,,,,11:35 PM
+358,FTMISS,3,6:03,MISS Jackson-Davis Free Throw 2 of 2,73 - 66,-7,Trayce Jackson-Davis,GSW,,,,,11:35 PM
+359,REBOUND,3,6:02,Pelicans Rebound,73 - 66,-7,,,,,,,11:35 PM
+360,FOUL,3,6:02,Wiggins L.B.FOUL (P1.T3) (B.Nansel),73 - 66,-7,Andrew Wiggins,GSW,Herbert Jones,NOP,,,11:35 PM
+361,3POINT.ASSIST,3,5:48,Jones 24' 3PT Jump Shot (8 PTS) (Williamson 3 AST),76 - 66,-10,Herbert Jones,NOP,Zion Williamson,NOP,,,11:36 PM
+362,2POINTMISS,3,5:36,MISS Curry 5' Driving Floating Jump Shot,76 - 66,-10,Stephen Curry,GSW,,,,,11:36 PM
+363,REBOUND,3,5:35,Wiggins REBOUND (Off:1 Def:2),76 - 66,-10,Andrew Wiggins,GSW,,,,,11:36 PM
+364,2POINTMISS.BLOCK,3,5:34,MISS Wiggins Tip Layup Shot  Williamson BLOCK (1 BLK),76 - 66,-10,Andrew Wiggins,GSW,,,Zion Williamson,NOP,11:36 PM
+365,REBOUND,3,5:32,Jones REBOUND (Off:0 Def:3),76 - 66,-10,Herbert Jones,NOP,,,,,11:36 PM
+366,3POINT.ASSIST,3,5:28,Murphy III 25' 3PT Running Jump Shot (14 PTS) (Jones 4 AST),79 - 66,-13,Trey Murphy III,NOP,Herbert Jones,NOP,,,11:36 PM
+367,SUB,3,5:25,SUB: Jackson-Davis Stops playing.,79 - 66,-13,Trayce Jackson-Davis,GSW,,,,,
+368,SUB,3,5:25,SUB: Wiggins Stops playing.,79 - 66,-13,Andrew Wiggins,GSW,,,,,
+369,SUB,3,5:25,SUB: Moody Starts playing.,79 - 66,-13,,,Moses Moody,GSW,,,
+370,SUB,3,5:25,SUB: Paul Starts playing.,79 - 66,-13,,,Chris Paul,GSW,,,
+371,TIMEOUT,3,5:25,WARRIORS Timeout: Regular (Full 4 Short 0),79 - 66,-13,,,,,,,11:36 PM
+372,3POINTMISS,3,5:01,MISS Paul 3PT Jump Shot,79 - 66,-13,Chris Paul,GSW,,,,,11:39 PM
+373,REBOUND,3,4:57,Jones REBOUND (Off:0 Def:4),79 - 66,-13,Herbert Jones,NOP,,,,,11:40 PM
+374,2POINTMISS,3,4:42,MISS Daniels 6' Driving Hook Shot,79 - 66,-13,Dyson Daniels,NOP,,,,,11:40 PM
+375,REBOUND,3,4:40,Green REBOUND (Off:0 Def:8),79 - 66,-13,Draymond Green,GSW,,,,,11:40 PM
+376,STEAL,3,4:37,Green Out of Bounds - Bad Pass Turnover Turnover (P2.T12),79 - 66,-13,Draymond Green,GSW,,,,,11:40 PM
+377,3POINT,3,4:23,Williamson 26' 3PT Jump Shot (18 PTS),82 - 66,-16,Zion Williamson,NOP,,,,,11:40 PM
+378,2POINTMISS,3,4:04,MISS Curry 11' Driving Floating Bank Jump Shot,82 - 66,-16,Stephen Curry,GSW,,,,,11:41 PM
+379,REBOUND,3,4:02,Daniels REBOUND (Off:2 Def:5),82 - 66,-16,Dyson Daniels,NOP,,,,,11:41 PM
+380,3POINTMISS,3,4:00,MISS Alvarado 27' 3PT Running Jump Shot,82 - 66,-16,Jose Alvarado,NOP,,,,,11:41 PM
+381,REBOUND,3,3:57,Podziemski REBOUND (Off:0 Def:6),82 - 66,-16,Brandin Podziemski,GSW,,,,,11:41 PM
+382,3POINTMISS,3,3:49,MISS Curry 27' 3PT Jump Shot,82 - 66,-16,Stephen Curry,GSW,,,,,11:41 PM
+383,REBOUND,3,3:46,Williamson REBOUND (Off:0 Def:3),82 - 66,-16,Zion Williamson,NOP,,,,,11:41 PM
+384,3POINTMISS,3,3:30,MISS Jones 26' 3PT Jump Shot,82 - 66,-16,Herbert Jones,NOP,,,,,11:41 PM
+385,REBOUND,3,3:26,Paul REBOUND (Off:0 Def:2),82 - 66,-16,Chris Paul,GSW,,,,,11:41 PM
+386,2POINT,3,3:15,Paul 4' Driving Layup (6 PTS),82 - 68,-14,Chris Paul,GSW,,,,,11:41 PM
+387,SUB,3,3:13,SUB: Jackson-Davis Starts playing.,82 - 68,-14,,,Trayce Jackson-Davis,GSW,,,
+388,SUB,3,3:13,SUB: Thompson Starts playing.,82 - 68,-14,,,Klay Thompson,GSW,,,
+389,SUB,3,3:13,SUB: Curry Stops playing.,82 - 68,-14,Stephen Curry,GSW,,,,,
+390,SUB,3,3:13,SUB: Green Stops playing.,82 - 68,-14,Draymond Green,GSW,,,,,
+391,SUB,3,3:13,SUB: Murphy Stops playing.,82 - 68,-14,Trey Murphy III,NOP,,,,,
+392,SUB,3,3:13,SUB: Williamson Stops playing.,82 - 68,-14,Zion Williamson,NOP,,,,,
+393,SUB,3,3:13,SUB: McCollum Starts playing.,82 - 68,-14,,,CJ McCollum,NOP,,,
+394,SUB,3,3:13,SUB: Robinson-Earl Starts playing.,82 - 68,-14,,,Jeremiah Robinson-Earl,NOP,,,
+395,TIMEOUT,3,3:13,Pelicans Timeout: Regular (Reg.3 Short 0),82 - 68,-14,,,,,,,11:41 PM
+396,3POINTMISS,3,2:54,MISS Alvarado 3PT Jump Shot,82 - 68,-14,Jose Alvarado,NOP,,,,,11:43 PM
+397,REBOUND,3,2:51,Podziemski REBOUND (Off:0 Def:7),82 - 68,-14,Brandin Podziemski,GSW,,,,,11:44 PM
+398,3POINTMISS,3,2:47,MISS Thompson 28' 3PT Running Pull-Up Jump Shot,82 - 68,-14,Klay Thompson,GSW,,,,,11:44 PM
+399,REBOUND,3,2:43,Jackson-Davis REBOUND (Off:2 Def:6),82 - 68,-14,Trayce Jackson-Davis,GSW,,,,,11:44 PM
+400,2POINT.ASSIST,3,2:33,Thompson 5' Driving Floating Bank Jump Shot (12 PTS) (Paul 4 AST),82 - 70,-12,Klay Thompson,GSW,Chris Paul,GSW,,,11:44 PM
+401,3POINT.ASSIST,3,2:18,McCollum 26' 3PT Jump Shot (23 PTS) (Daniels 3 AST),85 - 70,-15,CJ McCollum,NOP,Dyson Daniels,NOP,,,11:44 PM
+402,3POINTMISS,3,1:48,MISS Moody 24' 3PT Jump Shot,85 - 70,-15,Moses Moody,GSW,,,,,11:45 PM
+403,REBOUND,3,1:48,Robinson-Earl REBOUND (Off:0 Def:1),85 - 70,-15,Jeremiah Robinson-Earl,NOP,,,,,11:45 PM
+404,SUB,3,1:32,SUB: Wiggins Starts playing.,85 - 70,-15,,,Andrew Wiggins,GSW,,,
+405,SUB,3,1:32,SUB: Podziemski Stops playing.,85 - 70,-15,Brandin Podziemski,GSW,,,,,
+406,FOUL,3,1:32,Paul S.FOUL (P2.T4) (J.Butler),85 - 70,-15,Chris Paul,GSW,Jose Alvarado,NOP,,,11:45 PM
+407,FTMISS,3,1:32,MISS Alvarado Free Throw 1 of 2,85 - 70,-15,Jose Alvarado,NOP,,,,,11:45 PM
+408,REBOUND,3,1:32,Pelicans Rebound,85 - 70,-15,,,,,,,11:45 PM
+409,FTMAKE,3,1:32,Alvarado Free Throw 2 of 2 (4 PTS),86 - 70,-16,Jose Alvarado,NOP,,,,,11:46 PM
+410,2POINT,3,1:10,Moody 13' Fadeaway Jumper (2 PTS),86 - 72,-14,Moses Moody,GSW,,,,,11:46 PM
+411,2POINTMISS,3,0:50,MISS Robinson-Earl 6' Driving Layup,86 - 72,-14,Jeremiah Robinson-Earl,NOP,,,,,11:46 PM
+412,REBOUND,3,0:49,Paul REBOUND (Off:0 Def:3),86 - 72,-14,Chris Paul,GSW,,,,,11:46 PM
+413,3POINTMISS,3,0:45,MISS Thompson 28' 3PT Running Pull-Up Jump Shot,86 - 72,-14,Klay Thompson,GSW,,,,,11:46 PM
+414,REBOUND,3,0:41,Jackson-Davis REBOUND (Off:3 Def:6),86 - 72,-14,Trayce Jackson-Davis,GSW,,,,,11:46 PM
+415,3POINT.ASSIST,3,0:31,Moody 26' 3PT Jump Shot (5 PTS) (Thompson 1 AST),86 - 75,-11,Moses Moody,GSW,Klay Thompson,GSW,,,11:47 PM
+416,2POINT,3,0:15,McCollum 11' Turnaround Fadeaway (25 PTS),88 - 75,-13,CJ McCollum,NOP,,,,,11:47 PM
+417,3POINTMISS,3,0:02,MISS Wiggins 27' 3PT Jump Shot,88 - 75,-13,Andrew Wiggins,GSW,,,,,11:47 PM
+418,SUB,3,0:00,SUB: Jackson-Davis Stops playing.,88 - 75,-13,Trayce Jackson-Davis,GSW,,,,,
+419,SUB,3,0:00,SUB: Thompson Stops playing.,88 - 75,-13,Klay Thompson,GSW,,,,,
+420,SUB,3,0:00,SUB: Wiggins Stops playing.,88 - 75,-13,Andrew Wiggins,GSW,,,,,
+421,SUB,3,0:00,SUB: Moody Stops playing.,88 - 75,-13,Moses Moody,GSW,,,,,
+422,SUB,3,0:00,SUB: Paul Stops playing.,88 - 75,-13,Chris Paul,GSW,,,,,
+423,SUB,3,0:00,SUB: Jones Stops playing.,88 - 75,-13,Herbert Jones,NOP,,,,,
+424,SUB,3,0:00,SUB: McCollum Stops playing.,88 - 75,-13,CJ McCollum,NOP,,,,,
+425,SUB,3,0:00,SUB: Daniels Stops playing.,88 - 75,-13,Dyson Daniels,NOP,,,,,
+426,SUB,3,0:00,SUB: Robinson-Earl Stops playing.,88 - 75,-13,Jeremiah Robinson-Earl,NOP,,,,,
+427,SUB,3,0:00,SUB: Alvarado Stops playing.,88 - 75,-13,Jose Alvarado,NOP,,,,,
+428,REBOUND,3,0:00,McCollum REBOUND (Off:0 Def:5),88 - 75,-13,CJ McCollum,NOP,,,,,11:47 PM
+429,ENDOFPERIOD,3,0:00,End of 3rd Period (11:47 PM EST),88 - 75,-13,,,,,,,11:47 PM
+430,STARTOFPERIOD,4,12:00,Start of 4th Period (11:50 PM EST),88 - 75,-13,,,,,,,11:50 PM
+431,SUB,4,12:00,SUB: Thompson Starts playing.,88 - 75,-13,,,Klay Thompson,GSW,,,
+432,SUB,4,12:00,SUB: Green Starts playing.,88 - 75,-13,,,Draymond Green,GSW,,,
+433,SUB,4,12:00,SUB: Podziemski Starts playing.,88 - 75,-13,,,Brandin Podziemski,GSW,,,
+434,SUB,4,12:00,SUB: Moody Starts playing.,88 - 75,-13,,,Moses Moody,GSW,,,
+435,SUB,4,12:00,SUB: Paul Starts playing.,88 - 75,-13,,,Chris Paul,GSW,,,
+436,SUB,4,12:00,SUB: Murphy Starts playing.,88 - 75,-13,,,Trey Murphy III,NOP,,,
+437,SUB,4,12:00,SUB: Williamson Starts playing.,88 - 75,-13,,,Zion Williamson,NOP,,,
+438,SUB,4,12:00,SUB: McCollum Starts playing.,88 - 75,-13,,,CJ McCollum,NOP,,,
+439,SUB,4,12:00,SUB: Daniels Starts playing.,88 - 75,-13,,,Dyson Daniels,NOP,,,
+440,SUB,4,12:00,SUB: Alvarado Starts playing.,88 - 75,-13,,,Jose Alvarado,NOP,,,
+441,2POINTMISS,4,11:37,MISS Williamson 4' Layup,88 - 75,-13,Zion Williamson,NOP,,,,,11:50 PM
+442,REBOUND,4,11:35,Green REBOUND (Off:0 Def:9),88 - 75,-13,Draymond Green,GSW,,,,,11:50 PM
+443,SUB,4,11:33,SUB: Jackson-Davis Starts playing.,88 - 75,-13,,,Trayce Jackson-Davis,GSW,,,
+444,SUB,4,11:33,SUB: Podziemski Stops playing.,88 - 75,-13,Brandin Podziemski,GSW,,,,,
+445,FOUL,4,11:33,McCollum S.FOUL (P2.T1) (J.Butler),88 - 75,-13,CJ McCollum,NOP,Klay Thompson,GSW,,,11:50 PM
+446,FTMAKE,4,11:33,Thompson Free Throw 1 of 2 (13 PTS),88 - 76,-12,Klay Thompson,GSW,,,,,11:51 PM
+447,FTMAKE,4,11:33,Thompson Free Throw 2 of 2 (14 PTS),88 - 77,-11,Klay Thompson,GSW,,,,,11:51 PM
+448,3POINT.ASSIST,4,11:21,Murphy III 26' 3PT Jump Shot (17 PTS) (Daniels 4 AST),91 - 77,-14,Trey Murphy III,NOP,Dyson Daniels,NOP,,,11:52 PM
+449,FOUL,4,11:08,Daniels S.FOUL (P1.T2) (D.Guthrie),91 - 77,-14,Dyson Daniels,NOP,Klay Thompson,GSW,,,11:52 PM
+450,FTMAKE,4,11:08,Thompson Free Throw 1 of 2 (15 PTS),91 - 78,-13,Klay Thompson,GSW,,,,,11:52 PM
+451,FTMAKE,4,11:08,Thompson Free Throw 2 of 2 (16 PTS),91 - 79,-12,Klay Thompson,GSW,,,,,11:53 PM
+452,3POINTMISS,4,10:46,MISS McCollum 26' 3PT Step Back Jump Shot,91 - 79,-12,CJ McCollum,NOP,,,,,11:53 PM
+453,REBOUND,4,10:43,Jackson-Davis REBOUND (Off:3 Def:7),91 - 79,-12,Trayce Jackson-Davis,GSW,,,,,11:53 PM
+454,STEAL.TURNOVER,4,10:43,Jackson-Davis Lost Ball Turnover (P1.T13)  Williamson STEAL (6 STL),91 - 79,-12,Trayce Jackson-Davis,GSW,Zion Williamson,NOP,,,11:53 PM
+455,FOUL,4,10:43,Jackson-Davis S.FOUL (P2.T1) (J.Butler),91 - 79,-12,Trayce Jackson-Davis,GSW,Zion Williamson,NOP,,,11:53 PM
+456,FTMISS,4,10:43,MISS Williamson Free Throw 1 of 2,91 - 79,-12,Zion Williamson,NOP,,,,,11:54 PM
+457,REBOUND,4,10:43,Pelicans Rebound,91 - 79,-12,,,,,,,11:54 PM
+458,FTMAKE,4,10:43,Williamson Free Throw 2 of 2 (19 PTS),92 - 79,-13,Zion Williamson,NOP,,,,,11:54 PM
+459,3POINTMISS,4,10:30,MISS Thompson 26' 3PT Jump Shot,92 - 79,-13,Klay Thompson,GSW,,,,,11:54 PM
+460,REBOUND,4,10:27,Moody REBOUND (Off:1 Def:1),92 - 79,-13,Moses Moody,GSW,,,,,11:54 PM
+461,2POINTMISS,4,10:23,MISS Paul 17' Pullup Jump Shot,92 - 79,-13,Chris Paul,GSW,,,,,11:54 PM
+462,REBOUND,4,10:20,Murphy III REBOUND (Off:0 Def:7),92 - 79,-13,Trey Murphy III,NOP,,,,,11:54 PM
+463,STEAL.TURNOVER,4,10:09,Green STEAL (1 STL)  Williamson Lost Ball Turnover (P2.T7),92 - 79,-13,Zion Williamson,NOP,Draymond Green,GSW,,,11:55 PM
+464,2POINTMISS,4,10:03,MISS Moody 4' Layup,92 - 79,-13,Moses Moody,GSW,,,,,11:55 PM
+465,REBOUND,4,10:02,Moody REBOUND (Off:2 Def:1),92 - 79,-13,Moses Moody,GSW,,,,,11:55 PM
+466,2POINT,4,10:00,Moody Tip Layup Shot (7 PTS),92 - 81,-11,Moses Moody,GSW,,,,,11:55 PM
+467,2POINTMISS,4,9:45,MISS Williamson 5' Driving Layup,92 - 81,-11,Zion Williamson,NOP,,,,,11:55 PM
+468,REBOUND,4,9:43,Jackson-Davis REBOUND (Off:3 Def:8),92 - 81,-11,Trayce Jackson-Davis,GSW,,,,,11:55 PM
+469,2POINT.ASSIST,4,9:33,Moody 3' Layup (9 PTS) (Paul 5 AST),92 - 83,-9,Moses Moody,GSW,Chris Paul,GSW,,,11:55 PM
+470,SUB,4,9:30,SUB: Jones Starts playing.,92 - 83,-9,,,Herbert Jones,NOP,,,
+471,SUB,4,9:30,SUB: Williamson Stops playing.,92 - 83,-9,Zion Williamson,NOP,,,,,
+472,TIMEOUT,4,9:30,Pelicans Timeout: Regular (Reg.4 Short 0),92 - 83,-9,,,,,,,11:55 PM
+473,3POINTMISS,4,9:13,MISS Alvarado 26' 3PT Jump Shot,92 - 83,-9,Jose Alvarado,NOP,,,,,11:59 PM
+474,REBOUND,4,9:08,Green REBOUND (Off:0 Def:10),92 - 83,-9,Draymond Green,GSW,,,,,11:59 PM
+475,2POINTMISS,4,8:49,MISS Thompson 20' Pullup Jump Shot,92 - 83,-9,Klay Thompson,GSW,,,,,11:59 PM
+476,REBOUND,4,8:46,Green REBOUND (Off:1 Def:10),92 - 83,-9,Draymond Green,GSW,,,,,11:59 PM
+477,SUB,4,8:44,SUB: Wiggins Starts playing.,92 - 83,-9,,,Andrew Wiggins,GSW,,,
+478,SUB,4,8:44,SUB: Green Stops playing.,92 - 83,-9,Draymond Green,GSW,,,,,
+479,SUB,4,8:44,SUB: Valančiūnas Starts playing.,92 - 83,-9,,,Jonas Valančiūnas,NOP,,,
+480,SUB,4,8:44,SUB: Daniels Stops playing.,92 - 83,-9,Dyson Daniels,NOP,,,,,
+481,3POINT.ASSIST,4,8:44,Paul 27' 3PT Jump Shot (9 PTS) (Moody 1 AST),92 - 86,-6,Chris Paul,GSW,Moses Moody,GSW,,,11:59 PM
+482,FOUL,4,8:44,McCollum AWAY.FROM.PLAY.FOUL (P3.T3) (J.Butler),92 - 86,-6,CJ McCollum,NOP,Trayce Jackson-Davis,GSW,,,11:59 PM
+483,FTMISS,4,8:44,MISS Jackson-Davis Free Throw 1 of 1,92 - 86,-6,Trayce Jackson-Davis,GSW,,,,,12:00 AM
+484,REBOUND,4,8:43,Valanciunas REBOUND (Off:2 Def:3),92 - 86,-6,Jonas Valančiūnas,NOP,,,,,12:00 AM
+485,STEAL.TURNOVER,4,8:25,Jackson-Davis STEAL (1 STL)  Murphy III Bad Pass Turnover (P1.T8),92 - 86,-6,Trey Murphy III,NOP,Trayce Jackson-Davis,GSW,,,12:00 AM
+486,3POINT.ASSIST,4,8:16,Thompson 25' 3PT Jump Shot (19 PTS) (Paul 6 AST),92 - 89,-3,Klay Thompson,GSW,Chris Paul,GSW,,,12:01 AM
+487,SUB,4,7:57,SUB: Jackson-Davis Stops playing.,92 - 89,-3,Trayce Jackson-Davis,GSW,,,,,
+488,SUB,4,7:57,SUB: Curry Starts playing.,92 - 89,-3,,,Stephen Curry,GSW,,,
+489,SUB,4,7:57,SUB: Green Starts playing.,92 - 89,-3,,,Draymond Green,GSW,,,
+490,SUB,4,7:57,SUB: Moody Stops playing.,92 - 89,-3,Moses Moody,GSW,,,,,
+491,SUB,4,7:57,SUB: Williamson Starts playing.,92 - 89,-3,,,Zion Williamson,NOP,,,
+492,SUB,4,7:57,SUB: Valančiūnas Stops playing.,92 - 89,-3,Jonas Valančiūnas,NOP,,,,,
+493,STEAL,4,7:57,McCollum Out of Bounds Lost Ball Turnover (P3.T9),92 - 89,-3,CJ McCollum,NOP,,,,,12:01 AM
+494,3POINTMISS,4,7:42,MISS Thompson 26' 3PT Jump Shot,92 - 89,-3,Klay Thompson,GSW,,,,,12:02 AM
+495,REBOUND,4,7:40,Pelicans Rebound,92 - 89,-3,,,,,,,12:02 AM
+496,2POINT,4,7:24,Williamson 4' Driving Layup (21 PTS),94 - 89,-5,Zion Williamson,NOP,,,,,12:02 AM
+497,FOUL,4,7:24,Green S.FOUL (P4.T2) (J.Butler),94 - 89,-5,Draymond Green,GSW,Zion Williamson,NOP,,,12:02 AM
+498,FTMAKE,4,7:24,Williamson Free Throw 1 of 1 (22 PTS),95 - 89,-6,Zion Williamson,NOP,,,,,12:02 AM
+499,3POINT.ASSIST,4,7:12,Curry 27' 3PT Step Back Jump Shot (20 PTS) (Green 9 AST),95 - 92,-3,Stephen Curry,GSW,Draymond Green,GSW,,,12:03 AM
+500,2POINT,4,6:54,Williamson 4' Driving Finger Roll Layup (24 PTS),97 - 92,-5,Zion Williamson,NOP,,,,,12:03 AM
+501,SUB,4,6:33,SUB: McCollum Stops playing.,97 - 92,-5,CJ McCollum,NOP,,,,,
+502,SUB,4,6:33,SUB: Daniels Starts playing.,97 - 92,-5,,,Dyson Daniels,NOP,,,
+503,TIMEOUT,4,6:33,WARRIORS Timeout: Regular (Full 5 Short 0),97 - 92,-5,,,,,,,12:03 AM
+504,STEAL.TURNOVER,4,6:30,Curry Bad Pass Turnover (P6.T14)  Daniels STEAL (1 STL),97 - 92,-5,Stephen Curry,GSW,Dyson Daniels,NOP,,,12:07 AM
+505,2POINT.ASSIST,4,6:14,Jones 6' Hook Shot (10 PTS) (Daniels 5 AST),99 - 92,-7,Herbert Jones,NOP,Dyson Daniels,NOP,,,12:07 AM
+506,2POINT.ASSIST,4,5:59,Wiggins 3' Dunk (16 PTS) (Curry 5 AST),99 - 94,-5,Andrew Wiggins,GSW,Stephen Curry,GSW,,,12:07 AM
+507,3POINTMISS,4,5:39,MISS Williamson 28' 3PT Jump Shot,99 - 94,-5,Zion Williamson,NOP,,,,,12:08 AM
+508,REBOUND,4,5:36,Curry REBOUND (Off:0 Def:3),99 - 94,-5,Stephen Curry,GSW,,,,,12:08 AM
+509,STEAL.TURNOVER,4,5:26,Curry Bad Pass Turnover (P7.T15)  Daniels STEAL (2 STL),99 - 94,-5,Stephen Curry,GSW,Dyson Daniels,NOP,,,12:08 AM
+510,2POINT.ASSIST,4,5:22,Murphy III 3' Running Layup (19 PTS) (Daniels 6 AST),101 - 94,-7,Trey Murphy III,NOP,Dyson Daniels,NOP,,,12:08 AM
+511,2POINTMISS,4,5:08,MISS Wiggins 7' Driving Finger Roll Layup,101 - 94,-7,Andrew Wiggins,GSW,,,,,12:08 AM
+512,REBOUND,4,5:05,Jones REBOUND (Off:0 Def:5),101 - 94,-7,Herbert Jones,NOP,,,,,12:08 AM
+513,2POINTMISS.BLOCK,4,5:04,Thompson BLOCK (1 BLK)  MISS Jones 4' Running Layup,101 - 94,-7,Herbert Jones,NOP,,,Klay Thompson,GSW,12:08 AM
+514,REBOUND,4,5:03,Paul REBOUND (Off:0 Def:4),101 - 94,-7,Chris Paul,GSW,,,,,12:08 AM
+515,2POINTMISS.BLOCK,4,4:45,MISS Thompson 4' Layup  Daniels BLOCK (1 BLK),101 - 94,-7,Klay Thompson,GSW,,,Dyson Daniels,NOP,12:09 AM
+516,REBOUND,4,4:43,Thompson REBOUND (Off:2 Def:3),101 - 94,-7,Klay Thompson,GSW,,,,,12:09 AM
+517,STEAL.TURNOVER,4,4:39,Thompson Bad Pass Turnover (P2.T16)  Alvarado STEAL (1 STL),101 - 94,-7,Klay Thompson,GSW,Jose Alvarado,NOP,,,12:09 AM
+518,2POINT,4,4:23,Williamson 2' Driving Layup (26 PTS),103 - 94,-9,Zion Williamson,NOP,,,,,12:09 AM
+519,3POINT.ASSIST,4,4:10,Curry 26' 3PT Jump Shot (23 PTS) (Green 10 AST),103 - 97,-6,Stephen Curry,GSW,Draymond Green,GSW,,,12:09 AM
+520,3POINT,4,3:45,Murphy III 31' 3PT Step Back Jump Shot (22 PTS),106 - 97,-9,Trey Murphy III,NOP,,,,,12:10 AM
+521,3POINTMISS,4,3:30,MISS Thompson 28' 3PT Jump Shot,106 - 97,-9,Klay Thompson,GSW,,,,,12:10 AM
+522,REBOUND,4,3:27,Alvarado REBOUND (Off:0 Def:2),106 - 97,-9,Jose Alvarado,NOP,,,,,12:10 AM
+523,TIMEOUT,4,3:21,Pelicans Timeout: Regular (Reg.5 Short 0),106 - 97,-9,,,,,,,12:10 AM
+524,3POINT.ASSIST,4,3:15,Jones 3PT Jump Shot (13 PTS) (Daniels 7 AST),109 - 97,-12,Herbert Jones,NOP,Dyson Daniels,NOP,,,12:12 AM
+525,2POINT.ASSIST,4,2:58,Curry 3' Cutting Layup Shot (25 PTS) (Green 11 AST),109 - 99,-10,Stephen Curry,GSW,Draymond Green,GSW,,,12:12 AM
+526,2POINTMISS,4,2:41,MISS Williamson 8' Pullup Jump Shot,109 - 99,-10,Zion Williamson,NOP,,,,,12:12 AM
+527,REBOUND,4,2:39,Wiggins REBOUND (Off:1 Def:3),109 - 99,-10,Andrew Wiggins,GSW,,,,,12:12 AM
+528,3POINT,4,2:34,Curry 25' 3PT Step Back Jump Shot (28 PTS),109 - 102,-7,Stephen Curry,GSW,,,,,12:12 AM
+529,SUB,4,2:14,SUB: McCollum Starts playing.,109 - 102,-7,,,CJ McCollum,NOP,,,
+530,SUB,4,2:14,SUB: Daniels Stops playing.,109 - 102,-7,Dyson Daniels,NOP,,,,,
+531,2POINTMISS,4,2:06,MISS McCollum 13' Driving Floating Jump Shot,109 - 102,-7,CJ McCollum,NOP,,,,,12:13 AM
+532,REBOUND,4,2:04,Green REBOUND (Off:1 Def:11),109 - 102,-7,Draymond Green,GSW,,,,,12:13 AM
+533,2POINT,4,1:58,Curry 3' Driving Layup (30 PTS),109 - 104,-5,Stephen Curry,GSW,,,,,12:13 AM
+534,2POINTMISS.BLOCK,4,1:37,Thompson BLOCK (2 BLK)  MISS Williamson 10' Pullup Jump Shot,109 - 104,-5,Zion Williamson,NOP,,,Klay Thompson,GSW,12:14 AM
+535,REBOUND,4,1:36,Thompson REBOUND (Off:2 Def:4),109 - 104,-5,Klay Thompson,GSW,,,,,12:14 AM
+536,SUB,4,1:24,SUB: Daniels Starts playing.,109 - 104,-5,,,Dyson Daniels,NOP,,,
+537,SUB,4,1:24,SUB: Alvarado Stops playing.,109 - 104,-5,Jose Alvarado,NOP,,,,,
+538,FOUL,4,1:24,Williamson S.FOUL (P2.T4) (J.Butler),109 - 104,-5,Zion Williamson,NOP,Andrew Wiggins,GSW,,,12:14 AM
+539,FTMAKE,4,1:24,Wiggins Free Throw 1 of 2 (17 PTS),109 - 105,-4,Andrew Wiggins,GSW,,,,,12:15 AM
+540,FTMAKE,4,1:24,Wiggins Free Throw 2 of 2 (18 PTS),109 - 106,-3,Andrew Wiggins,GSW,,,,,12:15 AM
+541,2POINTMISS,4,1:16,MISS Daniels 9' Driving Floating Jump Shot,109 - 106,-3,Dyson Daniels,NOP,,,,,12:15 AM
+542,REBOUND,4,1:14,Daniels REBOUND (Off:3 Def:5),109 - 106,-3,Dyson Daniels,NOP,,,,,12:15 AM
+543,3POINT,4,1:03,McCollum 25' 3PT Pullup Jump Shot (28 PTS),112 - 106,-6,CJ McCollum,NOP,,,,,12:15 AM
+544,SUB,4,1:02,SUB: Williamson Stops playing.,112 - 106,-6,Zion Williamson,NOP,,,,,
+545,SUB,4,1:02,SUB: Alvarado Starts playing.,112 - 106,-6,,,Jose Alvarado,NOP,,,
+546,TIMEOUT,4,1:02,WARRIORS Timeout: Regular (Full 6 Short 0),112 - 106,-6,,,,,,,12:16 AM
+547,3POINT,4,0:56,Curry 28' 3PT Step Back Jump Shot (33 PTS),112 - 109,-3,Stephen Curry,GSW,,,,,12:17 AM
+548,SUB,4,0:40,SUB: Williamson Starts playing.,112 - 109,-3,,,Zion Williamson,NOP,,,
+549,SUB,4,0:40,SUB: Alvarado Stops playing.,112 - 109,-3,Jose Alvarado,NOP,,,,,
+550,TIMEOUT,4,0:40,Pelicans Timeout: Regular (Reg.6 Short 0),112 - 109,-3,,,,,,,12:18 AM
+551,FOUL,4,0:34,Green P.FOUL (P5.T3) (D.Guthrie),112 - 109,-3,Draymond Green,GSW,Zion Williamson,NOP,,,12:20 AM
+552,2POINTMISS,4,0:21,MISS Williamson 9' Turnaround Fadeaway Shot,112 - 109,-3,Zion Williamson,NOP,,,,,12:20 AM
+553,REBOUND,4,0:18,Curry REBOUND (Off:0 Def:4),112 - 109,-3,Stephen Curry,GSW,,,,,12:20 AM
+554,3POINTMISS,4,0:13,MISS Curry 27' 3PT Running Pull-Up Jump Shot,112 - 109,-3,Stephen Curry,GSW,,,,,12:20 AM
+555,REBOUND,4,0:10,Murphy III REBOUND (Off:0 Def:8),112 - 109,-3,Trey Murphy III,NOP,,,,,12:20 AM
+556,SUB,4,0:09,SUB: Williamson Stops playing.,112 - 109,-3,Zion Williamson,NOP,,,,,
+557,SUB,4,0:09,SUB: Alvarado Starts playing.,112 - 109,-3,,,Jose Alvarado,NOP,,,
+558,TIMEOUT,4,0:09,WARRIORS Timeout: Regular (Full 7 Short 0),112 - 109,-3,,,,,,,12:21 AM
+559,REPLAY,4,0:09,Instant Replay4th Period (12:21 AM EST),112 - 109,-3,,,,,,,12:21 AM
+560,FOUL,4,0:09,Wiggins P.FOUL (P2.PN) (D.Guthrie),112 - 109,-3,Andrew Wiggins,GSW,Trey Murphy III,NOP,,,12:21 AM
+561,FTMAKE,4,0:09,Murphy III Free Throw 1 of 2 (23 PTS),113 - 109,-4,Trey Murphy III,NOP,,,,,12:23 AM
+562,FTMAKE,4,0:09,Murphy III Free Throw 2 of 2 (24 PTS),114 - 109,-5,Trey Murphy III,NOP,,,,,12:23 AM
+563,3POINTMISS,4,0:02,MISS Curry 25' 3PT Jump Shot,114 - 109,-5,Stephen Curry,GSW,,,,,12:24 AM
+564,REBOUND,4,0:01,Alvarado REBOUND (Off:0 Def:3),114 - 109,-5,Jose Alvarado,NOP,,,,,12:24 AM
+565,SUB,4,0:00,SUB: Thompson Stops playing.,114 - 109,-5,Klay Thompson,GSW,,,,,
+566,SUB,4,0:00,SUB: Wiggins Stops playing.,114 - 109,-5,Andrew Wiggins,GSW,,,,,
+567,SUB,4,0:00,SUB: Curry Stops playing.,114 - 109,-5,Stephen Curry,GSW,,,,,
+568,SUB,4,0:00,SUB: Green Stops playing.,114 - 109,-5,Draymond Green,GSW,,,,,
+569,SUB,4,0:00,SUB: Paul Stops playing.,114 - 109,-5,Chris Paul,GSW,,,,,
+570,SUB,4,0:00,SUB: Murphy Stops playing.,114 - 109,-5,Trey Murphy III,NOP,,,,,
+571,SUB,4,0:00,SUB: Jones Stops playing.,114 - 109,-5,Herbert Jones,NOP,,,,,
+572,SUB,4,0:00,SUB: McCollum Stops playing.,114 - 109,-5,CJ McCollum,NOP,,,,,
+573,SUB,4,0:00,SUB: Daniels Stops playing.,114 - 109,-5,Dyson Daniels,NOP,,,,,
+574,SUB,4,0:00,SUB: Alvarado Stops playing.,114 - 109,-5,Jose Alvarado,NOP,,,,,
+575,ENDOFPERIOD,4,0:00,End of 4th Period (12:24 AM EST),114 - 109,-5,,,,,,,12:24 AM

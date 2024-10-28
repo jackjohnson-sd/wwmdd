@@ -1,0 +1,643 @@
+,eventmsgtype,period,pctimestring,neutraldescription,score,scoremargin,player1_name,player1_team_abbreviation,player2_name,player2_team_abbreviation,player3_name,player3_team_abbreviation,wctimestring
+0,STARTOFPERIOD,1,12:00,Start of 1st Period (8:11 PM EST),0 - 0,0,,,,,,,8:11 PM
+1,SUB,1,12:00,SUB: Holmgren Starts playing.,0 - 0,0,,,Chet Holmgren,OKC,,,
+2,SUB,1,12:00,SUB: Wallace Starts playing.,0 - 0,0,,,Cason Wallace,OKC,,,
+3,SUB,1,12:00,SUB: Dort Starts playing.,0 - 0,0,,,Luguentz Dort,OKC,,,
+4,SUB,1,12:00,SUB: Giddey Starts playing.,0 - 0,0,,,Josh Giddey,OKC,,,
+5,SUB,1,12:00,SUB: Williams Starts playing.,0 - 0,0,,,Jalen Williams,OKC,,,
+6,SUB,1,12:00,SUB: Thompson Starts playing.,0 - 0,0,,,Klay Thompson,GSW,,,
+7,SUB,1,12:00,SUB: Wiggins Starts playing.,0 - 0,0,,,Andrew Wiggins,GSW,,,
+8,SUB,1,12:00,SUB: Curry Starts playing.,0 - 0,0,,,Stephen Curry,GSW,,,
+9,SUB,1,12:00,SUB: Looney Starts playing.,0 - 0,0,,,Kevon Looney,GSW,,,
+10,SUB,1,12:00,SUB: Green Starts playing.,0 - 0,0,,,Draymond Green,GSW,,,
+11,JUMPBALL,1,12:00,Jump Ball Holmgren vs. Looney: Tip to Wallace,0 - 0,0,Chet Holmgren,OKC,Kevon Looney,GSW,Cason Wallace,OKC,8:11 PM
+12,2POINT.ASSIST,1,11:48,Holmgren 13' Pullup Jump Shot (2 PTS) (Jal. Williams 1 AST),0 - 2,2,Chet Holmgren,OKC,Jalen Williams,OKC,,,8:11 PM
+13,3POINT.ASSIST,1,11:32,Thompson 26' 3PT Jump Shot (3 PTS) (Looney 1 AST),3 - 2,-1,Klay Thompson,GSW,Kevon Looney,GSW,,,8:12 PM
+14,2POINT.ASSIST,1,11:20,Wallace 2' Cutting Layup Shot (2 PTS) (Holmgren 1 AST),3 - 4,1,Cason Wallace,OKC,Chet Holmgren,OKC,,,8:12 PM
+15,2POINT.ASSIST,1,11:03,Wiggins 7' Cutting Layup Shot (2 PTS) (Looney 2 AST),5 - 4,-1,Andrew Wiggins,GSW,Kevon Looney,GSW,,,8:12 PM
+16,3POINT.ASSIST,1,10:55,Holmgren 25' 3PT Jump Shot (5 PTS) (Giddey 1 AST),5 - 7,2,Chet Holmgren,OKC,Josh Giddey,OKC,,,8:12 PM
+17,FOUL,1,10:40,Dort S.FOUL (P1.T1) (C.Flores),5 - 7,2,Luguentz Dort,OKC,Stephen Curry,GSW,,,8:13 PM
+18,FTMAKE,1,10:40,Curry Free Throw 1 of 3 (1 PTS),6 - 7,1,Stephen Curry,GSW,,,,,8:13 PM
+19,FTMAKE,1,10:40,Curry Free Throw 2 of 3 (2 PTS),7 - 7,TIE,Stephen Curry,GSW,,,,,8:13 PM
+20,FTMAKE,1,10:40,Curry Free Throw 3 of 3 (3 PTS),8 - 7,-1,Stephen Curry,GSW,,,,,8:13 PM
+21,3POINT.ASSIST,1,10:16,Dort 3PT Jump Shot (3 PTS) (Giddey 2 AST),8 - 10,2,Luguentz Dort,OKC,Josh Giddey,OKC,,,8:14 PM
+22,STEAL,1,10:07,Looney Out of Bounds Lost Ball Turnover (P1.T1),8 - 10,2,Kevon Looney,GSW,,,,,8:14 PM
+23,2POINT,1,9:57,Wallace 5' Driving Finger Roll Layup (4 PTS),8 - 12,4,Cason Wallace,OKC,,,,,8:14 PM
+24,FOUL,1,9:39,Looney OFF.Foul (P1) (N.Buchert),8 - 12,4,Kevon Looney,GSW,Jalen Williams,OKC,,,8:14 PM
+25,STEAL,1,9:39,Looney Offensive Foul Turnover (P2.T2),8 - 12,4,Kevon Looney,GSW,,,,,8:14 PM
+26,2POINT,1,9:22,Giddey 18' Step Back Jump Shot (2 PTS),8 - 14,6,Josh Giddey,OKC,,,,,8:15 PM
+27,2POINT.ASSIST,1,9:07,Looney 2' Cutting Dunk Shot (2 PTS) (Thompson 1 AST),10 - 14,4,Kevon Looney,GSW,Klay Thompson,GSW,,,8:15 PM
+28,2POINTMISS,1,8:54,MISS Jal. Williams 3' Driving Finger Roll Layup,10 - 14,4,Jalen Williams,OKC,,,,,8:15 PM
+29,REBOUND,1,8:52,Curry REBOUND (Off:0 Def:1),10 - 14,4,Stephen Curry,GSW,,,,,8:15 PM
+30,FOUL,1,8:47,Holmgren S.FOUL (P1.T2) (M.Ervin),10 - 14,4,Chet Holmgren,OKC,Andrew Wiggins,GSW,,,8:16 PM
+31,FTMAKE,1,8:47,Wiggins Free Throw 1 of 2 (3 PTS),11 - 14,3,Andrew Wiggins,GSW,,,,,8:16 PM
+32,FTMAKE,1,8:47,Wiggins Free Throw 2 of 2 (4 PTS),12 - 14,2,Andrew Wiggins,GSW,,,,,8:16 PM
+33,STEAL.TURNOVER,1,8:21,Wallace Lost Ball Turnover (P1.T1)  Curry STEAL (1 STL),12 - 14,2,Cason Wallace,OKC,Stephen Curry,GSW,,,8:17 PM
+34,3POINTMISS,1,8:17,MISS Curry 24' 3PT Running Pull-Up Jump Shot,12 - 14,2,Stephen Curry,GSW,,,,,8:17 PM
+35,REBOUND,1,8:16,Warriors Rebound,12 - 14,2,,,,,,,8:17 PM
+36,FOUL,1,8:16,Dort L.B.FOUL (P2.T3) (C.Flores),12 - 14,2,Luguentz Dort,OKC,Draymond Green,GSW,,,8:17 PM
+37,2POINTMISS,1,8:00,MISS Wiggins 2' Cutting Layup Shot,12 - 14,2,Andrew Wiggins,GSW,,,,,8:17 PM
+38,REBOUND,1,7:57,Wiggins REBOUND (Off:1 Def:0),12 - 14,2,Andrew Wiggins,GSW,,,,,8:17 PM
+39,2POINTMISS,1,7:57,MISS Wiggins Tip Layup Shot,12 - 14,2,Andrew Wiggins,GSW,,,,,8:17 PM
+40,REBOUND,1,7:56,Holmgren REBOUND (Off:0 Def:1),12 - 14,2,Chet Holmgren,OKC,,,,,8:18 PM
+41,2POINT,1,7:45,Giddey 5' Driving Floating Bank Jump Shot (4 PTS),12 - 16,4,Josh Giddey,OKC,,,,,8:18 PM
+42,3POINT.ASSIST,1,7:31,Green 3PT Jump Shot (3 PTS) (Looney 3 AST),15 - 16,1,Draymond Green,GSW,Kevon Looney,GSW,,,8:18 PM
+43,STEAL.TURNOVER,1,7:16,Jal. Williams Lost Ball Turnover (P1.T2)  Looney STEAL (1 STL),15 - 16,1,Jalen Williams,OKC,Kevon Looney,GSW,,,8:18 PM
+44,3POINT.ASSIST,1,7:00,Curry 28' 3PT Jump Shot (6 PTS) (Looney 4 AST),18 - 16,-2,Stephen Curry,GSW,Kevon Looney,GSW,,,8:18 PM
+45,SUB,1,6:59,SUB: Looney Stops playing.,18 - 16,-2,Kevon Looney,GSW,,,,,
+46,SUB,1,6:59,SUB: Šarić Starts playing.,18 - 16,-2,,,Dario Šarić,GSW,,,
+47,TIMEOUT,1,6:59,THUNDER Timeout: Regular (Full 1 Short 0),18 - 16,-2,,,,,,,8:19 PM
+48,2POINT,1,6:43,Holmgren 4' Turnaround Hook Shot (7 PTS),18 - 18,TIE,Chet Holmgren,OKC,,,,,8:22 PM
+49,3POINTMISS,1,6:24,MISS Wiggins 24' 3PT Jump Shot,18 - 18,TIE,Andrew Wiggins,GSW,,,,,8:22 PM
+50,REBOUND,1,6:21,Giddey REBOUND (Off:0 Def:1),18 - 18,TIE,Josh Giddey,OKC,,,,,8:22 PM
+51,SUB,1,6:16,SUB: Giddey Stops playing.,18 - 18,TIE,Josh Giddey,OKC,,,,,
+52,SUB,1,6:16,SUB: Joe Starts playing.,18 - 18,TIE,,,Isaiah Joe,OKC,,,
+53,SUB,1,6:16,SUB: Wiggins Stops playing.,18 - 18,TIE,Andrew Wiggins,GSW,,,,,
+54,SUB,1,6:16,SUB: Green Stops playing.,18 - 18,TIE,Draymond Green,GSW,,,,,
+55,SUB,1,6:16,SUB: Kuminga Starts playing.,18 - 18,TIE,,,Jonathan Kuminga,GSW,,,
+56,SUB,1,6:16,SUB: Paul Starts playing.,18 - 18,TIE,,,Chris Paul,GSW,,,
+57,FOUL,1,6:16,Curry P.FOUL (P1.T1) (C.Flores),18 - 18,TIE,Stephen Curry,GSW,Chet Holmgren,OKC,,,8:22 PM
+58,2POINTMISS,1,5:59,MISS Holmgren 2' Driving Finger Roll Layup,18 - 18,TIE,Chet Holmgren,OKC,,,,,8:23 PM
+59,2POINTMISS,1,5:56,MISS Holmgren Tip Layup Shot,18 - 18,TIE,Chet Holmgren,OKC,,,,,8:23 PM
+60,REBOUND,1,5:56,Thompson REBOUND (Off:0 Def:1),18 - 18,TIE,Klay Thompson,GSW,,,,,8:23 PM
+61,REBOUND,1,5:56,Holmgren REBOUND (Off:1 Def:1),18 - 18,TIE,Chet Holmgren,OKC,,,,,8:23 PM
+62,3POINT.ASSIST,1,5:47,Saric 26' 3PT Jump Shot (3 PTS) (Curry 1 AST),21 - 18,-3,Dario Šarić,GSW,Stephen Curry,GSW,,,8:23 PM
+63,2POINTMISS,1,5:29,MISS Wallace 20' Pullup Jump Shot,21 - 18,-3,Cason Wallace,OKC,,,,,8:23 PM
+64,REBOUND,1,5:27,Curry REBOUND (Off:0 Def:2),21 - 18,-3,Stephen Curry,GSW,,,,,8:23 PM
+65,2POINT.ASSIST,1,5:16,Thompson 21' Jump Shot (5 PTS) (Paul 1 AST),23 - 18,-5,Klay Thompson,GSW,Chris Paul,GSW,,,8:23 PM
+66,2POINT.ASSIST,1,5:03,Joe 17' Pullup Jump Shot (2 PTS) (Holmgren 2 AST),23 - 20,-3,Isaiah Joe,OKC,Chet Holmgren,OKC,,,8:24 PM
+67,SUB,1,4:51,SUB: Holmgren Stops playing.,23 - 20,-3,Chet Holmgren,OKC,,,,,
+68,SUB,1,4:51,SUB: Williams Starts playing.,23 - 20,-3,,,Jaylin Williams,OKC,,,
+69,SUB,1,4:51,SUB: Thompson Stops playing.,23 - 20,-3,Klay Thompson,GSW,,,,,
+70,SUB,1,4:51,SUB: Payton Starts playing.,23 - 20,-3,,,Gary Payton II,GSW,,,
+71,REPLAY,1,4:51,Instant Replay1st Period (8:24 PM EST),23 - 20,-3,Doug Overton,,,,,,8:24 PM
+72,STEAL,1,4:51,Kuminga Step Out of Bounds Turnover (P1.T3),23 - 20,-3,Jonathan Kuminga,GSW,,,,,8:24 PM
+73,FOUL,1,4:31,Dort OFF.Foul (P3) (N.Buchert),23 - 20,-3,Luguentz Dort,OKC,Chris Paul,GSW,,,8:25 PM
+74,STEAL,1,4:31,Dort Offensive Foul Turnover (P1.T3),23 - 20,-3,Luguentz Dort,OKC,,,,,8:25 PM
+75,3POINTMISS,1,4:18,MISS Saric 26' 3PT Jump Shot,23 - 20,-3,Dario Šarić,GSW,,,,,8:25 PM
+76,REBOUND,1,4:14,Curry REBOUND (Off:1 Def:2),23 - 20,-3,Stephen Curry,GSW,,,,,8:25 PM
+77,2POINT.ASSIST,1,4:14,Payton II 1' Layup (2 PTS) (Curry 2 AST),25 - 20,-5,Gary Payton II,GSW,Stephen Curry,GSW,,,8:25 PM
+78,SUB,1,4:06,SUB: Wallace Stops playing.,25 - 20,-5,Cason Wallace,OKC,,,,,
+79,SUB,1,4:06,SUB: Dort Stops playing.,25 - 20,-5,Luguentz Dort,OKC,,,,,
+80,SUB,1,4:06,SUB: Wiggins Starts playing.,25 - 20,-5,,,Aaron Wiggins,OKC,,,
+81,SUB,1,4:06,SUB: Micić Starts playing.,25 - 20,-5,,,Vasilije Micić,OKC,,,
+82,SUB,1,4:06,SUB: Curry Stops playing.,25 - 20,-5,Stephen Curry,GSW,,,,,
+83,SUB,1,4:06,SUB: Moody Starts playing.,25 - 20,-5,,,Moses Moody,GSW,,,
+84,FOUL,1,4:06,Saric S.FOUL (P1.T2) (M.Ervin),25 - 20,-5,Dario Šarić,GSW,Jalen Williams,OKC,,,8:26 PM
+85,FTMISS,1,4:06,MISS Jal. Williams Free Throw 1 of 2,25 - 20,-5,Jalen Williams,OKC,,,,,8:26 PM
+86,REBOUND,1,4:06,THUNDER Rebound,25 - 20,-5,,,,,,,8:26 PM
+87,FTMAKE,1,4:06,Jal. Williams Free Throw 2 of 2 (1 PTS),25 - 21,-4,Jalen Williams,OKC,,,,,8:27 PM
+88,2POINTMISS,1,3:57,MISS Paul 13' Pullup Jump Shot,25 - 21,-4,Chris Paul,GSW,,,,,8:27 PM
+89,REBOUND,1,3:52,Saric REBOUND (Off:1 Def:0),25 - 21,-4,Dario Šarić,GSW,,,,,8:27 PM
+90,3POINTMISS,1,3:41,MISS Paul 25' 3PT Pullup Jump Shot,25 - 21,-4,Chris Paul,GSW,,,,,8:27 PM
+91,REBOUND,1,3:36,Moody REBOUND (Off:1 Def:0),25 - 21,-4,Moses Moody,GSW,,,,,8:27 PM
+92,2POINT,1,3:36,Moody 2' Putback Layup (2 PTS),27 - 21,-6,Moses Moody,GSW,,,,,8:27 PM
+93,2POINT.ASSIST,1,3:30,Wiggins 1' Alley Oop Dunk (2 PTS) (Joe 1 AST),27 - 23,-4,Aaron Wiggins,OKC,Isaiah Joe,OKC,,,8:28 PM
+94,STEAL.TURNOVER,1,3:23,Wiggins STEAL (1 STL)  Payton II Bad Pass Turnover (P1.T4),27 - 23,-4,Gary Payton II,GSW,Aaron Wiggins,OKC,,,8:28 PM
+95,2POINT.ASSIST,1,3:16,Wiggins 2' Cutting Layup Shot (4 PTS) (Micic 1 AST),27 - 25,-2,Aaron Wiggins,OKC,Vasilije Micić,OKC,,,8:28 PM
+96,SUB,1,3:15,SUB: Williams Stops playing.,27 - 25,-2,Jalen Williams,OKC,,,,,
+97,SUB,1,3:15,SUB: Dieng Starts playing.,27 - 25,-2,,,Ousmane Dieng,OKC,,,
+98,TIMEOUT,1,3:15,Warriors Timeout: Regular (Reg.1 Short 0),27 - 25,-2,,,,,,,8:28 PM
+99,2POINTMISS,1,3:04,MISS Kuminga 13' Driving Floating Jump Shot,27 - 25,-2,Jonathan Kuminga,GSW,,,,,8:31 PM
+100,REBOUND,1,2:59,Jay. Williams REBOUND (Off:0 Def:1),27 - 25,-2,Jaylin Williams,OKC,,,,,8:31 PM
+101,FOUL,1,2:54,Moody S.FOUL (P1.T3) (M.Ervin),27 - 25,-2,Moses Moody,GSW,Isaiah Joe,OKC,,,8:31 PM
+102,REPLAY,1,2:54,Instant Replay1st Period (8:32 PM EST),27 - 25,-2,Robert Pack,,,,,,8:32 PM
+103,FTMISS,1,2:54,MISS Joe Free Throw 1 of 3,27 - 25,-2,Isaiah Joe,OKC,,,,,8:34 PM
+104,REBOUND,1,2:54,THUNDER Rebound,27 - 25,-2,,,,,,,8:34 PM
+105,FTMAKE,1,2:54,Joe Free Throw 2 of 3 (3 PTS),27 - 26,-1,Isaiah Joe,OKC,,,,,8:34 PM
+106,FTMAKE,1,2:54,Joe Free Throw 3 of 3 (4 PTS),27 - 27,TIE,Isaiah Joe,OKC,,,,,8:34 PM
+107,3POINT.ASSIST,1,2:45,Saric 25' 3PT Jump Shot (6 PTS) (Paul 2 AST),30 - 27,-3,Dario Šarić,GSW,Chris Paul,GSW,,,8:35 PM
+108,3POINTMISS,1,2:23,MISS Wiggins 3PT Jump Shot,30 - 27,-3,Aaron Wiggins,OKC,,,,,8:35 PM
+109,REBOUND,1,2:20,Kuminga REBOUND (Off:0 Def:1),30 - 27,-3,Jonathan Kuminga,GSW,,,,,8:35 PM
+110,3POINTMISS,1,2:10,MISS Kuminga 29' 3PT Jump Shot,30 - 27,-3,Jonathan Kuminga,GSW,,,,,8:35 PM
+111,REBOUND,1,2:07,Warriors Rebound,30 - 27,-3,,,,,,,8:35 PM
+112,3POINT.ASSIST,1,2:01,Payton II 26' 3PT Jump Shot (5 PTS) (Kuminga 1 AST),33 - 27,-6,Gary Payton II,GSW,Jonathan Kuminga,GSW,,,8:35 PM
+113,3POINTMISS,1,1:47,MISS Jay. Williams 25' 3PT Jump Shot,33 - 27,-6,Jaylin Williams,OKC,,,,,8:36 PM
+114,REBOUND,1,1:45,Payton II REBOUND (Off:0 Def:1),33 - 27,-6,Gary Payton II,GSW,,,,,8:36 PM
+115,3POINT.ASSIST,1,1:38,Saric 26' 3PT Jump Shot (9 PTS) (Paul 3 AST),36 - 27,-9,Dario Šarić,GSW,Chris Paul,GSW,,,8:36 PM
+116,3POINT.ASSIST,1,1:20,Dieng 26' 3PT Jump Shot (3 PTS) (Micic 2 AST),36 - 30,-6,Ousmane Dieng,OKC,Vasilije Micić,OKC,,,8:36 PM
+117,3POINTMISS,1,0:53,MISS Moody 3PT Jump Shot,36 - 30,-6,Moses Moody,GSW,,,,,8:37 PM
+118,SUB,1,0:49,SUB: Williams Starts playing.,36 - 30,-6,,,Jalen Williams,OKC,,,
+119,SUB,1,0:49,SUB: Williams Stops playing.,36 - 30,-6,Jaylin Williams,OKC,,,,,
+120,REBOUND,1,0:49,Dieng REBOUND (Off:0 Def:1),36 - 30,-6,Ousmane Dieng,OKC,,,,,8:37 PM
+121,STEAL,1,0:49,Dieng Out of Bounds Lost Ball Turnover (P1.T4),36 - 30,-6,Ousmane Dieng,OKC,,,,,8:37 PM
+122,2POINT.ASSIST,1,0:47,Saric 1' Cutting Layup Shot (11 PTS) (Paul 4 AST),38 - 30,-8,Dario Šarić,GSW,Chris Paul,GSW,,,8:37 PM
+123,3POINT.ASSIST,1,0:29,Micic 26' 3PT Jump Shot (3 PTS) (Jal. Williams 2 AST),38 - 33,-5,Vasilije Micić,OKC,Jalen Williams,OKC,,,8:37 PM
+124,SUB,1,0:09,SUB: Green Starts playing.,38 - 33,-5,,,Draymond Green,GSW,,,
+125,SUB,1,0:09,SUB: Moody Stops playing.,38 - 33,-5,Moses Moody,GSW,,,,,
+126,STEAL,1,0:09,Kuminga Traveling Turnover (P2.T5),38 - 33,-5,Jonathan Kuminga,GSW,,,,,8:38 PM
+127,3POINTMISS,1,0:01,MISS Dieng 27' 3PT Jump Shot,38 - 33,-5,Ousmane Dieng,OKC,,,,,8:38 PM
+128,REBOUND,1,0:01,Saric REBOUND (Off:1 Def:1),38 - 33,-5,Dario Šarić,GSW,,,,,8:38 PM
+129,SUB,1,0:00,SUB: Williams Stops playing.,38 - 33,-5,Jalen Williams,OKC,,,,,
+130,SUB,1,0:00,SUB: Joe Stops playing.,38 - 33,-5,Isaiah Joe,OKC,,,,,
+131,SUB,1,0:00,SUB: Wiggins Stops playing.,38 - 33,-5,Aaron Wiggins,OKC,,,,,
+132,SUB,1,0:00,SUB: Dieng Stops playing.,38 - 33,-5,Ousmane Dieng,OKC,,,,,
+133,SUB,1,0:00,SUB: Micić Stops playing.,38 - 33,-5,Vasilije Micić,OKC,,,,,
+134,SUB,1,0:00,SUB: Green Stops playing.,38 - 33,-5,Draymond Green,GSW,,,,,
+135,SUB,1,0:00,SUB: Šarić Stops playing.,38 - 33,-5,Dario Šarić,GSW,,,,,
+136,SUB,1,0:00,SUB: Kuminga Stops playing.,38 - 33,-5,Jonathan Kuminga,GSW,,,,,
+137,SUB,1,0:00,SUB: Payton Stops playing.,38 - 33,-5,Gary Payton II,GSW,,,,,
+138,SUB,1,0:00,SUB: Paul Stops playing.,38 - 33,-5,Chris Paul,GSW,,,,,
+139,ENDOFPERIOD,1,0:00,End of 1st Period (8:39 PM EST),38 - 33,-5,,,,,,,8:39 PM
+140,STARTOFPERIOD,2,12:00,Start of 2nd Period (8:41 PM EST),38 - 33,-5,,,,,,,8:41 PM
+141,SUB,2,12:00,SUB: Holmgren Starts playing.,38 - 33,-5,,,Chet Holmgren,OKC,,,
+142,SUB,2,12:00,SUB: Giddey Starts playing.,38 - 33,-5,,,Josh Giddey,OKC,,,
+143,SUB,2,12:00,SUB: Wiggins Starts playing.,38 - 33,-5,,,Aaron Wiggins,OKC,,,
+144,SUB,2,12:00,SUB: Dieng Starts playing.,38 - 33,-5,,,Ousmane Dieng,OKC,,,
+145,SUB,2,12:00,SUB: Micić Starts playing.,38 - 33,-5,,,Vasilije Micić,OKC,,,
+146,SUB,2,12:00,SUB: Šarić Starts playing.,38 - 33,-5,,,Dario Šarić,GSW,,,
+147,SUB,2,12:00,SUB: Kuminga Starts playing.,38 - 33,-5,,,Jonathan Kuminga,GSW,,,
+148,SUB,2,12:00,SUB: Payton Starts playing.,38 - 33,-5,,,Gary Payton II,GSW,,,
+149,SUB,2,12:00,SUB: Paul Starts playing.,38 - 33,-5,,,Chris Paul,GSW,,,
+150,SUB,2,12:00,SUB: Moody Starts playing.,38 - 33,-5,,,Moses Moody,GSW,,,
+151,STEAL,2,11:42,Saric Backcourt Turnover (P1.T6),38 - 33,-5,Dario Šarić,GSW,,,,,8:41 PM
+152,3POINTMISS,2,11:30,MISS Giddey 25' 3PT Jump Shot,38 - 33,-5,Josh Giddey,OKC,,,,,8:42 PM
+153,REBOUND,2,11:27,Payton II REBOUND (Off:0 Def:2),38 - 33,-5,Gary Payton II,GSW,,,,,8:42 PM
+154,2POINTMISS,2,11:19,MISS Moody 4' Driving Layup,38 - 33,-5,Moses Moody,GSW,,,,,8:42 PM
+155,REBOUND,2,11:16,Wiggins REBOUND (Off:0 Def:1),38 - 33,-5,Aaron Wiggins,OKC,,,,,8:42 PM
+156,3POINT.ASSIST,2,11:12,Wiggins 26' 3PT Jump Shot (7 PTS) (Dieng 1 AST),38 - 36,-2,Aaron Wiggins,OKC,Ousmane Dieng,OKC,,,8:42 PM
+157,3POINT.ASSIST,2,11:00,Saric 25' 3PT Pullup Jump Shot (14 PTS) (Paul 5 AST),41 - 36,-5,Dario Šarić,GSW,Chris Paul,GSW,,,8:42 PM
+158,STEAL.TURNOVER,2,10:44,Giddey Bad Pass Turnover (P1.T5)  Payton II STEAL (1 STL),41 - 36,-5,Josh Giddey,OKC,Gary Payton II,GSW,,,8:43 PM
+159,3POINTMISS,2,10:28,MISS Saric 25' 3PT Jump Shot,41 - 36,-5,Dario Šarić,GSW,,,,,8:43 PM
+160,REBOUND,2,10:25,Micic REBOUND (Off:0 Def:1),41 - 36,-5,Vasilije Micić,OKC,,,,,8:43 PM
+161,SUB,2,10:17,SUB: Looney Starts playing.,41 - 36,-5,,,Kevon Looney,GSW,,,
+162,SUB,2,10:17,SUB: Šarić Stops playing.,41 - 36,-5,Dario Šarić,GSW,,,,,
+163,3POINTMISS,2,10:16,MISS Dieng 24' 3PT Jump Shot,41 - 36,-5,Ousmane Dieng,OKC,,,,,8:44 PM
+164,REBOUND,2,10:10,Looney REBOUND (Off:0 Def:1),41 - 36,-5,Kevon Looney,GSW,,,,,8:44 PM
+165,2POINTMISS,2,10:06,MISS Kuminga 3' Running Layup,41 - 36,-5,Jonathan Kuminga,GSW,,,,,8:44 PM
+166,REBOUND,2,10:03,Holmgren REBOUND (Off:1 Def:2),41 - 36,-5,Chet Holmgren,OKC,,,,,8:44 PM
+167,2POINTMISS.BLOCK,2,9:59,MISS Micic 6' Running Layup  Looney BLOCK (1 BLK),41 - 36,-5,Vasilije Micić,OKC,,,Kevon Looney,GSW,8:44 PM
+168,REBOUND,2,9:56,Holmgren REBOUND (Off:2 Def:2),41 - 36,-5,Chet Holmgren,OKC,,,,,8:44 PM
+169,SUB,2,9:54,SUB: Wallace Starts playing.,41 - 36,-5,,,Cason Wallace,OKC,,,
+170,SUB,2,9:54,SUB: Dieng Stops playing.,41 - 36,-5,Ousmane Dieng,OKC,,,,,
+171,SUB,2,9:54,SUB: Thompson Starts playing.,41 - 36,-5,,,Klay Thompson,GSW,,,
+172,SUB,2,9:54,SUB: Moody Stops playing.,41 - 36,-5,Moses Moody,GSW,,,,,
+173,2POINT,2,9:49,Micic 15' Pullup Jump Shot (5 PTS),41 - 38,-3,Vasilije Micić,OKC,,,,,8:44 PM
+174,2POINT.ASSIST,2,9:32,Kuminga 14' Pullup Jump Shot (2 PTS) (Payton II 1 AST),43 - 38,-5,Jonathan Kuminga,GSW,Gary Payton II,GSW,,,8:45 PM
+175,3POINTMISS,2,9:24,MISS Wallace 3PT Jump Shot,43 - 38,-5,Cason Wallace,OKC,,,,,8:45 PM
+176,REBOUND,2,9:21,Looney REBOUND (Off:0 Def:2),43 - 38,-5,Kevon Looney,GSW,,,,,8:45 PM
+177,SUB,2,9:14,SUB: Wiggins Starts playing.,43 - 38,-5,,,Andrew Wiggins,GSW,,,
+178,SUB,2,9:14,SUB: Kuminga Stops playing.,43 - 38,-5,Jonathan Kuminga,GSW,,,,,
+179,STEAL,2,9:14,Kuminga Out of Bounds Lost Ball Turnover (P3.T7),43 - 38,-5,Jonathan Kuminga,GSW,,,,,8:45 PM
+180,2POINT.ASSIST,2,9:00,Holmgren 2' Driving Finger Roll Layup (9 PTS) (Micic 3 AST),43 - 40,-3,Chet Holmgren,OKC,Vasilije Micić,OKC,,,8:46 PM
+181,2POINT.ASSIST,2,8:47,Thompson 16' Pullup Jump Shot (7 PTS) (Paul 6 AST),45 - 40,-5,Klay Thompson,GSW,Chris Paul,GSW,,,8:46 PM
+182,SUB,2,8:37,SUB: Dort Starts playing.,45 - 40,-5,,,Luguentz Dort,OKC,,,
+183,SUB,2,8:37,SUB: Micić Stops playing.,45 - 40,-5,Vasilije Micić,OKC,,,,,
+184,SUB,2,8:37,SUB: Curry Starts playing.,45 - 40,-5,,,Stephen Curry,GSW,,,
+185,SUB,2,8:37,SUB: Paul Stops playing.,45 - 40,-5,Chris Paul,GSW,,,,,
+186,FOUL,2,8:37,Looney S.FOUL (P2.T1) (C.Flores),45 - 40,-5,Kevon Looney,GSW,Chet Holmgren,OKC,,,8:46 PM
+187,FTMAKE,2,8:37,Holmgren Free Throw 1 of 2 (10 PTS),45 - 41,-4,Chet Holmgren,OKC,,,,,8:46 PM
+188,FTMAKE,2,8:37,Holmgren Free Throw 2 of 2 (11 PTS),45 - 42,-3,Chet Holmgren,OKC,,,,,8:47 PM
+189,3POINT.ASSIST,2,8:24,Thompson 26' 3PT Jump Shot (10 PTS) (Curry 3 AST),48 - 42,-6,Klay Thompson,GSW,Stephen Curry,GSW,,,8:47 PM
+190,SUB,2,8:14,SUB: Williams Starts playing.,48 - 42,-6,,,Jalen Williams,OKC,,,
+191,SUB,2,8:14,SUB: Wiggins Stops playing.,48 - 42,-6,Aaron Wiggins,OKC,,,,,
+192,SUB,2,8:14,SUB: Looney Stops playing.,48 - 42,-6,Kevon Looney,GSW,,,,,
+193,SUB,2,8:14,SUB: Green Starts playing.,48 - 42,-6,,,Draymond Green,GSW,,,
+194,FOUL,2,8:14,Looney S.FOUL (P3.T2) (N.Buchert),48 - 42,-6,Kevon Looney,GSW,Chet Holmgren,OKC,,,8:48 PM
+195,FTMAKE,2,8:14,Holmgren Free Throw 1 of 2 (12 PTS),48 - 43,-5,Chet Holmgren,OKC,,,,,8:48 PM
+196,FTMAKE,2,8:14,Holmgren Free Throw 2 of 2 (13 PTS),48 - 44,-4,Chet Holmgren,OKC,,,,,8:48 PM
+197,STEAL.TURNOVER,2,8:04,Holmgren STEAL (1 STL)  Curry Bad Pass Turnover (P1.T8),48 - 44,-4,Stephen Curry,GSW,Chet Holmgren,OKC,,,8:49 PM
+198,3POINTMISS,2,7:55,MISS Giddey 25' 3PT Jump Shot,48 - 44,-4,Josh Giddey,OKC,,,,,8:49 PM
+199,REBOUND,2,7:52,Payton II REBOUND (Off:0 Def:3),48 - 44,-4,Gary Payton II,GSW,,,,,8:49 PM
+200,3POINTMISS,2,7:43,MISS Thompson 25' 3PT Step Back Jump Shot,48 - 44,-4,Klay Thompson,GSW,,,,,8:49 PM
+201,REBOUND,2,7:41,Holmgren REBOUND (Off:2 Def:3),48 - 44,-4,Chet Holmgren,OKC,,,,,8:49 PM
+202,STEAL.TURNOVER,2,7:35,Giddey Lost Ball Turnover (P2.T6)  Curry STEAL (2 STL),48 - 44,-4,Josh Giddey,OKC,Stephen Curry,GSW,,,8:49 PM
+203,SUB,2,7:27,SUB: Payton Stops playing.,48 - 44,-4,Gary Payton II,GSW,,,,,
+204,SUB,2,7:27,SUB: Moody Starts playing.,48 - 44,-4,,,Moses Moody,GSW,,,
+205,2POINT.ASSIST,2,7:27,Payton II 1' Alley Oop Dunk (7 PTS) (Curry 4 AST),50 - 44,-6,Gary Payton II,GSW,Stephen Curry,GSW,,,8:49 PM
+206,TIMEOUT,2,7:27,THUNDER Timeout: Regular (Full 2 Short 0),50 - 44,-6,,,,,,,8:49 PM
+207,STEAL,2,7:15,Holmgren Out of Bounds Lost Ball Turnover (P1.T7),50 - 44,-6,Chet Holmgren,OKC,,,,,8:52 PM
+208,2POINT,2,7:04,Green 2' Driving Layup (5 PTS),52 - 44,-8,Draymond Green,GSW,,,,,8:53 PM
+209,2POINTMISS,2,6:53,MISS Jal. Williams 16' Step Back Jump Shot,52 - 44,-8,Jalen Williams,OKC,,,,,8:53 PM
+210,REBOUND,2,6:50,Wallace REBOUND (Off:1 Def:0),52 - 44,-8,Cason Wallace,OKC,,,,,8:53 PM
+211,2POINT,2,6:49,Wallace 2' Putback Layup (6 PTS),52 - 46,-6,Cason Wallace,OKC,,,,,8:53 PM
+212,SUB,2,6:34,SUB: Holmgren Stops playing.,52 - 46,-6,Chet Holmgren,OKC,,,,,
+213,SUB,2,6:34,SUB: Giddey Stops playing.,52 - 46,-6,Josh Giddey,OKC,,,,,
+214,SUB,2,6:34,SUB: Joe Starts playing.,52 - 46,-6,,,Isaiah Joe,OKC,,,
+215,SUB,2,6:34,SUB: Williams Starts playing.,52 - 46,-6,,,Jaylin Williams,OKC,,,
+216,STEAL,2,6:34,Green Out of Bounds - Bad Pass Turnover Turnover (P1.T9),52 - 46,-6,Draymond Green,GSW,,,,,8:53 PM
+217,2POINTMISS,2,6:21,MISS Jal. Williams 3' Driving Finger Roll Layup,52 - 46,-6,Jalen Williams,OKC,,,,,8:54 PM
+218,REBOUND,2,6:19,Curry REBOUND (Off:1 Def:3),52 - 46,-6,Stephen Curry,GSW,,,,,8:54 PM
+219,3POINT,2,6:15,Curry 28' 3PT Running Pull-Up Jump Shot (9 PTS),55 - 46,-9,Stephen Curry,GSW,,,,,8:54 PM
+220,2POINTMISS,2,6:01,MISS Jal. Williams 2' Cutting Layup Shot,55 - 46,-9,Jalen Williams,OKC,,,,,8:54 PM
+221,REBOUND,2,5:59,Green REBOUND (Off:0 Def:1),55 - 46,-9,Draymond Green,GSW,,,,,8:54 PM
+222,FOUL,2,5:53,Green Offensive Charge Foul (P1) (M.Ervin),55 - 46,-9,Draymond Green,GSW,Isaiah Joe,OKC,,,8:54 PM
+223,STEAL,2,5:53,Green Offensive Foul Turnover (P2.T10),55 - 46,-9,Draymond Green,GSW,,,,,8:54 PM
+224,2POINT,2,5:43,Dort 1' Driving Floating Bank Jump Shot (5 PTS),55 - 48,-7,Luguentz Dort,OKC,,,,,8:55 PM
+225,TIMEOUT,2,5:42,Warriors Timeout: Regular (Reg.2 Short 0),55 - 48,-7,,,,,,,8:55 PM
+226,3POINTMISS,2,5:32,MISS Thompson 25' 3PT Jump Shot,55 - 48,-7,Klay Thompson,GSW,,,,,8:58 PM
+227,REBOUND,2,5:30,THUNDER Rebound,55 - 48,-7,,,,,,,8:58 PM
+228,FOUL,2,5:19,Thompson S.FOUL (P1.T3) (C.Flores),55 - 48,-7,Klay Thompson,GSW,Luguentz Dort,OKC,,,8:58 PM
+229,FTMAKE,2,5:19,Dort Free Throw 1 of 2 (6 PTS),55 - 49,-6,Luguentz Dort,OKC,,,,,8:58 PM
+230,FTMAKE,2,5:19,Dort Free Throw 2 of 2 (7 PTS),55 - 50,-5,Luguentz Dort,OKC,,,,,8:59 PM
+231,STEAL,2,5:09,Curry Out of Bounds - Bad Pass Turnover Turnover (P2.T11),55 - 50,-5,Stephen Curry,GSW,,,,,8:59 PM
+232,STEAL,2,5:00,Jay. Williams Out of Bounds - Bad Pass Turnover Turnover (P1.T8),55 - 50,-5,Jaylin Williams,OKC,,,,,9:00 PM
+233,3POINT.ASSIST,2,4:42,Green 25' 3PT Jump Shot (8 PTS) (Wiggins 1 AST),58 - 50,-8,Draymond Green,GSW,Andrew Wiggins,GSW,,,9:01 PM
+234,STEAL.TURNOVER,2,4:30,Jal. Williams Bad Pass Turnover (P2.T9)  Moody STEAL (1 STL),58 - 50,-8,Jalen Williams,OKC,Moses Moody,GSW,,,9:01 PM
+235,STEAL.TURNOVER,2,4:27,Jal. Williams STEAL (1 STL)  Moody Bad Pass Turnover (P1.T12),58 - 50,-8,Moses Moody,GSW,Jalen Williams,OKC,,,9:01 PM
+236,2POINT,2,4:24,Jal. Williams 2' Layup (3 PTS),58 - 52,-6,Jalen Williams,OKC,,,,,9:01 PM
+237,3POINTMISS,2,4:14,MISS Moody 24' 3PT Jump Shot,58 - 52,-6,Moses Moody,GSW,,,,,9:01 PM
+238,REBOUND,2,4:11,Wiggins REBOUND (Off:2 Def:0),58 - 52,-6,Andrew Wiggins,GSW,,,,,9:01 PM
+239,2POINT,2,4:10,Wiggins 10' Turnaround Jump Shot (6 PTS),60 - 52,-8,Andrew Wiggins,GSW,,,,,9:01 PM
+240,3POINT.ASSIST,2,3:58,Joe 26' 3PT Jump Shot (7 PTS) (Jal. Williams 3 AST),60 - 55,-5,Isaiah Joe,OKC,Jalen Williams,OKC,,,9:01 PM
+241,SUB,2,3:47,SUB: Paul Starts playing.,60 - 55,-5,,,Chris Paul,GSW,,,
+242,SUB,2,3:47,SUB: Moody Stops playing.,60 - 55,-5,Moses Moody,GSW,,,,,
+243,STEAL,2,3:47,Curry Traveling Turnover (P3.T13),60 - 55,-5,Stephen Curry,GSW,,,,,9:02 PM
+244,2POINT,2,3:36,Jal. Williams 2' Driving Finger Roll Layup (5 PTS),60 - 57,-3,Jalen Williams,OKC,,,,,9:02 PM
+245,2POINTMISS,2,3:23,MISS Curry 5' Driving Layup,60 - 57,-3,Stephen Curry,GSW,,,,,9:02 PM
+246,REBOUND,2,3:22,Jay. Williams REBOUND (Off:0 Def:2),60 - 57,-3,Jaylin Williams,OKC,,,,,9:02 PM
+247,3POINT.ASSIST,2,3:15,Dort 25' 3PT Jump Shot (10 PTS) (Jal. Williams 4 AST),60 - 60,TIE,Luguentz Dort,OKC,Jalen Williams,OKC,,,9:03 PM
+248,FOUL,2,2:57,Jal. Williams S.FOUL (P1.T1) (C.Flores),60 - 60,TIE,Jalen Williams,OKC,Andrew Wiggins,GSW,,,9:03 PM
+249,FTMAKE,2,2:57,Wiggins Free Throw 1 of 2 (7 PTS),61 - 60,-1,Andrew Wiggins,GSW,,,,,9:03 PM
+250,FTMISS,2,2:57,MISS Wiggins Free Throw 2 of 2,61 - 60,-1,Andrew Wiggins,GSW,,,,,9:03 PM
+251,REBOUND,2,2:55,Jay. Williams REBOUND (Off:0 Def:3),61 - 60,-1,Jaylin Williams,OKC,,,,,9:03 PM
+252,3POINTMISS,2,2:41,MISS Jay. Williams 26' 3PT Jump Shot,61 - 60,-1,Jaylin Williams,OKC,,,,,9:04 PM
+253,REBOUND,2,2:37,Wiggins REBOUND (Off:2 Def:1),61 - 60,-1,Andrew Wiggins,GSW,,,,,9:04 PM
+254,3POINT.ASSIST,2,2:29,Curry 24' 3PT Step Back Jump Shot (12 PTS) (Paul 7 AST),64 - 60,-4,Stephen Curry,GSW,Chris Paul,GSW,,,9:04 PM
+255,3POINT.ASSIST,2,2:11,Wallace 3PT Jump Shot (9 PTS) (Jay. Williams 1 AST),64 - 63,-1,Cason Wallace,OKC,Jaylin Williams,OKC,,,9:04 PM
+256,2POINT.ASSIST,2,1:59,Green 1' Cutting Layup Shot (10 PTS) (Curry 5 AST),66 - 63,-3,Draymond Green,GSW,Stephen Curry,GSW,,,9:05 PM
+257,SUB,2,1:53,SUB: Holmgren Starts playing.,66 - 63,-3,,,Chet Holmgren,OKC,,,
+258,SUB,2,1:53,SUB: Dort Stops playing.,66 - 63,-3,Luguentz Dort,OKC,,,,,
+259,SUB,2,1:53,SUB: Giddey Starts playing.,66 - 63,-3,,,Josh Giddey,OKC,,,
+260,SUB,2,1:53,SUB: Williams Stops playing.,66 - 63,-3,Jaylin Williams,OKC,,,,,
+261,FOUL,2,1:53,Jal. Williams Offensive Charge Foul (P2) (C.Flores),66 - 63,-3,Jalen Williams,OKC,Draymond Green,GSW,,,9:05 PM
+262,STEAL,2,1:53,Jal. Williams Offensive Foul Turnover (P3.T10),66 - 63,-3,Jalen Williams,OKC,,,,,9:05 PM
+263,3POINTMISS,2,1:43,MISS Curry 26' 3PT Jump Shot,66 - 63,-3,Stephen Curry,GSW,,,,,9:06 PM
+264,REBOUND,2,1:38,Jal. Williams REBOUND (Off:0 Def:1),66 - 63,-3,Jalen Williams,OKC,,,,,9:06 PM
+265,SUB,2,1:24,SUB: Wiggins Stops playing.,66 - 63,-3,Andrew Wiggins,GSW,,,,,
+266,SUB,2,1:24,SUB: Payton Starts playing.,66 - 63,-3,,,Gary Payton II,GSW,,,
+267,FOUL,2,1:24,Green P.FOUL (P2.T4) (M.Ervin),66 - 63,-3,Draymond Green,GSW,Chet Holmgren,OKC,,,9:06 PM
+268,FOUL,2,1:15,Thompson S.FOUL (P2.PN) (N.Buchert),66 - 63,-3,Klay Thompson,GSW,Chet Holmgren,OKC,,,9:07 PM
+269,FTMAKE,2,1:15,Holmgren Free Throw 1 of 2 (14 PTS),66 - 64,-2,Chet Holmgren,OKC,,,,,9:07 PM
+270,FTMAKE,2,1:15,Holmgren Free Throw 2 of 2 (15 PTS),66 - 65,-1,Chet Holmgren,OKC,,,,,9:07 PM
+271,3POINT.ASSIST,2,1:03,Thompson 25' 3PT Jump Shot (13 PTS) (Paul 8 AST),69 - 65,-4,Klay Thompson,GSW,Chris Paul,GSW,,,9:08 PM
+272,2POINT,2,0:49,Jal. Williams 9' Fadeaway Jumper (7 PTS),69 - 67,-2,Jalen Williams,OKC,,,,,9:08 PM
+273,2POINTMISS,2,0:36,MISS Paul 16' Fadeaway Jumper,69 - 67,-2,Chris Paul,GSW,,,,,9:08 PM
+274,REBOUND,2,0:32,Wallace REBOUND (Off:1 Def:1),69 - 67,-2,Cason Wallace,OKC,,,,,9:08 PM
+275,3POINTMISS,2,0:28,MISS Joe 3PT Jump Shot,69 - 67,-2,Isaiah Joe,OKC,,,,,9:08 PM
+276,REBOUND,2,0:23,Green REBOUND (Off:0 Def:2),69 - 67,-2,Draymond Green,GSW,,,,,9:08 PM
+277,3POINTMISS,2,0:06,MISS Green 26' 3PT Jump Shot,69 - 67,-2,Draymond Green,GSW,,,,,9:09 PM
+278,REBOUND,2,0:03,Giddey REBOUND (Off:0 Def:2),69 - 67,-2,Josh Giddey,OKC,,,,,9:09 PM
+279,STEAL.TURNOVER,2,0:02,Giddey Bad Pass Turnover (P3.T11)  Paul STEAL (1 STL),69 - 67,-2,Josh Giddey,OKC,Chris Paul,GSW,,,9:09 PM
+280,SUB,2,0:00,SUB: Holmgren Stops playing.,69 - 67,-2,Chet Holmgren,OKC,,,,,
+281,SUB,2,0:00,SUB: Giddey Stops playing.,69 - 67,-2,Josh Giddey,OKC,,,,,
+282,SUB,2,0:00,SUB: Williams Stops playing.,69 - 67,-2,Jalen Williams,OKC,,,,,
+283,SUB,2,0:00,SUB: Joe Stops playing.,69 - 67,-2,Isaiah Joe,OKC,,,,,
+284,SUB,2,0:00,SUB: Thompson Stops playing.,69 - 67,-2,Klay Thompson,GSW,,,,,
+285,SUB,2,0:00,SUB: Curry Stops playing.,69 - 67,-2,Stephen Curry,GSW,,,,,
+286,SUB,2,0:00,SUB: Green Stops playing.,69 - 67,-2,Draymond Green,GSW,,,,,
+287,SUB,2,0:00,SUB: Payton Stops playing.,69 - 67,-2,Gary Payton II,GSW,,,,,
+288,SUB,2,0:00,SUB: Paul Stops playing.,69 - 67,-2,Chris Paul,GSW,,,,,
+289,REPLAY,2,0:00,Instant Replay2nd Period (9:10 PM EST),69 - 67,-2,,,,,,,9:10 PM
+290,ENDOFPERIOD,2,0:00,End of 2nd Period (9:10 PM EST),69 - 67,-2,,,,,,,9:10 PM
+291,STARTOFPERIOD,3,12:00,Start of 3rd Period (9:25 PM EST),69 - 67,-2,,,,,,,9:25 PM
+292,SUB,3,12:00,SUB: Holmgren Starts playing.,69 - 67,-2,,,Chet Holmgren,OKC,,,
+293,SUB,3,12:00,SUB: Dort Starts playing.,69 - 67,-2,,,Luguentz Dort,OKC,,,
+294,SUB,3,12:00,SUB: Giddey Starts playing.,69 - 67,-2,,,Josh Giddey,OKC,,,
+295,SUB,3,12:00,SUB: Williams Starts playing.,69 - 67,-2,,,Jalen Williams,OKC,,,
+296,SUB,3,12:00,SUB: Thompson Starts playing.,69 - 67,-2,,,Klay Thompson,GSW,,,
+297,SUB,3,12:00,SUB: Wiggins Starts playing.,69 - 67,-2,,,Andrew Wiggins,GSW,,,
+298,SUB,3,12:00,SUB: Curry Starts playing.,69 - 67,-2,,,Stephen Curry,GSW,,,
+299,SUB,3,12:00,SUB: Looney Starts playing.,69 - 67,-2,,,Kevon Looney,GSW,,,
+300,SUB,3,12:00,SUB: Green Starts playing.,69 - 67,-2,,,Draymond Green,GSW,,,
+301,VIOLATION,3,12:00,Warriors Violation: Delay of game Violation,69 - 67,-2,,,,,,,9:25 PM
+302,2POINTMISS,3,11:44,MISS Green 3' Driving Finger Roll Layup,69 - 67,-2,Draymond Green,GSW,,,,,9:25 PM
+303,REBOUND,3,11:41,Dort REBOUND (Off:0 Def:1),69 - 67,-2,Luguentz Dort,OKC,,,,,9:25 PM
+304,2POINT,3,11:31,Holmgren 2' Driving Dunk (17 PTS),69 - 69,TIE,Chet Holmgren,OKC,,,,,9:26 PM
+305,2POINT,3,11:13,Wiggins 18' Jump Shot (9 PTS),71 - 69,-2,Andrew Wiggins,GSW,,,,,9:26 PM
+306,3POINT.ASSIST,3,10:50,Holmgren 25' 3PT Jump Shot (20 PTS) (Jal. Williams 5 AST),71 - 72,1,Chet Holmgren,OKC,Jalen Williams,OKC,,,9:26 PM
+307,3POINTMISS,3,10:31,MISS Green 25' 3PT Jump Shot,71 - 72,1,Draymond Green,GSW,,,,,9:27 PM
+308,REBOUND,3,10:28,Holmgren REBOUND (Off:2 Def:4),71 - 72,1,Chet Holmgren,OKC,,,,,9:27 PM
+309,2POINTMISS,3,10:22,MISS Giddey 6' Turnaround Jump Shot,71 - 72,1,Josh Giddey,OKC,,,,,9:27 PM
+310,REBOUND,3,10:19,Thompson REBOUND (Off:0 Def:2),71 - 72,1,Klay Thompson,GSW,,,,,9:27 PM
+311,FOUL,3,10:15,Holmgren S.FOUL (P2.T1) (C.Flores),71 - 72,1,Chet Holmgren,OKC,Draymond Green,GSW,,,9:27 PM
+312,FTMAKE,3,10:15,Green Free Throw 1 of 2 (11 PTS),72 - 72,TIE,Draymond Green,GSW,,,,,9:27 PM
+313,FTMAKE,3,10:15,Green Free Throw 2 of 2 (12 PTS),73 - 72,-1,Draymond Green,GSW,,,,,9:27 PM
+314,3POINT.ASSIST,3,10:03,Dort 26' 3PT Jump Shot (13 PTS) (Giddey 3 AST),73 - 75,2,Luguentz Dort,OKC,Josh Giddey,OKC,,,9:28 PM
+315,VIOLATION,3,9:53,Dort Violation:Kicked Ball (N.Buchert),73 - 75,2,Luguentz Dort,OKC,,,,,9:28 PM
+316,2POINT.ASSIST,3,9:48,Wiggins 1' Cutting Dunk Shot (11 PTS) (Green 1 AST),75 - 75,TIE,Andrew Wiggins,GSW,Draymond Green,GSW,,,9:28 PM
+317,3POINT.ASSIST,3,9:34,Dort 25' 3PT Pullup Jump Shot (16 PTS) (Holmgren 3 AST),75 - 78,3,Luguentz Dort,OKC,Chet Holmgren,OKC,,,9:29 PM
+318,2POINTMISS,3,9:21,MISS Thompson 15' Pullup Jump Shot,75 - 78,3,Klay Thompson,GSW,,,,,9:29 PM
+319,REBOUND,3,9:20,Jal. Williams REBOUND (Off:0 Def:2),75 - 78,3,Jalen Williams,OKC,,,,,9:29 PM
+320,FOUL,3,9:20,Looney P.FOUL (P4.T1) (M.Ervin),75 - 78,3,Kevon Looney,GSW,Jalen Williams,OKC,,,9:29 PM
+321,2POINT.ASSIST,3,9:02,Holmgren 1' Driving Finger Roll Layup (22 PTS) (Jal. Williams 6 AST),75 - 80,5,Chet Holmgren,OKC,Jalen Williams,OKC,,,9:29 PM
+322,3POINTMISS,3,8:46,MISS Curry 26' 3PT Step Back Jump Shot,75 - 80,5,Stephen Curry,GSW,,,,,9:30 PM
+323,REBOUND,3,8:44,Looney REBOUND (Off:1 Def:2),75 - 80,5,Kevon Looney,GSW,,,,,9:30 PM
+324,FOUL,3,8:44,Giddey S.FOUL (P1.T2) (C.Flores),75 - 80,5,Josh Giddey,OKC,Kevon Looney,GSW,,,9:30 PM
+325,FTMAKE,3,8:44,Looney Free Throw 1 of 2 (3 PTS),76 - 80,4,Kevon Looney,GSW,,,,,9:30 PM
+326,FTMAKE,3,8:44,Looney Free Throw 2 of 2 (4 PTS),77 - 80,3,Kevon Looney,GSW,,,,,9:30 PM
+327,3POINT,3,8:32,Dort 25' 3PT Pullup Jump Shot (19 PTS),77 - 83,6,Luguentz Dort,OKC,,,,,9:31 PM
+328,2POINTMISS,3,8:12,MISS Wiggins 21' Pullup Jump Shot,77 - 83,6,Andrew Wiggins,GSW,,,,,9:31 PM
+329,REBOUND,3,8:08,Green REBOUND (Off:1 Def:2),77 - 83,6,Draymond Green,GSW,,,,,9:31 PM
+330,2POINTMISS,3,8:07,MISS Looney 1' Dunk,77 - 83,6,Kevon Looney,GSW,,,,,9:31 PM
+331,REBOUND,3,8:05,Curry REBOUND (Off:2 Def:3),77 - 83,6,Stephen Curry,GSW,,,,,9:31 PM
+332,2POINT,3,8:04,Curry 2' Putback Layup (14 PTS),79 - 83,4,Stephen Curry,GSW,,,,,9:31 PM
+333,2POINT,3,7:48,Dort 6' Fadeaway Bank Shot (21 PTS),79 - 85,6,Luguentz Dort,OKC,,,,,9:31 PM
+334,SUB,3,7:37,SUB: Wiggins Stops playing.,79 - 85,6,Andrew Wiggins,GSW,,,,,
+335,SUB,3,7:37,SUB: Looney Stops playing.,79 - 85,6,Kevon Looney,GSW,,,,,
+336,SUB,3,7:37,SUB: Šarić Starts playing.,79 - 85,6,,,Dario Šarić,GSW,,,
+337,SUB,3,7:37,SUB: Payton Starts playing.,79 - 85,6,,,Gary Payton II,GSW,,,
+338,FOUL,3,7:37,Holmgren S.FOUL (P3.T3) (N.Buchert),79 - 85,6,Chet Holmgren,OKC,Stephen Curry,GSW,,,9:32 PM
+339,FTMAKE,3,7:37,Curry Free Throw 1 of 2 (15 PTS),80 - 85,5,Stephen Curry,GSW,,,,,9:32 PM
+340,TIMEOUT,3,7:37,THUNDER Timeout: Regular (Full 3 Short 0),80 - 85,5,,,,,,,9:32 PM
+341,FTMAKE,3,7:37,Curry Free Throw 2 of 2 (16 PTS),81 - 85,4,Stephen Curry,GSW,,,,,9:35 PM
+342,STEAL,3,7:31,Giddey Out of Bounds - Bad Pass Turnover Turnover (P4.T12),81 - 85,4,Josh Giddey,OKC,,,,,9:35 PM
+343,2POINTMISS,3,7:15,MISS Thompson 5' Driving Finger Roll Layup,81 - 85,4,Klay Thompson,GSW,,,,,9:36 PM
+344,REBOUND,3,7:13,Green REBOUND (Off:2 Def:2),81 - 85,4,Draymond Green,GSW,,,,,9:36 PM
+345,3POINT.ASSIST,3,7:12,Curry 32' 3PT Jump Shot (19 PTS) (Saric 1 AST),84 - 85,1,Stephen Curry,GSW,Dario Šarić,GSW,,,9:36 PM
+346,2POINT.ASSIST,3,6:57,Dort 1' Cutting Layup Shot (23 PTS) (Holmgren 4 AST),84 - 87,3,Luguentz Dort,OKC,Chet Holmgren,OKC,,,9:36 PM
+347,FOUL,3,6:57,Payton II S.FOUL (P1.T2) (N.Buchert),84 - 87,3,Gary Payton II,GSW,Luguentz Dort,OKC,,,9:36 PM
+348,FTMISS,3,6:57,MISS Dort Free Throw 1 of 1,84 - 87,3,Luguentz Dort,OKC,,,,,9:36 PM
+349,REBOUND,3,6:52,Green REBOUND (Off:2 Def:3),84 - 87,3,Draymond Green,GSW,,,,,9:37 PM
+350,3POINTMISS,3,6:47,MISS Payton II 3PT Jump Shot,84 - 87,3,Gary Payton II,GSW,,,,,9:37 PM
+351,REBOUND,3,6:44,Holmgren REBOUND (Off:2 Def:5),84 - 87,3,Chet Holmgren,OKC,,,,,9:37 PM
+352,2POINTMISS,3,6:39,MISS Giddey 1' Driving Layup,84 - 87,3,Josh Giddey,OKC,,,,,9:37 PM
+353,REBOUND,3,6:37,Curry REBOUND (Off:2 Def:4),84 - 87,3,Stephen Curry,GSW,,,,,9:37 PM
+354,2POINT,3,6:30,Curry 15' Step Back Jump Shot (21 PTS),86 - 87,1,Stephen Curry,GSW,,,,,9:37 PM
+355,2POINT,3,6:21,Jal. Williams Driving Dunk (9 PTS),86 - 89,3,Jalen Williams,OKC,,,,,9:37 PM
+356,3POINT.ASSIST,3,5:58,Curry 3PT Jump Shot (24 PTS) (Green 2 AST),89 - 89,TIE,Stephen Curry,GSW,Draymond Green,GSW,,,9:37 PM
+357,3POINT.ASSIST,3,5:47,Dort 25' 3PT Step Back Jump Shot (26 PTS) (Jal. Williams 7 AST),89 - 92,3,Luguentz Dort,OKC,Jalen Williams,OKC,,,9:38 PM
+358,SUB,3,5:39,SUB: Thompson Stops playing.,89 - 92,3,Klay Thompson,GSW,,,,,
+359,SUB,3,5:39,SUB: Green Stops playing.,89 - 92,3,Draymond Green,GSW,,,,,
+360,SUB,3,5:39,SUB: Kuminga Starts playing.,89 - 92,3,,,Jonathan Kuminga,GSW,,,
+361,SUB,3,5:39,SUB: Paul Starts playing.,89 - 92,3,,,Chris Paul,GSW,,,
+362,STEAL,3,5:39,Thompson Traveling Turnover (P1.T14),89 - 92,3,Klay Thompson,GSW,,,,,9:38 PM
+363,SUB,3,5:29,SUB: Wallace Stops playing.,89 - 92,3,Cason Wallace,OKC,,,,,
+364,SUB,3,5:29,SUB: Joe Starts playing.,89 - 92,3,,,Isaiah Joe,OKC,,,
+365,2POINT.ASSIST,3,5:29,Jal. Williams 1' Driving Finger Roll Layup (11 PTS) (Wallace 1 AST),89 - 94,5,Jalen Williams,OKC,Cason Wallace,OKC,,,9:38 PM
+366,FOUL,3,5:29,Saric S.FOUL (P2.T3) (M.Ervin),89 - 94,5,Dario Šarić,GSW,Jalen Williams,OKC,,,9:38 PM
+367,FTMISS,3,5:29,MISS Jal. Williams Free Throw 1 of 1,89 - 94,5,Jalen Williams,OKC,,,,,9:39 PM
+368,REBOUND,3,5:26,Saric REBOUND (Off:1 Def:2),89 - 94,5,Dario Šarić,GSW,,,,,9:39 PM
+369,3POINTMISS,3,5:16,MISS Curry 26' 3PT Step Back Jump Shot,89 - 94,5,Stephen Curry,GSW,,,,,9:39 PM
+370,REBOUND,3,5:11,Curry REBOUND (Off:3 Def:4),89 - 94,5,Stephen Curry,GSW,,,,,9:39 PM
+371,3POINTMISS,3,5:09,MISS Paul 3PT Jump Shot,89 - 94,5,Chris Paul,GSW,,,,,9:39 PM
+372,SUB,3,5:07,SUB: Curry Stops playing.,89 - 94,5,Stephen Curry,GSW,,,,,
+373,SUB,3,5:07,SUB: Moody Starts playing.,89 - 94,5,,,Moses Moody,GSW,,,
+374,REBOUND,3,5:07,THUNDER Rebound,89 - 94,5,,,,,,,9:39 PM
+375,FOUL,3,5:07,Payton II L.B.FOUL (P2.T4) (M.Ervin),89 - 94,5,Gary Payton II,GSW,Chet Holmgren,OKC,,,9:39 PM
+376,2POINTMISS,3,4:59,MISS Dort 3' Layup,89 - 94,5,Luguentz Dort,OKC,,,,,9:40 PM
+377,2POINTMISS,3,4:55,MISS Dort Tip Layup Shot,89 - 94,5,Luguentz Dort,OKC,,,,,9:40 PM
+378,REBOUND,3,4:55,Dort REBOUND (Off:1 Def:1),89 - 94,5,Luguentz Dort,OKC,,,,,9:40 PM
+379,REBOUND,3,4:54,Saric REBOUND (Off:1 Def:3),89 - 94,5,Dario Šarić,GSW,,,,,9:40 PM
+380,2POINT.ASSIST,3,4:48,Kuminga 1' Cutting Layup Shot (4 PTS) (Paul 9 AST),91 - 94,3,Jonathan Kuminga,GSW,Chris Paul,GSW,,,9:40 PM
+381,2POINTMISS,3,4:38,MISS Giddey 9' Turnaround Jump Shot,91 - 94,3,Josh Giddey,OKC,,,,,9:40 PM
+382,SUB,3,4:36,SUB: Holmgren Stops playing.,91 - 94,3,Chet Holmgren,OKC,,,,,
+383,SUB,3,4:36,SUB: Dort Stops playing.,91 - 94,3,Luguentz Dort,OKC,,,,,
+384,SUB,3,4:36,SUB: Giddey Stops playing.,91 - 94,3,Josh Giddey,OKC,,,,,
+385,SUB,3,4:36,SUB: Wiggins Starts playing.,91 - 94,3,,,Aaron Wiggins,OKC,,,
+386,SUB,3,4:36,SUB: Williams Starts playing.,91 - 94,3,,,Jaylin Williams,OKC,,,
+387,SUB,3,4:36,SUB: Micić Starts playing.,91 - 94,3,,,Vasilije Micić,OKC,,,
+388,REBOUND,3,4:36,THUNDER Rebound,91 - 94,3,,,,,,,9:41 PM
+389,2POINT,3,4:24,Jay. Williams 4' Floating Jump Shot (2 PTS),91 - 96,5,Jaylin Williams,OKC,,,,,9:41 PM
+390,2POINTMISS,3,4:11,MISS Paul 7' Driving Floating Jump Shot,91 - 96,5,Chris Paul,GSW,,,,,9:42 PM
+391,REBOUND,3,4:08,Jay. Williams REBOUND (Off:0 Def:4),91 - 96,5,Jaylin Williams,OKC,,,,,9:42 PM
+392,2POINT.ASSIST,3,4:04,Jal. Williams 1' Running Layup (13 PTS) (Jay. Williams 2 AST),91 - 98,7,Jalen Williams,OKC,Jaylin Williams,OKC,,,9:42 PM
+393,TIMEOUT,3,4:04,Warriors Timeout: Regular (Reg.3 Short 0),91 - 98,7,,,,,,,9:42 PM
+394,FOUL,3,3:48,Jal. Williams S.FOUL (P3.T4) (C.Flores),91 - 98,7,Jalen Williams,OKC,Dario Šarić,GSW,,,9:45 PM
+395,FTMAKE,3,3:48,Saric Free Throw 1 of 2 (15 PTS),92 - 98,6,Dario Šarić,GSW,,,,,9:45 PM
+396,FTMAKE,3,3:48,Saric Free Throw 2 of 2 (16 PTS),93 - 98,5,Dario Šarić,GSW,,,,,9:46 PM
+397,FOUL,3,3:35,Kuminga P.FOUL (P1.PN) (C.Flores),93 - 98,5,Jonathan Kuminga,GSW,Isaiah Joe,OKC,,,9:46 PM
+398,FTMAKE,3,3:35,Joe Free Throw 1 of 2 (8 PTS),93 - 99,6,Isaiah Joe,OKC,,,,,9:46 PM
+399,FTMAKE,3,3:35,Joe Free Throw 2 of 2 (9 PTS),93 - 100,7,Isaiah Joe,OKC,,,,,9:47 PM
+400,FOUL,3,3:28,Wiggins P.FOUL (P1.PN) (M.Ervin),93 - 100,7,Aaron Wiggins,OKC,Dario Šarić,GSW,,,9:47 PM
+401,FTMAKE,3,3:28,Saric Free Throw 1 of 2 (17 PTS),94 - 100,6,Dario Šarić,GSW,,,,,9:47 PM
+402,FTMAKE,3,3:28,Saric Free Throw 2 of 2 (18 PTS),95 - 100,5,Dario Šarić,GSW,,,,,9:48 PM
+403,STEAL.TURNOVER,3,3:10,Jal. Williams Lost Ball Turnover (P4.T13)  Paul STEAL (2 STL),95 - 100,5,Jalen Williams,OKC,Chris Paul,GSW,,,9:48 PM
+404,2POINT.ASSIST,3,2:53,Kuminga 2' Driving Layup (6 PTS) (Saric 2 AST),97 - 100,3,Jonathan Kuminga,GSW,Dario Šarić,GSW,,,9:48 PM
+405,2POINTMISS,3,2:30,MISS Wiggins 4' Driving Layup,97 - 100,3,Aaron Wiggins,OKC,,,,,9:49 PM
+406,REBOUND,3,2:29,THUNDER Rebound,97 - 100,3,,,,,,,9:49 PM
+407,FOUL,3,2:29,Paul L.B.FOUL (P1.PN) (M.Ervin),97 - 100,3,Chris Paul,GSW,Jaylin Williams,OKC,,,9:49 PM
+408,FTMAKE,3,2:29,Jay. Williams Free Throw 1 of 2 (3 PTS),97 - 101,4,Jaylin Williams,OKC,,,,,9:49 PM
+409,FTMAKE,3,2:29,Jay. Williams Free Throw 2 of 2 (4 PTS),97 - 102,5,Jaylin Williams,OKC,,,,,9:49 PM
+410,2POINT.ASSIST,3,2:17,Kuminga 15' Jump Shot (8 PTS) (Paul 10 AST),99 - 102,3,Jonathan Kuminga,GSW,Chris Paul,GSW,,,9:50 PM
+411,3POINTMISS,3,2:01,MISS Wiggins 26' 3PT Jump Shot,99 - 102,3,Aaron Wiggins,OKC,,,,,9:50 PM
+412,REBOUND,3,1:58,Saric REBOUND (Off:1 Def:4),99 - 102,3,Dario Šarić,GSW,,,,,9:50 PM
+413,3POINTMISS,3,1:46,MISS Saric 28' 3PT Jump Shot,99 - 102,3,Dario Šarić,GSW,,,,,9:50 PM
+414,REBOUND,3,1:45,Warriors Rebound,99 - 102,3,,,,,,,9:50 PM
+415,FOUL,3,1:45,Micic L.B.FOUL (P1.PN) (M.Ervin),99 - 102,3,Vasilije Micić,OKC,Jonathan Kuminga,GSW,,,9:50 PM
+416,FTMISS,3,1:45,MISS Kuminga Free Throw 1 of 2,99 - 102,3,Jonathan Kuminga,GSW,,,,,9:51 PM
+417,REBOUND,3,1:45,Warriors Rebound,99 - 102,3,,,,,,,9:51 PM
+418,FTMAKE,3,1:45,Kuminga Free Throw 2 of 2 (9 PTS),100 - 102,2,Jonathan Kuminga,GSW,,,,,9:51 PM
+419,2POINT.ASSIST,3,1:32,Jay. Williams 2' Layup (6 PTS) (Jal. Williams 8 AST),100 - 104,4,Jaylin Williams,OKC,Jalen Williams,OKC,,,9:51 PM
+420,2POINTMISS,3,1:18,MISS Paul 13' Fadeaway Jumper,100 - 104,4,Chris Paul,GSW,,,,,9:51 PM
+421,REBOUND,3,1:14,Jay. Williams REBOUND (Off:0 Def:5),100 - 104,4,Jaylin Williams,OKC,,,,,9:51 PM
+422,3POINTMISS,3,1:04,MISS Jay. Williams 25' 3PT Jump Shot,100 - 104,4,Jaylin Williams,OKC,,,,,9:52 PM
+423,REBOUND,3,1:02,Saric REBOUND (Off:1 Def:5),100 - 104,4,Dario Šarić,GSW,,,,,9:52 PM
+424,2POINT.ASSIST,3,0:57,Kuminga 3' Layup (11 PTS) (Paul 11 AST),102 - 104,2,Jonathan Kuminga,GSW,Chris Paul,GSW,,,9:52 PM
+425,STEAL,3,0:42,Jal. Williams Out of Bounds Lost Ball Turnover (P5.T14),102 - 104,2,Jalen Williams,OKC,,,,,9:52 PM
+426,3POINT,3,0:35,Moody 25' 3PT Pullup Jump Shot (5 PTS),105 - 104,-1,Moses Moody,GSW,,,,,9:52 PM
+427,2POINTMISS,3,0:24,MISS Micic 18' Step Back Jump Shot,105 - 104,-1,Vasilije Micić,OKC,,,,,9:53 PM
+428,REBOUND,3,0:21,Jal. Williams REBOUND (Off:1 Def:2),105 - 104,-1,Jalen Williams,OKC,,,,,9:53 PM
+429,2POINT,3,0:21,Jal. Williams Putback Dunk (15 PTS),105 - 106,1,Jalen Williams,OKC,,,,,9:53 PM
+430,SUB,3,0:20,SUB: Holmgren Starts playing.,105 - 106,1,,,Chet Holmgren,OKC,,,
+431,SUB,3,0:20,SUB: Williams Stops playing.,105 - 106,1,Jaylin Williams,OKC,,,,,
+432,SUB,3,0:20,SUB: Wiggins Starts playing.,105 - 106,1,,,Andrew Wiggins,GSW,,,
+433,SUB,3,0:20,SUB: Green Starts playing.,105 - 106,1,,,Draymond Green,GSW,,,
+434,SUB,3,0:20,SUB: Šarić Stops playing.,105 - 106,1,Dario Šarić,GSW,,,,,
+435,SUB,3,0:20,SUB: Moody Stops playing.,105 - 106,1,Moses Moody,GSW,,,,,
+436,FOUL,3,0:20,Jal. Williams P.FOUL (P4.PN) (M.Ervin),105 - 106,1,Jalen Williams,OKC,Chris Paul,GSW,,,9:53 PM
+437,FTMAKE,3,0:20,Paul Free Throw 1 of 2 (1 PTS),106 - 106,TIE,Chris Paul,GSW,,,,,9:53 PM
+438,FTMISS,3,0:20,MISS Paul Free Throw 2 of 2,106 - 106,TIE,Chris Paul,GSW,,,,,9:53 PM
+439,REBOUND,3,0:17,Wiggins REBOUND (Off:0 Def:2),106 - 106,TIE,Aaron Wiggins,OKC,,,,,9:53 PM
+440,3POINTMISS,3,0:01,MISS Micic 3PT Jump Shot,106 - 106,TIE,Vasilije Micić,OKC,,,,,9:54 PM
+441,REBOUND,3,0:01,Paul REBOUND (Off:0 Def:1),106 - 106,TIE,Chris Paul,GSW,,,,,9:54 PM
+442,SUB,3,0:00,SUB: Holmgren Stops playing.,106 - 106,TIE,Chet Holmgren,OKC,,,,,
+443,SUB,3,0:00,SUB: Williams Stops playing.,106 - 106,TIE,Jalen Williams,OKC,,,,,
+444,SUB,3,0:00,SUB: Joe Stops playing.,106 - 106,TIE,Isaiah Joe,OKC,,,,,
+445,SUB,3,0:00,SUB: Micić Stops playing.,106 - 106,TIE,Vasilije Micić,OKC,,,,,
+446,SUB,3,0:00,SUB: Wiggins Stops playing.,106 - 106,TIE,Andrew Wiggins,GSW,,,,,
+447,SUB,3,0:00,SUB: Green Stops playing.,106 - 106,TIE,Draymond Green,GSW,,,,,
+448,SUB,3,0:00,SUB: Kuminga Stops playing.,106 - 106,TIE,Jonathan Kuminga,GSW,,,,,
+449,SUB,3,0:00,SUB: Payton Stops playing.,106 - 106,TIE,Gary Payton II,GSW,,,,,
+450,SUB,3,0:00,SUB: Paul Stops playing.,106 - 106,TIE,Chris Paul,GSW,,,,,
+451,ENDOFPERIOD,3,0:00,End of 3rd Period (9:54 PM EST),106 - 106,TIE,,,,,,,9:54 PM
+452,STARTOFPERIOD,4,12:00,Start of 4th Period (9:57 PM EST),106 - 106,TIE,,,,,,,9:57 PM
+453,SUB,4,12:00,SUB: Holmgren Starts playing.,106 - 106,TIE,,,Chet Holmgren,OKC,,,
+454,SUB,4,12:00,SUB: Wallace Starts playing.,106 - 106,TIE,,,Cason Wallace,OKC,,,
+455,SUB,4,12:00,SUB: Giddey Starts playing.,106 - 106,TIE,,,Josh Giddey,OKC,,,
+456,SUB,4,12:00,SUB: Joe Starts playing.,106 - 106,TIE,,,Isaiah Joe,OKC,,,
+457,SUB,4,12:00,SUB: Wiggins Starts playing.,106 - 106,TIE,,,Andrew Wiggins,GSW,,,
+458,SUB,4,12:00,SUB: Šarić Starts playing.,106 - 106,TIE,,,Dario Šarić,GSW,,,
+459,SUB,4,12:00,SUB: Kuminga Starts playing.,106 - 106,TIE,,,Jonathan Kuminga,GSW,,,
+460,SUB,4,12:00,SUB: Paul Starts playing.,106 - 106,TIE,,,Chris Paul,GSW,,,
+461,SUB,4,12:00,SUB: Moody Starts playing.,106 - 106,TIE,,,Moses Moody,GSW,,,
+462,STEAL.TURNOVER,4,11:41,Giddey Bad Pass Turnover (P5.T15)  Saric STEAL (1 STL),106 - 106,TIE,Josh Giddey,OKC,Dario Šarić,GSW,,,9:57 PM
+463,2POINT.ASSIST,4,11:34,Wiggins 2' Driving Layup (13 PTS) (Paul 12 AST),108 - 106,-2,Andrew Wiggins,GSW,Chris Paul,GSW,,,9:57 PM
+464,STEAL,4,11:27,Joe Out of Bounds - Bad Pass Turnover Turnover (P1.T16),108 - 106,-2,Isaiah Joe,OKC,,,,,9:58 PM
+465,2POINTMISS,4,11:15,MISS Kuminga 9' Floating Jump Shot,108 - 106,-2,Jonathan Kuminga,GSW,,,,,9:58 PM
+466,REBOUND,4,11:11,THUNDER Rebound,108 - 106,-2,,,,,,,9:58 PM
+467,2POINT,4,11:04,Giddey 8' Driving Layup (6 PTS),108 - 108,TIE,Josh Giddey,OKC,,,,,9:58 PM
+468,FOUL,4,11:04,Kuminga S.FOUL (P2.T1) (N.Buchert),108 - 108,TIE,Jonathan Kuminga,GSW,Josh Giddey,OKC,,,9:58 PM
+469,FTMAKE,4,11:04,Giddey Free Throw 1 of 1 (7 PTS),108 - 109,1,Josh Giddey,OKC,,,,,9:59 PM
+470,3POINT.ASSIST,4,10:43,Moody 26' 3PT Jump Shot (8 PTS) (Saric 3 AST),111 - 109,-2,Moses Moody,GSW,Dario Šarić,GSW,,,9:59 PM
+471,2POINT,4,10:32,Giddey 7' Driving Floating Jump Shot (9 PTS),111 - 111,TIE,Josh Giddey,OKC,,,,,9:59 PM
+472,FOUL,4,10:32,Wiggins S.FOUL (P1.T2) (C.Flores),111 - 111,TIE,Andrew Wiggins,GSW,Josh Giddey,OKC,,,9:59 PM
+473,FTMAKE,4,10:32,Giddey Free Throw 1 of 1 (10 PTS),111 - 112,1,Josh Giddey,OKC,,,,,10:00 PM
+474,3POINTMISS,4,10:20,MISS Moody 3PT Jump Shot,111 - 112,1,Moses Moody,GSW,,,,,10:00 PM
+475,REBOUND,4,10:18,Warriors Rebound,111 - 112,1,,,,,,,10:00 PM
+476,FOUL,4,10:18,Wallace L.B.FOUL (P1.T1) (C.Flores),111 - 112,1,Cason Wallace,OKC,Andrew Wiggins,GSW,,,10:00 PM
+477,2POINT.ASSIST,4,10:11,Kuminga 15' Jump Shot (13 PTS) (Moody 1 AST),113 - 112,-1,Jonathan Kuminga,GSW,Moses Moody,GSW,,,10:00 PM
+478,2POINT,4,9:56,Giddey 7' Driving Hook Shot (12 PTS),113 - 114,1,Josh Giddey,OKC,,,,,10:01 PM
+479,2POINT.ASSIST,4,9:42,Saric 1' Cutting Layup Shot (20 PTS) (Moody 2 AST),115 - 114,-1,Dario Šarić,GSW,Moses Moody,GSW,,,10:01 PM
+480,2POINTMISS,4,9:29,MISS Wallace 16' Pullup Jump Shot,115 - 114,-1,Cason Wallace,OKC,,,,,10:01 PM
+481,REBOUND,4,9:27,THUNDER Rebound,115 - 114,-1,,,,,,,10:01 PM
+482,FOUL,4,9:27,Moody L.B.FOUL (P2.T3) (M.Ervin),115 - 114,-1,Moses Moody,GSW,Isaiah Joe,OKC,,,10:01 PM
+483,VIOLATION,4,9:23,Saric Violation:Kicked Ball (C.Flores),115 - 114,-1,Dario Šarić,GSW,,,,,10:02 PM
+484,SUB,4,9:15,SUB: Thompson Starts playing.,115 - 114,-1,,,Klay Thompson,GSW,,,
+485,SUB,4,9:15,SUB: Moody Stops playing.,115 - 114,-1,Moses Moody,GSW,,,,,
+486,3POINT.ASSIST,4,9:15,Joe 25' 3PT Jump Shot (12 PTS) (Giddey 4 AST),115 - 117,2,Isaiah Joe,OKC,Josh Giddey,OKC,,,10:02 PM
+487,FOUL,4,9:15,Moody S.FOUL (P3.T4) (M.Ervin),115 - 117,2,Moses Moody,GSW,Isaiah Joe,OKC,,,10:02 PM
+488,FTMAKE,4,9:15,Joe Free Throw 1 of 1 (13 PTS),115 - 118,3,Isaiah Joe,OKC,,,,,10:03 PM
+489,2POINT,4,8:53,Kuminga 5' Turnaround Jump Shot (15 PTS),117 - 118,1,Jonathan Kuminga,GSW,,,,,10:03 PM
+490,2POINT,4,8:39,Giddey 21' Pullup Jump Shot (14 PTS),117 - 120,3,Josh Giddey,OKC,,,,,10:04 PM
+491,2POINT,4,8:26,Wiggins 9' Turnaround Jump Shot (15 PTS),119 - 120,1,Andrew Wiggins,GSW,,,,,10:04 PM
+492,SUB,4,8:10,SUB: Dort Starts playing.,119 - 120,1,,,Luguentz Dort,OKC,,,
+493,SUB,4,8:10,SUB: Wiggins Stops playing.,119 - 120,1,Aaron Wiggins,OKC,,,,,
+494,SUB,4,8:10,SUB: Curry Starts playing.,119 - 120,1,,,Stephen Curry,GSW,,,
+495,SUB,4,8:10,SUB: Green Starts playing.,119 - 120,1,,,Draymond Green,GSW,,,
+496,SUB,4,8:10,SUB: Šarić Stops playing.,119 - 120,1,Dario Šarić,GSW,,,,,
+497,SUB,4,8:10,SUB: Paul Stops playing.,119 - 120,1,Chris Paul,GSW,,,,,
+498,3POINT.ASSIST,4,8:10,Joe 25' 3PT Jump Shot (16 PTS) (Holmgren 5 AST),119 - 123,4,Isaiah Joe,OKC,Chet Holmgren,OKC,,,10:04 PM
+499,TIMEOUT,4,8:10,Warriors Timeout: Regular (Reg.4 Short 0),119 - 123,4,,,,,,,10:04 PM
+500,2POINTMISS,4,7:50,MISS Green 1' Cutting Layup Shot,119 - 123,4,Draymond Green,GSW,,,,,10:07 PM
+501,REBOUND,4,7:48,Giddey REBOUND (Off:0 Def:3),119 - 123,4,Josh Giddey,OKC,,,,,10:08 PM
+502,2POINT,4,7:42,Giddey 8' Running Jump Shot (16 PTS),119 - 125,6,Josh Giddey,OKC,,,,,10:08 PM
+503,2POINT.ASSIST,4,7:29,Kuminga 2' Cutting Layup Shot (17 PTS) (Curry 6 AST),121 - 125,4,Jonathan Kuminga,GSW,Stephen Curry,GSW,,,10:08 PM
+504,2POINT,4,7:13,Giddey 12' Driving Floating Jump Shot (18 PTS),121 - 127,6,Josh Giddey,OKC,,,,,10:08 PM
+505,FOUL,4,7:03,Dort S.FOUL (P4.T2) (M.Ervin),121 - 127,6,Luguentz Dort,OKC,Stephen Curry,GSW,,,10:08 PM
+506,FTMAKE,4,7:03,Curry Free Throw 1 of 2 (25 PTS),122 - 127,5,Stephen Curry,GSW,,,,,10:09 PM
+507,FTMAKE,4,7:03,Curry Free Throw 2 of 2 (26 PTS),123 - 127,4,Stephen Curry,GSW,,,,,10:09 PM
+508,3POINTMISS,4,6:40,MISS Giddey 26' 3PT Pullup Jump Shot,123 - 127,4,Josh Giddey,OKC,,,,,10:09 PM
+509,REBOUND,4,6:36,Holmgren REBOUND (Off:3 Def:5),123 - 127,4,Chet Holmgren,OKC,,,,,10:09 PM
+510,FOUL,4,6:34,Holmgren Offensive Charge Foul (P4) (M.Ervin),123 - 127,4,Chet Holmgren,OKC,Draymond Green,GSW,,,10:10 PM
+511,STEAL,4,6:34,Holmgren Offensive Foul Turnover (P2.T17),123 - 127,4,Chet Holmgren,OKC,,,,,10:10 PM
+512,2POINTMISS,4,6:12,MISS Kuminga 14' Turnaround Fadeaway Shot,123 - 127,4,Jonathan Kuminga,GSW,,,,,10:10 PM
+513,SUB,4,6:09,SUB: Holmgren Stops playing.,123 - 127,4,Chet Holmgren,OKC,,,,,
+514,SUB,4,6:09,SUB: Williams Starts playing.,123 - 127,4,,,Jalen Williams,OKC,,,
+515,SUB,4,6:09,SUB: Joe Stops playing.,123 - 127,4,Isaiah Joe,OKC,,,,,
+516,SUB,4,6:09,SUB: Williams Starts playing.,123 - 127,4,,,Jaylin Williams,OKC,,,
+517,REBOUND,4,6:09,Wiggins REBOUND (Off:3 Def:1),123 - 127,4,Andrew Wiggins,GSW,,,,,10:10 PM
+518,FOUL,4,6:09,Giddey S.FOUL (P2.T3) (C.Flores),123 - 127,4,Josh Giddey,OKC,Andrew Wiggins,GSW,,,10:10 PM
+519,FTMAKE,4,6:09,Wiggins Free Throw 1 of 2 (16 PTS),124 - 127,3,Andrew Wiggins,GSW,,,,,10:11 PM
+520,FTMAKE,4,6:09,Wiggins Free Throw 2 of 2 (17 PTS),125 - 127,2,Andrew Wiggins,GSW,,,,,10:11 PM
+521,SUB,4,5:49,SUB: Giddey Stops playing.,125 - 127,2,Josh Giddey,OKC,,,,,
+522,SUB,4,5:49,SUB: Joe Starts playing.,125 - 127,2,,,Isaiah Joe,OKC,,,
+523,FOUL,4,5:49,Thompson S.FOUL (P3.PN) (N.Buchert),125 - 127,2,Klay Thompson,GSW,Luguentz Dort,OKC,,,10:12 PM
+524,FTMAKE,4,5:49,Dort Free Throw 1 of 2 (27 PTS),125 - 128,3,Luguentz Dort,OKC,,,,,10:12 PM
+525,FTMAKE,4,5:49,Dort Free Throw 2 of 2 (28 PTS),125 - 129,4,Luguentz Dort,OKC,,,,,10:13 PM
+526,3POINTMISS,4,5:35,MISS Kuminga 24' 3PT Jump Shot,125 - 129,4,Jonathan Kuminga,GSW,,,,,10:13 PM
+527,2POINTMISS,4,5:30,MISS Wiggins Tip Layup Shot,125 - 129,4,Andrew Wiggins,GSW,,,,,10:13 PM
+528,REBOUND,4,5:30,Wiggins REBOUND (Off:4 Def:1),125 - 129,4,Andrew Wiggins,GSW,,,,,10:13 PM
+529,REBOUND,4,5:29,Dort REBOUND (Off:1 Def:2),125 - 129,4,Luguentz Dort,OKC,,,,,10:13 PM
+530,3POINTMISS,4,5:22,MISS Joe 26' 3PT Jump Shot,125 - 129,4,Isaiah Joe,OKC,,,,,10:13 PM
+531,REBOUND,4,5:19,Thompson REBOUND (Off:0 Def:3),125 - 129,4,Klay Thompson,GSW,,,,,10:13 PM
+532,3POINTMISS,4,5:15,MISS Curry 28' 3PT Pullup Jump Shot,125 - 129,4,Stephen Curry,GSW,,,,,10:13 PM
+533,REBOUND,4,5:11,Kuminga REBOUND (Off:1 Def:1),125 - 129,4,Jonathan Kuminga,GSW,,,,,10:13 PM
+534,2POINT,4,5:10,Kuminga 1' Putback Dunk (19 PTS),127 - 129,2,Jonathan Kuminga,GSW,,,,,10:13 PM
+535,SUB,4,5:03,SUB: Kuminga Stops playing.,127 - 129,2,Jonathan Kuminga,GSW,,,,,
+536,SUB,4,5:03,SUB: Paul Starts playing.,127 - 129,2,,,Chris Paul,GSW,,,
+537,TIMEOUT,4,5:03,THUNDER Timeout: Regular (Full 4 Short 0),127 - 129,2,,,,,,,10:13 PM
+538,2POINT,4,4:54,Wallace 1' Driving Layup (11 PTS),127 - 131,4,Cason Wallace,OKC,,,,,10:16 PM
+539,FOUL,4,4:34,Jal. Williams S.FOUL (P5.T4) (N.Buchert),127 - 131,4,Jalen Williams,OKC,Andrew Wiggins,GSW,,,10:17 PM
+540,FTMISS,4,4:34,MISS Wiggins Free Throw 1 of 2,127 - 131,4,Andrew Wiggins,GSW,,,,,10:17 PM
+541,REBOUND,4,4:34,Warriors Rebound,127 - 131,4,,,,,,,10:17 PM
+542,FTMISS,4,4:34,MISS Wiggins Free Throw 2 of 2,127 - 131,4,Andrew Wiggins,GSW,,,,,10:17 PM
+543,REBOUND,4,4:30,Dort REBOUND (Off:1 Def:3),127 - 131,4,Luguentz Dort,OKC,,,,,10:17 PM
+544,2POINT.ASSIST,4,4:08,Wallace 4' Driving Floating Bank Jump Shot (13 PTS) (Jay. Williams 3 AST),127 - 133,6,Cason Wallace,OKC,Jaylin Williams,OKC,,,10:18 PM
+545,SUB,4,3:56,SUB: Holmgren Starts playing.,127 - 133,6,,,Chet Holmgren,OKC,,,
+546,SUB,4,3:56,SUB: Giddey Starts playing.,127 - 133,6,,,Josh Giddey,OKC,,,
+547,SUB,4,3:56,SUB: Joe Stops playing.,127 - 133,6,Isaiah Joe,OKC,,,,,
+548,SUB,4,3:56,SUB: Williams Stops playing.,127 - 133,6,Jaylin Williams,OKC,,,,,
+549,SUB,4,3:56,SUB: Wiggins Stops playing.,127 - 133,6,Andrew Wiggins,GSW,,,,,
+550,SUB,4,3:56,SUB: Payton Starts playing.,127 - 133,6,,,Gary Payton II,GSW,,,
+551,2POINT.ASSIST,4,3:56,Green 2' Cutting Layup Shot (14 PTS) (Curry 7 AST),129 - 133,4,Draymond Green,GSW,Stephen Curry,GSW,,,10:18 PM
+552,FOUL,4,3:56,Jay. Williams S.FOUL (P1.PN) (C.Flores),129 - 133,4,Jaylin Williams,OKC,Draymond Green,GSW,,,10:18 PM
+553,TIMEOUT,4,3:56,THUNDER Timeout: Regular (Full 5 Short 0),129 - 133,4,,,,,,,10:19 PM
+554,FTMAKE,4,3:56,Green Free Throw 1 of 1 (15 PTS),130 - 133,3,Draymond Green,GSW,,,,,10:20 PM
+555,2POINTMISS,4,3:34,MISS Giddey 10' Fadeaway Jumper,130 - 133,3,Josh Giddey,OKC,,,,,10:21 PM
+556,2POINTMISS,4,3:29,MISS Dort Tip Layup Shot,130 - 133,3,Luguentz Dort,OKC,,,,,10:21 PM
+557,REBOUND,4,3:29,Dort REBOUND (Off:2 Def:3),130 - 133,3,Luguentz Dort,OKC,,,,,10:21 PM
+558,REBOUND,4,3:29,Paul REBOUND (Off:0 Def:2),130 - 133,3,Chris Paul,GSW,,,,,10:21 PM
+559,3POINT.ASSIST,4,3:24,Thompson 24' 3PT Jump Shot (16 PTS) (Paul 13 AST),133 - 133,TIE,Klay Thompson,GSW,Chris Paul,GSW,,,10:21 PM
+560,2POINTMISS.BLOCK,4,2:59,MISS Wallace 1' Driving Layup  Green BLOCK (1 BLK),133 - 133,TIE,Cason Wallace,OKC,,,Draymond Green,GSW,10:21 PM
+561,REBOUND,4,2:56,Curry REBOUND (Off:3 Def:5),133 - 133,TIE,Stephen Curry,GSW,,,,,10:21 PM
+562,3POINTMISS,4,2:42,MISS Payton II 3PT Jump Shot,133 - 133,TIE,Gary Payton II,GSW,,,,,10:21 PM
+563,REBOUND,4,2:39,Giddey REBOUND (Off:0 Def:4),133 - 133,TIE,Josh Giddey,OKC,,,,,10:22 PM
+564,FOUL,4,2:20,Thompson P.FOUL (P4.PN) (M.Ervin),133 - 133,TIE,Klay Thompson,GSW,Jalen Williams,OKC,,,10:22 PM
+565,FTMISS,4,2:20,MISS Jal. Williams Free Throw 1 of 2,133 - 133,TIE,Jalen Williams,OKC,,,,,10:23 PM
+566,REBOUND,4,2:20,THUNDER Rebound,133 - 133,TIE,,,,,,,10:23 PM
+567,FTMAKE,4,2:20,Jal. Williams Free Throw 2 of 2 (16 PTS),133 - 134,1,Jalen Williams,OKC,,,,,10:23 PM
+568,FOUL,4,2:09,Green OFF.Foul (P3) (N.Buchert),133 - 134,1,Draymond Green,GSW,Luguentz Dort,OKC,,,10:23 PM
+569,STEAL,4,2:09,Green Offensive Foul Turnover (P3.T15),133 - 134,1,Draymond Green,GSW,,,,,10:23 PM
+570,REPLAY,4,2:09,Instant Replay4th Period (10:24 PM EST),133 - 134,1,,,,,,,10:24 PM
+571,2POINT,4,1:58,Jal. Williams 1' Driving Floating Bank Jump Shot (18 PTS),133 - 136,3,Jalen Williams,OKC,,,,,10:27 PM
+572,2POINTMISS.BLOCK,4,1:42,Holmgren BLOCK (1 BLK)  MISS Green 6' Layup,133 - 136,3,Draymond Green,GSW,,,Chet Holmgren,OKC,10:27 PM
+573,REBOUND,4,1:42,Warriors Rebound,133 - 136,3,,,,,,,10:27 PM
+574,REPLAY,4,1:42,Instant Replay4th Period (10:28 PM EST),133 - 136,3,,,,,,,10:28 PM
+575,2POINTMISS,4,1:34,MISS Green 13' Fadeaway Jumper,133 - 136,3,Draymond Green,GSW,,,,,10:31 PM
+576,REBOUND,4,1:30,Giddey REBOUND (Off:0 Def:5),133 - 136,3,Josh Giddey,OKC,,,,,10:31 PM
+577,JUMPBALL,4,1:09,Jump Ball Giddey vs. Payton II: Tip to Paul,133 - 136,3,Josh Giddey,OKC,Gary Payton II,GSW,Chris Paul,GSW,10:32 PM
+578,STEAL.TURNOVER,4,1:09,Giddey Lost Ball Turnover (P6.T18)  Payton II STEAL (2 STL),133 - 136,3,Josh Giddey,OKC,Gary Payton II,GSW,,,10:32 PM
+579,2POINT,4,0:55,Curry 2' Driving Layup (28 PTS),135 - 136,1,Stephen Curry,GSW,,,,,10:33 PM
+580,SUB,4,0:38,SUB: Williams Stops playing.,135 - 136,1,Jalen Williams,OKC,,,,,
+581,SUB,4,0:38,SUB: Joe Starts playing.,135 - 136,1,,,Isaiah Joe,OKC,,,
+582,SUB,4,0:38,SUB: Williams Starts playing.,135 - 136,1,,,Jaylin Williams,OKC,,,
+583,SUB,4,0:38,SUB: Williams Stops playing.,135 - 136,1,Jaylin Williams,OKC,,,,,
+584,SUB,4,0:38,SUB: Wiggins Starts playing.,135 - 136,1,,,Andrew Wiggins,GSW,,,
+585,SUB,4,0:38,SUB: Curry Stops playing.,135 - 136,1,Stephen Curry,GSW,,,,,
+586,SUB,4,0:38,SUB: Kuminga Starts playing.,135 - 136,1,,,Jonathan Kuminga,GSW,,,
+587,SUB,4,0:38,SUB: Paul Stops playing.,135 - 136,1,Chris Paul,GSW,,,,,
+588,STEAL,4,0:38,Jal. Williams Lost Ball Turnover (P6.T19),135 - 136,1,Jalen Williams,OKC,,,,,10:33 PM
+589,FOUL,4,0:38,Jal. Williams L.B.FOUL (P6.PN) (N.Buchert),135 - 136,1,Jalen Williams,OKC,Klay Thompson,GSW,,,10:33 PM
+590,FTMAKE,4,0:38,Thompson Free Throw 1 of 2 (17 PTS),136 - 136,TIE,Klay Thompson,GSW,,,,,10:35 PM
+591,FTMAKE,4,0:38,Thompson Free Throw 2 of 2 (18 PTS),137 - 136,-1,Klay Thompson,GSW,,,,,10:35 PM
+592,TIMEOUT,4,0:38,THUNDER Timeout: Regular (Full 6 Short 0),137 - 136,-1,,,,,,,10:35 PM
+593,SUB,4,0:32,SUB: Joe Stops playing.,137 - 136,-1,Isaiah Joe,OKC,,,,,
+594,SUB,4,0:32,SUB: Wiggins Starts playing.,137 - 136,-1,,,Aaron Wiggins,OKC,,,
+595,SUB,4,0:32,SUB: Wiggins Stops playing.,137 - 136,-1,Andrew Wiggins,GSW,,,,,
+596,SUB,4,0:32,SUB: Curry Starts playing.,137 - 136,-1,,,Stephen Curry,GSW,,,
+597,SUB,4,0:32,SUB: Kuminga Stops playing.,137 - 136,-1,Jonathan Kuminga,GSW,,,,,
+598,SUB,4,0:32,SUB: Paul Starts playing.,137 - 136,-1,,,Chris Paul,GSW,,,
+599,FOUL,4,0:32,Green P.FOUL (P4.PN) (C.Flores),137 - 136,-1,Draymond Green,GSW,Chet Holmgren,OKC,,,10:37 PM
+600,TIMEOUT,4,0:32,Warriors Timeout: Regular (Reg.5 Short 0),137 - 136,-1,,,,,,,10:38 PM
+601,REPLAY,4,0:32,Instant Replay4th Period (10:38 PM EST),137 - 136,-1,Fred Hoiberg,,,,,,10:38 PM
+602,FTMAKE,4,0:32,Holmgren Free Throw 1 of 2 (23 PTS),137 - 137,TIE,Chet Holmgren,OKC,,,,,10:40 PM
+603,FTMAKE,4,0:32,Holmgren Free Throw 2 of 2 (24 PTS),137 - 138,1,Chet Holmgren,OKC,,,,,10:40 PM
+604,SUB,4,0:21,SUB: Joe Starts playing.,137 - 138,1,,,Isaiah Joe,OKC,,,
+605,SUB,4,0:21,SUB: Wiggins Stops playing.,137 - 138,1,Aaron Wiggins,OKC,,,,,
+606,SUB,4,0:21,SUB: Wiggins Starts playing.,137 - 138,1,,,Andrew Wiggins,GSW,,,
+607,SUB,4,0:21,SUB: Curry Stops playing.,137 - 138,1,Stephen Curry,GSW,,,,,
+608,SUB,4,0:21,SUB: Kuminga Starts playing.,137 - 138,1,,,Jonathan Kuminga,GSW,,,
+609,SUB,4,0:21,SUB: Paul Stops playing.,137 - 138,1,Chris Paul,GSW,,,,,
+610,2POINT.ASSIST,4,0:21,Payton II 2' Alley Oop Layup (9 PTS) (Green 3 AST),139 - 138,-1,Gary Payton II,GSW,Draymond Green,GSW,,,10:41 PM
+611,TIMEOUT,4,0:21,THUNDER Timeout: Regular (Full 7 Short 0),139 - 138,-1,,,,,,,10:41 PM
+612,SUB,4,0:16,SUB: Joe Stops playing.,139 - 138,-1,Isaiah Joe,OKC,,,,,
+613,SUB,4,0:16,SUB: Wiggins Starts playing.,139 - 138,-1,,,Aaron Wiggins,OKC,,,
+614,SUB,4,0:16,SUB: Wiggins Stops playing.,139 - 138,-1,Andrew Wiggins,GSW,,,,,
+615,SUB,4,0:16,SUB: Curry Starts playing.,139 - 138,-1,,,Stephen Curry,GSW,,,
+616,SUB,4,0:16,SUB: Looney Starts playing.,139 - 138,-1,,,Kevon Looney,GSW,,,
+617,SUB,4,0:16,SUB: Looney Stops playing.,139 - 138,-1,Kevon Looney,GSW,,,,,
+618,SUB,4,0:16,SUB: Kuminga Stops playing.,139 - 138,-1,Jonathan Kuminga,GSW,,,,,
+619,SUB,4,0:16,SUB: Payton Stops playing.,139 - 138,-1,Gary Payton II,GSW,,,,,
+620,SUB,4,0:16,SUB: Paul Starts playing.,139 - 138,-1,,,Chris Paul,GSW,,,
+621,SUB,4,0:16,SUB: Moody Starts playing.,139 - 138,-1,,,Moses Moody,GSW,,,
+622,FOUL,4,0:16,Green S.FOUL (P5.PN) (M.Ervin),139 - 138,-1,Draymond Green,GSW,Luguentz Dort,OKC,,,10:42 PM
+623,FTMISS,4,0:16,MISS Dort Free Throw 1 of 2,139 - 138,-1,Luguentz Dort,OKC,,,,,10:43 PM
+624,REBOUND,4,0:16,THUNDER Rebound,139 - 138,-1,,,,,,,10:43 PM
+625,FTMAKE,4,0:16,Dort Free Throw 2 of 2 (29 PTS),139 - 139,TIE,Luguentz Dort,OKC,,,,,10:43 PM
+626,TIMEOUT,4,0:16,Warriors Timeout: Regular (Reg.6 Short 0),139 - 139,TIE,,,,,,,10:44 PM
+627,SUB,4,0:00,SUB: Holmgren Stops playing.,139 - 139,TIE,Chet Holmgren,OKC,,,,,
+628,SUB,4,0:00,SUB: Wallace Stops playing.,139 - 139,TIE,Cason Wallace,OKC,,,,,
+629,SUB,4,0:00,SUB: Dort Stops playing.,139 - 139,TIE,Luguentz Dort,OKC,,,,,
+630,SUB,4,0:00,SUB: Giddey Stops playing.,139 - 139,TIE,Josh Giddey,OKC,,,,,
+631,SUB,4,0:00,SUB: Wiggins Stops playing.,139 - 139,TIE,Aaron Wiggins,OKC,,,,,
+632,SUB,4,0:00,SUB: Thompson Stops playing.,139 - 139,TIE,Klay Thompson,GSW,,,,,
+633,SUB,4,0:00,SUB: Curry Stops playing.,139 - 139,TIE,Stephen Curry,GSW,,,,,
+634,SUB,4,0:00,SUB: Green Stops playing.,139 - 139,TIE,Draymond Green,GSW,,,,,
+635,SUB,4,0:00,SUB: Payton Stops playing.,139 - 139,TIE,Gary Payton II,GSW,,,,,
+636,SUB,4,0:00,SUB: Paul Stops playing.,139 - 139,TIE,Chris Paul,GSW,,,,,
+637,SUB,4,0:00,SUB: Moody Stops playing.,139 - 139,TIE,Moses Moody,GSW,,,,,
+638,2POINT,4,0:00,Curry 3' Driving Layup (30 PTS),141 - 139,-2,Stephen Curry,GSW,,,,,10:46 PM
+639,REPLAY,4,0:00,Instant Replay4th Period (10:47 PM EST),141 - 139,-2,Bob Thornton,,,,,,10:47 PM
+640,ENDOFPERIOD,4,0:00,End of 4th Period (10:51 PM EST),141 - 139,-2,,,,,,,10:51 PM
+641,SUB,5,5:00,SUB: Payton Starts playing.,141 - 139,-2,,,Gary Payton II,GSW,,,

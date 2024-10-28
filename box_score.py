@@ -184,7 +184,7 @@ class box_score:
     def get_colwidths(self):
         return list(map(lambda x: self.get_item_colwidth(x),self._shown_items))    
         
-    def update(self,_player,_item,val, when=None):
+    def update(self,_player,_item,val, when=None,wc=None):
         if _player != None:
             if _player in self.get_players():
                 try : 
@@ -193,7 +193,7 @@ class box_score:
                     when = 0
                     
                 self._boxScore[_player][_item] += val
-                self._boxScore[_player]['OINK'].extend([[_item,val,int(when)]])
+                self._boxScore[_player]['OINK'].extend([[_item,val,int(when),wc]])
 
     def set_item(self, _player, _item, val):
         if _player != None:
@@ -202,9 +202,9 @@ class box_score:
 
     def sum_item(self, item): return sum(self.get_items(item))
 
-    def EOP_update(self,when):
+    def EOP_update(self,when,wc):
         for p in self.get_players():
-            self.update(p,'EOQ',1,when)
+            self.update(p,'EOQ',1,when,wc)
  
     def stuff_bs(self, _evnts, players):
         
@@ -231,13 +231,18 @@ class box_score:
             
             is3 = '3PT' in event_description
             
+            play_clock = _evnt.sec
+            wall_clock = _evnt.wctimestring
+ 
             match _evnt.eventmsgtype:
 
+                # this is a made up event to make play time match published NBA data
+                # we turn into a jump ball to force us in the game.
                 case 88: # patch
-                    self.update(p2, 'JB', 1, when=_evnt.sec)
+                    self.update(p2, 'JB', 1, when = play_clock, wc = wall_clock)
                     
                 case 13: # END of period 
-                    self.EOP_update(_evnt.sec)
+                    self.EOP_update(_evnt.sec, wall_clock)
                 
                 case 12: # START of period
                     if _evnt.period == 1:
@@ -245,33 +250,33 @@ class box_score:
                         self._start_time = s[s.find("(")+1:s.find(")")]
                 
                 case 10: # JUMP BALL
-                    self.update(p1, 'JB', i, when=_evnt.sec)
-                    self.update(p2, 'JB', 1, when=_evnt.sec)
-                    self.update(p3, 'JB', 1, when=_evnt.sec)
+                    self.update(p1, 'JB', i, when = play_clock, wc = wall_clock)
+                    self.update(p2, 'JB', 1, when = play_clock, wc = wall_clock)
+                    self.update(p3, 'JB', 1, when = play_clock, wc = wall_clock)
     
                 case 1:  # FG.MA
                     pts = 3 if is3 else 2
                     mk = '3P.MA' if is3 else 'FG.MA'
-                    self.update(p1, mk, 1,      when=_evnt.sec)
-                    self.update(p1, 'PTS', pts, when=_evnt.sec)
-                    self.update(p2, 'AST', 1,   when=_evnt.sec)
+                    self.update(p1, mk, 1,      when = play_clock, wc = wall_clock)
+                    self.update(p1, 'PTS', pts, when = play_clock, wc = wall_clock)
+                    self.update(p2, 'AST', 1,   when = play_clock, wc = wall_clock)
 
                 case 2:  # FG.MI
                     mk = '3P.MI' if is3 else 'FG.MI'
-                    self.update(p1, mk, 1, when=_evnt.sec)
-                    self.update(p3, 'BLK', 1, when=_evnt.sec)
+                    self.update(p1, mk, 1, when = play_clock, wc = wall_clock)
+                    self.update(p3, 'BLK', 1, when = play_clock, wc = wall_clock)
 
                 case 3:  # free throw
                     its_good = 'MISS' not in event_description
-                    self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when=_evnt.sec)
-                    if its_good: self.update(p1, 'PTS', 1, when=_evnt.sec)
+                    self.update(p1, 'FT.MA' if its_good else 'FT.MI', 1, when = play_clock, wc = wall_clock)
+                    if its_good: self.update(p1, 'PTS', 1, when = play_clock, wc = wall_clock)
 
                 case 8:  # SUB
-                    self.update(p1, 'SUB.OUT', 1, when=_evnt.sec)
-                    self.update(p2, 'SUB.IN', 1, when=_evnt.sec)
+                    self.update(p1, 'SUB.OUT', 1, when = play_clock, wc = wall_clock)
+                    self.update(p2, 'SUB.IN', 1, when = play_clock, wc = wall_clock)
                     
                 case 4: # REB
-                    self.update(p1, 'REB', 1, when=_evnt.sec)
+                    self.update(p1, 'REB', 1, when = play_clock, wc = wall_clock)
                     
                     if 'Off' in event_description:
                         
@@ -295,7 +300,7 @@ class box_score:
 
                                 # if there been a change
                                 if or_count != self._Off_reb_cnt[p1]:
-                                    self.update(p1, 'ORS', 1, when=_evnt.sec)
+                                    self.update(p1, 'ORS', 1, when = play_clock, wc = wall_clock)
 
                                 self._Off_reb_cnt[p1] = or_count
                                     
@@ -305,8 +310,8 @@ class box_score:
                             # logger.error(f'Off Rebound description {event_description}')
                              
                 case 5:  # steal/turnover
-                    self.update(p1, 'TO', 1, when=_evnt.sec)
-                    self.update(p2, 'STL', 1, when=_evnt.sec)
+                    self.update(p1, 'TO', 1, when = play_clock, wc = wall_clock)
+                    self.update(p2, 'STL', 1, when = play_clock, wc = wall_clock)
 
                 case 6:  # foul
                 
@@ -329,15 +334,29 @@ class box_score:
                         
                     if tech_foul:
                                
-                        self.update(p1, 'TF', 1, when=_evnt.sec)
-                        self.update(p2, 'TF', 1, when=_evnt.sec)
+                        self.update(p1, 'TF', 1, when = play_clock, wc = wall_clock)
+                        self.update(p2, 'TF', 1, when = play_clock, wc = wall_clock)
 
                     else:    
-                        self.update(p1, 'PF', 1, when=_evnt.sec)
-                        self.update(p2, 'FD', 1, when=_evnt.sec)
+                        self.update(p1, 'PF', 1, when = play_clock, wc = wall_clock)
+                        self.update(p2, 'FD', 1, when = play_clock, wc = wall_clock)
 
                     # if foul_type == 'TF': print('T.FOUL',pms(_evnt.sec))
                 
+                case 9:  # Time out
+                    pass
+                    ## this is prep work to look at playing time
+                    ## vs. real time
+                    ## goals -- time played vs wall time
+                    ## foul to foul shot wall time
+                    ## time outs,EOP,half lengths 
+                    ## TOD morning, noon, night
+                    ## play time in last N hours
+                    ## travel time in last N hours
+                    
+                    # self.update(p1, 'TM', 1, when = play_clock, wc = wall_clock)
+                    # self.update(p2, 'TM', 1, when = play_clock, wc = wall_clock)
+                    
     def add_plus_minus(self, player, start, end):
         self.update(player, PM, end - start)
 
